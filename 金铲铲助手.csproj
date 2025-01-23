@@ -1,0 +1,295 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="cardImage\**" />
+    <Compile Remove="inference\**" />
+    <EmbeddedResource Remove="cardImage\**" />
+    <EmbeddedResource Remove="inference\**" />
+    <None Remove="cardImage\**" />
+    <None Remove="inference\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="common.dll" />
+    <None Remove="libiomp5md.dll" />
+    <None Remove="mkldnn.dll" />
+    <None Remove="mklml.dll" />
+    <None Remove="opencv_world470.dll" />
+    <None Remove="paddle_inference.dll" />
+    <None Remove="runtimes\win-arm64\native\concrt140.dll" />
+    <None Remove="runtimes\win-arm64\native\cvextern.dll" />
+    <None Remove="runtimes\win-arm64\native\msvcp140.dll" />
+    <None Remove="runtimes\win-arm64\native\msvcp140_1.dll" />
+    <None Remove="runtimes\win-arm64\native\msvcp140_2.dll" />
+    <None Remove="runtimes\win-arm64\native\msvcp140_atomic_wait.dll" />
+    <None Remove="runtimes\win-arm64\native\msvcp140_codecvt_ids.dll" />
+    <None Remove="runtimes\win-arm64\native\opencv_videoio_ffmpeg490_64.dll" />
+    <None Remove="runtimes\win-arm64\native\vcruntime140.dll" />
+    <None Remove="runtimes\win-arm64\native\vcruntime140_1.dll" />
+    <None Remove="runtimes\win-arm64\native\version_string.inc" />
+    <None Remove="runtimes\win-x64\native\concrt140.dll" />
+    <None Remove="runtimes\win-x64\native\cvextern.dll" />
+    <None Remove="runtimes\win-x64\native\cvextern.lib" />
+    <None Remove="runtimes\win-x64\native\libusb-1.0.dll" />
+    <None Remove="runtimes\win-x64\native\msvcp140.dll" />
+    <None Remove="runtimes\win-x64\native\msvcp140_1.dll" />
+    <None Remove="runtimes\win-x64\native\msvcp140_2.dll" />
+    <None Remove="runtimes\win-x64\native\msvcp140_atomic_wait.dll" />
+    <None Remove="runtimes\win-x64\native\msvcp140_codecvt_ids.dll" />
+    <None Remove="runtimes\win-x64\native\opencv_videoio_ffmpeg490_64.dll" />
+    <None Remove="runtimes\win-x64\native\vcruntime140.dll" />
+    <None Remove="runtimes\win-x64\native\vcruntime140_1.dll" />
+    <None Remove="runtimes\win-x64\native\version_string.inc" />
+    <None Remove="runtimes\win-x86\native\concrt140.dll" />
+    <None Remove="runtimes\win-x86\native\cvextern.dll" />
+    <None Remove="runtimes\win-x86\native\libusb-1.0.dll" />
+    <None Remove="runtimes\win-x86\native\msvcp140.dll" />
+    <None Remove="runtimes\win-x86\native\msvcp140_1.dll" />
+    <None Remove="runtimes\win-x86\native\msvcp140_2.dll" />
+    <None Remove="runtimes\win-x86\native\msvcp140_atomic_wait.dll" />
+    <None Remove="runtimes\win-x86\native\msvcp140_codecvt_ids.dll" />
+    <None Remove="runtimes\win-x86\native\opencv_videoio_ffmpeg490.dll" />
+    <None Remove="runtimes\win-x86\native\vcruntime140.dll" />
+    <None Remove="runtimes\win-x86\native\version_string.inc" />
+    <None Remove="tbb12.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="common.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libiomp5md.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mkldnn.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mklml.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_world470.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="paddle_inference.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\concrt140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\cvextern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\msvcp140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\msvcp140_1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\msvcp140_2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\msvcp140_atomic_wait.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\msvcp140_codecvt_ids.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\opencv_videoio_ffmpeg490_64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\vcruntime140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\vcruntime140_1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-arm64\native\version_string.inc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\concrt140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\cvextern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\cvextern.lib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\libusb-1.0.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\msvcp140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\msvcp140_1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\msvcp140_2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\msvcp140_atomic_wait.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\msvcp140_codecvt_ids.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\opencv_videoio_ffmpeg490_64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\vcruntime140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\vcruntime140_1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x64\native\version_string.inc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\concrt140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\cvextern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\libusb-1.0.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\msvcp140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\msvcp140_1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\msvcp140_2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\msvcp140_atomic_wait.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\msvcp140_codecvt_ids.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\opencv_videoio_ffmpeg490.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\vcruntime140.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\version_string.inc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tbb12.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PaddleOCRSharp" Version="4.4.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Emgu.CV">
+      <HintPath>..\..\..\Downloads\Compressed\libemgucv-windesktop-4.9.0.5494\libs\Build\Emgu.CV.Platform.NetFramework\AnyCPU\Debug\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Bitmap">
+      <HintPath>..\..\..\Downloads\Compressed\libemgucv-windesktop-4.9.0.5494\libs\Build\Emgu.CV.Platform.NetFramework\AnyCPU\Debug\Emgu.CV.Bitmap.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Platform.NetCore">
+      <HintPath>..\..\..\Downloads\Compressed\libemgucv-windesktop-4.9.0.5494\libs\Build\Emgu.CV.Platform.NetCore\AnyCPU\Debug\net6.0-windows\Emgu.CV.Platform.NetCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_ppstructure_mobile_v2.0_SLANet_infer\inference.pdmodel" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_ppstructure_mobile_v2.0_SLANet_infer\inference.pdiparams.info" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_ppstructure_mobile_v2.0_SLANet_infer\inference.pdiparams" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_PP-OCRv4_rec_infer\inference.pdmodel" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_PP-OCRv4_rec_infer\inference.pdiparams.info" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_PP-OCRv4_rec_infer\inference.pdiparams" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_PP-OCRv4_det_infer\inference.pdmodel" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_PP-OCRv4_det_infer\inference.pdiparams.info" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_PP-OCRv4_det_infer\inference.pdiparams" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\table_structure_dict_ch.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ppocr_keys.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\PaddleOCRStructure.config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\PaddleOCR.config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\layout_publaynet_dict.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_ppocr_mobile_v2.0_cls_infer\inference.pdmodel" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_ppocr_mobile_v2.0_cls_infer\inference.pdiparams.info" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="C:\Users\XJYdemons\.nuget\packages\paddleocrsharp\4.4.0.2\build\PaddleOCRLib\inference\ch_ppocr_mobile_v2.0_cls_infer\inference.pdiparams" />
+  </ItemGroup>
+
+</Project>

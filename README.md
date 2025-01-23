@@ -22,6 +22,7 @@
 * [Emgu.CV](https://github.com/emgucv/emgucv)
   
 ## English Documentation
+### Introduction:
 A tool for automating card acquisition, store refresh, and abnormal mutation refresh in the S13 season of the games "Shovel War" and "Teamfight Tactics".
 #### Key Features:
 * Automated Card Selection

@@ -34,5 +34,5 @@ A tool for automating card acquisition, store refresh, and abnormal mutation ref
 * Save team compositions and customize team names.
 * Set conditions for card selection.
 #### References:
-* Paddle OCR Sharp
-* Emgu.CV
+* [Paddle OCR Sharp](https://github.com/raoyutian/PaddleOCRSharp)
+* [Emgu.CV](https://github.com/emgucv/emgucv)

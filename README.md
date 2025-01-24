@@ -28,6 +28,13 @@
 * 硬盘空间：500MB或以上
 #### 安装步骤
 1. 前往[Release 页面](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases) 下载最新的安装包[S13JinChanChanTools_v2.0_Windows_x64.zip](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases/download/%E5%8F%91%E8%A1%8C%E7%89%88/S13JinChanChanTools_v2.0_Windows_x64.zip)。
+2. 下载压缩包文件后，解压到一个的目录中。
+3. 运行`金铲铲助手.exe`。
+#### 使用方法
+1. 运行`金铲铲助手.exe`。
+2. 在右侧 设置-截图-选择显示器，选择显示游戏窗口的显示器（单显示器用户忽略该步骤）
+![image](https://github.com/user-attachments/assets/d03d61fa-962a-4759-bfd0-fc9e270dc80a)
+3. 
 ### 项目引用：
 * [Paddle OCR Sharp](https://github.com/raoyutian/PaddleOCRSharp)
 * [Emgu.CV](https://github.com/emgucv/emgucv)

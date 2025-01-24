@@ -103,7 +103,33 @@ This function works in conjunction with Auto Pick Cards.
   * Windows SDK
 
 #### Project Structure
-
+ ```
+├── /bin                         # Compiled output directory
+├── /obj                         # Intermediate files directory, containing temporary files generated during compilation
+├── /Properties                  # Project properties directory
+├── /runtimes                    # Emgu.CV runtime library directory
+├── AppConfig.cs                 # Application configuration C# file
+├── ControlTools.cs              # Utility class for controlling mouse simulation
+├── Emgu.CV.Bitmap.dll           # Emgu CV Bitmap support library
+├── Emgu.CV.dll                  # Emgu.CV.dll # Emgu CV core library
+├── Emgu.CV.Platform.NetCore.dll # Emgu CV .NET Core platform support library
+├── Form1.cs                     # Main form code file
+├── Form1.Designer.cs            # Automatically generated form designer file
+├── Form1.resx                   # Main form resource file 
+├── ImageProcessingTools.cs      # Image processing utility class 
+├── libiomp5md.dll               # Intel OpenMP support library
+├── mkldnn.dll                   # MKL-DNN dynamic link library for deep learning acceleration 
+├── mkml.dll                     # MKL related library files
+├── OCRTools.cs                  # OCR functionality utility class
+├── opencv_world470.dll          # OpenCV 4.7.0 main dynamic link library
+├── paddle_inference.dll         # PaddlePaddle inference library
+├── Program.cs                   # Application entry point
+├── tbb12.dll                    # Intel TBB dynamic link library for multi-threading support
+├── TextProcessingTools.cs       # Text processing utility class
+├── 金铲铲助手.csproj             # Project file for describing 
+├── 金铲铲助手.csproj.user        # User-specific project configuration file
+└── 金铲铲助手.sln                # Solution file
+```
 
 #### Running the Project
 1. Open the `.sln` file in Visual Studio.

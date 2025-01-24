@@ -1,4 +1,4 @@
-# S13金铲铲助手 / S13 Jin chan chan Tools
+# S13金铲铲助手
 ## 介绍：
 适用于游戏“金铲铲之战”与“云顶之奕”S13赛季的自动化拿牌、刷新商店、刷新异常突变的工具。
 ### 主要功能：
@@ -13,3 +13,4 @@
 ### 项目引用：
 * [Paddle OCR Sharp](https://github.com/raoyutian/PaddleOCRSharp)
 * [Emgu.CV](https://github.com/emgucv/emgucv)
+![image](https://github.com/user-attachments/assets/9e81fe94-d3b6-409e-a20c-3b2e5d890887)

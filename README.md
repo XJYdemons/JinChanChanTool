@@ -143,4 +143,5 @@
 ### 项目引用：
 * [Paddle OCR Sharp](https://github.com/raoyutian/PaddleOCRSharp)
 * [Emgu.CV](https://github.com/emgucv/emgucv)
-
+### 其他链接：
+* 备用下载链接：https://pan.baidu.com/s/15h6dra2pCfw7HWEWE6h1Sg?pwd=sr3h

@@ -48,8 +48,13 @@
 1. 运行`金铲铲助手.exe`。
 2. 在顶部菜单栏-设置-截图-选择显示器，选择用于显示游戏窗口的那台显示器（单显示器用户忽略该步骤）
 ![image](https://github.com/user-attachments/assets/994c2e89-a677-4f3e-b96b-62b4f4585837)
-3. 打开游戏，进入对局，点击-“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称（需要将奕子名称行用矩形包裹，但不要包裹奕子价格），如图：
+3. 打开游戏，进入对局
+   * 点击-“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称（需要将奕子名称行用矩形包裹，但不要包裹奕子价格），
+   * 点击-“快速设置金币截图坐标与大小”，框选商店显示的金币数字（注意不要框选到左侧的金币图标），
+   * 点击-“快速设置商店刷新按钮坐标”，点击刷新商店按钮的位置。
 ![示例1](https://github.com/user-attachments/assets/0564fbf6-09ec-4c16-b30c-7cda6a823437)
+![image](https://github.com/user-attachments/assets/2a0d32d9-01aa-4569-bea1-4d0ebfa6ed90)
+![image](https://github.com/user-attachments/assets/0861153a-69e7-4be4-89b3-ae71267aa3af)
 
 4. 点击“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称，如图（需要将奕子名称行用矩形包裹，但不要包裹奕子价格）：
 ![image](https://github.com/user-attachments/assets/b3ec1969-9f2d-4305-9c16-854c2cb6d833)

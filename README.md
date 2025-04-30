@@ -49,6 +49,7 @@
 2. 在顶部菜单栏-设置-截图-选择显示器，选择用于显示游戏窗口的那台显示器（单显示器用户忽略该步骤）
 ![image](https://github.com/user-attachments/assets/994c2e89-a677-4f3e-b96b-62b4f4585837)
 3. 打开游戏，进入对局，点击-“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称（需要将奕子名称行用矩形包裹，但不要包裹奕子价格），如图：
+![示例1](https://github.com/user-attachments/assets/0564fbf6-09ec-4c16-b30c-7cda6a823437)
 
 4. 点击“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称，如图（需要将奕子名称行用矩形包裹，但不要包裹奕子价格）：
 ![image](https://github.com/user-attachments/assets/b3ec1969-9f2d-4305-9c16-854c2cb6d833)

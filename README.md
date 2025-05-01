@@ -104,7 +104,7 @@
 ##### 第一步：配置英雄信息
 1. 在软件根目录（软件的安装目录）下，找到Resources文件夹，找到其中的HeroInfo.json文件，使用记事本或其他代码编辑器（例如Vs Code）打开。
 
-![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage11.png)
 
 2. 打开该文件后，格式如下：该文件结构是以一对`[]`包裹数个英雄数据结构，每个英雄数据的格式都严格遵循`{{"HeroName": "英雄名字","Cost": 英雄费用}}`，在前一个英雄数据结构后增加一个需要先加一个英文逗号`,`.(若已是文件中最后一个英雄数据结构则无需加逗号)
 ```
@@ -120,8 +120,8 @@
 ##### 第二步：配置英雄头像
 1. 在软件根目录（软件的安装目录）下，找到Resources文件夹，找到其中images文件夹，打开该文件夹。
 
-![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
-
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage12.png)<br>
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage13.png)<br>
 2. 该文件夹用于存放英雄头像图片，确保HeroInfo.json文件中的每一个英雄项都有对应的同名图片（格式要求是.png）<br>
 举例：<br>
 假设HeroInfo.json中有三个英雄结构:<br>

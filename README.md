@@ -26,7 +26,7 @@
 * 目标用户：金铲铲之战、云顶之战玩家
 * 项目实现原理：
   * 自动拿牌：通过截取目标图片，处理后再进行OCR（光学字符识别）的方式转化为文本，通过文本相似度对比判断是否为目标卡牌。如果是目标卡牌，则模拟鼠标操作：改变鼠标位置-按下鼠标左键-抬起鼠标左键 拿取卡牌。
-  * 自动刷新商店：通过模拟鼠标操作：改变鼠标位置-按下鼠标左键-抬起鼠标左键 刷新商店。
+  * 自动刷新商店：通过模拟鼠标操作：改变鼠标位置-按下鼠标左键-抬起鼠标左键 刷新商店。<br>
 ### 功能特点：
 * 快捷设置游戏内的截图位置：无需用户手动测量输入游戏内牌库位置、金币数量位置、商店刷新按钮位置，提供快速设置功能。
 * 自动拿牌：开启该功能后，用户勾选好需要的奕子后，将自动拿取。
@@ -38,16 +38,16 @@
 * 支持配置文件内用户自定义英雄选择器的英雄头像、名字：
    * 该功能用途之一是能支持用户自行更新赛季英雄。
    * 该功能用途之二是能支持用户根据所处地区客户端语言进行本地化支持。
-   * 该功能用途之三是能支持用户自定义英雄头像。
+   * 该功能用途之三是能支持用户自定义英雄头像。<br>
 ### 安装：
 #### 系统要求
 * 操作系统：Windows10或更高版本
 * 内存：4GB或以上
-* 硬盘空间：500MB或以上
+* 硬盘空间：500MB或以上<br>
 #### 安装步骤
 1. 前往[Release 页面](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases) 下载最新的安装包"S14JinChanChanTools_vx.x.x_Windows_x64.zip"。
 2. 下载压缩包文件后，解压到一个目录中。
-3. 运行`金铲铲助手.exe`。
+3. 运行`金铲铲助手.exe`。<br>
 ### 使用：
 #### 首次使用
 1. 运行`金铲铲助手.exe`。
@@ -55,7 +55,7 @@
 
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage1.png)
 
-4. 打开游戏，进入对局
+3. 打开游戏，进入对局
    * 点击-“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称（需要将奕子名称行用矩形包裹，但不要包裹奕子价格），
    * 点击-“快速设置金币截图坐标与大小”，框选商店显示的金币数字（注意不要框选到左侧的金币图标），
    * 点击-“快速设置商店刷新按钮坐标”，将鼠标放置到用于刷新商店的按钮上，单击鼠标左键即可设置成功。
@@ -68,36 +68,36 @@
 
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage5.png)
 
-5. 设置-拿牌相关，在“低于【】金币时自动停止自动拿牌”处填入具体数值，当您持有的金币数小于等于左侧填入的数值时，将不会自动拿牌与刷新商店。
-6. （可选）设置-拿牌相关-操作间隔时间中的“拿牌间隔”决定了两次拿牌之间的速度，不建议设置的太低；“商店刷新间隔”决定了自动刷新商店的速度(不推荐低于250毫秒)，若设置的过低，会导致刷新商店过快，没来得及拿牌就刷新了商店。
-7. （可选）设置-快捷键，可以查看当前功能的快捷键，目前支持修改的有“自动拿牌快捷键”与“自动刷新商店快捷键”。
-8. 以上设置完成后，我们点击-菜单项-测试，打开测试窗口，来到测试-监视面板，开启“自动拿牌”功能后，在此处可查看各项功能是否正常运转，如图：
+4. 设置-拿牌相关，在“低于【】金币时自动停止自动拿牌”处填入具体数值，当您持有的金币数小于等于左侧填入的数值时，将不会自动拿牌与刷新商店。
+5. （可选）设置-拿牌相关-操作间隔时间中的“拿牌间隔”决定了两次拿牌之间的速度，不建议设置的太低；“商店刷新间隔”决定了自动刷新商店的速度(不推荐低于250毫秒)，若设置的过低，会导致刷新商店过快，没来得及拿牌就刷新了商店。
+6. （可选）设置-快捷键，可以查看当前功能的快捷键，目前支持修改的有“自动拿牌快捷键”与“自动刷新商店快捷键”。
+7. 以上设置完成后，我们点击-菜单项-测试，打开测试窗口，来到测试-监视面板，开启“自动拿牌”功能后，在此处可查看各项功能是否正常运转，如图：
 
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage6.png)
 
-9. 若一切正常，enjoy it!
+8. 若一切正常，enjoy it!<br>
 #### 功能-自动拿牌
 1. 在应用左侧，勾选需要自动拿取奕子头像下的单选框，当所有希望自动拿取的奕子完成勾选后，可按“自动拿牌”按钮开启该功能，此时，若商店出现目标奕子，则会自动拿取。
 
-![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage7.png)
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage7.png)<br>
 
 #### 功能-自动刷新商店
 此功能需要在开启“自动拿牌”功能的同时，开启该功能才有效。
 1. 开启自动拿牌功能。
 2. 单击“自动刷新商店”按钮开启该功能，开始后，当商店不含有目标奕子时，将会自动刷新商店。
 
-![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage8.png)
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage8.png)<br>
 
 #### 保存阵容与使用阵容
 ##### 保存阵容
 1. 通过“选择奕子”功能区右上角的“选择阵容”下拉框选择想要保存到的阵容，单击阵容名称可以为阵容改名。
-2. 点击“保存”按钮即可将当前阵容保存到当前所选阵容内。
+2. 点击“保存”按钮即可将当前阵容保存到当前所选阵容内。<br>
 ##### 使用阵容
 1. 通过“选择奕子”功能区右上角的“选择阵容”下拉框选择想要使用的阵容即可。
 
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage9.gif)
 
-![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)<br>
 
 #### 用户自定义英雄卡池
 > 此功能可供用户自行更新、其他模式英雄池（例如福星）以及解决非中文使用地区的英雄名称差异问题。
@@ -115,7 +115,7 @@
 {"HeroName": "雷克顿","Cost": 5}
 ]
 ```
-3. 所有英雄数据结构配置完成后，保存文件即可。
+3. 所有英雄数据结构配置完成后，保存文件即可。<br>
 
 ##### 第二步：配置英雄头像
 1. 在软件根目录（软件的安装目录）下，找到Resources文件夹，找到其中images文件夹，打开该文件夹。
@@ -127,67 +127,10 @@
 假设HeroInfo.json中有三个英雄结构:<br>
 分别是 `{"HeroName": "阿利斯塔","Cost": 1}` `{"HeroName": "吉格斯","Cost": 4}` `{"HeroName": "可酷伯","Cost": 5}`<br>
 那么在images中就应该存在三个英雄头像图片文件`阿利斯塔.png`、`吉格斯.png`、`可酷伯.png`.<br>
-### 开发者指南
-#### 获取项目源码文件
-1. 前往[Release 页面](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases) 下载最新的源码[S13JinChanChanTools_v2.0_SourceCode.zip](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases/download/%E5%8F%91%E8%A1%8C%E7%89%88/S13JinChanChanTools_v2.0_SourceCode.zip))。
-2. 下载压缩包文件后，解压到一个目录中。
-#### 开发环境配置
-* IDE：Visual Studio 2022
-* 必需组件：<br>
-  * .NET 8.0 SDK
-  * Windows SDK
-#### 项目结构
- ```
-├── /bin                         # 编译后的输出目录
-├── /obj                         # 中间文件目录，包含编译时生成的临时文件
-├── /Properties                  # 项目属性文件夹
-├── /runtimes                    # Emgu.CV运行时库目录
-├── AppConfig.cs                 # 应用程序配置相关的 C# 文件
-├── ControlTools.cs              # 负责控制鼠标模拟操作的工具类
-├── Emgu.CV.Bitmap.dll           # Emgu CV 的 Bitmap 支持库
-├── Emgu.CV.dll                  # Emgu CV 核心功能库
-├── Emgu.CV.Platform.NetCore.dll # Emgu CV 的 .NET Core 平台支持库
-├── Form1.cs                     # 主窗体代码文件
-├── Form1.Designer.cs            # 自动生成的窗体设计文件
-├── Form1.resx                   # 主窗体的资源文件
-├── ImageProcessingTools.cs      # 图像处理工具类
-├── libiomp5md.dll               # Intel OpenMP 支持库
-├── mkldnn.dll                   # MKL-DNN 动态链接库，用于深度学习加速
-├── mkml.dll                     # MKL 相关库文件
-├── OCRTools.cs                  # OCR 功能工具类
-├── opencv_world470.dll          # OpenCV 4.7.0 主动态链接库
-├── paddle_inference.dll         # PaddlePaddle 推理库
-├── Program.cs                   # 应用程序入口点
-├── tbb12.dll                    # Intel TBB 动态链接库，用于多线程支持
-├── TextProcessingTools.cs       # 文本处理工具类
-├── 金铲铲助手.csproj             # 项目文件，用于描述 C# 项目
-├── 金铲铲助手.csproj.user        # 用户特定的项目配置文件
-└── 金铲铲助手.sln                # 解决方案文件
-```
-#### 运行项目
-1. 使用 Visual Studio 打开 .sln 文件。
-2. 选择`Debug-X64`模式，如图：
-![image](https://github.com/user-attachments/assets/fd6e3eb3-fba4-491b-858d-31bbcb1c816d)
-3. 点击运行，如图：
-![image](https://github.com/user-attachments/assets/7d8f8914-e673-4db2-a88b-be51801b06c8)
-#### 构建应用
-1. 使用 Visual Studio 打开金铲铲助手.sln 文件。
-2. 选择`Release-X64`模式，如图：
- ![image](https://github.com/user-attachments/assets/8f07fb4b-3465-43d7-90ab-d01a01ac385d)
-3. 点击 **生成** > **生成解决方案**。如图：
-![image](https://github.com/user-attachments/assets/393a6e30-4869-4d16-9fb8-80f9c0df1314)
-4. 构建的可执行文件将保存在 bin\x64\Release\net8.0-windows 文件夹下。
-#### 常见问题
-**问题1：** 运行或生成解决方案时报错：无法处理文件 Form1.resx，因为它位于 Internet 或受限区域中，或者文件上具有 Web 标记。要想处理这些文件，请删除 Web 标记。如图：
-![image](https://github.com/user-attachments/assets/1bbd0ee4-021d-4902-80da-dd1909b7e919)
-**解决：**
-1. 先关闭VisualStudio。
-2. 来到项目根目录，找到文件“Form1.resx”，右键菜单-属性。
-3. 在下方“安全”-“此文件来自其他计算机，可能被阻止以帮助保护该计算机”处，勾选“解除锁定”，并点击应用按钮。如图：
-![image](https://github.com/user-attachments/assets/3117b2c3-e027-4546-9db6-77b13ac13b7c)
-4. 再次用VisualStudio打开金铲铲助手.sln 文件。
-### 项目引用：
-* [Paddle OCR Sharp](https://github.com/raoyutian/PaddleOCRSharp)
-* [Emgu.CV](https://github.com/emgucv/emgucv)
+
 ### 其他链接：
-* 备用下载链接：https://pan.baidu.com/s/15h6dra2pCfw7HWEWE6h1Sg?pwd=sr3h
+* 备用下载链接：https://pan.baidu.com/s/15h6dra2pCfw7HWEWE6h1Sg?pwd=sr3h<br>
+
+### 问题：
+**问题1：** 无法拿牌、快捷键失效等。<br>
+**解决：** 以管理员身份运行程序。

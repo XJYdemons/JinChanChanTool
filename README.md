@@ -99,6 +99,34 @@
 
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
 
+#### 用户自定义英雄卡池
+> 此功能可供用户自行更新、其他模式英雄池（例如福星）以及解决非中文使用地区的英雄名称差异问题。
+##### 第一步：配置英雄信息
+1. 在软件根目录（软件的安装目录）下，找到Resources文件夹，找到其中的HeroInfo.json文件，使用记事本或其他代码编辑器（例如Vs Code）打开。
+
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
+
+2. 打开该文件后，格式如下：该文件结构是以一对`[]`包裹数个英雄数据结构，每个英雄数据的格式都严格遵循`{{"HeroName": "英雄名字","Cost": 英雄费用}}`，在前一个英雄数据结构后增加一个需要先加一个英文逗号`,`.(若已是文件中最后一个英雄数据结构则无需加逗号)
+```
+[
+{"HeroName": "阿利斯塔","Cost": 1},{"HeroName": "波比","Cost": 1},{"HeroName": "艾克","Cost": 2},
+{"HeroName": "崔斯特","Cost": 2},{"HeroName": "莫德凯撒","Cost": 3},{"HeroName": "赛娜","Cost": 3},
+{"HeroName": "厄运小姐","Cost": 4},{"HeroName": "吉格斯","Cost": 4},{"HeroName": "可酷伯","Cost": 5},
+{"HeroName": "雷克顿","Cost": 5}
+]
+```
+3. 所有英雄数据结构配置完成后，保存文件即可。
+
+##### 第二步：配置英雄头像
+1. 在软件根目录（软件的安装目录）下，找到Resources文件夹，找到其中images文件夹，打开该文件夹。
+
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
+
+2. 该文件夹用于存放英雄头像图片，确保HeroInfo.json文件中的每一个英雄项都有对应的同名图片（格式要求是.png）<br>
+举例：<br>
+假设HeroInfo.json中有三个英雄结构:<br>
+分别是 `{"HeroName": "阿利斯塔","Cost": 1}` `{"HeroName": "吉格斯","Cost": 4}` `{"HeroName": "可酷伯","Cost": 5}`<br>
+那么在images中就应该存在三个英雄头像图片文件`阿利斯塔.png`、`吉格斯.png`、`可酷伯.png`.<br>
 ### 开发者指南
 #### 获取项目源码文件
 1. 前往[Release 页面](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases) 下载最新的源码[S13JinChanChanTools_v2.0_SourceCode.zip](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases/download/%E5%8F%91%E8%A1%8C%E7%89%88/S13JinChanChanTools_v2.0_SourceCode.zip))。

@@ -69,16 +69,20 @@
 9. 若一切正常，enjoy it!
 #### 功能-自动拿牌
 1. 在应用左侧，勾选需要自动拿取奕子头像下的单选框，当所有希望自动拿取的奕子完成勾选后，可按“自动拿牌”按钮开启该功能，此时，若商店出现目标奕子，则会自动拿取。
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage7.png)
 #### 功能-自动刷新商店
 此功能需要在开启“自动拿牌”功能的同时，开启该功能才有效。
 1. 开启自动拿牌功能。
 2. 单击“自动刷新商店”按钮开启该功能，开始后，当商店不含有目标奕子时，将会自动刷新商店。
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage8.png)
 #### 保存阵容与使用阵容
 ##### 保存阵容
 1. 通过“选择奕子”功能区右上角的“选择阵容”下拉框选择想要保存到的阵容，单击阵容名称可以为阵容改名。
 2. 点击“保存”按钮即可将当前阵容保存到当前所选阵容内。
 ##### 使用阵容
-1.通过“选择奕子”功能区右上角的“选择阵容”下拉框选择想要使用的阵容即可。
+1. 通过“选择奕子”功能区右上角的“选择阵容”下拉框选择想要使用的阵容即可。
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage9.gif)
+![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
 ### 开发者指南
 #### 获取项目源码文件
 1. 前往[Release 页面](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases) 下载最新的源码[S13JinChanChanTools_v2.0_SourceCode.zip](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases/download/%E5%8F%91%E8%A1%8C%E7%89%88/S13JinChanChanTools_v2.0_SourceCode.zip))。

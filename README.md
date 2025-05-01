@@ -52,37 +52,53 @@
 #### 首次使用
 1. 运行`金铲铲助手.exe`。
 2. 在顶部菜单栏-设置-截图-选择显示器，选择用于显示游戏窗口的那台显示器（单显示器用户忽略该步骤）
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage1.png)
+
 4. 打开游戏，进入对局
    * 点击-“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称（需要将奕子名称行用矩形包裹，但不要包裹奕子价格），
    * 点击-“快速设置金币截图坐标与大小”，框选商店显示的金币数字（注意不要框选到左侧的金币图标），
    * 点击-“快速设置商店刷新按钮坐标”，将鼠标放置到用于刷新商店的按钮上，单击鼠标左键即可设置成功。
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage2.gif)
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage3.png)
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage4.png)
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage5.png)
+
 5. 设置-拿牌相关，在“低于【】金币时自动停止自动拿牌”处填入具体数值，当您持有的金币数小于等于左侧填入的数值时，将不会自动拿牌与刷新商店。
 6. （可选）设置-拿牌相关-操作间隔时间中的“拿牌间隔”决定了两次拿牌之间的速度，不建议设置的太低；“商店刷新间隔”决定了自动刷新商店的速度(不推荐低于250毫秒)，若设置的过低，会导致刷新商店过快，没来得及拿牌就刷新了商店。
 7. （可选）设置-快捷键，可以查看当前功能的快捷键，目前支持修改的有“自动拿牌快捷键”与“自动刷新商店快捷键”。
 8. 以上设置完成后，我们点击-菜单项-测试，打开测试窗口，来到测试-监视面板，开启“自动拿牌”功能后，在此处可查看各项功能是否正常运转，如图：
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage6.png)
+
 9. 若一切正常，enjoy it!
 #### 功能-自动拿牌
 1. 在应用左侧，勾选需要自动拿取奕子头像下的单选框，当所有希望自动拿取的奕子完成勾选后，可按“自动拿牌”按钮开启该功能，此时，若商店出现目标奕子，则会自动拿取。
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage7.png)
+
 #### 功能-自动刷新商店
 此功能需要在开启“自动拿牌”功能的同时，开启该功能才有效。
 1. 开启自动拿牌功能。
 2. 单击“自动刷新商店”按钮开启该功能，开始后，当商店不含有目标奕子时，将会自动刷新商店。
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage8.png)
+
 #### 保存阵容与使用阵容
 ##### 保存阵容
 1. 通过“选择奕子”功能区右上角的“选择阵容”下拉框选择想要保存到的阵容，单击阵容名称可以为阵容改名。
 2. 点击“保存”按钮即可将当前阵容保存到当前所选阵容内。
 ##### 使用阵容
 1. 通过“选择奕子”功能区右上角的“选择阵容”下拉框选择想要使用的阵容即可。
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage9.gif)
+
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)
+
 ### 开发者指南
 #### 获取项目源码文件
 1. 前往[Release 页面](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases) 下载最新的源码[S13JinChanChanTools_v2.0_SourceCode.zip](https://github.com/XJYdemons/Jin-chan-chan-Tools/releases/download/%E5%8F%91%E8%A1%8C%E7%89%88/S13JinChanChanTools_v2.0_SourceCode.zip))。

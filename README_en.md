@@ -12,7 +12,7 @@ An automated card-picking and shop-refreshing tool for "TFT: Teamfight Tactics" 
    4.2 [Auto-pick Cards](#auto-pick-cards)<br>
    4.3 [Auto-refresh Shop](#auto-refresh-shop)<br>
    4.4 [Save & Load Comps](#save--load-comps)<br>
-   4.5 [Custom Hero Pool](#custom-hero-pool)<br>
+   4.5 [Custom Hero Pool Configuration](#CustomHeroPoolConfiguration)<br>
 5. [Additional Links](#AdditionalLinks)<br>
 6. [FAQ](#FAQs)<br>
 
@@ -97,7 +97,7 @@ An automated card-picking and shop-refreshing tool for "TFT: Teamfight Tactics" 
 
 ![Demo](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage10.png)<br>
 
-#### Custom Hero Pool Configuration
+#### CustomHeroPoolConfiguration
 > This feature allows users to manually update hero pools for other modes (e.g., Fortune Mode) and resolve hero name discrepancies in non-Chinese regions.
 ##### Step 1: Configure Hero Information
 1. Navigate to the `Resources` folder in the software root directory (installation directory). Locate the `HeroInfo.json` file and open it with Notepad or a code editor (e.g., VS Code).

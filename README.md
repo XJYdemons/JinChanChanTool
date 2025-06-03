@@ -58,8 +58,6 @@
 
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage3.png)
 
-![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage4.png)
-
 ![示例图片](https://github.com/XJYdemons/Jin-chan-chan-Tools/blob/main/DemoImage/DemoImage5.png)
 
 4. （可选）设置-快捷键，可以查看当前功能的快捷键，目前支持修改的有“自动拿牌快捷键”与“自动刷新商店快捷键”。<br>

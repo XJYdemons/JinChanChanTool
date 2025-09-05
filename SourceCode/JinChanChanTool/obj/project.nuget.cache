@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5V2ge3olnHY=",
+  "dgSpecHash": "WwEznvLO2s0=",
   "success": true,
-  "projectFilePath": "C:\\IMyFiles\\项目\\应用\\金铲铲助手\\Public\\JinChanChanTool\\JinChanChanTool.csproj",
+  "projectFilePath": "C:\\IMyFiles\\项目\\应用\\金铲铲助手\\JinChanChanTool\\SourceCode\\JinChanChanTool\\JinChanChanTool.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\20744\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\20744\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

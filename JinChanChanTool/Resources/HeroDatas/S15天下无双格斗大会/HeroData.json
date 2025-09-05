@@ -1,0 +1,450 @@
+[
+  {
+    "HeroName": "亚托克斯",
+    "Cost": 1,
+    "Profession": "主宰|重量级斗士",
+    "Peculiarity": "超级战队",
+    "ChessId": 10357
+  },
+  {
+    "HeroName": "伊泽瑞尔",
+    "Cost": 1,
+    "Profession": "天才",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10368
+  },
+  {
+    "HeroName": "盖伦",
+    "Cost": 1,
+    "Profession": "护卫",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10371
+  },
+  {
+    "HeroName": "纳尔",
+    "Cost": 1,
+    "Profession": "狙神",
+    "Peculiarity": "假面摔角手",
+    "ChessId": 10372
+  },
+  {
+    "HeroName": "卡莉丝塔",
+    "Cost": 1,
+    "Profession": "裁决使者",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10380
+  },
+  {
+    "HeroName": "凯尔",
+    "Cost": 1,
+    "Profession": "决斗大师",
+    "Peculiarity": "至高天",
+    "ChessId": 10383
+  },
+  {
+    "HeroName": "凯南",
+    "Cost": 1,
+    "Profession": "法师|圣盾使",
+    "Peculiarity": "兵王",
+    "ChessId": 10384
+  },
+  {
+    "HeroName": "卢锡安",
+    "Cost": 1,
+    "Profession": "法师",
+    "Peculiarity": "超级战队",
+    "ChessId": 10391
+  },
+  {
+    "HeroName": "墨菲特",
+    "Cost": 1,
+    "Profession": "圣盾使",
+    "Peculiarity": "奥德赛",
+    "ChessId": 10394
+  },
+  {
+    "HeroName": "纳亚菲利",
+    "Cost": 1,
+    "Profession": "主宰",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10396
+  },
+  {
+    "HeroName": "芮尔",
+    "Cost": 1,
+    "Profession": "护卫",
+    "Peculiarity": "星之守护者",
+    "ChessId": 10402
+  },
+  {
+    "HeroName": "希维尔",
+    "Cost": 1,
+    "Profession": "狙神",
+    "Peculiarity": "奥德赛",
+    "ChessId": 10409
+  },
+  {
+    "HeroName": "辛德拉",
+    "Cost": 1,
+    "Profession": "天才",
+    "Peculiarity": "水晶玫瑰|星之守护者",
+    "ChessId": 10419
+  },
+  {
+    "HeroName": "扎克",
+    "Cost": 1,
+    "Profession": "重量级斗士",
+    "Peculiarity": "至高天",
+    "ChessId": 10434
+  },
+  {
+    "HeroName": "蒙多医生",
+    "Cost": 2,
+    "Profession": "主宰",
+    "Peculiarity": "假面摔角手",
+    "ChessId": 10366
+  },
+  {
+    "HeroName": "普朗克",
+    "Cost": 2,
+    "Profession": "决斗大师",
+    "Peculiarity": "超级战队",
+    "ChessId": 10370
+  },
+  {
+    "HeroName": "迦娜",
+    "Cost": 2,
+    "Profession": "司令|圣盾使",
+    "Peculiarity": "水晶玫瑰",
+    "ChessId": 10374
+  },
+  {
+    "HeroName": "烬",
+    "Cost": 2,
+    "Profession": "狙神",
+    "Peculiarity": "至高天",
+    "ChessId": 10377
+  },
+  {
+    "HeroName": "卡莎",
+    "Cost": 2,
+    "Profession": "决斗大师",
+    "Peculiarity": "兵王",
+    "ChessId": 10379
+  },
+  {
+    "HeroName": "卡特琳娜",
+    "Cost": 2,
+    "Profession": "裁决使者",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10382
+  },
+  {
+    "HeroName": "可酷伯",
+    "Cost": 2,
+    "Profession": "重量级斗士",
+    "Peculiarity": "大宗师",
+    "ChessId": 10385
+  },
+  {
+    "HeroName": "拉克丝",
+    "Cost": 2,
+    "Profession": "法师",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10393
+  },
+  {
+    "HeroName": "洛",
+    "Cost": 2,
+    "Profession": "圣盾使",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10399
+  },
+  {
+    "HeroName": "慎",
+    "Cost": 2,
+    "Profession": "刀锋领主|护卫",
+    "Peculiarity": "奥德赛",
+    "ChessId": 10408
+  },
+  {
+    "HeroName": "蔚",
+    "Cost": 2,
+    "Profession": "主宰",
+    "Peculiarity": "水晶玫瑰",
+    "ChessId": 10425
+  },
+  {
+    "HeroName": "霞",
+    "Cost": 2,
+    "Profession": "刀锋领主",
+    "Peculiarity": "星之守护者",
+    "ChessId": 10429
+  },
+  {
+    "HeroName": "赵信",
+    "Cost": 2,
+    "Profession": "护卫",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10430
+  },
+  {
+    "HeroName": "阿狸",
+    "Cost": 3,
+    "Profession": "法师",
+    "Peculiarity": "星之守护者",
+    "ChessId": 10358
+  },
+  {
+    "HeroName": "凯特琳",
+    "Cost": 3,
+    "Profession": "狙神",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10362
+  },
+  {
+    "HeroName": "德莱厄斯",
+    "Cost": 3,
+    "Profession": "重量级斗士",
+    "Peculiarity": "兵王",
+    "ChessId": 10365
+  },
+  {
+    "HeroName": "杰斯",
+    "Cost": 3,
+    "Profession": "重量级斗士",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10376
+  },
+  {
+    "HeroName": "玛尔扎哈",
+    "Cost": 3,
+    "Profession": "天才",
+    "Peculiarity": "至高天",
+    "ChessId": 10395
+  },
+  {
+    "HeroName": "妮蔻",
+    "Cost": 3,
+    "Profession": "圣盾使",
+    "Peculiarity": "星之守护者",
+    "ChessId": 10397
+  },
+  {
+    "HeroName": "赛娜",
+    "Cost": 3,
+    "Profession": "裁决使者",
+    "Peculiarity": "超级战队",
+    "ChessId": 10405
+  },
+  {
+    "HeroName": "斯维因",
+    "Cost": 3,
+    "Profession": "护卫|法师",
+    "Peculiarity": "水晶玫瑰",
+    "ChessId": 10413
+  },
+  {
+    "HeroName": "乌迪尔",
+    "Cost": 3,
+    "Profession": "主宰|决斗大师",
+    "Peculiarity": "大宗师",
+    "ChessId": 10423
+  },
+  {
+    "HeroName": "佛耶戈",
+    "Cost": 3,
+    "Profession": "决斗大师",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10426
+  },
+  {
+    "HeroName": "亚索",
+    "Cost": 3,
+    "Profession": "刀锋领主",
+    "Peculiarity": "大宗师",
+    "ChessId": 10431
+  },
+  {
+    "HeroName": "吉格斯",
+    "Cost": 3,
+    "Profession": "司令",
+    "Peculiarity": "奥德赛",
+    "ChessId": 10435
+  },
+  {
+    "HeroName": "璐璐",
+    "Cost": 3,
+    "Profession": "",
+    "Peculiarity": "小怪兽训练师",
+    "ChessId": 10392
+  },
+  {
+    "HeroName": "克格莫",
+    "Cost": 3,
+    "Profession": "",
+    "Peculiarity": "小怪兽训练师",
+    "ChessId": 10386
+  },
+  {
+    "HeroName": "拉莫斯",
+    "Cost": 3,
+    "Profession": "",
+    "Peculiarity": "小怪兽训练师",
+    "ChessId": 10400
+  },
+  {
+    "HeroName": "斯莫德",
+    "Cost": 3,
+    "Profession": "",
+    "Peculiarity": "小怪兽训练师",
+    "ChessId": 10410
+  },
+  {
+    "HeroName": "阿卡丽",
+    "Cost": 4,
+    "Profession": "裁决使者",
+    "Peculiarity": "兵王",
+    "ChessId": 10359
+  },
+  {
+    "HeroName": "艾希",
+    "Cost": 4,
+    "Profession": "决斗大师",
+    "Peculiarity": "水晶玫瑰",
+    "ChessId": 10360
+  },
+  {
+    "HeroName": "嘉文四世",
+    "Cost": 4,
+    "Profession": "司令",
+    "Peculiarity": "超级战队",
+    "ChessId": 10375
+  },
+  {
+    "HeroName": "金克丝",
+    "Cost": 4,
+    "Profession": "狙神",
+    "Peculiarity": "星之守护者",
+    "ChessId": 10378
+  },
+  {
+    "HeroName": "奎桑提",
+    "Cost": 4,
+    "Profession": "圣盾使",
+    "Peculiarity": "至高天",
+    "ChessId": 10387
+  },
+  {
+    "HeroName": "卡尔玛",
+    "Cost": 4,
+    "Profession": "法师",
+    "Peculiarity": "超级战队",
+    "ChessId": 10381
+  },
+  {
+    "HeroName": "蕾欧娜",
+    "Cost": 4,
+    "Profession": "护卫",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10390
+  },
+  {
+    "HeroName": "波比",
+    "Cost": 4,
+    "Profession": "重量级斗士",
+    "Peculiarity": "星之守护者",
+    "ChessId": 10398
+  },
+  {
+    "HeroName": "瑞兹",
+    "Cost": 4,
+    "Profession": "司令|裁决使者",
+    "Peculiarity": "大宗师",
+    "ChessId": 10403
+  },
+  {
+    "HeroName": "莎弥拉",
+    "Cost": 4,
+    "Profession": "刀锋领主",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10404
+  },
+  {
+    "HeroName": "瑟提",
+    "Cost": 4,
+    "Profession": "主宰",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10407
+  },
+  {
+    "HeroName": "沃利贝尔",
+    "Cost": 4,
+    "Profession": "刀锋领主",
+    "Peculiarity": "假面摔角手",
+    "ChessId": 10427
+  },
+  {
+    "HeroName": "悠米",
+    "Cost": 4,
+    "Profession": "天才",
+    "Peculiarity": "战斗学院",
+    "ChessId": 10433
+  },
+  {
+    "HeroName": "布隆",
+    "Cost": 5,
+    "Profession": "护卫",
+    "Peculiarity": "魄罗之心|假面摔角手",
+    "ChessId": 10361
+  },
+  {
+    "HeroName": "格温",
+    "Cost": 5,
+    "Profession": "法师",
+    "Peculiarity": "斗魂战士",
+    "ChessId": 10373
+  },
+  {
+    "HeroName": "李青",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "龙的传人",
+    "ChessId": 10388
+  },
+  {
+    "HeroName": "萨勒芬妮",
+    "Cost": 5,
+    "Profession": "天才",
+    "Peculiarity": "星之守护者",
+    "ChessId": 10406
+  },
+  {
+    "HeroName": "崔斯特",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "奥德赛|卡牌大师",
+    "ChessId": 10422
+  },
+  {
+    "HeroName": "韦鲁斯",
+    "Cost": 5,
+    "Profession": "狙神",
+    "Peculiarity": "至高天",
+    "ChessId": 10424
+  },
+  {
+    "HeroName": "永恩",
+    "Cost": 5,
+    "Profession": "刀锋领主",
+    "Peculiarity": "超级战队",
+    "ChessId": 10432
+  },
+  {
+    "HeroName": "婕拉",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "水晶玫瑰|荆棘之兴",
+    "ChessId": 10436
+  }
+]

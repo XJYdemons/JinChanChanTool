@@ -1,0 +1,614 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\CorrectionsList.json" />
+    <None Remove="Resources\defaultHeroIcon.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\HeroData.json" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\乌迪尔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\亚托克斯.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\亚索.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\伊泽瑞尔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\佛耶戈.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\克格莫.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\凯南.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\凯尔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\凯特琳.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\卡尔玛.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\卡特琳娜.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\卡莉丝塔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\卡莎.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\卢锡安.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\可酷伯.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\吉格斯.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\嘉文四世.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\墨菲特.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\奎桑提.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\妮蔻.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\婕拉.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\崔斯特.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\布隆.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\希维尔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\德莱厄斯.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\悠米.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\慎.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\扎克.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\拉克丝.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\拉莫斯.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\斯维因.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\斯莫德.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\普朗克.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\李青.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\杰斯.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\格温.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\永恩.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\沃利贝尔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\波比.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\洛.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\烬.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\玛尔扎哈.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\瑞兹.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\瑟提.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\璐璐.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\盖伦.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\纳亚菲利.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\纳尔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\艾希.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\芮尔.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\莎弥拉.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\萨勒芬妮.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\蒙多医生.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\蔚.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\蕾欧娜.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\赛娜.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\赵信.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\辛德拉.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\迦娜.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\金克丝.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\阿卡丽.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\阿狸.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\霞.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\韦鲁斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\HeroData.json" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\丽桑卓.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\亚托克斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\亚索.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\佛耶戈.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\克烈.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\内瑟斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\凯尔.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\加里奥.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\劫.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\卑尔维斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\卡尔玛.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\卡特琳娜.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\卡莉丝塔.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\卡莎.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\卡萨丁.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\卡西奥佩娅.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\厄加特.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\厄斐琉斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\嘉文四世.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\塔莉垭.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\塔里克.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\奎桑提.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\奥莉安娜.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\娑娜.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\崔丝塔娜.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\德莱厄斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\慎.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\拉克丝.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\提莫.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\斯维因.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\杰斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\格温.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\沃里克.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\波比.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\泽丽.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\烬.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\玛尔扎哈.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\瑞兹.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\瑟庄妮.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\瑟提.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\盖伦.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\科加斯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\索拉卡.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\维克兹.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\艾克.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\艾希.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\艾瑞莉娅.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\茂凯.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\莎弥拉.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\蔚.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\赛娜.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\赛恩.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\金克丝.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\阿克尚.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\阿兹尔.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\阿狸.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\雷克塞.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\雷克顿.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\黑默丁格.png" />
+    <None Remove="Resources\Models\ch_PP-OCRv4_det_infer\inference.pdiparams" />
+    <None Remove="Resources\Models\ch_PP-OCRv4_det_infer\inference.pdiparams.info" />
+    <None Remove="Resources\Models\ch_PP-OCRv4_det_infer\inference.pdmodel" />
+    <None Remove="Resources\Models\ch_PP-OCRv4_rec_infer\inference.pdiparams" />
+    <None Remove="Resources\Models\ch_PP-OCRv4_rec_infer\inference.pdiparams.info" />
+    <None Remove="Resources\Models\ch_PP-OCRv4_rec_infer\inference.pdmodel" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.pdiparams" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.yml" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.json" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.pdiparams" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.yml" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_rec_infer\ppocr_keys_v5.txt" />
+    <None Remove="Resources\Models\ppocr_keys.txt" />
+    <None Remove="Resources\Models\ppocr_keys_v5.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\CorrectionsList.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\defaultHeroIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\HeroData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\乌迪尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\亚托克斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\亚索.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\伊泽瑞尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\佛耶戈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\克格莫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\凯南.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\凯尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\凯特琳.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\卡尔玛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\卡特琳娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\卡莉丝塔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\卡莎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\卢锡安.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\可酷伯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\吉格斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\嘉文四世.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\墨菲特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\奎桑提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\妮蔻.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\婕拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\崔斯特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\布隆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\希维尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\德莱厄斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\悠米.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\慎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\扎克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\拉克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\拉莫斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\斯维因.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\斯莫德.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\普朗克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\李青.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\杰斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\格温.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\永恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\沃利贝尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\波比.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\洛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\烬.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\玛尔扎哈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\瑞兹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\瑟提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\璐璐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\盖伦.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\纳亚菲利.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\纳尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\艾希.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\芮尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\莎弥拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\萨勒芬妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\蒙多医生.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\蔚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\蕾欧娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\赛娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\赵信.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\辛德拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\迦娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\金克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\阿卡丽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\阿狸.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\霞.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\韦鲁斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\HeroData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\丽桑卓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\亚托克斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\亚索.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\佛耶戈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\克烈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\内瑟斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\凯尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\加里奥.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\劫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\卑尔维斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\卡尔玛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\卡特琳娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\卡莉丝塔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\卡莎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\卡萨丁.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\卡西奥佩娅.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\厄加特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\厄斐琉斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\嘉文四世.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\塔莉垭.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\塔里克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\奎桑提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\奥莉安娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\娑娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\崔丝塔娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\德莱厄斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\慎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\拉克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\提莫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\斯维因.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\杰斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\格温.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\沃里克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\波比.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\泽丽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\烬.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\玛尔扎哈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\瑞兹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\瑟庄妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\瑟提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\盖伦.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\科加斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\索拉卡.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\维克兹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\艾克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\艾希.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\艾瑞莉娅.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\茂凯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\莎弥拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\蔚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\赛娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\赛恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\金克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\阿克尚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\阿兹尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\阿狸.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\雷克塞.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\雷克顿.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\黑默丁格.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icon.ico" />
+    <Content Include="Resources\Models\ch_PP-OCRv4_det_infer\inference.pdiparams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ch_PP-OCRv4_det_infer\inference.pdiparams.info">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ch_PP-OCRv4_det_infer\inference.pdmodel">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ch_PP-OCRv4_rec_infer\inference.pdiparams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ch_PP-OCRv4_rec_infer\inference.pdiparams.info">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ch_PP-OCRv4_rec_infer\inference.pdmodel">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.pdiparams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.pdiparams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_rec_infer\ppocr_keys_v5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ppocr_keys.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ppocr_keys_v5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
+    <PackageReference Include="OpenCvSharp4.Extensions" Version="4.11.0.20250507" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
+    <PackageReference Include="PaddleOCRSharp" Version="4.5.0.1" />
+    <PackageReference Include="Sdcb.PaddleInference" Version="3.0.1" />
+    <PackageReference Include="Sdcb.PaddleInference.runtime.win64.cu129_cudnn910_sm89" Version="3.1.0.54" />
+    <PackageReference Include="Sdcb.PaddleOCR" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\AppConfig.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\S15天下无双格斗大会\LineUps.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\符文大陆\LineUps.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

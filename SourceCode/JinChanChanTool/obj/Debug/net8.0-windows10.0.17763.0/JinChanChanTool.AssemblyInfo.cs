@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JinChanChanTool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdb3d84850358724e68de5e0d55407a1f9e1f5af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c1a6660a1a055dab26d4f6b1a4c97dd73a817ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("JinChanChanTool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JinChanChanTool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -11,7 +11,7 @@
             Cost = 1;
             Profession = "";
             Peculiarity = "";
-            ChessId = 0;
+            ChessId = 000;
         }
 
         /// <summary>

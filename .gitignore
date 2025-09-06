@@ -14,7 +14,7 @@
 # Visual Studio 2017 及以上版本用于存储用户设置的隐藏文件夹
 .vs/
 SourceCode/JinChanChanTool/obj
-SourceCode\JinChanChanTool\bin
+SourceCode/JinChanChanTool/bin
 # --------------- 编译生成的结果 ---------------
 # 这些文件是编译源代码后产生的，可以随时重新生成，不应纳入版本控制
 [Dd]ebug/          # 调试版本的输出文件夹 (匹配 Debug 和 debug)

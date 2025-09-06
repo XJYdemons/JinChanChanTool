@@ -40,7 +40,7 @@
       "Paddle.Runtime.win_x64/2.6.1.1": {
         "type": "package",
         "build": {
-          "build/_._": {}
+          "build/Paddle.Runtime.win_x64.targets": {}
         }
       },
       "PaddleOCRSharp/4.5.0.1": {
@@ -284,27 +284,28 @@
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.17763": [
       "Newtonsoft.Json >= 13.0.3",
+      "Paddle.Runtime.win_x64 >= 2.6.1.1",
       "PaddleOCRSharp >= 4.5.0.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\20744\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\xiaoyu\\.nuget\\packages\\": {},
+    "f:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\IMyFiles\\项目\\应用\\金铲铲助手\\JinChanChanTool\\SourceCode\\JinChanChanTool\\JinChanChanTool.csproj",
+      "projectUniqueName": "D:\\ruanjian\\JinChanChanTool\\SourceCode\\JinChanChanTool\\JinChanChanTool.csproj",
       "projectName": "JinChanChanTool",
-      "projectPath": "C:\\IMyFiles\\项目\\应用\\金铲铲助手\\JinChanChanTool\\SourceCode\\JinChanChanTool\\JinChanChanTool.csproj",
-      "packagesPath": "C:\\Users\\20744\\.nuget\\packages\\",
-      "outputPath": "C:\\IMyFiles\\项目\\应用\\金铲铲助手\\JinChanChanTool\\SourceCode\\JinChanChanTool\\obj\\",
+      "projectPath": "D:\\ruanjian\\JinChanChanTool\\SourceCode\\JinChanChanTool\\JinChanChanTool.csproj",
+      "packagesPath": "C:\\Users\\xiaoyu\\.nuget\\packages\\",
+      "outputPath": "D:\\ruanjian\\JinChanChanTool\\SourceCode\\JinChanChanTool\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "f:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\20744\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\xiaoyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -313,7 +314,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -341,6 +341,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
+          },
+          "Paddle.Runtime.win_x64": {
+            "target": "Package",
+            "version": "[2.6.1.1, )"
           },
           "PaddleOCRSharp": {
             "target": "Package",
@@ -375,7 +379,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -931,11 +931,12 @@
             // radioButton5
             // 
             radioButton5.AutoSize = true;
+            radioButton5.Enabled = false;
             radioButton5.Location = new Point(3, 32);
             radioButton5.Name = "radioButton5";
-            radioButton5.Size = new Size(186, 21);
+            radioButton5.Size = new Size(242, 21);
             radioButton5.TabIndex = 22;
-            radioButton5.Text = "GPU推理(仅支持NVIDIA显卡)";
+            radioButton5.Text = "GPU推理(暂时停用)(仅支持NVIDIA显卡)";
             radioButton5.UseVisualStyleBackColor = true;
             // 
             // radioButton6

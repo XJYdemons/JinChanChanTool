@@ -10,12 +10,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace JinChanChanTool.Services
 {
     public class CardService
     {
-        private GPU_OCRObject _ocrObject;
+       
         private bool is自动拿牌 = false;//是否开启 自动拿牌 标志(初始false)
         private bool is自动刷新商店 = false;//是否开启 自动刷新商店 标志(初始false)       
         private bool isTheAsynRunning = false; //“自动拿牌异步任务”是否运行的标志(初始false)
@@ -82,7 +83,7 @@ namespace JinChanChanTool.Services
             _iCorrectionService = iCorrectionService;              
             _iheroDataService = iHeroDataService;
             _ilineUpService = iLineUpService;
-            _ocrObject = new GPU_OCRObject(4);
+            
         }
       
        public  async void AutoGetCard()
@@ -325,8 +326,7 @@ namespace JinChanChanTool.Services
                 return false;
             }
 
-        }
-       
+        }     
         /// <summary>
         /// 异步处理每张卡片的截图、OCR识别和UI更新
         /// </summary>
@@ -344,8 +344,8 @@ namespace JinChanChanTool.Services
                result =CPU_OCRTool.OCRRecognition(card);
             }
             else if(_iappConfigService.CurrentConfig.UseGPU)
-            {
-                result = _ocrObject.RecognizeBitmap(card);
+            {                
+               //result = _ocrObject.RecognizeBitmap(card);
             }
             else
             {

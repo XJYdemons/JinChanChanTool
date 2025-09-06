@@ -55,33 +55,9 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
-            "OpenCvSharp4": {
-              "target": "Package",
-              "version": "[4.11.0.20250507, )"
-            },
-            "OpenCvSharp4.Extensions": {
-              "target": "Package",
-              "version": "[4.11.0.20250507, )"
-            },
-            "OpenCvSharp4.runtime.win": {
-              "target": "Package",
-              "version": "[4.11.0.20250507, )"
-            },
             "PaddleOCRSharp": {
               "target": "Package",
               "version": "[4.5.0.1, )"
-            },
-            "Sdcb.PaddleInference": {
-              "target": "Package",
-              "version": "[3.0.1, )"
-            },
-            "Sdcb.PaddleInference.runtime.win64.cu129_cudnn910_sm89": {
-              "target": "Package",
-              "version": "[3.1.0.54, )"
-            },
-            "Sdcb.PaddleOCR": {
-              "target": "Package",
-              "version": "[3.0.1, )"
             }
           },
           "imports": [

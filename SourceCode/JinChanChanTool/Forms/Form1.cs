@@ -967,12 +967,12 @@ namespace JinChanChanTool
                 if (lineupCode.StartsWith("【阵容码】"))
                 {
                     // 调用金铲铲解析器
-                    
+
                     heroIds = MobileLineUpParser.Parse(lineupCode);
                 }
                 else
                 {
-                   
+
                     heroIds = LineUpParser.ParseCode(lineupCode);
                 }
 
@@ -1025,6 +1025,17 @@ namespace JinChanChanTool
             }
         }
 
+        private void txtLineupCode_Enter(object sender, EventArgs e)
+        {
+            txtLineupCode.Text = "";
+        }
 
+        private void txtLineupCode_Leave(object sender, EventArgs e)
+        {
+            if(txtLineupCode.Text =="")
+            {
+                txtLineupCode.Text = "请在此处粘贴阵容代码";
+            }
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace JinChanChanTool
                     {
                         From = new MailAddress(FromEmail),
                         Subject = $"用户反馈 - {textBox2.Text} - {DateTime.Now:yyyy-MM-dd HH:mm}",
-                        Body = $"版本号：v4.5.1\n反馈内容：{textBox1.Text}",
+                        Body = $"版本号：v4.5.2\n反馈内容：{textBox1.Text}",
                         IsBodyHtml = false
                     };
                     message.To.Add(FromEmail); // 发送给自己

@@ -322,20 +322,24 @@
             // 
             // txtLineupCode
             // 
-            txtLineupCode.Location = new Point(11, 568);
+            txtLineupCode.Location = new Point(9, 589);
             txtLineupCode.Multiline = true;
             txtLineupCode.Name = "txtLineupCode";
             txtLineupCode.Size = new Size(306, 24);
             txtLineupCode.TabIndex = 222;
+            txtLineupCode.TabStop = false;
             txtLineupCode.Text = "请在此处粘贴阵容代码";
+            txtLineupCode.Enter += txtLineupCode_Enter;
+            txtLineupCode.Leave += txtLineupCode_Leave;
             // 
             // btnParseLineup
             // 
             btnParseLineup.FlatStyle = FlatStyle.Flat;
-            btnParseLineup.Location = new Point(321, 568);
+            btnParseLineup.Location = new Point(319, 589);
             btnParseLineup.Name = "btnParseLineup";
             btnParseLineup.Size = new Size(75, 24);
             btnParseLineup.TabIndex = 223;
+            btnParseLineup.TabStop = false;
             btnParseLineup.Text = "解析阵容";
             btnParseLineup.UseVisualStyleBackColor = true;
             btnParseLineup.Click += btnParseLineup_Click;
@@ -344,7 +348,7 @@
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(399, 598);
+            ClientSize = new Size(399, 621);
             Controls.Add(btnParseLineup);
             Controls.Add(txtLineupCode);
             Controls.Add(comboBox2);

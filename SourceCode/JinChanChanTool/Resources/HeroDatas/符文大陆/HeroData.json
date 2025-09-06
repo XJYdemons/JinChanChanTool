@@ -3,354 +3,413 @@
     "HeroName": "雷克顿",
     "Cost": 1,
     "Profession": "格斗家",
-    "Peculiarity": "恕瑞玛"
+    "Peculiarity": "恕瑞玛",
+    "ChessId": 0
   },
   {
     "HeroName": "莎弥拉",
     "Cost": 1,
     "Profession": "挑战者",
-    "Peculiarity": "诺克萨斯"
+    "Peculiarity": "诺克萨斯",
+    "ChessId": 0
   },
   {
     "HeroName": "卡西奥佩娅",
     "Cost": 1,
     "Profession": "神谕者",
-    "Peculiarity": "恕瑞玛|诺克萨斯"
+    "Peculiarity": "恕瑞玛|诺克萨斯",
+    "ChessId": 0
   },
   {
     "HeroName": "崔丝塔娜",
     "Cost": 1,
     "Profession": "枪手",
-    "Peculiarity": "约德尔人"
+    "Peculiarity": "约德尔人",
+    "ChessId": 0
   },
   {
     "HeroName": "烬",
     "Cost": 1,
     "Profession": "亡眼射手",
-    "Peculiarity": "艾欧尼亚"
+    "Peculiarity": "艾欧尼亚",
+    "ChessId": 0
   },
   {
     "HeroName": "波比",
     "Cost": 1,
     "Profession": "堡垒卫士",
-    "Peculiarity": "约德尔人|德玛西亚"
+    "Peculiarity": "约德尔人|德玛西亚",
+    "ChessId": 0
   },
   {
     "HeroName": "凯尔",
     "Cost": 1,
     "Profession": "裁决战士",
-    "Peculiarity": "德玛西亚"
+    "Peculiarity": "德玛西亚",
+    "ChessId": 0
   },
   {
     "HeroName": "奥莉安娜",
     "Cost": 1,
     "Profession": "法师",
-    "Peculiarity": "皮尔特沃夫"
+    "Peculiarity": "皮尔特沃夫",
+    "ChessId": 0
   },
   {
     "HeroName": "佛耶戈",
     "Cost": 1,
     "Profession": "潜行者",
-    "Peculiarity": "暗影岛"
+    "Peculiarity": "暗影岛",
+    "ChessId": 0
   },
   {
     "HeroName": "玛尔扎哈",
     "Cost": 1,
     "Profession": "法师",
-    "Peculiarity": "虚空"
+    "Peculiarity": "虚空",
+    "ChessId": 0
   },
   {
     "HeroName": "艾瑞莉娅",
     "Cost": 1,
     "Profession": "挑战者",
-    "Peculiarity": "艾欧尼亚"
+    "Peculiarity": "艾欧尼亚",
+    "ChessId": 0
   },
   {
     "HeroName": "茂凯",
     "Cost": 1,
     "Profession": "堡垒卫士",
-    "Peculiarity": "暗影岛"
+    "Peculiarity": "暗影岛",
+    "ChessId": 0
   },
   {
     "HeroName": "科加斯",
     "Cost": 1,
     "Profession": "格斗家",
-    "Peculiarity": "虚空"
+    "Peculiarity": "虚空",
+    "ChessId": 0
   },
   {
     "HeroName": "瑟提",
     "Cost": 2,
     "Profession": "",
-    "Peculiarity": "艾欧尼亚|主宰"
+    "Peculiarity": "艾欧尼亚|主宰",
+    "ChessId": 0
   },
   {
     "HeroName": "克烈",
     "Cost": 2,
     "Profession": "裁决战士",
-    "Peculiarity": "约德尔人|诺克萨斯"
+    "Peculiarity": "约德尔人|诺克萨斯",
+    "ChessId": 0
   },
   {
     "HeroName": "提莫",
     "Cost": 2,
     "Profession": "术士|司令",
-    "Peculiarity": "约德尔人"
+    "Peculiarity": "约德尔人",
+    "ChessId": 0
   },
   {
     "HeroName": "索拉卡",
     "Cost": 2,
     "Profession": "神谕者",
-    "Peculiarity": "巨神峰"
+    "Peculiarity": "巨神峰",
+    "ChessId": 0
   },
   {
     "HeroName": "艾希",
     "Cost": 2,
     "Profession": "亡眼射手",
-    "Peculiarity": "弗雷尔卓德"
+    "Peculiarity": "弗雷尔卓德",
+    "ChessId": 0
   },
   {
     "HeroName": "沃里克",
     "Cost": 2,
     "Profession": "挑战者",
-    "Peculiarity": "祖安|主宰"
+    "Peculiarity": "祖安|主宰",
+    "ChessId": 0
   },
   {
     "HeroName": "斯维因",
     "Cost": 2,
     "Profession": "法师|司令",
-    "Peculiarity": "诺克萨斯"
+    "Peculiarity": "诺克萨斯",
+    "ChessId": 0
   },
   {
     "HeroName": "劫",
     "Cost": 2,
     "Profession": "潜行者|裁决战士",
-    "Peculiarity": "艾欧尼亚"
+    "Peculiarity": "艾欧尼亚",
+    "ChessId": 0
   },
   {
     "HeroName": "蔚",
     "Cost": 2,
     "Profession": "格斗家",
-    "Peculiarity": "皮尔特沃夫"
+    "Peculiarity": "皮尔特沃夫",
+    "ChessId": 0
   },
   {
     "HeroName": "加里奥",
     "Cost": 2,
     "Profession": "神谕者",
-    "Peculiarity": "德玛西亚"
+    "Peculiarity": "德玛西亚",
+    "ChessId": 0
   },
   {
     "HeroName": "卡萨丁",
     "Cost": 2,
     "Profession": "堡垒卫士",
-    "Peculiarity": "虚空"
+    "Peculiarity": "虚空",
+    "ChessId": 0
   },
   {
     "HeroName": "金克丝",
     "Cost": 2,
     "Profession": "枪手",
-    "Peculiarity": "祖安"
+    "Peculiarity": "祖安",
+    "ChessId": 0
   },
   {
     "HeroName": "塔莉垭",
     "Cost": 2,
     "Profession": "术士",
-    "Peculiarity": "恕瑞玛"
+    "Peculiarity": "恕瑞玛",
+    "ChessId": 0
   },
   {
     "HeroName": "雷克塞",
     "Cost": 3,
     "Profession": "格斗家",
-    "Peculiarity": "虚空"
+    "Peculiarity": "虚空",
+    "ChessId": 0
   },
   {
     "HeroName": "德莱厄斯",
     "Cost": 3,
     "Profession": "",
-    "Peculiarity": "诺克萨斯|主宰"
+    "Peculiarity": "诺克萨斯|主宰",
+    "ChessId": 0
   },
   {
     "HeroName": "盖伦",
     "Cost": 3,
     "Profession": "",
-    "Peculiarity": "德玛西亚|主宰"
+    "Peculiarity": "德玛西亚|主宰",
+    "ChessId": 0
   },
   {
     "HeroName": "艾克",
     "Cost": 3,
     "Profession": "潜行者",
-    "Peculiarity": "皮尔特沃夫|祖安"
+    "Peculiarity": "皮尔特沃夫|祖安",
+    "ChessId": 0
   },
   {
     "HeroName": "杰斯",
     "Cost": 3,
     "Profession": "枪手",
-    "Peculiarity": "皮尔特沃夫"
+    "Peculiarity": "皮尔特沃夫",
+    "ChessId": 0
   },
   {
     "HeroName": "丽桑卓",
     "Cost": 3,
     "Profession": "神谕者",
-    "Peculiarity": "弗雷尔卓德"
+    "Peculiarity": "弗雷尔卓德",
+    "ChessId": 0
   },
   {
     "HeroName": "塔里克",
     "Cost": 3,
     "Profession": "堡垒卫士|法师",
-    "Peculiarity": "巨神峰"
+    "Peculiarity": "巨神峰",
+    "ChessId": 0
   },
   {
     "HeroName": "阿克尚",
     "Cost": 3,
     "Profession": "亡眼射手",
-    "Peculiarity": "恕瑞玛"
+    "Peculiarity": "恕瑞玛",
+    "ChessId": 0
   },
   {
     "HeroName": "维克兹",
     "Cost": 3,
     "Profession": "术士|法师",
-    "Peculiarity": "虚空"
+    "Peculiarity": "虚空",
+    "ChessId": 0
   },
   {
     "HeroName": "卡莉丝塔",
     "Cost": 3,
     "Profession": "挑战者",
-    "Peculiarity": "暗影岛"
+    "Peculiarity": "暗影岛",
+    "ChessId": 0
   },
   {
     "HeroName": "娑娜",
     "Cost": 3,
     "Profession": "术士",
-    "Peculiarity": "德玛西亚"
+    "Peculiarity": "德玛西亚",
+    "ChessId": 0
   },
   {
     "HeroName": "卡尔玛",
     "Cost": 3,
     "Profession": "神谕者",
-    "Peculiarity": "艾欧尼亚"
+    "Peculiarity": "艾欧尼亚",
+    "ChessId": 0
   },
   {
     "HeroName": "卡特琳娜",
     "Cost": 3,
     "Profession": "潜行者",
-    "Peculiarity": "诺克萨斯"
+    "Peculiarity": "诺克萨斯",
+    "ChessId": 0
   },
   {
     "HeroName": "泽丽",
     "Cost": 4,
     "Profession": "枪手",
-    "Peculiarity": "祖安"
+    "Peculiarity": "祖安",
+    "ChessId": 0
   },
   {
     "HeroName": "亚索",
     "Cost": 4,
     "Profession": "挑战者",
-    "Peculiarity": "艾欧尼亚"
+    "Peculiarity": "艾欧尼亚",
+    "ChessId": 0
   },
   {
     "HeroName": "拉克丝",
     "Cost": 4,
     "Profession": "法师",
-    "Peculiarity": "德玛西亚"
+    "Peculiarity": "德玛西亚",
+    "ChessId": 0
   },
   {
     "HeroName": "厄加特",
     "Cost": 4,
     "Profession": "亡眼射手",
-    "Peculiarity": "祖安"
+    "Peculiarity": "祖安",
+    "ChessId": 0
   },
   {
     "HeroName": "卡莎",
     "Cost": 4,
     "Profession": "挑战者",
-    "Peculiarity": "虚空"
+    "Peculiarity": "虚空",
+    "ChessId": 0
   },
   {
     "HeroName": "格温",
     "Cost": 4,
     "Profession": "裁决战士",
-    "Peculiarity": "暗影岛"
+    "Peculiarity": "暗影岛",
+    "ChessId": 0
   },
   {
     "HeroName": "内瑟斯",
     "Cost": 4,
     "Profession": "",
-    "Peculiarity": "恕瑞玛|主宰"
+    "Peculiarity": "恕瑞玛|主宰",
+    "ChessId": 0
   },
   {
     "HeroName": "厄斐琉斯",
     "Cost": 4,
     "Profession": "亡眼射手",
-    "Peculiarity": "巨神峰"
+    "Peculiarity": "巨神峰",
+    "ChessId": 0
   },
   {
     "HeroName": "阿兹尔",
     "Cost": 4,
     "Profession": "司令",
-    "Peculiarity": "恕瑞玛"
+    "Peculiarity": "恕瑞玛",
+    "ChessId": 0
   },
   {
     "HeroName": "慎",
     "Cost": 4,
     "Profession": "堡垒卫士|神谕者",
-    "Peculiarity": "艾欧尼亚"
+    "Peculiarity": "艾欧尼亚",
+    "ChessId": 0
   },
   {
     "HeroName": "嘉文四世",
     "Cost": 4,
     "Profession": "司令",
-    "Peculiarity": "德玛西亚"
+    "Peculiarity": "德玛西亚",
+    "ChessId": 0
   },
   {
     "HeroName": "瑟庄妮",
     "Cost": 4,
     "Profession": "格斗家",
-    "Peculiarity": "弗雷尔卓德"
+    "Peculiarity": "弗雷尔卓德",
+    "ChessId": 0
   },
   {
     "HeroName": "阿狸",
     "Cost": 5,
     "Profession": "法师",
-    "Peculiarity": "艾欧尼亚"
+    "Peculiarity": "艾欧尼亚",
+    "ChessId": 0
   },
   {
     "HeroName": "黑默丁格",
     "Cost": 5,
     "Profession": "大发明家",
-    "Peculiarity": "皮尔特沃夫|约德尔人"
+    "Peculiarity": "皮尔特沃夫|约德尔人",
+    "ChessId": 0
   },
   {
     "HeroName": "卑尔维斯",
     "Cost": 5,
     "Profession": "女皇",
-    "Peculiarity": "虚空"
+    "Peculiarity": "虚空",
+    "ChessId": 0
   },
   {
     "HeroName": "亚托克斯",
     "Cost": 5,
     "Profession": "暗裔|裁决战士",
-    "Peculiarity": "主宰"
+    "Peculiarity": "主宰",
+    "ChessId": 0
   },
   {
     "HeroName": "奎桑提",
     "Cost": 5,
     "Profession": "堡垒卫士",
-    "Peculiarity": "恕瑞玛"
+    "Peculiarity": "恕瑞玛",
+    "ChessId": 0
   },
   {
     "HeroName": "赛娜",
     "Cost": 5,
     "Profession": "涤魂圣枪|枪手",
-    "Peculiarity": "暗影岛"
+    "Peculiarity": "暗影岛",
+    "ChessId": 0
   },
   {
     "HeroName": "赛恩",
     "Cost": 5,
     "Profession": "格斗家",
-    "Peculiarity": "诺克萨斯"
+    "Peculiarity": "诺克萨斯",
+    "ChessId": 0
   },
   {
     "HeroName": "瑞兹",
     "Cost": 5,
     "Profession": "流浪法师|神谕者",
-    "Peculiarity": ""
+    "Peculiarity": "",
+    "ChessId": 0
   }
 ]

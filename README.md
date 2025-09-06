@@ -226,9 +226,10 @@
 
 ### 其他链接
 
-* 备用下载链接：https://pan.baidu.com/s/15h6dra2pCfw7HWEWE6h1Sg?pwd=sr3h
+* 备用下载链接：https://pan.baidu.com/s/1fn-D8b7r7aC8Hb0Ka7wpaQ?pwd=k7mk
 
 ### 问题
+
 **问题1：** 无法拿牌、快捷键失效等。
 
 **解决：** 以管理员身份运行程序。

@@ -77,7 +77,7 @@
             label3.Name = "label3";
             label3.Size = new Size(174, 17);
             label3.TabIndex = 3;
-            label3.Text = "版本  v4.5.0(beta) (2025.9.06)";
+            label3.Text = "版本  v4.5.1(2025.9.6)";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label4

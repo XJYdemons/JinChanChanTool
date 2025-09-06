@@ -533,16 +533,4 @@
     <PackageReference Include="PaddleOCRSharp" Version="4.5.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Resources\AppConfig.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\HeroDatas\S15天下无双格斗大会\LineUps.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\HeroDatas\符文大陆\LineUps.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

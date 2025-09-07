@@ -1,76 +1,61 @@
-# ===================================================================
-# Visual Studio / .NET 社区标准 .gitignore 文件
-# 忽略由 IDE、编译器和各种工具自动生成的文件
-# ===================================================================
+# ================ #
+# DotNet .gitignore模版
+# ================ #
 
-# --------------- Visual Studio IDE 相关的用户特定文件 ---------------
-# 这些文件记录了您个人的窗口布局、断点、打开的文件等，不应共享给团队
+# 构建文件
+[Dd]ebug/   
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet Packages
+*.nupkg
+
+# NuGet Symbol Packages
+*.snupkg
+
+# Others
+~$*
+*~
+CodeCoverage/
+
+# MSBuild 二进制与结构化日志
+*.binlog
+
+# MSTest 测试结果
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+#由XJYdemons添加
 *.user
-*.userosscache
-*.suo
-*.sln.docstates
-*.vspscc
-*.vssscc
-# Visual Studio 2017 及以上版本用于存储用户设置的隐藏文件夹
 .vs/
 SourceCode/JinChanChanTool/obj
 SourceCode/JinChanChanTool/bin
 .craft/
-# --------------- 编译生成的结果 ---------------
-# 这些文件是编译源代码后产生的，可以随时重新生成，不应纳入版本控制
-[Dd]ebug/          # 调试版本的输出文件夹 (匹配 Debug 和 debug)
-[Dd]ebugPublic/
-[Rr]elease/        # 发布版本的输出文件夹 (匹配 Release 和 release)
-[Rr]eleases/
-x64/               # 64位版本的输出文件夹
-x86/               # 32位版本的输出文件夹
-[Aa][Rr][Mm]/      # ARM 架构的输出文件夹
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/            # 主要的二进制文件输出文件夹
-[Oo]bj/            # 编译过程中的中间目标文件文件夹
-[Ll]og/            # 日志文件夹
 
 
-# --------------- NuGet 包管理 ---------------
-# NuGet 包应该通过包管理器自动还原，而不是提交到仓库
-*.nupkg            # NuGet 包文件
-**/[Pp]ackages/*    # 项目中的 packages 文件夹
-# 但是，不要忽略 packages 文件夹下的 build/ 目录，因为它可能包含重要的 MSBuild 目标
-!**/[Pp]ackages/build/
 
 
-# --------------- Visual Studio 缓存文件 ---------------
-# 各种缓存文件，可以安全地忽略
-*.[Cc]ache         # 忽略所有以 .cache 或 .Cache 结尾的文件
-# 但保留名为 'cache' 的文件夹本身，以防里面有需要跟踪的文件
-!*.[Cc]ache/
-
-
-# --------------- JetBrains Rider IDE 相关文件 ---------------
-# 如果团队中有成员使用 Rider，这些规则会很有用
-.idea/
-*.sln.iml
-
-
-# --------------- 其他常见忽略项 ---------------
-ClientBin/         # Silverlight 客户端二进制文件夹
-~$*                # Office 临时文件
-*~                 # 某些编辑器生成的备份文件
-*.swp              # Vim 编辑器生成的交换文件
-*.bak              # 常见的备份文件扩展名
-*.ncb              # Visual C++ 智能提示数据库
-*.DS_Store         # macOS 系统生成的文件夹元数据文件
-*.dbmdl            # 数据库模型文件
-
-
-# --------------- 测试结果 ---------------
-# 单元测试生成的报告和日志，不应提交
-[Tt]est[Rr]esult*/ # MSTest 的测试结果文件夹
-[Bb]uild[Ll]og.*   # 构建日志文件
-
-
-# --------------- 本地个人配置文件 ---------------
-# 这些文件通常包含敏感信息（如数据库密码）或个人环境设置，绝不应提交
-secrets.json
-appsettings.Development.json

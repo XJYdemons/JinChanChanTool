@@ -50,5 +50,11 @@ namespace JinChanChanTool.Services.DataServices
         /// <param name="countOfHeros"></param>
         /// <param name="countOfLineUps"></param>
         void ReLoad(int countOfHeros, int countOfLineUps);
+
+        /// <summary>
+        /// 返回当前选中阵容的英雄下标列表
+        /// </summary>
+        /// <returns></returns>
+        List<int> SelectedIndexes();
     }
 }

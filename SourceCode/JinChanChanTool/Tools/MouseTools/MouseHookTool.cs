@@ -47,40 +47,36 @@ namespace JinChanChanTool.Tools.MouseTools
             SetHook();
         }
 
+      
         private static void SetHook()
-        {
-            using (Process curProcess = Process.GetCurrentProcess())
-            using (ProcessModule curModule = curProcess.MainModule)
-            {
-                _hookId = SetWindowsHookEx(WH_MOUSE_LL, _mouseProc,
-                    GetModuleHandle(curModule.ModuleName), 0);
-            }
+        {            
+            nint hModule = Marshal.GetHINSTANCE(typeof(MouseHookTool).Module);
+            _hookId = SetWindowsHookEx(WH_MOUSE_LL, _mouseProc, hModule, 0);
         }
 
         private static nint HookCallback(int nCode, nint wParam, nint lParam)
         {
-            if (nCode >= 0)
-            {
-                // 检查是否是程序自身产生的事件
-                bool isProgramEvent;
-                lock (_counterLock)
-                {
-                    isProgramEvent = _programClickCounter > 0;
-                }
+            if (nCode < 0) 
+                return CallNextHookEx(_hookId, nCode, wParam, lParam);
 
-                if (!isProgramEvent)
+            
+            bool isProgramEvent;
+            lock (_counterLock)
+            {
+                isProgramEvent = _programClickCounter > 0;
+            }
+
+            if (!isProgramEvent)
+            {
+                
+                if (wParam == (nint)WM_LBUTTONDOWN)
                 {
-                    int msg = wParam.ToInt32();
-                    switch (msg)
-                    {
-                        case WM_LBUTTONDOWN:
-                            MouseLeftButtonDown?.Invoke(null, EventArgs.Empty);
-                            break;
-                        case WM_LBUTTONUP:
-                            MouseLeftButtonUp?.Invoke(null, EventArgs.Empty);
-                            break;
-                    }
-                }
+                    MouseLeftButtonDown?.Invoke(null, EventArgs.Empty);                    
+                }                   
+                else if (wParam == (nint)WM_LBUTTONUP)
+                {
+                    MouseLeftButtonUp?.Invoke(null, EventArgs.Empty);                   
+                }                    
             }
             return CallNextHookEx(_hookId, nCode, wParam, lParam);
         }

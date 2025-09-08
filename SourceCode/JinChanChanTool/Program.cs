@@ -1,4 +1,5 @@
 using JinChanChanTool.Services.DataServices;
+using System.Diagnostics;
 namespace JinChanChanTool
 {
     internal static class Program
@@ -9,7 +10,7 @@ namespace JinChanChanTool
             // 设置高DPI模式
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             ApplicationConfiguration.Initialize();
-
+        
             //创建并加载应用设置服务
             IAppConfigService _iappConfigService = new AppConfigService();
             _iappConfigService.Load();

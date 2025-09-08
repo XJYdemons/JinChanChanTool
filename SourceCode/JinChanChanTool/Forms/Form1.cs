@@ -42,7 +42,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 自动拿牌服务
         /// </summary>
-        private readonly CardService _cardService;
+        private  CardService _cardService;
 
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService)
         {
@@ -66,25 +66,14 @@ namespace JinChanChanTool
             _ilineUpService = ilineUpService;
             #endregion
 
-            #region UI构建服务实例化           
+            #region UI构建服务实例化并构建UI并绑定事件           
             _uiBuilderService = new UIBuilderService(this, tabPage1, tabPage2, tabPage3, tabPage4, tabPage5, panel10, panel11, _iheroDataService, _ilineUpService, _iappConfigService);
-            #endregion
-
-            #region 初始化热键管理器并注册快捷键
-            GlobalHotkeyTool.Initialize(this);
-            RegisterHotKeys();//注册快捷键
-            #endregion
-
-            #region 初始化鼠标钩子并绑定事件
-            MouseHookTool.Initialize();
-            MouseHookTool.MouseLeftButtonDown += MouseHook_MouseLeftButtonDown;
-            MouseHookTool.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
-            #endregion
-
-            #region UI构建并绑定事件       
             UIBuildAndBidingEvents();
-            #endregion
+            #endregion                                                     
+        }
 
+        private  void Form1_Load(object sender, EventArgs e)
+        {
             #region 初始化赛季下拉框
             comboBox2.Items.Clear();
             foreach (string name in _iheroDataService.Paths)
@@ -98,19 +87,30 @@ namespace JinChanChanTool
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             #endregion
 
-            #region 加载阵容到UI
+            #region 初始化阵容下拉框
             LoadNameFromLineUpsToComboBox();
+            #endregion
+
+            #region 加载阵容到UI            
             LoadImagesFromLineUpsToSubLineUpPictureBoxesAndSelectTheFirstSubLineUp();//分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容    
+            #endregion  
+
+            #region 初始化热键管理器并注册快捷键
+            GlobalHotkeyTool.Initialize(this);
+            RegisterHotKeys();//注册快捷键
             #endregion
 
             #region 自动拿牌服务实例化
             _cardService = new CardService(button1, button2, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);
-            #endregion            
-        }
+            #endregion    
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+            #region 初始化鼠标钩子并绑定事件
+            MouseHookTool.Initialize();
+            MouseHookTool.MouseLeftButtonDown += MouseHook_MouseLeftButtonDown;
+            MouseHookTool.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
+            #endregion
 
+                   
         }
 
         /// <summary>
@@ -426,13 +426,14 @@ namespace JinChanChanTool
             {
                 button1.Text = "启动";
                 comboBox2.Enabled = true;
+                _cardService.StopLoop();
             }
             else
             {
                 button1.Text = "停止";
                 comboBox2.Enabled = false;
-            }
-            _cardService.AutoGetCard();
+                _cardService.StartLoop();
+            }           
         }
 
         /// <summary>
@@ -445,13 +446,13 @@ namespace JinChanChanTool
             if (button2.Text == "停止")
             {
                 button2.Text = "启动";
-                comboBox2.Enabled = true;
+                _cardService.AutoRefreshOff();
             }
             else
-            {
-                button2.Text = "停止";
-            }
-            _cardService.AutoRefresh();
+            {                
+                button2.Text = "停止";                
+                _cardService.AutoRefreshOn();
+            }            
         }
         #endregion
 
@@ -950,6 +951,12 @@ namespace JinChanChanTool
         #endregion
         #endregion
 
+        #region 解析阵容码
+        /// <summary>
+        /// 阵容解析按钮触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnParseLineup_Click(object sender, EventArgs e)
         {
             string lineupCode = txtLineupCode.Text.Trim();
@@ -994,6 +1001,7 @@ namespace JinChanChanTool
                 MessageBox.Show($"解析失败！请确保阵容码正确无误。\n\n详细错误: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         /// <summary>
         /// 根据英雄ID列表，更新界面上CheckBox的勾选状态
         /// </summary>
@@ -1025,11 +1033,21 @@ namespace JinChanChanTool
             }
         }
 
+        /// <summary>
+        /// 阵容码文本框进入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtLineupCode_Enter(object sender, EventArgs e)
         {
             txtLineupCode.Text = "";
         }
 
+        /// <summary>
+        /// 阵容码文本块离开
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtLineupCode_Leave(object sender, EventArgs e)
         {
             if(txtLineupCode.Text =="")
@@ -1037,5 +1055,6 @@ namespace JinChanChanTool
                 txtLineupCode.Text = "请在此处粘贴阵容代码";
             }
         }
+        #endregion
     }
 }

@@ -141,6 +141,13 @@
     <None Remove="Resources\HeroDatas\符文大陆\images\雷克塞.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\雷克顿.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\黑默丁格.png" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.pdiparams" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.yml" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.json" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.pdiparams" />
+    <None Remove="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.yml" />
+    <None Remove="Resources\Models\ppocr_keys_v5.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -526,11 +533,36 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\icon.ico" />
+    <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.pdiparams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.pdiparams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\PP-OCRv5_mobile_rec_infer\inference.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Models\ppocr_keys_v5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="PaddleOCRSharp" Version="4.5.0.1" />
+    <PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
+    <PackageReference Include="Sdcb.PaddleInference" Version="3.0.1" />
+    <PackageReference Include="Sdcb.PaddleInference.runtime.win64.cu129_cudnn910_sm89" Version="3.1.0.54" />
+    <PackageReference Include="Sdcb.PaddleOCR" Version="3.0.1" />
   </ItemGroup>
 
 </Project>

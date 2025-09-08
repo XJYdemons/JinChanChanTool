@@ -233,5 +233,22 @@ namespace JinChanChanTool.Services.DataServices
             LineUps.Clear();
             Load();
         }
+
+        /// <summary>
+        /// 返回当前选中阵容的英雄下标列表
+        /// </summary>
+        /// <returns></returns>
+        public List<int> SelectedIndexes()
+        {
+            List<int> selectedIndexes = new List<int>();
+            for(int i = 0;i<CountOfHeros;i++)
+            {
+                if (LineUps[LineUpIndex].Checked[SubLineUpIndex, i])
+                {
+                    selectedIndexes.Add(i);
+                }
+            }
+           return selectedIndexes; 
+        }
     }
 }

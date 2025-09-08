@@ -50,7 +50,12 @@ namespace JinChanChanTool.Services.DataServices
         /// 英雄数据对象到图片的字典
         /// </summary>
         public Dictionary<HeroData, Image> HeroDataToImageMap { get; private set; }
-        
+
+        /// <summary>
+        /// 装备数据
+        /// </summary>
+        private readonly EquipmentService _equipmentService;
+
         public HeroDataService()
         {
             InitializePaths();            
@@ -61,6 +66,7 @@ namespace JinChanChanTool.Services.DataServices
             Peculiarities = new List<Peculiarity>();
             ImageToHeroDataMap = new Dictionary<Image, HeroData>();
             HeroDataToImageMap = new Dictionary<HeroData, Image>();
+            _equipmentService = new EquipmentService();
         }
 
         /// <summary>
@@ -151,6 +157,11 @@ namespace JinChanChanTool.Services.DataServices
                         .ThenBy(h => h.HeroName) // Cost相同时按名称排序
                         .ToList();
                     HeroDatas = temp;
+                    // 为每个英雄数据注入推荐装备
+                    foreach (var hero in HeroDatas)
+                    {
+                        hero.RecommendedItems = _equipmentService.GetItemsForHero(hero.HeroName);
+                    }
                 }
                 catch 
                 {

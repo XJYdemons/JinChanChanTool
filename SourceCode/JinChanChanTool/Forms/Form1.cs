@@ -1050,11 +1050,56 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void txtLineupCode_Leave(object sender, EventArgs e)
         {
-            if(txtLineupCode.Text =="")
+            if (txtLineupCode.Text == "")
             {
                 txtLineupCode.Text = "请在此处粘贴阵容代码";
             }
         }
-        #endregion
+
+        private async void btnUpdateData_Click(object sender, EventArgs e)
+        {
+            // 1. 创建服务和进度窗口的实例
+            var equipmentService = new EquipmentService();
+            var progressForm = new JinChanChanTool.Forms.ProgressForm();
+
+            // 2. 定义 IProgress 的行为
+            // 当 EquipmentService 调用 Report 时，就会执行这里的代码
+            var progress = new Progress<Tuple<int, string>>(update =>
+            {
+                // 把收到的进度，更新到进度窗口的UI上
+                progressForm.UpdateProgress(update.Item1, update.Item2);
+            });
+
+            var button = sender as Button;
+            if (button != null) button.Enabled = false;
+
+            // 3. 显示进度窗口
+            progressForm.Show(this); // this 让进度窗口显示在主窗口之上
+
+            // 4. 开始后台更新，并将 progress 对象传递进去
+            bool updateSuccess = await equipmentService.UpdateDataFromWebAsync(progress);
+
+            // 5. 更新完成后，关闭进度窗口
+            progressForm.Close();
+
+            if (button != null) button.Enabled = true;
+
+            // 6. 重启和清理逻辑
+            if (updateSuccess)
+            {
+                DialogResult result = MessageBox.Show(
+                    "数据更新成功！为了使新数据生效，软件需要重启。\n\n点击“确定”立即重启，并清理浏览器缓存文件。",
+                    "更新完成",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                if (result == DialogResult.OK)
+                {
+                    equipmentService.CleanUpBrowserCache();
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
+            }
+        }
     }
 }

@@ -37,5 +37,9 @@
         /// 英雄的唯一ID (例如：10357)
         /// </summary>
         public int ChessId { get; set; }
+        /// <summary>
+        /// 推荐装备列表
+        /// </summary>
+        public List<string> RecommendedItems { get; set; } = new List<string>();
     }
 }

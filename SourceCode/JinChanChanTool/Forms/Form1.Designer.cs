@@ -56,6 +56,7 @@
             comboBox2 = new ComboBox();
             txtLineupCode = new TextBox();
             btnParseLineup = new Button();
+            btnTestApi = new Button();
             tabControl8.SuspendLayout();
             tabPage6.SuspendLayout();
             panel11.SuspendLayout();
@@ -322,7 +323,7 @@
             // 
             // txtLineupCode
             // 
-            txtLineupCode.Location = new Point(9, 589);
+            txtLineupCode.Location = new Point(11, 618);
             txtLineupCode.Multiline = true;
             txtLineupCode.Name = "txtLineupCode";
             txtLineupCode.Size = new Size(306, 24);
@@ -335,7 +336,7 @@
             // btnParseLineup
             // 
             btnParseLineup.FlatStyle = FlatStyle.Flat;
-            btnParseLineup.Location = new Point(319, 589);
+            btnParseLineup.Location = new Point(321, 618);
             btnParseLineup.Name = "btnParseLineup";
             btnParseLineup.Size = new Size(75, 24);
             btnParseLineup.TabIndex = 223;
@@ -344,11 +345,22 @@
             btnParseLineup.UseVisualStyleBackColor = true;
             btnParseLineup.Click += btnParseLineup_Click;
             // 
+            // btnTestApi
+            // 
+            btnTestApi.Location = new Point(308, 588);
+            btnTestApi.Name = "btnTestApi";
+            btnTestApi.Size = new Size(88, 24);
+            btnTestApi.TabIndex = 224;
+            btnTestApi.Text = "获取推荐装备";
+            btnTestApi.UseVisualStyleBackColor = true;
+            btnTestApi.Click += btnUpdateData_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(399, 621);
+            ClientSize = new Size(399, 654);
+            Controls.Add(btnTestApi);
             Controls.Add(btnParseLineup);
             Controls.Add(txtLineupCode);
             Controls.Add(comboBox2);
@@ -408,5 +420,6 @@
         private ComboBox comboBox2;
         private TextBox txtLineupCode;
         private Button btnParseLineup;
+        private Button btnTestApi;
     }
 }

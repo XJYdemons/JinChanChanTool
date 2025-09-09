@@ -1,4 +1,9 @@
 > 感谢你的Star，提需求、报BUG，最好能在拉Issues的同时，进QQ群954285837陈述详细内容。
+
+> [!WARNING]
+>
+> 需要使用GPU推理OCR功能，请参阅[使用GPU推理COR.md](https://github.com/XJYdemons/JinChanChanTool/blob/main/%E4%BD%BF%E7%94%A8GPU%E6%8E%A8%E7%90%86OCR.md)。
+
 # Jin Chan Chan Tool
 
 适用于“模拟器运行的金铲铲之战”与“云顶之奕”的自动化拿牌、刷新商店的工具。

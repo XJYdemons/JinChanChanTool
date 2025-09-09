@@ -50,7 +50,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 英雄数据对象到图片的字典
         /// </summary>
         public Dictionary<HeroData, Image> HeroDataToImageMap { get; private set; }
-
+        
         public HeroDataService()
         {
             InitializePaths();            
@@ -89,11 +89,6 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public void Load()
         {
-            if (Paths.Length > PathIndex)
-            {
-                // 告诉全局的 EquipmentService，我们现在用的是哪个赛季的数据
-                EquipmentService.Instance.LoadDataForSeason(Paths[PathIndex]);
-            }
             LoadFromJson();
             LoadImages();
             LoadProfessions();
@@ -156,7 +151,6 @@ namespace JinChanChanTool.Services.DataServices
                         .ThenBy(h => h.HeroName) // Cost相同时按名称排序
                         .ToList();
                     HeroDatas = temp;
-                    // 为每个英雄数据注入推荐装备
                 }
                 catch 
                 {
@@ -345,11 +339,6 @@ namespace JinChanChanTool.Services.DataServices
             Peculiarities.Clear();
             ImageToHeroDataMap.Clear();
             HeroDataToImageMap.Clear();
-            // 在重新加载所有数据之前，先确保 EquipmentService 也更新到正确的路径
-            if (Paths.Length > PathIndex)
-            {
-                EquipmentService.Instance.LoadDataForSeason(Paths[PathIndex]);
-            }
             Load();
         }
     }

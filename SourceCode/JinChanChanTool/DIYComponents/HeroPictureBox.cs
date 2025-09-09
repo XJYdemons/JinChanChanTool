@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using JinChanChanTool.Services.DataServices;
 
 namespace JinChanChanTool.DIYComponents
 {
@@ -25,6 +26,7 @@ namespace JinChanChanTool.DIYComponents
         #region 装备推荐功能
         public HeroData CurrentHero { get; set; }
         private ToolTip _equipmentToolTip;
+        private List<string> _currentRecommendedItems;
 
         // 定义一些常量，方便调整外观
         private const int ITEM_SIZE = 48; // 图片大小
@@ -51,15 +53,24 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         private void EquipmentToolTip_Popup(object sender, PopupEventArgs e)
         {
-            // 检查是否有装备可显示
-            if (CurrentHero == null || !CurrentHero.RecommendedItems.Any())
+            // 检查控件是否关联了一个英雄
+            if (CurrentHero == null)
             {
-                e.Cancel = true; // 如果没有，就取消本次弹出
+                e.Cancel = true; // 取消弹出
+                return;
+            }
+            // 1. 直接通过单例 Instance，调用 GetItemsForHero 方法获取装备
+            _currentRecommendedItems = EquipmentService.Instance.GetItemsForHero(CurrentHero.HeroName);
+
+            // 2. 检查是否真的找到了推荐装备
+            if (_currentRecommendedItems == null || !_currentRecommendedItems.Any())
+            {
+                e.Cancel = true; // 如果没找到，就取消本次弹出
                 return;
             }
 
-            // 计算所需尺寸
-            int itemCount = CurrentHero.RecommendedItems.Count;
+            // 3. 如果找到了，就用这个临时的列表来计算尺寸
+            int itemCount = _currentRecommendedItems.Count;
             int width = (itemCount * ITEM_SIZE) + ((itemCount - 1) * MARGIN) + (PADDING * 2);
             int height = ITEM_SIZE + (PADDING * 2);
 
@@ -78,11 +89,14 @@ namespace JinChanChanTool.DIYComponents
             // 检查是否有英雄数据
             if (CurrentHero == null) return;
 
+            // 如果临时的装备列表是空的，也直接返回
+            if (_currentRecommendedItems == null) return;
+
             // 2. 循环绘制每个装备图片
             int currentX = PADDING; // 起始X坐标
-            foreach (var itemName in CurrentHero.RecommendedItems)
+            foreach (var itemName in _currentRecommendedItems)
             {
-                string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Equipment", "images", $"{itemName}.png");
+                string imagePath = EquipmentService.Instance.GetEquipmentImagePath(itemName);
                 if (File.Exists(imagePath))
                 {
                     // 使用 using 语句确保图片资源被正确释放

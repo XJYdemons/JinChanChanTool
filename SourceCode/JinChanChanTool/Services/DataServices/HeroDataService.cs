@@ -51,11 +51,6 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public Dictionary<HeroData, Image> HeroDataToImageMap { get; private set; }
 
-        /// <summary>
-        /// 装备数据
-        /// </summary>
-        private readonly EquipmentService _equipmentService;
-
         public HeroDataService()
         {
             InitializePaths();            
@@ -66,7 +61,6 @@ namespace JinChanChanTool.Services.DataServices
             Peculiarities = new List<Peculiarity>();
             ImageToHeroDataMap = new Dictionary<Image, HeroData>();
             HeroDataToImageMap = new Dictionary<HeroData, Image>();
-            _equipmentService = new EquipmentService();
         }
 
         /// <summary>
@@ -95,6 +89,11 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public void Load()
         {
+            if (Paths.Length > PathIndex)
+            {
+                // 告诉全局的 EquipmentService，我们现在用的是哪个赛季的数据
+                EquipmentService.Instance.LoadDataForSeason(Paths[PathIndex]);
+            }
             LoadFromJson();
             LoadImages();
             LoadProfessions();
@@ -158,10 +157,6 @@ namespace JinChanChanTool.Services.DataServices
                         .ToList();
                     HeroDatas = temp;
                     // 为每个英雄数据注入推荐装备
-                    foreach (var hero in HeroDatas)
-                    {
-                        hero.RecommendedItems = _equipmentService.GetItemsForHero(hero.HeroName);
-                    }
                 }
                 catch 
                 {
@@ -350,6 +345,11 @@ namespace JinChanChanTool.Services.DataServices
             Peculiarities.Clear();
             ImageToHeroDataMap.Clear();
             HeroDataToImageMap.Clear();
+            // 在重新加载所有数据之前，先确保 EquipmentService 也更新到正确的路径
+            if (Paths.Length > PathIndex)
+            {
+                EquipmentService.Instance.LoadDataForSeason(Paths[PathIndex]);
+            }
             Load();
         }
     }

@@ -19,45 +19,58 @@ namespace JinChanChanTool.Services.DataServices
     /// </summary>
     public class EquipmentService
     {
+        private static EquipmentService _instance;
+        public static EquipmentService Instance => _instance ?? (_instance = new EquipmentService());
         // 用于在内存中存储从JSON文件读取的装备数据
         // Key是英雄名(string), Value是推荐装备列表(List<string>)
         private Dictionary<string, List<string>> _equipmentData;
 
+        private string _currentSeasonPath;
+
         /// <summary>
         /// 构造函数，当创建EquipmentService实例时，会自动加载数据
         /// </summary>
-        public EquipmentService()
+        private EquipmentService()
         {
-            LoadData();
+            _equipmentData = new Dictionary<string, List<string>>();
         }
 
         /// <summary>
-        /// 从本地JSON文件加载数据到内存中
+        /// 加载特定赛季的装备数据
         /// </summary>
-        private void LoadData()
+        /// <param name="seasonPath">当前赛季的完整文件夹路径</param>
+        public void LoadDataForSeason(string seasonPath)
         {
+            // 如果传入的路径是空的，或者和上次加载的路径一样，就不做任何事
+            if (string.IsNullOrEmpty(seasonPath) || _currentSeasonPath == seasonPath) return;
+
+            _currentSeasonPath = seasonPath; // 记住新路径
             try
             {
-                // 使用相对路径定位JSON文件
-                string jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Equipment", "EquipmentData.json");
+                // 使用传入的赛季路径来构建JSON文件的完整路径
+                string jsonPath = Path.Combine(seasonPath, "EquipmentData.json");
 
                 if (File.Exists(jsonPath))
                 {
                     string jsonString = File.ReadAllText(jsonPath, Encoding.UTF8);
-                    // 使用 System.Text.Json 将JSON字符串反序列化为字典对象
-                    _equipmentData = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(jsonString);
+                    // 确保JSON不为空
+                    if (!string.IsNullOrWhiteSpace(jsonString))
+                    {
+                        _equipmentData = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(jsonString);
+                    }
+                    else
+                    {
+                        _equipmentData = new Dictionary<string, List<string>>();
+                    }
                 }
                 else
                 {
-                    // 如果文件不存在，则初始化一个空字典，防止程序出错
-                    _equipmentData = new Dictionary<string, List<string>>();
+                    _equipmentData.Clear(); // 如果新路径下没有文件，清空旧数据
                 }
             }
             catch (Exception ex)
             {
-                // 捕获可能发生的任何错误（如JSON格式错误），并初始化为空字典
-                _equipmentData = new Dictionary<string, List<string>>();
-                // 现在测试，后续可以改成记录错误日志
+                _equipmentData.Clear(); // 发生错误时也清空数据
                 Console.WriteLine($"加载装备数据失败: {ex.Message}");
             }
         }
@@ -80,10 +93,27 @@ namespace JinChanChanTool.Services.DataServices
         }
 
         /// <summary>
-        /// 使用 Puppeteer Sharp 抓取 datatft.com (V7 - 融合了所有发现的最终版)
+        /// 根据装备名称，获取其图片的完整路径
+        /// </summary>
+        public string GetEquipmentImagePath(string itemName)
+        {
+            // 如果我们没有加载任何赛季，就返回空
+            if (string.IsNullOrEmpty(_currentSeasonPath)) return null;
+
+            // 构建并返回基于当前赛季路径和新文件夹名的完整路径
+            return Path.Combine(_currentSeasonPath, "EquipmentImages", $"{itemName}.png");
+        }
+
+        /// <summary>
+        /// 使用 Puppeteer Sharp 抓取 datatft.com 
         /// </summary>
         public async Task<bool> UpdateDataFromWebAsync(IProgress<Tuple<int, string>> progress)
         {
+            if (string.IsNullOrEmpty(_currentSeasonPath))
+            {
+                MessageBox.Show("错误：未设置当前赛季路径，无法保存更新。", "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             // 构建装备ID->中文名映射表
             var equipmentIdToNameMap = new Dictionary<string, string>
             {
@@ -123,7 +153,7 @@ namespace JinChanChanTool.Services.DataServices
                 System.Diagnostics.Debug.WriteLine("正在准备浏览器环境...");
                 var browserFetcher = GetCustomBrowserFetcher();
 
-                // v13+ 的写法：DownloadAsync 会返回 InstalledBrowser
+                // v13+版本的写法：DownloadAsync 会返回 InstalledBrowser
                 var installedBrowser = await browserFetcher.DownloadAsync();
 
                 await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
@@ -186,7 +216,7 @@ namespace JinChanChanTool.Services.DataServices
                 var tasks = new List<Task>();
                 var processedCount = 0;
 
-                // 【修改】使用过滤后的英雄列表，并更新总数
+                // 使用过滤后的英雄列表，并更新总数
                 int totalHeroes = heroesToScrape.Count;
                 if (totalHeroes == 0) // 如果过滤后没有英雄了
                 {
@@ -194,7 +224,7 @@ namespace JinChanChanTool.Services.DataServices
                     return true; // 可以认为任务成功完成
                 }
 
-                // 【修改】遍历过滤后的字典
+                // 遍历过滤后的字典
                 foreach (var heroPair in heroesToScrape)
                 {
                     await semaphore.WaitAsync();
@@ -220,9 +250,9 @@ namespace JinChanChanTool.Services.DataServices
                     var finalData = new Dictionary<string, List<string>>(newEquipmentData);
                     var options = new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
                     string jsonString = JsonSerializer.Serialize(finalData, options);
-                    string jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Equipment", "EquipmentData.json");
+                    string jsonPath = Path.Combine(_currentSeasonPath, "EquipmentData.json");
                     await File.WriteAllTextAsync(jsonPath, jsonString);
-                    LoadData();
+                    LoadDataForSeason(_currentSeasonPath);
                     MessageBox.Show($"成功更新了 {newEquipmentData.Count} 位英雄的出装数据！", "更新完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true; // 成功时返回 true
                 }

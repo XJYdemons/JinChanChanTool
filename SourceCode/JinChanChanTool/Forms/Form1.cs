@@ -42,7 +42,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 自动拿牌服务
         /// </summary>
-        private  CardService _cardService;
+        private CardService _cardService;
 
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService)
         {
@@ -72,7 +72,7 @@ namespace JinChanChanTool
             #endregion                                                     
         }
 
-        private  void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             #region 初始化赛季下拉框
             comboBox2.Items.Clear();
@@ -110,7 +110,12 @@ namespace JinChanChanTool
             MouseHookTool.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
             #endregion
 
-                   
+            if (_iheroDataService.Paths.Length > _iheroDataService.PathIndex)
+            {
+                string initialSeasonPath = _iheroDataService.Paths[_iheroDataService.PathIndex];
+                btnUpdateData.Tag = initialSeasonPath; // 假设你的更新按钮名叫 btnUpdateData
+            }
+
         }
 
         /// <summary>
@@ -314,7 +319,12 @@ namespace JinChanChanTool
             _uiBuilderService.UnBuild();
             UIBuildAndBidingEvents();
             LoadNameFromLineUpsToComboBox();
-            LoadImagesFromLineUpsToSubLineUpPictureBoxesAndSelectTheFirstSubLineUp();//分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容            
+            LoadImagesFromLineUpsToSubLineUpPictureBoxesAndSelectTheFirstSubLineUp();//分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容
+            if (_iheroDataService.Paths.Length > _iheroDataService.PathIndex)
+            {
+                string newSeasonPath = _iheroDataService.Paths[_iheroDataService.PathIndex];
+                btnUpdateData.Tag = newSeasonPath;
+            }                                                                         
         }
         #endregion
 
@@ -433,7 +443,7 @@ namespace JinChanChanTool
                 button1.Text = "停止";
                 comboBox2.Enabled = false;
                 _cardService.StartLoop();
-            }           
+            }
         }
 
         /// <summary>
@@ -449,10 +459,10 @@ namespace JinChanChanTool
                 _cardService.AutoRefreshOff();
             }
             else
-            {                
-                button2.Text = "停止";                
+            {
+                button2.Text = "停止";
                 _cardService.AutoRefreshOn();
-            }            
+            }
         }
         #endregion
 
@@ -1058,33 +1068,48 @@ namespace JinChanChanTool
 
         private async void btnUpdateData_Click(object sender, EventArgs e)
         {
-            // 1. 创建服务和进度窗口的实例
-            var equipmentService = new EquipmentService();
+            // 1. 直接获取全局唯一的 EquipmentService 实例
+            var equipmentService = EquipmentService.Instance;
             var progressForm = new JinChanChanTool.Forms.ProgressForm();
 
-            // 2. 定义 IProgress 的行为
-            // 当 EquipmentService 调用 Report 时，就会执行这里的代码
+            // 2. 定义 IProgress 的行为 (这部分不变)
             var progress = new Progress<Tuple<int, string>>(update =>
             {
-                // 把收到的进度，更新到进度窗口的UI上
                 progressForm.UpdateProgress(update.Item1, update.Item2);
             });
 
+            // 将 sender 转换为 Button 类型，以便我们访问它的属性
             var button = sender as Button;
-            if (button != null) button.Enabled = false;
+            if (button == null) return; // 如果转换失败，直接退出
 
-            // 3. 显示进度窗口
-            progressForm.Show(this); // this 让进度窗口显示在主窗口之上
+            // =========================================================
+            // ============>  从“便利贴”上读取路径！  <==================
+            // =========================================================
+            // 3. 从被点击的按钮自己的 Tag 属性中，读取我们之前存好的赛季路径
+            string currentSeasonPath = button.Tag as string;
 
-            // 4. 开始后台更新，并将 progress 对象传递进去
+            // 检查是否成功获取到了路径
+            if (string.IsNullOrEmpty(currentSeasonPath))
+            {
+                MessageBox.Show("错误：未能获取当前赛季的有效路径，无法进行更新。", "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // 4. 在调用更新前，用我们拿到的路径来“告知” EquipmentService
+            equipmentService.LoadDataForSeason(currentSeasonPath);
+
+            // 5. 禁用按钮，并显示进度窗口
+            button.Enabled = false;
+            progressForm.Show(this);
+
+            // 6. 开始后台更新，并将 progress 对象传递进去
             bool updateSuccess = await equipmentService.UpdateDataFromWebAsync(progress);
 
-            // 5. 更新完成后，关闭进度窗口
+            // 7. 更新完成后，关闭进度窗口并恢复按钮
             progressForm.Close();
+            button.Enabled = true;
 
-            if (button != null) button.Enabled = true;
-
-            // 6. 重启和清理逻辑
+            // 8. 重启和清理逻辑 (这部分不变)
             if (updateSuccess)
             {
                 DialogResult result = MessageBox.Show(
@@ -1101,5 +1126,6 @@ namespace JinChanChanTool
                 }
             }
         }
+        #endregion
     }
 }

@@ -1082,10 +1082,7 @@ namespace JinChanChanTool
             var button = sender as Button;
             if (button == null) return; // 如果转换失败，直接退出
 
-            // =========================================================
-            // ============>  从“便利贴”上读取路径！  <==================
-            // =========================================================
-            // 3. 从被点击的按钮自己的 Tag 属性中，读取我们之前存好的赛季路径
+            // 3. 从被点击的按钮自己的 Tag 属性中，读取存好的赛季路径
             string currentSeasonPath = button.Tag as string;
 
             // 检查是否成功获取到了路径
@@ -1109,7 +1106,7 @@ namespace JinChanChanTool
             progressForm.Close();
             button.Enabled = true;
 
-            // 8. 重启和清理逻辑 (这部分不变)
+            // 8. 重启和清理逻辑
             if (updateSuccess)
             {
                 DialogResult result = MessageBox.Show(

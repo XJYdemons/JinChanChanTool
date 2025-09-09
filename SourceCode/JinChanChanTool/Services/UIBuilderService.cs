@@ -298,6 +298,7 @@ namespace JinChanChanTool.Services
             pictureBox.Image = _iHeroDataService.HeroDataToImageMap[hero];
             pictureBox.Location = (Point)_form.LogicalToDeviceUnits((Size)heroSelectorPoints[位置, 0]);
             pictureBox.Tag = hero;
+            pictureBox.CurrentHero = hero; // 将完整的英雄数据对象传递给PictureBox，让它能访问推荐装备
             switch (hero.Cost)
             {
                 case 1:

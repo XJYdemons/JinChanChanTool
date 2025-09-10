@@ -40,13 +40,15 @@ namespace JinChanChanTool.Services
         private readonly TabPage _tabPage5;
         private readonly Panel _professionButtonPanel;
         private readonly Panel _peculiarityButtonPanel;
+        private readonly IHeroEquipmentDataService _iHeroEquipmentDataService;//  添加对新数据中心服务的引用
 
-        public UIBuilderService(Form1 form, TabPage tabPage1, TabPage tabPage2, TabPage tabPage3, TabPage tabPage4, TabPage tabPage5, Panel professionButtonPanel, Panel peculiarityButtonPanel, IHeroDataService iHeroDataService, ILineUpService iLineUpservice, IAppConfigService iAppConfigService)
+        public UIBuilderService(Form1 form, TabPage tabPage1, TabPage tabPage2, TabPage tabPage3, TabPage tabPage4, TabPage tabPage5, Panel professionButtonPanel, Panel peculiarityButtonPanel, IHeroDataService iHeroDataService, ILineUpService iLineUpservice, IAppConfigService iAppConfigService, IHeroEquipmentDataService iHeroEquipmentDataService)
         {
             _form = form;
             _iHeroDataService = iHeroDataService;
             _iLineUpservice = iLineUpservice;
             _iAppConfigService = iAppConfigService;
+            _iHeroEquipmentDataService = iHeroEquipmentDataService;
             _tabPage1 = tabPage1;
             _tabPage2 = tabPage2;
             _tabPage3 = tabPage3;
@@ -299,6 +301,24 @@ namespace JinChanChanTool.Services
             pictureBox.Image = _iHeroDataService.HeroDataToImageMap[hero];
             pictureBox.Location = (Point)_form.LogicalToDeviceUnits((Size)heroSelectorPoints[位置, 0]);
             pictureBox.Tag = hero;
+
+            // 1. 从新的数据服务中，根据英雄名查找对应的装备信息对象
+            var heroEquipment = _iHeroEquipmentDataService.HeroEquipments
+                .FirstOrDefault(he => he.HeroName == hero.HeroName);
+
+            if (heroEquipment != null)
+            {
+                // 2. 使用该对象作为键，从图片映射字典中获取预加载好的图片列表
+                if (_iHeroEquipmentDataService.EquipmentImageMap.TryGetValue(heroEquipment, out var equipmentImages))
+                {
+                    // 3. 创建新的、纯展示的 ToolTip 实例，并将图片列表传入
+                    var equipmentToolTip = new JinChanChanTool.DIYComponents.EquipmentToolTip(equipmentImages);
+
+                    // 4. 将这个 ToolTip 关联到 PictureBox 上
+                    equipmentToolTip.SetToolTip(pictureBox, " "); // 文本内容不重要，只是为了激活
+                }
+            }
+
             switch (hero.Cost)
             {
                 case 1:

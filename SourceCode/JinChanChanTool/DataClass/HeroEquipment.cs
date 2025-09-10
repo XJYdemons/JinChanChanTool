@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace JinChanChanTool.DataClass
@@ -12,12 +13,15 @@ namespace JinChanChanTool.DataClass
     public class HeroEquipment
     {
         /// <summary>
-        /// 英雄名称
+        /// 英雄的中文名
         /// </summary>
-        public string HeroName{ get; set; }
+        [JsonPropertyName("heroName")]
+        public string HeroName { get; set; }
+
         /// <summary>
-        /// 装备名称列表
+        /// 该英雄的推荐装备列表 (通常包含3件装备的中文名)
         /// </summary>
-        public  List<string> Equipments { get; set; }
+        [JsonPropertyName("equipments")]
+        public List<string> Equipments { get; set; }
     }
 }

@@ -35,6 +35,11 @@ namespace JinChanChanTool
         private readonly ILineUpService _ilineUpService;
 
         /// <summary>
+        /// 英雄装备推荐数据服务实例
+        /// </summary>
+        private readonly IHeroEquipmentDataService _iheroEquipmentDataService;
+
+        /// <summary>
         /// UI构建服务实例
         /// </summary>
         private readonly UIBuilderService _uiBuilderService;
@@ -42,9 +47,9 @@ namespace JinChanChanTool
         /// <summary>
         /// 自动拿牌服务
         /// </summary>
-        private  CardService _cardService;
+        private CardService _cardService;
 
-        public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService)
+        public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
             LogTool.Log("主窗口已初始化！");
@@ -66,13 +71,17 @@ namespace JinChanChanTool
             _ilineUpService = ilineUpService;
             #endregion
 
+            #region 英雄装备数据服务实例化
+            _iheroEquipmentDataService = iheroEquipmentDataService;
+            #endregion
+
             #region UI构建服务实例化并构建UI并绑定事件           
-            _uiBuilderService = new UIBuilderService(this, tabPage1, tabPage2, tabPage3, tabPage4, tabPage5, panel10, panel11, _iheroDataService, _ilineUpService, _iappConfigService);
+            _uiBuilderService = new UIBuilderService(this, tabPage1, tabPage2, tabPage3, tabPage4, tabPage5, panel10, panel11, _iheroDataService, _ilineUpService, _iappConfigService, _iheroEquipmentDataService);
             UIBuildAndBidingEvents();
             #endregion                                                     
         }
 
-        private  void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             #region 初始化赛季下拉框
             comboBox2.Items.Clear();
@@ -110,7 +119,7 @@ namespace JinChanChanTool
             MouseHookTool.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
             #endregion
 
-                   
+
         }
 
         /// <summary>
@@ -433,7 +442,7 @@ namespace JinChanChanTool
                 button1.Text = "停止";
                 comboBox2.Enabled = false;
                 _cardService.StartLoop();
-            }           
+            }
         }
 
         /// <summary>
@@ -449,10 +458,10 @@ namespace JinChanChanTool
                 _cardService.AutoRefreshOff();
             }
             else
-            {                
-                button2.Text = "停止";                
+            {
+                button2.Text = "停止";
                 _cardService.AutoRefreshOn();
-            }            
+            }
         }
         #endregion
 
@@ -1050,9 +1059,91 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void txtLineupCode_Leave(object sender, EventArgs e)
         {
-            if(txtLineupCode.Text =="")
+            if (txtLineupCode.Text == "")
             {
                 txtLineupCode.Text = "请在此处粘贴阵容代码";
+            }
+        }
+        #endregion
+
+        #region 更新装备数据
+        /// <summary>
+        /// 处理“更新装备数据”按钮的点击事件。
+        /// 这是协调所有新服务完成数据更新流程的总入口。
+        /// </summary>
+        private async void btnUpdateData_Click(object sender, EventArgs e)
+        {
+            // 将 sender 转换为 Button 类型，以便我们访问它的属性
+            var button = sender as Button;
+            if (button == null) return;
+
+            // 禁用按钮，防止用户重复点击
+            button.Enabled = false;
+
+            // 创建进度条窗口，用于向用户反馈进度
+            var progressForm = new JinChanChanTool.Forms.ProgressForm();
+            var progress = new Progress<Tuple<int, string>>(update =>
+            {
+                progressForm.UpdateProgress(update.Item1, update.Item2);
+            });
+
+            try
+            {
+                progressForm.Show(this); // 显示进度窗口
+
+                // 实时创建和注入服务 (遵循单一职责)
+                // 1. 创建本地配置数据服务，并加载所有映射文件
+                IApiRequestPayloadDataService payloadDataService = new ApiRequestPayloadDataService();
+                await payloadDataService.LoadAllAsync();
+
+                // 2. 创建网络爬取服务，并将 payloadDataService 注入进去
+                ICrawlingService crawlingService = new CrawlingService(payloadDataService);
+
+                // 3. 开始后台网络爬取，并等待结果
+                List<HeroEquipment> crawledData = await crawlingService.GetEquipmentsAsync(progress);
+
+                bool updateSuccess = false;
+                if (crawledData != null && crawledData.Any())
+                {
+                    // 4. 将爬取到的新数据，传递给我们注入的“数据中心”服务进行更新和保存
+                    _iheroEquipmentDataService.UpdateDataFromCrawling(crawledData);
+                    updateSuccess = true;
+                }
+                else
+                {
+                    MessageBox.Show("未能从网络获取到任何有效的装备数据，请检查网络连接或稍后再试。", "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                // 提示重启
+                if (updateSuccess)
+                {
+                    // 5. 重新加载数据中心的内存（特别是重新加载图片）
+                    _iheroEquipmentDataService.ReLoad();
+
+                    // 6. 提示用户重启以确保所有状态都刷新
+                    DialogResult result = MessageBox.Show(
+                        "装备数据更新成功！\n\n为了确保所有组件都使用最新数据，建议重启程序。\n点击“确定”立即重启。",
+                        "更新完成",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    if (result == DialogResult.OK)
+                    {
+                        Application.Restart();
+                        Environment.Exit(0);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // 捕获任何在流程中未被处理的异常
+                MessageBox.Show($"更新过程中发生未知错误: {ex.Message}", "严重错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // 无论成功还是失败，都确保关闭进度窗口并恢复按钮
+                progressForm.Close();
+                button.Enabled = true;
             }
         }
         #endregion

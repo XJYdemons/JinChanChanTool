@@ -27,8 +27,12 @@ namespace JinChanChanTool
             ILineUpService _ilineUpService = new LineUpService(_iheroDataService.HeroDatas.Count, _iappConfigService.CurrentConfig.CountOfLine);
             _ilineUpService.Load();
 
+            // 创建并加载英雄装备推荐数据服务
+            IHeroEquipmentDataService _iheroEquipmentDataService = new HeroEquipmentDataService();
+            _iheroEquipmentDataService.Load();
+
             // 运行主窗体并传入应用设置服务
-            Application.Run(new Form1(_iappConfigService, _iheroDataService, _ilineUpService, _iCorrectionService));
+            Application.Run(new Form1(_iappConfigService, _iheroDataService, _ilineUpService, _iCorrectionService, _iheroEquipmentDataService));
 
         }
     }

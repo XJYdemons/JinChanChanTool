@@ -56,6 +56,7 @@
             comboBox2 = new ComboBox();
             txtLineupCode = new TextBox();
             btnParseLineup = new Button();
+            btnUpdateData = new Button();
             tabControl8.SuspendLayout();
             tabPage6.SuspendLayout();
             panel11.SuspendLayout();
@@ -344,11 +345,22 @@
             btnParseLineup.UseVisualStyleBackColor = true;
             btnParseLineup.Click += btnParseLineup_Click;
             // 
+            // btnUpdateData
+            // 
+            btnUpdateData.Location = new Point(302, 559);
+            btnUpdateData.Name = "btnUpdateData";
+            btnUpdateData.Size = new Size(92, 24);
+            btnUpdateData.TabIndex = 224;
+            btnUpdateData.Text = "更新装备数据";
+            btnUpdateData.UseVisualStyleBackColor = true;
+            btnUpdateData.Click += btnUpdateData_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(399, 621);
+            Controls.Add(btnUpdateData);
             Controls.Add(btnParseLineup);
             Controls.Add(txtLineupCode);
             Controls.Add(comboBox2);
@@ -408,5 +420,6 @@
         private ComboBox comboBox2;
         private TextBox txtLineupCode;
         private Button btnParseLineup;
+        private Button btnUpdateData;
     }
 }

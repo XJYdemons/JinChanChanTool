@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Services.DataServices;
+using System.Diagnostics;
 
 namespace JinChanChanTool.Services
 {
@@ -456,16 +457,14 @@ namespace JinChanChanTool.Services
             panel.TabStop = false;
 
             if (_iAppConfigService.CurrentConfig.MaxOfChoices <= 10)
-            {
+            {               
                 panel.AutoScroll = false;
-
                 panel.Size = _form.LogicalToDeviceUnits(subLineUpPanelSizes[0]);
                 panel.Location = (Point)_form.LogicalToDeviceUnits((Size)subLineUpPanelLocation[0, locationIndex]);
             }
             else
-            {
+            {                
                 panel.AutoScroll = true;
-
                 panel.Size = _form.LogicalToDeviceUnits(subLineUpPanelSizes[1]);
                 panel.Location = (Point)_form.LogicalToDeviceUnits((Size)subLineUpPanelLocation[1, locationIndex]);
             }
@@ -497,6 +496,8 @@ namespace JinChanChanTool.Services
             subLineUpPanels.Add(CreatSubLinePanel(0));
             subLineUpPanels.Add(CreatSubLinePanel(1));
             subLineUpPanels.Add(CreatSubLinePanel(2));
+            Debug.WriteLine($"subLineUpPictureBoxes.GetLength0:{subLineUpPictureBoxes.GetLength(0)}");
+            Debug.WriteLine($"subLineUpPictureBoxes.GetLength1:{subLineUpPictureBoxes.GetLength(1)}");
             for (int i = 0; i < subLineUpPictureBoxes.GetLength(0); i++)
             {
                 for (int j = 0; j < subLineUpPictureBoxes.GetLength(1); j++)
@@ -528,9 +529,9 @@ namespace JinChanChanTool.Services
             professionButtons.Clear();
             peculiarityButtons.Clear();
             subLineUpPanels.Clear();
-
+            
             // 5. 重新初始化子阵容图片框数组
-            subLineUpPictureBoxes = new HeroPictureBox[3, _iAppConfigService.CurrentConfig.CountOfLine];
+            subLineUpPictureBoxes = new HeroPictureBox[3, _iAppConfigService.CurrentConfig.MaxOfChoices];
         }
 
         private void ClearTabPageControls(TabPage tabPage)

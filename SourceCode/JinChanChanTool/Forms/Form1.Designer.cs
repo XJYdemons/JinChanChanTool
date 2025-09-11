@@ -596,8 +596,7 @@
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Padding = new Padding(3, 2, 3, 5);
             panel_BackGround.Size = new Size(400, 630);
-            panel_BackGround.TabIndex = 5;
-            panel_BackGround.Paint += panel_BackGround_Paint;
+            panel_BackGround.TabIndex = 5;           
             // 
             // Form1
             // 

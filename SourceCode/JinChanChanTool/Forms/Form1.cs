@@ -1156,12 +1156,6 @@ namespace JinChanChanTool
                 _toolStripMenuItem.Enabled = true;
             }
         }
-        #endregion
-
-
-        private void panel_BackGround_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        #endregion        
     }
 }

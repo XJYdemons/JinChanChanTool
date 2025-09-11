@@ -4,11 +4,11 @@ using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
+using JinChanChanTool.Tools.LineUpCodeTools;
 using JinChanChanTool.Tools.MouseTools;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Drawing.Imaging;
-using JinChanChanTool.Tools.LineUpCodeTools;
 namespace JinChanChanTool
 {
     public partial class Form1 : Form
@@ -52,6 +52,10 @@ namespace JinChanChanTool
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
+            // 添加自定义标题栏
+            CustomTitleBar titleBar = new CustomTitleBar(this, Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "icon.ico")), "JinChanChanTool");
+            this.Controls.Add(titleBar);
+
             LogTool.Log("主窗口已初始化！");
 
             #region 设置服务实例化并绑定事件
@@ -76,24 +80,24 @@ namespace JinChanChanTool
             #endregion
 
             #region UI构建服务实例化并构建UI并绑定事件           
-            _uiBuilderService = new UIBuilderService(this, tabPage1, tabPage2, tabPage3, tabPage4, tabPage5, panel10, panel11, _iheroDataService, _ilineUpService, _iappConfigService, _iheroEquipmentDataService);
+            _uiBuilderService = new UIBuilderService(panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _ilineUpService, _iappConfigService, _iheroEquipmentDataService);
             UIBuildAndBidingEvents();
             #endregion                                                     
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
+
             #region 初始化赛季下拉框
-            comboBox2.Items.Clear();
+            comboBox_HeroPool.Items.Clear();
             foreach (string name in _iheroDataService.Paths)
             {
-                comboBox2.Items.Add(Path.GetFileName(name));
+                comboBox_HeroPool.Items.Add(Path.GetFileName(name));
             }
-            if (comboBox2.Items.Count > 0)
+            if (comboBox_HeroPool.Items.Count > 0)
             {
-                comboBox2.SelectedIndex = 0;
+                comboBox_HeroPool.SelectedIndex = 0;
             }
-            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
+            comboBox_HeroPool.SelectedIndexChanged += comboBox_HeroPool_SelectedIndexChanged;
             #endregion
 
             #region 初始化阵容下拉框
@@ -110,7 +114,7 @@ namespace JinChanChanTool
             #endregion
 
             #region 自动拿牌服务实例化
-            _cardService = new CardService(button1, button2, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);
+            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);
             #endregion    
 
             #region 初始化鼠标钩子并绑定事件
@@ -176,11 +180,11 @@ namespace JinChanChanTool
             string hotKey4 = _iappConfigService.CurrentConfig.HotKey4;
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1)))
             {
-                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1), () => button1_Click(this, EventArgs.Empty));
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1), () => button_GetCard_Click(this, EventArgs.Empty));
             }
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey2)))
             {
-                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey2), () => button2_Click(this, EventArgs.Empty));
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey2), () => button_Refresh_Click(this, EventArgs.Empty));
             }
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey3)))
             {
@@ -190,27 +194,27 @@ namespace JinChanChanTool
             {
                 GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey4), () =>
                 {
-                    if (button1.Text == "启动")
+                    if (button_GetCard.Text == "启动")
                     {
-                        button1_Click(button1, EventArgs.Empty);
+                        button_GetCard_Click(button_GetCard, EventArgs.Empty);
                     }
 
-                    if (button2.Text == "启动")
+                    if (button_Refresh.Text == "启动")
                     {
-                        button2_Click(button2, EventArgs.Empty);
+                        button_Refresh_Click(button_Refresh, EventArgs.Empty);
                     }
                 });
             }
             GlobalHotkeyTool.RegisterKeyUp(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey4), () =>
             {
-                if (button1.Text == "停止")
+                if (button_GetCard.Text == "停止")
                 {
-                    button1_Click(button1, EventArgs.Empty);
+                    button_GetCard_Click(button_GetCard, EventArgs.Empty);
                 }
 
-                if (button2.Text == "停止")
+                if (button_Refresh.Text == "停止")
                 {
-                    button2_Click(button2, EventArgs.Empty);
+                    button_Refresh_Click(button_Refresh, EventArgs.Empty);
                 }
             });
         }
@@ -314,10 +318,10 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_HeroPool_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _ilineUpService.PathIndex = comboBox2.SelectedIndex;
-            _iheroDataService.PathIndex = comboBox2.SelectedIndex;
+            _ilineUpService.PathIndex = comboBox_HeroPool.SelectedIndex;
+            _iheroDataService.PathIndex = comboBox_HeroPool.SelectedIndex;
             _iheroDataService.ReLoad();
             _ilineUpService.ReLoad(_iheroDataService.HeroDatas.Count, _iappConfigService.CurrentConfig.CountOfLine);
             _uiBuilderService.UnBuild();
@@ -429,18 +433,18 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public async void button1_Click(object sender, EventArgs e)
+        public async void button_GetCard_Click(object sender, EventArgs e)
         {
-            if (button1.Text == "停止")
+            if (button_GetCard.Text == "停止")
             {
-                button1.Text = "启动";
-                comboBox2.Enabled = true;
+                button_GetCard.Text = "启动";
+                comboBox_HeroPool.Enabled = true;
                 _cardService.StopLoop();
             }
             else
             {
-                button1.Text = "停止";
-                comboBox2.Enabled = false;
+                button_GetCard.Text = "停止";
+                comboBox_HeroPool.Enabled = false;
                 _cardService.StartLoop();
             }
         }
@@ -450,16 +454,16 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void button2_Click(object sender, EventArgs e)
+        public void button_Refresh_Click(object sender, EventArgs e)
         {
-            if (button2.Text == "停止")
+            if (button_Refresh.Text == "停止")
             {
-                button2.Text = "启动";
+                button_Refresh.Text = "启动";
                 _cardService.AutoRefreshOff();
             }
             else
             {
-                button2.Text = "停止";
+                button_Refresh.Text = "停止";
                 _cardService.AutoRefreshOn();
             }
         }
@@ -474,7 +478,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+        private void button_Clear_Click(object sender, EventArgs e)
         {
             ClearCheckBox();
         }
@@ -484,7 +488,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button4_Click(object sender, EventArgs e)
+        private void button_Save_Click(object sender, EventArgs e)
         {
             _ilineUpService.Save();
             MessageBox.Show("阵容已保存！");
@@ -495,11 +499,11 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox1_DropDownClosed(object sender, EventArgs e)
+        private void comboBox_LineUps_DropDownClosed(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex != -1)
+            if (comboBox_LineUps.SelectedIndex != -1)
             {
-                _ilineUpService.LineUpIndex = comboBox1.SelectedIndex;
+                _ilineUpService.LineUpIndex = comboBox_LineUps.SelectedIndex;
             }
             //从本地阵容文件读取数据到_lineupManager
             _ilineUpService.Load();
@@ -514,11 +518,11 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox1_Leave(object sender, EventArgs e)
+        private void comboBox_LineUps_Leave(object sender, EventArgs e)
         {
-            if (comboBox1.Items.Count > _ilineUpService.LineUpIndex)
+            if (comboBox_LineUps.Items.Count > _ilineUpService.LineUpIndex)
             {
-                comboBox1.Items[_ilineUpService.LineUpIndex] = comboBox1.Text;
+                comboBox_LineUps.Items[_ilineUpService.LineUpIndex] = comboBox_LineUps.Text;
             }
             LoadNameFromComboBoxToLineUps();
         }
@@ -528,15 +532,15 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        private void comboBox_LineUps_KeyDown(object sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
             if (key == Keys.Enter)
             {
-                if (comboBox1.Items.Count > _ilineUpService.LineUpIndex)
+                if (comboBox_LineUps.Items.Count > _ilineUpService.LineUpIndex)
                 {
-                    comboBox1.Items[_ilineUpService.LineUpIndex] = comboBox1.Text;
+                    comboBox_LineUps.Items[_ilineUpService.LineUpIndex] = comboBox_LineUps.Text;
                 }
                 LoadNameFromComboBoxToLineUps();
                 this.ActiveControl = null;  // 将活动控件设置为null，下拉框失去焦点
@@ -603,9 +607,11 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void Panel_MouseEnter(object sender, EventArgs e)
         {
-            Panel panel = sender as Panel;
-            Size newSize = new Size(_uiBuilderService.subLineUpPictureBoxes.GetLength(1) <= 10 ? _uiBuilderService.GetSubLineUpPanelSizes(0).Width + 1 : _uiBuilderService.GetSubLineUpPanelSizes(1).Width + 1, _uiBuilderService.subLineUpPictureBoxes.GetLength(1) <= 10 ? _uiBuilderService.GetSubLineUpPanelSizes(0).Height + 1 : _uiBuilderService.GetSubLineUpPanelSizes(1).Height + 1);
-            panel.Size = this.LogicalToDeviceUnits(newSize);
+            Panel panel = sender as FlowLayoutPanel;
+            if (panel.BackColor == SystemColors.Control)
+            {
+                panel.BackColor = Color.FromArgb(255, (int)(173 * 1.05), (int)(216 * 1.05), (int)(230 * 1.05));
+            }
         }
 
         /// <summary>
@@ -615,9 +621,11 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void Panel_MouseLeave(object sender, EventArgs e)
         {
-            Panel panel = sender as Panel;
-            Size newSize = _uiBuilderService.subLineUpPictureBoxes.GetLength(1) <= 10 ? _uiBuilderService.GetSubLineUpPanelSizes(0) : _uiBuilderService.GetSubLineUpPanelSizes(1);
-            panel.Size = this.LogicalToDeviceUnits(newSize);
+            FlowLayoutPanel panel = sender as FlowLayoutPanel;
+            if (panel.BackColor == Color.FromArgb(255, (int)(173 * 1.05), (int)(216 * 1.05), (int)(230 * 1.05)))
+            {
+                panel.BackColor = SystemColors.Control;
+            }
         }
 
         /// <summary>
@@ -628,8 +636,9 @@ namespace JinChanChanTool
         private void Panel_MouseUp(object sender, EventArgs e)
         {
 
-            Panel panel = sender as Panel;
-            panel.Size = this.LogicalToDeviceUnits(new Size(panel.Width - 1, panel.Height - 1));
+            FlowLayoutPanel panel = sender as FlowLayoutPanel;
+            panel.BackColor = Color.SkyBlue;
+
             _ilineUpService.SubLineUpIndex = _uiBuilderService.subLineUpPanels.IndexOf(panel);
             SwitchSubLineUp();
             LoadCheckStateFromLineUpsToCheckBox();
@@ -642,8 +651,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void Panel_MouseDown(object sender, EventArgs e)
         {
-            Panel panel = (Panel)sender;
-            panel.Size = this.LogicalToDeviceUnits(new Size(panel.Width + 1, panel.Height + 1));
+            FlowLayoutPanel panel = sender as FlowLayoutPanel;
+            panel.BackColor = Color.FromArgb(255, (int)(173 * 0.9), (int)(216 * 0.9), (int)(230 * 0.9));
         }
         #endregion
 
@@ -906,14 +915,14 @@ namespace JinChanChanTool
         /// </summary>
         private void LoadNameFromLineUpsToComboBox()
         {
-            comboBox1.Items.Clear();
+            comboBox_LineUps.Items.Clear();
             for (int i = 0; i < _ilineUpService.LineUps.Count; i++)
             {
-                comboBox1.Items.Add(_ilineUpService.LineUps[i].Name);
+                comboBox_LineUps.Items.Add(_ilineUpService.LineUps[i].Name);
             }
-            if (comboBox1.Items.Count > _ilineUpService.LineUpIndex)
+            if (comboBox_LineUps.Items.Count > _ilineUpService.LineUpIndex)
             {
-                comboBox1.SelectedIndex = _ilineUpService.LineUpIndex;
+                comboBox_LineUps.SelectedIndex = _ilineUpService.LineUpIndex;
             }
 
         }
@@ -937,7 +946,7 @@ namespace JinChanChanTool
         {
             for (int i = 0; i < _ilineUpService.LineUps.Count; i++)
             {
-                _ilineUpService.LineUps[i].Name = comboBox1.Items[i].ToString();
+                _ilineUpService.LineUps[i].Name = comboBox_LineUps.Items[i].ToString();
             }
         }
 
@@ -966,9 +975,9 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnParseLineup_Click(object sender, EventArgs e)
+        private void button_ParseLineUp_Click(object sender, EventArgs e)
         {
-            string lineupCode = txtLineupCode.Text.Trim();
+            string lineupCode = textBox_LineUpCode.Text.Trim();
             if (string.IsNullOrEmpty(lineupCode))
             {
                 MessageBox.Show("请输入阵容代码！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1047,9 +1056,9 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtLineupCode_Enter(object sender, EventArgs e)
+        private void textBox_LineUpCode_Enter(object sender, EventArgs e)
         {
-            txtLineupCode.Text = "";
+            textBox_LineUpCode.Text = "";
         }
 
         /// <summary>
@@ -1057,11 +1066,11 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtLineupCode_Leave(object sender, EventArgs e)
+        private void textBox_LineUpCode_Leave(object sender, EventArgs e)
         {
-            if (txtLineupCode.Text == "")
+            if (textBox_LineUpCode.Text == "")
             {
-                txtLineupCode.Text = "请在此处粘贴阵容代码";
+                textBox_LineUpCode.Text = "请在此处粘贴阵容代码";
             }
         }
         #endregion
@@ -1071,15 +1080,15 @@ namespace JinChanChanTool
         /// 处理“更新装备数据”按钮的点击事件。
         /// 这是协调所有新服务完成数据更新流程的总入口。
         /// </summary>
-        private async void btnUpdateData_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem_GetEquipments_Click(object sender, EventArgs e)
         {
+
             // 将 sender 转换为 Button 类型，以便我们访问它的属性
-            var button = sender as Button;
-            if (button == null) return;
+            var _toolStripMenuItem = sender as ToolStripMenuItem;
+            if (_toolStripMenuItem == null) return;
 
             // 禁用按钮，防止用户重复点击
-            button.Enabled = false;
-
+            _toolStripMenuItem.Enabled = false;
             // 创建进度条窗口，用于向用户反馈进度
             var progressForm = new JinChanChanTool.Forms.ProgressForm();
             var progress = new Progress<Tuple<int, string>>(update =>
@@ -1089,6 +1098,7 @@ namespace JinChanChanTool
 
             try
             {
+
                 progressForm.Show(this); // 显示进度窗口
 
                 // 实时创建和注入服务 (遵循单一职责)
@@ -1143,9 +1153,15 @@ namespace JinChanChanTool
             {
                 // 无论成功还是失败，都确保关闭进度窗口并恢复按钮
                 progressForm.Close();
-                button.Enabled = true;
+                _toolStripMenuItem.Enabled = true;
             }
         }
         #endregion
+
+
+        private void panel_BackGround_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

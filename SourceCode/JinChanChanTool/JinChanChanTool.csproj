@@ -532,7 +532,9 @@
     <Content Include="Resources\HeroDatas\符文大陆\images\黑默丁格.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\icon.ico" />
+    <Content Include="Resources\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

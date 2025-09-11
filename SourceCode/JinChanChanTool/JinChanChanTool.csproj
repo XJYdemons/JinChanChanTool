@@ -643,7 +643,7 @@
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\光明版棘刺背心.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\光明版正义之拳.png">
+    <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\光明版正义之手.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\光明版死亡之刃.png">

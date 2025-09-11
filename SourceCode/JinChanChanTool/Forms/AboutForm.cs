@@ -10,7 +10,9 @@ namespace JinChanChanTool
         public AboutForm()
         {
             InitializeComponent();
-            this.ShowIcon = false;//隐藏图标           
+            // 添加自定义标题栏
+            CustomTitleBar titleBar = new CustomTitleBar(this, null, "关于");
+            this.Controls.Add(titleBar);                       
         }
 
         /// <summary>

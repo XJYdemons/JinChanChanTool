@@ -22,6 +22,9 @@ namespace JinChanChanTool
         public SettingForm(IAppConfigService _iAppConfigService)
         {
             InitializeComponent();
+            // 添加自定义标题栏
+            CustomTitleBar titleBar = new CustomTitleBar(this, null, "设置");
+            this.Controls.Add(titleBar);
             //隐藏图标
             this.ShowIcon = false;
 
@@ -37,23 +40,7 @@ namespace JinChanChanTool
             //初始化显示文本
             Update_AllComponents();
 
-            #region 小提示
-            toolTip1.SetToolTip(pictureBox5, "当连接多台显示器时，该选项生效。\n选择截图目标（游戏窗口）所在的显示器。\n默认值：1 - \\\\.\\DISPLAY1");
-            toolTip1.SetToolTip(pictureBox6, "需要填入6个数值，分别是X1-X5与Y。" +
-                "\n程序使用OCR（光学字符识别）来匹配目标是否是指定奕子，因此需要对商店奕子的名称部分进行截图操作，这批数值决定了该在哪开始截图。" +
-                                             "\nX1：代表商店从左到右数第1张奕子名称的截图起始点的横坐标，截图左顶点处为起始点,水平向右为X正轴，垂直向下为Y正轴。" +
-                                             "\nX2：代表商店从左到右数第2张奕子名称的截图起始点的横坐标，截图左顶点处为起始点,水平向右为X正轴，垂直向下为Y正轴。" +
-                                             "\nX3：代表商店从左到右数第3张奕子名称的截图起始点的横坐标，截图左顶点处为起始点,水平向右为X正轴，垂直向下为Y正轴。" +
-                                             "\nX4：代表商店从左到右数第4张奕子名称的截图起始点的横坐标，截图左顶点处为起始点,水平向右为X正轴，垂直向下为Y正轴。" +
-                                             "\nX5：代表商店从左到右数第5张奕子名称的截图起始点的横坐标，截图左顶点处为起始点,水平向右为X正轴，垂直向下为Y正轴。" +
-                                             "\nY：代表商店所有（5张）奕子名称的截图起始点的纵坐标，截图左顶点处为起始点,水平向右为X正轴，垂直向下为Y正轴。"
-                                             );
-            toolTip1.SetToolTip(pictureBox7, "宽和高的值表示从截图起点（图片左顶点）向右与向下分别截取的像素值。\n" +
-                "宽：从截图起点向右截取图片的宽度。" +
-                "\n高：从截图起点向下截取图片的高度。");
-
-            toolTip1.SetToolTip(pictureBox10, "本程序刷新商店使用鼠标模拟移动点击的方式，因此我们要获取到鼠标移动的目标位置，即商店刷新\n按钮的中心坐标。（当然也可以是按钮的其他部位，不过中心部位是最不容易点击失误的地方）");
-            #endregion
+         
 
             // 获取所有连接的显示器  
             screens = Screen.AllScreens;
@@ -469,7 +456,7 @@ namespace JinChanChanTool
                 try
                 {
                     int result = int.Parse(textBox4.Text);
-                    if (result > 0 && result <= 60)
+                    if (result > 0 && result <= 100)
                     {
                         _iappConfigService.CurrentConfig.MaxOfChoices = result;
                     }

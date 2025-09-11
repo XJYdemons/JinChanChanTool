@@ -188,7 +188,7 @@
             tabPage_2Cost.Location = new Point(4, 26);
             tabPage_2Cost.Name = "tabPage_2Cost";
             tabPage_2Cost.Padding = new Padding(3);
-            tabPage_2Cost.Size = new Size(392, 265);
+            tabPage_2Cost.Size = new Size(386, 265);
             tabPage_2Cost.TabIndex = 3;
             tabPage_2Cost.Text = "2费";
             // 
@@ -209,7 +209,7 @@
             tabPage_3Cost.Location = new Point(4, 26);
             tabPage_3Cost.Name = "tabPage_3Cost";
             tabPage_3Cost.Padding = new Padding(3);
-            tabPage_3Cost.Size = new Size(392, 265);
+            tabPage_3Cost.Size = new Size(386, 265);
             tabPage_3Cost.TabIndex = 4;
             tabPage_3Cost.Text = "3费";
             // 
@@ -230,7 +230,7 @@
             tabPage_4Cost.Location = new Point(4, 26);
             tabPage_4Cost.Name = "tabPage_4Cost";
             tabPage_4Cost.Padding = new Padding(3);
-            tabPage_4Cost.Size = new Size(392, 265);
+            tabPage_4Cost.Size = new Size(386, 265);
             tabPage_4Cost.TabIndex = 5;
             tabPage_4Cost.Text = "4费";
             // 
@@ -251,7 +251,7 @@
             tabPage_5Cost.Location = new Point(4, 26);
             tabPage_5Cost.Name = "tabPage_5Cost";
             tabPage_5Cost.Padding = new Padding(3);
-            tabPage_5Cost.Size = new Size(392, 265);
+            tabPage_5Cost.Size = new Size(386, 265);
             tabPage_5Cost.TabIndex = 6;
             tabPage_5Cost.Text = "5费";
             // 
@@ -273,7 +273,7 @@
             tabPage_SelectByProfessionAndPeculiarity.Location = new Point(4, 26);
             tabPage_SelectByProfessionAndPeculiarity.Name = "tabPage_SelectByProfessionAndPeculiarity";
             tabPage_SelectByProfessionAndPeculiarity.Padding = new Padding(3);
-            tabPage_SelectByProfessionAndPeculiarity.Size = new Size(392, 265);
+            tabPage_SelectByProfessionAndPeculiarity.Size = new Size(386, 265);
             tabPage_SelectByProfessionAndPeculiarity.TabIndex = 7;
             tabPage_SelectByProfessionAndPeculiarity.Text = "按职业和特质选择";
             // 
@@ -302,7 +302,7 @@
             panel_SelectByPeculiarity.AutoScroll = true;
             panel_SelectByPeculiarity.Controls.Add(label_特质);
             panel_SelectByPeculiarity.Dock = DockStyle.Right;
-            panel_SelectByPeculiarity.Location = new Point(205, 3);
+            panel_SelectByPeculiarity.Location = new Point(199, 3);
             panel_SelectByPeculiarity.Name = "panel_SelectByPeculiarity";
             panel_SelectByPeculiarity.Size = new Size(184, 259);
             panel_SelectByPeculiarity.TabIndex = 1;
@@ -489,10 +489,10 @@
             comboBox_LineUps.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_LineUps.FormattingEnabled = true;
             comboBox_LineUps.Items.AddRange(new object[] { "阵容1", "阵容2", "阵容3", "阵容4", "阵容5", "阵容6", "阵容7", "阵容8", "阵容9", "阵容10" });
-            comboBox_LineUps.Location = new Point(268, 5);
-            comboBox_LineUps.Margin = new Padding(5);
+            comboBox_LineUps.Location = new Point(264, 5);
+            comboBox_LineUps.Margin = new Padding(2, 5, 2, 5);
             comboBox_LineUps.Name = "comboBox_LineUps";
-            comboBox_LineUps.Size = new Size(121, 25);
+            comboBox_LineUps.Size = new Size(128, 25);
             comboBox_LineUps.TabIndex = 1;
             comboBox_LineUps.Text = "阵容1";
             comboBox_LineUps.DropDownClosed += comboBox_LineUps_DropDownClosed;
@@ -502,13 +502,13 @@
             // label_选择阵容
             // 
             label_选择阵容.AutoSize = true;
-            label_选择阵容.Location = new Point(202, 5);
-            label_选择阵容.Margin = new Padding(5);
+            label_选择阵容.Location = new Point(210, 5);
+            label_选择阵容.Margin = new Padding(2, 5, 2, 5);
             label_选择阵容.MinimumSize = new Size(50, 25);
             label_选择阵容.Name = "label_选择阵容";
-            label_选择阵容.Size = new Size(56, 25);
+            label_选择阵容.Size = new Size(50, 25);
             label_选择阵容.TabIndex = 7;
-            label_选择阵容.Text = "选择阵容";
+            label_选择阵容.Text = "阵容";
             label_选择阵容.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // comboBox_HeroPool
@@ -517,22 +517,22 @@
             comboBox_HeroPool.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_HeroPool.FormattingEnabled = true;
             comboBox_HeroPool.Items.AddRange(new object[] { "巨龙之牙", "符文之地" });
-            comboBox_HeroPool.Location = new Point(71, 5);
-            comboBox_HeroPool.Margin = new Padding(5);
+            comboBox_HeroPool.Location = new Point(57, 5);
+            comboBox_HeroPool.Margin = new Padding(2, 5, 2, 5);
             comboBox_HeroPool.Name = "comboBox_HeroPool";
-            comboBox_HeroPool.Size = new Size(121, 25);
+            comboBox_HeroPool.Size = new Size(149, 25);
             comboBox_HeroPool.TabIndex = 8;
             // 
             // label_选择赛季
             // 
             label_选择赛季.AutoSize = true;
-            label_选择赛季.Location = new Point(5, 5);
-            label_选择赛季.Margin = new Padding(5);
+            label_选择赛季.Location = new Point(3, 5);
+            label_选择赛季.Margin = new Padding(2, 5, 2, 5);
             label_选择赛季.MinimumSize = new Size(50, 25);
             label_选择赛季.Name = "label_选择赛季";
-            label_选择赛季.Size = new Size(56, 25);
+            label_选择赛季.Size = new Size(50, 25);
             label_选择赛季.TabIndex = 9;
-            label_选择赛季.Text = "选择赛季";
+            label_选择赛季.Text = "赛季";
             label_选择赛季.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // menuStrip_Main

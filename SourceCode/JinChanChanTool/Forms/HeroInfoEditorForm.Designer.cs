@@ -141,7 +141,6 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(755, 438);
-            ControlBox = false;
             Controls.Add(button5);
             Controls.Add(button1);
             Controls.Add(comboBox1);

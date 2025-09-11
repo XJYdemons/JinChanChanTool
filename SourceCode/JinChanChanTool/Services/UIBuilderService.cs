@@ -7,6 +7,7 @@ namespace JinChanChanTool.Services
 {
     public class UIBuilderService
     {
+        private readonly Form1 _form1;
         public List<HeroPictureBox> heroPictureBoxes { get; }
         public List<CheckBox> checkBoxes { get; }
         public List<Button> professionButtons { get; }
@@ -55,7 +56,7 @@ namespace JinChanChanTool.Services
         /// </summary>
         private Dictionary<int, Color> CostToColorMap { get; set; }
 
-        public UIBuilderService(Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService, ILineUpService iLineUpservice, IAppConfigService iAppConfigService, IHeroEquipmentDataService iHeroEquipmentDataService)
+        public UIBuilderService(Form1 form1,Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService, ILineUpService iLineUpservice, IAppConfigService iAppConfigService, IHeroEquipmentDataService iHeroEquipmentDataService)
         {
             heroPictureBoxes = new List<HeroPictureBox>();
             checkBoxes = new List<CheckBox>();
@@ -75,8 +76,8 @@ namespace JinChanChanTool.Services
             _iLineUpservice = iLineUpservice;
             _iAppConfigService = iAppConfigService;
             subLineUpPictureBoxes = new HeroPictureBox[3, _iAppConfigService.CurrentConfig.MaxOfChoices];
-            _iHeroEquipmentDataService = iHeroEquipmentDataService;            
-            
+            _iHeroEquipmentDataService = iHeroEquipmentDataService;
+            _form1 = form1;
             BuildCostToColorMap();
         }
 
@@ -141,7 +142,7 @@ namespace JinChanChanTool.Services
                 int groupWidth = Math.Max(pictureBox.Width, Math.Max(label.Width, checkBox.Width));
 
                 // 设置水平居中
-                pictureBox.Location = new Point(currentX + (groupWidth - pictureBox.Width) / 2, currentY);
+                pictureBox.Location =new Point(currentX + (groupWidth - pictureBox.Width) / 2, currentY);
                 label.Location = new Point(currentX + (groupWidth - label.Width) / 2, currentY + pictureBox.Height);
                 checkBox.Location = new Point(
                     currentX + (groupWidth - checkBox.Width) / 2,
@@ -192,7 +193,7 @@ namespace JinChanChanTool.Services
             label.TextAlign = ContentAlignment.MiddleCenter;
             label.Font = new Font("Microsoft YaHei UI", 7F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label.Text = hero.HeroName;
-            label.Size = labelSize;
+            label.Size = _form1.LogicalToDeviceUnits(labelSize);
             label.ForeColor = GetColor(hero.Cost);           
             return label;
         }
@@ -206,7 +207,7 @@ namespace JinChanChanTool.Services
             checkBox.UseVisualStyleBackColor = true;
             checkBox.TabStop = false;
             checkBox.FlatStyle = FlatStyle.Flat;
-            checkBox.Size = checkBoxSize;
+            checkBox.Size = _form1.LogicalToDeviceUnits(checkBoxSize);
             checkBox.Tag = hero;
             return checkBox;
         }
@@ -221,7 +222,7 @@ namespace JinChanChanTool.Services
             pictureBox.TabStop = false;
             pictureBox.BackColor = SystemColors.Control;
             pictureBox.BorderWidth = 2;
-            pictureBox.Size = heroPictureBoxSize;
+            pictureBox.Size = _form1.LogicalToDeviceUnits(heroPictureBoxSize);
             pictureBox.Image = _iHeroDataService.HeroDataToImageMap[hero];
             pictureBox.Tag = hero;
             pictureBox.BorderColor = GetColor(hero.Cost);
@@ -283,7 +284,7 @@ namespace JinChanChanTool.Services
                 Button button = CreatButton();
 
                 // 设置按钮位置
-                button.Location = new Point(currentX, currentY);
+                button.Location = (Point)_form1.LogicalToDeviceUnits((Size)(new Point(currentX, currentY)));
 
                 // 设置按钮文本和标签                
                 dynamic item = items[i];
@@ -323,7 +324,7 @@ namespace JinChanChanTool.Services
             button.ForeColor = SystemColors.ControlText;
             button.Margin = new Padding(0, 0, 0, 0);
             button.TextAlign = ContentAlignment.MiddleCenter;
-            button.Size = professionAndPeculiarityButtonSize;
+            button.Size = _form1.LogicalToDeviceUnits( professionAndPeculiarityButtonSize);
             return button;
         }
 
@@ -341,7 +342,7 @@ namespace JinChanChanTool.Services
             HeroPictureBox heroPictureBox = new HeroPictureBox();
             heroPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             heroPictureBox.Image = null;
-            heroPictureBox.Size = subLineUpPictureBoxSize;
+            heroPictureBox.Size =_form1.LogicalToDeviceUnits(subLineUpPictureBoxSize) ;
             heroPictureBox.Margin = new Padding(3); // 设置间距
             parentPanel.Controls.Add(heroPictureBox);                      
             return heroPictureBox;
@@ -355,7 +356,7 @@ namespace JinChanChanTool.Services
             for (int i = 0; i < subLineUpPictureBoxes.GetLength(0); i++)
             {
                 for (int j = 0; j < subLineUpPictureBoxes.GetLength(1); j++)
-                {
+                {                  
                     subLineUpPictureBoxes[i, j] = CreatSubLinePictureBox(subLineUpPanels[i], j);
                 }
             }
@@ -385,7 +386,7 @@ namespace JinChanChanTool.Services
             checkBoxes.Clear();
             professionButtons.Clear();
             peculiarityButtons.Clear();
-            subLineUpPanels.Clear();
+           
             
             // 5. 重新初始化子阵容图片框数组
             subLineUpPictureBoxes = new HeroPictureBox[3, _iAppConfigService.CurrentConfig.MaxOfChoices];

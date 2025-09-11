@@ -80,7 +80,7 @@ namespace JinChanChanTool
             #endregion
 
             #region UI构建服务实例化并构建UI并绑定事件           
-            _uiBuilderService = new UIBuilderService(panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _ilineUpService, _iappConfigService, _iheroEquipmentDataService);
+            _uiBuilderService = new UIBuilderService(this,panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _ilineUpService, _iappConfigService, _iheroEquipmentDataService);
             UIBuildAndBidingEvents();
             #endregion                                                     
         }

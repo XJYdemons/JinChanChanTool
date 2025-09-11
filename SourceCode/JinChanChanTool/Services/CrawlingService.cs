@@ -20,6 +20,20 @@ namespace JinChanChanTool.Services
         // 用于存放从外部注入的、提供本地配置数据的服务。
         private readonly IApiRequestPayloadDataService _payloadDataService;
 
+        // User-Agent 随机生成器
+        private static readonly Random _random = new Random();
+        private static readonly List<string> _userAgents = new List<string>
+        {
+            // 1. Windows Chrome (PC)
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+            // 2. Android Chrome (Galaxy S9+)
+            "Mozilla/5.0 (Linux; Android 8.0.0; SM-G965U Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36",
+            // 3. iPad Safari
+            "Mozilla/5.0 (iPad; CPU OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+            // 4. iPhone Safari
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1"
+        };
+
         /// <summary>
         /// 构造函数，用于实现依赖注入。
         /// </summary>
@@ -46,8 +60,40 @@ namespace JinChanChanTool.Services
                 string jsonListPayload = System.Text.Json.JsonSerializer.Serialize(listPayload);
                 var payload = new StringContent(jsonListPayload, System.Text.Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync(listApiUrl, payload);
-                response.EnsureSuccessStatusCode(); // 确保HTTP响应状态码为 2xx
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, listApiUrl);
+                requestMessage.Content = payload;
+
+                // 1. 随机选择 User-Agent
+                string randomUserAgent = _userAgents[_random.Next(_userAgents.Count)];
+                requestMessage.Headers.UserAgent.ParseAdd(randomUserAgent);
+
+                // 2. 添加所有请求都共有的 Accept 和 Accept-Language
+                requestMessage.Headers.Accept.ParseAdd("application/json, text/plain, */*");
+                requestMessage.Headers.AcceptLanguage.ParseAdd("zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7");
+
+                // 仅当User-Agent是Chromium核心浏览器时，才添加Sec-CH-*头
+                if (randomUserAgent.Contains("Windows") || randomUserAgent.Contains("Android"))
+                {
+                    // 添加通用的Sec-CH-UA头
+                    requestMessage.Headers.Add("Sec-CH-UA", "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"");
+
+                    // 根据平台设置不同的Sec-CH-UA-Mobile和Sec-CH-UA-Platform
+                    if (randomUserAgent.Contains("Windows"))
+                    {
+                        requestMessage.Headers.Add("Sec-CH-UA-Mobile", "?0"); // ?0 表示非移动设备
+                        requestMessage.Headers.Add("Sec-CH-UA-Platform", "\"Windows\"");
+                    }
+                    else // 否则，根据我们的列表，它就是Android
+                    {
+                        requestMessage.Headers.Add("Sec-CH-UA-Mobile", "?1"); // ?1 表示是移动设备
+                        requestMessage.Headers.Add("Sec-CH-UA-Platform", "\"Android\"");
+                    }
+                }
+                // 如果随机选中的是iPhone或iPad的User-Agent，则此if块不会执行，
+                // 模拟了Safari浏览器不发送Sec-CH-*头的行为。
+
+                var response = await _httpClient.SendAsync(requestMessage);
+                response.EnsureSuccessStatusCode();
 
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 listResponse = System.Text.Json.JsonSerializer.Deserialize<ListApiResponse>(jsonResponse);
@@ -117,6 +163,9 @@ namespace JinChanChanTool.Services
             foreach (var hero in heroesToScrape)
             {
                 await semaphore.WaitAsync();
+
+                // 在启动每个任务前，增加一个小的随机延迟,延迟 200 到 1201 毫秒，让请求看起来不那么像机器人,防止被拉黑ip
+                await Task.Delay(TimeSpan.FromMilliseconds(new Random().Next(200, 1201)));
                 tasks.Add(Task.Run(async () =>
                 {
                     try
@@ -198,7 +247,7 @@ namespace JinChanChanTool.Services
             public string FilterTargetType { get; set; } = "hero";
 
             [JsonPropertyName("version")]
-            public string Version { get; set; } = "15.3"; // 注意：此版本号需要更新,随版本更新
+            public string Version { get; set; } = "15.4"; // 注意：此版本号需要更新,随版本更新
 
             [JsonPropertyName("tier")]
             public string Tier { get; set; } = "diamond";
@@ -229,7 +278,7 @@ namespace JinChanChanTool.Services
         public class ListApiRequestPayload
         {
             [JsonPropertyName("version")]
-            public string Version { get; set; } = "15.3"; // 这个版本号需要更新
+            public string Version { get; set; } = "15.4"; // 这个版本号需要更新
 
             [JsonPropertyName("tier")]
             public string Tier { get; set; } = "diamond";

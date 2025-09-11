@@ -1087,6 +1087,32 @@ namespace JinChanChanTool
             var _toolStripMenuItem = sender as ToolStripMenuItem;
             if (_toolStripMenuItem == null) return;
 
+            // 检查本地缓存的文件修改时间，避免频繁请求
+            try
+            {
+                // 1. 获取当前赛季的 EquipmentData.json 文件路径
+                string currentSeasonPath = _iheroEquipmentDataService.Paths[_iheroEquipmentDataService.PathIndex];
+                string dataFilePath = Path.Combine(currentSeasonPath, "EquipmentData.json");
+
+                // 2. 检查文件是否存在以及上次修改时间
+                if (File.Exists(dataFilePath))
+                {
+                    DateTime lastUpdateTime = File.GetLastWriteTime(dataFilePath);
+                    // 3. 设置一个缓存有效期，例如 6 小时
+                    if (DateTime.Now - lastUpdateTime < TimeSpan.FromHours(6))
+                    {
+                        MessageBox.Show($"装备数据在 {lastUpdateTime:G} 刚刚更新过，已是最新，无需重复更新。",
+                                        "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return; // 直接中断，不执行任何网络请求
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // 如果检查文件路径或时间戳时出错，记录日志并允许用户继续尝试更新
+                System.Diagnostics.Debug.WriteLine($"检查缓存时出错: {ex.Message}");
+            }
+
             // 禁用按钮，防止用户重复点击
             _toolStripMenuItem.Enabled = false;
             // 创建进度条窗口，用于向用户反馈进度

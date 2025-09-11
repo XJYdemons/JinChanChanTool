@@ -1157,7 +1157,7 @@ namespace JinChanChanTool
                     _iheroEquipmentDataService.ReLoad();
 
                     // 6. 提示用户重启以确保所有状态都刷新
-                    DialogResult result = MessageBox.Show(
+                    DialogResult result = MessageBox.Show(this,
                         "装备数据更新成功！\n\n为了确保所有组件都使用最新数据，建议重启程序。\n点击“确定”立即重启。",
                         "更新完成",
                         MessageBoxButtons.OK,

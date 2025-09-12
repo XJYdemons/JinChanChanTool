@@ -237,10 +237,10 @@ namespace JinChanChanTool.Services
                 if (_iHeroEquipmentDataService.EquipmentImageMap.TryGetValue(heroEquipment, out var equipmentImages))
                 {
                     // 3. 创建新的、纯展示的 ToolTip 实例，并将图片列表传入
-                    var equipmentToolTip = new JinChanChanTool.DIYComponents.EquipmentToolTip(equipmentImages);
+                    //var equipmentToolTip = new JinChanChanTool.DIYComponents.EquipmentToolTip(equipmentImages);
 
                     // 4. 将这个 ToolTip 关联到 PictureBox 上
-                    equipmentToolTip.SetToolTip(pictureBox, " "); // 文本内容不重要，只是为了激活
+                    //equipmentToolTip.SetToolTip(pictureBox, " "); // 文本内容不重要，只是为了激活
                 }
             }
 

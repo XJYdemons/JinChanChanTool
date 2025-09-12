@@ -49,6 +49,10 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
+        private PictureBox _hoveredHeroPictureBox = null;//当前悬停的英雄头像框
+
+        private ToolTip _activeToolTip = null; //用于持有当前活动的ToolTip实例
+
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
@@ -80,7 +84,7 @@ namespace JinChanChanTool
             #endregion
 
             #region UI构建服务实例化并构建UI并绑定事件           
-            _uiBuilderService = new UIBuilderService(this,panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _ilineUpService, _iappConfigService, _iheroEquipmentDataService);
+            _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _ilineUpService, _iappConfigService, _iheroEquipmentDataService);
             UIBuildAndBidingEvents();
             #endregion                                                     
         }
@@ -726,6 +730,16 @@ namespace JinChanChanTool
             HeroPictureBox clickedBox = sender as HeroPictureBox;
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width + 1, _uiBuilderService.GetHeroPictureBoxSize().Height + 1);
             clickedBox.Size = this.LogicalToDeviceUnits(size);
+
+            // 计时器逻辑
+            toolTipTimer.Stop(); // 停止上一个计时
+            if (_activeToolTip != null) // 立刻销毁上一个残留的ToolTip
+            {
+                _activeToolTip.Dispose();
+                _activeToolTip = null;
+            }
+            _hoveredHeroPictureBox = clickedBox; // 记录当前悬停的PictureBox
+            toolTipTimer.Start(); // 启动新的计时
         }
 
         /// <summary>
@@ -738,6 +752,16 @@ namespace JinChanChanTool
             HeroPictureBox clickedBox = sender as HeroPictureBox;
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width, _uiBuilderService.GetHeroPictureBoxSize().Height);
             clickedBox.Size = this.LogicalToDeviceUnits(size);
+
+            // 停止计时并销毁ToolTip
+            toolTipTimer.Stop();
+            _hoveredHeroPictureBox = null;
+
+            if (_activeToolTip != null)
+            {
+                _activeToolTip.Dispose();
+                _activeToolTip = null;
+            }
         }
 
         /// <summary>
@@ -1182,6 +1206,40 @@ namespace JinChanChanTool
                 _toolStripMenuItem.Enabled = true;
             }
         }
-        #endregion        
+        #endregion
+
+        private void toolTipTimer_Tick(object sender, EventArgs e)
+        {
+            toolTipTimer.Stop(); // 计时器只触发一次
+
+            if (_hoveredHeroPictureBox != null)
+            {
+                // 步骤 1: 从 PictureBox 的 Tag 属性中获取 HeroData 对象
+                HeroData heroData = _hoveredHeroPictureBox.Tag as HeroData;
+
+                if (heroData != null)
+                {
+                    // 步骤 2: 使用 HeroData 的名字，去查找对应的 HeroEquipment 对象
+                    HeroEquipment currentHeroEquipment = _iheroEquipmentDataService.HeroEquipments
+                        .FirstOrDefault(he => he.HeroName == heroData.HeroName);
+
+                    if (currentHeroEquipment != null &&
+                        _iheroEquipmentDataService.EquipmentImageMap.TryGetValue(currentHeroEquipment, out List<Image> equipmentImages))
+                    {
+                        // 确保有图片可供显示
+                        if (equipmentImages != null && equipmentImages.Any())
+                        {
+                            // 步骤 3: 创建并显示新的 ToolTip
+                            EquipmentToolTip newToolTip = new EquipmentToolTip(equipmentImages);
+                            _activeToolTip = newToolTip; // 保存对新ToolTip的引用
+
+                            // 计算显示位置 (在鼠标指针右下方)
+                            Point toolTipPosition = _hoveredHeroPictureBox.PointToClient(Cursor.Position);
+                            newToolTip.Show(" ", _hoveredHeroPictureBox, toolTipPosition.X + 15, toolTipPosition.Y + 15, 5000);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

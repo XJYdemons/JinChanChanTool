@@ -1,5 +1,6 @@
 using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
+using JinChanChanTool.Forms;
 using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Tools;
@@ -49,9 +50,8 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
-        private PictureBox _hoveredHeroPictureBox = null;//当前悬停的英雄头像框
-
-        private ToolTip _activeToolTip = null; //用于持有当前活动的ToolTip实例
+        // 状态显示窗口
+        private StatusOverlayForm _statusOverlay;
 
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
@@ -126,23 +126,48 @@ namespace JinChanChanTool
             MouseHookTool.MouseLeftButtonDown += MouseHook_MouseLeftButtonDown;
             MouseHookTool.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
             #endregion
+            #region 初始化状态显示窗口
+            // 创建并显示状态窗口
+            _statusOverlay = new StatusOverlayForm();
+            _statusOverlay.Show();
 
-
+            // 初始状态
+            UpdateOverlayStatus();
+            #endregion
         }
+        // 更新状态显示
+        public void UpdateOverlayStatus()
+        {
+            // 获取两个开关的状态
+            bool status1 = button_GetCard.Text == "停止"; // 假设按钮1是第一个开关
+            bool status2 = button_Refresh.Text == "停止"; // 假设按钮2是第二个开关
 
+            _statusOverlay.UpdateStatus(status1, status2);
+        }
         /// <summary>
         /// 当程序关闭时执行——>注销所有快捷键
         /// </summary>
         /// <param name="e"></param>      
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            CloseStatusOverlay();
             // 注销热键            
             GlobalHotkeyTool.Dispose();
             MouseHookTool.Dispose();
             LogTool.Log("关闭！");
             base.OnFormClosing(e);
         }
-
+        private void CloseStatusOverlay()
+        {
+            if (_statusOverlay != null && !_statusOverlay.IsDisposed)
+            {
+                // 安全关闭悬浮窗
+                _statusOverlay.Hide(); // 先隐藏
+                _statusOverlay.Close(); // 再关闭
+                _statusOverlay.Dispose(); // 释放资源
+                _statusOverlay = null;
+            }
+        }
         /// <summary>
         /// 当设置被保存时触发，询问用户是否重启应用。
         /// </summary>
@@ -165,9 +190,10 @@ namespace JinChanChanTool
 
             if (result == DialogResult.Yes)
             {
+                // 先关闭状态窗口
+                CloseStatusOverlay();
                 // 重启应用程序
                 Application.Restart();
-
                 // 确保当前进程退出
                 Environment.Exit(0);
             }
@@ -451,6 +477,7 @@ namespace JinChanChanTool
                 comboBox_HeroPool.Enabled = false;
                 _cardService.StartLoop();
             }
+            UpdateOverlayStatus();
         }
 
         /// <summary>
@@ -470,6 +497,17 @@ namespace JinChanChanTool
                 button_Refresh.Text = "停止";
                 _cardService.AutoRefreshOn();
             }
+            UpdateOverlayStatus();
+
+        }
+        private void button_GetCard_TextChanged(object sender, EventArgs e)
+        {
+            UpdateOverlayStatus();
+        }
+
+        private void button_Refresh_TextChanged(object sender, EventArgs e)
+        {
+            UpdateOverlayStatus();
         }
         #endregion
 
@@ -1208,6 +1246,10 @@ namespace JinChanChanTool
         }
         #endregion
 
+        #region 装备展示
+        private PictureBox _hoveredHeroPictureBox = null;//当前悬停的英雄头像框
+
+        private ToolTip _activeToolTip = null; //用于持有当前活动的ToolTip实例
         private void toolTipTimer_Tick(object sender, EventArgs e)
         {
             toolTipTimer.Stop(); // 计时器只触发一次
@@ -1241,5 +1283,8 @@ namespace JinChanChanTool
                 }
             }
         }
+        #endregion
+
+       
     }
 }

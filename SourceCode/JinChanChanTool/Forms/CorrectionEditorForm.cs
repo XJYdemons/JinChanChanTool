@@ -21,7 +21,10 @@ namespace JinChanChanTool
        
         public CorrectionEditorForm()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            // 添加自定义标题栏
+            CustomTitleBar titleBar = new CustomTitleBar(this, null, "OCR结果纠正编辑器");
+            this.Controls.Add(titleBar);
             //实例化OCR结果纠正列表服务对象
             _iCorrectionService = new CorrectionService();
             _iCorrectionService.Load();

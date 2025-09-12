@@ -225,25 +225,7 @@ namespace JinChanChanTool.Services
             pictureBox.Size = _form1.LogicalToDeviceUnits(heroPictureBoxSize);
             pictureBox.Image = _iHeroDataService.HeroDataToImageMap[hero];
             pictureBox.Tag = hero;
-            pictureBox.BorderColor = GetColor(hero.Cost);
-
-            // 1. 从新的数据服务中，根据英雄名查找对应的装备信息对象
-            var heroEquipment = _iHeroEquipmentDataService.HeroEquipments
-                .FirstOrDefault(he => he.HeroName == hero.HeroName);
-
-            if (heroEquipment != null)
-            {
-                // 2. 使用该对象作为键，从图片映射字典中获取预加载好的图片列表
-                if (_iHeroEquipmentDataService.EquipmentImageMap.TryGetValue(heroEquipment, out var equipmentImages))
-                {
-                    // 3. 创建新的、纯展示的 ToolTip 实例，并将图片列表传入
-                    //var equipmentToolTip = new JinChanChanTool.DIYComponents.EquipmentToolTip(equipmentImages);
-
-                    // 4. 将这个 ToolTip 关联到 PictureBox 上
-                    //equipmentToolTip.SetToolTip(pictureBox, " "); // 文本内容不重要，只是为了激活
-                }
-            }
-
+            pictureBox.BorderColor = GetColor(hero.Cost);                                           
             return pictureBox;
         }
         #endregion

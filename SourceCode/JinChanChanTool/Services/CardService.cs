@@ -3,6 +3,7 @@ using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace JinChanChanTool.Services
 {
@@ -284,10 +285,12 @@ namespace JinChanChanTool.Services
           
         private void 更新纠正结果数组()
         {
+           
             for (int i = 0; i < 原始结果数组.Length; i++)
             {
                 纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i]);
-            }
+             
+            }           
         }
 
         private void 更新上一轮结果数组与目标数组()
@@ -324,20 +327,25 @@ namespace JinChanChanTool.Services
             return true;
         }
 
+        
         private void 自动停止刷新商店()
         {
             if (未刷新累积次数 >= 最大未刷新次数 && _iappConfigService.CurrentConfig.AutoStopRefresh)
             {
                 LogTool.Log("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
                 Debug.WriteLine("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
-                is自动刷新商店 = false;
-                _button2.Invoke((MethodInvoker)delegate
-                {
-                    _button2.Text = "启动";
-                });                
+                停止刷新商店();
             }
         }
-        
+        private void 停止刷新商店()
+        {
+            is自动刷新商店 = false;
+            _button2.Invoke((MethodInvoker)delegate
+            {
+                _button2.Text = "启动";
+               
+            });
+        }
         private void  判断未拿牌并处理()
         {
             if(!本轮是否按下过鼠标 && !鼠标左键是否按下)

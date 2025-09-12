@@ -443,6 +443,7 @@
             button_GetCard.TabIndex = 0;
             button_GetCard.Text = "启动";
             button_GetCard.UseVisualStyleBackColor = true;
+            button_GetCard.TextChanged += button_GetCard_TextChanged;
             button_GetCard.Click += button_GetCard_Click;
             // 
             // label_自动刷新
@@ -467,6 +468,7 @@
             button_Refresh.TabIndex = 1;
             button_Refresh.Text = "启动";
             button_Refresh.UseVisualStyleBackColor = true;
+            button_Refresh.TextChanged += button_Refresh_TextChanged;
             button_Refresh.Click += button_Refresh_Click;
             // 
             // flowLayoutPanel_ComboBoxes
@@ -564,7 +566,7 @@
             // toolStripMenuItem_运行日志
             // 
             toolStripMenuItem_运行日志.Name = "toolStripMenuItem_运行日志";
-            toolStripMenuItem_运行日志.Size = new Size(124, 22);
+            toolStripMenuItem_运行日志.Size = new Size(180, 22);
             toolStripMenuItem_运行日志.Text = "运行日志";
             toolStripMenuItem_运行日志.Click += 运行日志ToolStripMenuItem_Click;
             // 

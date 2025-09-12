@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel_SubLineUpParent = new Panel();
             flowLayoutPanel__SubLineUp3 = new FlowLayoutPanel();
             flowLayoutPanel__SubLineUp2 = new FlowLayoutPanel();
@@ -72,6 +73,7 @@
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             toolStripMenuItem_GetEquipments = new ToolStripMenuItem();
             panel_BackGround = new Panel();
+            toolTipTimer = new System.Windows.Forms.Timer(components);
             panel_SubLineUpParent.SuspendLayout();
             tabControl_HeroSelector.SuspendLayout();
             tabPage_1Cost.SuspendLayout();
@@ -596,7 +598,12 @@
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Padding = new Padding(3, 2, 3, 5);
             panel_BackGround.Size = new Size(400, 630);
-            panel_BackGround.TabIndex = 5;           
+            panel_BackGround.TabIndex = 5;
+            // 
+            // toolTipTimer
+            // 
+            toolTipTimer.Interval = 200;
+            toolTipTimer.Tick += toolTipTimer_Tick;
             // 
             // Form1
             // 
@@ -684,5 +691,6 @@
         private FlowLayoutPanel flowLayoutPanel__SubLineUp2;
         private FlowLayoutPanel flowLayoutPanel_SubLineUp1;
         private ToolStripMenuItem toolStripMenuItem_GetEquipments;
+        private System.Windows.Forms.Timer toolTipTimer;
     }
 }

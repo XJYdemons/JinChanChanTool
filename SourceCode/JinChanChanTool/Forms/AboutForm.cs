@@ -11,8 +11,8 @@ namespace JinChanChanTool
         {
             InitializeComponent();
             // 添加自定义标题栏
-            CustomTitleBar titleBar = new CustomTitleBar(this, null, "关于");
-            this.Controls.Add(titleBar);                       
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32,null, "关于", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
+            this.Controls.Add(titleBar);
         }
 
         /// <summary>
@@ -37,8 +37,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void label5_MouseEnter(object sender, EventArgs e)
         {
-            label5.Cursor = Cursors.Hand;
-            label5.ForeColor = Color.Blue;
+            label_Github主页.Cursor = Cursors.Hand;
+            label_Github主页.ForeColor = Color.Blue;
         }
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void label5_MouseLeave(object sender, EventArgs e)
         {
-            label5.Cursor = Cursors.Default;
-            label5.ForeColor = Color.Black;
+            label_Github主页.Cursor = Cursors.Default;
+            label_Github主页.ForeColor = Color.Black;
         }
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void label6_MouseEnter(object sender, EventArgs e)
         {
-            label6.Cursor = Cursors.Hand;
-            label6.ForeColor = Color.Blue;
+            label_项目地址.Cursor = Cursors.Hand;
+            label_项目地址.ForeColor = Color.Blue;
         }
 
         /// <summary>
@@ -98,13 +98,32 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void label6_MouseLeave(object sender, EventArgs e)
         {
-            label6.Cursor = Cursors.Default;
-            label6.ForeColor = Color.Black;
+            label_项目地址.Cursor = Cursors.Default;
+            label_项目地址.ForeColor = Color.Black;
         }
 
         private void AboutForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://github.com/XJYdemons", //需要打开的URL
+                UseShellExecute = true  //系统自动识别文件类型并调用关联程序打开
+            });
+        }
+
+        private void linkLabel3_Click(object sender, EventArgs e)
+        {
+        
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://github.com/baolibaobao", //需要打开的URL
+                UseShellExecute = true  //系统自动识别文件类型并调用关联程序打开
+            });
         }
     }
 }

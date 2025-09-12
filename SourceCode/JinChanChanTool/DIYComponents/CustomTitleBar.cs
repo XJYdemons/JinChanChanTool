@@ -5,7 +5,7 @@ namespace JinChanChanTool
 {
     public class CustomTitleBar : Panel
     {
-        private readonly Form _hostForm;
+        private readonly Form _form;
         private Point _dragStartPoint;
         private PictureBox _iconPictureBox;
         private Label _titleLabel;
@@ -23,26 +23,27 @@ namespace JinChanChanTool
             All = Minimize | Maximize | Close
         }
 
-        public CustomTitleBar(Form hostForm, Image icon = null, string title = null,
-                              ButtonOptions buttons = ButtonOptions.All)
+        public CustomTitleBar(Form form,int height, Image icon = null, string title = null,ButtonOptions buttons = ButtonOptions.All)
         {
-            _hostForm = hostForm;
-            InitializeComponents(icon, title ?? hostForm.Text, buttons);
+            _form = form;
+            InitializeComponents(icon,height, title ?? "", buttons);
         }
 
-        private void InitializeComponents(Image icon, string title, ButtonOptions buttons)
+        private void InitializeComponents(Image icon,int height, string title, ButtonOptions buttons)
         {           
-            Height = 30;
+            Height = height;
+            MinimumSize = new Size(1, height);
+            AutoSize = true;
             Dock = DockStyle.Top;
             BackColor = Color.White;
-            Padding = new Padding(6,0,0,0);
+            Padding = new Padding(5,0,0,0);
             
             if (icon != null)
             {
                 _iconPictureBox = new PictureBox
                 {
                     Dock = DockStyle.Left,
-                    Size = new(15, 15),                   
+                    Size = new(16, 16),                   
                     BackColor = Color.Transparent,
                     SizeMode = PictureBoxSizeMode.Zoom,
                     Image = icon
@@ -57,26 +58,29 @@ namespace JinChanChanTool
                 Text = title,
                 ForeColor = Color.Black,
                 Dock = DockStyle.Fill,
+                Height = height,
+                MinimumSize =new Size(1, height),
+                BackColor = Color.Transparent,                
                 TextAlign = ContentAlignment.MiddleLeft,
-                Padding = new Padding(icon != null ? 5 : 10, 0, 0, 0) 
+                Padding = new Padding(icon != null ? 3 : 0) 
             };
            
             if (buttons.HasFlag(ButtonOptions.Minimize))
             {
-                _minButton = CreateButton("─", ButtonOptions.Minimize);
-                _minButton.Click += (s, e) => _hostForm.WindowState = FormWindowState.Minimized;
+                _minButton = CreateButton("─", ButtonOptions.Minimize, height);
+                _minButton.Click += (s, e) => _form.WindowState = FormWindowState.Minimized;
             }
 
             if (buttons.HasFlag(ButtonOptions.Maximize))
             {
-                _maxButton = CreateButton("□", ButtonOptions.Maximize);
+                _maxButton = CreateButton("□", ButtonOptions.Maximize, height);
                 _maxButton.Click += (s, e) => ToggleMaximize();
             }
 
             if (buttons.HasFlag(ButtonOptions.Close))
             {
-                _closeButton = CreateButton("×", ButtonOptions.Close);
-                _closeButton.Click += (s, e) => _hostForm.Close();
+                _closeButton = CreateButton("×", ButtonOptions.Close, height);
+                _closeButton.Click += (s, e) => _form.Close();
             }
         
             if (_minButton != null) Controls.Add(_minButton);
@@ -95,15 +99,19 @@ namespace JinChanChanTool
             _titleLabel.MouseMove += TitleBar_MouseMove;
         }
 
-        private Button CreateButton(string text, ButtonOptions option)
+        private Button CreateButton(string text, ButtonOptions option,int height)
         {
             var button = new Button
             {
                 Text = text,
                 ForeColor = Color.Black,
                 Dock = DockStyle.Right,
-                Width = 40,
+                Width = height,
+                Height = height,
+                MinimumSize = new Size(height, height),
+                AutoSize = true,
                 FlatStyle = FlatStyle.Flat,
+                TextAlign = ContentAlignment.MiddleCenter,
                 BackColor = Color.Transparent,
                 Tag = option // 存储按钮类型用于调试
             };
@@ -124,23 +132,23 @@ namespace JinChanChanTool
             if (e.Button == MouseButtons.Left)
             {
                 Point diff = new Point(e.X - _dragStartPoint.X, e.Y - _dragStartPoint.Y);
-                _hostForm.Location = new Point(
-                    _hostForm.Location.X + diff.X,
-                    _hostForm.Location.Y + diff.Y
+                _form.Location = new Point(
+                    _form.Location.X + diff.X,
+                    _form.Location.Y + diff.Y
                 );
             }
         }
 
         private void ToggleMaximize()
         {
-            if (_hostForm.WindowState == FormWindowState.Maximized)
+            if (_form.WindowState == FormWindowState.Maximized)
             {
-                _hostForm.WindowState = FormWindowState.Normal;
+                _form.WindowState = FormWindowState.Normal;
                 _maxButton.Text = "□";
             }
             else
             {
-                _hostForm.WindowState = FormWindowState.Maximized;
+                _form.WindowState = FormWindowState.Maximized;
                 _maxButton.Text = "❐";
             }
         }

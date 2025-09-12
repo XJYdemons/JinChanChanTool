@@ -29,147 +29,197 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeroInfoEditorForm));
-            dataGridView1 = new DataGridView();
-            addButton = new Button();
-            deleltButton = new Button();
-            cancelButton = new Button();
-            upButton = new Button();
-            downButton = new Button();
-            comboBox1 = new ComboBox();
-            button1 = new Button();
-            button5 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dataGridView_英雄数据编辑器 = new DataGridView();
+            button_添加 = new Button();
+            button_删除 = new Button();
+            button_退出 = new Button();
+            button_上移 = new Button();
+            button_下移 = new Button();
+            comboBox_赛季文件选择器 = new ComboBox();
+            button_保存 = new Button();
+            button_打开目录 = new Button();
+            panel_BackGround = new Panel();
+            panel_Buttons = new Panel();
+            panel_DataGridView = new Panel();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_英雄数据编辑器).BeginInit();
+            panel_BackGround.SuspendLayout();
+            panel_Buttons.SuspendLayout();
+            panel_DataGridView.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridView_英雄数据编辑器
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 37);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(660, 395);
-            dataGridView1.TabIndex = 0;
+            dataGridView_英雄数据编辑器.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_英雄数据编辑器.Location = new Point(5, 35);
+            dataGridView_英雄数据编辑器.Name = "dataGridView_英雄数据编辑器";
+            dataGridView_英雄数据编辑器.Size = new Size(711, 395);
+            dataGridView_英雄数据编辑器.TabIndex = 0;
+            dataGridView_英雄数据编辑器.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // addButton
+            // button_添加
             // 
-            addButton.FlatStyle = FlatStyle.Flat;
-            addButton.Location = new Point(676, 68);
-            addButton.Name = "addButton";
-            addButton.Size = new Size(75, 25);
-            addButton.TabIndex = 1;
-            addButton.Text = "添加";
-            addButton.UseVisualStyleBackColor = true;
-            addButton.Click += addButton_Click;
+            button_添加.FlatStyle = FlatStyle.Flat;
+            button_添加.Location = new Point(5, 67);
+            button_添加.Name = "button_添加";
+            button_添加.Size = new Size(75, 25);
+            button_添加.TabIndex = 1;
+            button_添加.Text = "添加";
+            button_添加.UseVisualStyleBackColor = true;
+            button_添加.Click += addButton_Click;
             // 
-            // deleltButton
+            // button_删除
             // 
-            deleltButton.FlatStyle = FlatStyle.Flat;
-            deleltButton.Location = new Point(676, 99);
-            deleltButton.Name = "deleltButton";
-            deleltButton.Size = new Size(75, 25);
-            deleltButton.TabIndex = 2;
-            deleltButton.Text = "删除";
-            deleltButton.UseVisualStyleBackColor = true;
-            deleltButton.Click += deleltButton_Click;
+            button_删除.FlatStyle = FlatStyle.Flat;
+            button_删除.Location = new Point(5, 98);
+            button_删除.Name = "button_删除";
+            button_删除.Size = new Size(75, 25);
+            button_删除.TabIndex = 2;
+            button_删除.Text = "删除";
+            button_删除.UseVisualStyleBackColor = true;
+            button_删除.Click += deleltButton_Click;
             // 
-            // cancelButton
+            // button_退出
             // 
-            cancelButton.FlatStyle = FlatStyle.Flat;
-            cancelButton.Location = new Point(676, 407);
-            cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(75, 25);
-            cancelButton.TabIndex = 4;
-            cancelButton.Text = "退出";
-            cancelButton.UseVisualStyleBackColor = true;
-            cancelButton.Click += cancelButton_Click;
+            button_退出.FlatStyle = FlatStyle.Flat;
+            button_退出.Location = new Point(5, 405);
+            button_退出.Name = "button_退出";
+            button_退出.Size = new Size(75, 25);
+            button_退出.TabIndex = 4;
+            button_退出.Text = "退出";
+            button_退出.UseVisualStyleBackColor = true;
+            button_退出.Click += cancelButton_Click;
             // 
-            // upButton
+            // button_上移
             // 
-            upButton.FlatStyle = FlatStyle.Flat;
-            upButton.Location = new Point(676, 130);
-            upButton.Name = "upButton";
-            upButton.Size = new Size(75, 25);
-            upButton.TabIndex = 5;
-            upButton.Text = "上移";
-            upButton.UseVisualStyleBackColor = true;
-            upButton.Click += upButton_Click;
+            button_上移.FlatStyle = FlatStyle.Flat;
+            button_上移.Location = new Point(5, 129);
+            button_上移.Name = "button_上移";
+            button_上移.Size = new Size(75, 25);
+            button_上移.TabIndex = 5;
+            button_上移.Text = "上移";
+            button_上移.UseVisualStyleBackColor = true;
+            button_上移.Click += upButton_Click;
             // 
-            // downButton
+            // button_下移
             // 
-            downButton.FlatStyle = FlatStyle.Flat;
-            downButton.Location = new Point(676, 161);
-            downButton.Name = "downButton";
-            downButton.Size = new Size(75, 25);
-            downButton.TabIndex = 6;
-            downButton.Text = "下移";
-            downButton.UseVisualStyleBackColor = true;
-            downButton.Click += downButton_Click;
+            button_下移.FlatStyle = FlatStyle.Flat;
+            button_下移.Location = new Point(5, 160);
+            button_下移.Name = "button_下移";
+            button_下移.Size = new Size(75, 25);
+            button_下移.TabIndex = 6;
+            button_下移.Text = "下移";
+            button_下移.UseVisualStyleBackColor = true;
+            button_下移.Click += downButton_Click;
             // 
-            // comboBox1
+            // comboBox_赛季文件选择器
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 6);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(660, 25);
-            comboBox1.TabIndex = 7;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox_赛季文件选择器.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_赛季文件选择器.FormattingEnabled = true;
+            comboBox_赛季文件选择器.Location = new Point(5, 5);
+            comboBox_赛季文件选择器.Name = "comboBox_赛季文件选择器";
+            comboBox_赛季文件选择器.Size = new Size(711, 25);
+            comboBox_赛季文件选择器.TabIndex = 7;
+            comboBox_赛季文件选择器.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
-            // button1
+            // button_保存
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(676, 37);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 25);
-            button1.TabIndex = 8;
-            button1.Text = "保存";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button_保存.FlatStyle = FlatStyle.Flat;
+            button_保存.Location = new Point(5, 36);
+            button_保存.Name = "button_保存";
+            button_保存.Size = new Size(75, 25);
+            button_保存.TabIndex = 8;
+            button_保存.Text = "保存";
+            button_保存.UseVisualStyleBackColor = true;
+            button_保存.Click += button1_Click;
             // 
-            // button5
+            // button_打开目录
             // 
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Location = new Point(676, 6);
-            button5.Name = "button5";
-            button5.Size = new Size(75, 25);
-            button5.TabIndex = 12;
-            button5.Text = "打开目录";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            button_打开目录.FlatStyle = FlatStyle.Flat;
+            button_打开目录.Location = new Point(5, 5);
+            button_打开目录.Name = "button_打开目录";
+            button_打开目录.Size = new Size(75, 25);
+            button_打开目录.TabIndex = 12;
+            button_打开目录.Text = "打开目录";
+            button_打开目录.UseVisualStyleBackColor = true;
+            button_打开目录.Click += button5_Click;
+            // 
+            // panel_BackGround
+            // 
+            panel_BackGround.AutoScroll = true;
+            panel_BackGround.AutoSize = true;
+            panel_BackGround.Controls.Add(panel_Buttons);
+            panel_BackGround.Controls.Add(panel_DataGridView);
+            panel_BackGround.Dock = DockStyle.Fill;
+            panel_BackGround.Location = new Point(0, 0);
+            panel_BackGround.MinimumSize = new Size(821, 445);
+            panel_BackGround.Name = "panel_BackGround";
+            panel_BackGround.Size = new Size(821, 445);
+            panel_BackGround.TabIndex = 13;
+            // 
+            // panel_Buttons
+            // 
+            panel_Buttons.AutoScroll = true;
+            panel_Buttons.BackColor = Color.White;
+            panel_Buttons.Controls.Add(button_下移);
+            panel_Buttons.Controls.Add(button_退出);
+            panel_Buttons.Controls.Add(button_打开目录);
+            panel_Buttons.Controls.Add(button_删除);
+            panel_Buttons.Controls.Add(button_保存);
+            panel_Buttons.Controls.Add(button_上移);
+            panel_Buttons.Controls.Add(button_添加);
+            panel_Buttons.Location = new Point(731, 5);
+            panel_Buttons.MinimumSize = new Size(85, 435);
+            panel_Buttons.Name = "panel_Buttons";
+            panel_Buttons.Size = new Size(85, 435);
+            panel_Buttons.TabIndex = 14;
+            // 
+            // panel_DataGridView
+            // 
+            panel_DataGridView.AutoScroll = true;
+            panel_DataGridView.BackColor = Color.White;
+            panel_DataGridView.Controls.Add(comboBox_赛季文件选择器);
+            panel_DataGridView.Controls.Add(dataGridView_英雄数据编辑器);
+            panel_DataGridView.Location = new Point(5, 5);
+            panel_DataGridView.MinimumSize = new Size(721, 435);
+            panel_DataGridView.Name = "panel_DataGridView";
+            panel_DataGridView.Size = new Size(721, 435);
+            panel_DataGridView.TabIndex = 13;
             // 
             // HeroInfoEditorForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(755, 438);
-            Controls.Add(button5);
-            Controls.Add(button1);
-            Controls.Add(comboBox1);
-            Controls.Add(downButton);
-            Controls.Add(upButton);
-            Controls.Add(cancelButton);
-            Controls.Add(deleltButton);
-            Controls.Add(addButton);
-            Controls.Add(dataGridView1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            AutoSize = true;
+            ClientSize = new Size(821, 445);
+            Controls.Add(panel_BackGround);
+            FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
+            MinimumSize = new Size(821, 445);
             Name = "HeroInfoEditorForm";
             Text = "英雄数据文件编辑器";
             Load += HeroInfoEditorForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView_英雄数据编辑器).EndInit();
+            panel_BackGround.ResumeLayout(false);
+            panel_Buttons.ResumeLayout(false);
+            panel_DataGridView.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private Button addButton;
-        private Button deleltButton;
-        private Button cancelButton;
-        private Button upButton;
-        private Button downButton;
-        private ComboBox comboBox1;
-        private Button button1;
-        private Button button5;
+        private DataGridView dataGridView_英雄数据编辑器;
+        private Button button_添加;
+        private Button button_删除;
+        private Button button_退出;
+        private Button button_上移;
+        private Button button_下移;
+        private ComboBox comboBox_赛季文件选择器;
+        private Button button_保存;
+        private Button button_打开目录;
+        private Panel panel_BackGround;
+        private Panel panel_Buttons;
+        private Panel panel_DataGridView;
     }
 }

@@ -29,19 +29,21 @@ namespace JinChanChanTool.Forms
         public HeroInfoEditorForm()
         {
             InitializeComponent();
-            this.ShowIcon = false;//隐藏图标
+            // 添加自定义标题栏
+            CustomTitleBar titleBar = new CustomTitleBar(this,32, null, "OCR结果纠正编辑器", CustomTitleBar.ButtonOptions.None);
+            this.Controls.Add(titleBar);
             isChanged = false;
             _iheroDataService = new HeroDataService();
 
             // 获取所有数据集的名称（对应子目录名）
-            comboBox1.Items.Clear();
+            comboBox_赛季文件选择器.Items.Clear();
             foreach (var path in _iheroDataService.Paths)
             {
-                comboBox1.Items.Add(Path.GetFileName(path));
+                comboBox_赛季文件选择器.Items.Add(Path.GetFileName(path));
             }
-            if (comboBox1.Items.Count > 0)
+            if (comboBox_赛季文件选择器.Items.Count > 0)
             {
-                comboBox1.SelectedIndex = 0;
+                comboBox_赛季文件选择器.SelectedIndex = 0;
                 _iheroDataService.PathIndex = 0;
             }
             // 加载或创建默认图片
@@ -95,10 +97,10 @@ namespace JinChanChanTool.Forms
         private void InitializeDataGridViewColumns()
         {
             // 清除现有列
-            dataGridView1.Columns.Clear();
+            dataGridView_英雄数据编辑器.Columns.Clear();
 
             // 设置行高为32像素
-            dataGridView1.RowTemplate.Height = 32;
+            dataGridView_英雄数据编辑器.RowTemplate.Height = 32;
 
             // 添加图片列
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
@@ -107,7 +109,7 @@ namespace JinChanChanTool.Forms
             imageColumn.Width = 32;
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             imageColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
-            dataGridView1.Columns.Add(imageColumn);
+            dataGridView_英雄数据编辑器.Columns.Add(imageColumn);
 
             // 添加名称列
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
@@ -115,7 +117,7 @@ namespace JinChanChanTool.Forms
             nameColumn.Name = "HeroName";
             nameColumn.DataPropertyName = "HeroName";
             nameColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
-            dataGridView1.Columns.Add(nameColumn);
+            dataGridView_英雄数据编辑器.Columns.Add(nameColumn);
 
             // 添加费用列
             DataGridViewTextBoxColumn costColumn = new DataGridViewTextBoxColumn();
@@ -124,7 +126,7 @@ namespace JinChanChanTool.Forms
             costColumn.DataPropertyName = "Cost";
             costColumn.Width = 50;
             costColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
-            dataGridView1.Columns.Add(costColumn);
+            dataGridView_英雄数据编辑器.Columns.Add(costColumn);
 
             // 添加职业列
             DataGridViewTextBoxColumn professionColumn = new DataGridViewTextBoxColumn();
@@ -133,7 +135,7 @@ namespace JinChanChanTool.Forms
             professionColumn.DataPropertyName = "Profession";
             professionColumn.Width = 205;
             professionColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
-            dataGridView1.Columns.Add(professionColumn);
+            dataGridView_英雄数据编辑器.Columns.Add(professionColumn);
 
             // 添加特性列
             DataGridViewTextBoxColumn peculiarityColumn = new DataGridViewTextBoxColumn();
@@ -142,7 +144,7 @@ namespace JinChanChanTool.Forms
             peculiarityColumn.DataPropertyName = "Peculiarity";
             peculiarityColumn.Width = 205;
             peculiarityColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
-            dataGridView1.Columns.Add(peculiarityColumn);
+            dataGridView_英雄数据编辑器.Columns.Add(peculiarityColumn);
 
             // 添加ID列
             DataGridViewTextBoxColumn IDColumn = new DataGridViewTextBoxColumn();
@@ -151,15 +153,15 @@ namespace JinChanChanTool.Forms
             IDColumn.DataPropertyName = "ChessId";
             IDColumn.Width = 50;
             IDColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
-            dataGridView1.Columns.Add(IDColumn);
+            dataGridView_英雄数据编辑器.Columns.Add(IDColumn);
 
             // 绑定事件
-            dataGridView1.CellFormatting += DataGridView_CellFormatting;
-            dataGridView1.CellValueChanged += DataGridView_CellValueChanged;
-            dataGridView1.DataError += DataGridView_DataError;
+            dataGridView_英雄数据编辑器.CellFormatting += DataGridView_CellFormatting;
+            dataGridView_英雄数据编辑器.CellValueChanged += DataGridView_CellValueChanged;
+            dataGridView_英雄数据编辑器.DataError += DataGridView_DataError;
 
             //设置不为数据自动创建列
-            dataGridView1.AutoGenerateColumns = false;
+            dataGridView_英雄数据编辑器.AutoGenerateColumns = false;
         }
 
         /// <summary>
@@ -168,8 +170,8 @@ namespace JinChanChanTool.Forms
         private void BindDataGridView()
         {
             // 绑定数据
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = new BindingList<HeroData>(_iheroDataService.HeroDatas);
+            dataGridView_英雄数据编辑器.DataSource = null;
+            dataGridView_英雄数据编辑器.DataSource = new BindingList<HeroData>(_iheroDataService.HeroDatas);
         }
 
         /// <summary>
@@ -180,9 +182,9 @@ namespace JinChanChanTool.Forms
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             //判断是否是名称列
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "Image" && e.RowIndex >= 0)
+            if (dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name == "Image" && e.RowIndex >= 0)
             {
-                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                DataGridViewRow row = dataGridView_英雄数据编辑器.Rows[e.RowIndex];
                 string heroName = row.Cells["HeroName"].Value?.ToString();
 
                 //如果名称不为空
@@ -216,9 +218,9 @@ namespace JinChanChanTool.Forms
         private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             // 如果修改的是英雄名称列，刷新图片
-            if (e.ColumnIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "HeroName")
+            if (e.ColumnIndex >= 0 && dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name == "HeroName")
             {
-                dataGridView1.InvalidateRow(e.RowIndex);// 触发重绘，刷新图片
+                dataGridView_英雄数据编辑器.InvalidateRow(e.RowIndex);// 触发重绘，刷新图片
             }
         }
 
@@ -230,7 +232,7 @@ namespace JinChanChanTool.Forms
         private void DataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             // 处理数据错误（例如Cost列输入非数字值）
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "Cost")
+            if (dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name == "Cost")
             {
                 MessageBox.Show("费用必须为数字！");
                 e.ThrowException = false;
@@ -254,17 +256,17 @@ namespace JinChanChanTool.Forms
             BindDataGridView();
 
             // 滚动到最后一行
-            dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.RowCount - 1;
-            int focusIndex = dataGridView1.RowCount - 2;
+            dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex = dataGridView_英雄数据编辑器.RowCount - 1;
+            int focusIndex = dataGridView_英雄数据编辑器.RowCount - 2;
             //当焦点行索引有效时，设置当前单元格为该行的第一列
-            if (dataGridView1.RowCount - 1 >= 0)
+            if (dataGridView_英雄数据编辑器.RowCount - 1 >= 0)
             {
-                dataGridView1.CurrentCell = dataGridView1.Rows[focusIndex].Cells[0];
+                dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[focusIndex].Cells[0];
             }
             else
             {
                 // 否则设置为第一行的第一列（如果存在）
-                dataGridView1.CurrentCell = dataGridView1.Rows[0].Cells[0];
+                dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[0].Cells[0];
             }
 
         }
@@ -279,7 +281,7 @@ namespace JinChanChanTool.Forms
             var selectedRows = new List<DataGridViewRow>();
 
             // 获取通过行头选中的行
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in dataGridView_英雄数据编辑器.SelectedRows)
             {
                 if (!row.IsNewRow)
                 {
@@ -288,7 +290,7 @@ namespace JinChanChanTool.Forms
             }
 
             // 获取通过单元格选中的行（但不在SelectedRows中的行）
-            foreach (DataGridViewCell cell in dataGridView1.SelectedCells)
+            foreach (DataGridViewCell cell in dataGridView_英雄数据编辑器.SelectedCells)
             {
                 if (!cell.OwningRow.IsNewRow && !selectedRows.Contains(cell.OwningRow))
                 {
@@ -303,8 +305,8 @@ namespace JinChanChanTool.Forms
             }
 
             // 记录删除前的滚动位置
-            int firstDisplayedIndex = dataGridView1.FirstDisplayedScrollingRowIndex;
-            int lastDisplayedIndex = firstDisplayedIndex + dataGridView1.DisplayedRowCount(false) - 1;
+            int firstDisplayedIndex = dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex;
+            int lastDisplayedIndex = firstDisplayedIndex + dataGridView_英雄数据编辑器.DisplayedRowCount(false) - 1;
 
             // 从后往前删除，避免索引问题
             var selectedIndices = selectedRows
@@ -342,21 +344,21 @@ namespace JinChanChanTool.Forms
             // 当焦点行索引有效时，设置当前单元格为该行的第一列
             if (focusIndex >= 0)
             {
-                dataGridView1.CurrentCell = dataGridView1.Rows[focusIndex].Cells[0];
+                dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[focusIndex].Cells[0];
             }
             else
             {
                 // 否则设置为第一行的第一列（如果存在）
-                dataGridView1.CurrentCell = dataGridView1.Rows[0].Cells[0];
+                dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[0].Cells[0];
             }
 
             // 根据删除行位置决定是否滚动
             if (allInView)
             {
                 // 所有删除行都在显示范围内，不滚动
-                if (firstDisplayedIndex >= 0 && firstDisplayedIndex < dataGridView1.RowCount)
+                if (firstDisplayedIndex >= 0 && firstDisplayedIndex < dataGridView_英雄数据编辑器.RowCount)
                 {
-                    dataGridView1.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
+                    dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
                 }
             }
             else
@@ -367,9 +369,9 @@ namespace JinChanChanTool.Forms
                 {
                     scrollIndex = 0;
                 }
-                if (scrollIndex < dataGridView1.RowCount)
+                if (scrollIndex < dataGridView_英雄数据编辑器.RowCount)
                 {
-                    dataGridView1.FirstDisplayedScrollingRowIndex = scrollIndex;
+                    dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex = scrollIndex;
                 }
             }
 
@@ -410,13 +412,13 @@ namespace JinChanChanTool.Forms
         private void upButton_Click(object sender, EventArgs e)
         {
             // 检查是否有当前单元格
-            if (dataGridView1.CurrentCell == null)
+            if (dataGridView_英雄数据编辑器.CurrentCell == null)
             {
                 MessageBox.Show("请先选择要移动的行！");
                 return;
             }
             // 获取当前行索引
-            int currentIndex = dataGridView1.CurrentCell.RowIndex;
+            int currentIndex = dataGridView_英雄数据编辑器.CurrentCell.RowIndex;
             // 检查是否可以上移（不是第一行）
             if (currentIndex <= 0)
             {
@@ -424,7 +426,7 @@ namespace JinChanChanTool.Forms
                 return;
             }
             // 记录滚动位置
-            int firstDisplayedIndex = dataGridView1.FirstDisplayedScrollingRowIndex;
+            int firstDisplayedIndex = dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex;
             // 交换数据源中的位置
             HeroData temp = _iheroDataService.HeroDatas[currentIndex];
             _iheroDataService.HeroDatas[currentIndex] = _iheroDataService.HeroDatas[currentIndex - 1];
@@ -433,14 +435,14 @@ namespace JinChanChanTool.Forms
             BindDataGridView();
 
             // 重新选中移动后的行
-            dataGridView1.ClearSelection();
-            dataGridView1.Rows[currentIndex - 1].Selected = true;
-            dataGridView1.CurrentCell = dataGridView1.Rows[currentIndex - 1].Cells[0];
+            dataGridView_英雄数据编辑器.ClearSelection();
+            dataGridView_英雄数据编辑器.Rows[currentIndex - 1].Selected = true;
+            dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[currentIndex - 1].Cells[0];
 
             // 恢复滚动位置
-            if (firstDisplayedIndex >= 0 && firstDisplayedIndex < dataGridView1.RowCount)
+            if (firstDisplayedIndex >= 0 && firstDisplayedIndex < dataGridView_英雄数据编辑器.RowCount)
             {
-                dataGridView1.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
+                dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
             }
 
         }
@@ -453,14 +455,14 @@ namespace JinChanChanTool.Forms
         private void downButton_Click(object sender, EventArgs e)
         {
             // 检查是否有当前单元格
-            if (dataGridView1.CurrentCell == null)
+            if (dataGridView_英雄数据编辑器.CurrentCell == null)
             {
                 MessageBox.Show("请先选择要移动的行！");
                 return;
             }
 
             // 获取当前行索引
-            int currentIndex = dataGridView1.CurrentCell.RowIndex;
+            int currentIndex = dataGridView_英雄数据编辑器.CurrentCell.RowIndex;
 
             // 检查是否可以下移（不是最后一行）
             if (currentIndex >= _iheroDataService.HeroDatas.Count - 1)
@@ -470,7 +472,7 @@ namespace JinChanChanTool.Forms
             }
 
             // 记录滚动位置
-            int firstDisplayedIndex = dataGridView1.FirstDisplayedScrollingRowIndex;
+            int firstDisplayedIndex = dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex;
 
             // 交换数据源中的位置
             HeroData temp = _iheroDataService.HeroDatas[currentIndex];
@@ -480,14 +482,14 @@ namespace JinChanChanTool.Forms
             BindDataGridView();
 
             // 重新选中移动后的行
-            dataGridView1.ClearSelection();
-            dataGridView1.Rows[currentIndex + 1].Selected = true;
-            dataGridView1.CurrentCell = dataGridView1.Rows[currentIndex + 1].Cells[0];
+            dataGridView_英雄数据编辑器.ClearSelection();
+            dataGridView_英雄数据编辑器.Rows[currentIndex + 1].Selected = true;
+            dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[currentIndex + 1].Cells[0];
 
             // 恢复滚动位置
-            if (firstDisplayedIndex >= 0 && firstDisplayedIndex < dataGridView1.RowCount)
+            if (firstDisplayedIndex >= 0 && firstDisplayedIndex < dataGridView_英雄数据编辑器.RowCount)
             {
-                dataGridView1.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
+                dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
             }
 
         }
@@ -517,7 +519,7 @@ namespace JinChanChanTool.Forms
                 }
             }
             // 更新当前选中的数据集索引
-            _iheroDataService.PathIndex = comboBox1.SelectedIndex;
+            _iheroDataService.PathIndex = comboBox_赛季文件选择器.SelectedIndex;
 
             // 重新加载英雄数据
             _iheroDataService.ReLoad();
@@ -543,7 +545,7 @@ namespace JinChanChanTool.Forms
         private void Save()
         {
             // 结束编辑
-            dataGridView1.EndEdit();
+            dataGridView_英雄数据编辑器.EndEdit();
             _iheroDataService.Save();
         }
 
@@ -573,6 +575,9 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

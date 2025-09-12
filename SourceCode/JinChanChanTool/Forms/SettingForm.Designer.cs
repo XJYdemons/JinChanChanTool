@@ -1000,8 +1000,9 @@
             // 
             // panel_BackGround
             // 
+            panel_BackGround.AutoScroll = true;
             panel_BackGround.AutoSize = true;
-            panel_BackGround.BackColor = Color.White;
+            panel_BackGround.BackColor = SystemColors.Control;
             panel_BackGround.Controls.Add(tabControl_设置);
             panel_BackGround.Controls.Add(panel_Buttons);
             panel_BackGround.Dock = DockStyle.Fill;
@@ -1014,6 +1015,8 @@
             // 
             // panel_Buttons
             // 
+            panel_Buttons.AutoScroll = true;
+            panel_Buttons.BackColor = Color.White;
             panel_Buttons.Controls.Add(button2);
             panel_Buttons.Controls.Add(button1);
             panel_Buttons.Dock = DockStyle.Top;

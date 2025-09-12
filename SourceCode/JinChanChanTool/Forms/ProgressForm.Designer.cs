@@ -55,7 +55,7 @@
             Controls.Add(lblStatus);
             Controls.Add(progressBar1);
             Name = "ProgressForm";
-            Text = "ProgressForm";
+            Text = "获取进度";
             ResumeLayout(false);
             PerformLayout();
         }

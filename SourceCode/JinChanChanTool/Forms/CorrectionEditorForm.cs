@@ -13,17 +13,17 @@ namespace JinChanChanTool
         /// OCR结果纠正服务对象
         /// </summary>
         private ICorrectionService _iCorrectionService;
-        
+
         /// <summary>
         /// 是否发生改动的标志
         /// </summary>
         private bool isChanged;
-       
+
         public CorrectionEditorForm()
         {
             InitializeComponent();
             // 添加自定义标题栏
-            CustomTitleBar titleBar = new CustomTitleBar(this, null, "OCR结果纠正编辑器");
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32,null, "OCR结果纠正编辑器", CustomTitleBar.ButtonOptions.None);
             this.Controls.Add(titleBar);
             //实例化OCR结果纠正列表服务对象
             _iCorrectionService = new CorrectionService();
@@ -36,7 +36,7 @@ namespace JinChanChanTool
         private void CorrectionEditorForm_Load(object sender, EventArgs e)
         {
 
-        }       
+        }
 
         /// <summary>
         /// 在DataGridView中设置列并填充数据。
@@ -44,9 +44,9 @@ namespace JinChanChanTool
         private void InitializeDataGrid()
         {
             // 清除现有列
-            dataGridView.Columns.Clear();
+            dataGridView_结果纠正列表编辑器.Columns.Clear();
             // 添加纠正值列
-            dataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            dataGridView_结果纠正列表编辑器.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "纠正值",
                 Name = "CorrectColumn",
@@ -54,13 +54,13 @@ namespace JinChanChanTool
                 SortMode = DataGridViewColumnSortMode.NotSortable // 禁用排序
             });
             // 添加原始值列
-            dataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            dataGridView_结果纠正列表编辑器.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "原始值",
                 Name = "IncorrectColumn",
                 Width = 150,
                 SortMode = DataGridViewColumnSortMode.NotSortable // 禁用排序
-            });            
+            });
         }
 
         /// <summary>
@@ -72,9 +72,9 @@ namespace JinChanChanTool
             {
                 for (int j = 0; j < _iCorrectionService.ResultMappings[i].Incorrect.Count; j++)
                 {
-                    int rowIndex = dataGridView.Rows.Add();
-                    dataGridView.Rows[rowIndex].Cells["CorrectColumn"].Value = _iCorrectionService.ResultMappings[i].Correct;
-                    dataGridView.Rows[rowIndex].Cells["IncorrectColumn"].Value = _iCorrectionService.ResultMappings[i].Incorrect[j];
+                    int rowIndex = dataGridView_结果纠正列表编辑器.Rows.Add();
+                    dataGridView_结果纠正列表编辑器.Rows[rowIndex].Cells["CorrectColumn"].Value = _iCorrectionService.ResultMappings[i].Correct;
+                    dataGridView_结果纠正列表编辑器.Rows[rowIndex].Cells["IncorrectColumn"].Value = _iCorrectionService.ResultMappings[i].Incorrect[j];
                 }
             }
         }
@@ -83,8 +83,8 @@ namespace JinChanChanTool
         /// 保存DataGridView中的映射关系到指定Json文件。
         /// </summary>
         private void SaveMappings()
-        {           
-            var groupedMappings = dataGridView.Rows
+        {
+            var groupedMappings = dataGridView_结果纠正列表编辑器.Rows
                     .Cast<DataGridViewRow>()
                     .Where(row => !row.IsNewRow)
                     .GroupBy(row => row.Cells["CorrectColumn"].Value?.ToString())
@@ -96,7 +96,7 @@ namespace JinChanChanTool
                                         .Where(value => !string.IsNullOrEmpty(value))
                                         .ToList()
                     })
-                    .ToList();               
+                    .ToList();
             _iCorrectionService.ResultMappings = groupedMappings;
             _iCorrectionService.Save();
         }
@@ -107,15 +107,15 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnAdd_Click(object sender, EventArgs e)
-        {            
+        {
             // 添加新行
-            dataGridView.Rows.Add();
+            dataGridView_结果纠正列表编辑器.Rows.Add();
             isChanged = true;
             // 滚动到最后一行
-            dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
-            int focusIndex = dataGridView.RowCount - 2;
+            dataGridView_结果纠正列表编辑器.FirstDisplayedScrollingRowIndex = dataGridView_结果纠正列表编辑器.RowCount - 1;
+            int focusIndex = dataGridView_结果纠正列表编辑器.RowCount - 2;
             //设置当前单元格为该行的第一列           
-            dataGridView.CurrentCell = dataGridView.Rows[focusIndex].Cells[0];
+            dataGridView_结果纠正列表编辑器.CurrentCell = dataGridView_结果纠正列表编辑器.Rows[focusIndex].Cells[0];
         }
 
         /// <summary>
@@ -124,10 +124,10 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnDelete_Click(object sender, EventArgs e)
-        {            
+        {
             var selectedRows = new List<DataGridViewRow>();
             // 获取通过行头选中的行
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in dataGridView_结果纠正列表编辑器.SelectedRows)
             {
                 if (!row.IsNewRow)
                 {
@@ -135,7 +135,7 @@ namespace JinChanChanTool
                 }
             }
             // 获取通过单元格选中的行（但不在SelectedRows中的行）
-            foreach (DataGridViewCell cell in dataGridView.SelectedCells)
+            foreach (DataGridViewCell cell in dataGridView_结果纠正列表编辑器.SelectedCells)
             {
                 if (!cell.OwningRow.IsNewRow && !selectedRows.Contains(cell.OwningRow))
                 {
@@ -144,13 +144,13 @@ namespace JinChanChanTool
             }
             if (selectedRows.Count == 0)
             {
-                MessageBox.Show("请先选择要删除的行！","未选中删除行",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("请先选择要删除的行！", "未选中删除行", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // 记录删除前的滚动位置
-            int firstDisplayedIndex = dataGridView.FirstDisplayedScrollingRowIndex;
-            int lastDisplayedIndex = firstDisplayedIndex + dataGridView.DisplayedRowCount(false) - 1;
+            int firstDisplayedIndex = dataGridView_结果纠正列表编辑器.FirstDisplayedScrollingRowIndex;
+            int lastDisplayedIndex = firstDisplayedIndex + dataGridView_结果纠正列表编辑器.DisplayedRowCount(false) - 1;
             // 从后往前删除，避免索引问题
             var selectedIndices = selectedRows
                 .Select(r => r.Index)
@@ -165,7 +165,7 @@ namespace JinChanChanTool
 
             foreach (int index in selectedIndices)
             {
-                dataGridView.Rows.RemoveAt(index);
+                dataGridView_结果纠正列表编辑器.Rows.RemoveAt(index);
             }
             isChanged = true;
             // 计算新的焦点行索引为删除行的上面一行
@@ -175,9 +175,9 @@ namespace JinChanChanTool
             if (allInView)
             {
                 // 所有删除行都在显示范围内，不滚动
-                if (firstDisplayedIndex < dataGridView.RowCount)
+                if (firstDisplayedIndex < dataGridView_结果纠正列表编辑器.RowCount)
                 {
-                    dataGridView.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
+                    dataGridView_结果纠正列表编辑器.FirstDisplayedScrollingRowIndex = firstDisplayedIndex;
                 }
             }
             else
@@ -188,21 +188,21 @@ namespace JinChanChanTool
                 {
                     scrollIndex = 0;
                 }
-                if (scrollIndex < dataGridView.RowCount)
+                if (scrollIndex < dataGridView_结果纠正列表编辑器.RowCount)
                 {
-                    dataGridView.FirstDisplayedScrollingRowIndex = scrollIndex;
+                    dataGridView_结果纠正列表编辑器.FirstDisplayedScrollingRowIndex = scrollIndex;
                 }
             }
 
             // 当焦点行索引有效时，设置当前单元格为该行的第一列
-            if (focusIndex >= 0 && focusIndex < dataGridView.RowCount)
+            if (focusIndex >= 0 && focusIndex < dataGridView_结果纠正列表编辑器.RowCount)
             {
-                dataGridView.CurrentCell = dataGridView.Rows[focusIndex].Cells[0];
+                dataGridView_结果纠正列表编辑器.CurrentCell = dataGridView_结果纠正列表编辑器.Rows[focusIndex].Cells[0];
             }
             else
             {
                 // 否则设置为第一行的第一列（如果存在）
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+                dataGridView_结果纠正列表编辑器.CurrentCell = dataGridView_结果纠正列表编辑器.Rows[0].Cells[0];
             }
         }
 
@@ -221,13 +221,13 @@ namespace JinChanChanTool
                     SaveMappings();
                     isChanged = false;
                 }
-                else if(result == DialogResult.Cancel)
+                else if (result == DialogResult.Cancel)
                 {
                     return;
                 }
                 else
                 {
-                    
+
                 }
             }
             this.Close();
@@ -242,7 +242,12 @@ namespace JinChanChanTool
         {
             SaveMappings();
             isChanged = false;
-            MessageBox.Show("保存成功！重启应用后生效。","保存成功",MessageBoxButtons.OK,MessageBoxIcon.Information);            
+            MessageBox.Show("保存成功！重启应用后生效。", "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

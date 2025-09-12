@@ -56,8 +56,8 @@ namespace JinChanChanTool
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
-            // 添加自定义标题栏
-            CustomTitleBar titleBar = new CustomTitleBar(this, Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "icon.ico")), "JinChanChanTool");
+            // 自定义标题栏,带图标、带标题、最小化与关闭按钮。
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32,Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "icon.ico")), "JinChanChanTool",CustomTitleBar.ButtonOptions.Close|CustomTitleBar.ButtonOptions.Minimize);
             this.Controls.Add(titleBar);
 
             LogTool.Log("主窗口已初始化！");
@@ -1227,6 +1227,7 @@ namespace JinChanChanTool
 
                     if (result == DialogResult.OK)
                     {
+                        CloseStatusOverlay();
                         Application.Restart();
                         Environment.Exit(0);
                     }

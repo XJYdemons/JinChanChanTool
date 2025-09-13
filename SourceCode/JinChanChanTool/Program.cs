@@ -24,7 +24,7 @@ namespace JinChanChanTool
             _iheroDataService.Load();
 
             //创建并加载阵容数据服务
-            ILineUpService _ilineUpService = new LineUpService(_iheroDataService.HeroDatas.Count, _iappConfigService.CurrentConfig.CountOfLine);
+            ILineUpService _ilineUpService = new LineUpService(_iheroDataService, _iappConfigService.CurrentConfig.CountOfLine,_iappConfigService.CurrentConfig.MaxOfChoices);
             _ilineUpService.Load();
 
             // 创建并加载英雄装备推荐数据服务

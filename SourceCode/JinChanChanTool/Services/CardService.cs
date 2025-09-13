@@ -522,13 +522,13 @@ namespace JinChanChanTool.Services
         /// <returns></returns>
         private bool[] CompareResults(string[] results)
         {
-            List<int> selectedIndexes = _ilineUpService.SelectedIndexes();
+            List<string> selectedHeros = _ilineUpService.GetCurrentSubLineUp();
             bool[] 本轮牌库状态 = new bool[5] { false,false,false,false,false};
             for(int i =0;i<results.Length;i++)
             {                  
-                foreach(int j in selectedIndexes)
+                foreach(string j in selectedHeros)
                 {
-                    if (results[i] ==_iheroDataService.HeroDatas[j].HeroName)
+                    if (results[i] ==j)
                     {
                         本轮牌库状态[i] = true;                        
                         break;

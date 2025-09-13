@@ -15,10 +15,11 @@ namespace JinChanChanTool.Services
         public HeroPictureBox[,] subLineUpPictureBoxes { get; set; }
         public List<FlowLayoutPanel> subLineUpPanels { get; }
 
-        private readonly IHeroDataService _iHeroDataService;
-        private readonly ILineUpService _iLineUpservice;
-        private readonly IAppConfigService _iAppConfigService;
+        private Dictionary<string,CheckBox> NameToCheckBoxMap { get; set; }
+      
+        private readonly IHeroDataService _iHeroDataService;            
         private readonly IHeroEquipmentDataService _iHeroEquipmentDataService;
+        private readonly int _countOfSubLineUpPictureBox;
         private readonly Panel _panel_Cost1;
         private readonly Panel _panel_Cost2;
         private readonly Panel _panel_Cost3;
@@ -26,8 +27,8 @@ namespace JinChanChanTool.Services
         private readonly Panel _panel_Cost5;        
         private readonly Panel _professionButtonPanel;
         private readonly Panel _peculiarityButtonPanel;
-        
-        
+
+       
         //
         //英雄选择器常量
         //
@@ -56,14 +57,16 @@ namespace JinChanChanTool.Services
         /// </summary>
         private Dictionary<int, Color> CostToColorMap { get; set; }
 
-        public UIBuilderService(Form1 form1,Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService, ILineUpService iLineUpservice, IAppConfigService iAppConfigService, IHeroEquipmentDataService iHeroEquipmentDataService)
+        public UIBuilderService(Form1 form1,Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService,int countOfSubLineUpPictureBox)
         {
+            _countOfSubLineUpPictureBox = countOfSubLineUpPictureBox;
             heroPictureBoxes = new List<HeroPictureBox>();
             checkBoxes = new List<CheckBox>();
             professionButtons = new List<Button>();
             peculiarityButtons = new List<Button>();            
             subLineUpPanels = new List<FlowLayoutPanel>();
             CostToColorMap = new Dictionary<int, Color>();
+            NameToCheckBoxMap = new Dictionary<string, CheckBox>();
             _panel_Cost1 = panel_Cost1;
             _panel_Cost2 = panel_Cost2;
             _panel_Cost3 = panel_Cost3;
@@ -72,11 +75,8 @@ namespace JinChanChanTool.Services
             _professionButtonPanel = professionButtonPanel;
             _peculiarityButtonPanel = peculiarityButtonPanel;
             subLineUpPanels.AddRange(new List<FlowLayoutPanel> { subLineUpPanel1, subLineUpPanel2, subLineUpPanel3 });
-            _iHeroDataService = iHeroDataService;
-            _iLineUpservice = iLineUpservice;
-            _iAppConfigService = iAppConfigService;
-            subLineUpPictureBoxes = new HeroPictureBox[3, _iAppConfigService.CurrentConfig.MaxOfChoices];
-            _iHeroEquipmentDataService = iHeroEquipmentDataService;
+            _iHeroDataService = iHeroDataService;                      
+            subLineUpPictureBoxes = new HeroPictureBox[3, countOfSubLineUpPictureBox];          
             _form1 = form1;
             BuildCostToColorMap();
         }
@@ -100,13 +100,12 @@ namespace JinChanChanTool.Services
         public void CreateHeroSelectors()
         {
             // 按费用分组
-            var costGroups = _iHeroDataService.HeroDatas
+            List<IGrouping<int,HeroData>> costGroups = _iHeroDataService.HeroDatas
                 .GroupBy(h => h.Cost)
-                .OrderBy(g => g.Key)
                 .ToList();
 
             // 创建每个费用组
-            foreach (var group in costGroups)
+            foreach (IGrouping<int, HeroData> group in costGroups)
             {
                 CreateHeroSelectorGroup(group.Key, group.ToList());
             }
@@ -208,7 +207,8 @@ namespace JinChanChanTool.Services
             checkBox.TabStop = false;
             checkBox.FlatStyle = FlatStyle.Flat;
             checkBox.Size = _form1.LogicalToDeviceUnits(checkBoxSize);
-            checkBox.Tag = hero;
+            checkBox.Tag = hero.HeroName;
+            NameToCheckBoxMap[hero.HeroName] = checkBox;
             return checkBox;
         }
 
@@ -223,8 +223,8 @@ namespace JinChanChanTool.Services
             pictureBox.BackColor = SystemColors.Control;
             pictureBox.BorderWidth = 2;
             pictureBox.Size = _form1.LogicalToDeviceUnits(heroPictureBoxSize);
-            pictureBox.Image = _iHeroDataService.HeroDataToImageMap[hero];
-            pictureBox.Tag = hero;
+            pictureBox.Image = _iHeroDataService.GetImageFromHero(hero);
+            pictureBox.Tag = hero.HeroName;
             pictureBox.BorderColor = GetColor(hero.Cost);                                           
             return pictureBox;
         }
@@ -263,16 +263,9 @@ namespace JinChanChanTool.Services
             // 创建每个按钮
             for (int i = 0; i < items.Count; i++)
             {
-                Button button = CreatButton();
-
-                // 设置按钮位置
-                button.Location = (Point)_form1.LogicalToDeviceUnits((Size)(new Point(currentX, currentY)));
-
-                // 设置按钮文本和标签                
                 dynamic item = items[i];
-                button.Text = item.Title;
-                button.Tag = item;
-
+                Button button = CreatButton((Point)_form1.LogicalToDeviceUnits((Size)(new Point(currentX, currentY))),item.Title,item);
+             
                 // 添加到面板和列表
                 panel.Controls.Add(button);
                 buttonList.Add(button);
@@ -295,7 +288,7 @@ namespace JinChanChanTool.Services
         /// 创建单个按钮
         /// </summary>
         /// <returns></returns>
-        private Button CreatButton()
+        private Button CreatButton(Point location,string text,object? tag)
         {
             Button button = new Button();
             button.TabStop = false;
@@ -307,6 +300,9 @@ namespace JinChanChanTool.Services
             button.Margin = new Padding(0, 0, 0, 0);
             button.TextAlign = ContentAlignment.MiddleCenter;
             button.Size = _form1.LogicalToDeviceUnits( professionAndPeculiarityButtonSize);
+            button.Location = location;
+            button.Text = text;
+            button.Tag = tag;
             return button;
         }
 
@@ -371,7 +367,7 @@ namespace JinChanChanTool.Services
            
             
             // 5. 重新初始化子阵容图片框数组
-            subLineUpPictureBoxes = new HeroPictureBox[3, _iAppConfigService.CurrentConfig.MaxOfChoices];
+            subLineUpPictureBoxes = new HeroPictureBox[3, _countOfSubLineUpPictureBox];
         }
 
         /// <summary>
@@ -469,6 +465,18 @@ namespace JinChanChanTool.Services
         {
             CostToColorMap.TryGetValue(index, out Color color);
             return color;
+        }
+        
+        public CheckBox GetCheckBoxFromName(string name)
+        {
+            if(NameToCheckBoxMap.ContainsKey(name))
+            {
+                return NameToCheckBoxMap[name];
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

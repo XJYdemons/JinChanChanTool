@@ -51,5 +51,9 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="crawledData">由 ICrawlingService 获取到的最新英雄装备数据列表。</param>
         void UpdateDataFromCrawling(List<HeroEquipment> crawledData);
+
+        HeroEquipment GetHeroEquipmentFromName(string name);
+
+        List<Image> GetImagesFromHeroEquipment(HeroEquipment heroEquipment);
     }
 }

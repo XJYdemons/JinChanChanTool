@@ -37,17 +37,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 特质对象列表
         /// </summary>
-        List<Peculiarity> Peculiarities { get; }
-
-        /// <summary>
-        /// 图片到英雄数据对象的字典
-        /// </summary>
-        Dictionary<Image, HeroData> ImageToHeroDataMap { get; }
-
-        /// <summary>
-        /// 英雄数据对象到图片的字典
-        /// </summary>
-        Dictionary<HeroData, Image> HeroDataToImageMap { get; }
+        List<Peculiarity> Peculiarities { get; }       
 
         /// <summary>
         /// 从本地加载到对象
@@ -63,5 +53,39 @@ namespace JinChanChanTool.Services.DataServices
         /// 从对象保存到本地
         /// </summary>
         void Save();
+
+        /// <summary>
+        /// 从英雄名获取英雄对象
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        HeroData GetHeroFromName(string name);
+
+        /// <summary>
+        /// 从图像获取英雄对象
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <returns></returns>
+        Image GetImageFromHero(HeroData hero);
+
+        /// <summary>
+        /// 从英雄对象获取图像
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        HeroData GetHeroFromImage(Image image);
+
+        /// <summary>
+        /// 根据索引删除英雄
+        /// </summary>
+        /// <param name="index"></param>
+        void DeletHeroAtIndex(int index);
+
+        /// <summary>
+        /// 添加英雄
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="image"></param>
+        void AddHero(HeroData hero, Image image);
     }
 }

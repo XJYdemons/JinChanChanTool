@@ -18,7 +18,7 @@ namespace JinChanChanTool.Services.DataServices
         public int PathIndex { get; set; }
         public List<HeroEquipment> HeroEquipments { get; private set; }
         public Dictionary<HeroEquipment, List<Image>> EquipmentImageMap { get; private set; }
-
+        private Dictionary<string,HeroEquipment> nameToHeroEquipmentMap { get; set; }
         /// <summary>
         /// 构造函数，初始化属性并设置路径。
         /// </summary>
@@ -28,6 +28,8 @@ namespace JinChanChanTool.Services.DataServices
             PathIndex = 0; // 默认选择第一个赛季
             HeroEquipments = new List<HeroEquipment>();
             EquipmentImageMap = new Dictionary<HeroEquipment, List<Image>>();
+            nameToHeroEquipmentMap= new Dictionary<string,HeroEquipment>();
+            
         }
 
         /// <summary>
@@ -49,8 +51,37 @@ namespace JinChanChanTool.Services.DataServices
             // 获取所有子目录的完整路径，这些子目录代表了不同的赛季
             Paths = Directory.GetDirectories(parentPath);
         }
+        
+        public HeroEquipment GetHeroEquipmentFromName(string name)
+        {
+            if(nameToHeroEquipmentMap.ContainsKey(name))
+            {
+                return nameToHeroEquipmentMap[name];
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-        #region Public Interface Methods (待实现)
+        public List<Image> GetImagesFromHeroEquipment(HeroEquipment heroEquipment)
+        {
+            if(EquipmentImageMap.ContainsKey(heroEquipment))
+            {
+                return EquipmentImageMap[heroEquipment];
+            }
+            else
+            {
+                return null; 
+            }
+        }
+        private void BuildMap()
+        {
+            foreach(HeroEquipment heroEquipment in HeroEquipments)
+            {
+                nameToHeroEquipmentMap[heroEquipment.HeroName] = heroEquipment;
+            }
+        }
 
         /// <summary>
         /// 从当前PathIndex指定的本地路径，加载所有数据（JSON和图片）。
@@ -67,7 +98,7 @@ namespace JinChanChanTool.Services.DataServices
             // 步骤 2: 根据刚刚加载的文本信息，去加载对应的装备图片。
             // 这个方法会使用 HeroEquipments 列表来构建 EquipmentImageMap 字典。
             LoadEquipmentImages();
-
+            BuildMap();
             System.Diagnostics.Debug.WriteLine("HeroEquipmentDataService: 数据加载完成。");
         }
 
@@ -156,9 +187,9 @@ namespace JinChanChanTool.Services.DataServices
             Save();
         }
 
-        #endregion
 
-        #region Private Implementation Methods (待实现)
+
+    
 
         /// <summary>
         /// 从 EquipmentData.json 文件加载数据并填充 HeroEquipments 列表。
@@ -286,6 +317,5 @@ namespace JinChanChanTool.Services.DataServices
             System.Diagnostics.Debug.WriteLine($"成功为 {EquipmentImageMap.Count} 位英雄构建了装备图片映射。");
         }
 
-        #endregion
     }
 }

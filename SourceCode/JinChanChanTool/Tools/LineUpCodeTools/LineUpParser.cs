@@ -25,7 +25,26 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
             {"16b", 10373}, {"178", 10388}, {"189", 10406}, {"01c", 10422},
             {"190", 10424}, {"195", 10432}, {"01e", 10436}
         };
-
+        // 硬编码的S15赛季的代码字典
+        private static readonly Dictionary<string, string> codeToNameMap = new Dictionary<string, string>
+        {
+            {"15a", "亚托克斯"}, {"168", "伊泽瑞尔"}, {"16a","盖伦"}, {"018", "纳尔"},
+            {"173", "卡莉丝塔"}, {"175",  "凯尔"}, {"176", "凯南"}, {"017", "卢锡安"},
+            {"17d",  "墨菲特"}, {"180", "纳亚菲利"}, {"185", "芮尔"}, {"01b", "希维尔"},
+            {"18d", "辛德拉"}, {"197", "扎克"}, {"014", "蒙多医生"}, {"016", "普朗克"},
+            {"16c", "迦娜"}, {"16f", "烬"}, {"172", "卡莎"}, {"174", "卡特琳娜"},
+            {"177",  "可酷伯"}, {"17b","拉克丝"}, {"184",  "洛"}, {"00d", "慎"},
+            {"01a",  "蔚"}, {"192", "霞"}, {"193", "赵信"}, {"15b", "阿狸"},
+            {"164", "凯特琳"}, {"166", "德莱厄斯"}, {"16e", "杰斯"}, {"19a", "克格莫"},
+            {"17e", "玛尔扎哈"}, {"01d", "妮蔻"}, {"1c1", "拉莫斯"}, {"013", "赛娜"},
+            {"00f", "斯莫德"}, {"18c", "斯维因"}, {"18e", "乌迪尔"}, {"191", "佛耶戈"},
+            {"194", "亚索"}, {"198", "吉格斯"}, {"15c", "阿卡丽"}, {"15e", "艾希"},
+            {"16d", "嘉文四世"}, {"170", "金克丝"}, {"019", "卡尔玛"}, {"171","奎桑提"},
+            {"179", "蕾欧娜"}, {"182", "波比"}, {"187", "瑞兹"}, {"188", "莎弥拉"},
+            {"18a", "瑟提"}, {"199", "沃利贝尔"}, {"196","悠米"}, {"163","布隆"},
+            {"16b", "格温"}, {"178", "李青"}, {"189", "萨勒芬妮"}, {"01c", "崔斯特"},
+            {"190", "韦鲁斯"}, {"195", "永恩"}, {"01e", "婕拉"}
+        };
 
         /// <summary>
         /// 将单个3位16进制字符串解密为英雄ID。
@@ -33,11 +52,11 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
         /// <param name="hexStr">3位16进制字符串</param>
         /// <param name="mode">模式 (1=S15, 2=S10)</param>
         /// <returns>英雄ID</returns>
-        private static int HexDecrypt(string hexStr)
+        private static string HexDecrypt(string hexStr)
         {
-            if (mode1_d.ContainsKey(hexStr))
+            if (codeToNameMap.ContainsKey(hexStr))
             {
-                return mode1_d[hexStr];
+                return codeToNameMap[hexStr];
             }
           
 
@@ -50,11 +69,11 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
         /// </summary>
         /// <param name="tftHexStr">完整的阵容代码</param>
         /// <returns>包含多个英雄ID的列表</returns>
-        public static List<int> ParseCode(string tftHexStr)
+        public static List<string> ParseCode(string tftHexStr)
         {
             if (string.IsNullOrWhiteSpace(tftHexStr))
             {
-                return new List<int>();
+                return new List<string>();
             }
 
             // 目前只处理以 TFTSet15 结尾的代码
@@ -69,7 +88,7 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
             // C# 的 Substring(startIndex, length)
             string hexCore = tftHexStr.Substring(2, tftHexStr.Length - 10);
 
-            var heroIdList = new List<int>();
+            List<string> heroes = new List<string>();
             // 按每3个字符一组进行分割和解析
             for (int i = 0; i < hexCore.Length; i += 3)
             {
@@ -79,8 +98,8 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
                 {
                     try
                     {
-                        int heroId = HexDecrypt(chunk);
-                        heroIdList.Add(heroId);
+                        string heroName = HexDecrypt(chunk);
+                        heroes.Add(heroName);
                     }
                     catch (Exception ex)
                     {
@@ -89,7 +108,7 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
                     }
                 }
             }
-            return heroIdList;
+            return heroes;
         }
     }
 }

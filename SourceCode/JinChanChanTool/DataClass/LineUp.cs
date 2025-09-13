@@ -13,6 +13,6 @@
         /// <summary>
         /// 阵容勾选状态
         /// </summary>
-        public bool[,] Checked { get; set; }
+        public List<string>[] Selected { get; set; }
     }
 }

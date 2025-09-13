@@ -192,9 +192,10 @@ namespace JinChanChanTool.Forms
                 {
                     //加载图片
                     HeroData hero = _iheroDataService.HeroDatas.FirstOrDefault(h => h.HeroName == heroName);
-                    if (hero != null && _iheroDataService.HeroDataToImageMap.TryGetValue(hero, out Image image))
-                    {
-                        e.Value = image;
+                    Image image = _iheroDataService.GetImageFromHero(hero);
+                    if (hero != null&& image != null)
+                    {                                              
+                        e.Value = image;                      
                     }
                     else
                     {
@@ -248,9 +249,7 @@ namespace JinChanChanTool.Forms
         {
             // 添加新英雄
             var newHero = new HeroData();
-            _iheroDataService.HeroDatas.Add(newHero);
-            _iheroDataService.HeroDataToImageMap[newHero] = defaultImage;
-            _iheroDataService.ImageToHeroDataMap[defaultImage] = newHero;
+            _iheroDataService.AddHero(newHero, defaultImage);                              
             isChanged = true;
             // 刷新数据绑定
             BindDataGridView();
@@ -322,18 +321,7 @@ namespace JinChanChanTool.Forms
 
             foreach (int index in selectedIndices)
             {
-                if (index < _iheroDataService.HeroDatas.Count)
-                {
-                    var hero = _iheroDataService.HeroDatas[index];
-                    _iheroDataService.HeroDatas.RemoveAt(index);
-
-                    if (_iheroDataService.HeroDataToImageMap.ContainsKey(hero))
-                    {
-                        var image = _iheroDataService.HeroDataToImageMap[hero];
-                        _iheroDataService.HeroDataToImageMap.Remove(hero);
-                        _iheroDataService.ImageToHeroDataMap.Remove(image);
-                    }
-                }
+                _iheroDataService.DeletHeroAtIndex(index);                
             }
             isChanged = true;
             BindDataGridView();

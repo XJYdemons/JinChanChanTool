@@ -44,12 +44,18 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 图片到英雄数据对象的字典
         /// </summary>
-        public Dictionary<Image, HeroData> ImageToHeroDataMap { get; private set; }
+        private Dictionary<Image, HeroData> ImageToHeroDataMap { get; set; }
 
         /// <summary>
         /// 英雄数据对象到图片的字典
         /// </summary>
-        public Dictionary<HeroData, Image> HeroDataToImageMap { get; private set; }
+        private Dictionary<HeroData, Image> HeroDataToImageMap { get; set; }
+
+        /// <summary>
+        /// 英雄名称到对象的字典
+        /// </summary>
+        private Dictionary<string,HeroData> NameToHeroDataMap { get; set; }
+
         
         public HeroDataService()
         {
@@ -61,6 +67,7 @@ namespace JinChanChanTool.Services.DataServices
             Peculiarities = new List<Peculiarity>();
             ImageToHeroDataMap = new Dictionary<Image, HeroData>();
             HeroDataToImageMap = new Dictionary<HeroData, Image>();
+            NameToHeroDataMap = new Dictionary<string, HeroData>();
         }
 
         /// <summary>
@@ -93,13 +100,13 @@ namespace JinChanChanTool.Services.DataServices
             LoadImages();
             LoadProfessions();
             LoadPeculiarity();
-            BuildImageAndHeroDataMap();
+            BuildMap();
         }
 
         /// <summary>
         /// 建立字典联系
         /// </summary>
-        private void BuildImageAndHeroDataMap()
+        private void BuildMap()
         {
             for (int i = 0; i < HeroImages.Count; i++)
             {
@@ -108,6 +115,10 @@ namespace JinChanChanTool.Services.DataServices
             for (int i = 0; i < HeroDatas.Count; i++)
             {
                 HeroDataToImageMap[HeroDatas[i]] = HeroImages[i];
+            }
+            foreach(HeroData hero in HeroDatas)
+            {
+                NameToHeroDataMap[hero.HeroName] = hero;
             }
         }
 
@@ -146,11 +157,18 @@ namespace JinChanChanTool.Services.DataServices
                     }
                     List<HeroData> temp =JsonSerializer.Deserialize<List<HeroData>>(json);
                     // 排序逻辑
-                    temp
-                        .OrderBy(h => h.Cost)//根据Cost排序
-                        .ThenBy(h => h.HeroName) // Cost相同时按名称排序
-                        .ToList();
-                    HeroDatas = temp;
+                    HeroDatas = temp
+                                .OrderBy(h => h.Cost)
+                                 .ToList();
+                    // 设置 JsonSerializerOptions 以保持中文字符的可读性
+                    var options = new JsonSerializerOptions
+                    {
+                        WriteIndented = true, // 格式化输出
+                        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping // 保留中文字符
+                    };
+                    // 序列化数据
+                    string js = JsonSerializer.Serialize(HeroDatas, options);
+                    File.WriteAllText(Path.Combine(Application.StartupPath,"Resources","test.json"), js);
                 }
                 catch 
                 {
@@ -339,7 +357,72 @@ namespace JinChanChanTool.Services.DataServices
             Peculiarities.Clear();
             ImageToHeroDataMap.Clear();
             HeroDataToImageMap.Clear();
+            NameToHeroDataMap.Clear();
             Load();
+        }
+
+        public HeroData GetHeroFromName(string name)
+        {
+            if(NameToHeroDataMap.TryGetValue(name, out HeroData hero))
+            {
+                return hero;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public Image GetImageFromHero(HeroData hero)
+        {
+            if(HeroDataToImageMap.TryGetValue(hero,out Image image))
+            {
+                return image;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public HeroData GetHeroFromImage(Image image)
+        {
+            if(ImageToHeroDataMap.TryGetValue(image,out HeroData hero))
+            {
+                return hero;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public void DeletHeroAtIndex(int index)
+        {
+            if(index<HeroDatas.Count&&index>=0)
+            {
+                HeroData hero = HeroDatas[index];
+                if(HeroDataToImageMap.ContainsKey(hero))
+                {
+                    Image image = HeroDataToImageMap[hero];
+                    HeroDataToImageMap.Remove(hero);
+                    if(ImageToHeroDataMap.ContainsKey(image))
+                    {
+                        ImageToHeroDataMap.Remove(image);
+                    }
+                }
+                if(NameToHeroDataMap.ContainsKey(hero.HeroName))
+                {
+                    NameToHeroDataMap.Remove(hero.HeroName);
+                }    
+                HeroDatas.RemoveAt(index);
+            }
+        }
+        public void AddHero(HeroData hero,Image image)
+        {
+            if (hero == null|| image == null) return;             
+            HeroDatas.Add(hero);          
+            HeroDataToImageMap[hero] = image;
+            ImageToHeroDataMap[image] = hero;   
+            NameToHeroDataMap[hero.HeroName] = hero;
         }
     }
 }

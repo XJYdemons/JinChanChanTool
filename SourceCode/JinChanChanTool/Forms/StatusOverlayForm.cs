@@ -13,6 +13,18 @@ namespace JinChanChanTool.Forms
 {
     public partial class StatusOverlayForm : Form
     {
+        private static StatusOverlayForm _instance;
+        public static StatusOverlayForm Instance
+        {
+            get
+            {
+                if (_instance == null || _instance.IsDisposed)
+                {
+                    _instance = new StatusOverlayForm();
+                }
+                return _instance;
+            }
+        }
         // 状态标签
         private Label lblStatus1;
         private Label lblStatus2;
@@ -21,9 +33,9 @@ namespace JinChanChanTool.Forms
         private Point _dragStartPoint;
         private bool _dragging;
 
-        public StatusOverlayForm()
+       
+        private StatusOverlayForm()
         {
-
             InitializeComponent();
             InitializeComponents();
         }
@@ -38,19 +50,7 @@ namespace JinChanChanTool.Forms
             this.DoubleBuffered = true; // 启用双缓冲减少闪烁
             this.AutoScaleMode = AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.Padding = new Padding(5);
-            //panel_BackGround = new Panel()
-            //{
-            //    Dock = DockStyle.Fill,
-            //    BackColor = Color.Transparent,
-
-            //}
-            // 使用DPI感知的尺寸计算
-            //float dpiScale = GetDpiScalingFactor();
-            //int baseWidth = (int)(200 * dpiScale);
-            //int baseHeight = (int)(80 * dpiScale);
-            //this.Size = new Size(baseWidth, baseHeight);
-
+            this.Padding = new Padding(5);            
             // 设置窗口位置（右上角）
             var screen = Screen.PrimaryScreen.WorkingArea;
             this.Location = new Point(
@@ -107,19 +107,15 @@ namespace JinChanChanTool.Forms
             lblStatus2.MouseMove += StatusOverlayForm_MouseMove;
             lblStatus2.MouseUp += StatusOverlayForm_MouseUp;
         }
-
-        //// 获取DPI缩放因子
-        //private float GetDpiScalingFactor()
-        //{
-        //    using (Graphics g = this.CreateGraphics())
-        //    {
-        //        return g.DpiX / 96f; // 96是标准DPI
-        //    }
-        //}
-
+     
         // 更新状态显示
         public void UpdateStatus(bool status1, bool status2)
         {
+            if (lblStatus1.InvokeRequired)
+            {
+                lblStatus1.Invoke(new Action(() => UpdateStatus(status1, status2)));
+                return;
+            }
             lblStatus1.Text = $"自动拿牌: {(status1 ? "开启" : "关闭")}";
             lblStatus1.ForeColor = status1 ? Color.LimeGreen : Color.White;
 

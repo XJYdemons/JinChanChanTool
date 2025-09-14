@@ -52,10 +52,6 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
-        /// <summary>
-        /// 状态显示窗口
-        /// </summary>
-        private StatusOverlayForm _statusOverlay;
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
@@ -133,10 +129,9 @@ namespace JinChanChanTool
 
             #region 初始化状态显示窗口
             // 创建并显示状态窗口
-            _statusOverlay = new StatusOverlayForm();
-            _statusOverlay.Show();
-
-            // 初始状态
+            StatusOverlayForm.Instance.Show();
+         
+            
             UpdateOverlayStatus();
             #endregion         
 
@@ -149,7 +144,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>      
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            CloseStatusOverlay();
+           
             // 注销热键            
             GlobalHotkeyTool.Dispose();
             MouseHookTool.Dispose();
@@ -179,8 +174,6 @@ namespace JinChanChanTool
 
             if (result == DialogResult.Yes)
             {
-                // 先关闭状态窗口
-                CloseStatusOverlay();
                 // 重启应用程序
                 Application.Restart();
                 // 确保当前进程退出
@@ -311,22 +304,7 @@ namespace JinChanChanTool
             bool status1 = button_GetCard.Text == "停止"; // 假设按钮1是第一个开关
             bool status2 = button_Refresh.Text == "停止"; // 假设按钮2是第二个开关
 
-            _statusOverlay.UpdateStatus(status1, status2);
-        }
-
-        /// <summary>
-        /// 安全关闭状态显示窗口
-        /// </summary>
-        private void CloseStatusOverlay()
-        {
-            if (_statusOverlay != null && !_statusOverlay.IsDisposed)
-            {
-                // 安全关闭悬浮窗
-                _statusOverlay.Hide(); // 先隐藏
-                _statusOverlay.Close(); // 再关闭
-                _statusOverlay.Dispose(); // 释放资源
-                _statusOverlay = null;
-            }
+            StatusOverlayForm.Instance.UpdateStatus(status1, status2);
         }
         #endregion
 
@@ -1253,7 +1231,6 @@ namespace JinChanChanTool
 
                     if (result == DialogResult.OK)
                     {
-                        CloseStatusOverlay();
                         Application.Restart();
                         Environment.Exit(0);
                     }
@@ -1311,8 +1288,5 @@ namespace JinChanChanTool
             }
         }
         #endregion
-
-
-       
     }
 }

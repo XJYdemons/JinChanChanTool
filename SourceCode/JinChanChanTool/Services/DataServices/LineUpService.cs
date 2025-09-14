@@ -480,7 +480,7 @@ namespace JinChanChanTool.Services.DataServices
         private void LoadDefaultLineups()
         {
             _lineUps.Clear();
-            if (_iHeroDataService.HeroDatas.Count > 0)
+            if (_iHeroDataService.GetHeroCount() > 0)
             {
                 for (int i = 1; i <= _countOfLineUps; i++)
                 {

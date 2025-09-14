@@ -98,7 +98,7 @@ namespace JinChanChanTool
         {
             #region 初始化赛季下拉框
             comboBox_HeroPool.Items.Clear();
-            foreach (string name in _iheroDataService.Paths)
+            foreach (string name in _iheroDataService.GetFilePaths())
             {
                 comboBox_HeroPool.Items.Add(Path.GetFileName(name));
             }
@@ -259,7 +259,7 @@ namespace JinChanChanTool
             }
 
             //为英雄头像框绑定交互事件
-            for (int i = 0; i < _iheroDataService.HeroDatas.Count; i++)
+            for (int i = 0; i < _iheroDataService.GetHeroCount(); i++)
             {
                 _uiBuilderService.heroPictureBoxes[i].MouseEnter += HeroPictureBox_MouseEnter;
                 _uiBuilderService.heroPictureBoxes[i].MouseLeave += HeroPictureBox_MouseLeave;
@@ -607,8 +607,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void comboBox_HeroPool_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-            _iheroDataService.PathIndex = comboBox_HeroPool.SelectedIndex;
+
+            _iheroDataService.SetFilePathsIndex(comboBox_HeroPool.SelectedIndex);
             _iheroDataService.ReLoad();
             if (!_ilineUpService.SetFilePathIndex(comboBox_HeroPool.SelectedIndex))
             {
@@ -942,9 +942,9 @@ namespace JinChanChanTool
         /// <param name="profession"></param>
         private void SelectHerosFromProfession(Profession profession)
         {
-            for (int i = profession.HeroDatas.Count - 1; i >= 0; i--)
+            for (int i = profession.HeroNames.Count - 1; i >= 0; i--)
             {
-                string name = profession.HeroDatas[i].HeroName;         
+                string name = profession.HeroNames[i];         
                 if(!_ilineUpService.AddHero(name))
                 {
                     break;
@@ -960,9 +960,9 @@ namespace JinChanChanTool
         /// <param name="peculiarity"></param>
         private void SelectHerosFromPeculiarity(Peculiarity peculiarity)
         {
-            for (int i = peculiarity.HeroDatas.Count - 1; i >= 0; i--)
+            for (int i = peculiarity.HeroNames.Count - 1; i >= 0; i--)
             {
-                string name = peculiarity.HeroDatas[i].HeroName;
+                string name = peculiarity.HeroNames[i];
                 if (!_ilineUpService.AddHero(name))
                 {
                     break;

@@ -10,8 +10,7 @@
             HeroName = "";
             Cost = 1;
             Profession = "";
-            Peculiarity = "";
-            ChessId = 000;
+            Peculiarity = "";            
         }
 
         /// <summary>
@@ -32,10 +31,6 @@
         /// <summary>
         /// 特质，以“|”分割
         /// </summary>
-        public string Peculiarity { get; set; } = "";
-        /// <summary>
-        /// 英雄的唯一ID (例如：10357)
-        /// </summary>
-        public int ChessId { get; set; }
+        public string Peculiarity { get; set; } = "";      
     }
 }

@@ -37,14 +37,14 @@ namespace JinChanChanTool.Forms
 
             // 获取所有数据集的名称（对应子目录名）
             comboBox_赛季文件选择器.Items.Clear();
-            foreach (var path in _iheroDataService.Paths)
+            foreach (var path in _iheroDataService.GetFilePaths())
             {
                 comboBox_赛季文件选择器.Items.Add(Path.GetFileName(path));
             }
             if (comboBox_赛季文件选择器.Items.Count > 0)
             {
                 comboBox_赛季文件选择器.SelectedIndex = 0;
-                _iheroDataService.PathIndex = 0;
+                _iheroDataService.SetFilePathsIndex(0);
             }
             // 加载或创建默认图片
             LoadDefaultImage();
@@ -66,13 +66,13 @@ namespace JinChanChanTool.Forms
         {
             try
             {
-                if (File.Exists(_iheroDataService.DefaultImagePath))
+                if (File.Exists(_iheroDataService.GetDefaultImagePath()))
                 {
-                    defaultImage = Image.FromFile(_iheroDataService.DefaultImagePath);
+                    defaultImage = Image.FromFile(_iheroDataService.GetDefaultImagePath());
                 }
                 else
                 {
-                    MessageBox.Show($"找不到默认英雄图片\"defaultHeroIcon.png\"\n路径：\n{_iheroDataService.DefaultImagePath}",
+                    MessageBox.Show($"找不到默认英雄图片\"defaultHeroIcon.png\"\n路径：\n{_iheroDataService.GetDefaultImagePath()}",
                                    "默认英雄图片缺失",
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
@@ -82,7 +82,7 @@ namespace JinChanChanTool.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"默认英雄图片\"defaultHeroIcon.png\"加载失败\n路径：\n{_iheroDataService.DefaultImagePath}",
+                MessageBox.Show($"默认英雄图片\"defaultHeroIcon.png\"加载失败\n路径：\n{_iheroDataService.GetDefaultImagePath()}",
                                     "加载默认图片失败",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error
@@ -146,14 +146,7 @@ namespace JinChanChanTool.Forms
             peculiarityColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
             dataGridView_英雄数据编辑器.Columns.Add(peculiarityColumn);
 
-            // 添加ID列
-            DataGridViewTextBoxColumn IDColumn = new DataGridViewTextBoxColumn();
-            IDColumn.HeaderText = "ID";
-            IDColumn.Name = "ChessId";
-            IDColumn.DataPropertyName = "ChessId";
-            IDColumn.Width = 50;
-            IDColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
-            dataGridView_英雄数据编辑器.Columns.Add(IDColumn);
+          
 
             // 绑定事件
             dataGridView_英雄数据编辑器.CellFormatting += DataGridView_CellFormatting;
@@ -171,7 +164,7 @@ namespace JinChanChanTool.Forms
         {
             // 绑定数据
             dataGridView_英雄数据编辑器.DataSource = null;
-            dataGridView_英雄数据编辑器.DataSource = new BindingList<HeroData>(_iheroDataService.HeroDatas);
+            dataGridView_英雄数据编辑器.DataSource = new BindingList<HeroData>(_iheroDataService.GetHeroDatas());
         }
 
         /// <summary>
@@ -191,7 +184,7 @@ namespace JinChanChanTool.Forms
                 if (!string.IsNullOrEmpty(heroName))
                 {
                     //加载图片
-                    HeroData hero = _iheroDataService.HeroDatas.FirstOrDefault(h => h.HeroName == heroName);
+                    HeroData hero = _iheroDataService.GetHeroDatas().FirstOrDefault(h => h.HeroName == heroName);
                     Image image = _iheroDataService.GetImageFromHero(hero);
                     if (hero != null&& image != null)
                     {                                              
@@ -416,9 +409,9 @@ namespace JinChanChanTool.Forms
             // 记录滚动位置
             int firstDisplayedIndex = dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex;
             // 交换数据源中的位置
-            HeroData temp = _iheroDataService.HeroDatas[currentIndex];
-            _iheroDataService.HeroDatas[currentIndex] = _iheroDataService.HeroDatas[currentIndex - 1];
-            _iheroDataService.HeroDatas[currentIndex - 1] = temp;
+            HeroData temp = _iheroDataService.GetHeroDatas()[currentIndex];
+            _iheroDataService.GetHeroDatas()[currentIndex] = _iheroDataService.GetHeroDatas()[currentIndex - 1];
+            _iheroDataService.GetHeroDatas()[currentIndex - 1] = temp;
             isChanged = true;
             BindDataGridView();
 
@@ -453,7 +446,7 @@ namespace JinChanChanTool.Forms
             int currentIndex = dataGridView_英雄数据编辑器.CurrentCell.RowIndex;
 
             // 检查是否可以下移（不是最后一行）
-            if (currentIndex >= _iheroDataService.HeroDatas.Count - 1)
+            if (currentIndex >= _iheroDataService.GetHeroCount() - 1)
             {
                 MessageBox.Show("已经是最后一行，无法下移！");
                 return;
@@ -463,9 +456,9 @@ namespace JinChanChanTool.Forms
             int firstDisplayedIndex = dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex;
 
             // 交换数据源中的位置
-            HeroData temp = _iheroDataService.HeroDatas[currentIndex];
-            _iheroDataService.HeroDatas[currentIndex] = _iheroDataService.HeroDatas[currentIndex + 1];
-            _iheroDataService.HeroDatas[currentIndex + 1] = temp;
+            HeroData temp = _iheroDataService.GetHeroDatas()[currentIndex];
+            _iheroDataService.GetHeroDatas()[currentIndex] = _iheroDataService.GetHeroDatas()[currentIndex + 1];
+            _iheroDataService.GetHeroDatas()[currentIndex + 1] = temp;
             isChanged = true;
             BindDataGridView();
 
@@ -507,7 +500,7 @@ namespace JinChanChanTool.Forms
                 }
             }
             // 更新当前选中的数据集索引
-            _iheroDataService.PathIndex = comboBox_赛季文件选择器.SelectedIndex;
+            _iheroDataService.SetFilePathsIndex(comboBox_赛季文件选择器.SelectedIndex);
 
             // 重新加载英雄数据
             _iheroDataService.ReLoad();
@@ -544,9 +537,9 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
-            if (_iheroDataService.Paths.Length > 0 && _iheroDataService.PathIndex < _iheroDataService.Paths.Length)
+            if (_iheroDataService.GetFilePaths().Length > 0 && _iheroDataService.GetFilePathsIndex() < _iheroDataService.GetFilePaths().Length)
             {
-                string path = _iheroDataService.Paths[_iheroDataService.PathIndex];
+                string path = _iheroDataService.GetFilePaths()[_iheroDataService.GetFilePathsIndex()];
                 try
                 {
                     // 使用资源管理器打开目录

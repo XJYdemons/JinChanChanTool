@@ -108,11 +108,12 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <returns></returns>
         int GetMaxLineUpCount();
+
         /// <summary>
         /// 设置阵容文件路径下标
         /// </summary>
         /// <param name="index"></param>
-        /// <returns></returns>
+        /// <returns></returns>        
         bool SetFilePathIndex(int index);
     }
 }

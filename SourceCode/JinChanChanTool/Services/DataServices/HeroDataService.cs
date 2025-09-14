@@ -9,65 +9,65 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 本地文件路径列表
         /// </summary>
-        public string[] Paths { get; set; }
+        private string[] paths;
 
         /// <summary>
         /// 文件路径索引
         /// </summary>
-        public int PathIndex { get; set; }
+        private int pathIndex;
 
         /// <summary>
         /// 默认图片路径
         /// </summary>
-        public string DefaultImagePath { get; set; }
+        private string defaultImagePath;
 
         /// <summary>
         /// 英雄数据对象列表
         /// </summary>
-        public List<HeroData> HeroDatas { get; private set; }
+        public List<HeroData> HeroDatas;
 
         /// <summary>
         /// 英雄头像图片列表
         /// </summary>
-        public List<Image> HeroImages { get; private set; }
+        private List<Image> HeroImages;
 
         /// <summary>
         /// 职业对象列表
         /// </summary>
-        public List<Profession> Professions { get; private set; }
+        private List<Profession> professions;
 
         /// <summary>
         /// 特质对象列表
         /// </summary>
-        public List<Peculiarity> Peculiarities { get; private set; }
+        private List<Peculiarity> peculiarities;
 
         /// <summary>
         /// 图片到英雄数据对象的字典
         /// </summary>
-        private Dictionary<Image, HeroData> ImageToHeroDataMap { get; set; }
+        private Dictionary<Image, HeroData> imageToHeroDataMap;
 
         /// <summary>
         /// 英雄数据对象到图片的字典
         /// </summary>
-        private Dictionary<HeroData, Image> HeroDataToImageMap { get; set; }
+        private Dictionary<HeroData, Image> heroDataToImageMap;
 
         /// <summary>
         /// 英雄名称到对象的字典
         /// </summary>
-        private Dictionary<string,HeroData> NameToHeroDataMap { get; set; }
+        private Dictionary<string, HeroData> nameToHeroDataMap;
 
-        
+        #region 初始化
         public HeroDataService()
         {
             InitializePaths();            
-            PathIndex = 0;           
+            pathIndex = 0;           
             HeroDatas = new List<HeroData>();
             HeroImages = new List<Image>();
-            Professions = new List<Profession>();
-            Peculiarities = new List<Peculiarity>();
-            ImageToHeroDataMap = new Dictionary<Image, HeroData>();
-            HeroDataToImageMap = new Dictionary<HeroData, Image>();
-            NameToHeroDataMap = new Dictionary<string, HeroData>();
+            professions = new List<Profession>();
+            peculiarities = new List<Peculiarity>();
+            imageToHeroDataMap = new Dictionary<Image, HeroData>();
+            heroDataToImageMap = new Dictionary<HeroData, Image>();
+            nameToHeroDataMap = new Dictionary<string, HeroData>();
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace JinChanChanTool.Services.DataServices
             // 确保目录存在
             if (!Directory.Exists(parentPath))
             {
-                Directory.CreateDirectory(parentPath);               
+                Directory.CreateDirectory(parentPath);
             }
             // 获取所有子目录名称（仅文件夹）
             string[] subDirs = Directory.GetDirectories(parentPath);
@@ -87,10 +87,12 @@ namespace JinChanChanTool.Services.DataServices
             {
                 subDirs[i] = Path.Combine(parentPath, subDirs[i]);
             }
-            Paths = subDirs;            
-            DefaultImagePath = Path.Combine(Application.StartupPath, "Resources", "defaultHeroIcon.png");
+            paths = subDirs;
+            defaultImagePath = Path.Combine(Application.StartupPath, "Resources", "defaultHeroIcon.png");
         }
+        #endregion
 
+        #region 公共方法
         /// <summary>
         /// 从本地加载到对象
         /// </summary>
@@ -104,35 +106,265 @@ namespace JinChanChanTool.Services.DataServices
         }
 
         /// <summary>
-        /// 建立字典联系
+        /// 从对象保存到本地
         /// </summary>
-        private void BuildMap()
+        public void Save()
         {
-            for (int i = 0; i < HeroImages.Count; i++)
+            if (paths.Length > 0 && pathIndex < paths.Length)
             {
-                ImageToHeroDataMap[HeroImages[i]] = HeroDatas[i];
+                try
+                {
+                    string filePath = Path.Combine(paths[pathIndex], "HeroData.json");
+                    // 设置 JsonSerializerOptions 以保持中文字符的可读性
+                    var options = new JsonSerializerOptions
+                    {
+                        WriteIndented = true, // 格式化输出
+                        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping // 保留中文字符
+                    };
+                    // 序列化数据
+                    string json = JsonSerializer.Serialize(HeroDatas, options);
+                    File.WriteAllText(filePath, json);
+                }
+                catch
+                {
+                    MessageBox.Show($"英雄配置文件\"HeroData.json\"保存失败\n路径：\n{Path.Combine(paths[pathIndex], "HeroData.json")}",
+                                  "文件保存失败",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Error
+                                  );
+                }
             }
-            for (int i = 0; i < HeroDatas.Count; i++)
+            else
             {
-                HeroDataToImageMap[HeroDatas[i]] = HeroImages[i];
-            }
-            foreach(HeroData hero in HeroDatas)
-            {
-                NameToHeroDataMap[hero.HeroName] = hero;
+                MessageBox.Show($"英雄配置文件夹不存在",
+                                   "文件夹不存在",
+                                   MessageBoxButtons.OK,
+                                   MessageBoxIcon.Error
+                                   );
             }
         }
 
+        /// <summary>
+        /// 重新加载
+        /// </summary>
+        public void ReLoad()
+        {
+            HeroDatas.Clear();
+            HeroImages.Clear();
+            professions.Clear();
+            peculiarities.Clear();
+            imageToHeroDataMap.Clear();
+            heroDataToImageMap.Clear();
+            nameToHeroDataMap.Clear();
+            Load();
+        }
+
+        /// <summary>
+        /// 从英雄名获取英雄对象
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public HeroData GetHeroFromName(string name)
+        {
+            if (nameToHeroDataMap.TryGetValue(name, out HeroData hero))
+            {
+                return hero;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 从图像获取英雄对象
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <returns></returns>
+        public Image GetImageFromHero(HeroData hero)
+        {
+            if (heroDataToImageMap.TryGetValue(hero, out Image image))
+            {
+                return image;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 从英雄对象获取图像
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public HeroData GetHeroFromImage(Image image)
+        {
+            if (imageToHeroDataMap.TryGetValue(image, out HeroData hero))
+            {
+                return hero;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 根据索引删除英雄
+        /// </summary>
+        /// <param name="index"></param>
+        public bool DeletHeroAtIndex(int index)
+        {
+            if (index < HeroDatas.Count && index >= 0)
+            {
+                HeroData hero = HeroDatas[index];
+                if (heroDataToImageMap.ContainsKey(hero))
+                {
+                    Image image = heroDataToImageMap[hero];
+                    heroDataToImageMap.Remove(hero);
+                    if (imageToHeroDataMap.ContainsKey(image))
+                    {
+                        imageToHeroDataMap.Remove(image);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+                if (nameToHeroDataMap.ContainsKey(hero.HeroName))
+                {
+                    nameToHeroDataMap.Remove(hero.HeroName);
+                }
+                else
+                {
+                    return true;
+                }
+                HeroDatas.RemoveAt(index);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 添加英雄
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="image"></param>
+        public bool AddHero(HeroData hero, Image image)
+        {
+            if (hero == null || image == null) return false;
+            HeroDatas.Add(hero);
+            heroDataToImageMap[hero] = image;
+            imageToHeroDataMap[image] = hero;
+            nameToHeroDataMap[hero.HeroName] = hero;
+            return true;
+        }
+
+        /// <summary>
+        /// 获取职业对象列表
+        /// </summary>
+        /// <returns></returns>
+        public List<Profession> GetProfessions()
+        {
+            return professions;
+        }
+
+        /// <summary>
+        /// 获取特质对象列表
+        /// </summary>
+        /// <returns></returns>
+        public List<Peculiarity> GetPeculiarities()
+        {
+            return peculiarities;
+        }
+
+        /// <summary>
+        /// 获取文件路径数组
+        /// </summary>
+        /// <returns></returns>
+        public string[] GetFilePaths()
+        {
+            return paths;
+        }
+
+        /// <summary>
+        /// 获取默认图片文件路径
+        /// </summary>
+        /// <returns></returns>
+        public string GetDefaultImagePath()
+        {
+            return defaultImagePath;
+        }
+
+        /// <summary>
+        /// 设置文件路径索引
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool SetFilePathsIndex(int index)
+        {
+            if (index >= 0 && index < paths.Length)
+            {
+                pathIndex = index;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 获取文件路径索引
+        /// </summary>
+        /// <returns></returns>
+        public int GetFilePathsIndex()
+        {
+            return pathIndex;
+        }
+
+        /// <summary>
+        /// 获取对应费用的英雄对象列表
+        /// </summary>
+        /// <returns></returns>
+        public List<HeroData> GetHeroDatasFromCost(int cost)
+        {
+            return HeroDatas.Where(h => h.Cost == cost).ToList();
+        }
+
+        /// <summary>
+        /// 获取英雄数量
+        /// </summary>
+        /// <returns></returns>
+        public int GetHeroCount()
+        {
+            return HeroDatas.Count;
+        }
+
+        /// <summary>
+        /// 获取英雄数据对象列表
+        /// </summary>
+        /// <returns></returns>
+        public List<HeroData> GetHeroDatas()
+        {
+            return HeroDatas;
+        }
+        #endregion
+
+        #region 私有方法
         /// <summary>
         /// 从本地文件加载到对象列表，若失败则创建空的文件覆盖本地文件。
         /// </summary>
         private void LoadFromJson()
         {
             HeroDatas.Clear();
-            if (Paths.Length > 0&&PathIndex<Paths.Length)
+            if (paths.Length > 0 && pathIndex < paths.Length)
             {
                 try
                 {
-                    string filePath = Path.Combine(Paths[PathIndex], "HeroData.json");
+                    string filePath = Path.Combine(paths[pathIndex], "HeroData.json");
                     if (!File.Exists(filePath))
                     {
                         MessageBox.Show($"找不到英雄配置文件\"HeroData.json\"\n路径：\n{filePath}\n将创建新的文件。",
@@ -143,19 +375,19 @@ namespace JinChanChanTool.Services.DataServices
                         Save();
                         return;
                     }
-                    
+
                     string json = File.ReadAllText(filePath);
-                    if(string.IsNullOrEmpty(json))
+                    if (string.IsNullOrEmpty(json))
                     {
                         MessageBox.Show($"英雄配置文件\"HeroData.json\"内容为空。\n路径：\n{filePath}\n将创建新的文件。",
                                    "文件为空",
-                                   MessageBoxButtons.OK, 
+                                   MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
                                    );
                         Save();
                         return;
                     }
-                    List<HeroData> temp =JsonSerializer.Deserialize<List<HeroData>>(json);
+                    List<HeroData> temp = JsonSerializer.Deserialize<List<HeroData>>(json);
                     // 排序逻辑
                     HeroDatas = temp
                                 .OrderBy(h => h.Cost)
@@ -168,13 +400,13 @@ namespace JinChanChanTool.Services.DataServices
                     };
                     // 序列化数据
                     string js = JsonSerializer.Serialize(HeroDatas, options);
-                    File.WriteAllText(Path.Combine(Application.StartupPath,"Resources","test.json"), js);
+                    File.WriteAllText(Path.Combine(Application.StartupPath, "Resources", "test.json"), js);
                 }
-                catch 
+                catch
                 {
-                    MessageBox.Show($"英雄配置文件\"HeroData.json\"格式错误\n路径：\n{Path.Combine(Paths[PathIndex], "HeroData.json")}\n将创建新的文件。",
+                    MessageBox.Show($"英雄配置文件\"HeroData.json\"格式错误\n路径：\n{Path.Combine(paths[pathIndex], "HeroData.json")}\n将创建新的文件。",
                                    "文件格式错误",
-                                   MessageBoxButtons.OK, 
+                                   MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
                                    );
                     Save();
@@ -191,66 +423,6 @@ namespace JinChanChanTool.Services.DataServices
         }
 
         /// <summary>
-        /// 从英雄数据对象列表加载到职业对象列表
-        /// </summary>
-        private void LoadProfessions()
-        {
-            Professions.Clear();
-            for (int i = 0; i < HeroDatas.Count; i++)
-            {
-                string[] result = HeroDatas[i].Profession.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                for (int j = 0; j < result.Length; j++)
-                {
-                    var existingGroup = Professions.FirstOrDefault(p => string.Equals(p.Title, result[j], StringComparison.OrdinalIgnoreCase));
-                    if (existingGroup != null)
-                    {
-                        existingGroup.HeroDatas.Add(HeroDatas[i]);
-                    }
-                    else
-                    {
-                        var newObject = new Profession
-                        {
-                            Title = result[j],
-                            HeroDatas = new List<HeroData>()                          
-                        };
-                        newObject.HeroDatas.Add(HeroDatas[i]);
-                        Professions.Add(newObject);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 从英雄数据对象列表加载到特质对象列表
-        /// </summary>
-        private void LoadPeculiarity()
-        {
-            Peculiarities.Clear();
-            for (int i = 0; i < HeroDatas.Count; i++)
-            {
-                string[] result = HeroDatas[i].Peculiarity.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                for (int j = 0; j < result.Length; j++)
-                {
-                    var existingGroup = Peculiarities.FirstOrDefault(p => string.Equals(p.Title, result[j], StringComparison.OrdinalIgnoreCase));
-                    if (existingGroup != null)
-                    {
-                        existingGroup.HeroDatas.Add(HeroDatas[i]);
-                    }
-                    else
-                    {
-                        var newObject = new Peculiarity
-                        {
-                            Title = result[j],
-                            HeroDatas = new List<HeroData>()
-                        };
-                        newObject.HeroDatas.Add(HeroDatas[i]);
-                        Peculiarities.Add(newObject);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// 从本地加载图片到英雄头像图片列表
         /// </summary>
         private void LoadImages()
@@ -261,42 +433,42 @@ namespace JinChanChanTool.Services.DataServices
             string head = "";
             bool isCommonImageLost = false;
             bool isDefautlImageLost = false;
-            for (int i = 0;i<HeroDatas.Count;i++)
+            for (int i = 0; i < HeroDatas.Count; i++)
             {
                 try
-                {                           
-                    string imagePath = Path.Combine(Paths[PathIndex], "images", $"{HeroDatas[i].HeroName}.png");
+                {
+                    string imagePath = Path.Combine(paths[pathIndex], "images", $"{HeroDatas[i].HeroName}.png");
                     Image image = Image.FromFile(imagePath);
-                    HeroImages.Add(image);                                                                      
+                    HeroImages.Add(image);
                 }
                 catch
                 {
-                    isCommonImageLost=true;
+                    isCommonImageLost = true;
                     // 收集错误信息
-                    errors.AppendLine($"图片缺失：{HeroDatas[i].HeroName}.png");                    
+                    errors.AppendLine($"图片缺失：{HeroDatas[i].HeroName}.png");
                     try
-                    {                      
-                        Image image = Image.FromFile(DefaultImagePath);
+                    {
+                        Image image = Image.FromFile(defaultImagePath);
                         HeroImages.Add(image);
                     }
                     catch
                     {
-                        isDefautlImageLost=true;                        
+                        isDefautlImageLost = true;
                         // 添加替代图片避免崩溃
                         HeroImages.Add(new Bitmap(64, 64));
                     }
-                    
+
                 }
             }
 
             // 如果有任何错误，弹出综合消息
             if (errors.Length > 0)
             {
-                if(isCommonImageLost)
+                if (isCommonImageLost)
                 {
-                    head += $"缺失图片所在路径：{Path.Combine(Paths[PathIndex], "images")}\n";
+                    head += $"缺失图片所在路径：{Path.Combine(paths[pathIndex], "images")}\n";
                 }
-                if(isDefautlImageLost)
+                if (isDefautlImageLost)
                 {
                     head += $"缺失默认图片：{Path.Combine(Application.StartupPath, "Resources", "defaultHeroIcon.png")}\n";
                 }
@@ -308,121 +480,87 @@ namespace JinChanChanTool.Services.DataServices
         }
 
         /// <summary>
-        /// 从对象保存到本地
+        /// 从英雄数据对象列表加载到职业对象列表
         /// </summary>
-        public void Save()
+        private void LoadProfessions()
         {
-            if (Paths.Length > 0 && PathIndex < Paths.Length)
+            professions.Clear();
+            for (int i = 0; i < HeroDatas.Count; i++)
             {
-                try 
+                string[] result = HeroDatas[i].Profession.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                for (int j = 0; j < result.Length; j++)
                 {
-                    string filePath = Path.Combine(Paths[PathIndex], "HeroData.json");
-                    // 设置 JsonSerializerOptions 以保持中文字符的可读性
-                    var options = new JsonSerializerOptions
+                    Profession existingGroup = professions.FirstOrDefault(p => string.Equals(p.Title, result[j], StringComparison.OrdinalIgnoreCase));
+                    if (existingGroup != null)
                     {
-                        WriteIndented = true, // 格式化输出
-                        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping // 保留中文字符
-                    };
-                    // 序列化数据
-                    string json = JsonSerializer.Serialize(HeroDatas, options);
-                    File.WriteAllText(filePath, json);
-                }
-                catch
-                {
-                    MessageBox.Show($"英雄配置文件\"HeroData.json\"保存失败\n路径：\n{Path.Combine(Paths[PathIndex], "HeroData.json")}",
-                                  "文件保存失败",
-                                  MessageBoxButtons.OK,
-                                  MessageBoxIcon.Error
-                                  );
+                        existingGroup.HeroNames.Add(HeroDatas[i].HeroName);
+                    }
+                    else
+                    {
+                        var newObject = new Profession
+                        {
+                            Title = result[j],
+                            HeroNames = new List<string>()
+                        };
+                        newObject.HeroNames.Add(HeroDatas[i].HeroName);
+                        professions.Add(newObject);
+                    }
                 }
             }
-            else
-            {
-                MessageBox.Show($"英雄配置文件夹不存在",
-                                   "文件夹不存在",
-                                   MessageBoxButtons.OK,
-                                   MessageBoxIcon.Error
-                                   );
-            }              
         }
 
         /// <summary>
-        /// 重新加载
+        /// 从英雄数据对象列表加载到特质对象列表
         /// </summary>
-        public void ReLoad()
+        private void LoadPeculiarity()
         {
-            HeroDatas.Clear();
-            HeroImages.Clear();
-            Professions.Clear();
-            Peculiarities.Clear();
-            ImageToHeroDataMap.Clear();
-            HeroDataToImageMap.Clear();
-            NameToHeroDataMap.Clear();
-            Load();
-        }
-
-        public HeroData GetHeroFromName(string name)
-        {
-            if(NameToHeroDataMap.TryGetValue(name, out HeroData hero))
+            peculiarities.Clear();
+            for (int i = 0; i < HeroDatas.Count; i++)
             {
-                return hero;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        public Image GetImageFromHero(HeroData hero)
-        {
-            if(HeroDataToImageMap.TryGetValue(hero,out Image image))
-            {
-                return image;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public HeroData GetHeroFromImage(Image image)
-        {
-            if(ImageToHeroDataMap.TryGetValue(image,out HeroData hero))
-            {
-                return hero;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        public void DeletHeroAtIndex(int index)
-        {
-            if(index<HeroDatas.Count&&index>=0)
-            {
-                HeroData hero = HeroDatas[index];
-                if(HeroDataToImageMap.ContainsKey(hero))
+                string[] result = HeroDatas[i].Peculiarity.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                for (int j = 0; j < result.Length; j++)
                 {
-                    Image image = HeroDataToImageMap[hero];
-                    HeroDataToImageMap.Remove(hero);
-                    if(ImageToHeroDataMap.ContainsKey(image))
+                    var existingGroup = peculiarities.FirstOrDefault(p => string.Equals(p.Title, result[j], StringComparison.OrdinalIgnoreCase));
+                    if (existingGroup != null)
                     {
-                        ImageToHeroDataMap.Remove(image);
+                        existingGroup.HeroNames.Add(HeroDatas[i].HeroName);
+                    }
+                    else
+                    {
+                        var newObject = new Peculiarity
+                        {
+                            Title = result[j],
+                            HeroNames = new List<string>()
+                        };
+                        newObject.HeroNames.Add(HeroDatas[i].HeroName);
+                        peculiarities.Add(newObject);
                     }
                 }
-                if(NameToHeroDataMap.ContainsKey(hero.HeroName))
-                {
-                    NameToHeroDataMap.Remove(hero.HeroName);
-                }    
-                HeroDatas.RemoveAt(index);
             }
         }
-        public void AddHero(HeroData hero,Image image)
+
+        /// <summary>
+        /// 建立字典联系
+        /// </summary>
+        private void BuildMap()
         {
-            if (hero == null|| image == null) return;             
-            HeroDatas.Add(hero);          
-            HeroDataToImageMap[hero] = image;
-            ImageToHeroDataMap[image] = hero;   
-            NameToHeroDataMap[hero.HeroName] = hero;
+            for (int i = 0; i < HeroImages.Count; i++)
+            {
+                imageToHeroDataMap[HeroImages[i]] = HeroDatas[i];
+            }
+            for (int i = 0; i < HeroDatas.Count; i++)
+            {
+                heroDataToImageMap[HeroDatas[i]] = HeroImages[i];
+            }
+            foreach (HeroData hero in HeroDatas)
+            {
+                nameToHeroDataMap[hero.HeroName] = hero;
+            }
         }
+
+
+        #endregion
+
+        
     }
 }

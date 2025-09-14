@@ -99,16 +99,10 @@ namespace JinChanChanTool.Services
         /// </summary>
         public void CreateHeroSelectors()
         {
-            // 按费用分组
-            List<IGrouping<int,HeroData>> costGroups = _iHeroDataService.HeroDatas
-                .GroupBy(h => h.Cost)
-                .ToList();
-
-            // 创建每个费用组
-            foreach (IGrouping<int, HeroData> group in costGroups)
+            for(int i =1;i<=5;i++)
             {
-                CreateHeroSelectorGroup(group.Key, group.ToList());
-            }
+                CreateHeroSelectorGroup(i, _iHeroDataService.GetHeroDatasFromCost(i));
+            }           
         }
 
         /// <summary>
@@ -237,10 +231,10 @@ namespace JinChanChanTool.Services
         public void CreateProfessionAndPeculiarityButtons()
         {
             // 创建职业按钮
-            CreateButtonGroup(_professionButtonPanel, _iHeroDataService.Professions, professionButtons);
+            CreateButtonGroup(_professionButtonPanel, _iHeroDataService.GetProfessions(), professionButtons);
 
             // 创建特质按钮
-            CreateButtonGroup(_peculiarityButtonPanel, _iHeroDataService.Peculiarities, peculiarityButtons);
+            CreateButtonGroup(_peculiarityButtonPanel, _iHeroDataService.GetPeculiarities(), peculiarityButtons);
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 
@@ -16,27 +18,28 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public Dictionary<string, string> ResultDictionary { get; }
 
-        HashSet<char> CharDictionary { get; set; }  
-
-        HashSet<string> Errorresult { get; set; }
         /// <summary>
+        /// 英雄名称字符字典
+        /// </summary>
+        private HashSet<char> _charDictionary;
+
+        /// <summary>
+        /// 识别错误结果存放列表
+        /// </summary>
+        HashSet<string> Errorresult { get; set; }
+        /// <summary>        
         /// OCR结果纠正列表文件路径
         /// </summary>
         private string filePath;
 
-        /// <summary>
-        /// 字库文件路径
-        /// </summary>
-        private string dirPath;
-
+       
         public CorrectionService()
-        {            
+        {          
             ResultMappings = new List<ResultMapping>();
-            CharDictionary = new HashSet<char>();
+            _charDictionary = new HashSet<char>();
             ResultDictionary = new Dictionary<string, string>();
             Errorresult =new HashSet<string>();
-            InitializePaths();
-                      
+            InitializePaths();                     
         }
 
         /// <summary>
@@ -50,8 +53,7 @@ namespace JinChanChanTool.Services.DataServices
             {
                 Directory.CreateDirectory(parentPath);
             }
-            filePath = Path.Combine(parentPath, "CorrectionsList.json");
-            dirPath= Path.Combine(parentPath, "CharDir.txt");
+            filePath = Path.Combine(parentPath, "CorrectionsList.json");          
         }
 
         /// <summary>
@@ -59,60 +61,16 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public  void Load()
         {
-            LoadFromFile();
-            LoadCharLib();
+            LoadFromFile();           
             BuildDictionary();
         }
         
         /// <summary>
         /// 从本地文件读取字库。
         /// </summary>
-        private void LoadCharLib()
+        public void SetCharDictionary(HashSet<char> CharDictionary)
         {
-            CharDictionary.Clear();
-            try
-            {
-                //判断文件是否存在
-                if (!File.Exists(dirPath))
-                {
-                    MessageBox.Show($"找不到字库文件\"CharDir.txt\"\n路径：\n{dirPath}",
-                                    "文件不存在",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error
-                                    );                   
-                    return;
-                }
-                HashSet<char> dir = new HashSet<char>();
-                foreach(string line in File.ReadAllLines(dirPath, Encoding.UTF8))
-                {
-                    if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        foreach(char c in line.Trim())
-                        {
-                            dir.Add(c);
-                        }
-                    }
-                }
-                if(dir.Count == 0)
-                {
-                    MessageBox.Show($"字库文件\"CharDir.txt\"内容为空。\n路径：\n{dirPath}",
-                               "文件为空",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Error
-                               );
-                    return;
-                }
-                CharDictionary = dir;
-            }
-            catch
-            {
-                MessageBox.Show($"字库文件\"CharDir.txt\"格式错误\n路径：\n{dirPath}\n",
-                                   "文件格式错误",
-                                   MessageBoxButtons.OK,
-                                   MessageBoxIcon.Error
-                                   );
-                
-            }
+            _charDictionary = CharDictionary;          
         }
 
         /// <summary>
@@ -212,7 +170,7 @@ namespace JinChanChanTool.Services.DataServices
         {
             ResultMappings.Clear();
             ResultDictionary.Clear();           
-            CharDictionary.Clear();           
+            _charDictionary.Clear();           
             Errorresult.Clear();
             Load();
         }
@@ -222,9 +180,11 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public  string ConvertToRightResult(string result)
+        public  string ConvertToRightResult(string result,out bool isError,out string errorMessage)
         {           
             // 清理输入字符串
+            isError = true;
+            errorMessage = null;
             result = result.Replace(" ", "").Replace("?", "");
             // 查找映射
             if (ResultDictionary.TryGetValue(result, out var correctValue))
@@ -233,33 +193,29 @@ namespace JinChanChanTool.Services.DataServices
             }
             else
             {
-                UpdataErrorDir(result);
+                errorMessage = UpdataErrorDir(result);
+                if(!string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    isError = false;
+                }
                 return result;
             }                                       
         }
-        private void UpdataErrorDir(string result)
-        {
-            string errorResult = "";
+
+        private string UpdataErrorDir(string result)
+        {          
             foreach (char c in result)
             {
-                if (!CharDictionary.Contains(c))
-                {
-                    errorResult += $"\"{c}\"";
+                if (!_charDictionary.Contains(c))
+                { 
+                    if(!Errorresult.Contains(result))
+                    {
+                        Errorresult.Add(result);
+                        return $"\"{result}\"";
+                    }                    
                 }
-            }
-            if (!string.IsNullOrWhiteSpace(errorResult))
-            {
-                errorResult += $" => {result}";
-            }
-            if(!Errorresult.Contains(errorResult))
-            {
-                Errorresult.Add(errorResult);
-                MessageBox.Show($"OCR识别结果中含有非英雄名称字库中的字符：\n{errorResult}\n请将其添加到结果纠正列表，程序运行期间，对于这个识别错误的字符，只会提示一次。若愿意助力本程序开发，请于QQ群954285837提交该错误，" +
-                    $"谢谢。", "非英雄名称字库中的字符",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                    );
-            }
+            }                                              
+                return null                ;                       
         }
     }
 }

@@ -56,13 +56,12 @@ namespace JinChanChanTool
         /// 状态显示窗口
         /// </summary>
         private StatusOverlayForm _statusOverlay;
-
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
             #region 自定义标题栏
             // 自定义标题栏,带图标、带标题、最小化与关闭按钮。
-            CustomTitleBar titleBar = new CustomTitleBar(this, 32,Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "icon.ico")), "JinChanChanTool",CustomTitleBar.ButtonOptions.Close|CustomTitleBar.ButtonOptions.Minimize);
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32, Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "icon.ico")), "JinChanChanTool", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
             this.Controls.Add(titleBar);
             #endregion
 
@@ -139,9 +138,11 @@ namespace JinChanChanTool
 
             // 初始状态
             UpdateOverlayStatus();
-            #endregion
+            #endregion         
+
+            ShowErrorForm();
         }
-     
+
         /// <summary>
         /// 当程序关闭时执行——>注销所有快捷键
         /// </summary>
@@ -155,7 +156,7 @@ namespace JinChanChanTool
             LogTool.Log("关闭！");
             base.OnFormClosing(e);
         }
-       
+
         /// <summary>
         /// 当设置被保存时触发，询问用户是否重启应用。
         /// </summary>
@@ -373,6 +374,16 @@ namespace JinChanChanTool
                 MessageBox.Show("日志文件不存在或无法打开！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// 菜单项“识别错误输出窗口”触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItem_识别错误输出窗口_Click(object sender, EventArgs e)
+        {
+            ShowErrorForm();
+        }
         #endregion
 
         #region 方法
@@ -421,6 +432,23 @@ namespace JinChanChanTool
             _helpForm.TopMost = true;
             _helpForm.Show();
             _helpForm.BringToFront();
+        }
+
+        private void ShowErrorForm()
+        {
+            if(ErrorForm.GetInstance().WindowState == FormWindowState.Minimized)
+            {
+                ErrorForm.GetInstance().WindowState = FormWindowState.Normal;
+                ErrorForm.GetInstance().Show();
+                ErrorForm.GetInstance().BringToFront();
+            }
+            if(!ErrorForm.GetInstance().Visible)
+            {
+               
+                ErrorForm.GetInstance().Show();
+                ErrorForm.GetInstance().BringToFront();              
+            }         
+            
         }
         #endregion
         #endregion
@@ -540,12 +568,12 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void button_Save_Click(object sender, EventArgs e)
         {
-            if(_ilineUpService.Save())
+            if (_ilineUpService.Save())
             {
                 MessageBox.Show("阵容已保存", "阵容已保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }           
+            }
         }
-     
+
         /// <summary>
         /// 按职业选择英雄按钮单击
         /// </summary>
@@ -576,21 +604,21 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CheckBoxCheckedChanged(object sender, EventArgs e)
-        {          
-            if(waitForLoad)
+        {
+            if (waitForLoad)
             {
                 return;
             }
             CheckBox _checkBox = sender as CheckBox;
-            string name = _checkBox.Tag as string;           
+            string name = _checkBox.Tag as string;
             if (_checkBox.Checked)
             {
-               if(!_ilineUpService.AddHero(name))
+                if (!_ilineUpService.AddHero(name))
                 {
                     waitForLoad = true;
                     _checkBox.Checked = false;
                     waitForLoad = false;
-                }                                               
+                }
             }
             else
             {
@@ -610,6 +638,7 @@ namespace JinChanChanTool
 
             _iheroDataService.SetFilePathsIndex(comboBox_HeroPool.SelectedIndex);
             _iheroDataService.ReLoad();
+            _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
             if (!_ilineUpService.SetFilePathIndex(comboBox_HeroPool.SelectedIndex))
             {
                 Debug.WriteLine("阵容文件路径下标设置失败，给定的下标不合法");
@@ -716,7 +745,7 @@ namespace JinChanChanTool
             FlowLayoutPanel panel = sender as FlowLayoutPanel;
             panel.BackColor = Color.SkyBlue;
             _ilineUpService.SetSubLineUpIndex(_uiBuilderService.subLineUpPanels.IndexOf(panel));
-            SwitchSubLineUp();            
+            SwitchSubLineUp();
         }
 
         /// <summary>
@@ -771,9 +800,9 @@ namespace JinChanChanTool
             {
                 string name = _iheroDataService.GetHeroFromImage(image).HeroName;
                 if (_ilineUpService.DeleteHero(name))
-                {                   
+                {
                     LoadSubLineUpToUI();
-                }              
+                }
             }
         }
 
@@ -832,7 +861,7 @@ namespace JinChanChanTool
             {
                 _activeToolTip.Dispose();
                 _activeToolTip = null;
-            }          
+            }
         }
 
         /// <summary>
@@ -847,12 +876,12 @@ namespace JinChanChanTool
             //HeroData hero = clickedBox.Tag as HeroData;
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width + 1, _uiBuilderService.GetHeroPictureBoxSize().Height + 1);
             clickedBox.Size = this.LogicalToDeviceUnits(size);
-            string name =clickedBox.Tag as string;
-            if(_ilineUpService.AddAndDeleteHero(name))
+            string name = clickedBox.Tag as string;
+            if (_ilineUpService.AddAndDeleteHero(name))
             {
                 _ilineUpService.OrderCurrentSubLineUp();
                 LoadSubLineUpToUI();
-            }                       
+            }
         }
 
         /// <summary>
@@ -875,11 +904,11 @@ namespace JinChanChanTool
         /// 使奕子复选框全部取消勾选
         /// </summary>
         private void ClearCheckBox()
-        {         
+        {
             for (int i = 0; i < _uiBuilderService.checkBoxes.Count; i++)
             {
                 _uiBuilderService.checkBoxes[i].Checked = false;
-            }                 
+            }
         }
 
         /// <summary>
@@ -899,11 +928,11 @@ namespace JinChanChanTool
         /// </summary>
         private void ClearAllSubLinePictureBoxes()
         {
-            for(int i = 0;i<_uiBuilderService.subLineUpPictureBoxes.GetLength(0);i++)
+            for (int i = 0; i < _uiBuilderService.subLineUpPictureBoxes.GetLength(0); i++)
             {
-                for(int j = 0;j<_uiBuilderService.subLineUpPictureBoxes.GetLength(1);j++)
+                for (int j = 0; j < _uiBuilderService.subLineUpPictureBoxes.GetLength(1); j++)
                 {
-                    _uiBuilderService.subLineUpPictureBoxes[i,j].Image = null;
+                    _uiBuilderService.subLineUpPictureBoxes[i, j].Image = null;
                     _uiBuilderService.subLineUpPictureBoxes[i, j].BorderColor = SystemColors.Control;
                 }
             }
@@ -944,11 +973,11 @@ namespace JinChanChanTool
         {
             for (int i = profession.HeroNames.Count - 1; i >= 0; i--)
             {
-                string name = profession.HeroNames[i];         
-                if(!_ilineUpService.AddHero(name))
+                string name = profession.HeroNames[i];
+                if (!_ilineUpService.AddHero(name))
                 {
                     break;
-                }                  
+                }
             }
             _ilineUpService.OrderCurrentSubLineUp();
             LoadSubLineUpToUI();
@@ -969,10 +998,10 @@ namespace JinChanChanTool
                 }
             }
             _ilineUpService.OrderCurrentSubLineUp();
-            LoadSubLineUpToUI();           
+            LoadSubLineUpToUI();
         }
 
-       
+
 
         /// <summary>
         /// 从阵容数据服务对象读取阵容名称到下拉框
@@ -984,7 +1013,7 @@ namespace JinChanChanTool
             {
                 comboBox_LineUps.Items.Add(_ilineUpService.GetLineUpName(i));
             }
-            if (_ilineUpService.GetLineUpIndex() < comboBox_LineUps.Items.Count  )
+            if (_ilineUpService.GetLineUpIndex() < comboBox_LineUps.Items.Count)
             {
                 comboBox_LineUps.SelectedIndex = _ilineUpService.GetLineUpIndex();
             }
@@ -1000,7 +1029,7 @@ namespace JinChanChanTool
                 _ilineUpService.SetLineUpName(i, comboBox_LineUps.Items[i].ToString());
             }
         }
-        
+
         /// <summary>
         /// 加载当前选中的阵容对象的三个子阵容到UI，并默认选择第1个子阵容
         /// </summary>
@@ -1014,7 +1043,7 @@ namespace JinChanChanTool
             LoadSubLineUpToUI();
             SwitchSubLineUp();
         }
-       
+
         /// <summary>
         /// 加载当前选中子阵容到UI(奕子复选框，子阵容头像框)
         /// </summary>
@@ -1028,30 +1057,30 @@ namespace JinChanChanTool
             {
                 CheckBox checkBox = _uiBuilderService.GetCheckBoxFromName(name);
                 Image image = _iheroDataService.GetImageFromHero(_iheroDataService.GetHeroFromName(name));
-                if(checkBox != null)
+                if (checkBox != null)
                 {
                     checkBox.Checked = true;
                 }
-                if(image != null)
+                if (image != null)
                 {
                     CurrentSubLinePictureBoxImages.Add(image);
-                }                
+                }
             }
-            
+
             for (int i = 0; i < CurrentSubLinePictureBoxImages.Count; i++)
             {
                 Image image = CurrentSubLinePictureBoxImages[i];
                 HeroData hero = _iheroDataService.GetHeroFromImage(image);
                 if (hero != null)
-                {                    
+                {
                     _uiBuilderService.subLineUpPictureBoxes[_ilineUpService.GetSubLineUpIndex(), i].Image = image;
                     _uiBuilderService.subLineUpPictureBoxes[_ilineUpService.GetSubLineUpIndex(), i].BorderColor = _uiBuilderService.GetColor(hero.Cost);
                 }
-            }           
+            }
             waitForLoad = false;
         }
 
-        
+
         #endregion
         #endregion
 
@@ -1109,7 +1138,7 @@ namespace JinChanChanTool
                 MessageBox.Show($"解析失败！请确保阵容码正确无误。\n\n详细错误: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
         /// <summary>
         /// 阵容码文本框进入
         /// </summary>
@@ -1251,15 +1280,15 @@ namespace JinChanChanTool
         private void toolTipTimer_Tick(object sender, EventArgs e)
         {
             toolTipTimer.Stop(); // 计时器只触发一次
-            
+
             if (_hoveredHeroPictureBox != null)
             {
-                
+
                 // 步骤 1: 从 PictureBox 的 Tag 属性中获取 HeroData 对象
                 string name = _hoveredHeroPictureBox.Tag as string;
-                
+
                 if (name != null)
-                {                    
+                {
                     // 步骤 2: 使用 HeroData 的名字，去查找对应的 HeroEquipment 对象
                     HeroEquipment currentHeroEquipment = _iheroEquipmentDataService.GetHeroEquipmentFromName(name);
 
@@ -1281,6 +1310,9 @@ namespace JinChanChanTool
                 }
             }
         }
-        #endregion       
+        #endregion
+
+
+       
     }
 }

@@ -107,5 +107,11 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <returns></returns>
         List<HeroData> GetHeroDatas();
+
+        /// <summary>
+        /// 获取英雄字符哈希表
+        /// </summary>
+        /// <returns></returns>
+        public HashSet<char> GetCharDictionary();
     }
 }

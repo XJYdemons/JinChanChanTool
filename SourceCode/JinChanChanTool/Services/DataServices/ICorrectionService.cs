@@ -34,6 +34,12 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        string ConvertToRightResult(string result);
+        string ConvertToRightResult(string result, out bool isError, out string errorMessage);
+
+        /// <summary>
+        /// 设置英雄名字符哈希表
+        /// </summary>
+        /// <param name="CharDictionary"></param>
+        void SetCharDictionary(HashSet<char> CharDictionary);
     }
 }

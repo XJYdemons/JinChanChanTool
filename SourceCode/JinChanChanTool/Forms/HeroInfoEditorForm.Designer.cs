@@ -147,6 +147,7 @@
             // 
             panel_BackGround.AutoScroll = true;
             panel_BackGround.AutoSize = true;
+            panel_BackGround.BackColor = Color.White;
             panel_BackGround.Controls.Add(panel_Buttons);
             panel_BackGround.Controls.Add(panel_DataGridView);
             panel_BackGround.Dock = DockStyle.Fill;

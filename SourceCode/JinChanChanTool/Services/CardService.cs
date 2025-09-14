@@ -1,9 +1,11 @@
-﻿using JinChanChanTool.Services.DataServices;
+﻿using JinChanChanTool.Forms;
+using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
-using System.Windows.Forms;
+using System.Drawing.Imaging;
+
 
 namespace JinChanChanTool.Services
 {
@@ -166,13 +168,21 @@ namespace JinChanChanTool.Services
             {                
                 try
                 {
-                    循环计数++;                                        
+                    循环计数++;
+                    
+
                     LogTool.Log($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
                     Debug.WriteLine($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
                     if (!自动停止拿牌()) return;
-                    自动停止刷新商店();                                     
-                    原始结果数组 = await RecognizeImages(CaptureAndSplit());
-                    更新纠正结果数组();
+                    自动停止刷新商店();
+                    Bitmap[] bitmaps = CaptureAndSplit();
+                    原始结果数组 = await RecognizeImages(bitmaps);
+                    更新纠正结果数组(bitmaps);
+                    // 释放图像资源
+                    foreach (Bitmap image in bitmaps)
+                    {
+                        image.Dispose();
+                    }
                     当前目标数组 = CompareResults(纠正结果数组);
                     LogTool.Log($"原始结果 1:{原始结果数组[0],-8}({当前目标数组[0],-6})2:{原始结果数组[1],-8}({当前目标数组[1],-6})3:{原始结果数组[2],-8}({当前目标数组[2],-6})4:{原始结果数组[3],-8}({当前目标数组[3],-6})5:{原始结果数组[4],-8}({当前目标数组[4],-6})");
                     Debug.WriteLine($"原始结果 1:{原始结果数组[0],-8}({当前目标数组[0],-6})2:{原始结果数组[1],-8}({当前目标数组[1],-6})3:{原始结果数组[2],-8}({当前目标数组[2],-6})4:{原始结果数组[3],-8}({当前目标数组[3],-6})5:{原始结果数组[4],-8}({当前目标数组[4],-6})");
@@ -282,15 +292,63 @@ namespace JinChanChanTool.Services
             计时器.Restart();
                                   
         }
-          
-        private void 更新纠正结果数组()
-        {
-           
-            for (int i = 0; i < 原始结果数组.Length; i++)
+
+        private void 更新纠正结果数组(Bitmap[] bitmaps)
+        {                      
             {
-                纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i]);
-             
-            }           
+                for (int i = 0; i < 原始结果数组.Length; i++)
+                {
+                    纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);
+
+                    if (!isError)
+                    {
+                        try
+                        {
+                            停止刷新商店();
+                            // 更新UI
+                            ErrorForm.GetTextBox().Invoke((MethodInvoker)delegate
+                            {
+                                ErrorForm.GetTextBox().AppendText("\r\n" + errorMessage + "\r\n图片已保存在“根目录/Logs”中。");
+                            });
+                            // 创建扩展后的位图（原图宽度 + 300像素文本区域）
+                            int textAreaWidth = bitmaps[i].Width; // 固定文本区域宽度
+                            int newWidth = bitmaps[i].Width + textAreaWidth;
+                            int newHeight = bitmaps[i].Height;
+                            // 创建字体和画刷
+                            using (Font font = new Font("SimSun-ExtB", 14, FontStyle.Bold))
+                            using (Brush brush = new SolidBrush(Color.Red))
+                            using (Bitmap extendedBitmap = new Bitmap(newWidth, newHeight))
+                            using (Graphics graphics = Graphics.FromImage(extendedBitmap))
+                            {
+                                // 设置高质量渲染
+                                graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                                //绘制原始图像（左侧）
+                                graphics.DrawImage(bitmaps[i], 0, 0);
+
+                                //绘制文本区域背景（右侧）
+                                graphics.FillRectangle(Brushes.White, bitmaps[i].Width, 0, textAreaWidth, newHeight);                               
+                                //计算文本区域（右侧）
+                                RectangleF textArea = new RectangleF(
+                                    bitmaps[i].Width + 10, // 从原图右侧开始
+                                    10, // 顶部边距
+                                    textAreaWidth - 20, // 宽度（减去边距）
+                                    newHeight - 20 // 高度（减去边距）
+                                );
+                                //绘制文本
+                                graphics.DrawString(errorMessage, font, brush, textArea);
+                                // 保存为PNG
+                                extendedBitmap.Save(Path.Combine(Application.StartupPath, "Logs", $"{DateTime.Now:HH_mm_ss.fff}_{i + 1}号卡.png"), ImageFormat.Png);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex);
+                        }
+                    }
+                }
+            }
         }
 
         private void 更新上一轮结果数组与目标数组()
@@ -502,16 +560,8 @@ namespace JinChanChanTool.Services
             {
                 tasks[i] = _ocrService.RecognizeTextAsync(bitmaps[i]);
             }
-
             // 等待所有任务完成
-            string[] results = await Task.WhenAll(tasks);
-
-            // 释放图像资源
-            foreach (Bitmap image in bitmaps)
-            {
-                image.Dispose();
-            }
-
+            string[] results = await Task.WhenAll(tasks);          
             return results;
         }
        

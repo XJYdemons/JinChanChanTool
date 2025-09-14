@@ -98,18 +98,18 @@ namespace JinChanChanTool
         private void LoadDisplays()
         {
             // 清空显示器下拉框            
-            comboBox1.Items.Clear();
+            comboBox_选择显示器.Items.Clear();
             // 查询每个显示器的设备名称
             for (int i = 0; i < screens.Length; i++)
             {
                 // 将显示器的序号和设备名称添加到显示器下拉框
-                comboBox1.Items.Add($"{i + 1} - {screens[i].DeviceName}");
+                comboBox_选择显示器.Items.Add($"{i + 1} - {screens[i].DeviceName}");
             }
 
             // 默认选择第一个显示器（如果有）
             if (screens.Length > 0)
             {
-                comboBox1.SelectedIndex = 0;
+                comboBox_选择显示器.SelectedIndex = 0;
 
                 targetScreen = screens[0];
             }
@@ -122,7 +122,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            targetScreen = screens[comboBox1.SelectedIndex];
+            targetScreen = screens[comboBox_选择显示器.SelectedIndex];
         }
 
         #endregion
@@ -133,37 +133,37 @@ namespace JinChanChanTool
         /// </summary>
         private void Update_AllComponents()
         {
-            textBox1.Text = _iappConfigService.CurrentConfig.HotKey3;
-            textBox2.Text = _iappConfigService.CurrentConfig.HotKey1;
-            textBox3.Text = _iappConfigService.CurrentConfig.HotKey2;
-            textBox19.Text = _iappConfigService.CurrentConfig.HotKey4;
-            textBox4.Text = _iappConfigService.CurrentConfig.MaxOfChoices.ToString();
-            textBox5.Text = _iappConfigService.CurrentConfig.CountOfLine.ToString();
-            textBox8.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1.ToString();
-            textBox9.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2.ToString();
-            textBox10.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3.ToString();
-            textBox11.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4.ToString();
-            textBox12.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5.ToString();
-            textBox13.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY.ToString();
-            textBox14.Text = _iappConfigService.CurrentConfig.Width_CardScreenshot.ToString();
-            textBox15.Text = _iappConfigService.CurrentConfig.Height_CardScreenshot.ToString();
-            textBox20.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreX.ToString();
-            textBox21.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreY.ToString();
-            checkBox1.Checked = _iappConfigService.CurrentConfig.HighCursorcontrol;
-            checkBox2.Checked = _iappConfigService.CurrentConfig.AutoStopGet;
-            checkBox3.Checked = _iappConfigService.CurrentConfig.AutoStopRefresh;
-            radioButton1.Checked = _iappConfigService.CurrentConfig.MouseGetCard;
-            radioButton2.Checked = _iappConfigService.CurrentConfig.KeyboardGetCard;
-            radioButton4.Checked = _iappConfigService.CurrentConfig.MouseRefresh;
-            radioButton3.Checked = _iappConfigService.CurrentConfig.KeyboardRefresh;
-            radioButton6.Checked = _iappConfigService.CurrentConfig.UseCPU;
-            radioButton5.Checked = _iappConfigService.CurrentConfig.UseGPU;
-            textBox6.Text = _iappConfigService.CurrentConfig.GetCardKey1;
-            textBox7.Text = _iappConfigService.CurrentConfig.GetCardKey2;
-            textBox16.Text = _iappConfigService.CurrentConfig.GetCardKey3;
-            textBox17.Text = _iappConfigService.CurrentConfig.GetCardKey4;
-            textBox18.Text = _iappConfigService.CurrentConfig.GetCardKey5;
-            textBox25.Text = _iappConfigService.CurrentConfig.RefreshKey;
+            textBox_召出隐藏窗口快捷键.Text = _iappConfigService.CurrentConfig.HotKey3;
+            textBox_自动拿牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey1;
+            textBox_自动刷新商店快捷键.Text = _iappConfigService.CurrentConfig.HotKey2;
+            textBox_长按自动D牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey4;
+            textBox_最大选择数量.Text = _iappConfigService.CurrentConfig.MaxOfChoices.ToString();
+            textBox_最大阵容数量.Text = _iappConfigService.CurrentConfig.CountOfLine.ToString();
+            textBox_拿牌坐标X1.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1.ToString();
+            textBox_拿牌坐标X2.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2.ToString();
+            textBox_拿牌坐标X3.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3.ToString();
+            textBox_拿牌坐标X4.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4.ToString();
+            textBox_拿牌坐标X5.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5.ToString();
+            textBox_拿牌坐标Y.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY.ToString();
+            textBox_奕子截图宽度.Text = _iappConfigService.CurrentConfig.Width_CardScreenshot.ToString();
+            textBox_奕子截图高度.Text = _iappConfigService.CurrentConfig.Height_CardScreenshot.ToString();
+            textBox_商店刷新按钮坐标X.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreX.ToString();
+            textBox_商店刷新按钮坐标Y.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreY.ToString();
+            checkBox_避免程序与用户争夺光标控制权.Checked = _iappConfigService.CurrentConfig.HighCursorcontrol;
+            checkBox_备战席满或金币不足时自动停止拿牌.Checked = _iappConfigService.CurrentConfig.AutoStopGet;
+            checkBox_自动停止刷新商店.Checked = _iappConfigService.CurrentConfig.AutoStopRefresh;
+            radioButton_鼠标模拟拿牌.Checked = _iappConfigService.CurrentConfig.MouseGetCard;
+            radioButton_按键模拟拿牌.Checked = _iappConfigService.CurrentConfig.KeyboardGetCard;
+            radioButton_鼠标模拟刷新商店.Checked = _iappConfigService.CurrentConfig.MouseRefresh;
+            radioButton_按键模拟刷新商店.Checked = _iappConfigService.CurrentConfig.KeyboardRefresh;
+            radioButton_CPU推理.Checked = _iappConfigService.CurrentConfig.UseCPU;
+            radioButton__CPU推理.Checked = _iappConfigService.CurrentConfig.UseGPU;
+            textBox_拿牌按键1.Text = _iappConfigService.CurrentConfig.GetCardKey1;
+            textBox_拿牌按键2.Text = _iappConfigService.CurrentConfig.GetCardKey2;
+            textBox_拿牌按键3.Text = _iappConfigService.CurrentConfig.GetCardKey3;
+            textBox_拿牌按键4.Text = _iappConfigService.CurrentConfig.GetCardKey4;
+            textBox_拿牌按键5.Text = _iappConfigService.CurrentConfig.GetCardKey5;
+            textBox_刷新商店按键.Text = _iappConfigService.CurrentConfig.RefreshKey;
         }
 
         /// <summary>
@@ -171,90 +171,90 @@ namespace JinChanChanTool
         /// </summary>
         private void Initialize_AllComponents()
         {
-            textBox1.KeyDown += TextBox1_KeyDown;
-            textBox1.Enter += TextBox_Enter;
-            textBox1.Leave += TextBox_Leave;
+            textBox_召出隐藏窗口快捷键.KeyDown += TextBox1_KeyDown;
+            textBox_召出隐藏窗口快捷键.Enter += TextBox_Enter;
+            textBox_召出隐藏窗口快捷键.Leave += TextBox_Leave;
 
-            textBox2.KeyDown += TextBox2_KeyDown;
-            textBox2.Enter += TextBox_Enter;
-            textBox2.Leave += TextBox_Leave;
+            textBox_自动拿牌快捷键.KeyDown += TextBox2_KeyDown;
+            textBox_自动拿牌快捷键.Enter += TextBox_Enter;
+            textBox_自动拿牌快捷键.Leave += TextBox_Leave;
 
-            textBox3.KeyDown += TextBox3_KeyDown;
-            textBox3.Enter += TextBox_Enter;
-            textBox3.Leave += TextBox_Leave;
+            textBox_自动刷新商店快捷键.KeyDown += TextBox3_KeyDown;
+            textBox_自动刷新商店快捷键.Enter += TextBox_Enter;
+            textBox_自动刷新商店快捷键.Leave += TextBox_Leave;
 
-            textBox19.KeyDown += TextBox19_KeyDown;
-            textBox19.Enter += TextBox_Enter;
-            textBox19.Leave += TextBox_Leave;
+            textBox_长按自动D牌快捷键.KeyDown += TextBox19_KeyDown;
+            textBox_长按自动D牌快捷键.Enter += TextBox_Enter;
+            textBox_长按自动D牌快捷键.Leave += TextBox_Leave;
 
-            textBox4.KeyDown += TextBox_KeyDown;
-            textBox4.Enter += TextBox_Enter;
-            textBox4.Leave += TextBox4_Leave;
-            textBox5.KeyDown += TextBox_KeyDown;
-            textBox5.Enter += TextBox_Enter;
-            textBox5.Leave += TextBox5_Leave;
-            textBox8.KeyDown += TextBox_KeyDown;
-            textBox8.Enter += TextBox_Enter;
-            textBox8.Leave += TextBox8_Leave;
-            textBox9.KeyDown += TextBox_KeyDown;
-            textBox9.Enter += TextBox_Enter;
-            textBox9.Leave += TextBox9_Leave;
-            textBox10.KeyDown += TextBox_KeyDown;
-            textBox10.Enter += TextBox_Enter;
-            textBox10.Leave += TextBox10_Leave;
-            textBox11.KeyDown += TextBox_KeyDown;
-            textBox11.Enter += TextBox_Enter;
-            textBox11.Leave += TextBox11_Leave;
-            textBox12.KeyDown += TextBox_KeyDown;
-            textBox12.Enter += TextBox_Enter;
-            textBox12.Leave += TextBox12_Leave;
-            textBox13.KeyDown += TextBox_KeyDown;
-            textBox13.Enter += TextBox_Enter;
-            textBox13.Leave += TextBox13_Leave;
-            textBox14.KeyDown += TextBox_KeyDown;
-            textBox14.Enter += TextBox_Enter;
-            textBox14.Leave += TextBox14_Leave;
-            textBox15.KeyDown += TextBox_KeyDown;
-            textBox15.Enter += TextBox_Enter;
-            textBox15.Leave += TextBox15_Leave;
-            textBox20.KeyDown += TextBox_KeyDown;
-            textBox20.Enter += TextBox_Enter;
-            textBox20.Leave += TextBox20_Leave;
-            textBox21.KeyDown += TextBox_KeyDown;
-            textBox21.Enter += TextBox_Enter;
-            textBox21.Leave += TextBox21_Leave;
-            checkBox1.CheckedChanged += CheckBox1_CheckedChanged;
-            checkBox2.CheckedChanged += CheckBox2_CheckedChanged;
-            checkBox3.CheckedChanged += CheckBox3_CheckedChanged;
-            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
-            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
-            radioButton3.CheckedChanged += radioButton3_CheckedChanged;
-            radioButton4.CheckedChanged += radioButton4_CheckedChanged;
-            radioButton5.CheckedChanged += radioButton5_CheckedChanged;
-            radioButton6.CheckedChanged += radioButton6_CheckedChanged;
-            textBox6.KeyDown += TextBox6_KeyDown;            
-            textBox6.Enter += TextBox_Enter;
-            textBox6.Leave += TextBox_Leave;
+            textBox_最大选择数量.KeyDown += TextBox_KeyDown;
+            textBox_最大选择数量.Enter += TextBox_Enter;
+            textBox_最大选择数量.Leave += TextBox4_Leave;
+            textBox_最大阵容数量.KeyDown += TextBox_KeyDown;
+            textBox_最大阵容数量.Enter += TextBox_Enter;
+            textBox_最大阵容数量.Leave += TextBox5_Leave;
+            textBox_拿牌坐标X1.KeyDown += TextBox_KeyDown;
+            textBox_拿牌坐标X1.Enter += TextBox_Enter;
+            textBox_拿牌坐标X1.Leave += TextBox8_Leave;
+            textBox_拿牌坐标X2.KeyDown += TextBox_KeyDown;
+            textBox_拿牌坐标X2.Enter += TextBox_Enter;
+            textBox_拿牌坐标X2.Leave += TextBox9_Leave;
+            textBox_拿牌坐标X3.KeyDown += TextBox_KeyDown;
+            textBox_拿牌坐标X3.Enter += TextBox_Enter;
+            textBox_拿牌坐标X3.Leave += TextBox10_Leave;
+            textBox_拿牌坐标X4.KeyDown += TextBox_KeyDown;
+            textBox_拿牌坐标X4.Enter += TextBox_Enter;
+            textBox_拿牌坐标X4.Leave += TextBox11_Leave;
+            textBox_拿牌坐标X5.KeyDown += TextBox_KeyDown;
+            textBox_拿牌坐标X5.Enter += TextBox_Enter;
+            textBox_拿牌坐标X5.Leave += TextBox12_Leave;
+            textBox_拿牌坐标Y.KeyDown += TextBox_KeyDown;
+            textBox_拿牌坐标Y.Enter += TextBox_Enter;
+            textBox_拿牌坐标Y.Leave += TextBox13_Leave;
+            textBox_奕子截图宽度.KeyDown += TextBox_KeyDown;
+            textBox_奕子截图宽度.Enter += TextBox_Enter;
+            textBox_奕子截图宽度.Leave += TextBox14_Leave;
+            textBox_奕子截图高度.KeyDown += TextBox_KeyDown;
+            textBox_奕子截图高度.Enter += TextBox_Enter;
+            textBox_奕子截图高度.Leave += TextBox15_Leave;
+            textBox_商店刷新按钮坐标X.KeyDown += TextBox_KeyDown;
+            textBox_商店刷新按钮坐标X.Enter += TextBox_Enter;
+            textBox_商店刷新按钮坐标X.Leave += TextBox20_Leave;
+            textBox_商店刷新按钮坐标Y.KeyDown += TextBox_KeyDown;
+            textBox_商店刷新按钮坐标Y.Enter += TextBox_Enter;
+            textBox_商店刷新按钮坐标Y.Leave += TextBox21_Leave;
+            checkBox_避免程序与用户争夺光标控制权.CheckedChanged += CheckBox1_CheckedChanged;
+            checkBox_备战席满或金币不足时自动停止拿牌.CheckedChanged += CheckBox2_CheckedChanged;
+            checkBox_自动停止刷新商店.CheckedChanged += CheckBox3_CheckedChanged;
+            radioButton_鼠标模拟拿牌.CheckedChanged += radioButton1_CheckedChanged;
+            radioButton_按键模拟拿牌.CheckedChanged += radioButton2_CheckedChanged;
+            radioButton_按键模拟刷新商店.CheckedChanged += radioButton3_CheckedChanged;
+            radioButton_鼠标模拟刷新商店.CheckedChanged += radioButton4_CheckedChanged;
+            radioButton__CPU推理.CheckedChanged += radioButton5_CheckedChanged;
+            radioButton_CPU推理.CheckedChanged += radioButton6_CheckedChanged;
+            textBox_拿牌按键1.KeyDown += TextBox6_KeyDown;            
+            textBox_拿牌按键1.Enter += TextBox_Enter;
+            textBox_拿牌按键1.Leave += TextBox_Leave;
 
-            textBox7.KeyDown += TextBox7_KeyDown;
-            textBox7.Enter += TextBox_Enter;
-            textBox7.Leave += TextBox_Leave;
+            textBox_拿牌按键2.KeyDown += TextBox7_KeyDown;
+            textBox_拿牌按键2.Enter += TextBox_Enter;
+            textBox_拿牌按键2.Leave += TextBox_Leave;
 
-            textBox16.KeyDown += TextBox16_KeyDown;
-            textBox16.Enter += TextBox_Enter;
-            textBox16.Leave += TextBox_Leave;
+            textBox_拿牌按键3.KeyDown += TextBox16_KeyDown;
+            textBox_拿牌按键3.Enter += TextBox_Enter;
+            textBox_拿牌按键3.Leave += TextBox_Leave;
 
-            textBox17.KeyDown += TextBox17_KeyDown;
-            textBox17.Enter += TextBox_Enter;
-            textBox17.Leave += TextBox_Leave;
+            textBox_拿牌按键4.KeyDown += TextBox17_KeyDown;
+            textBox_拿牌按键4.Enter += TextBox_Enter;
+            textBox_拿牌按键4.Leave += TextBox_Leave;
 
-            textBox18.KeyDown += TextBox18_KeyDown;
-            textBox18.Enter += TextBox_Enter;
-            textBox18.Leave += TextBox_Leave;
+            textBox_拿牌按键5.KeyDown += TextBox18_KeyDown;
+            textBox_拿牌按键5.Enter += TextBox_Enter;
+            textBox_拿牌按键5.Leave += TextBox_Leave;
 
-            textBox25.KeyDown += TextBox25_KeyDown;
-            textBox25.Enter += TextBox_Enter;
-            textBox25.Leave += TextBox_Leave;
+            textBox_刷新商店按键.KeyDown += TextBox25_KeyDown;
+            textBox_刷新商店按键.Enter += TextBox_Enter;
+            textBox_刷新商店按键.Leave += TextBox_Leave;
         }
 
         /// <summary>
@@ -446,7 +446,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox4.Text))
+            if (string.IsNullOrWhiteSpace(textBox_最大选择数量.Text))
             {
 
                 Update_AllComponents();
@@ -455,7 +455,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    int result = int.Parse(textBox4.Text);
+                    int result = int.Parse(textBox_最大选择数量.Text);
                     if (result > 0 && result <= 100)
                     {
                         _iappConfigService.CurrentConfig.MaxOfChoices = result;
@@ -481,7 +481,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox5.Text))
+            if (string.IsNullOrWhiteSpace(textBox_最大阵容数量.Text))
             {
 
                 Update_AllComponents();
@@ -490,7 +490,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    int result = int.Parse(textBox5.Text);
+                    int result = int.Parse(textBox_最大阵容数量.Text);
                     if (result > 0 && result <= 100)
                     {
                         _iappConfigService.CurrentConfig.CountOfLine = result;
@@ -516,7 +516,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox8.Text))
+            if (string.IsNullOrWhiteSpace(textBox_拿牌坐标X1.Text))
             {
 
                 Update_AllComponents();
@@ -525,7 +525,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = int.Parse(textBox8.Text);
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = int.Parse(textBox_拿牌坐标X1.Text);
 
                     Update_AllComponents();
                 }
@@ -547,7 +547,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox9.Text))
+            if (string.IsNullOrWhiteSpace(textBox_拿牌坐标X2.Text))
             {
 
                 Update_AllComponents();
@@ -556,7 +556,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = int.Parse(textBox9.Text);
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = int.Parse(textBox_拿牌坐标X2.Text);
 
                     Update_AllComponents();
                 }
@@ -578,7 +578,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox10.Text))
+            if (string.IsNullOrWhiteSpace(textBox_拿牌坐标X3.Text))
             {
 
                 Update_AllComponents();
@@ -587,7 +587,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = int.Parse(textBox10.Text);
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = int.Parse(textBox_拿牌坐标X3.Text);
 
                     Update_AllComponents();
                 }
@@ -609,7 +609,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox11.Text))
+            if (string.IsNullOrWhiteSpace(textBox_拿牌坐标X4.Text))
             {
 
                 Update_AllComponents();
@@ -618,7 +618,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = int.Parse(textBox11.Text);
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = int.Parse(textBox_拿牌坐标X4.Text);
 
                     Update_AllComponents();
                 }
@@ -640,7 +640,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox12.Text))
+            if (string.IsNullOrWhiteSpace(textBox_拿牌坐标X5.Text))
             {
 
                 Update_AllComponents();
@@ -649,7 +649,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = int.Parse(textBox12.Text);
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = int.Parse(textBox_拿牌坐标X5.Text);
 
                     Update_AllComponents();
                 }
@@ -671,7 +671,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox13.Text))
+            if (string.IsNullOrWhiteSpace(textBox_拿牌坐标Y.Text))
             {
 
                 Update_AllComponents();
@@ -680,7 +680,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = int.Parse(textBox13.Text);
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = int.Parse(textBox_拿牌坐标Y.Text);
 
                     Update_AllComponents();
                 }
@@ -702,7 +702,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox14.Text))
+            if (string.IsNullOrWhiteSpace(textBox_奕子截图宽度.Text))
             {
 
                 Update_AllComponents();
@@ -711,7 +711,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    int result = int.Parse(textBox14.Text);
+                    int result = int.Parse(textBox_奕子截图宽度.Text);
                     if (result > 0)
                     {
                         _iappConfigService.CurrentConfig.Width_CardScreenshot = result;
@@ -736,7 +736,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox15.Text))
+            if (string.IsNullOrWhiteSpace(textBox_奕子截图高度.Text))
             {
 
                 Update_AllComponents();
@@ -745,7 +745,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    int result = int.Parse(textBox15.Text);
+                    int result = int.Parse(textBox_奕子截图高度.Text);
                     if (result > 0)
                     {
                         _iappConfigService.CurrentConfig.Height_CardScreenshot = result;
@@ -772,7 +772,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox20.Text))
+            if (string.IsNullOrWhiteSpace(textBox_商店刷新按钮坐标X.Text))
             {
 
                 Update_AllComponents();
@@ -781,7 +781,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = int.Parse(textBox20.Text);
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = int.Parse(textBox_商店刷新按钮坐标X.Text);
 
                     Update_AllComponents();
                 }
@@ -803,7 +803,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox21.Text))
+            if (string.IsNullOrWhiteSpace(textBox_商店刷新按钮坐标Y.Text))
             {
 
                 Update_AllComponents();
@@ -812,7 +812,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = int.Parse(textBox21.Text);
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = int.Parse(textBox_商店刷新按钮坐标Y.Text);
 
                     Update_AllComponents();
                 }
@@ -827,44 +827,44 @@ namespace JinChanChanTool
         #region 修改-单选框-逻辑
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.HighCursorcontrol = checkBox1.Checked;
+            _iappConfigService.CurrentConfig.HighCursorcontrol = checkBox_避免程序与用户争夺光标控制权.Checked;
         }
         private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.AutoStopGet = checkBox2.Checked;
+            _iappConfigService.CurrentConfig.AutoStopGet = checkBox_备战席满或金币不足时自动停止拿牌.Checked;
         }
         private void CheckBox3_CheckedChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.AutoStopRefresh = checkBox3.Checked;
+            _iappConfigService.CurrentConfig.AutoStopRefresh = checkBox_自动停止刷新商店.Checked;
         }
         #endregion
 
         #region 拿牌方式单选框改变
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (radioButton_鼠标模拟拿牌.Checked)
             {
-                textBox6.Enabled = false;
-                textBox7.Enabled = false;
-                textBox16.Enabled = false;
-                textBox17.Enabled = false;
-                textBox18.Enabled = false;
+                textBox_拿牌按键1.Enabled = false;
+                textBox_拿牌按键2.Enabled = false;
+                textBox_拿牌按键3.Enabled = false;
+                textBox_拿牌按键4.Enabled = false;
+                textBox_拿牌按键5.Enabled = false;
             }
-            _iappConfigService.CurrentConfig.MouseGetCard = radioButton1.Checked;
+            _iappConfigService.CurrentConfig.MouseGetCard = radioButton_鼠标模拟拿牌.Checked;
         }
 
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton2.Checked)
+            if (radioButton_按键模拟拿牌.Checked)
             {
-                textBox6.Enabled = true;
-                textBox7.Enabled = true;
-                textBox16.Enabled = true;
-                textBox17.Enabled = true;
-                textBox18.Enabled = true;
+                textBox_拿牌按键1.Enabled = true;
+                textBox_拿牌按键2.Enabled = true;
+                textBox_拿牌按键3.Enabled = true;
+                textBox_拿牌按键4.Enabled = true;
+                textBox_拿牌按键5.Enabled = true;
             }
-            _iappConfigService.CurrentConfig.KeyboardGetCard = radioButton2.Checked;
+            _iappConfigService.CurrentConfig.KeyboardGetCard = radioButton_按键模拟拿牌.Checked;
         }
 
         #endregion
@@ -872,20 +872,20 @@ namespace JinChanChanTool
         #region 刷新方式单选框改变
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton4.Checked)
+            if (radioButton_鼠标模拟刷新商店.Checked)
             {
-                textBox25.Enabled = false;
+                textBox_刷新商店按键.Enabled = false;
             }
-            _iappConfigService.CurrentConfig.MouseRefresh = radioButton4.Checked;
+            _iappConfigService.CurrentConfig.MouseRefresh = radioButton_鼠标模拟刷新商店.Checked;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton3.Checked)
+            if (radioButton_按键模拟刷新商店.Checked)
             {
-                textBox25.Enabled = true;
+                textBox_刷新商店按键.Enabled = true;
             }
-            _iappConfigService.CurrentConfig.KeyboardRefresh = radioButton3.Checked;
+            _iappConfigService.CurrentConfig.KeyboardRefresh = radioButton_按键模拟刷新商店.Checked;
         }
         #endregion
 
@@ -1060,12 +1060,12 @@ namespace JinChanChanTool
         #region 推理单选框改变
         private void radioButton6_CheckedChanged(object sender, EventArgs e)
         {          
-            _iappConfigService.CurrentConfig.UseCPU = radioButton6.Checked;
+            _iappConfigService.CurrentConfig.UseCPU = radioButton_CPU推理.Checked;
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {            
-            _iappConfigService.CurrentConfig.UseGPU = radioButton5.Checked;
+            _iappConfigService.CurrentConfig.UseGPU = radioButton__CPU推理.Checked;
         }
 
         #endregion

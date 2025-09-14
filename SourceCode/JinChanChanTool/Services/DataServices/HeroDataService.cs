@@ -56,6 +56,10 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         private Dictionary<string, HeroData> nameToHeroDataMap;
 
+        /// <summary>
+        /// 英雄名字符哈希表
+        /// </summary>
+        private HashSet<char> _charDictionary;
         #region 初始化
         public HeroDataService()
         {
@@ -68,6 +72,7 @@ namespace JinChanChanTool.Services.DataServices
             imageToHeroDataMap = new Dictionary<Image, HeroData>();
             heroDataToImageMap = new Dictionary<HeroData, Image>();
             nameToHeroDataMap = new Dictionary<string, HeroData>();
+            _charDictionary = new HashSet<char>();
         }
 
         /// <summary>
@@ -103,6 +108,7 @@ namespace JinChanChanTool.Services.DataServices
             LoadProfessions();
             LoadPeculiarity();
             BuildMap();
+            LoadCharLib();
         }
 
         /// <summary>
@@ -156,6 +162,7 @@ namespace JinChanChanTool.Services.DataServices
             imageToHeroDataMap.Clear();
             heroDataToImageMap.Clear();
             nameToHeroDataMap.Clear();
+            _charDictionary.Clear();
             Load();
         }
 
@@ -350,6 +357,15 @@ namespace JinChanChanTool.Services.DataServices
         public List<HeroData> GetHeroDatas()
         {
             return HeroDatas;
+        }
+
+        /// <summary>
+        /// 获取英雄字符哈希表
+        /// </summary>
+        /// <returns></returns>
+        public HashSet<char> GetCharDictionary()
+        {
+            return _charDictionary;
         }
         #endregion
 
@@ -558,9 +574,28 @@ namespace JinChanChanTool.Services.DataServices
             }
         }
 
-
+        /// <summary>
+        /// 从英雄列表读取字库。
+        /// </summary>
+        private void LoadCharLib()
+        {
+            _charDictionary.Clear();
+            if (HeroDatas.Count > 0)
+            {
+                foreach (HeroData hero in HeroDatas)
+                {
+                    if (!string.IsNullOrEmpty(hero.HeroName))
+                    {
+                        foreach (char c in hero.HeroName)
+                        {
+                            _charDictionary.Add(c);
+                        }
+                    }
+                }
+            }
+        }
         #endregion
 
-        
+
     }
 }

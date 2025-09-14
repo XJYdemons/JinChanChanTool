@@ -14,7 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\CharDir.txt" />
     <None Remove="Resources\CorrectionsList.json" />
     <None Remove="Resources\defaultHeroIcon.png" />
     <None Remove="Resources\HeroDatas\S15天下无双格斗大会\HeroData.json" />
@@ -152,9 +151,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\CharDir.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\CorrectionsList.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

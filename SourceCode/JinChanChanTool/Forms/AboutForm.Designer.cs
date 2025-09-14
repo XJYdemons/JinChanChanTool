@@ -89,7 +89,7 @@
             label_版本号.Name = "label_版本号";
             label_版本号.Size = new Size(174, 17);
             label_版本号.TabIndex = 3;
-            label_版本号.Text = "版本  v4.7.0(2025.9.12)";
+            label_版本号.Text = "版本  v5.0.0(2025.9.14)";
             label_版本号.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label_版权所有
@@ -120,7 +120,7 @@
             // 
             label_Github主页.AutoSize = true;
             label_Github主页.ForeColor = Color.Black;
-            label_Github主页.Location = new Point(233, 82);
+            label_Github主页.Location = new Point(224, 82);
             label_Github主页.MinimumSize = new Size(70, 17);
             label_Github主页.Name = "label_Github主页";
             label_Github主页.Size = new Size(70, 17);
@@ -135,7 +135,7 @@
             // 
             label_项目地址.AutoSize = true;
             label_项目地址.ForeColor = Color.Black;
-            label_项目地址.Location = new Point(247, 60);
+            label_项目地址.Location = new Point(238, 60);
             label_项目地址.MinimumSize = new Size(56, 17);
             label_项目地址.Name = "label_项目地址";
             label_项目地址.Size = new Size(56, 17);

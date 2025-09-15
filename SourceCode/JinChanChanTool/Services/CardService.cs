@@ -331,10 +331,10 @@ namespace JinChanChanTool.Services
                                 graphics.FillRectangle(Brushes.White, bitmaps[i].Width, 0, textAreaWidth, newHeight);                               
                                 //计算文本区域（右侧）
                                 RectangleF textArea = new RectangleF(
-                                    bitmaps[i].Width + 10, // 从原图右侧开始
-                                    10, // 顶部边距
-                                    textAreaWidth - 20, // 宽度（减去边距）
-                                    newHeight - 20 // 高度（减去边距）
+                                    bitmaps[i].Width, // 从原图右侧开始
+                                    1, // 顶部边距
+                                    textAreaWidth-1, // 宽度（减去边距）
+                                    newHeight-1 // 高度（减去边距）
                                 );
                                 //绘制文本
                                 graphics.DrawString(errorMessage, font, brush, textArea);

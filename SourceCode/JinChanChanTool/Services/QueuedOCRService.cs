@@ -120,10 +120,10 @@ namespace JinChanChanTool.Services
         /// </summary>
         private Mat BitmapToMat(Bitmap bitmap)
         {
-            // 确保Bitmap格式为32bppArgb（OpenCV兼容格式）
-            if (bitmap.PixelFormat != PixelFormat.Format32bppArgb)
+            // 确保Bitmap格式为24bppRgb（3通道）
+            if (bitmap.PixelFormat != PixelFormat.Format24bppRgb)
             {
-                using Bitmap converted = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
+                using Bitmap converted = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format24bppRgb);
                 using (Graphics g = Graphics.FromImage(converted))
                 {
                     g.DrawImage(bitmap, 0, 0);
@@ -139,24 +139,65 @@ namespace JinChanChanTool.Services
 
             try
             {
-                // 创建Mat对象
+                // 创建3通道Mat对象
                 Mat mat = Mat.FromPixelData(
                     rows: bitmap.Height,
                     cols: bitmap.Width,
-                    type: MatType.CV_8UC4, // 8位无符号4通道
+                    type: MatType.CV_8UC3, // 8位无符号4通道
                     data: bmpData.Scan0,
                     step: bmpData.Stride
                 );
 
-                // 转换为BGR格式（OpenCV默认格式）
-                return mat.CvtColor(ColorConversionCodes.BGRA2BGR);
+                return mat.Clone();
             }
             finally
             {
                 bitmap.UnlockBits(bmpData);
             }
         }
-      
+
+        ///// <summary>
+        ///// 将Bitmap转换为OpenCV Mat对象（32位）
+        ///// </summary>
+        //private Mat BitmapToMat(Bitmap bitmap)
+        //{
+        //    // 确保Bitmap格式为32bppArgb（OpenCV兼容格式）
+        //    if (bitmap.PixelFormat != PixelFormat.Format32bppArgb)
+        //    {
+        //        using Bitmap converted = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
+        //        using (Graphics g = Graphics.FromImage(converted))
+        //        {
+        //            g.DrawImage(bitmap, 0, 0);
+        //        }
+        //        return BitmapToMat(converted);
+        //    }
+
+        //    // 锁定Bitmap数据
+        //    BitmapData bmpData = bitmap.LockBits(
+        //        new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+        //        ImageLockMode.ReadOnly,
+        //        bitmap.PixelFormat);
+
+        //    try
+        //    {
+        //        // 创建Mat对象
+        //        Mat mat = Mat.FromPixelData(
+        //            rows: bitmap.Height,
+        //            cols: bitmap.Width,
+        //            type: MatType.CV_8UC4, // 8位无符号4通道
+        //            data: bmpData.Scan0,
+        //            step: bmpData.Stride
+        //        );
+
+        //        // 转换为BGR格式（OpenCV默认格式）
+        //        return mat.CvtColor(ColorConversionCodes.BGRA2BGR);
+        //    }
+        //    finally
+        //    {
+        //        bitmap.UnlockBits(bmpData);
+        //    }
+        //}
+
         /// <summary>
         /// 取消所有待处理的OCR请求
         /// </summary>

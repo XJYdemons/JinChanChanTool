@@ -75,7 +75,7 @@
         #endregion
 
 
-        static private TextBox textBox1;
-       static private Panel panel1;
+        private TextBox textBox1;
+        private Panel panel1;
     }
 }

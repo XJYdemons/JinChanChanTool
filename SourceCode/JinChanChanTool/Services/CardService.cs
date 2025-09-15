@@ -306,9 +306,9 @@ namespace JinChanChanTool.Services
                         {
                             停止刷新商店();
                             // 更新UI
-                            ErrorForm.GetTextBox().Invoke((MethodInvoker)delegate
+                            ErrorForm.Instance.GetTextBox().Invoke((MethodInvoker)delegate
                             {
-                                ErrorForm.GetTextBox().AppendText("\r\n" + errorMessage + "\r\n图片已保存在“根目录/Logs”中。");
+                                ErrorForm.Instance.GetTextBox().AppendText("\r\n" + errorMessage + "\r\n图片已保存在“根目录/Logs”中。");
                             });
                             // 创建扩展后的位图（原图宽度 + 300像素文本区域）
                             int textAreaWidth = bitmaps[i].Width; // 固定文本区域宽度

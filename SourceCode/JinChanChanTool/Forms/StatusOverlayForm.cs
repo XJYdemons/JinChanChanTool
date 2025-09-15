@@ -27,8 +27,7 @@ namespace JinChanChanTool.Forms
         }
         // 状态标签
         private Label lblStatus1;
-        private Label lblStatus2;
-        //private Panel panel_BackGround;
+        private Label lblStatus2;        
         // 拖动相关变量
         private Point _dragStartPoint;
         private bool _dragging;

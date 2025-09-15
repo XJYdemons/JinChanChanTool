@@ -14,13 +14,17 @@ namespace JinChanChanTool.Forms
     {
         private static ErrorForm _instance;
         
-        public static ErrorForm GetInstance()
+        public static ErrorForm Instance
         {
-            if(_instance == null||_instance.IsDisposed)
+            get
             {
-                _instance = new ErrorForm();
+                if (_instance == null || _instance.IsDisposed)
+                {
+                    _instance = new ErrorForm();
+                }
+                return _instance;
             }
-            return _instance;
+            
         }
         private ErrorForm()
         {
@@ -33,7 +37,7 @@ namespace JinChanChanTool.Forms
             
             
         }
-        public static TextBox GetTextBox()
+        public  TextBox GetTextBox()
         {           
             return textBox1;
         }

@@ -135,7 +135,7 @@ namespace JinChanChanTool
             UpdateOverlayStatus();
             #endregion         
 
-            ShowErrorForm();
+            ShowErrorForm();            
         }
 
         /// <summary>
@@ -414,17 +414,16 @@ namespace JinChanChanTool
 
         private void ShowErrorForm()
         {
-            if(ErrorForm.GetInstance().WindowState == FormWindowState.Minimized)
+            if(ErrorForm.Instance.WindowState == FormWindowState.Minimized)
             {
-                ErrorForm.GetInstance().WindowState = FormWindowState.Normal;
-                ErrorForm.GetInstance().Show();
-                ErrorForm.GetInstance().BringToFront();
-            }
-            if(!ErrorForm.GetInstance().Visible)
-            {
-               
-                ErrorForm.GetInstance().Show();
-                ErrorForm.GetInstance().BringToFront();              
+                ErrorForm.Instance.WindowState = FormWindowState.Normal;
+                ErrorForm.Instance.Show();
+                ErrorForm.Instance.BringToFront();
+            }             
+            if(!ErrorForm.Instance.Visible)
+            {           
+                ErrorForm.Instance.Show();
+                ErrorForm.Instance.BringToFront();              
             }         
             
         }

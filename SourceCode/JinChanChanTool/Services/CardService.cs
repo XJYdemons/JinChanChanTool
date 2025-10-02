@@ -101,8 +101,8 @@ namespace JinChanChanTool.Services
         {
             try
             {
-                _ocrService = new QueuedOCRService(device);
-
+                // 指定 CPU 核心数为 4
+                _ocrService = new QueuedOCRService(device, 4);
             }
             catch (Exception ex)
             {

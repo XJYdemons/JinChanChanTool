@@ -11,17 +11,25 @@ namespace JinChanChanTool.Services
     public class QueuedOCRService : IDisposable
     {
         private QueuedPaddleOcrAll _ocrQueue;      
-        private CancellationTokenSource _cts;                     
+        private CancellationTokenSource _cts;
+        private int _cpuThreadCount;
         public enum 设备
         {
             CPU, GPU
         }
 
         /// <summary>
-        /// 初始化OCR队列服务
+        /// 兼容原调用：保持无参构造器行为
         /// </summary>
-        public QueuedOCRService(设备 device)
+        public QueuedOCRService(设备 device) : this(device, 0) { }
+
+        /// <summary>
+        /// 自动计算推荐值的线程数
+        /// 可选传入 cpuThreadCount（<=0 表示自动计算推荐值）
+        /// </summary>
+        public QueuedOCRService(设备 device, int cpuThreadCount)
         {
+            _cpuThreadCount = cpuThreadCount;
             switch (device)
             {
                 case 设备.CPU:
@@ -36,8 +44,30 @@ namespace JinChanChanTool.Services
             }
         }
 
+        /// <summary>
+        /// 通过环境变量设置 Paddle/MKL/OpenBLAS/OpenMP 的线程数。
+        /// threadCount <= 0 时采用自动推荐值（逻辑处理器数的一半，至少 1）。
+        /// 必须在创建 Paddle 设备之前调用（即在 InitializeOcrQueueCPU 的开头调用）。
+        /// </summary>
+        private void SetCpuThreadCount(int threadCount = 0)
+        {
+            int count = threadCount > 0 ? threadCount : Math.Max(1, Environment.ProcessorCount / 2);
+
+            // 常用控制线程数的环境变量
+            Environment.SetEnvironmentVariable("OMP_NUM_THREADS", count.ToString());
+            Environment.SetEnvironmentVariable("MKL_NUM_THREADS", count.ToString());
+            Environment.SetEnvironmentVariable("OPENBLAS_NUM_THREADS", count.ToString());
+
+            // 额外的兼容变量（有些构建可能会检查）
+            Environment.SetEnvironmentVariable("PADDLE_CPU_THREADS", count.ToString());
+
+            Debug.WriteLine($"[QueuedOCRService] Set CPU thread count = {count}");
+        }
+
         private void InitializeOcrQueueCPU()
         {
+            // 先设置 CPU 线程数（如果 _cpuThreadCount <= 0，会自动计算推荐值）
+            SetCpuThreadCount(_cpuThreadCount);
             // 创建OCR工厂方法
             Func<PaddleOcrAll> factory = () =>
             {
@@ -155,48 +185,6 @@ namespace JinChanChanTool.Services
                 bitmap.UnlockBits(bmpData);
             }
         }
-
-        ///// <summary>
-        ///// 将Bitmap转换为OpenCV Mat对象（32位）
-        ///// </summary>
-        //private Mat BitmapToMat(Bitmap bitmap)
-        //{
-        //    // 确保Bitmap格式为32bppArgb（OpenCV兼容格式）
-        //    if (bitmap.PixelFormat != PixelFormat.Format32bppArgb)
-        //    {
-        //        using Bitmap converted = new Bitmap(bitmap.Width, bitmap.Height, PixelFormat.Format32bppArgb);
-        //        using (Graphics g = Graphics.FromImage(converted))
-        //        {
-        //            g.DrawImage(bitmap, 0, 0);
-        //        }
-        //        return BitmapToMat(converted);
-        //    }
-
-        //    // 锁定Bitmap数据
-        //    BitmapData bmpData = bitmap.LockBits(
-        //        new Rectangle(0, 0, bitmap.Width, bitmap.Height),
-        //        ImageLockMode.ReadOnly,
-        //        bitmap.PixelFormat);
-
-        //    try
-        //    {
-        //        // 创建Mat对象
-        //        Mat mat = Mat.FromPixelData(
-        //            rows: bitmap.Height,
-        //            cols: bitmap.Width,
-        //            type: MatType.CV_8UC4, // 8位无符号4通道
-        //            data: bmpData.Scan0,
-        //            step: bmpData.Stride
-        //        );
-
-        //        // 转换为BGR格式（OpenCV默认格式）
-        //        return mat.CvtColor(ColorConversionCodes.BGRA2BGR);
-        //    }
-        //    finally
-        //    {
-        //        bitmap.UnlockBits(bmpData);
-        //    }
-        //}
 
         /// <summary>
         /// 取消所有待处理的OCR请求

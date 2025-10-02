@@ -81,6 +81,71 @@
     <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\阿狸.png" />
     <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\霞.png" />
     <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\韦鲁斯.png" />
+    <None Remove="Resources\HeroDatas\强音对决\HeroData.json" />
+    <None Remove="Resources\HeroDatas\强音对决\images\亚索.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\伊泽瑞尔.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\伊芙琳.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\伊莉丝.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\佛耶戈.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\俄洛伊.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\凯南.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\凯尔.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\凯特琳.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\凯隐.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\劫.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\卡尔萨斯.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\卡特琳娜.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\卡莎.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\卢锡安.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\厄加特.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\厄斐琉斯.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\厄运小姐.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\古拉加斯.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\吉格斯.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\图奇.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\塔姆.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\塔里克.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\奇亚娜.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\奎桑提.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\奥拉夫.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\妮蔻.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\娑娜.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\娜美.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\安妮.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\崔斯特.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\巴德.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\布里茨.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\库奇.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\扎克.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\拉克丝.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\格温.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\永恩.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\波比.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\潘森.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\烬.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\瑟提.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\璐璐.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\盖伦.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\约里克.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\纳尔.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\艾克.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\莉莉娅.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\莎弥拉.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\莫德凯撒.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\萨勒芬妮.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\蔚.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\薇古丝.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\贾克斯.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\赛娜.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\金克丝.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\锐雯.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\锤石.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\阿卡丽.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\阿卡丽（KDA）.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\阿卡丽（真实伤害）.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\阿木木.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\阿狸.png" />
+    <None Remove="Resources\HeroDatas\强音对决\images\阿萝拉.png" />
     <None Remove="Resources\HeroDatas\符文大陆\HeroData.json" />
     <None Remove="Resources\HeroDatas\符文大陆\images\丽桑卓.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\亚托克斯.png" />
@@ -350,6 +415,201 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\S15天下无双格斗大会\images\韦鲁斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\HeroData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\亚索.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\伊泽瑞尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\伊芙琳.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\伊莉丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\佛耶戈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\俄洛伊.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\凯南.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\凯尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\凯特琳.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\凯隐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\劫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\卡尔萨斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\卡特琳娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\卡莎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\卢锡安.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\厄加特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\厄斐琉斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\厄运小姐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\古拉加斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\吉格斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\图奇.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\塔姆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\塔里克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\奇亚娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\奎桑提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\奥拉夫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\妮蔻.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\娑娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\娜美.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\安妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\崔斯特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\巴德.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\布里茨.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\库奇.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\扎克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\拉克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\格温.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\永恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\波比.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\潘森.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\烬.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\瑟提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\璐璐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\盖伦.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\约里克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\纳尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\艾克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\莉莉娅.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\莎弥拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\莫德凯撒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\萨勒芬妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\蔚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\薇古丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\贾克斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\赛娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\金克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\锐雯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\锤石.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\阿卡丽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\阿卡丽（KDA）.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\阿卡丽（真实伤害）.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\阿木木.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\阿狸.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\强音对决\images\阿萝拉.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\符文大陆\HeroData.json">
@@ -1068,6 +1328,9 @@
     </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\黑曜石切割者.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\LineUps.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

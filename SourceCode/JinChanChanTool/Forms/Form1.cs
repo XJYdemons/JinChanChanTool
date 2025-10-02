@@ -52,6 +52,9 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
+        // (新) 这个字段将作为我们的“开关”，记录了哪个赛季文件夹的名字才允许显示装备推荐
+        private string _seasonForEquipmentTooltip = "S15天下无双格斗大会"; // <-- 在这里硬编码指定赛季名
+
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
@@ -1265,6 +1268,25 @@ namespace JinChanChanTool
 
                 if (name != null)
                 {
+                    // 修复显示错误赛季装备推荐，先通过调用方法，获取到路径数组和当前索引
+                    string[] currentPaths = _iheroDataService.GetFilePaths();
+                    int currentIndex = _iheroDataService.GetFilePathsIndex();
+
+                    // 进行有效性检查，防止数组越界
+                    if (currentPaths == null || currentIndex < 0 || currentIndex >= currentPaths.Length)
+                    {
+                        return; // 如果路径或索引无效，直接中止
+                    }
+
+                    //使用获取到的变量来构建路径并获取赛季名
+                    string currentSeasonName = new DirectoryInfo(currentPaths[currentIndex]).Name;
+
+                    // 检查当前赛季是否是“允许显示”的赛季
+                    if (currentSeasonName != _seasonForEquipmentTooltip)
+                    {
+                        return; // 如果不是，直接中止，不显示任何ToolTip
+                    }
+
                     // 步骤 2: 使用 HeroData 的名字，去查找对应的 HeroEquipment 对象
                     HeroEquipment currentHeroEquipment = _iheroEquipmentDataService.GetHeroEquipmentFromName(name);
 

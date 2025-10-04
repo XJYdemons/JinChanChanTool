@@ -463,6 +463,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         public void button_Refresh_Click(object sender, EventArgs e)
         {
+            LogTool.Log("手动切换自动刷新！");
+            Debug.WriteLine("手动切换自动刷新！");
             if (button_Refresh.Text == "停止")
             {
                 button_Refresh.Text = "启动";

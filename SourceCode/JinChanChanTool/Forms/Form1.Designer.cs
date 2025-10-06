@@ -65,11 +65,12 @@
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             toolStripMenuItem_GetEquipments = new ToolStripMenuItem();
+            toolStripMenuItem_识别错误输出窗口 = new ToolStripMenuItem();
+            toolStripMenuItem_SelectProcess = new ToolStripMenuItem();
             panel_BackGround = new Panel();
             panel1 = new Panel();
             label1 = new Label();
             toolTipTimer = new System.Windows.Forms.Timer(components);
-            toolStripMenuItem_识别错误输出窗口 = new ToolStripMenuItem();
             panel_SubLineUpParent.SuspendLayout();
             tabControl_HeroSelector.SuspendLayout();
             tabPage_1Cost.SuspendLayout();
@@ -441,10 +442,10 @@
             // menuStrip_Main
             // 
             menuStrip_Main.BackColor = Color.White;
-            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于, toolStripMenuItem_GetEquipments, toolStripMenuItem_识别错误输出窗口 });
+            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于, toolStripMenuItem_GetEquipments, toolStripMenuItem_识别错误输出窗口, toolStripMenuItem_SelectProcess });
             menuStrip_Main.Location = new Point(3, 2);
             menuStrip_Main.Name = "menuStrip_Main";
-            menuStrip_Main.Size = new Size(398, 25);
+            menuStrip_Main.Size = new Size(438, 25);
             menuStrip_Main.TabIndex = 5;
             menuStrip_Main.Text = "菜单栏1";
             // 
@@ -483,6 +484,20 @@
             toolStripMenuItem_GetEquipments.Text = "获取推荐装备";
             toolStripMenuItem_GetEquipments.Click += toolStripMenuItem_GetEquipments_Click;
             // 
+            // toolStripMenuItem_识别错误输出窗口
+            // 
+            toolStripMenuItem_识别错误输出窗口.Name = "toolStripMenuItem_识别错误输出窗口";
+            toolStripMenuItem_识别错误输出窗口.Size = new Size(116, 21);
+            toolStripMenuItem_识别错误输出窗口.Text = "识别错误输出窗口";
+            toolStripMenuItem_识别错误输出窗口.Click += toolStripMenuItem_识别错误输出窗口_Click;
+            // 
+            // toolStripMenuItem_SelectProcess
+            // 
+            toolStripMenuItem_SelectProcess.Name = "toolStripMenuItem_SelectProcess";
+            toolStripMenuItem_SelectProcess.Size = new Size(92, 21);
+            toolStripMenuItem_SelectProcess.Text = "选择游戏进程";
+            toolStripMenuItem_SelectProcess.Click += toolStripMenuItem_SelectProcess_Click;
+            // 
             // panel_BackGround
             // 
             panel_BackGround.AutoSize = true;
@@ -496,7 +511,7 @@
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Padding = new Padding(3, 2, 3, 5);
-            panel_BackGround.Size = new Size(404, 640);
+            panel_BackGround.Size = new Size(444, 640);
             panel_BackGround.TabIndex = 5;
             // 
             // panel1
@@ -534,19 +549,12 @@
             toolTipTimer.Interval = 200;
             toolTipTimer.Tick += toolTipTimer_Tick;
             // 
-            // toolStripMenuItem_识别错误输出窗口
-            // 
-            toolStripMenuItem_识别错误输出窗口.Name = "toolStripMenuItem_识别错误输出窗口";
-            toolStripMenuItem_识别错误输出窗口.Size = new Size(116, 21);
-            toolStripMenuItem_识别错误输出窗口.Text = "识别错误输出窗口";
-            toolStripMenuItem_识别错误输出窗口.Click += toolStripMenuItem_识别错误输出窗口_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(404, 640);
+            ClientSize = new Size(444, 640);
             Controls.Add(panel_BackGround);
             FormBorderStyle = FormBorderStyle.None;
             MainMenuStrip = menuStrip_Main;
@@ -617,5 +625,6 @@
         private Panel panel1;
         private Label label1;
         private ToolStripMenuItem toolStripMenuItem_识别错误输出窗口;
+        private ToolStripMenuItem toolStripMenuItem_SelectProcess;
     }
 }

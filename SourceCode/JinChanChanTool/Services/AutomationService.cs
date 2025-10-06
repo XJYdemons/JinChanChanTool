@@ -1,0 +1,194 @@
+﻿using JinChanChanTool.DataClass; // 包含 JccCoordinateTemplates    // 包含 TftCoordinateTemplates
+using System.Diagnostics;
+using System.Drawing;
+using static JinChanChanTool.Services.CoordinateCalculationService;
+
+namespace JinChanChanTool.Services
+{
+    /// <summary>
+    /// 当前检测到的游戏模式。
+    /// </summary>
+    public enum GameMode
+    {
+        /// <summary>
+        /// 未找到任何支持的游戏。
+        /// </summary>
+        None,
+        /// <summary>
+        /// 云顶之弈 PC 客户端。
+        /// </summary>
+        TFT,
+        /// <summary>
+        /// 金铲铲之战（模拟器）。
+        /// </summary>
+        JCC
+    }
+
+    /// <summary>
+    /// 定义可请求坐标的UI元素。
+    /// </summary>
+    public enum UiElement
+    {
+        ExpButton,
+        RefreshButton,
+        CardSlot1_Name,
+        CardSlot2_Name,
+        CardSlot3_Name,
+        CardSlot4_Name,
+        CardSlot5_Name,
+        CardSlot1_Click,
+        CardSlot2_Click,
+        CardSlot3_Click,
+        CardSlot4_Click,
+        CardSlot5_Click,
+        GoldAmount
+    }
+
+    /// <summary>
+    /// 自动化的总服务。
+    /// 负责自动检测游戏进程，并提供正确的UI元素坐标。
+    /// </summary>
+    public class AutomationService
+    {
+        private readonly GameWindowService _gameWindowService;
+        private readonly CoordinateCalculationService _coordService;
+
+        /// <summary>
+        /// 当前检测到的游戏模式。
+        /// </summary>
+        public GameMode CurrentGameMode { get; private set; } = GameMode.None;
+
+        /// <summary>
+        /// 一个便捷属性，指示是否已成功检测到游戏窗口。
+        /// </summary>
+        public bool IsGameDetected => CurrentGameMode != GameMode.None;
+
+        public AutomationService(GameWindowService gameWindowService, CoordinateCalculationService coordService)
+        {
+            _gameWindowService = gameWindowService;
+            _coordService = coordService;
+        }
+
+        ///// <summary>
+        ///// 执行一次游戏进程检测。
+        ///// 会优先检测云顶之弈，其次是模拟器。
+        ///// </summary>
+        ///// <returns>如果找到了任何一个游戏，则返回true。</returns>
+        //public bool DetectGameProcess()
+        //{
+        //    // 优先级 1: 云顶之弈
+        //    if (_gameWindowService.FindGameWindow("League of Legends"))
+        //    {
+        //        CurrentGameMode = GameMode.TFT;
+        //        return true;
+        //    }
+
+        //    // 优先级 2: MuMu模拟器
+        //    if (_gameWindowService.FindGameWindow("MuMuPlayer"))
+        //    {
+        //        CurrentGameMode = GameMode.JCC;
+        //        return true;
+        //    }
+
+        //    // 未找到任何进程
+        //    CurrentGameMode = GameMode.None;
+        //    return false;
+        //}
+
+        /// <summary>
+        /// 设置用户选择的进程为自动化目标。
+        /// </summary>
+        /// <param name="process">用户选择的进程。</param>
+        public void SetTargetProcess(Process process)
+        {
+            if (_gameWindowService.SetTargetWindow(process))
+            {
+                // 根据进程名判断游戏模式
+                // 假设：只有云顶是这个进程名，其他都是模拟器
+                if (process.ProcessName.Equals("League of Legends", StringComparison.OrdinalIgnoreCase))
+                {
+                    CurrentGameMode = GameMode.TFT;
+                }
+                else
+                {
+                    CurrentGameMode = GameMode.JCC;
+                }
+            }
+            else
+            {
+                CurrentGameMode = GameMode.None;
+            }
+        }
+
+        /// <summary>
+        /// 获取指定UI元素在屏幕上的绝对坐标和大小。
+        /// </summary>
+        /// <param name="element">想要获取坐标的UI元素。</param>
+        /// <returns>返回计算好的矩形区域，如果未检测到游戏则返回null。</returns>
+        public Rectangle? GetTargetRectangle(UiElement element)
+        {
+            if (!IsGameDetected) return null;
+
+            // 1. 根据当前游戏模式，选择正确的基准坐标模板和分辨率
+            AnchorProfile profile;
+            Size baseResolution;
+
+            if (CurrentGameMode == GameMode.TFT)
+            {
+                profile = GetTftProfile(element);
+                baseResolution = TftCoordinateTemplates.BaseResolution;
+            }
+            else // JCC
+            {
+                profile = GetJccProfile(element);
+                baseResolution = JccCoordinateTemplates.BaseResolution;
+            }
+
+            // 2. 调用坐标计算服务来获取最终结果
+            return _coordService.GetScaledRectangle(profile, baseResolution, this.CurrentGameMode);
+        }
+
+        // --- 私有辅助方法，用于从模板中获取对应的Profile ---
+        private AnchorProfile GetTftProfile(UiElement element)
+        {
+            switch (element)
+            {
+                case UiElement.ExpButton: return TftCoordinateTemplates.ExpButton;
+                case UiElement.RefreshButton: return TftCoordinateTemplates.RefreshButton;
+                case UiElement.CardSlot1_Name: return TftCoordinateTemplates.CardSlot1_Name;
+                case UiElement.CardSlot2_Name: return TftCoordinateTemplates.CardSlot2_Name;
+                case UiElement.CardSlot3_Name: return TftCoordinateTemplates.CardSlot3_Name;
+                case UiElement.CardSlot4_Name: return TftCoordinateTemplates.CardSlot4_Name;
+                case UiElement.CardSlot5_Name: return TftCoordinateTemplates.CardSlot5_Name;
+                case UiElement.CardSlot1_Click: return TftCoordinateTemplates.CardSlot1_Click;
+                case UiElement.CardSlot2_Click: return TftCoordinateTemplates.CardSlot2_Click;
+                case UiElement.CardSlot3_Click: return TftCoordinateTemplates.CardSlot3_Click;
+                case UiElement.CardSlot4_Click: return TftCoordinateTemplates.CardSlot4_Click;
+                case UiElement.CardSlot5_Click: return TftCoordinateTemplates.CardSlot5_Click;
+                case UiElement.GoldAmount: return TftCoordinateTemplates.GoldAmount;
+                default: throw new ArgumentOutOfRangeException(nameof(element), "未知的UI元素。");
+            }
+        }
+
+        private AnchorProfile GetJccProfile(UiElement element)
+        {
+            switch (element)
+            {
+                case UiElement.ExpButton: return JccCoordinateTemplates.ExpButton;
+                case UiElement.RefreshButton: return JccCoordinateTemplates.RefreshButton;
+                case UiElement.CardSlot1_Name: return JccCoordinateTemplates.CardSlot1_Name;
+                case UiElement.CardSlot2_Name: return JccCoordinateTemplates.CardSlot2_Name;
+                case UiElement.CardSlot3_Name: return JccCoordinateTemplates.CardSlot3_Name;
+                case UiElement.CardSlot4_Name: return JccCoordinateTemplates.CardSlot4_Name;
+                case UiElement.CardSlot5_Name: return JccCoordinateTemplates.CardSlot5_Name;
+                case UiElement.CardSlot1_Click: return JccCoordinateTemplates.CardSlot1_Click;
+                case UiElement.CardSlot2_Click: return JccCoordinateTemplates.CardSlot2_Click;
+                case UiElement.CardSlot3_Click: return JccCoordinateTemplates.CardSlot3_Click;
+                case UiElement.CardSlot4_Click: return JccCoordinateTemplates.CardSlot4_Click;
+                case UiElement.CardSlot5_Click: return JccCoordinateTemplates.CardSlot5_Click;
+                case UiElement.GoldAmount: return JccCoordinateTemplates.GoldAmount;
+                default: throw new ArgumentOutOfRangeException(nameof(element), "未知的UI元素。");
+            }
+        }
+    }
+}

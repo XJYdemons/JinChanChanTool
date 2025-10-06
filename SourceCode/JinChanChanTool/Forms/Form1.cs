@@ -52,7 +52,11 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
-        // (新) 这个字段将作为我们的“开关”，记录了哪个赛季文件夹的名字才允许显示装备推荐
+        private readonly GameWindowService _gameWindowService;
+        private readonly CoordinateCalculationService _coordService;
+        private readonly AutomationService _automationService;
+
+        // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐
         private string _seasonForEquipmentTooltip = "S15天下无双格斗大会"; // <-- 在这里硬编码指定赛季名
 
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
@@ -90,7 +94,13 @@ namespace JinChanChanTool
             #region UI构建服务实例化并构建UI并绑定事件           
             _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _iappConfigService.CurrentConfig.MaxOfChoices);
             UIBuildAndBidingEvents();
-            #endregion                                                     
+            #endregion
+
+            #region 创建游戏窗口服务实例化并绑定事件
+            _gameWindowService = new GameWindowService();
+            _coordService = new CoordinateCalculationService(_gameWindowService);
+            _automationService = new AutomationService(_gameWindowService, _coordService);
+            #endregion
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -121,7 +131,8 @@ namespace JinChanChanTool
             #endregion
 
             #region 自动拿牌服务实例化
-            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);
+            //_cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);
+            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService, _automationService);
             #endregion    
 
             #region 初始化鼠标钩子并绑定事件
@@ -133,12 +144,12 @@ namespace JinChanChanTool
             #region 初始化状态显示窗口
             // 创建并显示状态窗口
             StatusOverlayForm.Instance.Show();
-         
-            
+
+
             UpdateOverlayStatus();
             #endregion         
 
-            ShowErrorForm();            
+            ShowErrorForm();
         }
 
         /// <summary>
@@ -147,7 +158,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>      
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-           
+
             // 注销热键            
             GlobalHotkeyTool.Dispose();
             MouseHookTool.Dispose();
@@ -417,18 +428,18 @@ namespace JinChanChanTool
 
         private void ShowErrorForm()
         {
-            if(ErrorForm.Instance.WindowState == FormWindowState.Minimized)
+            if (ErrorForm.Instance.WindowState == FormWindowState.Minimized)
             {
                 ErrorForm.Instance.WindowState = FormWindowState.Normal;
                 ErrorForm.Instance.Show();
                 ErrorForm.Instance.BringToFront();
-            }             
-            if(!ErrorForm.Instance.Visible)
-            {           
+            }
+            if (!ErrorForm.Instance.Visible)
+            {
                 ErrorForm.Instance.Show();
-                ErrorForm.Instance.BringToFront();              
-            }         
-            
+                ErrorForm.Instance.BringToFront();
+            }
+
         }
         #endregion
         #endregion
@@ -439,7 +450,24 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public async void button_GetCard_Click(object sender, EventArgs e)
+        //public async void button_GetCard_Click(object sender, EventArgs e)
+        //{
+        //    if (button_GetCard.Text == "停止")
+        //    {
+        //        button_GetCard.Text = "启动";
+        //        comboBox_HeroPool.Enabled = true;
+        //        _cardService.StopLoop();
+        //    }
+        //    else
+        //    {
+        //        button_GetCard.Text = "停止";
+        //        comboBox_HeroPool.Enabled = false;
+        //        _cardService.StartLoop();
+        //    }
+        //    UpdateOverlayStatus();
+        //}
+
+        public void button_GetCard_Click(object sender, EventArgs e)
         {
             if (button_GetCard.Text == "停止")
             {
@@ -449,9 +477,19 @@ namespace JinChanChanTool
             }
             else
             {
-                button_GetCard.Text = "停止";
-                comboBox_HeroPool.Enabled = false;
-                _cardService.StartLoop();
+                // 检查用户是否已通过新窗口选择了一个有效的游戏进程
+                if (_automationService.IsGameDetected)
+                {
+                    button_GetCard.Text = "停止";
+                    comboBox_HeroPool.Enabled = false;
+                    _cardService.StartLoop();
+                }
+                else
+                {
+                    // 如果没有选择，弹窗提示用户
+                    MessageBox.Show("请先通过菜单栏的“选择游戏进程”来锁定一个游戏窗口！",
+                                    "未选择目标", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             UpdateOverlayStatus();
         }
@@ -1311,5 +1349,35 @@ namespace JinChanChanTool
             }
         }
         #endregion
+
+        private void toolStripMenuItem_SelectProcess_Click(object sender, EventArgs e)
+        {
+            // 创建进程选择窗口的实例，并将 GameWindowService 传给它
+            using (var processForm = new ProcessSelectorForm(_gameWindowService))
+            {
+                // 以对话框模式显示窗口，这样主窗口会暂停等待用户选择
+                if (processForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    // 用户点击了选定此进程按钮
+                    var selectedProcess = processForm.SelectedProcess;
+                    if (selectedProcess != null)
+                    {
+                        _automationService.SetTargetProcess(selectedProcess);
+
+                        // 给用户一个清晰的反馈
+                        if (_automationService.IsGameDetected)
+                        {
+                            string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
+                            MessageBox.Show($"已成功锁定进程：\n{displayName}", "目标已锁定", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Text = $"JinChanChanTool - [{displayName}]"; // 更新主窗口标题
+                        }
+                        else
+                        {
+                            MessageBox.Show("锁定进程失败，该窗口可能已关闭。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

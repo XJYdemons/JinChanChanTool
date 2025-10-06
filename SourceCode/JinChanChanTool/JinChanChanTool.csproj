@@ -825,6 +825,7 @@
     <PackageReference Include="Sdcb.PaddleInference" Version="3.0.1" />
     <PackageReference Include="Sdcb.PaddleInference.runtime.win64.cu129_cudnn910_sm89" Version="3.1.0.54" />
     <PackageReference Include="Sdcb.PaddleOCR" Version="3.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>

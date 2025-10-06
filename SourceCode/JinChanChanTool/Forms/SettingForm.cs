@@ -47,6 +47,22 @@ namespace JinChanChanTool
 
             //加载显示器到下拉框并默认选中第一个显示器 
             LoadDisplays();
+
+            // 禁用所有与手动坐标设置相关的UI
+            textBox_拿牌坐标X1.Enabled = false;
+            textBox_拿牌坐标X2.Enabled = false;
+            textBox_拿牌坐标X3.Enabled = false;
+            textBox_拿牌坐标X4.Enabled = false;
+            textBox_拿牌坐标X5.Enabled = false;
+            textBox_拿牌坐标Y.Enabled = false;
+            textBox_奕子截图宽度.Enabled = false;
+            textBox_奕子截图高度.Enabled = false;
+            textBox_商店刷新按钮坐标X.Enabled = false;
+            textBox_商店刷新按钮坐标Y.Enabled = false;
+
+
+            button_快速设置奕子截图坐标与大小.Enabled = false; // 快速设置奕子截图坐标与大小按钮
+            button_快速设置商店刷新按钮坐标.Enabled = false; // 快速设置商店刷新按钮坐标按钮
         }
 
         /// <summary>
@@ -141,16 +157,26 @@ namespace JinChanChanTool
             radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.UseDynamicCoordinates;
             textBox_最大选择数量.Text = _iappConfigService.CurrentConfig.MaxOfChoices.ToString();
             textBox_最大阵容数量.Text = _iappConfigService.CurrentConfig.CountOfLine.ToString();
-            textBox_拿牌坐标X1.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1.ToString();
-            textBox_拿牌坐标X2.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2.ToString();
-            textBox_拿牌坐标X3.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3.ToString();
-            textBox_拿牌坐标X4.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4.ToString();
-            textBox_拿牌坐标X5.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5.ToString();
-            textBox_拿牌坐标Y.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY.ToString();
-            textBox_奕子截图宽度.Text = _iappConfigService.CurrentConfig.Width_CardScreenshot.ToString();
-            textBox_奕子截图高度.Text = _iappConfigService.CurrentConfig.Height_CardScreenshot.ToString();
-            textBox_商店刷新按钮坐标X.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreX.ToString();
-            textBox_商店刷新按钮坐标Y.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreY.ToString();
+            //textBox_拿牌坐标X1.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1.ToString();
+            //textBox_拿牌坐标X2.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2.ToString();
+            //textBox_拿牌坐标X3.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3.ToString();
+            //textBox_拿牌坐标X4.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4.ToString();
+            //textBox_拿牌坐标X5.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5.ToString();
+            //textBox_拿牌坐标Y.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY.ToString();
+            //textBox_奕子截图宽度.Text = _iappConfigService.CurrentConfig.Width_CardScreenshot.ToString();
+            //textBox_奕子截图高度.Text = _iappConfigService.CurrentConfig.Height_CardScreenshot.ToString();
+            //textBox_商店刷新按钮坐标X.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreX.ToString();
+            //textBox_商店刷新按钮坐标Y.Text = _iappConfigService.CurrentConfig.Point_RefreshStoreY.ToString();
+            textBox_拿牌坐标X1.Text = "（自动计算）";
+            textBox_拿牌坐标X2.Text = "（自动计算）";
+            textBox_拿牌坐标X3.Text = "（自动计算）";
+            textBox_拿牌坐标X4.Text = "（自动计算）";
+            textBox_拿牌坐标X5.Text = "（自动计算）";
+            textBox_拿牌坐标Y.Text = "（自动计算）";
+            textBox_奕子截图宽度.Text = "（自动计算）";
+            textBox_奕子截图高度.Text = "（自动计算）";
+            textBox_商店刷新按钮坐标X.Text = "（自动计算）";
+            textBox_商店刷新按钮坐标Y.Text = "（自动计算）";
             checkBox_避免程序与用户争夺光标控制权.Checked = _iappConfigService.CurrentConfig.HighCursorcontrol;
             checkBox_备战席满或金币不足时自动停止拿牌.Checked = _iappConfigService.CurrentConfig.AutoStopGet;
             checkBox_自动停止刷新商店.Checked = _iappConfigService.CurrentConfig.AutoStopRefresh;
@@ -530,7 +556,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = int.Parse(textBox_拿牌坐标X1.Text);
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = int.Parse(textBox_拿牌坐标X1.Text);
 
                     Update_AllComponents();
                 }
@@ -561,7 +587,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = int.Parse(textBox_拿牌坐标X2.Text);
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = int.Parse(textBox_拿牌坐标X2.Text);
 
                     Update_AllComponents();
                 }
@@ -592,7 +618,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = int.Parse(textBox_拿牌坐标X3.Text);
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = int.Parse(textBox_拿牌坐标X3.Text);
 
                     Update_AllComponents();
                 }
@@ -623,7 +649,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = int.Parse(textBox_拿牌坐标X4.Text);
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = int.Parse(textBox_拿牌坐标X4.Text);
 
                     Update_AllComponents();
                 }
@@ -654,7 +680,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = int.Parse(textBox_拿牌坐标X5.Text);
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = int.Parse(textBox_拿牌坐标X5.Text);
 
                     Update_AllComponents();
                 }
@@ -685,7 +711,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = int.Parse(textBox_拿牌坐标Y.Text);
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = int.Parse(textBox_拿牌坐标Y.Text);
 
                     Update_AllComponents();
                 }
@@ -719,7 +745,7 @@ namespace JinChanChanTool
                     int result = int.Parse(textBox_奕子截图宽度.Text);
                     if (result > 0)
                     {
-                        _iappConfigService.CurrentConfig.Width_CardScreenshot = result;
+                        //_iappConfigService.CurrentConfig.Width_CardScreenshot = result;
                     }
                     Update_AllComponents();
                 }
@@ -753,7 +779,7 @@ namespace JinChanChanTool
                     int result = int.Parse(textBox_奕子截图高度.Text);
                     if (result > 0)
                     {
-                        _iappConfigService.CurrentConfig.Height_CardScreenshot = result;
+                        //_iappConfigService.CurrentConfig.Height_CardScreenshot = result;
                     }
 
 
@@ -786,7 +812,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = int.Parse(textBox_商店刷新按钮坐标X.Text);
+                    //_iappConfigService.CurrentConfig.Point_RefreshStoreX = int.Parse(textBox_商店刷新按钮坐标X.Text);
 
                     Update_AllComponents();
                 }
@@ -817,7 +843,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = int.Parse(textBox_商店刷新按钮坐标Y.Text);
+                    //_iappConfigService.CurrentConfig.Point_RefreshStoreY = int.Parse(textBox_商店刷新按钮坐标Y.Text);
 
                     Update_AllComponents();
                 }
@@ -1138,33 +1164,33 @@ namespace JinChanChanTool
                     // 第一张卡片
                     var rect1 = await setter.WaitForDrawAsync(
                         "请框选商店从左到右数第1张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rect1.X;
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rect1.X;
 
                     // 第二张卡片
                     var rect2 = await setter.WaitForDrawAsync(
                         "请框选商店从左到右数第2张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rect2.X;
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rect2.X;
 
                     // 第三张卡片
                     var rect3 = await setter.WaitForDrawAsync(
                         "请框选商店从左到右数第3张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rect3.X;
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rect3.X;
 
                     // 第四张卡片
                     var rect4 = await setter.WaitForDrawAsync(
                         "请框选商店从左到右数第4张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rect4.X;
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rect4.X;
 
                     // 第五张卡片（同时获取高度）
                     var rect5 = await setter.WaitForDrawAsync(
                         "请框选商店从左到右数第5张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rect5.X;
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rect5.Y;
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rect5.X;
+                    //_iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rect5.Y;
 
                     if (rect5.Width > 0 && rect5.Height > 0)
                     {
-                        _iappConfigService.CurrentConfig.Width_CardScreenshot = rect5.Width;
-                        _iappConfigService.CurrentConfig.Height_CardScreenshot = rect5.Height;
+                        //_iappConfigService.CurrentConfig.Width_CardScreenshot = rect5.Width;
+                        //_iappConfigService.CurrentConfig.Height_CardScreenshot = rect5.Height;
                     }
                 }
                 catch (Exception ex)
@@ -1189,8 +1215,8 @@ namespace JinChanChanTool
                 try
                 {
                     var point = await setter.WaitForClickAsync("请点击商店刷新按钮的中心点");
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = point.X;
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = point.Y;
+                    //_iappConfigService.CurrentConfig.Point_RefreshStoreX = point.X;
+                    //_iappConfigService.CurrentConfig.Point_RefreshStoreY = point.Y;
                 }
                 catch (Exception ex)
                 {

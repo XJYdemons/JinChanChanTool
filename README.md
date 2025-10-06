@@ -2,7 +2,7 @@
 
 > [!WARNING]
 >
-> 需要使用GPU推理OCR功能，请参阅[使用GPU推理COR.md](https://github.com/XJYdemons/JinChanChanTool/blob/main/%E4%BD%BF%E7%94%A8GPU%E6%8E%A8%E7%90%86OCR.md)。
+> 需要使用GPU推理OCR功能，请参阅[使用GPU推理OCR.md](https://github.com/XJYdemons/JinChanChanTool/blob/main/%E4%BD%BF%E7%94%A8GPU%E6%8E%A8%E7%90%86OCR.md)。
 
 # Jin Chan Chan Tool
 

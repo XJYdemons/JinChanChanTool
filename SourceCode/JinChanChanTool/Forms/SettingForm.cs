@@ -23,7 +23,7 @@ namespace JinChanChanTool
         {
             InitializeComponent();
             // 添加自定义标题栏
-            CustomTitleBar titleBar = new CustomTitleBar(this,32, null, "设置", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32, null, "设置", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
             this.Controls.Add(titleBar);
             //隐藏图标
             this.ShowIcon = false;
@@ -40,7 +40,7 @@ namespace JinChanChanTool
             //初始化显示文本
             Update_AllComponents();
 
-         
+
 
             // 获取所有连接的显示器  
             screens = Screen.AllScreens;
@@ -79,7 +79,7 @@ namespace JinChanChanTool
                 else
                 {
                     // 如果选择"No"，则不保存直接关闭
-                    _iappConfigService.CurrentConfig = oldAppConfig.Clone() as AppConfig;                   
+                    _iappConfigService.CurrentConfig = oldAppConfig.Clone() as AppConfig;
                 }
 
             }
@@ -237,7 +237,7 @@ namespace JinChanChanTool
             radioButton_鼠标模拟刷新商店.CheckedChanged += radioButton4_CheckedChanged;
             radioButton__CPU推理.CheckedChanged += radioButton5_CheckedChanged;
             radioButton_CPU推理.CheckedChanged += radioButton6_CheckedChanged;
-            textBox_拿牌按键1.KeyDown += TextBox6_KeyDown;            
+            textBox_拿牌按键1.KeyDown += TextBox6_KeyDown;
             textBox_拿牌按键1.Enter += TextBox_Enter;
             textBox_拿牌按键1.Leave += TextBox_Leave;
 
@@ -338,7 +338,7 @@ namespace JinChanChanTool
 
                 e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
             }
-             
+
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
         }
@@ -372,7 +372,7 @@ namespace JinChanChanTool
                 e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音  
 
             }
-            
+
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
         }
@@ -404,7 +404,7 @@ namespace JinChanChanTool
 
                 e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音 
             }
-              
+
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
         }
@@ -426,7 +426,7 @@ namespace JinChanChanTool
                 this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
                 return;
             }
-            if(GlobalHotkeyTool.IsRightKey(key))
+            if (GlobalHotkeyTool.IsRightKey(key))
             {
                 if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey3) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey2))
                 {
@@ -435,7 +435,7 @@ namespace JinChanChanTool
                 }
 
                 e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
-            }           
+            }
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
         }
@@ -915,7 +915,7 @@ namespace JinChanChanTool
                 _iappConfigService.CurrentConfig.GetCardKey1 = key.ToString();
                 Update_AllComponents();
                 e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音 
-            }           
+            }
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
         }
@@ -1064,12 +1064,12 @@ namespace JinChanChanTool
 
         #region 推理单选框改变
         private void radioButton6_CheckedChanged(object sender, EventArgs e)
-        {          
+        {
             _iappConfigService.CurrentConfig.UseCPU = radioButton_CPU推理.Checked;
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
-        {            
+        {
             _iappConfigService.CurrentConfig.UseGPU = radioButton__CPU推理.Checked;
         }
 
@@ -1080,20 +1080,20 @@ namespace JinChanChanTool
         {
             if (radioButton_手动设置坐标.Checked)
             {
-               button_选择进程.Enabled = false;
-               comboBox_选择显示器.Enabled = true;
-               button_快速设置奕子截图坐标与大小.Enabled = true;
-               textBox_拿牌坐标X1.Enabled = true;
-               textBox_拿牌坐标X2.Enabled = true;
-               textBox_拿牌坐标X3.Enabled = true;
-               textBox_拿牌坐标X4.Enabled = true;
-               textBox_拿牌坐标X5.Enabled = true;
-               textBox_拿牌坐标Y.Enabled = true;
-               textBox_奕子截图宽度.Enabled = true;
-               textBox_奕子截图高度.Enabled = true;
-               button_快速设置商店刷新按钮坐标.Enabled = true;
-               textBox_商店刷新按钮坐标X.Enabled = true;
-               textBox_商店刷新按钮坐标Y.Enabled = true;
+                button_选择进程.Enabled = false;
+                comboBox_选择显示器.Enabled = true;
+                button_快速设置奕子截图坐标与大小.Enabled = true;
+                textBox_拿牌坐标X1.Enabled = true;
+                textBox_拿牌坐标X2.Enabled = true;
+                textBox_拿牌坐标X3.Enabled = true;
+                textBox_拿牌坐标X4.Enabled = true;
+                textBox_拿牌坐标X5.Enabled = true;
+                textBox_拿牌坐标Y.Enabled = true;
+                textBox_奕子截图宽度.Enabled = true;
+                textBox_奕子截图高度.Enabled = true;
+                button_快速设置商店刷新按钮坐标.Enabled = true;
+                textBox_商店刷新按钮坐标X.Enabled = true;
+                textBox_商店刷新按钮坐标Y.Enabled = true;
             }
             _iappConfigService.CurrentConfig.UseFixedCoordinates = radioButton_手动设置坐标.Checked;
         }
@@ -1118,7 +1118,7 @@ namespace JinChanChanTool
                 textBox_商店刷新按钮坐标X.Enabled = false;
                 textBox_商店刷新按钮坐标Y.Enabled = false;
             }
-            _iappConfigService.CurrentConfig.KeyboardGetCard = radioButton_自动设置坐标.Checked;
+            _iappConfigService.CurrentConfig.UseDynamicCoordinates = radioButton_自动设置坐标.Checked;
         }
 
         #endregion

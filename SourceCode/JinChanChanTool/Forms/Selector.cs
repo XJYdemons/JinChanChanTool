@@ -40,19 +40,10 @@ namespace JinChanChanTool.Forms
 
         }
 
+        #region 拖动窗体功能
         // 拖动相关变量
         private Point _dragStartPoint;
         private bool _dragging;
-
-        /// <summary>
-        /// 阵容数据服务实例
-        /// </summary>
-        private  ILineUpService _ilineUpService;
-        /// <summary>
-        /// UI构建服务实例
-        /// </summary>
-        private  UIBuilderService _uiBuilderService;
-
         // 鼠标按下事件 - 开始拖动
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -79,6 +70,7 @@ namespace JinChanChanTool.Forms
         {
             _dragging = false;
         }
+        #endregion
 
         private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -91,7 +83,17 @@ namespace JinChanChanTool.Forms
                 panel2.Visible = true;
             }
         }
-         
+
+
+        /// <summary>
+        /// 阵容数据服务实例
+        /// </summary>
+        private ILineUpService _ilineUpService;
+        /// <summary>
+        /// UI构建服务实例
+        /// </summary>
+        private  UIBuilderService _uiBuilderService;
+        
         public void InitializeObject(ILineUpService ilineUpService, UIBuilderService uiBuilderService)
         {
             _ilineUpService = ilineUpService;

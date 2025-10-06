@@ -608,7 +608,7 @@
             button_选择进程.TabIndex = 222;
             button_选择进程.TabStop = false;
             button_选择进程.Text = "选择进程";
-            button_选择进程.UseVisualStyleBackColor = true;
+            button_选择进程.UseVisualStyleBackColor = true;           
             // 
             // radioButton_自动设置坐标
             // 

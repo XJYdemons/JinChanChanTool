@@ -1295,7 +1295,6 @@
 
         #endregion
         private Panel panel1;
-        private FlowLayoutPanel flowLayoutPanel1;
         private DIYComponents.HeroPictureBox heroPictureBox2;
         private DIYComponents.HeroPictureBox heroPictureBox1;
         private DIYComponents.HeroPictureBox heroPictureBox3;
@@ -1311,7 +1310,6 @@
         private DIYComponents.HeroPictureBox heroPictureBox13;
         private DIYComponents.HeroPictureBox heroPictureBox14;
         private Panel panel2;
-        private FlowLayoutPanel flowLayoutPanel3;
         private DIYComponents.HeroPictureBox heroPictureBox28;
         private DIYComponents.HeroPictureBox heroPictureBox29;
         private DIYComponents.HeroPictureBox heroPictureBox30;
@@ -1328,7 +1326,6 @@
         private DIYComponents.HeroPictureBox heroPictureBox41;
         private DIYComponents.HeroPictureBox heroPictureBox42;
         private DIYComponents.HeroPictureBox heroPictureBox43;
-        private FlowLayoutPanel flowLayoutPanel2;
         private DIYComponents.HeroPictureBox heroPictureBox15;
         private DIYComponents.HeroPictureBox heroPictureBox16;
         private DIYComponents.HeroPictureBox heroPictureBox17;
@@ -1342,7 +1339,6 @@
         private DIYComponents.HeroPictureBox heroPictureBox25;
         private DIYComponents.HeroPictureBox heroPictureBox26;
         private DIYComponents.HeroPictureBox heroPictureBox27;
-        private FlowLayoutPanel flowLayoutPanel5;
         private DIYComponents.HeroPictureBox heroPictureBox57;
         private DIYComponents.HeroPictureBox heroPictureBox58;
         private DIYComponents.HeroPictureBox heroPictureBox59;
@@ -1351,7 +1347,6 @@
         private DIYComponents.HeroPictureBox heroPictureBox62;
         private DIYComponents.HeroPictureBox heroPictureBox63;
         private DIYComponents.HeroPictureBox heroPictureBox64;
-        private FlowLayoutPanel flowLayoutPanel4;
         private DIYComponents.HeroPictureBox heroPictureBox44;
         private DIYComponents.HeroPictureBox heroPictureBox45;
         private DIYComponents.HeroPictureBox heroPictureBox46;
@@ -1365,5 +1360,10 @@
         private DIYComponents.HeroPictureBox heroPictureBox54;
         private DIYComponents.HeroPictureBox heroPictureBox55;
         private DIYComponents.HeroPictureBox heroPictureBox56;
+        public FlowLayoutPanel flowLayoutPanel1;
+        public FlowLayoutPanel flowLayoutPanel3;
+        public FlowLayoutPanel flowLayoutPanel2;
+        public FlowLayoutPanel flowLayoutPanel5;
+        public FlowLayoutPanel flowLayoutPanel4;
     }
 }

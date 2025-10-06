@@ -89,7 +89,7 @@ namespace JinChanChanTool
             #endregion
 
             #region UI构建服务实例化并构建UI并绑定事件           
-            _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _iappConfigService.CurrentConfig.MaxOfChoices);
+            _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _iappConfigService.CurrentConfig.MaxOfChoices, Selector.Instance.flowLayoutPanel1, Selector.Instance.flowLayoutPanel2, Selector.Instance.flowLayoutPanel3, Selector.Instance.flowLayoutPanel4, Selector.Instance.flowLayoutPanel5);
             UIBuildAndBidingEvents();
             #endregion                                                     
         }
@@ -140,8 +140,8 @@ namespace JinChanChanTool
             #endregion         
 
             ShowErrorForm();
-            //Selector.Instance.InitializeObject(_ilineUpService, _uiBuilderService);
-            //Selector.Instance.Show();
+            Selector.Instance.InitializeObject(_ilineUpService, _uiBuilderService);
+            Selector.Instance.Show();
 
         }
 
@@ -251,7 +251,7 @@ namespace JinChanChanTool
             _uiBuilderService.CreateHeroSelectors();
             _uiBuilderService.CreateProfessionAndPeculiarityButtons();
             _uiBuilderService.CreateSubLineUpComponents();
-
+            _uiBuilderService.CreateTransparentHeroPictureBox();
             //为每个奕子单选框绑定事件——选择状态改变时触发
             for (int i = 0; i < _uiBuilderService.checkBoxes.Count; i++)
             {
@@ -297,6 +297,13 @@ namespace JinChanChanTool
                 _uiBuilderService.subLineUpPanels[i].MouseLeave += Panel_MouseLeave;
                 _uiBuilderService.subLineUpPanels[i].MouseDown += Panel_MouseDown;
                 _uiBuilderService.subLineUpPanels[i].MouseUp += Panel_MouseUp;
+            }
+
+            //为英雄头像框绑定交互事件
+            for (int i = 0; i < _iheroDataService.GetHeroCount(); i++)
+            {
+                _uiBuilderService.TransparentheroPictureBoxes[i].Click += TransparentheroPictureBoxes_Click;
+                
             }
         }
         #endregion
@@ -627,9 +634,9 @@ namespace JinChanChanTool
             if (!_ilineUpService.SetFilePathIndex(comboBox_HeroPool.SelectedIndex))
             {
                 Debug.WriteLine("阵容文件路径下标设置失败，给定的下标不合法");
-            }
-            _ilineUpService.ReLoad(_iheroDataService);
-            _uiBuilderService.UnBuild();
+            }            
+            _ilineUpService.ReLoad(_iheroDataService);           
+            _uiBuilderService.UnBuild();            
             UIBuildAndBidingEvents();
             LoadNameFromLineUpsToComboBox();
             LoadLineUpToUI();//分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容            
@@ -876,6 +883,14 @@ namespace JinChanChanTool
         }
         #endregion
 
+        #region 透明面板英雄头像框交互事件
+        private void TransparentheroPictureBoxes_Click(object sender, EventArgs e)
+        {
+            HeroPictureBox clickedBox = sender as HeroPictureBox;
+            string name = clickedBox.Tag as string;
+            _ilineUpService.AddAndDeleteHero(name);
+        }
+        #endregion
         #endregion
 
         #region 方法
@@ -1027,6 +1042,19 @@ namespace JinChanChanTool
                     CurrentSubLinePictureBoxImages.Add(image);
                 }
             }
+            foreach(HeroPictureBox heroPictureBox in _uiBuilderService.TransparentheroPictureBoxes)
+            {
+                if(_ilineUpService.GetCurrentSubLineUp().Contains(heroPictureBox.Tag as string))
+                {
+                   
+                    heroPictureBox.IsSelected = true;
+                }
+                else
+                {
+                   
+                    heroPictureBox.IsSelected = false;
+                }
+            }
 
             for (int i = 0; i < CurrentSubLinePictureBoxImages.Count; i++)
             {
@@ -1039,6 +1067,13 @@ namespace JinChanChanTool
                 }
             }
             waitForLoad = false;
+            //输出当前阵容
+            string lineup = "";
+            for (int i = 0; i < _ilineUpService.GetCurrentSubLineUp().Count; i++)
+            {
+                lineup += _ilineUpService.GetCurrentSubLineUp()[i] + "    ";
+            }
+            Debug.WriteLine($"当前阵容：{lineup}");
         }
 
         private void LineUpChanged(object sender, EventArgs e)
@@ -1056,7 +1091,7 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button_ParseLineUp_Click(object sender, EventArgs e)
-        {
+        {           
             string lineupCode = textBox_LineUpCode.Text.Trim();
             if (string.IsNullOrEmpty(lineupCode))
             {
@@ -1299,14 +1334,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
         {
-            //输出当前阵容
-            //string lineup = "";
-            //for(int i =0;i<_ilineUpService.GetCurrentSubLineUp().Count;i++)
-            //{
-            //    lineup+= _ilineUpService.GetCurrentSubLineUp()[i] + "    ";
-            //}
-            //    Debug.WriteLine($"当前阵容：{lineup}");
-            if(_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+            
+            if (_iappConfigService.CurrentConfig.UseDynamicCoordinates)
             {
                 //更新坐标
             }

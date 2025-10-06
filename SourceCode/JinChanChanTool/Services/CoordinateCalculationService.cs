@@ -70,7 +70,7 @@ namespace JinChanChanTool.Services
             double physicalClientWidth = _gameWindowService.ClientWidth * dpiScale;
             double physicalClientHeight = _gameWindowService.ClientHeight * dpiScale;
 
-            // 后续的锚点计算逻辑基于正确的尺寸
+
             double scale = physicalClientHeight / baseResolution.Height;
             double scaledWidth = profile.BaseWidth * scale;
             double scaledHeight = profile.BaseHeight * scale;

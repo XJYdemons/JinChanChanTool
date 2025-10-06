@@ -597,14 +597,58 @@ namespace JinChanChanTool.Services
         //    }
         //}
 
+        //private async Task 刷新商店()
+        //{
+        //    Rectangle? rect = _automationService.GetTargetRectangle(UiElement.RefreshButton);
+        //    if (!rect.HasValue) return; // 如果找不到按钮坐标，则不执行任何操作
+
+        //    // 计算按钮中心点
+        //    int centerX = rect.Value.X + rect.Value.Width / 2;
+        //    int centerY = rect.Value.Y + rect.Value.Height / 2;
+
+        //    if (_iappConfigService.CurrentConfig.MouseRefresh)
+        //    {
+        //        MouseControlTool.SetMousePosition(centerX, centerY);
+        //        if (_iappConfigService.CurrentConfig.UseCPU)
+        //        {
+        //            await Task.Delay(操作间隔时间CPU);
+        //            await ClickOneTime();
+        //            await Task.Delay(操作间隔时间CPU);
+        //        }
+        //        else if (_iappConfigService.CurrentConfig.UseGPU)
+        //        {
+        //            await Task.Delay(操作间隔时间GPU);
+        //            await ClickOneTime();
+        //            await Task.Delay(操作间隔时间GPU);
+        //        }
+        //    }
+        //    else if (_iappConfigService.CurrentConfig.KeyboardRefresh)
+        //    {
+        //        KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshKey);
+        //        await Task.Delay(操作间隔时间CPU);
+        //    }
+        //}
+
         private async Task 刷新商店()
         {
-            Rectangle? rect = _automationService.GetTargetRectangle(UiElement.RefreshButton);
-            if (!rect.HasValue) return; // 如果找不到按钮坐标，则不执行任何操作
+            int centerX, centerY;
 
-            // 计算按钮中心点
-            int centerX = rect.Value.X + rect.Value.Width / 2;
-            int centerY = rect.Value.Y + rect.Value.Height / 2;
+            // --- 混合模式逻辑 ---
+            if (_automationService.IsGameDetected)
+            {
+                // 自动模式：动态计算坐标
+                Rectangle? rect = _automationService.GetTargetRectangle(UiElement.RefreshButton);
+                if (!rect.HasValue) return; // 如果找不到按钮坐标，则不执行任何操作
+                centerX = rect.Value.X + rect.Value.Width / 2;
+                centerY = rect.Value.Y + rect.Value.Height / 2;
+            }
+            else
+            {
+                // 手动模式：从配置文件读取坐标
+                centerX = _iappConfigService.CurrentConfig.Point_RefreshStoreX;
+                centerY = _iappConfigService.CurrentConfig.Point_RefreshStoreY;
+            }
+            // --- 逻辑结束 ---
 
             if (_iappConfigService.CurrentConfig.MouseRefresh)
             {
@@ -628,7 +672,6 @@ namespace JinChanChanTool.Services
                 await Task.Delay(操作间隔时间CPU);
             }
         }
-
         /// <summary>
         /// 截取大图并分割成5份小图，返回含有5个元素的Bitmap数组。
         /// </summary>
@@ -648,29 +691,91 @@ namespace JinChanChanTool.Services
         //    return bitmaps;
         //}
 
+        //    private Bitmap[] CaptureAndSplit()
+        //    {
+        //        Bitmap[] bitmaps = new Bitmap[5];
+        //        UiElement[] nameSlots = {
+        //    UiElement.CardSlot1_Name, UiElement.CardSlot2_Name, UiElement.CardSlot3_Name,
+        //    UiElement.CardSlot4_Name, UiElement.CardSlot5_Name
+        //};
+
+        //        for (int i = 0; i < 5; i++)
+        //        {
+        //            Rectangle? rect = _automationService.GetTargetRectangle(nameSlots[i]);
+        //            if (rect.HasValue)
+        //            {
+        //                bitmaps[i] = ImageProcessingTool.AreaScreenshots(rect.Value.X, rect.Value.Y, rect.Value.Width, rect.Value.Height);
+        //            }
+        //            else
+        //            {
+        //                // 如果获取坐标失败（例如游戏窗口突然关闭），创建一个空的bitmap以避免后续代码崩溃
+        //                bitmaps[i] = new Bitmap(10, 10);
+        //            }
+        //        }
+        //        return bitmaps;
+        //    }
+
         private Bitmap[] CaptureAndSplit()
         {
             Bitmap[] bitmaps = new Bitmap[5];
-            UiElement[] nameSlots = {
-        UiElement.CardSlot1_Name, UiElement.CardSlot2_Name, UiElement.CardSlot3_Name,
-        UiElement.CardSlot4_Name, UiElement.CardSlot5_Name
-    };
 
-            for (int i = 0; i < 5; i++)
+            // --- 混合模式逻辑 ---
+            if (_automationService.IsGameDetected)
             {
-                Rectangle? rect = _automationService.GetTargetRectangle(nameSlots[i]);
-                if (rect.HasValue)
+                // --- 自动模式：动态计算并截取独立区域 ---
+                UiElement[] nameSlots = {
+            UiElement.CardSlot1_Name, UiElement.CardSlot2_Name, UiElement.CardSlot3_Name,
+            UiElement.CardSlot4_Name, UiElement.CardSlot5_Name
+        };
+
+                for (int i = 0; i < 5; i++)
                 {
-                    bitmaps[i] = ImageProcessingTool.AreaScreenshots(rect.Value.X, rect.Value.Y, rect.Value.Width, rect.Value.Height);
-                }
-                else
-                {
-                    // 如果获取坐标失败（例如游戏窗口突然关闭），创建一个空的bitmap以避免后续代码崩溃
-                    bitmaps[i] = new Bitmap(10, 10);
+                    Rectangle? rect = _automationService.GetTargetRectangle(nameSlots[i]);
+                    if (rect.HasValue && rect.Value.Width > 0 && rect.Value.Height > 0)
+                    {
+                        bitmaps[i] = ImageProcessingTool.AreaScreenshots(rect.Value.X, rect.Value.Y, rect.Value.Width, rect.Value.Height);
+                    }
+                    else
+                    {
+                        // 如果获取坐标失败或尺寸无效，创建一个空的bitmap以避免后续代码崩溃
+                        bitmaps[i] = new Bitmap(10, 10);
+                    }
                 }
             }
+            else
+            {
+                // --- 手动模式：截取大图并分割 ---
+                try
+                {
+                    using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
+                        _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
+                        _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY,
+                        (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iappConfigService.CurrentConfig.Width_CardScreenshot,
+                        _iappConfigService.CurrentConfig.Height_CardScreenshot))
+                    {
+                        // 分割成5个小图
+                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 如果坐标配置错误（例如宽度或高度为0），截图会失败。
+                    // 捕获这个异常，并返回空图片，以防止整个循环崩溃。防护性考虑代码
+                    LogTool.Log($"手动模式截图失败: {ex.Message}. 请检查设置中的坐标配置。");
+                    for (int i = 0; i < 5; i++)
+                    {
+                        bitmaps[i] = new Bitmap(10, 10);
+                    }
+                }
+            }
+
             return bitmaps;
         }
+
 
         /// <summary>
         /// 传入一个Bitmap数组，异步排队识别后返回一个识别结果数组，含5个元素的String数组。
@@ -795,58 +900,180 @@ namespace JinChanChanTool.Services
         //    }
         //}
 
+        //private async Task GetCard(bool[] isGetArray)
+        //{
+        //    UiElement[] clickSlots = {
+        //UiElement.CardSlot1_Click, UiElement.CardSlot2_Click, UiElement.CardSlot3_Click,
+        //UiElement.CardSlot4_Click, UiElement.CardSlot5_Click
+        //    };
+
+        //    for (int i = 0; i < isGetArray.Length; i++)
+        //    {
+        //        if (isGetArray[i])
+        //        {
+        //            if (_iappConfigService.CurrentConfig.MouseGetCard)
+        //            {
+        //                Rectangle? rect = _automationService.GetTargetRectangle(clickSlots[i]);
+        //                if (!rect.HasValue) continue; // 如果找不到卡槽，跳过本次拿牌
+
+        //                // 计算卡槽中心点
+        //                int centerX = rect.Value.X + rect.Value.Width / 2;
+        //                int centerY = rect.Value.Y + rect.Value.Height / 2;
+
+        //                MouseControlTool.SetMousePosition(centerX, centerY);
+        //                if (_iappConfigService.CurrentConfig.UseCPU)
+        //                {
+        //                    await Task.Delay(操作间隔时间CPU);
+        //                    await ClickOneTime();
+        //                    await Task.Delay(操作间隔时间CPU);
+        //                }
+        //                else if (_iappConfigService.CurrentConfig.UseGPU)
+        //                {
+        //                    await Task.Delay(操作间隔时间GPU);
+        //                    await ClickOneTime();
+        //                    await Task.Delay(操作间隔时间GPU);
+        //                }
+        //            }
+        //            else if (_iappConfigService.CurrentConfig.KeyboardGetCard)
+        //            {
+        //                // 键盘操作逻辑保持不变
+        //                switch (i)
+        //                {
+        //                    case 0: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey1); break;
+        //                    case 1: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey2); break;
+        //                    case 2: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey3); break;
+        //                    case 3: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey4); break;
+        //                    case 4: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5); break;
+        //                }
+        //                if (_iappConfigService.CurrentConfig.UseCPU)
+        //                {
+        //                    await Task.Delay(操作间隔时间CPU);
+        //                }
+        //                else if (_iappConfigService.CurrentConfig.UseGPU)
+        //                {
+        //                    await Task.Delay(操作间隔时间GPU);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
         private async Task GetCard(bool[] isGetArray)
         {
-            UiElement[] clickSlots = {
-        UiElement.CardSlot1_Click, UiElement.CardSlot2_Click, UiElement.CardSlot3_Click,
-        UiElement.CardSlot4_Click, UiElement.CardSlot5_Click
-    };
-
-            for (int i = 0; i < isGetArray.Length; i++)
+            // --- 混合模式逻辑 ---
+            if (_automationService.IsGameDetected)
             {
-                if (isGetArray[i])
+                // --- 自动模式：动态计算坐标 ---
+                UiElement[] clickSlots = {
+            UiElement.CardSlot1_Click, UiElement.CardSlot2_Click, UiElement.CardSlot3_Click,
+            UiElement.CardSlot4_Click, UiElement.CardSlot5_Click
+        };
+
+                for (int i = 0; i < isGetArray.Length; i++)
                 {
-                    if (_iappConfigService.CurrentConfig.MouseGetCard)
+                    if (isGetArray[i])
                     {
-                        Rectangle? rect = _automationService.GetTargetRectangle(clickSlots[i]);
-                        if (!rect.HasValue) continue; // 如果找不到卡槽，跳过本次拿牌
-
-                        // 计算卡槽中心点
-                        int centerX = rect.Value.X + rect.Value.Width / 2;
-                        int centerY = rect.Value.Y + rect.Value.Height / 2;
-
-                        MouseControlTool.SetMousePosition(centerX, centerY);
-                        if (_iappConfigService.CurrentConfig.UseCPU)
+                        if (_iappConfigService.CurrentConfig.MouseGetCard)
                         {
-                            await Task.Delay(操作间隔时间CPU);
-                            await ClickOneTime();
-                            await Task.Delay(操作间隔时间CPU);
+                            Rectangle? rect = _automationService.GetTargetRectangle(clickSlots[i]);
+                            if (!rect.HasValue) continue;
+
+                            int centerX = rect.Value.X + rect.Value.Width / 2;
+                            int centerY = rect.Value.Y + rect.Value.Height / 2;
+
+                            MouseControlTool.SetMousePosition(centerX, centerY);
+                            if (_iappConfigService.CurrentConfig.UseCPU)
+                            {
+                                await Task.Delay(操作间隔时间CPU);
+                                await ClickOneTime();
+                                await Task.Delay(操作间隔时间CPU);
+                            }
+                            else if (_iappConfigService.CurrentConfig.UseGPU)
+                            {
+                                await Task.Delay(操作间隔时间GPU);
+                                await ClickOneTime();
+                                await Task.Delay(操作间隔时间GPU);
+                            }
                         }
-                        else if (_iappConfigService.CurrentConfig.UseGPU)
+                        else if (_iappConfigService.CurrentConfig.KeyboardGetCard)
                         {
-                            await Task.Delay(操作间隔时间GPU);
-                            await ClickOneTime();
-                            await Task.Delay(操作间隔时间GPU);
+                            // 键盘操作逻辑保持不变
+                            switch (i)
+                            {
+                                case 0: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey1); break;
+                                case 1: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey2); break;
+                                case 2: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey3); break;
+                                case 3: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey4); break;
+                                case 4: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5); break;
+                            }
+                            if (_iappConfigService.CurrentConfig.UseCPU)
+                            {
+                                await Task.Delay(操作间隔时间CPU);
+                            }
+                            else if (_iappConfigService.CurrentConfig.UseGPU)
+                            {
+                                await Task.Delay(操作间隔时间GPU);
+                            }
                         }
                     }
-                    else if (_iappConfigService.CurrentConfig.KeyboardGetCard)
+                }
+            }
+            else
+            {
+                // --- 手动模式：从配置文件读取坐标 ---
+                for (int i = 0; i < isGetArray.Length; i++)
+                {
+                    int x = 0;
+                    switch (i)
                     {
-                        // 键盘操作逻辑保持不变
-                        switch (i)
+                        case 0: x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1; break;
+                        case 1: x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2; break;
+                        case 2: x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3; break;
+                        case 3: x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4; break;
+                        case 4: x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5; break;
+                    }
+
+                    if (isGetArray[i])
+                    {
+                        if (_iappConfigService.CurrentConfig.MouseGetCard)
                         {
-                            case 0: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey1); break;
-                            case 1: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey2); break;
-                            case 2: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey3); break;
-                            case 3: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey4); break;
-                            case 4: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5); break;
+                            // 点击卡槽识别区域的上方
+                            MouseControlTool.SetMousePosition(
+                                x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2,
+                                _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);
+
+                            if (_iappConfigService.CurrentConfig.UseCPU)
+                            {
+                                await Task.Delay(操作间隔时间CPU);
+                                await ClickOneTime();
+                                await Task.Delay(操作间隔时间CPU);
+                            }
+                            else if (_iappConfigService.CurrentConfig.UseGPU)
+                            {
+                                await Task.Delay(操作间隔时间GPU);
+                                await ClickOneTime();
+                                await Task.Delay(操作间隔时间GPU);
+                            }
                         }
-                        if (_iappConfigService.CurrentConfig.UseCPU)
+                        else if (_iappConfigService.CurrentConfig.KeyboardGetCard)
                         {
-                            await Task.Delay(操作间隔时间CPU);
-                        }
-                        else if (_iappConfigService.CurrentConfig.UseGPU)
-                        {
-                            await Task.Delay(操作间隔时间GPU);
+                            // 键盘操作逻辑与自动模式完全相同
+                            switch (i)
+                            {
+                                case 0: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey1); break;
+                                case 1: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey2); break;
+                                case 2: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey3); break;
+                                case 3: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey4); break;
+                                case 4: KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5); break;
+                            }
+                            if (_iappConfigService.CurrentConfig.UseCPU)
+                            {
+                                await Task.Delay(操作间隔时间CPU);
+                            }
+                            else if (_iappConfigService.CurrentConfig.UseGPU)
+                            {
+                                await Task.Delay(操作间隔时间GPU);
+                            }
                         }
                     }
                 }

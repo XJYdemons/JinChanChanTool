@@ -52,6 +52,11 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
+        /// <summary>
+        /// 用于记录是否已经显示过模式提示，确保只提示一次。
+        /// </summary>
+        private bool _hasShownModeHint = false;
+
         private readonly GameWindowService _gameWindowService;
         private readonly CoordinateCalculationService _coordService;
         private readonly AutomationService _automationService;
@@ -478,6 +483,33 @@ namespace JinChanChanTool
         //    UpdateOverlayStatus();
         //}
 
+        //public void button_GetCard_Click(object sender, EventArgs e)
+        //{
+        //    if (button_GetCard.Text == "停止")
+        //    {
+        //        button_GetCard.Text = "启动";
+        //        comboBox_HeroPool.Enabled = true;
+        //        _cardService.StopLoop();
+        //    }
+        //    else
+        //    {
+        //        // 检查用户是否已通过新窗口选择了一个有效的游戏进程
+        //        if (_automationService.IsGameDetected)
+        //        {
+        //            button_GetCard.Text = "停止";
+        //            comboBox_HeroPool.Enabled = false;
+        //            _cardService.StartLoop();
+        //        }
+        //        else
+        //        {
+        //            // 如果没有选择，弹窗提示用户
+        //            MessageBox.Show("请先通过菜单栏的“选择游戏进程”来锁定一个游戏窗口！",
+        //                            "未选择目标", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        }
+        //    }
+        //    UpdateOverlayStatus();
+        //}
+
         public void button_GetCard_Click(object sender, EventArgs e)
         {
             if (button_GetCard.Text == "停止")
@@ -488,19 +520,26 @@ namespace JinChanChanTool
             }
             else
             {
-                // 检查用户是否已通过新窗口选择了一个有效的游戏进程
-                if (_automationService.IsGameDetected)
+                // 只有在第一次点击启动时，才显示模式提示
+                if (!_hasShownModeHint)
                 {
-                    button_GetCard.Text = "停止";
-                    comboBox_HeroPool.Enabled = false;
-                    _cardService.StartLoop();
+                    if (_automationService.IsGameDetected)
+                    {
+                        MessageBox.Show("已锁定游戏进程，将使用“自动计算坐标”模式。",
+                                        "模式提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("未锁定游戏进程，将使用“手动配置坐标”模式。\n请确保“设置”中的坐标已正确配置。",
+                                        "模式提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    _hasShownModeHint = true; // 将开关设为true，确保不再弹出
                 }
-                else
-                {
-                    // 如果没有选择，弹窗提示用户
-                    MessageBox.Show("请先通过菜单栏的“选择游戏进程”来锁定一个游戏窗口！",
-                                    "未选择目标", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+
+                // 无论如何都直接启动
+                button_GetCard.Text = "停止";
+                comboBox_HeroPool.Enabled = false;
+                _cardService.StartLoop();
             }
             UpdateOverlayStatus();
         }

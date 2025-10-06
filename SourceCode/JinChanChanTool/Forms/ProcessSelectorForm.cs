@@ -8,7 +8,7 @@ namespace JinChanChanTool.Forms
         private readonly GameWindowService _gameWindowService;
         public Process SelectedProcess { get; private set; }
 
-        // 需要一个辅助类来更好地在ListBox中显示信息
+        // 一个辅助类来更好地在ListBox中显示信息
         private class ProcessDisplayItem
         {
             public Process Process { get; }
@@ -55,6 +55,11 @@ namespace JinChanChanTool.Forms
             {
                 MessageBox.Show("请先在列表中选择一个进程！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void ProcessSelectorForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -73,7 +73,7 @@
             Controls.Add(listBox_Processes);
             Name = "ProcessSelectorForm";
             Text = "ProcessSelectorForm";
-            Load += ProcessSelectorForm_Load;
+            //Load += ProcessSelectorForm_Load;
             ResumeLayout(false);
         }
 

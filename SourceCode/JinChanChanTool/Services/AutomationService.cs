@@ -50,7 +50,7 @@ namespace JinChanChanTool.Services
     /// </summary>
     public class AutomationService
     {
-        private readonly GameWindowService _gameWindowService;
+        private readonly WindowInteractionService _windowInteractionService;
         private readonly CoordinateCalculationService _coordService;
 
         /// <summary>
@@ -63,37 +63,11 @@ namespace JinChanChanTool.Services
         /// </summary>
         public bool IsGameDetected => CurrentGameMode != GameMode.None;
 
-        public AutomationService(GameWindowService gameWindowService, CoordinateCalculationService coordService)
+        public AutomationService(WindowInteractionService windowInteractionService, CoordinateCalculationService coordService)
         {
-            _gameWindowService = gameWindowService;
+            _windowInteractionService = windowInteractionService;
             _coordService = coordService;
         }
-
-        ///// <summary>
-        ///// 执行一次游戏进程检测。
-        ///// 会优先检测云顶之弈，其次是模拟器。
-        ///// </summary>
-        ///// <returns>如果找到了任何一个游戏，则返回true。</returns>
-        //public bool DetectGameProcess()
-        //{
-        //    // 优先级 1: 云顶之弈
-        //    if (_gameWindowService.FindGameWindow("League of Legends"))
-        //    {
-        //        CurrentGameMode = GameMode.TFT;
-        //        return true;
-        //    }
-
-        //    // 优先级 2: MuMu模拟器
-        //    if (_gameWindowService.FindGameWindow("MuMuPlayer"))
-        //    {
-        //        CurrentGameMode = GameMode.JCC;
-        //        return true;
-        //    }
-
-        //    // 未找到任何进程
-        //    CurrentGameMode = GameMode.None;
-        //    return false;
-        //}
 
         /// <summary>
         /// 设置用户选择的进程为自动化目标。
@@ -101,7 +75,7 @@ namespace JinChanChanTool.Services
         /// <param name="process">用户选择的进程。</param>
         public void SetTargetProcess(Process process)
         {
-            if (_gameWindowService.SetTargetWindow(process))
+            if (_windowInteractionService.SetTargetWindow(process))
             {
                 // 根据进程名判断游戏模式
                 // 假设：只有云顶是这个进程名，其他都是模拟器

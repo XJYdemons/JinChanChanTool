@@ -5,10 +5,10 @@ namespace JinChanChanTool.Forms
 {
     public partial class ProcessSelectorForm : Form
     {
-        private readonly GameWindowService _gameWindowService;
+        private readonly ProcessDiscoveryService _processDiscoveryService;
         public Process SelectedProcess { get; private set; }
 
-        // 一个辅助类来更好地在ListBox中显示信息
+        // 辅助类用于在ListBox中更好地显示信息
         private class ProcessDisplayItem
         {
             public Process Process { get; }
@@ -17,10 +17,11 @@ namespace JinChanChanTool.Forms
             public override string ToString() => DisplayName;
         }
 
-        public ProcessSelectorForm(GameWindowService gameWindowService)
+        // 构造函数现在接收新的、更轻量级的服务
+        public ProcessSelectorForm(ProcessDiscoveryService processDiscoveryService)
         {
             InitializeComponent();
-            _gameWindowService = gameWindowService;
+            _processDiscoveryService = processDiscoveryService;
 
             // 设置ListBox的数据源显示方式
             listBox_Processes.DisplayMember = "DisplayName";
@@ -30,13 +31,13 @@ namespace JinChanChanTool.Forms
             button_Select.Click += Button_Select_Click;
 
             // 窗体加载时自动刷新一次
-            Load += (s, e) => LoadProcesses();
+            this.Load += (s, e) => LoadProcesses();
         }
 
         private void LoadProcesses()
         {
             listBox_Processes.Items.Clear();
-            var processes = _gameWindowService.GetPotentiallyVisibleProcesses();
+            var processes = _processDiscoveryService.GetPotentiallyVisibleProcesses();
             foreach (var process in processes)
             {
                 listBox_Processes.Items.Add(new ProcessDisplayItem(process));
@@ -55,11 +56,6 @@ namespace JinChanChanTool.Forms
             {
                 MessageBox.Show("请先在列表中选择一个进程！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private void ProcessSelectorForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

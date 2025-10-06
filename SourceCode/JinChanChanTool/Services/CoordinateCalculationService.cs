@@ -11,7 +11,7 @@ namespace JinChanChanTool.Services
     /// </summary>
     public class CoordinateCalculationService
     {
-        private readonly GameWindowService _gameWindowService;
+        private readonly WindowInteractionService _gameWindowService;
 
         #region P/Invoke for DPI
         [DllImport("User32.dll")]
@@ -38,7 +38,7 @@ namespace JinChanChanTool.Services
             }
         }
 
-        public CoordinateCalculationService(GameWindowService gameWindowService)
+        public CoordinateCalculationService(WindowInteractionService gameWindowService)
         {
             _gameWindowService = gameWindowService ?? throw new ArgumentNullException(nameof(gameWindowService));
         }

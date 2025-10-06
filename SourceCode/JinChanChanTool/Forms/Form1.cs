@@ -52,12 +52,9 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
-        /// <summary>
-        /// 用于记录是否已经显示过模式提示，确保只提示一次。
-        /// </summary>
-        private bool _hasShownModeHint = false;
+        private System.Windows.Forms.Timer _updateCoordinatesTimer;
 
-        private readonly GameWindowService _gameWindowService;
+        private readonly WindowInteractionService _windowInteractionService;
         private readonly CoordinateCalculationService _coordService;
         private readonly AutomationService _automationService;
 
@@ -103,9 +100,9 @@ namespace JinChanChanTool
             #endregion
 
             #region 创建游戏窗口服务实例化并绑定事件
-            _gameWindowService = new GameWindowService();
-            _coordService = new CoordinateCalculationService(_gameWindowService);
-            _automationService = new AutomationService(_gameWindowService, _coordService);
+            _windowInteractionService = new WindowInteractionService();
+            _coordService = new CoordinateCalculationService(_windowInteractionService); 
+            _automationService = new AutomationService(_windowInteractionService, _coordService); 
             #endregion
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -137,8 +134,7 @@ namespace JinChanChanTool
             #endregion
 
             #region 自动拿牌服务实例化
-            //_cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);
-            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService, _automationService);
+            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);            
             #endregion    
 
             #region 初始化鼠标钩子并绑定事件
@@ -158,6 +154,11 @@ namespace JinChanChanTool
             ShowErrorForm();
             Selector.Instance.InitializeObject(_ilineUpService, _uiBuilderService);
             Selector.Instance.Show();
+
+            _updateCoordinatesTimer = new System.Windows.Forms.Timer();
+            _updateCoordinatesTimer.Interval = 1000; // 每秒钟执行一次
+            _updateCoordinatesTimer.Tick += timer_UpdateCoordinates_Tick;
+            _updateCoordinatesTimer.Start();
 
         }
 
@@ -426,6 +427,7 @@ namespace JinChanChanTool
             _settingForm.BringToFront();
         }
 
+
         private void ShowAboutForm()
         {
             AboutForm _aboutForm = new AboutForm();
@@ -466,51 +468,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //public async void button_GetCard_Click(object sender, EventArgs e)
-        //{
-        //    if (button_GetCard.Text == "停止")
-        //    {
-        //        button_GetCard.Text = "启动";
-        //        comboBox_HeroPool.Enabled = true;
-        //        _cardService.StopLoop();
-        //    }
-        //    else
-        //    {
-        //        button_GetCard.Text = "停止";
-        //        comboBox_HeroPool.Enabled = false;
-        //        _cardService.StartLoop();
-        //    }
-        //    UpdateOverlayStatus();
-        //}
-
-        //public void button_GetCard_Click(object sender, EventArgs e)
-        //{
-        //    if (button_GetCard.Text == "停止")
-        //    {
-        //        button_GetCard.Text = "启动";
-        //        comboBox_HeroPool.Enabled = true;
-        //        _cardService.StopLoop();
-        //    }
-        //    else
-        //    {
-        //        // 检查用户是否已通过新窗口选择了一个有效的游戏进程
-        //        if (_automationService.IsGameDetected)
-        //        {
-        //            button_GetCard.Text = "停止";
-        //            comboBox_HeroPool.Enabled = false;
-        //            _cardService.StartLoop();
-        //        }
-        //        else
-        //        {
-        //            // 如果没有选择，弹窗提示用户
-        //            MessageBox.Show("请先通过菜单栏的“选择游戏进程”来锁定一个游戏窗口！",
-        //                            "未选择目标", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        }
-        //    }
-        //    UpdateOverlayStatus();
-        //}
-
-        public void button_GetCard_Click(object sender, EventArgs e)
+        public async void button_GetCard_Click(object sender, EventArgs e)
         {
             if (button_GetCard.Text == "停止")
             {
@@ -520,23 +478,6 @@ namespace JinChanChanTool
             }
             else
             {
-                // 只有在第一次点击启动时，才显示模式提示
-                if (!_hasShownModeHint)
-                {
-                    if (_automationService.IsGameDetected)
-                    {
-                        MessageBox.Show("已锁定游戏进程，将使用“自动计算坐标”模式。",
-                                        "模式提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("未锁定游戏进程，将使用“手动配置坐标”模式。\n请确保“设置”中的坐标已正确配置。",
-                                        "模式提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    _hasShownModeHint = true; // 将开关设为true，确保不再弹出
-                }
-
-                // 无论如何都直接启动
                 button_GetCard.Text = "停止";
                 comboBox_HeroPool.Enabled = false;
                 _cardService.StartLoop();
@@ -1411,42 +1352,78 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
         {
-            
-            if (_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+            // 1. 检查是否处于自动模式
+            if (!_iappConfigService.CurrentConfig.UseDynamicCoordinates)
             {
-                //更新坐标
+                // 如果不是自动模式，则停止AutomationService的目标并直接返回
+                _automationService.SetTargetProcess(null);
+                return;
             }
-        }
-        #endregion
 
-        private void toolStripMenuItem_SelectProcess_Click(object sender, EventArgs e)
-        {
-            // 创建进程选择窗口的实例，并将 GameWindowService 传给它
-            using (var processForm = new ProcessSelectorForm(_gameWindowService))
+            // 2. 获取目标进程名
+            string targetName = _iappConfigService.CurrentConfig.TargetProcessName;
+            if (string.IsNullOrEmpty(targetName))
             {
-                // 以对话框模式显示窗口，这样主窗口会暂停等待用户选择
-                if (processForm.ShowDialog(this) == DialogResult.OK)
-                {
-                    // 用户点击了选定此进程按钮
-                    var selectedProcess = processForm.SelectedProcess;
-                    if (selectedProcess != null)
-                    {
-                        _automationService.SetTargetProcess(selectedProcess);
+                _automationService.SetTargetProcess(null);
+                return; // 如果未设置目标进程名，也直接返回
+            }
 
-                        // 给用户一个清晰的反馈
-                        if (_automationService.IsGameDetected)
-                        {
-                            string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
-                            MessageBox.Show($"已成功锁定进程：\n{displayName}", "目标已锁定", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Text = $"JinChanChanTool - [{displayName}]"; // 更新主窗口标题
-                        }
-                        else
-                        {
-                            MessageBox.Show("锁定进程失败，该窗口可能已关闭。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
+            // 3. 查找进程
+            Process[] processes = Process.GetProcessesByName(targetName);
+            Process targetProcess = null;
+
+            if (processes.Length == 0)
+            {
+                _automationService.SetTargetProcess(null); // 没找到，清除目标
+            }
+            else if (processes.Length == 1)
+            {
+                targetProcess = processes[0]; // 找到了一个，设为目标
+                _automationService.SetTargetProcess(targetProcess);
+            }
+            else // 找到多个
+            {
+                targetProcess = processes[0]; // 默认选第一个
+                _automationService.SetTargetProcess(targetProcess);
+
+                // 弹窗提示
+                 MessageBox.Show($"检测到多个名为 '{targetName}' 的进程，已默认选择第一个。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // 4. 如果成功锁定目标，则计算坐标并更新到AppConfig
+            if (_automationService.IsGameDetected)
+            {
+                // 获取所有UI元素的动态坐标
+                var rectSlot1 = _automationService.GetTargetRectangle(UiElement.CardSlot1_Name);
+                var rectSlot2 = _automationService.GetTargetRectangle(UiElement.CardSlot2_Name);
+                var rectSlot3 = _automationService.GetTargetRectangle(UiElement.CardSlot3_Name);
+                var rectSlot4 = _automationService.GetTargetRectangle(UiElement.CardSlot4_Name);
+                var rectSlot5 = _automationService.GetTargetRectangle(UiElement.CardSlot5_Name);
+                var rectRefresh = _automationService.GetTargetRectangle(UiElement.RefreshButton);
+
+                // 将计算结果写回到 AppConfig 的内存实例中
+                // CardService 将在下一次循环中自动读取这些新值
+                if (rectSlot1.HasValue)
+                {
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rectSlot1.Value.X;
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rectSlot1.Value.Y; // Y坐标以第一个为准
+                    _iappConfigService.CurrentConfig.Width_CardScreenshot = rectSlot1.Value.Width;   // 宽高也以第一个为准
+                    _iappConfigService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;
+                }
+                if (rectSlot2.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rectSlot2.Value.X;
+                if (rectSlot3.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rectSlot3.Value.X;
+                if (rectSlot4.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rectSlot4.Value.X;
+                if (rectSlot5.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rectSlot5.Value.X;
+
+                if (rectRefresh.HasValue)
+                {
+                    // 刷新按钮存的是点击点（中心点）
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;
                 }
             }
         }
+
+        #endregion
     }
 }

@@ -446,7 +446,7 @@
             menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于, toolStripMenuItem_GetEquipments, toolStripMenuItem_识别错误输出窗口 });
             menuStrip_Main.Location = new Point(3, 2);
             menuStrip_Main.Name = "menuStrip_Main";
-            menuStrip_Main.Size = new Size(438, 25);
+            menuStrip_Main.Size = new Size(401, 25);
             menuStrip_Main.TabIndex = 5;
             menuStrip_Main.Text = "菜单栏1";
             // 
@@ -505,7 +505,7 @@
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Padding = new Padding(3, 2, 3, 5);
-            panel_BackGround.Size = new Size(444, 640);
+            panel_BackGround.Size = new Size(407, 640);
             panel_BackGround.TabIndex = 5;
             // 
             // panel1
@@ -554,7 +554,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(444, 640);
+            ClientSize = new Size(407, 640);
             Controls.Add(panel_BackGround);
             FormBorderStyle = FormBorderStyle.None;
             MainMenuStrip = menuStrip_Main;

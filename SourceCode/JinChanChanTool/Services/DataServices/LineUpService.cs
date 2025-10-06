@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
-using JinChanChanTool.DataClass;
+﻿using JinChanChanTool.DataClass;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace JinChanChanTool.Services.DataServices
 {
@@ -46,6 +47,9 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// 
         private int _maxOfChoice;
+
+        public event EventHandler LineUpChanged;
+
 
         #region 初始化
         public LineUpService(IHeroDataService iHeroDataService,int countOfLineUps,int maxOfChoice)
@@ -160,6 +164,7 @@ namespace JinChanChanTool.Services.DataServices
             if (GetCurrentSubLineUp().Contains(name))
             {
                 GetCurrentSubLineUp().Remove(name);
+                NotifyLineUpChanged();
                 return true;
             }
             else
@@ -167,6 +172,8 @@ namespace JinChanChanTool.Services.DataServices
                 if (GetCurrentSubLineUp().Count < _maxOfChoice)
                 {
                     GetCurrentSubLineUp().Add(name);
+                    OrderCurrentSubLineUp();
+                    NotifyLineUpChanged();
                     return true;
                 }
                 return false;
@@ -189,6 +196,8 @@ namespace JinChanChanTool.Services.DataServices
                 if (GetCurrentSubLineUp().Count < _maxOfChoice)
                 {
                     GetCurrentSubLineUp().Add(name);
+                    OrderCurrentSubLineUp();
+                    NotifyLineUpChanged();
                     return true;
                 }
                 else
@@ -196,6 +205,35 @@ namespace JinChanChanTool.Services.DataServices
                     return false;
                 }
             }
+        }
+
+        /// <summary>
+        /// 批量增加指定英雄名称到当前子阵容，若已存在则不再增加
+        /// </summary>
+        /// <param name="names"></param>
+        /// <returns></returns>
+        public void AddHeros(List<string> names)
+        {            
+            for (int i = 0;i< names.Count;i++)
+            {
+                if (GetCurrentSubLineUp().Contains(names[i]))
+                {
+                    continue;
+                }
+                else
+                {
+                    if (GetCurrentSubLineUp().Count < _maxOfChoice)
+                    {
+                        GetCurrentSubLineUp().Add(names[i]);                        
+                    }                   
+                    else
+                    {
+                        break;
+                    }
+                }              
+            }
+            OrderCurrentSubLineUp();
+            NotifyLineUpChanged();           
         }
 
         /// <summary>
@@ -207,7 +245,8 @@ namespace JinChanChanTool.Services.DataServices
         {
             if (GetCurrentSubLineUp().Contains(name))
             {
-                GetCurrentSubLineUp().Remove(name);
+                GetCurrentSubLineUp().Remove(name);                
+                NotifyLineUpChanged();
                 return true;
             }
             else
@@ -216,22 +255,15 @@ namespace JinChanChanTool.Services.DataServices
             }
         }
 
-        /// <summary>
-        /// 按Cost升序排序当前子阵容的英雄
-        /// </summary>
-        public void OrderCurrentSubLineUp()
-        {
-            _lineUps[_lineUpIndex].Selected[_subLineUpIndex] = _lineUps[_lineUpIndex].Selected[_subLineUpIndex]
-            .OrderBy(name => _iHeroDataService.GetHeroFromName(name).Cost)
-            .ToList();
-        }
+       
 
         /// <summary>
         /// 清空当前子阵容
         /// </summary>
         public void ClearCurrentSubLineUp()
         {
-            _lineUps[_lineUpIndex].Selected[_subLineUpIndex].Clear();
+            _lineUps[_lineUpIndex].Selected[_subLineUpIndex].Clear();          
+            NotifyLineUpChanged();
         }
 
         /// <summary>
@@ -493,6 +525,21 @@ namespace JinChanChanTool.Services.DataServices
             }
         }
 
+        /// <summary>
+        /// 按Cost升序排序当前子阵容的英雄
+        /// </summary>
+        private void OrderCurrentSubLineUp()
+        {
+            _lineUps[_lineUpIndex].Selected[_subLineUpIndex] = _lineUps[_lineUpIndex].Selected[_subLineUpIndex]
+            .OrderBy(name => _iHeroDataService.GetHeroFromName(name).Cost)
+            .ToList();
+        }
+
+        private void NotifyLineUpChanged()
+        {
+            LineUpChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         #endregion        
-    }
+    }  
 }

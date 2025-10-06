@@ -43,7 +43,9 @@
                 KeyboardRefresh =this.KeyboardRefresh,
                 RefreshKey =this.RefreshKey,
                 UseCPU = this.UseCPU,
-                UseGPU = this.UseGPU
+                UseGPU = this.UseGPU,
+                UseFixedCoordinates = this.UseFixedCoordinates,
+                UseDynamicCoordinates =this.UseDynamicCoordinates
             };
         }
 
@@ -87,7 +89,9 @@
                    KeyboardRefresh == other.KeyboardRefresh &&
                    RefreshKey == other.RefreshKey &&
                    UseCPU == other.UseCPU &&
-                   UseGPU == other.UseGPU;
+                   UseGPU == other.UseGPU&&
+                   UseFixedCoordinates == other.UseFixedCoordinates&&
+                   UseDynamicCoordinates == other.UseDynamicCoordinates;
         }
 
         /// <summary>
@@ -246,6 +250,15 @@
         public bool UseGPU { get; set; }
 
         /// <summary>
+        /// 使用固定坐标
+        /// </summary>
+        public bool UseFixedCoordinates { get; set; }
+
+        /// <summary>
+        /// 使用动态坐标
+        /// </summary>
+        public bool UseDynamicCoordinates { get; set; }
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public AppConfig()
@@ -281,6 +294,8 @@
             RefreshKey = "D";
             UseCPU = true;
             UseGPU = false;
+            UseFixedCoordinates = true;
+            UseDynamicCoordinates = false;
         }
         }
 }

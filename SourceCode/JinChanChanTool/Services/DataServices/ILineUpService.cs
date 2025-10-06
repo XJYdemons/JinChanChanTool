@@ -42,17 +42,19 @@ namespace JinChanChanTool.Services.DataServices
         bool AddHero(string name);
 
         /// <summary>
+        /// 批量增加指定英雄名称到当前子阵容，若已存在则不再增加
+        /// </summary>
+        /// <param name="names"></param>
+        /// <returns></returns>
+        void AddHeros(List<string> names);
+
+        /// <summary>
         /// 从当前子阵容删除指定英雄名称，若不存在则不会删除
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
         bool DeleteHero(string name);
-
-        /// <summary>
-        /// 按Cost升序排序当前子阵容的英雄
-        /// </summary>
-        void OrderCurrentSubLineUp();
-
+       
         /// <summary>
         /// 清空当前子阵容
         /// </summary>
@@ -115,5 +117,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <param name="index"></param>
         /// <returns></returns>        
         bool SetFilePathIndex(int index);
+
+        event EventHandler LineUpChanged;
     }
 }

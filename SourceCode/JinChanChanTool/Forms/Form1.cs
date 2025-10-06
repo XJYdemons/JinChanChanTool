@@ -81,6 +81,7 @@ namespace JinChanChanTool
 
             #region 阵容数据服务实例化
             _ilineUpService = ilineUpService;
+            _ilineUpService.LineUpChanged += LineUpChanged;
             #endregion
 
             #region 英雄装备数据服务实例化
@@ -133,12 +134,15 @@ namespace JinChanChanTool
             #region 初始化状态显示窗口
             // 创建并显示状态窗口
             StatusOverlayForm.Instance.Show();
-         
-            
+
+
             UpdateOverlayStatus();
             #endregion         
 
-            ShowErrorForm();            
+            ShowErrorForm();
+            //Selector.Instance.InitializeObject(_ilineUpService, _uiBuilderService);
+            //Selector.Instance.Show();
+
         }
 
         /// <summary>
@@ -147,7 +151,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>      
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-           
+
             // 注销热键            
             GlobalHotkeyTool.Dispose();
             MouseHookTool.Dispose();
@@ -417,18 +421,18 @@ namespace JinChanChanTool
 
         private void ShowErrorForm()
         {
-            if(ErrorForm.Instance.WindowState == FormWindowState.Minimized)
+            if (ErrorForm.Instance.WindowState == FormWindowState.Minimized)
             {
                 ErrorForm.Instance.WindowState = FormWindowState.Normal;
                 ErrorForm.Instance.Show();
                 ErrorForm.Instance.BringToFront();
-            }             
-            if(!ErrorForm.Instance.Visible)
-            {           
+            }
+            if (!ErrorForm.Instance.Visible)
+            {
                 ErrorForm.Instance.Show();
-                ErrorForm.Instance.BringToFront();              
-            }         
-            
+                ErrorForm.Instance.BringToFront();
+            }
+
         }
         #endregion
         #endregion
@@ -528,7 +532,7 @@ namespace JinChanChanTool
 
         #region 英雄选择与阵容相关           
         private bool waitForLoad = false;
-        #region UI事件
+        #region UI事件       
         /// <summary>
         /// “清空”按钮_单击——>执行取消选择所有奕子
         /// </summary>
@@ -606,8 +610,7 @@ namespace JinChanChanTool
             {
                 _ilineUpService.DeleteHero(name);
             }
-            _ilineUpService.OrderCurrentSubLineUp();
-            LoadSubLineUpToUI();
+
         }
 
         /// <summary>
@@ -781,10 +784,7 @@ namespace JinChanChanTool
             if (image != null)
             {
                 string name = _iheroDataService.GetHeroFromImage(image).HeroName;
-                if (_ilineUpService.DeleteHero(name))
-                {
-                    LoadSubLineUpToUI();
-                }
+                _ilineUpService.DeleteHero(name);
             }
         }
 
@@ -859,11 +859,8 @@ namespace JinChanChanTool
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width + 1, _uiBuilderService.GetHeroPictureBoxSize().Height + 1);
             clickedBox.Size = this.LogicalToDeviceUnits(size);
             string name = clickedBox.Tag as string;
-            if (_ilineUpService.AddAndDeleteHero(name))
-            {
-                _ilineUpService.OrderCurrentSubLineUp();
-                LoadSubLineUpToUI();
-            }
+            _ilineUpService.AddAndDeleteHero(name);
+
         }
 
         /// <summary>
@@ -953,16 +950,7 @@ namespace JinChanChanTool
         /// <param name="profession"></param>
         private void SelectHerosFromProfession(Profession profession)
         {
-            for (int i = profession.HeroNames.Count - 1; i >= 0; i--)
-            {
-                string name = profession.HeroNames[i];
-                if (!_ilineUpService.AddHero(name))
-                {
-                    break;
-                }
-            }
-            _ilineUpService.OrderCurrentSubLineUp();
-            LoadSubLineUpToUI();
+            _ilineUpService.AddHeros(profession.HeroNames);
         }
 
         /// <summary>
@@ -971,16 +959,7 @@ namespace JinChanChanTool
         /// <param name="peculiarity"></param>
         private void SelectHerosFromPeculiarity(Peculiarity peculiarity)
         {
-            for (int i = peculiarity.HeroNames.Count - 1; i >= 0; i--)
-            {
-                string name = peculiarity.HeroNames[i];
-                if (!_ilineUpService.AddHero(name))
-                {
-                    break;
-                }
-            }
-            _ilineUpService.OrderCurrentSubLineUp();
-            LoadSubLineUpToUI();
+            _ilineUpService.AddHeros(peculiarity.HeroNames);
         }
 
 
@@ -1062,6 +1041,10 @@ namespace JinChanChanTool
             waitForLoad = false;
         }
 
+        private void LineUpChanged(object sender, EventArgs e)
+        {
+            LoadSubLineUpToUI();
+        }
 
         #endregion
         #endregion
@@ -1102,11 +1085,7 @@ namespace JinChanChanTool
                 if (heroNames != null && heroNames.Count > 0)
                 {
                     _ilineUpService.ClearCurrentSubLineUp();
-                    foreach (string name in heroNames)
-                    {
-                        _ilineUpService.AddHero(name);
-                    }
-                    LoadSubLineUpToUI();
+                    _ilineUpService.AddHeros(heroNames);
                     MessageBox.Show($"成功解析出 {heroNames.Count} 位英雄并已自动勾选！", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -1308,6 +1287,28 @@ namespace JinChanChanTool
                         }
                     }
                 }
+            }
+        }
+        #endregion
+
+        #region 更新动态坐标
+        /// <summary>
+        /// 更新动态坐标
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
+        {
+            //输出当前阵容
+            //string lineup = "";
+            //for(int i =0;i<_ilineUpService.GetCurrentSubLineUp().Count;i++)
+            //{
+            //    lineup+= _ilineUpService.GetCurrentSubLineUp()[i] + "    ";
+            //}
+            //    Debug.WriteLine($"当前阵容：{lineup}");
+            if(_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+            {
+                //更新坐标
             }
         }
         #endregion

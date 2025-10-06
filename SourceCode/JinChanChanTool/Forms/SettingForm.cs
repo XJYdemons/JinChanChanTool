@@ -137,6 +137,8 @@ namespace JinChanChanTool
             textBox_自动拿牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey1;
             textBox_自动刷新商店快捷键.Text = _iappConfigService.CurrentConfig.HotKey2;
             textBox_长按自动D牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey4;
+            radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.UseFixedCoordinates;
+            radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.UseDynamicCoordinates;
             textBox_最大选择数量.Text = _iappConfigService.CurrentConfig.MaxOfChoices.ToString();
             textBox_最大阵容数量.Text = _iappConfigService.CurrentConfig.CountOfLine.ToString();
             textBox_拿牌坐标X1.Text = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1.ToString();
@@ -186,6 +188,9 @@ namespace JinChanChanTool
             textBox_长按自动D牌快捷键.KeyDown += TextBox19_KeyDown;
             textBox_长按自动D牌快捷键.Enter += TextBox_Enter;
             textBox_长按自动D牌快捷键.Leave += TextBox_Leave;
+
+            radioButton_手动设置坐标.CheckedChanged += radioButton_手动设置坐标_CheckedChanged;
+            radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
 
             textBox_最大选择数量.KeyDown += TextBox_KeyDown;
             textBox_最大选择数量.Enter += TextBox_Enter;
@@ -1066,6 +1071,54 @@ namespace JinChanChanTool
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {            
             _iappConfigService.CurrentConfig.UseGPU = radioButton__CPU推理.Checked;
+        }
+
+        #endregion
+
+        #region 坐标设置方式单选框改变
+        private void radioButton_手动设置坐标_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_手动设置坐标.Checked)
+            {
+               button_选择进程.Enabled = false;
+               comboBox_选择显示器.Enabled = true;
+               button_快速设置奕子截图坐标与大小.Enabled = true;
+               textBox_拿牌坐标X1.Enabled = true;
+               textBox_拿牌坐标X2.Enabled = true;
+               textBox_拿牌坐标X3.Enabled = true;
+               textBox_拿牌坐标X4.Enabled = true;
+               textBox_拿牌坐标X5.Enabled = true;
+               textBox_拿牌坐标Y.Enabled = true;
+               textBox_奕子截图宽度.Enabled = true;
+               textBox_奕子截图高度.Enabled = true;
+               button_快速设置商店刷新按钮坐标.Enabled = true;
+               textBox_商店刷新按钮坐标X.Enabled = true;
+               textBox_商店刷新按钮坐标Y.Enabled = true;
+            }
+            _iappConfigService.CurrentConfig.UseFixedCoordinates = radioButton_手动设置坐标.Checked;
+        }
+
+
+        private void radioButton_自动设置坐标_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_自动设置坐标.Checked)
+            {
+                button_选择进程.Enabled = true;
+                comboBox_选择显示器.Enabled = false;
+                button_快速设置奕子截图坐标与大小.Enabled = false;
+                textBox_拿牌坐标X1.Enabled = false;
+                textBox_拿牌坐标X2.Enabled = false;
+                textBox_拿牌坐标X3.Enabled = false;
+                textBox_拿牌坐标X4.Enabled = false;
+                textBox_拿牌坐标X5.Enabled = false;
+                textBox_拿牌坐标Y.Enabled = false;
+                textBox_奕子截图宽度.Enabled = false;
+                textBox_奕子截图高度.Enabled = false;
+                button_快速设置商店刷新按钮坐标.Enabled = false;
+                textBox_商店刷新按钮坐标X.Enabled = false;
+                textBox_商店刷新按钮坐标Y.Enabled = false;
+            }
+            _iappConfigService.CurrentConfig.KeyboardGetCard = radioButton_自动设置坐标.Checked;
         }
 
         #endregion

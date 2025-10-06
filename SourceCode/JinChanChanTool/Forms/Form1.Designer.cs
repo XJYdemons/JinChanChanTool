@@ -65,11 +65,12 @@
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             toolStripMenuItem_GetEquipments = new ToolStripMenuItem();
+            toolStripMenuItem_识别错误输出窗口 = new ToolStripMenuItem();
             panel_BackGround = new Panel();
             panel1 = new Panel();
             label1 = new Label();
             toolTipTimer = new System.Windows.Forms.Timer(components);
-            toolStripMenuItem_识别错误输出窗口 = new ToolStripMenuItem();
+            timer_UpdateCoordinates = new System.Windows.Forms.Timer(components);
             panel_SubLineUpParent.SuspendLayout();
             tabControl_HeroSelector.SuspendLayout();
             tabPage_1Cost.SuspendLayout();
@@ -441,6 +442,7 @@
             // menuStrip_Main
             // 
             menuStrip_Main.BackColor = Color.White;
+            menuStrip_Main.ImageScalingSize = new Size(24, 24);
             menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于, toolStripMenuItem_GetEquipments, toolStripMenuItem_识别错误输出窗口 });
             menuStrip_Main.Location = new Point(3, 2);
             menuStrip_Main.Name = "menuStrip_Main";
@@ -482,6 +484,13 @@
             toolStripMenuItem_GetEquipments.Size = new Size(92, 21);
             toolStripMenuItem_GetEquipments.Text = "获取推荐装备";
             toolStripMenuItem_GetEquipments.Click += toolStripMenuItem_GetEquipments_Click;
+            // 
+            // toolStripMenuItem_识别错误输出窗口
+            // 
+            toolStripMenuItem_识别错误输出窗口.Name = "toolStripMenuItem_识别错误输出窗口";
+            toolStripMenuItem_识别错误输出窗口.Size = new Size(116, 21);
+            toolStripMenuItem_识别错误输出窗口.Text = "识别错误输出窗口";
+            toolStripMenuItem_识别错误输出窗口.Click += toolStripMenuItem_识别错误输出窗口_Click;
             // 
             // panel_BackGround
             // 
@@ -534,12 +543,11 @@
             toolTipTimer.Interval = 200;
             toolTipTimer.Tick += toolTipTimer_Tick;
             // 
-            // toolStripMenuItem_识别错误输出窗口
+            // timer_UpdateCoordinates
             // 
-            toolStripMenuItem_识别错误输出窗口.Name = "toolStripMenuItem_识别错误输出窗口";
-            toolStripMenuItem_识别错误输出窗口.Size = new Size(116, 21);
-            toolStripMenuItem_识别错误输出窗口.Text = "识别错误输出窗口";
-            toolStripMenuItem_识别错误输出窗口.Click += toolStripMenuItem_识别错误输出窗口_Click;
+            timer_UpdateCoordinates.Enabled = true;
+            timer_UpdateCoordinates.Interval = 1000;
+            timer_UpdateCoordinates.Tick += timer_UpdateCoordinates_Tick;
             // 
             // Form1
             // 
@@ -617,5 +625,6 @@
         private Panel panel1;
         private Label label1;
         private ToolStripMenuItem toolStripMenuItem_识别错误输出窗口;
+        private System.Windows.Forms.Timer timer_UpdateCoordinates;
     }
 }

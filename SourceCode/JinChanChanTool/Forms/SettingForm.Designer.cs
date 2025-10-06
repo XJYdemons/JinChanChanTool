@@ -71,6 +71,9 @@
             tabPage_快捷键 = new TabPage();
             tabPage_截图 = new TabPage();
             panel_截图 = new Panel();
+            button_选择进程 = new Button();
+            radioButton_自动设置坐标 = new RadioButton();
+            radioButton_手动设置坐标 = new RadioButton();
             tabPage_阵容相关 = new TabPage();
             panel_阵容相关 = new Panel();
             label_最大选择数量 = new Label();
@@ -226,7 +229,7 @@
             // comboBox_选择显示器
             // 
             comboBox_选择显示器.FormattingEnabled = true;
-            comboBox_选择显示器.Location = new Point(242, 5);
+            comboBox_选择显示器.Location = new Point(242, 30);
             comboBox_选择显示器.Name = "comboBox_选择显示器";
             comboBox_选择显示器.Size = new Size(121, 25);
             comboBox_选择显示器.TabIndex = 219;
@@ -236,7 +239,7 @@
             // label_选择显示器
             // 
             label_选择显示器.AutoSize = true;
-            label_选择显示器.Location = new Point(5, 5);
+            label_选择显示器.Location = new Point(5, 30);
             label_选择显示器.MinimumSize = new Size(70, 23);
             label_选择显示器.Name = "label_选择显示器";
             label_选择显示器.Size = new Size(70, 23);
@@ -248,7 +251,7 @@
             // 
             button_快速设置商店刷新按钮坐标.FlatAppearance.BorderColor = Color.LightGray;
             button_快速设置商店刷新按钮坐标.FlatStyle = FlatStyle.Flat;
-            button_快速设置商店刷新按钮坐标.Location = new Point(5, 171);
+            button_快速设置商店刷新按钮坐标.Location = new Point(5, 194);
             button_快速设置商店刷新按钮坐标.Name = "button_快速设置商店刷新按钮坐标";
             button_快速设置商店刷新按钮坐标.Size = new Size(162, 28);
             button_快速设置商店刷新按钮坐标.TabIndex = 58;
@@ -261,7 +264,7 @@
             // 
             button_快速设置奕子截图坐标与大小.FlatAppearance.BorderColor = Color.LightGray;
             button_快速设置奕子截图坐标与大小.FlatStyle = FlatStyle.Flat;
-            button_快速设置奕子截图坐标与大小.Location = new Point(5, 33);
+            button_快速设置奕子截图坐标与大小.Location = new Point(5, 57);
             button_快速设置奕子截图坐标与大小.Name = "button_快速设置奕子截图坐标与大小";
             button_快速设置奕子截图坐标与大小.Size = new Size(181, 28);
             button_快速设置奕子截图坐标与大小.TabIndex = 53;
@@ -273,7 +276,7 @@
             // label1_奕子截图起点坐标
             // 
             label1_奕子截图起点坐标.AutoSize = true;
-            label1_奕子截图起点坐标.Location = new Point(5, 65);
+            label1_奕子截图起点坐标.Location = new Point(5, 89);
             label1_奕子截图起点坐标.MinimumSize = new Size(104, 17);
             label1_奕子截图起点坐标.Name = "label1_奕子截图起点坐标";
             label1_奕子截图起点坐标.Size = new Size(104, 17);
@@ -283,7 +286,7 @@
             // 
             // label_奕子截图起点坐标X1
             // 
-            label_奕子截图起点坐标X1.Location = new Point(6, 87);
+            label_奕子截图起点坐标X1.Location = new Point(6, 110);
             label_奕子截图起点坐标X1.MinimumSize = new Size(23, 23);
             label_奕子截图起点坐标X1.Name = "label_奕子截图起点坐标X1";
             label_奕子截图起点坐标X1.Size = new Size(23, 23);
@@ -293,7 +296,7 @@
             // 
             // textBox_拿牌坐标X1
             // 
-            textBox_拿牌坐标X1.Location = new Point(49, 87);
+            textBox_拿牌坐标X1.Location = new Point(49, 110);
             textBox_拿牌坐标X1.Name = "textBox_拿牌坐标X1";
             textBox_拿牌坐标X1.Size = new Size(53, 23);
             textBox_拿牌坐标X1.TabIndex = 2;
@@ -302,7 +305,7 @@
             // label_奕子截图起点坐标Y
             // 
             label_奕子截图起点坐标Y.AutoSize = true;
-            label_奕子截图起点坐标Y.Location = new Point(211, 115);
+            label_奕子截图起点坐标Y.Location = new Point(211, 138);
             label_奕子截图起点坐标Y.MinimumSize = new Size(23, 23);
             label_奕子截图起点坐标Y.Name = "label_奕子截图起点坐标Y";
             label_奕子截图起点坐标Y.Size = new Size(23, 23);
@@ -312,7 +315,7 @@
             // 
             // textBox_拿牌坐标Y
             // 
-            textBox_拿牌坐标Y.Location = new Point(255, 115);
+            textBox_拿牌坐标Y.Location = new Point(255, 138);
             textBox_拿牌坐标Y.Name = "textBox_拿牌坐标Y";
             textBox_拿牌坐标Y.Size = new Size(53, 23);
             textBox_拿牌坐标Y.TabIndex = 4;
@@ -320,7 +323,7 @@
             // 
             // textBox_商店刷新按钮坐标Y
             // 
-            textBox_商店刷新按钮坐标Y.Location = new Point(296, 204);
+            textBox_商店刷新按钮坐标Y.Location = new Point(296, 228);
             textBox_商店刷新按钮坐标Y.Name = "textBox_商店刷新按钮坐标Y";
             textBox_商店刷新按钮坐标Y.Size = new Size(53, 23);
             textBox_商店刷新按钮坐标Y.TabIndex = 52;
@@ -329,7 +332,7 @@
             // label_奕子截图大小
             // 
             label_奕子截图大小.AutoSize = true;
-            label_奕子截图大小.Location = new Point(5, 143);
+            label_奕子截图大小.Location = new Point(5, 166);
             label_奕子截图大小.MinimumSize = new Size(80, 23);
             label_奕子截图大小.Name = "label_奕子截图大小";
             label_奕子截图大小.Size = new Size(80, 23);
@@ -340,7 +343,7 @@
             // label_商店刷新按钮坐标Y
             // 
             label_商店刷新按钮坐标Y.AutoSize = true;
-            label_商店刷新按钮坐标Y.Location = new Point(253, 204);
+            label_商店刷新按钮坐标Y.Location = new Point(253, 228);
             label_商店刷新按钮坐标Y.MinimumSize = new Size(15, 23);
             label_商店刷新按钮坐标Y.Name = "label_商店刷新按钮坐标Y";
             label_商店刷新按钮坐标Y.Size = new Size(15, 23);
@@ -351,7 +354,7 @@
             // label_宽
             // 
             label_宽.AutoSize = true;
-            label_宽.Location = new Point(142, 143);
+            label_宽.Location = new Point(142, 166);
             label_宽.MinimumSize = new Size(20, 23);
             label_宽.Name = "label_宽";
             label_宽.Size = new Size(20, 23);
@@ -361,7 +364,7 @@
             // 
             // textBox_商店刷新按钮坐标X
             // 
-            textBox_商店刷新按钮坐标X.Location = new Point(184, 204);
+            textBox_商店刷新按钮坐标X.Location = new Point(184, 228);
             textBox_商店刷新按钮坐标X.Name = "textBox_商店刷新按钮坐标X";
             textBox_商店刷新按钮坐标X.Size = new Size(53, 23);
             textBox_商店刷新按钮坐标X.TabIndex = 50;
@@ -369,7 +372,7 @@
             // 
             // textBox_奕子截图宽度
             // 
-            textBox_奕子截图宽度.Location = new Point(184, 143);
+            textBox_奕子截图宽度.Location = new Point(184, 166);
             textBox_奕子截图宽度.Name = "textBox_奕子截图宽度";
             textBox_奕子截图宽度.Size = new Size(53, 23);
             textBox_奕子截图宽度.TabIndex = 7;
@@ -378,7 +381,7 @@
             // label_商店刷新按钮坐标X
             // 
             label_商店刷新按钮坐标X.AutoSize = true;
-            label_商店刷新按钮坐标X.Location = new Point(142, 204);
+            label_商店刷新按钮坐标X.Location = new Point(142, 228);
             label_商店刷新按钮坐标X.MinimumSize = new Size(16, 23);
             label_商店刷新按钮坐标X.Name = "label_商店刷新按钮坐标X";
             label_商店刷新按钮坐标X.Size = new Size(16, 23);
@@ -389,7 +392,7 @@
             // label_高
             // 
             label_高.AutoSize = true;
-            label_高.Location = new Point(253, 143);
+            label_高.Location = new Point(253, 166);
             label_高.MinimumSize = new Size(20, 23);
             label_高.Name = "label_高";
             label_高.Size = new Size(20, 23);
@@ -399,7 +402,7 @@
             // 
             // label_商店刷新按钮坐标
             // 
-            label_商店刷新按钮坐标.Location = new Point(5, 204);
+            label_商店刷新按钮坐标.Location = new Point(5, 228);
             label_商店刷新按钮坐标.Name = "label_商店刷新按钮坐标";
             label_商店刷新按钮坐标.Size = new Size(104, 23);
             label_商店刷新按钮坐标.TabIndex = 48;
@@ -408,7 +411,7 @@
             // 
             // textBox_奕子截图高度
             // 
-            textBox_奕子截图高度.Location = new Point(296, 143);
+            textBox_奕子截图高度.Location = new Point(296, 166);
             textBox_奕子截图高度.Name = "textBox_奕子截图高度";
             textBox_奕子截图高度.Size = new Size(53, 23);
             textBox_奕子截图高度.TabIndex = 9;
@@ -416,7 +419,7 @@
             // 
             // textBox_拿牌坐标X5
             // 
-            textBox_拿牌坐标X5.Location = new Point(152, 115);
+            textBox_拿牌坐标X5.Location = new Point(152, 138);
             textBox_拿牌坐标X5.Name = "textBox_拿牌坐标X5";
             textBox_拿牌坐标X5.Size = new Size(53, 23);
             textBox_拿牌坐标X5.TabIndex = 37;
@@ -425,7 +428,7 @@
             // label_奕子截图起点坐标X5
             // 
             label_奕子截图起点坐标X5.AutoSize = true;
-            label_奕子截图起点坐标X5.Location = new Point(108, 115);
+            label_奕子截图起点坐标X5.Location = new Point(108, 138);
             label_奕子截图起点坐标X5.MinimumSize = new Size(23, 23);
             label_奕子截图起点坐标X5.Name = "label_奕子截图起点坐标X5";
             label_奕子截图起点坐标X5.Size = new Size(23, 23);
@@ -435,7 +438,7 @@
             // 
             // textBox_拿牌坐标X4
             // 
-            textBox_拿牌坐标X4.Location = new Point(49, 115);
+            textBox_拿牌坐标X4.Location = new Point(49, 138);
             textBox_拿牌坐标X4.Name = "textBox_拿牌坐标X4";
             textBox_拿牌坐标X4.Size = new Size(53, 23);
             textBox_拿牌坐标X4.TabIndex = 35;
@@ -444,7 +447,7 @@
             // label_奕子截图起点坐标X4
             // 
             label_奕子截图起点坐标X4.AutoSize = true;
-            label_奕子截图起点坐标X4.Location = new Point(6, 115);
+            label_奕子截图起点坐标X4.Location = new Point(6, 138);
             label_奕子截图起点坐标X4.MinimumSize = new Size(23, 23);
             label_奕子截图起点坐标X4.Name = "label_奕子截图起点坐标X4";
             label_奕子截图起点坐标X4.Size = new Size(23, 23);
@@ -454,7 +457,7 @@
             // 
             // textBox_拿牌坐标X3
             // 
-            textBox_拿牌坐标X3.Location = new Point(255, 87);
+            textBox_拿牌坐标X3.Location = new Point(255, 110);
             textBox_拿牌坐标X3.Name = "textBox_拿牌坐标X3";
             textBox_拿牌坐标X3.Size = new Size(53, 23);
             textBox_拿牌坐标X3.TabIndex = 33;
@@ -463,7 +466,7 @@
             // label_奕子截图起点坐标X3
             // 
             label_奕子截图起点坐标X3.AutoSize = true;
-            label_奕子截图起点坐标X3.Location = new Point(211, 87);
+            label_奕子截图起点坐标X3.Location = new Point(211, 110);
             label_奕子截图起点坐标X3.MinimumSize = new Size(23, 23);
             label_奕子截图起点坐标X3.Name = "label_奕子截图起点坐标X3";
             label_奕子截图起点坐标X3.Size = new Size(23, 23);
@@ -473,7 +476,7 @@
             // 
             // textBox_拿牌坐标X2
             // 
-            textBox_拿牌坐标X2.Location = new Point(152, 87);
+            textBox_拿牌坐标X2.Location = new Point(152, 110);
             textBox_拿牌坐标X2.Name = "textBox_拿牌坐标X2";
             textBox_拿牌坐标X2.Size = new Size(53, 23);
             textBox_拿牌坐标X2.TabIndex = 31;
@@ -482,7 +485,7 @@
             // label_奕子截图起点坐标X2
             // 
             label_奕子截图起点坐标X2.AutoSize = true;
-            label_奕子截图起点坐标X2.Location = new Point(108, 87);
+            label_奕子截图起点坐标X2.Location = new Point(108, 110);
             label_奕子截图起点坐标X2.MinimumSize = new Size(23, 23);
             label_奕子截图起点坐标X2.Name = "label_奕子截图起点坐标X2";
             label_奕子截图起点坐标X2.Size = new Size(23, 23);
@@ -558,6 +561,9 @@
             // 
             panel_截图.AutoScroll = true;
             panel_截图.BackColor = Color.White;
+            panel_截图.Controls.Add(button_选择进程);
+            panel_截图.Controls.Add(radioButton_自动设置坐标);
+            panel_截图.Controls.Add(radioButton_手动设置坐标);
             panel_截图.Controls.Add(label_选择显示器);
             panel_截图.Controls.Add(label_商店刷新按钮坐标);
             panel_截图.Controls.Add(comboBox_选择显示器);
@@ -590,6 +596,41 @@
             panel_截图.Name = "panel_截图";
             panel_截图.Size = new Size(368, 325);
             panel_截图.TabIndex = 0;
+            // 
+            // button_选择进程
+            // 
+            button_选择进程.Enabled = false;
+            button_选择进程.FlatAppearance.BorderColor = Color.LightGray;
+            button_选择进程.FlatStyle = FlatStyle.Flat;
+            button_选择进程.Location = new Point(5, 280);
+            button_选择进程.Name = "button_选择进程";
+            button_选择进程.Size = new Size(80, 28);
+            button_选择进程.TabIndex = 222;
+            button_选择进程.TabStop = false;
+            button_选择进程.Text = "选择进程";
+            button_选择进程.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_自动设置坐标
+            // 
+            radioButton_自动设置坐标.AutoSize = true;
+            radioButton_自动设置坐标.Location = new Point(5, 255);
+            radioButton_自动设置坐标.Name = "radioButton_自动设置坐标";
+            radioButton_自动设置坐标.Size = new Size(98, 21);
+            radioButton_自动设置坐标.TabIndex = 221;
+            radioButton_自动设置坐标.Text = "自动计算坐标";
+            radioButton_自动设置坐标.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_手动设置坐标
+            // 
+            radioButton_手动设置坐标.AutoSize = true;
+            radioButton_手动设置坐标.Checked = true;
+            radioButton_手动设置坐标.Location = new Point(5, 5);
+            radioButton_手动设置坐标.Name = "radioButton_手动设置坐标";
+            radioButton_手动设置坐标.Size = new Size(98, 21);
+            radioButton_手动设置坐标.TabIndex = 220;
+            radioButton_手动设置坐标.TabStop = true;
+            radioButton_手动设置坐标.Text = "手动设置坐标";
+            radioButton_手动设置坐标.UseVisualStyleBackColor = true;
             // 
             // tabPage_阵容相关
             // 
@@ -1147,5 +1188,8 @@
         private Panel panel_阵容相关;
         private Panel panel_识别相关;
         private Panel panel_拿牌相关;
+        private RadioButton radioButton_自动设置坐标;
+        private RadioButton radioButton_手动设置坐标;
+        public Button button_选择进程;
     }
 }

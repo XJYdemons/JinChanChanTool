@@ -18,10 +18,10 @@ namespace JinChanChanTool.Forms
         }
 
         // 构造函数现在接收新的、更轻量级的服务
-        public ProcessSelectorForm(ProcessDiscoveryService processDiscoveryService)
+        public ProcessSelectorForm()
         {
             InitializeComponent();
-            _processDiscoveryService = processDiscoveryService;
+            _processDiscoveryService = new ProcessDiscoveryService();
 
             // 设置ListBox的数据源显示方式
             listBox_Processes.DisplayMember = "DisplayName";

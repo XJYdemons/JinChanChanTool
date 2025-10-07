@@ -51,9 +51,7 @@ namespace JinChanChanTool
         /// 自动拿牌服务
         /// </summary>
         private CardService _cardService;
-
-        private System.Windows.Forms.Timer _updateCoordinatesTimer;
-
+        
         private readonly WindowInteractionService _windowInteractionService;
         private readonly CoordinateCalculationService _coordService;
         private readonly AutomationService _automationService;
@@ -153,13 +151,7 @@ namespace JinChanChanTool
 
             ShowErrorForm();
             Selector.Instance.InitializeObject(_ilineUpService, _uiBuilderService);
-            Selector.Instance.Show();
-
-            _updateCoordinatesTimer = new System.Windows.Forms.Timer();
-            _updateCoordinatesTimer.Interval = 1000; // 每秒钟执行一次
-            _updateCoordinatesTimer.Tick += timer_UpdateCoordinates_Tick;
-            _updateCoordinatesTimer.Start();
-
+            Selector.Instance.Show();            
         }
 
         /// <summary>
@@ -1351,7 +1343,7 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
-        {
+        {            
             // 1. 检查是否处于自动模式
             if (!_iappConfigService.CurrentConfig.UseDynamicCoordinates)
             {

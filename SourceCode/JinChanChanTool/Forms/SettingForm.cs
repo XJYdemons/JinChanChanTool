@@ -15,16 +15,10 @@ namespace JinChanChanTool
         /// </summary>
         private readonly IAppConfigService _iappConfigService;
 
-
         /// <summary>
         /// 用于存储旧的应用设置以便比较
         /// </summary>
         private AppConfig oldAppConfig;
-
-        /// <summary>
-        /// 当用户请求选择进程时触发。
-        /// </summary>
-        public event Func<Process> OnProcessSelectRequested;
 
         public SettingForm(IAppConfigService _iAppConfigService)
         {
@@ -46,8 +40,6 @@ namespace JinChanChanTool
 
             //初始化显示文本
             Update_AllComponents();
-
-
 
             // 获取所有连接的显示器  
             screens = Screen.AllScreens;
@@ -196,13 +188,10 @@ namespace JinChanChanTool
             textBox_长按自动D牌快捷键.Enter += TextBox_Enter;
             textBox_长按自动D牌快捷键.Leave += TextBox_Leave;
 
-            radioButton_手动设置坐标.CheckedChanged -= radioButton_手动设置坐标_CheckedChanged;
             radioButton_手动设置坐标.CheckedChanged += radioButton_手动设置坐标_CheckedChanged;
 
-            radioButton_自动设置坐标.CheckedChanged -= radioButton_自动设置坐标_CheckedChanged;
             radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
 
-            button_选择进程.Click -= button_选择进程_Click;
             button_选择进程.Click += button_选择进程_Click;
 
             textBox_最大选择数量.KeyDown += TextBox_KeyDown;
@@ -1215,6 +1204,28 @@ namespace JinChanChanTool
 
         #endregion
 
+        #region 选择进程
+        private void button_选择进程_Click(object sender, EventArgs e)
+        {                       
+            using (var processForm = new ProcessSelectorForm())
+            {
+                if (processForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    var selectedProcess = processForm.SelectedProcess;
+                    if (selectedProcess != null)
+                    {
+                        // 将选择的进程名存入配置
+                        _iappConfigService.CurrentConfig.TargetProcessName = selectedProcess.ProcessName;
+
+                        // 给用户反馈
+                        string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
+                        MessageBox.Show($"已选择进程：{displayName}\n请记得点击“保存设置”来保存此选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+        #endregion
+
         #region 设置存取相关
 
         /// <summary>
@@ -1285,28 +1296,6 @@ namespace JinChanChanTool
 
         }
 
-        private void button_选择进程_Click(object sender, EventArgs e)
-        {
-            // 1. 实时创建进程发现服务
-            var discoveryService = new ProcessDiscoveryService();
-
-            // 2. 创建并显示进程选择窗体
-            using (var processForm = new ProcessSelectorForm(discoveryService))
-            {
-                if (processForm.ShowDialog(this) == DialogResult.OK)
-                {
-                    var selectedProcess = processForm.SelectedProcess;
-                    if (selectedProcess != null)
-                    {
-                        // 3. 将选择的进程名存入配置
-                        _iappConfigService.CurrentConfig.TargetProcessName = selectedProcess.ProcessName;
-
-                        // 4. 给用户反馈
-                        string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
-                        MessageBox.Show($"已选择进程：{displayName}\n请记得点击“保存设置”来保存此选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-        }
+       
     }
 }

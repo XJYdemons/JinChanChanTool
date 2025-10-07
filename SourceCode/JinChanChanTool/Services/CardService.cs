@@ -5,6 +5,7 @@ using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
 using System.Drawing.Imaging;
+using JinChanChanTool.DataClass;
 
 
 namespace JinChanChanTool.Services
@@ -567,19 +568,19 @@ namespace JinChanChanTool.Services
             // 执行刷新操作
             await 刷新商店();
         }
-        
+
         private async Task 刷新商店()
         {
             if (_iappConfigService.CurrentConfig.MouseRefresh)
             {
                 MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.Point_RefreshStoreX, _iappConfigService.CurrentConfig.Point_RefreshStoreY);
-                if(_iappConfigService.CurrentConfig.UseCPU)
+                if (_iappConfigService.CurrentConfig.UseCPU)
                 {
                     await Task.Delay(操作间隔时间CPU);
                     await ClickOneTime();
                     await Task.Delay(操作间隔时间CPU);
                 }
-                else if(_iappConfigService.CurrentConfig.UseGPU)
+                else if (_iappConfigService.CurrentConfig.UseGPU)
                 {
                     await Task.Delay(操作间隔时间GPU);
                     await ClickOneTime();
@@ -660,10 +661,10 @@ namespace JinChanChanTool.Services
         /// <returns></returns>
         private async Task GetCard(bool[] isGetArray)
         {
-            for(int i = 0;i< isGetArray.Length;i++)
+            for (int i = 0; i < isGetArray.Length; i++)
             {
                 int x = 0;
-                switch(i)
+                switch (i)
                 {
                     case 0:
                         x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1;
@@ -682,19 +683,19 @@ namespace JinChanChanTool.Services
                         break;
                 }
                 if (isGetArray[i])
-                {                    
+                {
                     if (_iappConfigService.CurrentConfig.MouseGetCard)
                     {
                         // 鼠标操作
                         MouseControlTool.SetMousePosition(x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);
-                        if(_iappConfigService.CurrentConfig.UseCPU)
+                        if (_iappConfigService.CurrentConfig.UseCPU)
                         {
                             await Task.Delay(操作间隔时间CPU);
                             // 执行点击操作，逐个点击并等待
                             await ClickOneTime();
                             await Task.Delay(操作间隔时间CPU);
                         }
-                        else if(_iappConfigService.CurrentConfig.UseGPU)
+                        else if (_iappConfigService.CurrentConfig.UseGPU)
                         {
                             await Task.Delay(操作间隔时间GPU);
                             // 执行点击操作，逐个点击并等待
@@ -728,8 +729,8 @@ namespace JinChanChanTool.Services
                         }
                         else if (_iappConfigService.CurrentConfig.UseGPU)
                         {
-                            await Task.Delay(操作间隔时间GPU);                           
-                        }                        
+                            await Task.Delay(操作间隔时间GPU);
+                        }
                     }
                 }
             }

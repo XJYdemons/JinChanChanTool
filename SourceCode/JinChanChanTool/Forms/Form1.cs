@@ -52,7 +52,13 @@ namespace JinChanChanTool
         /// </summary>
         private CardService _cardService;
 
-        // (新) 这个字段将作为我们的“开关”，记录了哪个赛季文件夹的名字才允许显示装备推荐
+        private System.Windows.Forms.Timer _updateCoordinatesTimer;
+
+        private readonly WindowInteractionService _windowInteractionService;
+        private readonly CoordinateCalculationService _coordService;
+        private readonly AutomationService _automationService;
+
+        // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐
         private string _seasonForEquipmentTooltip = "S15天下无双格斗大会"; // <-- 在这里硬编码指定赛季名
 
         public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
@@ -91,7 +97,13 @@ namespace JinChanChanTool
             #region UI构建服务实例化并构建UI并绑定事件           
             _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _iappConfigService.CurrentConfig.MaxOfChoices, Selector.Instance.flowLayoutPanel1, Selector.Instance.flowLayoutPanel2, Selector.Instance.flowLayoutPanel3, Selector.Instance.flowLayoutPanel4, Selector.Instance.flowLayoutPanel5);
             UIBuildAndBidingEvents();
-            #endregion                                                     
+            #endregion
+
+            #region 创建游戏窗口服务实例化并绑定事件
+            _windowInteractionService = new WindowInteractionService();
+            _coordService = new CoordinateCalculationService(_windowInteractionService); 
+            _automationService = new AutomationService(_windowInteractionService, _coordService); 
+            #endregion
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -122,7 +134,7 @@ namespace JinChanChanTool
             #endregion
 
             #region 自动拿牌服务实例化
-            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);
+            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);            
             #endregion    
 
             #region 初始化鼠标钩子并绑定事件
@@ -142,6 +154,11 @@ namespace JinChanChanTool
             ShowErrorForm();
             Selector.Instance.InitializeObject(_ilineUpService, _uiBuilderService);
             Selector.Instance.Show();
+
+            _updateCoordinatesTimer = new System.Windows.Forms.Timer();
+            _updateCoordinatesTimer.Interval = 1000; // 每秒钟执行一次
+            _updateCoordinatesTimer.Tick += timer_UpdateCoordinates_Tick;
+            _updateCoordinatesTimer.Start();
 
         }
 
@@ -409,6 +426,7 @@ namespace JinChanChanTool
             _settingForm.Show();
             _settingForm.BringToFront();
         }
+
 
         private void ShowAboutForm()
         {
@@ -1334,12 +1352,78 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
         {
-            
-            if (_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+            // 1. 检查是否处于自动模式
+            if (!_iappConfigService.CurrentConfig.UseDynamicCoordinates)
             {
-                //更新坐标
+                // 如果不是自动模式，则停止AutomationService的目标并直接返回
+                _automationService.SetTargetProcess(null);
+                return;
+            }
+
+            // 2. 获取目标进程名
+            string targetName = _iappConfigService.CurrentConfig.TargetProcessName;
+            if (string.IsNullOrEmpty(targetName))
+            {
+                _automationService.SetTargetProcess(null);
+                return; // 如果未设置目标进程名，也直接返回
+            }
+
+            // 3. 查找进程
+            Process[] processes = Process.GetProcessesByName(targetName);
+            Process targetProcess = null;
+
+            if (processes.Length == 0)
+            {
+                _automationService.SetTargetProcess(null); // 没找到，清除目标
+            }
+            else if (processes.Length == 1)
+            {
+                targetProcess = processes[0]; // 找到了一个，设为目标
+                _automationService.SetTargetProcess(targetProcess);
+            }
+            else // 找到多个
+            {
+                targetProcess = processes[0]; // 默认选第一个
+                _automationService.SetTargetProcess(targetProcess);
+
+                // 弹窗提示
+                 MessageBox.Show($"检测到多个名为 '{targetName}' 的进程，已默认选择第一个。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // 4. 如果成功锁定目标，则计算坐标并更新到AppConfig
+            if (_automationService.IsGameDetected)
+            {
+                // 获取所有UI元素的动态坐标
+                var rectSlot1 = _automationService.GetTargetRectangle(UiElement.CardSlot1_Name);
+                var rectSlot2 = _automationService.GetTargetRectangle(UiElement.CardSlot2_Name);
+                var rectSlot3 = _automationService.GetTargetRectangle(UiElement.CardSlot3_Name);
+                var rectSlot4 = _automationService.GetTargetRectangle(UiElement.CardSlot4_Name);
+                var rectSlot5 = _automationService.GetTargetRectangle(UiElement.CardSlot5_Name);
+                var rectRefresh = _automationService.GetTargetRectangle(UiElement.RefreshButton);
+
+                // 将计算结果写回到 AppConfig 的内存实例中
+                // CardService 将在下一次循环中自动读取这些新值
+                if (rectSlot1.HasValue)
+                {
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rectSlot1.Value.X;
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rectSlot1.Value.Y; // Y坐标以第一个为准
+                    _iappConfigService.CurrentConfig.Width_CardScreenshot = rectSlot1.Value.Width;   // 宽高也以第一个为准
+                    _iappConfigService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;
+                }
+                if (rectSlot2.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rectSlot2.Value.X;
+                if (rectSlot3.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rectSlot3.Value.X;
+                if (rectSlot4.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rectSlot4.Value.X;
+                if (rectSlot5.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rectSlot5.Value.X;
+
+                if (rectRefresh.HasValue)
+                {
+                    // 刷新按钮存的是点击点（中心点）
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;
+                }
             }
         }
+
         #endregion
     }
 }

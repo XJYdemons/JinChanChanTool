@@ -45,7 +45,8 @@
                 UseCPU = this.UseCPU,
                 UseGPU = this.UseGPU,
                 UseFixedCoordinates = this.UseFixedCoordinates,
-                UseDynamicCoordinates =this.UseDynamicCoordinates
+                UseDynamicCoordinates =this.UseDynamicCoordinates,
+                TargetProcessName = this.TargetProcessName
             };
         }
 
@@ -91,7 +92,8 @@
                    UseCPU == other.UseCPU &&
                    UseGPU == other.UseGPU&&
                    UseFixedCoordinates == other.UseFixedCoordinates&&
-                   UseDynamicCoordinates == other.UseDynamicCoordinates;
+                   UseDynamicCoordinates == other.UseDynamicCoordinates&&
+                   TargetProcessName == other.TargetProcessName;
         }
 
         /// <summary>
@@ -258,6 +260,12 @@
         /// 使用动态坐标
         /// </summary>
         public bool UseDynamicCoordinates { get; set; }
+
+        /// <summary>
+        /// 自动模式下要锁定的目标进程的名称。
+        /// </summary>
+        public string TargetProcessName { get; set; }
+
         /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
@@ -296,6 +304,7 @@
             UseGPU = false;
             UseFixedCoordinates = true;
             UseDynamicCoordinates = false;
+            TargetProcessName = "";
         }
         }
 }

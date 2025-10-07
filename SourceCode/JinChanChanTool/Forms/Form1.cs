@@ -151,7 +151,7 @@ namespace JinChanChanTool
 
             ShowErrorForm();
             Selector.Instance.InitializeObject(_ilineUpService, _uiBuilderService);
-            Selector.Instance.Show();            
+            Selector.Instance.Show();           
         }
 
         /// <summary>

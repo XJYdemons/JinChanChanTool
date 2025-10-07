@@ -192,8 +192,6 @@ namespace JinChanChanTool
 
             radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
 
-            button_选择进程.Click += button_选择进程_Click;
-
             textBox_最大选择数量.KeyDown += TextBox_KeyDown;
             textBox_最大选择数量.Enter += TextBox_Enter;
             textBox_最大选择数量.Leave += TextBox4_Leave;
@@ -1206,7 +1204,8 @@ namespace JinChanChanTool
 
         #region 选择进程
         private void button_选择进程_Click(object sender, EventArgs e)
-        {                       
+        {
+            
             using (var processForm = new ProcessSelectorForm())
             {
                 if (processForm.ShowDialog(this) == DialogResult.OK)

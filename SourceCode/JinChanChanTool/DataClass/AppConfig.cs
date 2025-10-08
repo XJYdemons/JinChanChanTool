@@ -46,7 +46,8 @@
                 UseGPU = this.UseGPU,
                 UseFixedCoordinates = this.UseFixedCoordinates,
                 UseDynamicCoordinates =this.UseDynamicCoordinates,
-                TargetProcessName = this.TargetProcessName
+                TargetProcessName = this.TargetProcessName,
+                TargetProcessId = this.TargetProcessId,
             };
         }
 
@@ -90,10 +91,11 @@
                    KeyboardRefresh == other.KeyboardRefresh &&
                    RefreshKey == other.RefreshKey &&
                    UseCPU == other.UseCPU &&
-                   UseGPU == other.UseGPU&&
-                   UseFixedCoordinates == other.UseFixedCoordinates&&
-                   UseDynamicCoordinates == other.UseDynamicCoordinates&&
-                   TargetProcessName == other.TargetProcessName;
+                   UseGPU == other.UseGPU &&
+                   UseFixedCoordinates == other.UseFixedCoordinates &&
+                   UseDynamicCoordinates == other.UseDynamicCoordinates &&
+                   TargetProcessName == other.TargetProcessName &&
+                   TargetProcessId == other.TargetProcessId;
         }
 
         /// <summary>
@@ -267,6 +269,11 @@
         public string TargetProcessName { get; set; }
 
         /// <summary>
+        /// 用于多模拟器窗口时，用户在UI中精确选择的进程ID。优先级高于按名称查找。
+        /// </summary>
+        public int TargetProcessId { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public AppConfig()
@@ -305,6 +312,7 @@
             UseFixedCoordinates = true;
             UseDynamicCoordinates = false;
             TargetProcessName = "";
+            TargetProcessId = 0;
         }
         }
 }

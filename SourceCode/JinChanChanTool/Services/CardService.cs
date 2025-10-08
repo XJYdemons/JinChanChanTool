@@ -598,20 +598,84 @@ namespace JinChanChanTool.Services
         /// 截取大图并分割成5份小图，返回含有5个元素的Bitmap数组。
         /// </summary>
         /// <returns></returns>
+        //private Bitmap[] CaptureAndSplit()
+        //{
+
+
+        //    // 截取大图
+        //    using Bitmap bigImage = ImageProcessingTool.AreaScreenshots(_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+
+        //    // 分割成5个小图
+        //    Bitmap[] bitmaps = new Bitmap[5];
+        //    bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+        //    bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+        //    bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+        //    bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+        //    bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+        //    return bitmaps;
+        //}
+
         private Bitmap[] CaptureAndSplit()
         {
-            // 截取大图
-            using Bitmap bigImage = ImageProcessingTool.AreaScreenshots(_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+            try
+            {
+                // 1. 无条件地从 AppConfig 读取坐标，截取一张包含所有卡槽的大图
+                using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY,
+                    (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iappConfigService.CurrentConfig.Width_CardScreenshot,
+                    _iappConfigService.CurrentConfig.Height_CardScreenshot))
+                {
+                    Bitmap[] bitmaps = new Bitmap[5];
 
-            // 分割成5个小图
-            Bitmap[] bitmaps = new Bitmap[5];
-            bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-            bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-            bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-            bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-            bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-            return bitmaps;
+                    // 2. 使用正确的、基于差值的相对偏移来分割图片
+                    bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                    bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                    bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                    bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                    bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+
+                    // --- 调试代码：循环输出每个卡槽的真实坐标并保存图片 ---
+                    int[] slotXCoords = {
+                _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
+                _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2,
+                _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3,
+                _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4,
+                _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5
+            };
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        // 保存每个小图用于调试
+                        string path = Path.Combine(Environment.CurrentDirectory, $"Debug_CardSlot{i + 1}.png");
+                        bitmaps[i].Save(path, ImageFormat.Png);
+
+                        // 输出当前卡槽从 AppConfig 读取到的真实坐标和大小
+                        Debug.WriteLine($"--- [CardService] 卡槽{i + 1}的真实数据 ---");
+                        Debug.WriteLine($"X: {slotXCoords[i]}");
+                        Debug.WriteLine($"Y: {_iappConfigService.CurrentConfig.StartPoint_CardScreenshotY}");
+                        Debug.WriteLine($"Width: {_iappConfigService.CurrentConfig.Width_CardScreenshot}");
+                        Debug.WriteLine($"Height: {_iappConfigService.CurrentConfig.Height_CardScreenshot}");
+                        Debug.WriteLine($"截图已保存: {path}");
+                        Debug.WriteLine("-----------------------------------------");
+                    }
+                    // --- 调试代码结束 ---
+
+                    return bitmaps;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogTool.Log($"截图失败: {ex.Message}. 请检查 AppConfig 中的坐标配置。");
+                var errorBitmaps = new Bitmap[5];
+                for (int i = 0; i < 5; i++)
+                {
+                    errorBitmaps[i] = new Bitmap(10, 10);
+                }
+                return errorBitmaps;
+            }
         }
+
 
         /// <summary>
         /// 传入一个Bitmap数组，异步排队识别后返回一个识别结果数组，含5个元素的String数组。

@@ -6,9 +6,9 @@ namespace JinChanChanTool.Forms
     public partial class ProcessSelectorForm : Form
     {
         private readonly ProcessDiscoveryService _processDiscoveryService;
+
         public Process SelectedProcess { get; private set; }
 
-        // 辅助类用于在ListBox中更好地显示信息
         private class ProcessDisplayItem
         {
             public Process Process { get; }
@@ -17,20 +17,17 @@ namespace JinChanChanTool.Forms
             public override string ToString() => DisplayName;
         }
 
-        // 构造函数现在接收新的、更轻量级的服务
-        public ProcessSelectorForm()
+        // 这是正确的构造函数，它接收一个外部服务
+        public ProcessSelectorForm(ProcessDiscoveryService processDiscoveryService)
         {
             InitializeComponent();
-            _processDiscoveryService = new ProcessDiscoveryService();
+            _processDiscoveryService = processDiscoveryService;
 
-            // 设置ListBox的数据源显示方式
             listBox_Processes.DisplayMember = "DisplayName";
 
-            // 为按钮绑定事件
             button_Refresh.Click += (s, e) => LoadProcesses();
             button_Select.Click += Button_Select_Click;
 
-            // 窗体加载时自动刷新一次
             this.Load += (s, e) => LoadProcesses();
         }
 
@@ -49,13 +46,18 @@ namespace JinChanChanTool.Forms
             if (listBox_Processes.SelectedItem is ProcessDisplayItem selectedItem)
             {
                 SelectedProcess = selectedItem.Process;
-                this.DialogResult = DialogResult.OK; // 设置对话框结果，表示用户已选择
-                this.Close(); // 关闭窗口
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             else
             {
                 MessageBox.Show("请先在列表中选择一个进程！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void ProcessSelectorForm_Load(object sender, EventArgs e)
+        {
+            // 这个方法可以保留为空，或者删除（如果Designer.cs中没有对它的引用）
         }
     }
 }

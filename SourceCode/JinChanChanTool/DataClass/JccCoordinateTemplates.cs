@@ -29,27 +29,32 @@ namespace JinChanChanTool.DataClass // 根据你的要求，使用DataClass命�
         /// <summary>
         /// 第一个英雄名字区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot1_Name = new(-284, -28, 120, 30);
+        //public static readonly AnchorProfile CardSlot1_Name = new(-284, -28, 120, 30);
+        public static readonly AnchorProfile CardSlot1_Name = new(-300, -29, 91, 26);
 
         /// <summary>
         /// 第二个英雄名字区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot2_Name = new(-109, -28, 120, 30);
+        //public static readonly AnchorProfile CardSlot2_Name = new(-109, -28, 120, 30);
+        public static readonly AnchorProfile CardSlot2_Name = new(-120, -29, 91, 24);
 
         /// <summary>
         /// 第三个英雄名字区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot3_Name = new(66, -28, 120, 30);
+        //public static readonly AnchorProfile CardSlot3_Name = new(66, -28, 120, 30);
+        public static readonly AnchorProfile CardSlot3_Name = new(53, -30, 88, 27);
 
         /// <summary>
         /// 第四个英雄名字区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot4_Name = new(236, -28, 110, 30);
+        //public static readonly AnchorProfile CardSlot4_Name = new(236, -28, 110, 30);
+        public static readonly AnchorProfile CardSlot4_Name = new(229, -28, 86, 27);
 
         /// <summary>
         /// 第五个英雄名字区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot5_Name = new(405, -28, 110, 30);
+        //public static readonly AnchorProfile CardSlot5_Name = new(413, -28, 110, 30);
+        public static readonly AnchorProfile CardSlot5_Name = new(406, -29, 93, 26);
 
         // --- 备用区域 ---
 

@@ -56,6 +56,9 @@ namespace JinChanChanTool
         private readonly CoordinateCalculationService _coordService;
         private readonly AutomationService _automationService;
 
+        private bool _multiProcessWarningShown = false;
+
+
         // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐
         private string _seasonForEquipmentTooltip = "S15天下无双格斗大会"; // <-- 在这里硬编码指定赛季名
 
@@ -1416,55 +1419,172 @@ namespace JinChanChanTool
         #endregion
 
         #region 更新动态坐标
-        /// <summary>
-        /// 更新动态坐标
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        ///// <summary>
+        ///// 更新动态坐标
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
+        //{
+        //    // 1. 检查是否处于自动模式
+        //    if (!_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+        //    {
+        //        // 如果不是自动模式，则停止AutomationService的目标并直接返回
+        //        _automationService.SetTargetProcess(null);
+        //        return;
+        //    }
+
+        //    // 2. 获取目标进程名
+        //    string targetName = _iappConfigService.CurrentConfig.TargetProcessName;
+        //    if (string.IsNullOrEmpty(targetName))
+        //    {
+        //        _automationService.SetTargetProcess(null);
+        //        return; // 如果未设置目标进程名，也直接返回
+        //    }
+
+        //    // 3. 查找进程
+        //    Process[] processes = Process.GetProcessesByName(targetName);
+        //    Process targetProcess = null;
+
+        //    if (processes.Length == 0)
+        //    {
+        //        _automationService.SetTargetProcess(null); // 没找到，清除目标
+        //    }
+        //    else if (processes.Length == 1)
+        //    {
+        //        targetProcess = processes[0]; // 找到了一个，设为目标
+        //        _automationService.SetTargetProcess(targetProcess);
+        //    }
+        //    else // 找到多个
+        //    {
+        //        targetProcess = processes[0]; // 默认选第一个
+        //        _automationService.SetTargetProcess(targetProcess);
+
+        //        // 弹窗提示
+        //         MessageBox.Show($"检测到多个名为 '{targetName}' 的进程，已默认选择第一个。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    }
+
+        //    // 4. 如果成功锁定目标，则计算坐标并更新到AppConfig
+        //    if (_automationService.IsGameDetected)
+        //    {
+        //        // 获取所有UI元素的动态坐标
+        //        var rectSlot1 = _automationService.GetTargetRectangle(UiElement.CardSlot1_Name);
+        //        var rectSlot2 = _automationService.GetTargetRectangle(UiElement.CardSlot2_Name);
+        //        var rectSlot3 = _automationService.GetTargetRectangle(UiElement.CardSlot3_Name);
+        //        var rectSlot4 = _automationService.GetTargetRectangle(UiElement.CardSlot4_Name);
+        //        var rectSlot5 = _automationService.GetTargetRectangle(UiElement.CardSlot5_Name);
+        //        var rectRefresh = _automationService.GetTargetRectangle(UiElement.RefreshButton);
+
+        //        // 将计算结果写回到 AppConfig 的内存实例中
+        //        // CardService 将在下一次循环中自动读取这些新值
+        //        if (rectSlot1.HasValue)
+        //        {
+        //            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rectSlot1.Value.X;
+        //            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rectSlot1.Value.Y; // Y坐标以第一个为准
+        //            _iappConfigService.CurrentConfig.Width_CardScreenshot = rectSlot1.Value.Width;   // 宽高也以第一个为准
+        //            _iappConfigService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;
+        //        }
+        //        if (rectSlot2.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rectSlot2.Value.X;
+        //        if (rectSlot3.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rectSlot3.Value.X;
+        //        if (rectSlot4.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rectSlot4.Value.X;
+        //        if (rectSlot5.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rectSlot5.Value.X;
+
+        //        if (rectRefresh.HasValue)
+        //        {
+        //            // 刷新按钮存的是点击点（中心点）
+        //            _iappConfigService.CurrentConfig.Point_RefreshStoreX = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
+        //            _iappConfigService.CurrentConfig.Point_RefreshStoreY = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;
+        //        }
+        //    }
+        //}
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
         {            
             // 1. 检查是否处于自动模式
             if (!_iappConfigService.CurrentConfig.UseDynamicCoordinates)
             {
-                // 如果不是自动模式，则停止AutomationService的目标并直接返回
                 _automationService.SetTargetProcess(null);
                 return;
             }
 
-            // 2. 获取目标进程名
-            string targetName = _iappConfigService.CurrentConfig.TargetProcessName;
-            if (string.IsNullOrEmpty(targetName))
-            {
-                _automationService.SetTargetProcess(null);
-                return; // 如果未设置目标进程名，也直接返回
-            }
-
-            // 3. 查找进程
-            Process[] processes = Process.GetProcessesByName(targetName);
             Process targetProcess = null;
+            bool processFound = false;
 
-            if (processes.Length == 0)
-            {
-                _automationService.SetTargetProcess(null); // 没找到，清除目标
-            }
-            else if (processes.Length == 1)
-            {
-                targetProcess = processes[0]; // 找到了一个，设为目标
-                _automationService.SetTargetProcess(targetProcess);
-            }
-            else // 找到多个
-            {
-                targetProcess = processes[0]; // 默认选第一个
-                _automationService.SetTargetProcess(targetProcess);
+            Process[] processes = null;
 
-                // 弹窗提示
-                 MessageBox.Show($"检测到多个名为 '{targetName}' 的进程，已默认选择第一个。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            // 2.ID 优先,检查用户上次精确选择的进程ID是否依然有效
+            int targetId = _iappConfigService.CurrentConfig.TargetProcessId;
+            if (targetId > 0)
+            {
+                try
+                {
+                    Process p = Process.GetProcessById(targetId);
+                    // 确保进程名也匹配，防止PID被系统重用给其他程序
+                    if (p.ProcessName.Equals(_iappConfigService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        targetProcess = p;
+                        processFound = true;
+                    }
+                }
+                catch (ArgumentException) // 进程已关闭会抛出此异常
+                {
+                    // ID无效，清除它，让程序回退到按名称查找
+                    _iappConfigService.CurrentConfig.TargetProcessId = 0;
+                }
             }
 
-            // 4. 如果成功锁定目标，则计算坐标并更新到AppConfig
+            // 3.名称查找,如果按ID查找失败，则回退到按名称查找
+            if (!processFound)
+            {
+                string targetName = _iappConfigService.CurrentConfig.TargetProcessName;
+                if (string.IsNullOrEmpty(targetName))
+                {
+                    _automationService.SetTargetProcess(null);
+                    return;
+                }
+
+                processes = Process.GetProcessesByName(targetName);
+
+                if (processes.Length == 1)
+                {
+                    targetProcess = processes[0];
+                    // 找到了唯一匹配的进程，更新我们的精确ID以便下次快速查找
+                    _iappConfigService.CurrentConfig.TargetProcessId = targetProcess.Id;
+                }
+                else if (processes.Length > 1)
+                {
+                    // 【多进程冲突处理】
+                    _automationService.SetTargetProcess(null); // 暂停坐标更新
+                    if (!_multiProcessWarningShown)
+                    {
+                        _multiProcessWarningShown = true; // 先设置标志，防止重复弹窗
+                        this.Invoke((Action)(() => {
+                            MessageBox.Show(this,
+                                $"检测到多个名为 '{targetName}' 的进程。\n\n自动坐标计算已暂停，请通过“设置”->“选择进程”来精确指定一个。",
+                                "多进程冲突",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                        }));
+                    }
+                    return; // 直接返回，不进行后续的坐标更新
+                }
+                else // processes.Length == 0
+                {
+                    targetProcess = null;
+                }
+            }
+
+            // 4. 将最终确定的目标（或null）交给 AutomationService
+            _automationService.SetTargetProcess(targetProcess);
+
+            // 检查 processes 是否为 null，以避免在 ID 优先路径成功时出错
+            if (processes == null || processes.Length <= 1)
+            {
+                _multiProcessWarningShown = false;
+            }
+
+            // 5. 如果成功锁定了有效窗口（无论是父窗口还是子窗口），则更新 AppConfig
             if (_automationService.IsGameDetected)
             {
-                // 获取所有UI元素的动态坐标
                 var rectSlot1 = _automationService.GetTargetRectangle(UiElement.CardSlot1_Name);
                 var rectSlot2 = _automationService.GetTargetRectangle(UiElement.CardSlot2_Name);
                 var rectSlot3 = _automationService.GetTargetRectangle(UiElement.CardSlot3_Name);
@@ -1472,25 +1592,53 @@ namespace JinChanChanTool
                 var rectSlot5 = _automationService.GetTargetRectangle(UiElement.CardSlot5_Name);
                 var rectRefresh = _automationService.GetTargetRectangle(UiElement.RefreshButton);
 
-                // 将计算结果写回到 AppConfig 的内存实例中
-                // CardService 将在下一次循环中自动读取这些新值
+
                 if (rectSlot1.HasValue)
                 {
                     _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rectSlot1.Value.X;
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rectSlot1.Value.Y; // Y坐标以第一个为准
-                    _iappConfigService.CurrentConfig.Width_CardScreenshot = rectSlot1.Value.Width;   // 宽高也以第一个为准
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rectSlot1.Value.Y;
+                    _iappConfigService.CurrentConfig.Width_CardScreenshot = rectSlot1.Value.Width;
                     _iappConfigService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;
-                }
-                if (rectSlot2.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rectSlot2.Value.X;
-                if (rectSlot3.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rectSlot3.Value.X;
-                if (rectSlot4.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rectSlot4.Value.X;
-                if (rectSlot5.HasValue) _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rectSlot5.Value.X;
 
+                    Debug.WriteLine($"--- [CardService] 卡槽1截图屏幕坐标和大小 ---");
+                    Debug.WriteLine($"X: {_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1}, " +
+                                    $"Y: {_iappConfigService.CurrentConfig.StartPoint_CardScreenshotY}, " +
+                                    $"Width: {_iappConfigService.CurrentConfig.Width_CardScreenshot}, " +
+                                    $"Height: {_iappConfigService.CurrentConfig.Height_CardScreenshot}");
+                }
+
+                if (rectSlot2.HasValue)
+                {
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rectSlot2.Value.X;
+                    Debug.WriteLine($"卡槽2截图X: {_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2}");
+                }
+
+                if (rectSlot3.HasValue)
+                {
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rectSlot3.Value.X;
+                    Debug.WriteLine($"卡槽3截图X: {_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3}");
+                }
+
+                if (rectSlot4.HasValue)
+                {
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rectSlot4.Value.X;
+                    Debug.WriteLine($"卡槽4截图X: {_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4}");
+                }
+
+                if (rectSlot5.HasValue)
+                {
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rectSlot5.Value.X;
+                    Debug.WriteLine($"卡槽5截图X: {_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5}");
+                }
+
+                // --- 刷新按钮中心点 ---
                 if (rectRefresh.HasValue)
                 {
-                    // 刷新按钮存的是点击点（中心点）
                     _iappConfigService.CurrentConfig.Point_RefreshStoreX = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
                     _iappConfigService.CurrentConfig.Point_RefreshStoreY = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;
+
+                    Debug.WriteLine($"刷新按钮截图屏幕坐标: X={_iappConfigService.CurrentConfig.Point_RefreshStoreX}, " +
+                                    $"Y={_iappConfigService.CurrentConfig.Point_RefreshStoreY}");
                 }
             }
         }

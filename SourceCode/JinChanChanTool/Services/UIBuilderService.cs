@@ -90,6 +90,12 @@ namespace JinChanChanTool.Services
         private static readonly Size transparentHeroPictureBoxSize = new Size(36, 36);//单个英雄选择器中图像框大小
         public List<HeroPictureBox> TransparentheroPictureBoxes { get; }
         #endregion
+
+        #region 阵容面板       
+        private static readonly Size lineUpHeroPictureBoxSize = new Size(32, 32);//单个英雄选择器中图像框大小
+        public HeroPictureBox[,] lineUpPictureBoxes { get; set; }
+        public List<FlowLayoutPanel> lineUpPanels { get; }
+        #endregion
         /// <summary>
         /// 主窗口实例
         /// </summary>
@@ -110,7 +116,7 @@ namespace JinChanChanTool.Services
         /// </summary>
         private Dictionary<int, Color> CostToColorMap { get; set; }
 
-        public UIBuilderService(Form1 form1,Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService,int countOfSubLineUpPictureBox,FlowLayoutPanel HeroPanel1, FlowLayoutPanel HeroPanel2, FlowLayoutPanel HeroPanel3, FlowLayoutPanel HeroPanel4, FlowLayoutPanel HeroPanel5)
+        public UIBuilderService(Form1 form1,Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService,int countOfSubLineUpPictureBox,FlowLayoutPanel HeroPanel1, FlowLayoutPanel HeroPanel2, FlowLayoutPanel HeroPanel3, FlowLayoutPanel HeroPanel4, FlowLayoutPanel HeroPanel5, FlowLayoutPanel LineUpPanel1, FlowLayoutPanel LineUpPanel2, FlowLayoutPanel LineUpPanel3)
         {
             _countOfSubLineUpPictureBox = countOfSubLineUpPictureBox;
             heroPictureBoxes = new List<HeroPictureBox>();
@@ -121,6 +127,7 @@ namespace JinChanChanTool.Services
             CostToColorMap = new Dictionary<int, Color>();
             NameToCheckBoxMap = new Dictionary<string, CheckBox>();
             TransparentheroPictureBoxes = new List<HeroPictureBox>();
+            lineUpPanels= new List<FlowLayoutPanel>();
             _panel_Cost1 = panel_Cost1;
             _panel_Cost2 = panel_Cost2;
             _panel_Cost3 = panel_Cost3;
@@ -130,13 +137,15 @@ namespace JinChanChanTool.Services
             _peculiarityButtonPanel = peculiarityButtonPanel;
             subLineUpPanels.AddRange(new List<FlowLayoutPanel> { subLineUpPanel1, subLineUpPanel2, subLineUpPanel3 });
             _iHeroDataService = iHeroDataService;                      
-            subLineUpPictureBoxes = new HeroPictureBox[3, countOfSubLineUpPictureBox];          
+            subLineUpPictureBoxes = new HeroPictureBox[3, countOfSubLineUpPictureBox];
+            lineUpPictureBoxes = new HeroPictureBox[3, countOfSubLineUpPictureBox];
             _form1 = form1;
             _heroPanel1 = HeroPanel1;
             _heroPanel2 = HeroPanel2;
             _heroPanel3 = HeroPanel3;
             _heroPanel4 = HeroPanel4;
             _heroPanel5 = HeroPanel5;
+            lineUpPanels.AddRange(new List<FlowLayoutPanel> { LineUpPanel1, LineUpPanel2, LineUpPanel3 });            
             BuildCostToColorMap();
         }
 
@@ -207,6 +216,40 @@ namespace JinChanChanTool.Services
             pictureBox.Margin = new Padding(0, 0, 1, 0);
             return pictureBox;
         }
+        #endregion
+
+        #region 创建阵容英雄头像框
+        /// <summary>
+        /// 创建单个阵容英雄头像框
+        /// </summary>
+        /// <param name="parentPanel"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private HeroPictureBox CreatLinePictureBox(Panel parentPanel, int index)
+        {
+            HeroPictureBox heroPictureBox = new HeroPictureBox();
+            heroPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            heroPictureBox.Image = null;
+            heroPictureBox.Size = _form1.LogicalToDeviceUnits(lineUpHeroPictureBoxSize);
+            heroPictureBox.Margin = new Padding(3); // 设置间距
+            parentPanel.Controls.Add(heroPictureBox);
+            return heroPictureBox;
+        }
+
+        /// <summary>
+        /// 批量创建阵容头像框
+        /// </summary>
+        public void CreateLineUpComponents()
+        {
+            for (int i = 0; i < lineUpPictureBoxes.GetLength(0); i++)
+            {
+                for (int j = 0; j < lineUpPictureBoxes.GetLength(1); j++)
+                {
+                    lineUpPictureBoxes[i, j] = CreatLinePictureBox(lineUpPanels[i], j);
+                }
+            }
+        }
+
         #endregion
 
         #region 创建英雄选择器
@@ -472,6 +515,7 @@ namespace JinChanChanTool.Services
             //  清除半透明英雄选择图片框
             ClearTransparentHeroPictureBox();
 
+            ClearLineUpPictureBox();
             //  清空所有控件列表
             heroPictureBoxes.Clear();
             checkBoxes.Clear();
@@ -483,6 +527,7 @@ namespace JinChanChanTool.Services
 
             // 5. 重新初始化子阵容图片框数组
             subLineUpPictureBoxes = new HeroPictureBox[3, _countOfSubLineUpPictureBox];
+            lineUpPictureBoxes = new HeroPictureBox[3, _countOfSubLineUpPictureBox];
         }
 
         /// <summary>
@@ -547,6 +592,19 @@ namespace JinChanChanTool.Services
                 {
                     subLineUpPictureBoxes[i, j]?.Dispose();
                     subLineUpPictureBoxes[i, j] = null;
+                }
+            }
+        }
+
+        private void ClearLineUpPictureBox()
+        {
+            // 清除子阵容图片框数组
+            for (int i = 0; i < lineUpPictureBoxes.GetLength(0); i++)
+            {
+                for (int j = 0; j < lineUpPictureBoxes.GetLength(1); j++)
+                {
+                    lineUpPictureBoxes[i, j]?.Dispose();
+                    lineUpPictureBoxes[i, j] = null;
                 }
             }
         }

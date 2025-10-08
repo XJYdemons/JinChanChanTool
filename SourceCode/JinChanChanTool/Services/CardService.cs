@@ -309,8 +309,8 @@ namespace JinChanChanTool.Services
             {
                 for (int i = 0; i < 原始结果数组.Length; i++)
                 {
-                    纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);
-
+                    纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);                    
+                    
                     if (!isError)
                     {
                         try
@@ -341,13 +341,13 @@ namespace JinChanChanTool.Services
                                 graphics.DrawImage(bitmaps[i], 0, 0);
 
                                 //绘制文本区域背景（右侧）
-                                graphics.FillRectangle(Brushes.White, bitmaps[i].Width, 0, textAreaWidth, newHeight);                               
+                                graphics.FillRectangle(Brushes.White, bitmaps[i].Width, 0, textAreaWidth, newHeight);
                                 //计算文本区域（右侧）
                                 RectangleF textArea = new RectangleF(
                                     bitmaps[i].Width, // 从原图右侧开始
                                     1, // 顶部边距
-                                    textAreaWidth-1, // 宽度（减去边距）
-                                    newHeight-1 // 高度（减去边距）
+                                    textAreaWidth - 1, // 宽度（减去边距）
+                                    newHeight - 1 // 高度（减去边距）
                                 );
                                 //绘制文本
                                 graphics.DrawString(errorMessage, font, brush, textArea);

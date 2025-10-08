@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -29,11 +30,13 @@ namespace JinChanChanTool.Forms
         }
         // 状态标签
         private Label lblStatus1;
-        private Label lblStatus2;        
+        private Label lblStatus2;      
+        private Label lblStatus3;
+        private Label lblStatus4;
         // 拖动相关变量
         private Point _dragStartPoint;
         private bool _dragging;
-
+       
        
 
         private StatusOverlayForm()
@@ -45,62 +48,85 @@ namespace JinChanChanTool.Forms
         private void InitializeComponents()
         {
             // 窗体设置
-            this.FormBorderStyle = FormBorderStyle.None;// 无边框
-            this.TopMost = true;// 始终置顶
-            this.ShowInTaskbar = false;// 不在任务栏显示
-            this.StartPosition = FormStartPosition.Manual;// 手动设置位置
-            this.DoubleBuffered = true; // 启用双缓冲减少闪烁
-            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.FormBorderStyle = FormBorderStyle.None;//无边框
+            this.TopMost = true;//始终置顶
+            this.ShowInTaskbar = false;//不在任务栏显示
+            this.StartPosition = FormStartPosition.Manual;//手动设置位置
+            this.DoubleBuffered = true;//启用双缓冲减少闪烁
+            this.AutoScaleMode = AutoScaleMode.Dpi;            
             this.AutoSize = true;
-            this.Padding = new Padding(5);            
-            // 设置窗口位置（右上角）
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            this.Location = new Point(
-                screen.Right - this.Width - 10,
-                screen.Top + 10
-            );
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.Padding = new Padding(0);
 
-            // 状态标签1 - 使用自动调整大小
+            // 使用一个容器布局（FlowLayoutPanel）让Label自动排列
+            FlowLayoutPanel panel = new FlowLayoutPanel
+            {
+                FlowDirection = FlowDirection.TopDown,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(0),
+                Margin = new Padding(0),
+                BackColor = Color.Transparent
+            };
+
             lblStatus1 = new Label
             {
                 Text = "开关1: 关闭",
                 ForeColor = Color.White,
-                //Font = new Font("微软雅黑", 10 * dpiScale, FontStyle.Bold),
-                //Location = new Point((int)(10 * dpiScale), (int)(10 * dpiScale)),
                 Font = new Font("微软雅黑", 10, FontStyle.Bold),
-                Dock = DockStyle.Top,
-                Margin = new Padding(5),
-                AutoSize = true, // 启用自动调整大小
+                AutoSize = true,
+                Margin = new Padding(2),
                 TextAlign = ContentAlignment.MiddleLeft,
-                BackColor = Color.Transparent // 设置标签背景透明
+                BackColor = Color.Transparent
             };
 
-            // 状态标签2 - 使用自动调整大小
             lblStatus2 = new Label
             {
                 Text = "开关2: 关闭",
                 ForeColor = Color.White,
-                //Font = new Font("微软雅黑", 10 * dpiScale, FontStyle.Bold),
-                //Location = new Point((int)(10 * dpiScale), (int)(40 * dpiScale)),
                 Font = new Font("微软雅黑", 10, FontStyle.Bold),
-                Dock = DockStyle.Top,
-                Margin = new Padding(5),
-                AutoSize = true, // 启用自动调整大小
+                AutoSize = true,
+                Margin = new Padding(2),
                 TextAlign = ContentAlignment.MiddleLeft,
-                BackColor = Color.Transparent // 设置标签背景透明
+                BackColor = Color.Transparent
             };
 
-            // 添加控件
-            this.Controls.Add(lblStatus2);
-            this.Controls.Add(lblStatus1);
+            lblStatus3 = new Label
+            {
+                Text = "",
+                ForeColor = Color.White,
+                Font = new Font("微软雅黑", 10, FontStyle.Bold),
+                AutoSize = true,
+                Margin = new Padding(2),
+                TextAlign = ContentAlignment.MiddleLeft,
+                BackColor = Color.Transparent
+            };
 
-
+            lblStatus4 = new Label
+            {
+                Text = "",
+                ForeColor = Color.White,
+                Font = new Font("微软雅黑", 10, FontStyle.Bold),
+                AutoSize = true,
+                Margin = new Padding(2),
+                TextAlign = ContentAlignment.MiddleLeft,
+                BackColor = Color.Transparent
+            };
+            panel.Controls.Add(lblStatus1);
+            panel.Controls.Add(lblStatus2);
+            panel.Controls.Add(lblStatus3);
+            panel.Controls.Add(lblStatus4);
+            this.Controls.Add(panel);
+          
             // 鼠标事件处理
             this.MouseDown += StatusOverlayForm_MouseDown;
             this.MouseMove += StatusOverlayForm_MouseMove;
             this.MouseUp += StatusOverlayForm_MouseUp;
+            panel.MouseDown += StatusOverlayForm_MouseDown;
+            panel.MouseMove += StatusOverlayForm_MouseMove;
+            panel.MouseUp += StatusOverlayForm_MouseUp;
 
-            // 标签也响应拖动
             lblStatus1.MouseDown += StatusOverlayForm_MouseDown;
             lblStatus1.MouseMove += StatusOverlayForm_MouseMove;
             lblStatus1.MouseUp += StatusOverlayForm_MouseUp;
@@ -108,23 +134,35 @@ namespace JinChanChanTool.Forms
             lblStatus2.MouseDown += StatusOverlayForm_MouseDown;
             lblStatus2.MouseMove += StatusOverlayForm_MouseMove;
             lblStatus2.MouseUp += StatusOverlayForm_MouseUp;
+
+            lblStatus3.MouseDown += StatusOverlayForm_MouseDown;
+            lblStatus3.MouseMove += StatusOverlayForm_MouseMove;
+            lblStatus3.MouseUp += StatusOverlayForm_MouseUp;
+
+            lblStatus4.MouseDown += StatusOverlayForm_MouseDown;
+            lblStatus4.MouseMove += StatusOverlayForm_MouseMove;
+            lblStatus4.MouseUp += StatusOverlayForm_MouseUp;
         }
-     
+
         // 更新状态显示
-        public void UpdateStatus(bool status1, bool status2)
+        public void UpdateStatus(bool status1, bool status2,string hotkey1,string hotkey2,string hotkey3,string hotkey4)
         {
             if (lblStatus1.InvokeRequired)
             {
-                lblStatus1.Invoke(new Action(() => UpdateStatus(status1, status2)));
+                lblStatus1.Invoke(new Action(() => UpdateStatus(status1, status2,hotkey1,hotkey2,hotkey3,hotkey4)));
                 return;
             }
-            lblStatus1.Text = $"自动拿牌: {(status1 ? "开启" : "关闭")}";
+            lblStatus1.Text = $"{hotkey1} - 自动拿牌: [{(status1 ? "开" : "关")}]";
             lblStatus1.ForeColor = status1 ? Color.LimeGreen : Color.White;
 
-            lblStatus2.Text = $"自动刷新商店: {(status2 ? "开启" : "关闭")}";
+            lblStatus2.Text = $"{hotkey2} - 自动刷新商店: [{(status2 ? "开" : "关")}]";
             lblStatus2.ForeColor = status2 ? Color.LimeGreen : Color.White;
-        }
 
+            lblStatus3.Text = $"{hotkey3} - 隐藏/召出主窗口";
+
+            lblStatus4.Text = $"{hotkey4} - 自动D牌";
+        }
+        #region 拖动窗体功能
         // 鼠标按下事件 - 开始拖动
         private void StatusOverlayForm_MouseDown(object sender, MouseEventArgs e)
         {
@@ -150,6 +188,18 @@ namespace JinChanChanTool.Forms
         private void StatusOverlayForm_MouseUp(object sender, MouseEventArgs e)
         {
             _dragging = false;
+        }
+
+        #endregion
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);           
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            this.Location = new Point(
+                screen.Right - this.Width - 10,
+                screen.Top + 10
+            );
         }
 
         // 重写创建控件时的行为，使窗口支持半透明

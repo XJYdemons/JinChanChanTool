@@ -34,9 +34,11 @@
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(128, 38);
+            AutoSize = true;
+            ClientSize = new Size(120, 38);
             Name = "StatusOverlayForm";
             Text = "StatusOverlayForm";
+            TopMost = true;
             ResumeLayout(false);
         }
 

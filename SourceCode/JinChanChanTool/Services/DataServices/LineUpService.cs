@@ -50,7 +50,9 @@ namespace JinChanChanTool.Services.DataServices
 
         public event EventHandler LineUpChanged;
 
+        public event EventHandler LineUpNameChanged;
 
+        public event EventHandler SubLineUpIndexChanged;
         #region 初始化
         public LineUpService(IHeroDataService iHeroDataService,int countOfLineUps,int maxOfChoice)
         {
@@ -108,6 +110,7 @@ namespace JinChanChanTool.Services.DataServices
                     string filePath = Path.Combine(paths[_pathIndex], "LineUps.json");
                     string json = JsonConvert.SerializeObject(_lineUps, Formatting.Indented);
                     File.WriteAllText(filePath, json);
+                    NotifyLineUpNameChanged();
                     return true;
                 }
                 catch
@@ -324,6 +327,7 @@ namespace JinChanChanTool.Services.DataServices
             if (subLineUpIndex >= 0 && subLineUpIndex <= 2)
             {
                 _subLineUpIndex = subLineUpIndex;
+                NotifySubLineUpIndexChanged();
                 return true;
             }
             return false;
@@ -344,7 +348,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <returns></returns>
         public int GetMaxSelect()
         {
-            return _countOfLineUps;
+            return _maxOfChoice;
         }
 
         /// <summary>
@@ -540,6 +544,14 @@ namespace JinChanChanTool.Services.DataServices
             LineUpChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        private void NotifyLineUpNameChanged()
+        {
+            LineUpNameChanged?.Invoke(this, EventArgs.Empty);
+        }
+        private void NotifySubLineUpIndexChanged()
+        {
+            SubLineUpIndexChanged?.Invoke(this, EventArgs.Empty);
+        }
         #endregion        
     }  
 }

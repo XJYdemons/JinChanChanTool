@@ -1,32 +1,23 @@
-﻿using JinChanChanTool.Services;
-using JinChanChanTool.Services.DataServices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using JinChanChanTool.Services.DataServices;
+
 
 namespace JinChanChanTool.Forms
 {
-    public partial class Selector : Form
+    public partial class LineUpForm : Form
     {
-        private static Selector _instance;
-        public static Selector Instance
+        private static LineUpForm _instance;
+        public static LineUpForm Instance
         {
             get
             {
                 if (_instance == null || _instance.IsDisposed)
                 {
-                    _instance = new Selector();
+                    _instance = new LineUpForm();
                 }
                 return _instance;
             }
         }
-        private Selector()
+        private LineUpForm()
         {
             InitializeComponent();
             // 鼠标事件处理
@@ -35,7 +26,7 @@ namespace JinChanChanTool.Forms
             panel1.MouseUp += panel1_MouseUp;
         }
 
-        private void Selector_Load(object sender, EventArgs e)
+        private void LineUpForm_Load(object sender, EventArgs e)
         {
 
         }
@@ -52,7 +43,7 @@ namespace JinChanChanTool.Forms
             {
                 _dragging = true;
                 _dragStartPoint = new Point(e.X, e.Y);
-                panel.BackColor =Color.FromArgb(96, 223, 84); 
+                panel.BackColor = Color.FromArgb(96, 223, 84);
             }
         }
 
@@ -73,7 +64,6 @@ namespace JinChanChanTool.Forms
             Panel panel = sender as Panel;
             panel.BackColor = Color.FromArgb(218, 218, 218);
             _dragging = false;
-
         }
         #endregion
 
@@ -82,11 +72,34 @@ namespace JinChanChanTool.Forms
             if (panel2.Visible == true)
             {
                 panel2.Visible = false;
+                comboBox_LineUp.Visible = false;
+                button_保存.Visible = false;
+                button_清空.Visible = false;
             }
             else
             {
                 panel2.Visible = true;
+                comboBox_LineUp.Visible = true;
+                button_保存.Visible = true;
+                button_清空.Visible = true;
             }
-        }                
+        }
+        private  ILineUpService _ilineUpService;
+        public void InitializeObject(ILineUpService ilineUpService)
+        {
+            _ilineUpService= ilineUpService;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (_ilineUpService.Save())
+            {
+                MessageBox.Show("阵容已保存", "阵容已保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _ilineUpService.ClearCurrentSubLineUp();
+        }
     }
 }

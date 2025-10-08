@@ -97,42 +97,42 @@
             panel_SubLineUpParent.Margin = new Padding(0);
             panel_SubLineUpParent.Name = "panel_SubLineUpParent";
             panel_SubLineUpParent.Padding = new Padding(3);
-            panel_SubLineUpParent.Size = new Size(394, 203);
+            panel_SubLineUpParent.Size = new Size(394, 152);
             panel_SubLineUpParent.TabIndex = 10;
             // 
             // flowLayoutPanel__SubLineUp3
             // 
-            flowLayoutPanel__SubLineUp3.AutoScroll = true;
+            flowLayoutPanel__SubLineUp3.AutoSize = true;
             flowLayoutPanel__SubLineUp3.BackColor = Color.White;
             flowLayoutPanel__SubLineUp3.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel__SubLineUp3.Location = new Point(5, 137);
+            flowLayoutPanel__SubLineUp3.Location = new Point(5, 91);
             flowLayoutPanel__SubLineUp3.Margin = new Padding(3, 3, 3, 7);
             flowLayoutPanel__SubLineUp3.Name = "flowLayoutPanel__SubLineUp3";
-            flowLayoutPanel__SubLineUp3.Size = new Size(384, 61);
+            flowLayoutPanel__SubLineUp3.Size = new Size(384, 38);
             flowLayoutPanel__SubLineUp3.TabIndex = 2;
             flowLayoutPanel__SubLineUp3.WrapContents = false;
             // 
             // flowLayoutPanel__SubLineUp2
             // 
-            flowLayoutPanel__SubLineUp2.AutoScroll = true;
+            flowLayoutPanel__SubLineUp2.AutoSize = true;
             flowLayoutPanel__SubLineUp2.BackColor = Color.White;
             flowLayoutPanel__SubLineUp2.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel__SubLineUp2.Location = new Point(5, 71);
+            flowLayoutPanel__SubLineUp2.Location = new Point(5, 48);
             flowLayoutPanel__SubLineUp2.Margin = new Padding(3, 3, 3, 7);
             flowLayoutPanel__SubLineUp2.Name = "flowLayoutPanel__SubLineUp2";
-            flowLayoutPanel__SubLineUp2.Size = new Size(384, 61);
+            flowLayoutPanel__SubLineUp2.Size = new Size(384, 38);
             flowLayoutPanel__SubLineUp2.TabIndex = 1;
             flowLayoutPanel__SubLineUp2.WrapContents = false;
             // 
             // flowLayoutPanel_SubLineUp1
             // 
-            flowLayoutPanel_SubLineUp1.AutoScroll = true;
+            flowLayoutPanel_SubLineUp1.AutoSize = true;
             flowLayoutPanel_SubLineUp1.BackColor = Color.White;
             flowLayoutPanel_SubLineUp1.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanel_SubLineUp1.Location = new Point(5, 5);
             flowLayoutPanel_SubLineUp1.Margin = new Padding(3, 3, 3, 7);
             flowLayoutPanel_SubLineUp1.Name = "flowLayoutPanel_SubLineUp1";
-            flowLayoutPanel_SubLineUp1.Size = new Size(384, 61);
+            flowLayoutPanel_SubLineUp1.Size = new Size(384, 38);
             flowLayoutPanel_SubLineUp1.TabIndex = 0;
             flowLayoutPanel_SubLineUp1.WrapContents = false;
             // 
@@ -563,6 +563,7 @@
             TopMost = true;
             Load += Form1_Load;
             panel_SubLineUpParent.ResumeLayout(false);
+            panel_SubLineUpParent.PerformLayout();
             tabControl_HeroSelector.ResumeLayout(false);
             tabPage_1Cost.ResumeLayout(false);
             tabPage_2Cost.ResumeLayout(false);

@@ -119,5 +119,9 @@ namespace JinChanChanTool.Services.DataServices
         bool SetFilePathIndex(int index);
 
         event EventHandler LineUpChanged;
+
+        event EventHandler LineUpNameChanged;
+
+        event EventHandler SubLineUpIndexChanged;
     }
 }

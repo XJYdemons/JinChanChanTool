@@ -114,13 +114,13 @@ namespace JinChanChanTool.Services
             int finalY = (int)Math.Round(currentAnchorY + scaledOffsetY - (scaledHeight / 2));
 
             // --- 在这里添加调试代码 ---
-            Debug.WriteLine($"--- [CoordinateCalculationService] Calculation Details for '{gameMode}' ---");
-            Debug.WriteLine($"输入: BaseWidth={profile.BaseWidth}, OffsetX={profile.OffsetX}");
-            Debug.WriteLine($"窗口数据: ClientX={_windowInteractionService.ClientX}, ClientWidth={_windowInteractionService.ClientWidth}");
-            Debug.WriteLine($"计算中间值: dpiScale={dpiScale}, physicalClientWidth={physicalClientWidth}, scale={scale}, scaledOffsetX={scaledOffsetX}, scaledWidth={scaledWidth}");
-            Debug.WriteLine($"锚点计算: currentAnchorX={currentAnchorX}");
-            Debug.WriteLine($"最终输出坐标 (FinalX, FinalY): {finalX}, {finalY}");
-            Debug.WriteLine("-------------------------------------------------");
+            //Debug.WriteLine($"--- [CoordinateCalculationService] Calculation Details for '{gameMode}' ---");
+            //Debug.WriteLine($"输入: BaseWidth={profile.BaseWidth}, OffsetX={profile.OffsetX}");
+            //Debug.WriteLine($"窗口数据: ClientX={_windowInteractionService.ClientX}, ClientWidth={_windowInteractionService.ClientWidth}");
+            //Debug.WriteLine($"计算中间值: dpiScale={dpiScale}, physicalClientWidth={physicalClientWidth}, scale={scale}, scaledOffsetX={scaledOffsetX}, scaledWidth={scaledWidth}");
+            //Debug.WriteLine($"锚点计算: currentAnchorX={currentAnchorX}");
+            //Debug.WriteLine($"最终输出坐标 (FinalX, FinalY): {finalX}, {finalY}");
+            //Debug.WriteLine("-------------------------------------------------");
             // --- 调试代码结束 ---
 
             return new Rectangle(finalX, finalY, (int)Math.Round(scaledWidth), (int)Math.Round(scaledHeight));

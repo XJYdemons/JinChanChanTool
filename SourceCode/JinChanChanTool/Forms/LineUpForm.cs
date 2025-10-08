@@ -1,4 +1,5 @@
 ﻿using JinChanChanTool.Services.DataServices;
+using System.Diagnostics;
 
 
 namespace JinChanChanTool.Forms
@@ -28,7 +29,14 @@ namespace JinChanChanTool.Forms
 
         private void LineUpForm_Load(object sender, EventArgs e)
         {
-
+            // 设置窗体初始位置为屏幕左上角
+            this.StartPosition = FormStartPosition.Manual;
+            var screen = Screen.PrimaryScreen.Bounds;
+            this.Location = new Point(
+                screen.Right - this.Width /*- 10*/,
+                screen.Bottom - this.Height /*+ 10*/
+            );
+            Debug.WriteLine($"screen.Right:{screen.Right},screen.Bottom:{screen.Bottom},this.Width:{this.Width},this.Height:{this.Height}");
         }
 
         #region 拖动窗体功能

@@ -46,7 +46,7 @@
             panel1.Location = new Point(0, 30);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(6, 120);
+            panel1.Size = new Size(6, 108);
             panel1.TabIndex = 1;
             panel1.MouseDoubleClick += panel1_MouseDoubleClick;
             // 
@@ -57,7 +57,7 @@
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Margin = new Padding(0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(460, 38);
+            flowLayoutPanel1.Size = new Size(387, 33);
             flowLayoutPanel1.TabIndex = 4;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -70,17 +70,17 @@
             panel2.Location = new Point(6, 30);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(467, 140);
+            panel2.Size = new Size(391, 126);
             panel2.TabIndex = 5;
             // 
             // flowLayoutPanel3
             // 
             flowLayoutPanel3.AutoSize = true;
             flowLayoutPanel3.BackColor = SystemColors.Control;
-            flowLayoutPanel3.Location = new Point(0, 82);
+            flowLayoutPanel3.Location = new Point(0, 74);
             flowLayoutPanel3.Margin = new Padding(0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(460, 38);
+            flowLayoutPanel3.Size = new Size(387, 33);
             flowLayoutPanel3.TabIndex = 6;
             flowLayoutPanel3.WrapContents = false;
             // 
@@ -88,10 +88,10 @@
             // 
             flowLayoutPanel2.AutoSize = true;
             flowLayoutPanel2.BackColor = SystemColors.Control;
-            flowLayoutPanel2.Location = new Point(0, 41);
+            flowLayoutPanel2.Location = new Point(0, 37);
             flowLayoutPanel2.Margin = new Padding(0);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(460, 38);
+            flowLayoutPanel2.Size = new Size(387, 33);
             flowLayoutPanel2.TabIndex = 5;
             flowLayoutPanel2.WrapContents = false;
             // 
@@ -132,7 +132,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.Magenta;
-            ClientSize = new Size(482, 214);
+            ClientSize = new Size(399, 157);
             Controls.Add(button_清空);
             Controls.Add(button_保存);
             Controls.Add(panel2);
@@ -157,6 +157,6 @@
         public FlowLayoutPanel flowLayoutPanel2;
         public ComboBox comboBox_LineUp;
         private Button button_清空;
-        private Button button_保存;        
+        private Button button_保存;
     }
 }

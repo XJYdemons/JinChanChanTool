@@ -44,7 +44,7 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(6, 184);
+            panel1.Size = new Size(6, 164);
             panel1.TabIndex = 1;
             panel1.MouseDoubleClick += panel1_MouseDoubleClick;
             // 
@@ -54,7 +54,7 @@
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Margin = new Padding(0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(602, 36);
+            flowLayoutPanel1.Size = new Size(602, 32);
             flowLayoutPanel1.TabIndex = 4;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -69,46 +69,46 @@
             panel2.Location = new Point(6, 0);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(608, 205);
+            panel2.Size = new Size(608, 182);
             panel2.TabIndex = 5;
             // 
             // flowLayoutPanel5
             // 
             flowLayoutPanel5.AutoSize = true;
-            flowLayoutPanel5.Location = new Point(0, 148);
+            flowLayoutPanel5.Location = new Point(0, 132);
             flowLayoutPanel5.Margin = new Padding(0);
             flowLayoutPanel5.Name = "flowLayoutPanel5";
-            flowLayoutPanel5.Size = new Size(602, 36);
+            flowLayoutPanel5.Size = new Size(602, 32);
             flowLayoutPanel5.TabIndex = 8;
             flowLayoutPanel5.WrapContents = false;
             // 
             // flowLayoutPanel4
             // 
             flowLayoutPanel4.AutoSize = true;
-            flowLayoutPanel4.Location = new Point(0, 111);
+            flowLayoutPanel4.Location = new Point(0, 99);
             flowLayoutPanel4.Margin = new Padding(0);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
-            flowLayoutPanel4.Size = new Size(602, 36);
+            flowLayoutPanel4.Size = new Size(602, 32);
             flowLayoutPanel4.TabIndex = 7;
             flowLayoutPanel4.WrapContents = false;
             // 
             // flowLayoutPanel3
             // 
             flowLayoutPanel3.AutoSize = true;
-            flowLayoutPanel3.Location = new Point(0, 74);
+            flowLayoutPanel3.Location = new Point(0, 66);
             flowLayoutPanel3.Margin = new Padding(0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(602, 36);
+            flowLayoutPanel3.Size = new Size(602, 32);
             flowLayoutPanel3.TabIndex = 6;
             flowLayoutPanel3.WrapContents = false;
             // 
             // flowLayoutPanel2
             // 
             flowLayoutPanel2.AutoSize = true;
-            flowLayoutPanel2.Location = new Point(0, 37);
+            flowLayoutPanel2.Location = new Point(0, 33);
             flowLayoutPanel2.Margin = new Padding(0);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(602, 36);
+            flowLayoutPanel2.Size = new Size(602, 32);
             flowLayoutPanel2.TabIndex = 5;
             flowLayoutPanel2.WrapContents = false;
             // 
@@ -117,7 +117,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.Magenta;
-            ClientSize = new Size(617, 214);
+            ClientSize = new Size(617, 195);
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;

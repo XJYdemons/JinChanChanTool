@@ -197,8 +197,8 @@ namespace JinChanChanTool.Forms
             base.OnShown(e);           
             var screen = Screen.PrimaryScreen.WorkingArea;
             this.Location = new Point(
-                screen.Right - this.Width - 10,
-                screen.Top + 10
+                screen.Right - this.Width /*- 10*/,
+                screen.Top /*+ 10*/
             );
         }
 

@@ -298,20 +298,20 @@ namespace JinChanChanTool.Services
             WindowHandle = IntPtr.Zero;
             if (parentProcess == null || parentProcess.MainWindowHandle == IntPtr.Zero)
             {
-                Debug.WriteLine("[日志] 失敗：传入的父进程为null或没有主窗口。");
+                //Debug.WriteLine("[日志] 失敗：传入的父进程为null或没有主窗口。");
                 return false;
             }
 
             IntPtr parentHwnd = parentProcess.MainWindowHandle;
-            Debug.WriteLine($"[日志] 开始侦察父窗口 (句柄: {parentHwnd}) 的后代...");
+            //Debug.WriteLine($"[日志] 开始侦察父窗口 (句柄: {parentHwnd}) 的后代...");
             var candidateChildren = new List<(IntPtr Hwnd, int Depth, long Area, string ClassName)>();
 
             EnumChildWindows(parentHwnd, (hWnd, lParam) => {
-                Debug.WriteLine($"  -> 发现一个子窗口 (句柄: {hWnd})");
+                //Debug.WriteLine($"  -> 发现一个子窗口 (句柄: {hWnd})");
 
                 if (!IsWindowVisible(hWnd) || !IsWindowEnabled(hWnd))
                 {
-                    Debug.WriteLine($"     [排除] 原因：不可见或被禁用。");
+                    //Debug.WriteLine($"     [排除] 原因：不可见或被禁用。");
                     return true;
                 }
 
@@ -321,7 +321,7 @@ namespace JinChanChanTool.Services
 
                 if (width <= 100 || height <= 100)
                 {
-                    Debug.WriteLine($"     [排除] 原因：尺寸过小 ({width}x{height})。");
+                    //Debug.WriteLine($"     [排除] 原因：尺寸过小 ({width}x{height})。");
                     return true;
                 }
 
@@ -338,7 +338,7 @@ namespace JinChanChanTool.Services
                 StringBuilder className = new StringBuilder(256);
                 GetClassName(hWnd, className, className.Capacity);
 
-                Debug.WriteLine($"     [候选] 类名: {className}, 尺寸: {width}x{height}, 深度: {depth}, 面积: {area}");
+                //Debug.WriteLine($"     [候选] 类名: {className}, 尺寸: {width}x{height}, 深度: {depth}, 面积: {area}");
                 candidateChildren.Add((hWnd, depth, area, className.ToString()));
 
                 return true;
@@ -346,7 +346,7 @@ namespace JinChanChanTool.Services
 
             if (candidateChildren.Count == 0)
             {
-                Debug.WriteLine("[日志] 警告：没有找到任何合适的子窗口，将尝试使用父窗口本身。");
+                //Debug.WriteLine("[日志] 警告：没有找到任何合适的子窗口，将尝试使用父窗口本身。");
                 GetWindowRect(parentHwnd, out RECT parentRect);
                 long parentArea = (long)(parentRect.Right - parentRect.Left) * (parentRect.Bottom - parentRect.Top);
                 candidateChildren.Add((parentHwnd, -1, parentArea, "父窗口"));
@@ -356,13 +356,13 @@ namespace JinChanChanTool.Services
             var bestCandidate = sortedCandidates.First();
             IntPtr bestHwnd = bestCandidate.Hwnd;
 
-            Debug.WriteLine($"[日志] 决策结果：选择的最佳窗口是 -> 类名: {bestCandidate.ClassName}, 句柄: {bestHwnd}, 深度: {bestCandidate.Depth}, 面积: {bestCandidate.Area}");
+            //Debug.WriteLine($"[日志] 决策结果：选择的最佳窗口是 -> 类名: {bestCandidate.ClassName}, 句柄: {bestHwnd}, 深度: {bestCandidate.Depth}, 面积: {bestCandidate.Area}");
 
             WindowHandle = bestHwnd;
 
             if (!GetClientRect(WindowHandle, out RECT clientRect))
             {
-                Debug.WriteLine("[日志] 致命错误：GetClientRect 失败！");
+                //Debug.WriteLine("[日志] 致命错误：GetClientRect 失败！");
                 WindowHandle = IntPtr.Zero;
                 return false;
             }
@@ -373,7 +373,7 @@ namespace JinChanChanTool.Services
             POINT clientTopLeft = new POINT { X = 0, Y = 0 };
             if (!ClientToScreen(WindowHandle, ref clientTopLeft))
             {
-                Debug.WriteLine("[日志] 致命错误：ClientToScreen 失败！");
+                //Debug.WriteLine("[日志] 致命错误：ClientToScreen 失败！");
                 WindowHandle = IntPtr.Zero;
                 return false;
             }
@@ -381,7 +381,7 @@ namespace JinChanChanTool.Services
             ClientX = clientTopLeft.X;
             ClientY = clientTopLeft.Y;
 
-            Debug.WriteLine($"[日志] 成功获取窗口信息：尺寸 {ClientWidth}x{ClientHeight} @ 屏幕坐标 ({ClientX},{ClientY})");
+            //Debug.WriteLine($"[日志] 成功获取窗口信息：尺寸 {ClientWidth}x{ClientHeight} @ 屏幕坐标 ({ClientX},{ClientY})");
             return true;
         }
     }

@@ -87,12 +87,12 @@ namespace JinChanChanTool.Services
         private readonly FlowLayoutPanel _heroPanel3;
         private readonly FlowLayoutPanel _heroPanel4;
         private readonly FlowLayoutPanel _heroPanel5;
-        private static readonly Size transparentHeroPictureBoxSize = new Size(36, 36);//单个英雄选择器中图像框大小
+        private static readonly Size transparentHeroPictureBoxSize = new Size(32, 32);//单个英雄选择器中图像框大小
         public List<HeroPictureBox> TransparentheroPictureBoxes { get; }
         #endregion
 
         #region 阵容面板       
-        private static readonly Size lineUpHeroPictureBoxSize = new Size(32, 32);//单个英雄选择器中图像框大小
+        private static readonly Size lineUpHeroPictureBoxSize = new Size(28, 28);//单个英雄选择器中图像框大小
         public HeroPictureBox[,] lineUpPictureBoxes { get; set; }
         public List<FlowLayoutPanel> lineUpPanels { get; }
         #endregion
@@ -231,7 +231,7 @@ namespace JinChanChanTool.Services
             heroPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             heroPictureBox.Image = null;
             heroPictureBox.Size = _form1.LogicalToDeviceUnits(lineUpHeroPictureBoxSize);
-            heroPictureBox.Margin = new Padding(3); // 设置间距
+            heroPictureBox.Margin = new Padding(2); // 设置间距
             parentPanel.Controls.Add(heroPictureBox);
             return heroPictureBox;
         }

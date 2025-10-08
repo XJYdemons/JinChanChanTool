@@ -37,7 +37,9 @@ namespace JinChanChanTool.Forms
 
         private void Selector_Load(object sender, EventArgs e)
         {
-
+            // 设置窗体初始位置为屏幕左上角
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(0, 0);
         }
 
         #region 拖动窗体功能

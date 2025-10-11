@@ -48,6 +48,11 @@
                 UseDynamicCoordinates =this.UseDynamicCoordinates,
                 TargetProcessName = this.TargetProcessName,
                 TargetProcessId = this.TargetProcessId,
+                MaxTimesWithoutGetCard = this.MaxTimesWithoutGetCard,
+                MaxTimesWithoutRefresh = this.MaxTimesWithoutRefresh,
+                DelayAfterMouseOperation = this.DelayAfterMouseOperation,
+                CPUDelayAfterRefreshStore = this.CPUDelayAfterRefreshStore,
+                GPUDelayAfterRefreshStore = this.GPUDelayAfterRefreshStore
             };
         }
 
@@ -95,7 +100,12 @@
                    UseFixedCoordinates == other.UseFixedCoordinates &&
                    UseDynamicCoordinates == other.UseDynamicCoordinates &&
                    TargetProcessName == other.TargetProcessName &&
-                   TargetProcessId == other.TargetProcessId;
+                   TargetProcessId == other.TargetProcessId&&
+                   MaxTimesWithoutGetCard == other.MaxTimesWithoutGetCard&&
+                   MaxTimesWithoutRefresh == other.MaxTimesWithoutRefresh&&
+                   DelayAfterMouseOperation == other.DelayAfterMouseOperation&&
+                   CPUDelayAfterRefreshStore == other.CPUDelayAfterRefreshStore&&
+                   GPUDelayAfterRefreshStore == other.GPUDelayAfterRefreshStore;
         }
 
         /// <summary>
@@ -274,6 +284,31 @@
         public int TargetProcessId { get; set; }
 
         /// <summary>
+        /// 最大未拿牌次数，超过则自动停止拿牌
+        /// </summary>
+        public int MaxTimesWithoutGetCard { get; set; }
+
+        /// <summary>
+        /// 最大未刷新次数，超过则自动停止刷新
+        /// </summary>
+        public int MaxTimesWithoutRefresh { get; set; }
+
+        /// <summary>
+        /// 键鼠操作等待时间，单位毫秒
+        /// </summary>
+        public int DelayAfterMouseOperation { get; set; }
+
+        /// <summary>
+        /// CPU推理模式下，刷新商店后等待时间，单位毫秒
+        /// </summary>
+        public int CPUDelayAfterRefreshStore { get; set; }
+
+        /// <summary>
+        /// GPU推理模式下，刷新商店后等待时间，单位毫秒
+        /// </summary>
+        public int GPUDelayAfterRefreshStore { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public AppConfig()
@@ -313,6 +348,11 @@
             UseDynamicCoordinates = false;
             TargetProcessName = "";
             TargetProcessId = 0;
+            MaxTimesWithoutGetCard = 3;
+            MaxTimesWithoutRefresh = 3;
+            DelayAfterMouseOperation = 20;
+            CPUDelayAfterRefreshStore = 308;
+            GPUDelayAfterRefreshStore = 308;
         }
         }
 }

@@ -1189,21 +1189,8 @@ namespace JinChanChanTool
 
             try
             {
-                List<string> heroNames;
-
-                // 智能判断：根据开头的特定文本，决定使用哪个解析器
-                if (lineupCode.StartsWith("【阵容码】"))
-                {
-                    // 调用金铲铲解析器
-
-                    heroNames = MobileLineUpParser.Parse(lineupCode);
-                }
-                else
-                {
-
-                    heroNames = LineUpParser.ParseCode(lineupCode);
-                }
-
+                List<string> heroNames;               
+                heroNames = LineUpParser.ParseCode(lineupCode);               
                 // 统一处理结果
                 if (heroNames != null && heroNames.Count > 0)
                 {

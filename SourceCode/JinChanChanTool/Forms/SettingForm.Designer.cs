@@ -113,6 +113,18 @@
             radioButton_CPU推理 = new RadioButton();
             panel_BackGround = new Panel();
             panel_Buttons = new Panel();
+            label_拿牌失败 = new Label();
+            textBox_MaxTimesWithoutGetCard = new TextBox();
+            label_次后自动停止拿牌 = new Label();
+            label_次后自动停止刷新 = new Label();
+            label_刷新失败 = new Label();
+            textBox_MaxTimesWithoutRefresh = new TextBox();
+            label_键鼠操作等待时间 = new Label();
+            textBox_DelayAfterMouseOperation = new TextBox();
+            label_CPU推理模式下刷新商店后等待时间 = new Label();
+            textBox_CPUDelayAfterRefreshStore = new TextBox();
+            label_GPU推理模式下刷新商店后等待时间 = new Label();
+            textBox_GPUDelayAfterRefreshStore = new TextBox();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
             tabPage_快捷键.SuspendLayout();
@@ -760,6 +772,18 @@
             // 
             panel_拿牌相关.AutoScroll = true;
             panel_拿牌相关.BackColor = Color.White;
+            panel_拿牌相关.Controls.Add(label_GPU推理模式下刷新商店后等待时间);
+            panel_拿牌相关.Controls.Add(textBox_GPUDelayAfterRefreshStore);
+            panel_拿牌相关.Controls.Add(label_CPU推理模式下刷新商店后等待时间);
+            panel_拿牌相关.Controls.Add(textBox_CPUDelayAfterRefreshStore);
+            panel_拿牌相关.Controls.Add(label_键鼠操作等待时间);
+            panel_拿牌相关.Controls.Add(textBox_DelayAfterMouseOperation);
+            panel_拿牌相关.Controls.Add(label_次后自动停止刷新);
+            panel_拿牌相关.Controls.Add(label_刷新失败);
+            panel_拿牌相关.Controls.Add(textBox_MaxTimesWithoutRefresh);
+            panel_拿牌相关.Controls.Add(label_次后自动停止拿牌);
+            panel_拿牌相关.Controls.Add(label_拿牌失败);
+            panel_拿牌相关.Controls.Add(textBox_MaxTimesWithoutGetCard);
             panel_拿牌相关.Controls.Add(panel_拿牌相关_拿牌方式);
             panel_拿牌相关.Controls.Add(panel_拿牌相关_刷新方式);
             panel_拿牌相关.Controls.Add(checkBox_避免程序与用户争夺光标控制权);
@@ -785,7 +809,7 @@
             panel_拿牌相关_拿牌方式.Controls.Add(label_拿牌按键1);
             panel_拿牌相关_拿牌方式.Controls.Add(radioButton_按键模拟拿牌);
             panel_拿牌相关_拿牌方式.Controls.Add(radioButton_鼠标模拟拿牌);
-            panel_拿牌相关_拿牌方式.Location = new Point(5, 83);
+            panel_拿牌相关_拿牌方式.Location = new Point(5, 221);
             panel_拿牌相关_拿牌方式.Name = "panel_拿牌相关_拿牌方式";
             panel_拿牌相关_拿牌方式.Size = new Size(342, 116);
             panel_拿牌相关_拿牌方式.TabIndex = 22;
@@ -916,7 +940,7 @@
             panel_拿牌相关_刷新方式.Controls.Add(label_刷新商店按键);
             panel_拿牌相关_刷新方式.Controls.Add(radioButton_按键模拟刷新商店);
             panel_拿牌相关_刷新方式.Controls.Add(radioButton_鼠标模拟刷新商店);
-            panel_拿牌相关_刷新方式.Location = new Point(5, 210);
+            panel_拿牌相关_刷新方式.Location = new Point(5, 342);
             panel_拿牌相关_刷新方式.Name = "panel_拿牌相关_刷新方式";
             panel_拿牌相关_刷新方式.Size = new Size(342, 116);
             panel_拿牌相关_刷新方式.TabIndex = 23;
@@ -978,15 +1002,15 @@
             checkBox_备战席满或金币不足时自动停止拿牌.AutoSize = true;
             checkBox_备战席满或金币不足时自动停止拿牌.Location = new Point(5, 31);
             checkBox_备战席满或金币不足时自动停止拿牌.Name = "checkBox_备战席满或金币不足时自动停止拿牌";
-            checkBox_备战席满或金币不足时自动停止拿牌.Size = new Size(219, 21);
+            checkBox_备战席满或金币不足时自动停止拿牌.Size = new Size(99, 21);
             checkBox_备战席满或金币不足时自动停止拿牌.TabIndex = 18;
-            checkBox_备战席满或金币不足时自动停止拿牌.Text = "备战席满或金币不足时自动停止拿牌";
+            checkBox_备战席满或金币不足时自动停止拿牌.Text = "自动停止拿牌";
             checkBox_备战席满或金币不足时自动停止拿牌.UseVisualStyleBackColor = true;
             // 
             // checkBox_自动停止刷新商店
             // 
             checkBox_自动停止刷新商店.AutoSize = true;
-            checkBox_自动停止刷新商店.Location = new Point(5, 57);
+            checkBox_自动停止刷新商店.Location = new Point(5, 83);
             checkBox_自动停止刷新商店.Name = "checkBox_自动停止刷新商店";
             checkBox_自动停止刷新商店.Size = new Size(123, 21);
             checkBox_自动停止刷新商店.TabIndex = 19;
@@ -1064,6 +1088,116 @@
             panel_Buttons.Name = "panel_Buttons";
             panel_Buttons.Size = new Size(382, 36);
             panel_Buttons.TabIndex = 210;
+            // 
+            // label_拿牌失败
+            // 
+            label_拿牌失败.Location = new Point(20, 55);
+            label_拿牌失败.MinimumSize = new Size(23, 23);
+            label_拿牌失败.Name = "label_拿牌失败";
+            label_拿牌失败.Size = new Size(62, 23);
+            label_拿牌失败.TabIndex = 24;
+            label_拿牌失败.Text = "拿牌失败";
+            label_拿牌失败.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_MaxTimesWithoutGetCard
+            // 
+            textBox_MaxTimesWithoutGetCard.Location = new Point(83, 55);
+            textBox_MaxTimesWithoutGetCard.Name = "textBox_MaxTimesWithoutGetCard";
+            textBox_MaxTimesWithoutGetCard.Size = new Size(53, 23);
+            textBox_MaxTimesWithoutGetCard.TabIndex = 25;
+            textBox_MaxTimesWithoutGetCard.TabStop = false;
+            // 
+            // label_次后自动停止拿牌
+            // 
+            label_次后自动停止拿牌.Location = new Point(141, 55);
+            label_次后自动停止拿牌.MinimumSize = new Size(23, 23);
+            label_次后自动停止拿牌.Name = "label_次后自动停止拿牌";
+            label_次后自动停止拿牌.Size = new Size(113, 23);
+            label_次后自动停止拿牌.TabIndex = 26;
+            label_次后自动停止拿牌.Text = "次后自动停止拿牌";
+            label_次后自动停止拿牌.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label_次后自动停止刷新
+            // 
+            label_次后自动停止刷新.Location = new Point(141, 109);
+            label_次后自动停止刷新.MinimumSize = new Size(23, 23);
+            label_次后自动停止刷新.Name = "label_次后自动停止刷新";
+            label_次后自动停止刷新.Size = new Size(113, 23);
+            label_次后自动停止刷新.TabIndex = 29;
+            label_次后自动停止刷新.Text = "次后自动停止刷新";
+            label_次后自动停止刷新.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label_刷新失败
+            // 
+            label_刷新失败.Location = new Point(20, 109);
+            label_刷新失败.MinimumSize = new Size(23, 23);
+            label_刷新失败.Name = "label_刷新失败";
+            label_刷新失败.Size = new Size(62, 23);
+            label_刷新失败.TabIndex = 27;
+            label_刷新失败.Text = "刷新失败";
+            label_刷新失败.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_MaxTimesWithoutRefresh
+            // 
+            textBox_MaxTimesWithoutRefresh.Location = new Point(83, 109);
+            textBox_MaxTimesWithoutRefresh.Name = "textBox_MaxTimesWithoutRefresh";
+            textBox_MaxTimesWithoutRefresh.Size = new Size(53, 23);
+            textBox_MaxTimesWithoutRefresh.TabIndex = 28;
+            textBox_MaxTimesWithoutRefresh.TabStop = false;
+            // 
+            // label_键鼠操作等待时间
+            // 
+            label_键鼠操作等待时间.Location = new Point(5, 137);
+            label_键鼠操作等待时间.MinimumSize = new Size(23, 23);
+            label_键鼠操作等待时间.Name = "label_键鼠操作等待时间";
+            label_键鼠操作等待时间.Size = new Size(153, 23);
+            label_键鼠操作等待时间.TabIndex = 30;
+            label_键鼠操作等待时间.Text = "键鼠操作等待时间（ms）";
+            label_键鼠操作等待时间.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_DelayAfterMouseOperation
+            // 
+            textBox_DelayAfterMouseOperation.Location = new Point(276, 137);
+            textBox_DelayAfterMouseOperation.Name = "textBox_DelayAfterMouseOperation";
+            textBox_DelayAfterMouseOperation.Size = new Size(70, 23);
+            textBox_DelayAfterMouseOperation.TabIndex = 31;
+            textBox_DelayAfterMouseOperation.TabStop = false;
+            // 
+            // label_CPU推理模式下刷新商店后等待时间
+            // 
+            label_CPU推理模式下刷新商店后等待时间.Location = new Point(5, 165);
+            label_CPU推理模式下刷新商店后等待时间.MinimumSize = new Size(23, 23);
+            label_CPU推理模式下刷新商店后等待时间.Name = "label_CPU推理模式下刷新商店后等待时间";
+            label_CPU推理模式下刷新商店后等待时间.Size = new Size(249, 23);
+            label_CPU推理模式下刷新商店后等待时间.TabIndex = 32;
+            label_CPU推理模式下刷新商店后等待时间.Text = "CPU推理模式下刷新商店后等待时间（ms）";
+            label_CPU推理模式下刷新商店后等待时间.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_CPUDelayAfterRefreshStore
+            // 
+            textBox_CPUDelayAfterRefreshStore.Location = new Point(276, 165);
+            textBox_CPUDelayAfterRefreshStore.Name = "textBox_CPUDelayAfterRefreshStore";
+            textBox_CPUDelayAfterRefreshStore.Size = new Size(70, 23);
+            textBox_CPUDelayAfterRefreshStore.TabIndex = 33;
+            textBox_CPUDelayAfterRefreshStore.TabStop = false;
+            // 
+            // label_GPU推理模式下刷新商店后等待时间
+            // 
+            label_GPU推理模式下刷新商店后等待时间.Location = new Point(5, 193);
+            label_GPU推理模式下刷新商店后等待时间.MinimumSize = new Size(23, 23);
+            label_GPU推理模式下刷新商店后等待时间.Name = "label_GPU推理模式下刷新商店后等待时间";
+            label_GPU推理模式下刷新商店后等待时间.Size = new Size(249, 23);
+            label_GPU推理模式下刷新商店后等待时间.TabIndex = 34;
+            label_GPU推理模式下刷新商店后等待时间.Text = "GPU推理模式下刷新商店后等待时间（ms）";
+            label_GPU推理模式下刷新商店后等待时间.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_GPUDelayAfterRefreshStore
+            // 
+            textBox_GPUDelayAfterRefreshStore.Location = new Point(276, 193);
+            textBox_GPUDelayAfterRefreshStore.Name = "textBox_GPUDelayAfterRefreshStore";
+            textBox_GPUDelayAfterRefreshStore.Size = new Size(70, 23);
+            textBox_GPUDelayAfterRefreshStore.TabIndex = 35;
+            textBox_GPUDelayAfterRefreshStore.TabStop = false;
             // 
             // SettingForm
             // 
@@ -1192,5 +1326,17 @@
         private RadioButton radioButton_自动设置坐标;
         private RadioButton radioButton_手动设置坐标;
         public Button button_选择进程;
+        public Label label_次后自动停止拿牌;
+        public Label label_拿牌失败;
+        public TextBox textBox_MaxTimesWithoutGetCard;
+        public Label label_键鼠操作等待时间;
+        public TextBox textBox_DelayAfterMouseOperation;
+        public Label label_次后自动停止刷新;
+        public Label label_刷新失败;
+        public TextBox textBox_MaxTimesWithoutRefresh;
+        public Label label_GPU推理模式下刷新商店后等待时间;
+        public TextBox textBox_GPUDelayAfterRefreshStore;
+        public Label label_CPU推理模式下刷新商店后等待时间;
+        public TextBox textBox_CPUDelayAfterRefreshStore;
     }
 }

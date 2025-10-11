@@ -165,6 +165,11 @@ namespace JinChanChanTool
             textBox_拿牌按键4.Text = _iappConfigService.CurrentConfig.GetCardKey4;
             textBox_拿牌按键5.Text = _iappConfigService.CurrentConfig.GetCardKey5;
             textBox_刷新商店按键.Text = _iappConfigService.CurrentConfig.RefreshKey;
+            textBox_MaxTimesWithoutGetCard.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutGetCard.ToString();
+            textBox_MaxTimesWithoutRefresh.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutRefresh.ToString();
+            textBox_DelayAfterMouseOperation.Text = _iappConfigService.CurrentConfig.DelayAfterMouseOperation.ToString();
+            textBox_CPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore.ToString();
+            textBox_GPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.GPUDelayAfterRefreshStore.ToString();
         }
 
         /// <summary>
@@ -260,6 +265,26 @@ namespace JinChanChanTool
             textBox_刷新商店按键.KeyDown += TextBox25_KeyDown;
             textBox_刷新商店按键.Enter += TextBox_Enter;
             textBox_刷新商店按键.Leave += TextBox_Leave;
+
+            textBox_MaxTimesWithoutGetCard.KeyDown += TextBox_KeyDown;
+            textBox_MaxTimesWithoutGetCard.Enter += TextBox_Enter;
+            textBox_MaxTimesWithoutGetCard.Leave += textBox_MaxTimesWithoutGetCard_Leave;
+
+            textBox_MaxTimesWithoutRefresh.KeyDown += TextBox_KeyDown;
+            textBox_MaxTimesWithoutRefresh.Enter += TextBox_Enter;
+            textBox_MaxTimesWithoutRefresh.Leave += textBox_MaxTimesWithoutRefresh_Leave;
+
+            textBox_DelayAfterMouseOperation.KeyDown += TextBox_KeyDown;
+            textBox_DelayAfterMouseOperation.Enter += TextBox_Enter;
+            textBox_DelayAfterMouseOperation.Leave += textBox_DelayAfterMouseOperation_Leave;
+
+            textBox_CPUDelayAfterRefreshStore.KeyDown += TextBox_KeyDown;
+            textBox_CPUDelayAfterRefreshStore.Enter += TextBox_Enter;
+            textBox_CPUDelayAfterRefreshStore.Leave += textBox_CPUDelayAfterRefreshStore_Leave;
+
+            textBox_GPUDelayAfterRefreshStore.KeyDown += TextBox_KeyDown;
+            textBox_GPUDelayAfterRefreshStore.Enter += TextBox_Enter;
+            textBox_GPUDelayAfterRefreshStore.Leave += textBox_GPUDelayAfterRefreshStore_Leave;
         }
 
         /// <summary>
@@ -832,15 +857,31 @@ namespace JinChanChanTool
         #region 修改-单选框-逻辑
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.HighCursorcontrol = checkBox_避免程序与用户争夺光标控制权.Checked;
+            _iappConfigService.CurrentConfig.HighCursorcontrol = checkBox_避免程序与用户争夺光标控制权.Checked;            
         }
         private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.AutoStopGet = checkBox_备战席满或金币不足时自动停止拿牌.Checked;
+            if(_iappConfigService.CurrentConfig.AutoStopGet)
+            {
+                textBox_MaxTimesWithoutGetCard.Enabled = true;
+            }
+            else
+            {
+                textBox_MaxTimesWithoutGetCard.Enabled = false;
+            }
         }
         private void CheckBox3_CheckedChanged(object sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.AutoStopRefresh = checkBox_自动停止刷新商店.Checked;
+            if (_iappConfigService.CurrentConfig.AutoStopRefresh)
+            {
+                textBox_MaxTimesWithoutRefresh.Enabled = true;
+            }
+            else
+            {
+                textBox_MaxTimesWithoutRefresh.Enabled = false;
+            }
         }
         #endregion
 
@@ -1059,6 +1100,158 @@ namespace JinChanChanTool
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
         }
+
+        #endregion
+
+        #region 修改-最大未拿牌次数-逻辑
+        /// <summary>
+        /// 离开textBox_MaxTimesWithoutGetCard时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_MaxTimesWithoutGetCard_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutGetCard.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutGetCard = int.Parse(textBox_MaxTimesWithoutGetCard.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+
+        #region 修改-最大未刷新次数-逻辑
+        /// <summary>
+        /// 离开textBox_MaxTimesWithoutRefresh时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_MaxTimesWithoutRefresh_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutRefresh.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutRefresh = int.Parse(textBox_MaxTimesWithoutRefresh.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region 修改-键鼠操作间隔时间-逻辑
+        /// <summary>
+        /// 离开textBox_DelayAfterMouseOperation时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_DelayAfterMouseOperation_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_DelayAfterMouseOperation.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.DelayAfterMouseOperation = int.Parse(textBox_DelayAfterMouseOperation.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 修改-CPU推理模式下刷新商店后等待时间-逻辑
+        /// <summary>
+        /// 离开textBox_CPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_CPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_CPUDelayAfterRefreshStore.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore = int.Parse(textBox_CPUDelayAfterRefreshStore.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region 修改-GPU推理模式下刷新商店后等待时间-逻辑
+        /// <summary>
+        /// 离开textBox_GPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_GPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_GPUDelayAfterRefreshStore.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.GPUDelayAfterRefreshStore = int.Parse(textBox_GPUDelayAfterRefreshStore.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
 
         #endregion
 

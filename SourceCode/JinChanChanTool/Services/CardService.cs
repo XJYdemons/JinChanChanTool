@@ -54,18 +54,13 @@ namespace JinChanChanTool.Services
         private bool[] 上一轮目标数组 = new bool[5] { false, false, false, false, false };
         private bool[] 当前目标数组 = new bool[5] { false, false, false, false, false };
 
-        private const int 最大未拿牌次数CPU = 3;
-        private const int 最大未刷新次数CPU = 3;
-        private const int 未刷新最大回合数CPU = 5;
-        private const double 未刷新最大时间秒数CPU = 2.0;
-        private const int 操作间隔时间CPU = 20;
-        private const int 最大未拿牌次数GPU = 3;
-        private const int 最大未刷新次数GPU = 3;
-        private const int 未刷新最大回合数GPU = 6;
-        private const double 未刷新最大时间秒数GPU = 2.0;
-        private const int 操作间隔时间GPU = 40;
-        private const int 循环间隔时间 = 1;
-        
+        private const int 最大未拿牌次数 = 3;
+        private const int 最大未刷新次数 = 3;
+        private const int 未刷新最大回合数 = 5;
+        private const double 未刷新最大时间秒数 = 3.0;
+        private const int 操作间隔时间 = 20;              
+        private const int CPU推理模式下刷新商店后等待时间 = 308;
+        private const int GPU推理模式下刷新商店后等待时间 = 308;
 
         enum 刷新状态
         {
@@ -202,9 +197,22 @@ namespace JinChanChanTool.Services
                     判断未拿牌并处理();                     
                     判断未刷新并处理();
                     更新上一轮结果数组与目标数组();
-                    await 判断是否需要刷新商店并处理();
-                    本轮是否按下过鼠标 = false;
-                    await Task.Delay(循环间隔时间);//循环间隔
+                    if(await 判断是否需要刷新商店并处理())
+                    {
+                        if(_iappConfigService.CurrentConfig.UseCPU)
+                        {
+                            await Task.Delay(CPU推理模式下刷新商店后等待时间);
+                        }                            
+                        else if(_iappConfigService.CurrentConfig.UseGPU)
+                        {
+                            await Task.Delay(GPU推理模式下刷新商店后等待时间);
+                        }  
+                        else
+                        {
+                            await Task.Delay(CPU推理模式下刷新商店后等待时间);
+                        }
+                    }
+                    本轮是否按下过鼠标 = false;                   
                 }
                 catch (OperationCanceledException)
                 {
@@ -382,20 +390,7 @@ namespace JinChanChanTool.Services
         }
 
         private bool 自动停止拿牌()
-        {
-            int 最大未拿牌次数 = 0;
-            if(_iappConfigService.CurrentConfig.UseCPU)
-            {
-                最大未拿牌次数 = 最大未拿牌次数CPU;
-            }
-            else if(_iappConfigService.CurrentConfig.UseGPU)
-            {
-                最大未拿牌次数 = 最大未拿牌次数GPU;
-            }
-            else
-            {
-                最大未拿牌次数 = 最大未拿牌次数CPU;
-            }
+        {           
             if (未拿牌累积次数 >= 最大未拿牌次数 && _iappConfigService.CurrentConfig.AutoStopGet)
             {
                 LogTool.Log("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
@@ -413,20 +408,7 @@ namespace JinChanChanTool.Services
 
         
         private void 自动停止刷新商店()
-        {
-            int 最大未刷新次数 = 0;
-            if (_iappConfigService.CurrentConfig.UseCPU)
-            {
-                最大未刷新次数 = 最大未刷新次数CPU;
-            }
-            else if (_iappConfigService.CurrentConfig.UseGPU)
-            {
-                最大未刷新次数 = 最大未刷新次数GPU;
-            }
-            else
-            {
-                最大未刷新次数 = 最大未刷新次数CPU;
-            }
+        {           
             if (未刷新累积次数 >= 最大未刷新次数 && _iappConfigService.CurrentConfig.AutoStopRefresh)
             {
                 LogTool.Log("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
@@ -472,24 +454,7 @@ namespace JinChanChanTool.Services
                     {
                         从上次尝试刷新到目前为止经过的轮次++;
                         LogTool.Log($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");
-                        Debug.WriteLine($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");
-                        int 未刷新最大回合数 = 0;
-                        double 未刷新最大时间秒数 = 0.0;
-                        if (_iappConfigService.CurrentConfig.UseCPU)
-                        {
-                            未刷新最大回合数 = 未刷新最大回合数CPU;
-                            未刷新最大时间秒数 = 未刷新最大时间秒数CPU;
-                        }
-                        else if(_iappConfigService.CurrentConfig.UseGPU)
-                        {
-                            未刷新最大回合数 = 未刷新最大回合数GPU;
-                            未刷新最大时间秒数 = 未刷新最大时间秒数GPU;
-                        }
-                        else
-                        {
-                            未刷新最大回合数 = 未刷新最大回合数CPU;
-                            未刷新最大时间秒数 = 未刷新最大时间秒数CPU;
-                        }
+                        Debug.WriteLine($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");                       
                         if (从上次尝试刷新到目前为止经过的轮次 >= 未刷新最大回合数 || 计时器.Elapsed.TotalSeconds >= 未刷新最大时间秒数)
                         {
                             LogTool.Log($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");
@@ -519,41 +484,41 @@ namespace JinChanChanTool.Services
             }
         }
 
-        private async Task 判断是否需要刷新商店并处理()
+        private async Task<bool> 判断是否需要刷新商店并处理()
         {
             if (!is自动刷新商店)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
-                return;
+                return false;
             }
 
             if (本轮是否按下过鼠标 || 鼠标左键是否按下)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");
-                return;
+                return false;
             }
 
             if (本轮是否存在目标卡())
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");
-                return;
+                return false;
             }
 
             if (当前商店刷新状态 == 刷新状态.刷新中)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");
-                return;
+                return false;
             }
 
             if (本轮是否为空())
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");
-                return;
+                return false;
             }
 
             LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     本轮操作:刷新");
@@ -567,30 +532,21 @@ namespace JinChanChanTool.Services
 
             // 执行刷新操作
             await 刷新商店();
+            return true;
         }
 
         private async Task 刷新商店()
         {
             if (_iappConfigService.CurrentConfig.MouseRefresh)
             {
-                MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.Point_RefreshStoreX, _iappConfigService.CurrentConfig.Point_RefreshStoreY);
-                if (_iappConfigService.CurrentConfig.UseCPU)
-                {
-                    await Task.Delay(操作间隔时间CPU);
-                    await ClickOneTime();
-                    await Task.Delay(操作间隔时间CPU);
-                }
-                else if (_iappConfigService.CurrentConfig.UseGPU)
-                {
-                    await Task.Delay(操作间隔时间GPU);
-                    await ClickOneTime();
-                    await Task.Delay(操作间隔时间GPU);
-                }
+                MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.Point_RefreshStoreX, _iappConfigService.CurrentConfig.Point_RefreshStoreY);                              
+                await Task.Delay(操作间隔时间);
+                await ClickOneTime();                   
+             
             }
             else if (_iappConfigService.CurrentConfig.KeyboardRefresh)
             {
-                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshKey);
-                await Task.Delay(操作间隔时间CPU);
+                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshKey);                
             }
         }
 
@@ -707,21 +663,12 @@ namespace JinChanChanTool.Services
                     if (_iappConfigService.CurrentConfig.MouseGetCard)
                     {
                         // 鼠标操作
-                        MouseControlTool.SetMousePosition(x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);
-                        if (_iappConfigService.CurrentConfig.UseCPU)
-                        {
-                            await Task.Delay(操作间隔时间CPU);
-                            // 执行点击操作，逐个点击并等待
-                            await ClickOneTime();
-                            await Task.Delay(操作间隔时间CPU);
-                        }
-                        else if (_iappConfigService.CurrentConfig.UseGPU)
-                        {
-                            await Task.Delay(操作间隔时间GPU);
-                            // 执行点击操作，逐个点击并等待
-                            await ClickOneTime();
-                            await Task.Delay(操作间隔时间GPU);
-                        }
+                        MouseControlTool.SetMousePosition(x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);                        
+                        await Task.Delay(操作间隔时间);
+                        // 执行点击操作，逐个点击并等待
+                        await ClickOneTime();
+                        await Task.Delay(操作间隔时间);
+                        
                     }
                     else if (_iappConfigService.CurrentConfig.KeyboardGetCard)
                     {
@@ -742,15 +689,8 @@ namespace JinChanChanTool.Services
                             case 4:
                                 KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5);
                                 break;
-                        }
-                        if (_iappConfigService.CurrentConfig.UseCPU)
-                        {
-                            await Task.Delay(操作间隔时间CPU);
-                        }
-                        else if (_iappConfigService.CurrentConfig.UseGPU)
-                        {
-                            await Task.Delay(操作间隔时间GPU);
-                        }
+                        }                        
+                        await Task.Delay(操作间隔时间);                       
                     }
                 }
             }

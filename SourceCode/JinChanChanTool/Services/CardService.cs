@@ -53,15 +53,9 @@ namespace JinChanChanTool.Services
         private string[] 最近一次刷新轮商店状态 = new string[5] { "", "", "", "", "" };
         private bool[] 上一轮目标数组 = new bool[5] { false, false, false, false, false };
         private bool[] 当前目标数组 = new bool[5] { false, false, false, false, false };
-
-        private const int 最大未拿牌次数 = 3;
-        private const int 最大未刷新次数 = 3;
+               
         private const int 未刷新最大回合数 = 5;
-        private const double 未刷新最大时间秒数 = 3.0;
-        private const int 操作间隔时间 = 20;              
-        private const int CPU推理模式下刷新商店后等待时间 = 308;
-        private const int GPU推理模式下刷新商店后等待时间 = 308;
-
+        private const double 未刷新最大时间秒数 = 3.0;              
         enum 刷新状态
         {
             未开始,
@@ -201,15 +195,15 @@ namespace JinChanChanTool.Services
                     {
                         if(_iappConfigService.CurrentConfig.UseCPU)
                         {
-                            await Task.Delay(CPU推理模式下刷新商店后等待时间);
+                            await Task.Delay(_iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore);
                         }                            
                         else if(_iappConfigService.CurrentConfig.UseGPU)
                         {
-                            await Task.Delay(GPU推理模式下刷新商店后等待时间);
+                            await Task.Delay(_iappConfigService.CurrentConfig.GPUDelayAfterRefreshStore);
                         }  
                         else
                         {
-                            await Task.Delay(CPU推理模式下刷新商店后等待时间);
+                            await Task.Delay(_iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore);
                         }
                     }
                     本轮是否按下过鼠标 = false;                   
@@ -391,7 +385,7 @@ namespace JinChanChanTool.Services
 
         private bool 自动停止拿牌()
         {           
-            if (未拿牌累积次数 >= 最大未拿牌次数 && _iappConfigService.CurrentConfig.AutoStopGet)
+            if (未拿牌累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutGetCard && _iappConfigService.CurrentConfig.AutoStopGet)
             {
                 LogTool.Log("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
                 Debug.WriteLine("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
@@ -409,7 +403,7 @@ namespace JinChanChanTool.Services
         
         private void 自动停止刷新商店()
         {           
-            if (未刷新累积次数 >= 最大未刷新次数 && _iappConfigService.CurrentConfig.AutoStopRefresh)
+            if (未刷新累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutRefresh && _iappConfigService.CurrentConfig.AutoStopRefresh)
             {
                 LogTool.Log("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
                 Debug.WriteLine("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
@@ -540,7 +534,7 @@ namespace JinChanChanTool.Services
             if (_iappConfigService.CurrentConfig.MouseRefresh)
             {
                 MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.Point_RefreshStoreX, _iappConfigService.CurrentConfig.Point_RefreshStoreY);                              
-                await Task.Delay(操作间隔时间);
+                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
                 await ClickOneTime();                   
              
             }
@@ -664,10 +658,10 @@ namespace JinChanChanTool.Services
                     {
                         // 鼠标操作
                         MouseControlTool.SetMousePosition(x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);                        
-                        await Task.Delay(操作间隔时间);
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
                         // 执行点击操作，逐个点击并等待
                         await ClickOneTime();
-                        await Task.Delay(操作间隔时间);
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
                         
                     }
                     else if (_iappConfigService.CurrentConfig.KeyboardGetCard)
@@ -690,7 +684,7 @@ namespace JinChanChanTool.Services
                                 KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5);
                                 break;
                         }                        
-                        await Task.Delay(操作间隔时间);                       
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);                       
                     }
                 }
             }

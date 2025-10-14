@@ -15,6 +15,9 @@ namespace JinChanChanTool.Forms
         public ProgressForm()
         {
             InitializeComponent();
+            // 添加自定义标题栏
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32, null, "正在更新当前赛季英雄推荐装备数据", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
+            this.Controls.Add(titleBar);
         }
 
         /// <summary>

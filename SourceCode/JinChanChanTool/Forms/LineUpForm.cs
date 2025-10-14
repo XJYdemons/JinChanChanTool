@@ -29,14 +29,7 @@ namespace JinChanChanTool.Forms
 
         private void LineUpForm_Load(object sender, EventArgs e)
         {
-            // 设置窗体初始位置为屏幕左上角
-            this.StartPosition = FormStartPosition.Manual;
-            var screen = Screen.PrimaryScreen.Bounds;
-            this.Location = new Point(
-                screen.Right - this.Width /*- 10*/,
-                screen.Bottom - this.Height /*+ 10*/
-            );
-            Debug.WriteLine($"screen.Right:{screen.Right},screen.Bottom:{screen.Bottom},this.Width:{this.Width},this.Height:{this.Height}");
+           
         }
 
         #region 拖动窗体功能
@@ -72,6 +65,7 @@ namespace JinChanChanTool.Forms
             Panel panel = sender as Panel;
             panel.BackColor = Color.FromArgb(218, 218, 218);
             _dragging = false;
+            SaveFormLocation();
         }
         #endregion
 
@@ -93,10 +87,13 @@ namespace JinChanChanTool.Forms
             }
         }
         private  ILineUpService _ilineUpService;
-        public void InitializeObject(ILineUpService ilineUpService)
+        public IAppConfigService _iAppConfigService;
+        public void InitializeObject(ILineUpService ilineUpService,IAppConfigService iAppConfigService)
         {
-            _ilineUpService= ilineUpService;
-        }
+            _iAppConfigService = iAppConfigService;
+            _ilineUpService = ilineUpService;
+            ApplySavedLocation();
+        }       
         private void button1_Click(object sender, EventArgs e)
         {
             if (_ilineUpService.Save())
@@ -109,5 +106,67 @@ namespace JinChanChanTool.Forms
         {
             _ilineUpService.ClearCurrentSubLineUp();
         }
+        #region 位置保存与读取
+        /// <summary>
+        /// 从配置中读取并应用窗口位置
+        /// </summary>
+        private void ApplySavedLocation()
+        {
+            try
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                if (_iAppConfigService.CurrentConfig.LineUpFormLocation.X == -1 && _iAppConfigService.CurrentConfig.LineUpFormLocation.Y == -1)
+                {                   
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Right - this.Width /*- 10*/,
+                        screen.Bottom - this.Height /*+ 10*/
+                    );
+                    return;
+                }
+                // 确保坐标在屏幕范围内
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAppConfigService.CurrentConfig.LineUpFormLocation)))
+                {
+                    this.Location = _iAppConfigService.CurrentConfig.LineUpFormLocation;
+                }
+                else
+                {
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Right - this.Width /*- 10*/,
+                        screen.Bottom - this.Height /*+ 10*/
+                    );
+                }
+            }
+            catch
+            {
+                var screen = Screen.PrimaryScreen.Bounds;
+                this.Location = new Point(
+                    screen.Right - this.Width /*- 10*/,
+                    screen.Bottom - this.Height /*+ 10*/
+                );
+            }
+        }
+
+        /// <summary>
+        /// 拖动结束时保存窗口位置到配置服务
+        /// </summary>
+        private void SaveFormLocation()
+        {          
+            try
+            {
+                if (_iAppConfigService != null)
+                {
+                    _iAppConfigService.CurrentConfig.LineUpFormLocation = this.Location;
+                    _iAppConfigService.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        #endregion
     }
 }

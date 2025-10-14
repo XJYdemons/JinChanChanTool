@@ -13,7 +13,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 设置变更事件，当设置保存后触发。
         /// </summary>
-        public event Action OnConfigSaved;
+        public event EventHandler<ConfigChangedEventArgs> OnConfigSaved;
 
         /// <summary>
         /// 应用设置文件路径。
@@ -58,6 +58,23 @@ namespace JinChanChanTool.Services.DataServices
         {
             try
             {
+                // 读取旧配置副本（用于比较）
+                AppConfig oldConfig = null;
+                if(File.Exists(filePath))
+                {
+                    try
+                    {
+                        string oldJson = File.ReadAllText(filePath);
+                        if (!string.IsNullOrEmpty(oldJson))
+                        {
+                            oldConfig = JsonSerializer.Deserialize<AppConfig>(oldJson);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
                 // 设置 JsonSerializerOptions 以保持中文字符的可读性
                 var options = new JsonSerializerOptions
                 {
@@ -66,8 +83,10 @@ namespace JinChanChanTool.Services.DataServices
                 };
                 string json = JsonSerializer.Serialize(CurrentConfig, options);
                 File.WriteAllText(filePath, json);
-                // 保存后触发配置变更事件
-                OnConfigSaved?.Invoke();
+                // 计算差异字段
+                var changedFields = GetChangedFields(oldConfig, CurrentConfig);
+                // 触发通知事件
+                OnConfigSaved?.Invoke(this, new ConfigChangedEventArgs(changedFields));
             }
             catch
             {
@@ -97,8 +116,6 @@ namespace JinChanChanTool.Services.DataServices
             Load();
         }
         #endregion
-
-
 
         #region 私有方法
         /// <summary>
@@ -143,9 +160,51 @@ namespace JinChanChanTool.Services.DataServices
                 Save();
             }
         }
+
+        /// <summary>
+        /// 比较两个 AppConfig，返回所有值不同的属性名。
+        /// </summary>
+        private List<string> GetChangedFields(AppConfig oldConfig, AppConfig newConfig)
+        {
+            var changed = new List<string>();
+
+            if (oldConfig == null || newConfig == null)
+                return changed;
+
+            var properties = typeof(AppConfig).GetProperties();
+
+            foreach (var prop in properties)
+            {
+                var oldValue = prop.GetValue(oldConfig);
+                var newValue = prop.GetValue(newConfig);
+
+                if (oldValue == null && newValue == null)
+                    continue;
+
+                if ((oldValue == null && newValue != null) ||
+                    (oldValue != null && !oldValue.Equals(newValue)))
+                {
+                    changed.Add(prop.Name);
+                }
+            }
+
+            return changed;
+        }
         #endregion
 
 
 
+    }
+    public class ConfigChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// 被修改的字段名列表。
+        /// </summary>
+        public List<string> ChangedFields { get; }
+
+        public ConfigChangedEventArgs(List<string> changedFields)
+        {
+            ChangedFields = changedFields;
+        }
     }
 }

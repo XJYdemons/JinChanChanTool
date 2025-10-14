@@ -30,7 +30,7 @@ namespace JinChanChanTool.Forms
         {
             InitializeComponent();
             // 添加自定义标题栏
-            CustomTitleBar titleBar = new CustomTitleBar(this,32, null, "OCR结果纠正编辑器", CustomTitleBar.ButtonOptions.None);
+            CustomTitleBar titleBar = new CustomTitleBar(this,32, null, "英雄配置文件编辑器", CustomTitleBar.ButtonOptions.None);
             this.Controls.Add(titleBar);
             isChanged = false;
             _iheroDataService = new HeroDataService();

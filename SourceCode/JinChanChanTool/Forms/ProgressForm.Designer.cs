@@ -30,13 +30,17 @@
         {
             progressBar1 = new ProgressBar();
             lblStatus = new Label();
+            panel_BackGround = new Panel();
+            panel_BackGround.SuspendLayout();
             SuspendLayout();
             // 
             // progressBar1
             // 
-            progressBar1.Location = new Point(12, 12);
+            progressBar1.Dock = DockStyle.Fill;
+            progressBar1.Location = new Point(5, 5);
+            progressBar1.Margin = new Padding(5);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(303, 29);
+            progressBar1.Size = new Size(326, 57);
             progressBar1.TabIndex = 0;
             // 
             // lblStatus
@@ -47,15 +51,32 @@
             lblStatus.Size = new Size(0, 17);
             lblStatus.TabIndex = 1;
             // 
+            // panel_BackGround
+            // 
+            panel_BackGround.AutoScroll = true;
+            panel_BackGround.AutoSize = true;
+            panel_BackGround.BackColor = Color.White;
+            panel_BackGround.Controls.Add(progressBar1);
+            panel_BackGround.Dock = DockStyle.Fill;
+            panel_BackGround.Location = new Point(0, 0);
+            panel_BackGround.Name = "panel_BackGround";
+            panel_BackGround.Padding = new Padding(5);
+            panel_BackGround.Size = new Size(336, 67);
+            panel_BackGround.TabIndex = 2;
+            // 
             // ProgressForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(336, 70);
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
+            ClientSize = new Size(336, 67);
+            Controls.Add(panel_BackGround);
             Controls.Add(lblStatus);
-            Controls.Add(progressBar1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "ProgressForm";
             Text = "获取进度";
+            TopMost = true;
+            panel_BackGround.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -64,5 +85,6 @@
 
         private ProgressBar progressBar1;
         private Label lblStatus;
+        private Panel panel_BackGround;
     }
 }

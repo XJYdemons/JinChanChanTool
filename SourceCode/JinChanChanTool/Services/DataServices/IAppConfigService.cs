@@ -12,7 +12,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 设置变更事件，当设置保存后触发。
         /// </summary>
-        event Action OnConfigSaved;
+        event EventHandler<ConfigChangedEventArgs> OnConfigSaved;
 
         /// <summary>
         /// 从应用设置文件读取到对象。

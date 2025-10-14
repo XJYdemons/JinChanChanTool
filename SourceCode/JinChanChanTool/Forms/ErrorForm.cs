@@ -31,7 +31,7 @@ namespace JinChanChanTool.Forms
             InitializeComponent();
             #region 自定义标题栏
             // 自定义标题栏,带图标、带标题、最小化按钮。
-            CustomTitleBar titleBar = new CustomTitleBar(this, 32,null , "识别错误输出窗口",CustomTitleBar.ButtonOptions.Minimize);
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32,null , "识别错误输出窗口",CustomTitleBar.ButtonOptions.None);
             this.Controls.Add(titleBar);
             #endregion
             

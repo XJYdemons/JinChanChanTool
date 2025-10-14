@@ -52,7 +52,15 @@
                 MaxTimesWithoutRefresh = this.MaxTimesWithoutRefresh,
                 DelayAfterMouseOperation = this.DelayAfterMouseOperation,
                 CPUDelayAfterRefreshStore = this.CPUDelayAfterRefreshStore,
-                GPUDelayAfterRefreshStore = this.GPUDelayAfterRefreshStore
+                GPUDelayAfterRefreshStore = this.GPUDelayAfterRefreshStore,
+                SelectorFormLocation = this.SelectorFormLocation ,
+                LineUpFormLocation = this.LineUpFormLocation,
+                StatusOverlayFormLocation =  this.StatusOverlayFormLocation,
+                UseSelectorForm = this.UseSelectorForm,
+                UseLineUpForm = this.UseLineUpForm,
+                UseStatusOverlayForm = this.UseStatusOverlayForm,
+                UseErrorShowForm = this.UseErrorShowForm,
+                StopRefreshWhenErrorCharacters =this.StopRefreshWhenErrorCharacters,
             };
         }
 
@@ -100,12 +108,20 @@
                    UseFixedCoordinates == other.UseFixedCoordinates &&
                    UseDynamicCoordinates == other.UseDynamicCoordinates &&
                    TargetProcessName == other.TargetProcessName &&
-                   TargetProcessId == other.TargetProcessId&&
-                   MaxTimesWithoutGetCard == other.MaxTimesWithoutGetCard&&
-                   MaxTimesWithoutRefresh == other.MaxTimesWithoutRefresh&&
-                   DelayAfterMouseOperation == other.DelayAfterMouseOperation&&
-                   CPUDelayAfterRefreshStore == other.CPUDelayAfterRefreshStore&&
-                   GPUDelayAfterRefreshStore == other.GPUDelayAfterRefreshStore;
+                   TargetProcessId == other.TargetProcessId &&
+                   MaxTimesWithoutGetCard == other.MaxTimesWithoutGetCard &&
+                   MaxTimesWithoutRefresh == other.MaxTimesWithoutRefresh &&
+                   DelayAfterMouseOperation == other.DelayAfterMouseOperation &&
+                   CPUDelayAfterRefreshStore == other.CPUDelayAfterRefreshStore &&
+                   GPUDelayAfterRefreshStore == other.GPUDelayAfterRefreshStore &&
+                   SelectorFormLocation == other.SelectorFormLocation &&
+                   LineUpFormLocation == other.LineUpFormLocation &&
+                   StatusOverlayFormLocation == other.StatusOverlayFormLocation &&
+                   UseSelectorForm == other.UseSelectorForm &&
+                   UseLineUpForm == other.UseLineUpForm &&
+                   UseStatusOverlayForm == other.UseStatusOverlayForm &&
+                   UseErrorShowForm == other.UseErrorShowForm &&
+                   StopRefreshWhenErrorCharacters == other.StopRefreshWhenErrorCharacters;
         }
 
         /// <summary>
@@ -309,6 +325,43 @@
         public int GPUDelayAfterRefreshStore { get; set; }
 
         /// <summary>
+        /// 英雄选择面板位置
+        /// </summary>
+        public Point SelectorFormLocation { get; set; }
+
+        /// <summary>
+        /// 阵容选择面板位置
+        /// </summary>        
+        public Point LineUpFormLocation { get; set; }
+
+        /// <summary>
+        /// 状态显示面板位置
+        /// </summary>
+        public Point StatusOverlayFormLocation { get; set; }
+
+        /// <summary>
+        /// 使用英雄选择面板
+        /// </summary>
+        public bool UseSelectorForm {  get; set; }
+
+        /// <summary>
+        /// 使用阵容选择面板
+        /// </summary>
+        public bool UseLineUpForm { get; set; }
+
+        /// <summary>
+        /// 使用状态显示面板
+        /// </summary>
+        public bool UseStatusOverlayForm {  get; set; }
+
+        /// <summary>
+        /// 使用错误信息展示窗口
+        /// </summary>
+        public bool UseErrorShowForm { get; set; }
+
+        public bool StopRefreshWhenErrorCharacters {  get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public AppConfig()
@@ -353,6 +406,14 @@
             DelayAfterMouseOperation = 20;
             CPUDelayAfterRefreshStore = 308;
             GPUDelayAfterRefreshStore = 308;
-        }
+            SelectorFormLocation = new Point(-1, -1);
+            LineUpFormLocation = new Point(-1, -1);
+            StatusOverlayFormLocation = new Point(-1, -1);
+            UseSelectorForm = true;
+            UseLineUpForm = true;
+            UseStatusOverlayForm = true;
+            UseErrorShowForm = true;
+            StopRefreshWhenErrorCharacters = true;
+    }
         }
 }

@@ -104,7 +104,7 @@ namespace JinChanChanTool
             _automationService = new AutomationService(_windowInteractionService, _coordService); 
             #endregion
         }      
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             #region 初始化赛季下拉框
             comboBox_HeroPool.Items.Clear();
@@ -143,17 +143,40 @@ namespace JinChanChanTool
             #endregion
 
             #region 初始化状态显示窗口
-            // 创建并显示状态窗口
-            StatusOverlayForm.Instance.Show();
+            StatusOverlayForm.Instance.InitializeObject(_iappConfigService);
+            if(_iappConfigService.CurrentConfig.UseStatusOverlayForm)
+            {
+                StatusOverlayForm.Instance.Show();
+                UpdateOverlayStatus();
+            }
+            #endregion
 
+            #region 初始化英雄选择窗口
+            Selector.Instance.InitializeObject(_iappConfigService);
+            if(_iappConfigService.CurrentConfig.UseSelectorForm)
+            {
+                Selector.Instance.Show();
+            }
+            #endregion
 
-            UpdateOverlayStatus();
-            #endregion         
+            #region 初始化阵容选择窗口
+            LineUpForm.Instance.InitializeObject(_ilineUpService, _iappConfigService);
+            if(_iappConfigService.CurrentConfig.UseLineUpForm)
+            {
+                LineUpForm.Instance.Show();
+            }
+            #endregion
 
-            ShowErrorForm();          
-            Selector.Instance.Show();
-            LineUpForm.Instance.InitializeObject(_ilineUpService);
-            LineUpForm.Instance.Show();
+            #region 错误信息输出窗口
+            if(_iappConfigService.CurrentConfig.UseErrorShowForm)
+            {
+                ErrorForm.Instance.Show();
+            }
+            #endregion
+
+            #region 更新英雄推荐装备
+            await UpdateEquipmentsAsync();
+            #endregion
         }
 
         /// <summary>
@@ -173,30 +196,105 @@ namespace JinChanChanTool
         /// <summary>
         /// 当设置被保存时触发，询问用户是否重启应用。
         /// </summary>
-        private void OnConfigSaved()
-        {
+        private void OnConfigSaved(object sender, EventArgs e)
+        {                   
             // 确保在UI线程执行
             if (InvokeRequired)
             {
-                Invoke(new Action(OnConfigSaved));
+                Invoke(new Action(() => OnConfigSaved(sender, e)));
                 return;
             }
-
-            // 配置已保存，询问用户是否重启应用
-            var result = MessageBox.Show(
-                "需要重启应用程序才能生效。是否立即重启？",
-                "重启确认",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (result == DialogResult.Yes)
-            {
-                // 重启应用程序
-                Application.Restart();
-                // 确保当前进程退出
-                Environment.Exit(0);
+            ConfigChangedEventArgs configChangedEventArgs = e as ConfigChangedEventArgs;
+            if(configChangedEventArgs.ChangedFields.Count == 0)
+            {               
+                return;
             }
+            //Debug.WriteLine("以下配置发生了变化：");
+            //foreach (var field in configChangedEventArgs.ChangedFields)
+            //{
+            //    Debug.WriteLine(field);
+            //}
+            if(configChangedEventArgs.ChangedFields.Contains("HotKey1") ||
+                configChangedEventArgs.ChangedFields.Contains("HotKey2") ||
+                configChangedEventArgs.ChangedFields.Contains("HotKey3") ||
+                configChangedEventArgs.ChangedFields.Contains("HotKey4"))
+            {
+                RegisterHotKeys();
+            }
+            if(configChangedEventArgs.ChangedFields.Contains("UseSelectorForm"))
+            {
+                if(_iappConfigService.CurrentConfig.UseSelectorForm)
+                {                  
+                    Selector.Instance.TopMost = false;
+                    Selector.Instance.TopMost = true;
+                    Selector.Instance.Show();                    
+                }
+                else
+                {                   
+                    Selector.Instance.Visible = false;
+                }
+            }
+            if (configChangedEventArgs.ChangedFields.Contains("UseLineUpForm"))
+            {
+                if (_iappConfigService.CurrentConfig.UseLineUpForm)
+                {
+                    LineUpForm.Instance.TopMost = false;
+                    LineUpForm.Instance.TopMost = true;
+                    LineUpForm.Instance.Show();
+                }
+                else
+                {
+                    LineUpForm.Instance.Visible = false;
+                }
+            }
+            if (configChangedEventArgs.ChangedFields.Contains("UseStatusOverlayForm"))
+            {
+                if (_iappConfigService.CurrentConfig.UseStatusOverlayForm)
+                {
+                    StatusOverlayForm.Instance.TopMost = false;
+                    StatusOverlayForm.Instance.TopMost = true;
+                    StatusOverlayForm.Instance.Show();
+                    UpdateOverlayStatus();
+                }
+                else
+                {
+                    StatusOverlayForm.Instance.Visible = false;
+                }
+            }
+            if (configChangedEventArgs.ChangedFields.Contains("UseErrorShowForm"))
+            {
+                if (_iappConfigService.CurrentConfig.UseErrorShowForm)
+                {
+                    ErrorForm.Instance.TopMost = false;
+                    ErrorForm.Instance.TopMost = true;
+                    ErrorForm.Instance.Show();
+                }
+                else
+                {
+                    ErrorForm.Instance.Visible = false;
+                }
+            }
+            if (configChangedEventArgs.ChangedFields.Contains("MaxOfChoices")||
+                configChangedEventArgs.ChangedFields.Contains("CountOfLine") ||
+                configChangedEventArgs.ChangedFields.Contains("UseCPU") ||
+                configChangedEventArgs.ChangedFields.Contains("UseGPU")) 
+            {
+                // 配置已保存，询问用户是否重启应用
+                var result = MessageBox.Show(
+                    "需要重启应用程序才能生效。是否立即重启？",
+                    "重启确认",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    // 重启应用程序
+                    Application.Restart();
+                    // 确保当前进程退出
+                    Environment.Exit(0);
+                }
+            }               
         }
 
         #endregion
@@ -207,6 +305,7 @@ namespace JinChanChanTool
         /// </summary>
         private void RegisterHotKeys()
         {
+            GlobalHotkeyTool.UnregisterAll();//先注销所有热键
             string hotKey1 = _iappConfigService.CurrentConfig.HotKey1;
             string hotKey2 = _iappConfigService.CurrentConfig.HotKey2;
             string hotKey3 = _iappConfigService.CurrentConfig.HotKey3;
@@ -362,6 +461,8 @@ namespace JinChanChanTool
         #endregion
 
         #region 窗口、菜单项相关
+        private SettingForm _settingFormInstance = null; // 保存窗口实例的字段
+        private AboutForm _aboutFormInstance = null;
         #region UI事件
         /// <summary>
         /// 菜单项“设置”被单击
@@ -384,16 +485,6 @@ namespace JinChanChanTool
         }
 
         /// <summary>
-        /// 菜单项“帮助-发送反馈”被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void 发送反馈ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowHelpForm();
-        }
-
-        /// <summary>
         /// 帮助-日志
         /// </summary>
         /// <param name="sender"></param>
@@ -405,16 +496,7 @@ namespace JinChanChanTool
                 MessageBox.Show("日志文件不存在或无法打开！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        /// <summary>
-        /// 菜单项“识别错误输出窗口”触发
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStripMenuItem_识别错误输出窗口_Click(object sender, EventArgs e)
-        {
-            ShowErrorForm();
-        }
+      
         #endregion
 
         #region 方法
@@ -443,44 +525,54 @@ namespace JinChanChanTool
         /// </summary>
         private void ShowSettingForm()
         {
-            SettingForm _settingForm = new SettingForm(_iappConfigService);
-            _settingForm.TopMost = true;
-            _settingForm.Show();
-            _settingForm.BringToFront();
+            // 检查窗口是否已存在且未被释放
+            if (_settingFormInstance == null || _settingFormInstance.IsDisposed)
+            {
+                _settingFormInstance = new SettingForm(_iappConfigService);
+                _settingFormInstance.FormClosed += (s, args) => _settingFormInstance = null; // 窗口关闭时重置实例
+                _settingFormInstance.TopMost = true;
+                _settingFormInstance.Show();
+            }
+            else
+            {
+                // 如果窗口最小化则恢复正常状态
+                if (_settingFormInstance.WindowState == FormWindowState.Minimized)
+                {
+                    _settingFormInstance.WindowState = FormWindowState.Normal;
+                }
+
+                // 激活窗口并置顶
+                _settingFormInstance.BringToFront();
+                _settingFormInstance.Activate();
+            }
         }
 
 
         private void ShowAboutForm()
         {
-            AboutForm _aboutForm = new AboutForm();
-            _aboutForm.TopMost = true;
-            _aboutForm.Show();
-            _aboutForm.BringToFront();
-        }
-
-        private void ShowHelpForm()
-        {
-            HelpForm _helpForm = new HelpForm();
-            _helpForm.TopMost = true;
-            _helpForm.Show();
-            _helpForm.BringToFront();
-        }
-
-        private void ShowErrorForm()
-        {
-            if (ErrorForm.Instance.WindowState == FormWindowState.Minimized)
+            // 检查窗口是否已存在且未被释放
+            if (_aboutFormInstance == null || _aboutFormInstance.IsDisposed)
             {
-                ErrorForm.Instance.WindowState = FormWindowState.Normal;
-                ErrorForm.Instance.Show();
-                ErrorForm.Instance.BringToFront();
+                _aboutFormInstance = new AboutForm();
+                _aboutFormInstance.FormClosed += (s, args) => _aboutFormInstance = null; // 窗口关闭时重置实例
+                _aboutFormInstance.TopMost = true;
+                _aboutFormInstance.Show();
             }
-            if (!ErrorForm.Instance.Visible)
+            else
             {
-                ErrorForm.Instance.Show();
-                ErrorForm.Instance.BringToFront();
-            }
+                // 如果窗口最小化则恢复正常状态
+                if (_aboutFormInstance.WindowState == FormWindowState.Minimized)
+                {
+                    _aboutFormInstance.WindowState = FormWindowState.Normal;
+                }
 
+                // 激活窗口并置顶
+                _aboutFormInstance.BringToFront();
+                _aboutFormInstance.Activate();
+            }
         }
+
+      
         #endregion
         #endregion
 
@@ -1234,18 +1326,10 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 更新装备数据
-        /// <summary>
-        /// 处理“更新装备数据”按钮的点击事件。
-        /// 这是协调所有新服务完成数据更新流程的总入口。
-        /// </summary>
-        private async void toolStripMenuItem_GetEquipments_Click(object sender, EventArgs e)
+        #region 更新装备数据       
+        private async Task UpdateEquipmentsAsync()
         {
-
-            // 将 sender 转换为 Button 类型，以便我们访问它的属性
-            var _toolStripMenuItem = sender as ToolStripMenuItem;
-            if (_toolStripMenuItem == null) return;
-
+           
             // 检查本地缓存的文件修改时间，避免频繁请求
             try
             {
@@ -1258,10 +1342,10 @@ namespace JinChanChanTool
                 {
                     DateTime lastUpdateTime = File.GetLastWriteTime(dataFilePath);
                     // 3. 设置一个缓存有效期，例如 6 小时
-                    if (DateTime.Now - lastUpdateTime < TimeSpan.FromHours(6))
+                    if (DateTime.Now - lastUpdateTime < TimeSpan.FromHours(24))
                     {
-                        MessageBox.Show($"装备数据在 {lastUpdateTime:G} 刚刚更新过，已是最新，无需重复更新。",
-                                        "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show($"装备数据在 {lastUpdateTime:G} 刚刚更新过，已是最新，无需重复更新。",
+                        //                "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return; // 直接中断，不执行任何网络请求
                     }
                 }
@@ -1272,8 +1356,7 @@ namespace JinChanChanTool
                 System.Diagnostics.Debug.WriteLine($"检查缓存时出错: {ex.Message}");
             }
 
-            // 禁用按钮，防止用户重复点击
-            _toolStripMenuItem.Enabled = false;
+          
             // 创建进度条窗口，用于向用户反馈进度
             var progressForm = new JinChanChanTool.Forms.ProgressForm();
             var progress = new Progress<Tuple<int, string>>(update =>
@@ -1337,8 +1420,7 @@ namespace JinChanChanTool
             finally
             {
                 // 无论成功还是失败，都确保关闭进度窗口并恢复按钮
-                progressForm.Close();
-                _toolStripMenuItem.Enabled = true;
+                progressForm.Close();              
             }
         }
         #endregion
@@ -1424,22 +1506,7 @@ namespace JinChanChanTool
             // 2.ID 优先,检查用户上次精确选择的进程ID是否依然有效
             int targetId = _iappConfigService.CurrentConfig.TargetProcessId;
             if (targetId > 0)
-            {
-                //try
-                //{
-                //    Process p = Process.GetProcessById(targetId);
-                //    // 确保进程名也匹配，防止PID被系统重用给其他程序
-                //    if (p.ProcessName.Equals(_iappConfigService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
-                //    {
-                //        targetProcess = p;
-                //        processFound = true;
-                //    }
-                //}
-                //catch (ArgumentException) // 进程已关闭会抛出此异常
-                //{
-                //    // ID无效，清除它，让程序回退到按名称查找
-                //    _iappConfigService.CurrentConfig.TargetProcessId = 0;
-                //}
+            {               
                 var runningProcessIds = Process.GetProcesses().Select(p => p.Id).ToHashSet();
 
                 // 检查保存的ID是否存在于这个集合中

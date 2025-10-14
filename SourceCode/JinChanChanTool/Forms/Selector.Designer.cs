@@ -122,6 +122,7 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Selector";
+            ShowInTaskbar = false;
             Text = "Selector";
             TopMost = true;
             TransparencyKey = Color.Magenta;

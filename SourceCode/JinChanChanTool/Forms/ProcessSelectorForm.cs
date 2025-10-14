@@ -21,6 +21,10 @@ namespace JinChanChanTool.Forms
         public ProcessSelectorForm(ProcessDiscoveryService processDiscoveryService)
         {
             InitializeComponent();
+            #region 自定义标题栏
+            CustomTitleBar titleBar = new CustomTitleBar(this, 32, null, "选择进程", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize|CustomTitleBar.ButtonOptions.Maximize);
+            this.Controls.Add(titleBar);
+            #endregion
             _processDiscoveryService = processDiscoveryService;
 
             listBox_Processes.DisplayMember = "DisplayName";

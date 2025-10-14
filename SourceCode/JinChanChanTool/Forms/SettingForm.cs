@@ -153,6 +153,7 @@ namespace JinChanChanTool
             checkBox_避免程序与用户争夺光标控制权.Checked = _iappConfigService.CurrentConfig.HighCursorcontrol;
             checkBox_备战席满或金币不足时自动停止拿牌.Checked = _iappConfigService.CurrentConfig.AutoStopGet;
             checkBox_自动停止刷新商店.Checked = _iappConfigService.CurrentConfig.AutoStopRefresh;
+            checkBox_StopRefreshWhenErrorCharacters.Checked = _iappConfigService.CurrentConfig.StopRefreshWhenErrorCharacters;
             radioButton_鼠标模拟拿牌.Checked = _iappConfigService.CurrentConfig.MouseGetCard;
             radioButton_按键模拟拿牌.Checked = _iappConfigService.CurrentConfig.KeyboardGetCard;
             radioButton_鼠标模拟刷新商店.Checked = _iappConfigService.CurrentConfig.MouseRefresh;
@@ -170,6 +171,10 @@ namespace JinChanChanTool
             textBox_DelayAfterMouseOperation.Text = _iappConfigService.CurrentConfig.DelayAfterMouseOperation.ToString();
             textBox_CPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore.ToString();
             textBox_GPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.GPUDelayAfterRefreshStore.ToString();
+            checkBox_UseSelectorForm.Checked = _iappConfigService.CurrentConfig.UseSelectorForm;
+            checkBox_UseLineUpFormLocation.Checked = _iappConfigService.CurrentConfig.UseLineUpForm;
+            checkBox_UseStatusOverlayForm.Checked = _iappConfigService.CurrentConfig.UseStatusOverlayForm;
+            checkBox_UseErrorShowForm.Checked = _iappConfigService.CurrentConfig.UseErrorShowForm;            
         }
 
         /// <summary>
@@ -236,6 +241,7 @@ namespace JinChanChanTool
             checkBox_避免程序与用户争夺光标控制权.CheckedChanged += CheckBox1_CheckedChanged;
             checkBox_备战席满或金币不足时自动停止拿牌.CheckedChanged += CheckBox2_CheckedChanged;
             checkBox_自动停止刷新商店.CheckedChanged += CheckBox3_CheckedChanged;
+            checkBox_StopRefreshWhenErrorCharacters.CheckedChanged += checkBox_StopRefreshWhenErrorCharacters_CheckedChanged;
             radioButton_鼠标模拟拿牌.CheckedChanged += radioButton1_CheckedChanged;
             radioButton_按键模拟拿牌.CheckedChanged += radioButton2_CheckedChanged;
             radioButton_按键模拟刷新商店.CheckedChanged += radioButton3_CheckedChanged;
@@ -285,6 +291,11 @@ namespace JinChanChanTool
             textBox_GPUDelayAfterRefreshStore.KeyDown += TextBox_KeyDown;
             textBox_GPUDelayAfterRefreshStore.Enter += TextBox_Enter;
             textBox_GPUDelayAfterRefreshStore.Leave += textBox_GPUDelayAfterRefreshStore_Leave;
+
+            checkBox_UseSelectorForm.CheckedChanged += checkBox_UseSelectorForm_CheckedChanged;
+            checkBox_UseLineUpFormLocation.CheckedChanged += checkBox_UseLineUpFormLocation_CheckedChanged;
+            checkBox_UseStatusOverlayForm.CheckedChanged += checkBox_UseStatusOverlayForm_CheckedChanged;
+            checkBox_UseErrorShowForm.CheckedChanged += checkBox_UseErrorShowForm_CheckedChanged;
         }
 
         /// <summary>
@@ -883,6 +894,11 @@ namespace JinChanChanTool
                 textBox_MaxTimesWithoutRefresh.Enabled = false;
             }
         }
+        
+        private void checkBox_StopRefreshWhenErrorCharacters_CheckedChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.StopRefreshWhenErrorCharacters = checkBox_StopRefreshWhenErrorCharacters.Checked;           
+        }
         #endregion
 
         #region 拿牌方式单选框改变
@@ -1457,6 +1473,29 @@ namespace JinChanChanTool
             form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
             form.TopMost = true;// 确保窗口在最前面
             form.Show();// 显示窗口
+        }
+        #endregion
+
+        #region 面板设置
+
+        private void checkBox_UseSelectorForm_CheckedChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.UseSelectorForm = checkBox_UseSelectorForm.Checked;
+        }
+
+        private void checkBox_UseLineUpFormLocation_CheckedChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.UseLineUpForm = checkBox_UseLineUpFormLocation.Checked;
+        }
+
+        private void checkBox_UseStatusOverlayForm_CheckedChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.UseStatusOverlayForm = checkBox_UseStatusOverlayForm.Checked;
+        }
+
+        private void checkBox_UseErrorShowForm_CheckedChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.UseErrorShowForm = checkBox_UseErrorShowForm.Checked;
         }
         #endregion
 

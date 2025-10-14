@@ -64,8 +64,6 @@
             toolStripMenuItem_帮助 = new ToolStripMenuItem();
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
-            toolStripMenuItem_GetEquipments = new ToolStripMenuItem();
-            toolStripMenuItem_识别错误输出窗口 = new ToolStripMenuItem();
             panel_BackGround = new Panel();
             panel1 = new Panel();
             label1 = new Label();
@@ -443,7 +441,7 @@
             // 
             menuStrip_Main.BackColor = Color.White;
             menuStrip_Main.ImageScalingSize = new Size(24, 24);
-            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于, toolStripMenuItem_GetEquipments, toolStripMenuItem_识别错误输出窗口 });
+            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于 });
             menuStrip_Main.Location = new Point(3, 2);
             menuStrip_Main.Name = "menuStrip_Main";
             menuStrip_Main.Size = new Size(401, 25);
@@ -477,20 +475,6 @@
             toolStripMenuItem_关于.Size = new Size(44, 21);
             toolStripMenuItem_关于.Text = "关于";
             toolStripMenuItem_关于.Click += 关于ToolStripMenuItem_Click;
-            // 
-            // toolStripMenuItem_GetEquipments
-            // 
-            toolStripMenuItem_GetEquipments.Name = "toolStripMenuItem_GetEquipments";
-            toolStripMenuItem_GetEquipments.Size = new Size(92, 21);
-            toolStripMenuItem_GetEquipments.Text = "获取推荐装备";
-            toolStripMenuItem_GetEquipments.Click += toolStripMenuItem_GetEquipments_Click;
-            // 
-            // toolStripMenuItem_识别错误输出窗口
-            // 
-            toolStripMenuItem_识别错误输出窗口.Name = "toolStripMenuItem_识别错误输出窗口";
-            toolStripMenuItem_识别错误输出窗口.Size = new Size(116, 21);
-            toolStripMenuItem_识别错误输出窗口.Text = "识别错误输出窗口";
-            toolStripMenuItem_识别错误输出窗口.Click += toolStripMenuItem_识别错误输出窗口_Click;
             // 
             // panel_BackGround
             // 
@@ -621,11 +605,9 @@
         private FlowLayoutPanel flowLayoutPanel__SubLineUp3;
         private FlowLayoutPanel flowLayoutPanel__SubLineUp2;
         private FlowLayoutPanel flowLayoutPanel_SubLineUp1;
-        private ToolStripMenuItem toolStripMenuItem_GetEquipments;
         private System.Windows.Forms.Timer toolTipTimer;
         private Panel panel1;
         private Label label1;
-        private ToolStripMenuItem toolStripMenuItem_识别错误输出窗口;
         private System.Windows.Forms.Timer timer_UpdateCoordinates;
     }
 }

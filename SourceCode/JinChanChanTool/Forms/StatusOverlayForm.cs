@@ -188,18 +188,52 @@ namespace JinChanChanTool.Forms
         private void StatusOverlayForm_MouseUp(object sender, MouseEventArgs e)
         {
             _dragging = false;
+            SaveFormLocation();
         }
 
         #endregion
-
+        public IAppConfigService _iAppConfigService;
+        public void InitializeObject(IAppConfigService iAppConfigService)
+        {
+            _iAppConfigService = iAppConfigService;            
+        }
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);           
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            this.Location = new Point(
-                screen.Right - this.Width /*- 10*/,
-                screen.Top /*+ 10*/
-            );
+            try
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                if (_iAppConfigService.CurrentConfig.StatusOverlayFormLocation.X == -1 && _iAppConfigService.CurrentConfig.StatusOverlayFormLocation.Y == -1)
+                {
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Right - this.Width /*- 10*/,
+                        screen.Top /*+ 10*/
+                    );
+                    return;
+                }
+                // 确保坐标在屏幕范围内
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAppConfigService.CurrentConfig.StatusOverlayFormLocation)))
+                {
+                    this.Location = _iAppConfigService.CurrentConfig.StatusOverlayFormLocation;
+                }
+                else
+                {
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Right - this.Width /*- 10*/,
+                        screen.Top /*+ 10*/
+                    );
+                }
+            }
+            catch
+            {
+                var screen = Screen.PrimaryScreen.Bounds;
+                this.Location = new Point(
+                    screen.Right - this.Width /*- 10*/,
+                    screen.Top /*+ 10*/
+                );
+            }
         }
 
         // 重写创建控件时的行为，使窗口支持半透明
@@ -257,7 +291,28 @@ namespace JinChanChanTool.Forms
             LWA_COLORKEY = 0x00000001,
             LWA_ALPHA = 0x00000002
         }
-        #endregion       
+        #endregion
+        #region 位置保存与读取
+        
+        /// <summary>
+        /// 拖动结束时保存窗口位置到配置服务
+        /// </summary>
+        private void SaveFormLocation()
+        {
+            try
+            {
+                if (_iAppConfigService != null)
+                {
+                    _iAppConfigService.CurrentConfig.StatusOverlayFormLocation = this.Location;
+                    _iAppConfigService.Save();
+                }
+            }
+            catch (Exception ex)
+            {
 
+            }
+        }
+
+        #endregion
     }
 }

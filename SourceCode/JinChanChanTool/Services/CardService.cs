@@ -317,9 +317,12 @@ namespace JinChanChanTool.Services
                     {
                         try
                         {
-                            停止刷新商店();
-                            LogTool.Log("由于识别错误关闭自动刷新！");
-                            Debug.WriteLine("由于识别错误关闭自动刷新！");
+                            if(_iappConfigService.CurrentConfig.StopRefreshWhenErrorCharacters)
+                            {
+                                停止刷新商店();
+                                LogTool.Log("由于识别错误关闭自动刷新！");
+                                Debug.WriteLine("由于识别错误关闭自动刷新！");
+                            }                            
                             // 更新UI
                             ErrorForm.Instance.GetTextBox().Invoke((MethodInvoker)delegate
                             {
@@ -354,7 +357,7 @@ namespace JinChanChanTool.Services
                                 //绘制文本
                                 graphics.DrawString(errorMessage, font, brush, textArea);
                                 // 保存为PNG
-                                extendedBitmap.Save(Path.Combine(Application.StartupPath, "Logs", $"{DateTime.Now:HH_mm_ss.fff}_{i + 1}号卡.png"), ImageFormat.Png);
+                                extendedBitmap.Save(Path.Combine(Application.StartupPath, "Logs", $"{DateTime.Now:MM_dd_HH_mm_ss.fff}_{i + 1}号卡.png"), ImageFormat.Png);
                             }
                         }
                         catch (Exception ex)

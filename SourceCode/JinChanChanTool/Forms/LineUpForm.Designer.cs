@@ -140,7 +140,8 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LineUpForm";
-            Text = "Selector";
+            ShowInTaskbar = false;
+            Text = "LineUpForm";
             TopMost = true;
             TransparencyKey = Color.Magenta;
             Load += LineUpForm_Load;

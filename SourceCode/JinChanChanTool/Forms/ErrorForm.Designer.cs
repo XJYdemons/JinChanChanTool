@@ -64,6 +64,7 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ErrorForm";
+            ShowInTaskbar = false;
             Text = "ErrorForm";
             TopMost = true;
             panel1.ResumeLayout(false);

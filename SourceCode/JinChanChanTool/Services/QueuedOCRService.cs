@@ -59,9 +59,7 @@ namespace JinChanChanTool.Services
             Environment.SetEnvironmentVariable("OPENBLAS_NUM_THREADS", count.ToString());
 
             // 额外的兼容变量（有些构建可能会检查）
-            Environment.SetEnvironmentVariable("PADDLE_CPU_THREADS", count.ToString());
-
-            Debug.WriteLine($"[QueuedOCRService] Set CPU thread count = {count}");
+            Environment.SetEnvironmentVariable("PADDLE_CPU_THREADS", count.ToString());          
         }
 
         private void InitializeOcrQueueCPU()

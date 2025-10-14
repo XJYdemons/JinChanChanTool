@@ -193,6 +193,20 @@ namespace JinChanChanTool.Tools.KeyBoardTools
         }
 
         /// <summary>
+        /// 注销所有已注册的快捷键（包括按下与抬起事件）
+        /// </summary>
+        public static void UnregisterAll()
+        {
+            lock (_lock)
+            {
+                _registeredKeys.Clear();
+                _callbacks.Clear();
+                _keyUpCallbacks.Clear();
+                _activeKeys.Clear();
+            }
+        }
+
+        /// <summary>
         /// 清理全局热键系统资源
         /// </summary>
         public static void Dispose()
@@ -206,13 +220,7 @@ namespace JinChanChanTool.Tools.KeyBoardTools
             if (_hookHandle.IsAllocated)
                 _hookHandle.Free();
 
-            lock (_lock)
-            {
-                _registeredKeys.Clear();
-                _callbacks.Clear();
-                _keyUpCallbacks.Clear();
-                _activeKeys.Clear();
-            }
+            UnregisterAll();
         }
         #endregion
 

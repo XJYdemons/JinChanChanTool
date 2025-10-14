@@ -81,11 +81,20 @@
             textBox_最大选择数量 = new TextBox();
             label_最大阵容数量 = new Label();
             textBox_最大阵容数量 = new TextBox();
-            tabPage_识别相关 = new TabPage();
-            panel_识别相关 = new Panel();
-            button_OCR结果纠正列表编辑器 = new Button();
             tabPage_拿牌相关 = new TabPage();
             panel_拿牌相关 = new Panel();
+            label_GPU推理模式下刷新商店后等待时间 = new Label();
+            textBox_GPUDelayAfterRefreshStore = new TextBox();
+            label_CPU推理模式下刷新商店后等待时间 = new Label();
+            textBox_CPUDelayAfterRefreshStore = new TextBox();
+            label_键鼠操作等待时间 = new Label();
+            textBox_DelayAfterMouseOperation = new TextBox();
+            label_次后自动停止刷新 = new Label();
+            label_刷新失败 = new Label();
+            textBox_MaxTimesWithoutRefresh = new TextBox();
+            label_次后自动停止拿牌 = new Label();
+            label_拿牌失败 = new Label();
+            textBox_MaxTimesWithoutGetCard = new TextBox();
             panel_拿牌相关_拿牌方式 = new Panel();
             textBox_拿牌按键5 = new TextBox();
             label_拿牌按键5 = new Label();
@@ -109,22 +118,18 @@
             checkBox_自动停止刷新商店 = new CheckBox();
             tabPage_OCR相关 = new TabPage();
             panel_OCR相关 = new Panel();
+            button_OCR结果纠正列表编辑器 = new Button();
             radioButton__CPU推理 = new RadioButton();
             radioButton_CPU推理 = new RadioButton();
+            tabPage_窗口 = new TabPage();
+            panel1 = new Panel();
+            checkBox_UseErrorShowForm = new CheckBox();
+            checkBox_UseStatusOverlayForm = new CheckBox();
+            checkBox_UseSelectorForm = new CheckBox();
+            checkBox_UseLineUpFormLocation = new CheckBox();
             panel_BackGround = new Panel();
             panel_Buttons = new Panel();
-            label_拿牌失败 = new Label();
-            textBox_MaxTimesWithoutGetCard = new TextBox();
-            label_次后自动停止拿牌 = new Label();
-            label_次后自动停止刷新 = new Label();
-            label_刷新失败 = new Label();
-            textBox_MaxTimesWithoutRefresh = new TextBox();
-            label_键鼠操作等待时间 = new Label();
-            textBox_DelayAfterMouseOperation = new TextBox();
-            label_CPU推理模式下刷新商店后等待时间 = new Label();
-            textBox_CPUDelayAfterRefreshStore = new TextBox();
-            label_GPU推理模式下刷新商店后等待时间 = new Label();
-            textBox_GPUDelayAfterRefreshStore = new TextBox();
+            checkBox_StopRefreshWhenErrorCharacters = new CheckBox();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
             tabPage_快捷键.SuspendLayout();
@@ -132,14 +137,14 @@
             panel_截图.SuspendLayout();
             tabPage_阵容相关.SuspendLayout();
             panel_阵容相关.SuspendLayout();
-            tabPage_识别相关.SuspendLayout();
-            panel_识别相关.SuspendLayout();
             tabPage_拿牌相关.SuspendLayout();
             panel_拿牌相关.SuspendLayout();
             panel_拿牌相关_拿牌方式.SuspendLayout();
             panel_拿牌相关_刷新方式.SuspendLayout();
             tabPage_OCR相关.SuspendLayout();
             panel_OCR相关.SuspendLayout();
+            tabPage_窗口.SuspendLayout();
+            panel1.SuspendLayout();
             panel_BackGround.SuspendLayout();
             panel_Buttons.SuspendLayout();
             SuspendLayout();
@@ -537,9 +542,9 @@
             tabControl_设置.Controls.Add(tabPage_快捷键);
             tabControl_设置.Controls.Add(tabPage_截图);
             tabControl_设置.Controls.Add(tabPage_阵容相关);
-            tabControl_设置.Controls.Add(tabPage_识别相关);
             tabControl_设置.Controls.Add(tabPage_拿牌相关);
             tabControl_设置.Controls.Add(tabPage_OCR相关);
+            tabControl_设置.Controls.Add(tabPage_窗口);
             tabControl_设置.Location = new Point(5, 45);
             tabControl_设置.Name = "tabControl_设置";
             tabControl_设置.SelectedIndex = 0;
@@ -722,41 +727,6 @@
             textBox_最大阵容数量.TabIndex = 15;
             textBox_最大阵容数量.TabStop = false;
             // 
-            // tabPage_识别相关
-            // 
-            tabPage_识别相关.Controls.Add(panel_识别相关);
-            tabPage_识别相关.Location = new Point(4, 26);
-            tabPage_识别相关.Name = "tabPage_识别相关";
-            tabPage_识别相关.Padding = new Padding(3);
-            tabPage_识别相关.Size = new Size(374, 331);
-            tabPage_识别相关.TabIndex = 4;
-            tabPage_识别相关.Text = "识别相关";
-            tabPage_识别相关.UseVisualStyleBackColor = true;
-            // 
-            // panel_识别相关
-            // 
-            panel_识别相关.AutoScroll = true;
-            panel_识别相关.BackColor = Color.White;
-            panel_识别相关.Controls.Add(button_OCR结果纠正列表编辑器);
-            panel_识别相关.Dock = DockStyle.Fill;
-            panel_识别相关.Location = new Point(3, 3);
-            panel_识别相关.Name = "panel_识别相关";
-            panel_识别相关.Size = new Size(368, 325);
-            panel_识别相关.TabIndex = 1;
-            // 
-            // button_OCR结果纠正列表编辑器
-            // 
-            button_OCR结果纠正列表编辑器.FlatAppearance.BorderColor = Color.LightGray;
-            button_OCR结果纠正列表编辑器.FlatStyle = FlatStyle.Flat;
-            button_OCR结果纠正列表编辑器.Location = new Point(5, 5);
-            button_OCR结果纠正列表编辑器.Name = "button_OCR结果纠正列表编辑器";
-            button_OCR结果纠正列表编辑器.Size = new Size(358, 33);
-            button_OCR结果纠正列表编辑器.TabIndex = 0;
-            button_OCR结果纠正列表编辑器.TabStop = false;
-            button_OCR结果纠正列表编辑器.Text = "OCR结果纠正列表编辑器";
-            button_OCR结果纠正列表编辑器.UseVisualStyleBackColor = true;
-            button_OCR结果纠正列表编辑器.Click += button4_Click;
-            // 
             // tabPage_拿牌相关
             // 
             tabPage_拿牌相关.Controls.Add(panel_拿牌相关);
@@ -772,6 +742,7 @@
             // 
             panel_拿牌相关.AutoScroll = true;
             panel_拿牌相关.BackColor = Color.White;
+            panel_拿牌相关.Controls.Add(checkBox_StopRefreshWhenErrorCharacters);
             panel_拿牌相关.Controls.Add(label_GPU推理模式下刷新商店后等待时间);
             panel_拿牌相关.Controls.Add(textBox_GPUDelayAfterRefreshStore);
             panel_拿牌相关.Controls.Add(label_CPU推理模式下刷新商店后等待时间);
@@ -795,6 +766,116 @@
             panel_拿牌相关.Size = new Size(368, 325);
             panel_拿牌相关.TabIndex = 24;
             // 
+            // label_GPU推理模式下刷新商店后等待时间
+            // 
+            label_GPU推理模式下刷新商店后等待时间.Location = new Point(5, 219);
+            label_GPU推理模式下刷新商店后等待时间.MinimumSize = new Size(23, 23);
+            label_GPU推理模式下刷新商店后等待时间.Name = "label_GPU推理模式下刷新商店后等待时间";
+            label_GPU推理模式下刷新商店后等待时间.Size = new Size(249, 23);
+            label_GPU推理模式下刷新商店后等待时间.TabIndex = 34;
+            label_GPU推理模式下刷新商店后等待时间.Text = "GPU推理模式下刷新商店后等待时间（ms）";
+            label_GPU推理模式下刷新商店后等待时间.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_GPUDelayAfterRefreshStore
+            // 
+            textBox_GPUDelayAfterRefreshStore.Location = new Point(276, 219);
+            textBox_GPUDelayAfterRefreshStore.Name = "textBox_GPUDelayAfterRefreshStore";
+            textBox_GPUDelayAfterRefreshStore.Size = new Size(70, 23);
+            textBox_GPUDelayAfterRefreshStore.TabIndex = 35;
+            textBox_GPUDelayAfterRefreshStore.TabStop = false;
+            // 
+            // label_CPU推理模式下刷新商店后等待时间
+            // 
+            label_CPU推理模式下刷新商店后等待时间.Location = new Point(5, 191);
+            label_CPU推理模式下刷新商店后等待时间.MinimumSize = new Size(23, 23);
+            label_CPU推理模式下刷新商店后等待时间.Name = "label_CPU推理模式下刷新商店后等待时间";
+            label_CPU推理模式下刷新商店后等待时间.Size = new Size(249, 23);
+            label_CPU推理模式下刷新商店后等待时间.TabIndex = 32;
+            label_CPU推理模式下刷新商店后等待时间.Text = "CPU推理模式下刷新商店后等待时间（ms）";
+            label_CPU推理模式下刷新商店后等待时间.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_CPUDelayAfterRefreshStore
+            // 
+            textBox_CPUDelayAfterRefreshStore.Location = new Point(276, 191);
+            textBox_CPUDelayAfterRefreshStore.Name = "textBox_CPUDelayAfterRefreshStore";
+            textBox_CPUDelayAfterRefreshStore.Size = new Size(70, 23);
+            textBox_CPUDelayAfterRefreshStore.TabIndex = 33;
+            textBox_CPUDelayAfterRefreshStore.TabStop = false;
+            // 
+            // label_键鼠操作等待时间
+            // 
+            label_键鼠操作等待时间.Location = new Point(5, 163);
+            label_键鼠操作等待时间.MinimumSize = new Size(23, 23);
+            label_键鼠操作等待时间.Name = "label_键鼠操作等待时间";
+            label_键鼠操作等待时间.Size = new Size(153, 23);
+            label_键鼠操作等待时间.TabIndex = 30;
+            label_键鼠操作等待时间.Text = "键鼠操作等待时间（ms）";
+            label_键鼠操作等待时间.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_DelayAfterMouseOperation
+            // 
+            textBox_DelayAfterMouseOperation.Location = new Point(276, 163);
+            textBox_DelayAfterMouseOperation.Name = "textBox_DelayAfterMouseOperation";
+            textBox_DelayAfterMouseOperation.Size = new Size(70, 23);
+            textBox_DelayAfterMouseOperation.TabIndex = 31;
+            textBox_DelayAfterMouseOperation.TabStop = false;
+            // 
+            // label_次后自动停止刷新
+            // 
+            label_次后自动停止刷新.Location = new Point(141, 109);
+            label_次后自动停止刷新.MinimumSize = new Size(23, 23);
+            label_次后自动停止刷新.Name = "label_次后自动停止刷新";
+            label_次后自动停止刷新.Size = new Size(113, 23);
+            label_次后自动停止刷新.TabIndex = 29;
+            label_次后自动停止刷新.Text = "次后自动停止刷新";
+            label_次后自动停止刷新.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label_刷新失败
+            // 
+            label_刷新失败.Location = new Point(20, 109);
+            label_刷新失败.MinimumSize = new Size(23, 23);
+            label_刷新失败.Name = "label_刷新失败";
+            label_刷新失败.Size = new Size(62, 23);
+            label_刷新失败.TabIndex = 27;
+            label_刷新失败.Text = "刷新失败";
+            label_刷新失败.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_MaxTimesWithoutRefresh
+            // 
+            textBox_MaxTimesWithoutRefresh.Location = new Point(83, 109);
+            textBox_MaxTimesWithoutRefresh.Name = "textBox_MaxTimesWithoutRefresh";
+            textBox_MaxTimesWithoutRefresh.Size = new Size(53, 23);
+            textBox_MaxTimesWithoutRefresh.TabIndex = 28;
+            textBox_MaxTimesWithoutRefresh.TabStop = false;
+            // 
+            // label_次后自动停止拿牌
+            // 
+            label_次后自动停止拿牌.Location = new Point(141, 55);
+            label_次后自动停止拿牌.MinimumSize = new Size(23, 23);
+            label_次后自动停止拿牌.Name = "label_次后自动停止拿牌";
+            label_次后自动停止拿牌.Size = new Size(113, 23);
+            label_次后自动停止拿牌.TabIndex = 26;
+            label_次后自动停止拿牌.Text = "次后自动停止拿牌";
+            label_次后自动停止拿牌.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label_拿牌失败
+            // 
+            label_拿牌失败.Location = new Point(20, 55);
+            label_拿牌失败.MinimumSize = new Size(23, 23);
+            label_拿牌失败.Name = "label_拿牌失败";
+            label_拿牌失败.Size = new Size(62, 23);
+            label_拿牌失败.TabIndex = 24;
+            label_拿牌失败.Text = "拿牌失败";
+            label_拿牌失败.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_MaxTimesWithoutGetCard
+            // 
+            textBox_MaxTimesWithoutGetCard.Location = new Point(83, 55);
+            textBox_MaxTimesWithoutGetCard.Name = "textBox_MaxTimesWithoutGetCard";
+            textBox_MaxTimesWithoutGetCard.Size = new Size(53, 23);
+            textBox_MaxTimesWithoutGetCard.TabIndex = 25;
+            textBox_MaxTimesWithoutGetCard.TabStop = false;
+            // 
             // panel_拿牌相关_拿牌方式
             // 
             panel_拿牌相关_拿牌方式.Controls.Add(textBox_拿牌按键5);
@@ -809,7 +890,7 @@
             panel_拿牌相关_拿牌方式.Controls.Add(label_拿牌按键1);
             panel_拿牌相关_拿牌方式.Controls.Add(radioButton_按键模拟拿牌);
             panel_拿牌相关_拿牌方式.Controls.Add(radioButton_鼠标模拟拿牌);
-            panel_拿牌相关_拿牌方式.Location = new Point(5, 221);
+            panel_拿牌相关_拿牌方式.Location = new Point(5, 247);
             panel_拿牌相关_拿牌方式.Name = "panel_拿牌相关_拿牌方式";
             panel_拿牌相关_拿牌方式.Size = new Size(342, 116);
             panel_拿牌相关_拿牌方式.TabIndex = 22;
@@ -940,7 +1021,7 @@
             panel_拿牌相关_刷新方式.Controls.Add(label_刷新商店按键);
             panel_拿牌相关_刷新方式.Controls.Add(radioButton_按键模拟刷新商店);
             panel_拿牌相关_刷新方式.Controls.Add(radioButton_鼠标模拟刷新商店);
-            panel_拿牌相关_刷新方式.Location = new Point(5, 342);
+            panel_拿牌相关_刷新方式.Location = new Point(5, 368);
             panel_拿牌相关_刷新方式.Name = "panel_拿牌相关_刷新方式";
             panel_拿牌相关_刷新方式.Size = new Size(342, 116);
             panel_拿牌相关_刷新方式.TabIndex = 23;
@@ -1032,6 +1113,7 @@
             // 
             panel_OCR相关.AutoScroll = true;
             panel_OCR相关.BackColor = Color.White;
+            panel_OCR相关.Controls.Add(button_OCR结果纠正列表编辑器);
             panel_OCR相关.Controls.Add(radioButton__CPU推理);
             panel_OCR相关.Controls.Add(radioButton_CPU推理);
             panel_OCR相关.Dock = DockStyle.Fill;
@@ -1040,10 +1122,23 @@
             panel_OCR相关.Size = new Size(368, 325);
             panel_OCR相关.TabIndex = 24;
             // 
+            // button_OCR结果纠正列表编辑器
+            // 
+            button_OCR结果纠正列表编辑器.FlatAppearance.BorderColor = Color.LightGray;
+            button_OCR结果纠正列表编辑器.FlatStyle = FlatStyle.Flat;
+            button_OCR结果纠正列表编辑器.Location = new Point(5, 5);
+            button_OCR结果纠正列表编辑器.Name = "button_OCR结果纠正列表编辑器";
+            button_OCR结果纠正列表编辑器.Size = new Size(358, 33);
+            button_OCR结果纠正列表编辑器.TabIndex = 0;
+            button_OCR结果纠正列表编辑器.TabStop = false;
+            button_OCR结果纠正列表编辑器.Text = "OCR结果纠正列表编辑器";
+            button_OCR结果纠正列表编辑器.UseVisualStyleBackColor = true;
+            button_OCR结果纠正列表编辑器.Click += button4_Click;
+            // 
             // radioButton__CPU推理
             // 
             radioButton__CPU推理.AutoSize = true;
-            radioButton__CPU推理.Location = new Point(5, 31);
+            radioButton__CPU推理.Location = new Point(5, 69);
             radioButton__CPU推理.Name = "radioButton__CPU推理";
             radioButton__CPU推理.Size = new Size(186, 21);
             radioButton__CPU推理.TabIndex = 22;
@@ -1054,13 +1149,77 @@
             // 
             radioButton_CPU推理.AutoSize = true;
             radioButton_CPU推理.Checked = true;
-            radioButton_CPU推理.Location = new Point(5, 5);
+            radioButton_CPU推理.Location = new Point(5, 43);
             radioButton_CPU推理.Name = "radioButton_CPU推理";
             radioButton_CPU推理.Size = new Size(74, 21);
             radioButton_CPU推理.TabIndex = 21;
             radioButton_CPU推理.TabStop = true;
             radioButton_CPU推理.Text = "CPU推理";
             radioButton_CPU推理.UseVisualStyleBackColor = true;
+            // 
+            // tabPage_窗口
+            // 
+            tabPage_窗口.BackColor = Color.White;
+            tabPage_窗口.Controls.Add(panel1);
+            tabPage_窗口.Location = new Point(4, 26);
+            tabPage_窗口.Name = "tabPage_窗口";
+            tabPage_窗口.Padding = new Padding(3);
+            tabPage_窗口.Size = new Size(374, 331);
+            tabPage_窗口.TabIndex = 7;
+            tabPage_窗口.Text = "窗口";
+            // 
+            // panel1
+            // 
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(checkBox_UseErrorShowForm);
+            panel1.Controls.Add(checkBox_UseStatusOverlayForm);
+            panel1.Controls.Add(checkBox_UseSelectorForm);
+            panel1.Controls.Add(checkBox_UseLineUpFormLocation);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(3, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(368, 325);
+            panel1.TabIndex = 0;
+            // 
+            // checkBox_UseErrorShowForm
+            // 
+            checkBox_UseErrorShowForm.AutoSize = true;
+            checkBox_UseErrorShowForm.Location = new Point(5, 83);
+            checkBox_UseErrorShowForm.Name = "checkBox_UseErrorShowForm";
+            checkBox_UseErrorShowForm.Size = new Size(147, 21);
+            checkBox_UseErrorShowForm.TabIndex = 22;
+            checkBox_UseErrorShowForm.Text = "启用错误信息展示窗口";
+            checkBox_UseErrorShowForm.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_UseStatusOverlayForm
+            // 
+            checkBox_UseStatusOverlayForm.AutoSize = true;
+            checkBox_UseStatusOverlayForm.Location = new Point(5, 57);
+            checkBox_UseStatusOverlayForm.Name = "checkBox_UseStatusOverlayForm";
+            checkBox_UseStatusOverlayForm.Size = new Size(123, 21);
+            checkBox_UseStatusOverlayForm.TabIndex = 21;
+            checkBox_UseStatusOverlayForm.Text = "启用状态展示面板";
+            checkBox_UseStatusOverlayForm.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_UseSelectorForm
+            // 
+            checkBox_UseSelectorForm.AutoSize = true;
+            checkBox_UseSelectorForm.Location = new Point(5, 5);
+            checkBox_UseSelectorForm.Name = "checkBox_UseSelectorForm";
+            checkBox_UseSelectorForm.Size = new Size(123, 21);
+            checkBox_UseSelectorForm.TabIndex = 19;
+            checkBox_UseSelectorForm.Text = "启用英雄选择面板";
+            checkBox_UseSelectorForm.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_UseLineUpFormLocation
+            // 
+            checkBox_UseLineUpFormLocation.AutoSize = true;
+            checkBox_UseLineUpFormLocation.Location = new Point(5, 31);
+            checkBox_UseLineUpFormLocation.Name = "checkBox_UseLineUpFormLocation";
+            checkBox_UseLineUpFormLocation.Size = new Size(123, 21);
+            checkBox_UseLineUpFormLocation.TabIndex = 20;
+            checkBox_UseLineUpFormLocation.Text = "启用阵容选择面板";
+            checkBox_UseLineUpFormLocation.UseVisualStyleBackColor = true;
             // 
             // panel_BackGround
             // 
@@ -1089,115 +1248,15 @@
             panel_Buttons.Size = new Size(382, 36);
             panel_Buttons.TabIndex = 210;
             // 
-            // label_拿牌失败
+            // checkBox_StopRefreshWhenErrorCharacters
             // 
-            label_拿牌失败.Location = new Point(20, 55);
-            label_拿牌失败.MinimumSize = new Size(23, 23);
-            label_拿牌失败.Name = "label_拿牌失败";
-            label_拿牌失败.Size = new Size(62, 23);
-            label_拿牌失败.TabIndex = 24;
-            label_拿牌失败.Text = "拿牌失败";
-            label_拿牌失败.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_MaxTimesWithoutGetCard
-            // 
-            textBox_MaxTimesWithoutGetCard.Location = new Point(83, 55);
-            textBox_MaxTimesWithoutGetCard.Name = "textBox_MaxTimesWithoutGetCard";
-            textBox_MaxTimesWithoutGetCard.Size = new Size(53, 23);
-            textBox_MaxTimesWithoutGetCard.TabIndex = 25;
-            textBox_MaxTimesWithoutGetCard.TabStop = false;
-            // 
-            // label_次后自动停止拿牌
-            // 
-            label_次后自动停止拿牌.Location = new Point(141, 55);
-            label_次后自动停止拿牌.MinimumSize = new Size(23, 23);
-            label_次后自动停止拿牌.Name = "label_次后自动停止拿牌";
-            label_次后自动停止拿牌.Size = new Size(113, 23);
-            label_次后自动停止拿牌.TabIndex = 26;
-            label_次后自动停止拿牌.Text = "次后自动停止拿牌";
-            label_次后自动停止拿牌.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label_次后自动停止刷新
-            // 
-            label_次后自动停止刷新.Location = new Point(141, 109);
-            label_次后自动停止刷新.MinimumSize = new Size(23, 23);
-            label_次后自动停止刷新.Name = "label_次后自动停止刷新";
-            label_次后自动停止刷新.Size = new Size(113, 23);
-            label_次后自动停止刷新.TabIndex = 29;
-            label_次后自动停止刷新.Text = "次后自动停止刷新";
-            label_次后自动停止刷新.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label_刷新失败
-            // 
-            label_刷新失败.Location = new Point(20, 109);
-            label_刷新失败.MinimumSize = new Size(23, 23);
-            label_刷新失败.Name = "label_刷新失败";
-            label_刷新失败.Size = new Size(62, 23);
-            label_刷新失败.TabIndex = 27;
-            label_刷新失败.Text = "刷新失败";
-            label_刷新失败.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_MaxTimesWithoutRefresh
-            // 
-            textBox_MaxTimesWithoutRefresh.Location = new Point(83, 109);
-            textBox_MaxTimesWithoutRefresh.Name = "textBox_MaxTimesWithoutRefresh";
-            textBox_MaxTimesWithoutRefresh.Size = new Size(53, 23);
-            textBox_MaxTimesWithoutRefresh.TabIndex = 28;
-            textBox_MaxTimesWithoutRefresh.TabStop = false;
-            // 
-            // label_键鼠操作等待时间
-            // 
-            label_键鼠操作等待时间.Location = new Point(5, 137);
-            label_键鼠操作等待时间.MinimumSize = new Size(23, 23);
-            label_键鼠操作等待时间.Name = "label_键鼠操作等待时间";
-            label_键鼠操作等待时间.Size = new Size(153, 23);
-            label_键鼠操作等待时间.TabIndex = 30;
-            label_键鼠操作等待时间.Text = "键鼠操作等待时间（ms）";
-            label_键鼠操作等待时间.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_DelayAfterMouseOperation
-            // 
-            textBox_DelayAfterMouseOperation.Location = new Point(276, 137);
-            textBox_DelayAfterMouseOperation.Name = "textBox_DelayAfterMouseOperation";
-            textBox_DelayAfterMouseOperation.Size = new Size(70, 23);
-            textBox_DelayAfterMouseOperation.TabIndex = 31;
-            textBox_DelayAfterMouseOperation.TabStop = false;
-            // 
-            // label_CPU推理模式下刷新商店后等待时间
-            // 
-            label_CPU推理模式下刷新商店后等待时间.Location = new Point(5, 165);
-            label_CPU推理模式下刷新商店后等待时间.MinimumSize = new Size(23, 23);
-            label_CPU推理模式下刷新商店后等待时间.Name = "label_CPU推理模式下刷新商店后等待时间";
-            label_CPU推理模式下刷新商店后等待时间.Size = new Size(249, 23);
-            label_CPU推理模式下刷新商店后等待时间.TabIndex = 32;
-            label_CPU推理模式下刷新商店后等待时间.Text = "CPU推理模式下刷新商店后等待时间（ms）";
-            label_CPU推理模式下刷新商店后等待时间.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_CPUDelayAfterRefreshStore
-            // 
-            textBox_CPUDelayAfterRefreshStore.Location = new Point(276, 165);
-            textBox_CPUDelayAfterRefreshStore.Name = "textBox_CPUDelayAfterRefreshStore";
-            textBox_CPUDelayAfterRefreshStore.Size = new Size(70, 23);
-            textBox_CPUDelayAfterRefreshStore.TabIndex = 33;
-            textBox_CPUDelayAfterRefreshStore.TabStop = false;
-            // 
-            // label_GPU推理模式下刷新商店后等待时间
-            // 
-            label_GPU推理模式下刷新商店后等待时间.Location = new Point(5, 193);
-            label_GPU推理模式下刷新商店后等待时间.MinimumSize = new Size(23, 23);
-            label_GPU推理模式下刷新商店后等待时间.Name = "label_GPU推理模式下刷新商店后等待时间";
-            label_GPU推理模式下刷新商店后等待时间.Size = new Size(249, 23);
-            label_GPU推理模式下刷新商店后等待时间.TabIndex = 34;
-            label_GPU推理模式下刷新商店后等待时间.Text = "GPU推理模式下刷新商店后等待时间（ms）";
-            label_GPU推理模式下刷新商店后等待时间.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_GPUDelayAfterRefreshStore
-            // 
-            textBox_GPUDelayAfterRefreshStore.Location = new Point(276, 193);
-            textBox_GPUDelayAfterRefreshStore.Name = "textBox_GPUDelayAfterRefreshStore";
-            textBox_GPUDelayAfterRefreshStore.Size = new Size(70, 23);
-            textBox_GPUDelayAfterRefreshStore.TabIndex = 35;
-            textBox_GPUDelayAfterRefreshStore.TabStop = false;
+            checkBox_StopRefreshWhenErrorCharacters.AutoSize = true;
+            checkBox_StopRefreshWhenErrorCharacters.Location = new Point(5, 137);
+            checkBox_StopRefreshWhenErrorCharacters.Name = "checkBox_StopRefreshWhenErrorCharacters";
+            checkBox_StopRefreshWhenErrorCharacters.Size = new Size(327, 21);
+            checkBox_StopRefreshWhenErrorCharacters.TabIndex = 36;
+            checkBox_StopRefreshWhenErrorCharacters.Text = "当识别到不属于任何英雄名称的字符时自动停止刷新商店";
+            checkBox_StopRefreshWhenErrorCharacters.UseVisualStyleBackColor = true;
             // 
             // SettingForm
             // 
@@ -1223,8 +1282,6 @@
             tabPage_阵容相关.ResumeLayout(false);
             panel_阵容相关.ResumeLayout(false);
             panel_阵容相关.PerformLayout();
-            tabPage_识别相关.ResumeLayout(false);
-            panel_识别相关.ResumeLayout(false);
             tabPage_拿牌相关.ResumeLayout(false);
             panel_拿牌相关.ResumeLayout(false);
             panel_拿牌相关.PerformLayout();
@@ -1235,6 +1292,9 @@
             tabPage_OCR相关.ResumeLayout(false);
             panel_OCR相关.ResumeLayout(false);
             panel_OCR相关.PerformLayout();
+            tabPage_窗口.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panel_BackGround.ResumeLayout(false);
             panel_Buttons.ResumeLayout(false);
             ResumeLayout(false);
@@ -1287,7 +1347,6 @@
         public TextBox textBox_最大选择数量;
         public Label label_最大阵容数量;
         public TextBox textBox_最大阵容数量;
-        private TabPage tabPage_识别相关;
         private Button button_OCR结果纠正列表编辑器;
         private Button button_英雄配置文件编辑器;
         private TabPage tabPage_拿牌相关;
@@ -1321,7 +1380,6 @@
         private Panel panel_BackGround;
         private Panel panel_Buttons;
         private Panel panel_阵容相关;
-        private Panel panel_识别相关;
         private Panel panel_拿牌相关;
         private RadioButton radioButton_自动设置坐标;
         private RadioButton radioButton_手动设置坐标;
@@ -1338,5 +1396,12 @@
         public TextBox textBox_GPUDelayAfterRefreshStore;
         public Label label_CPU推理模式下刷新商店后等待时间;
         public TextBox textBox_CPUDelayAfterRefreshStore;
+        private TabPage tabPage_窗口;
+        private Panel panel1;
+        private CheckBox checkBox_UseStatusOverlayForm;
+        private CheckBox checkBox_UseSelectorForm;
+        private CheckBox checkBox_UseLineUpFormLocation;
+        private CheckBox checkBox_UseErrorShowForm;
+        private CheckBox checkBox_StopRefreshWhenErrorCharacters;
     }
 }

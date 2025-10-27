@@ -209,11 +209,7 @@ namespace JinChanChanTool
             {               
                 return;
             }
-            //Debug.WriteLine("以下配置发生了变化：");
-            //foreach (var field in configChangedEventArgs.ChangedFields)
-            //{
-            //    Debug.WriteLine(field);
-            //}
+           
             if(configChangedEventArgs.ChangedFields.Contains("HotKey1") ||
                 configChangedEventArgs.ChangedFields.Contains("HotKey2") ||
                 configChangedEventArgs.ChangedFields.Contains("HotKey3") ||
@@ -373,6 +369,7 @@ namespace JinChanChanTool
             //为英雄头像框绑定交互事件
             for (int i = 0; i < _iheroDataService.GetHeroCount(); i++)
             {
+               
                 _uiBuilderService.heroPictureBoxes[i].MouseEnter += HeroPictureBox_MouseEnter;
                 _uiBuilderService.heroPictureBoxes[i].MouseLeave += HeroPictureBox_MouseLeave;
                 _uiBuilderService.heroPictureBoxes[i].MouseDown += HeroPictureBox_MouseDown;

@@ -404,19 +404,32 @@ namespace JinChanChanTool.Services.DataServices
                         return;
                     }
                     List<HeroData> temp = JsonSerializer.Deserialize<List<HeroData>>(json);
-                    // 排序逻辑
-                    HeroDatas = temp
+                    //合并同名英雄
+                    var groupedHeroes = temp
+                        .GroupBy(h => h.HeroName)
+                        .Select(g =>
+                                    {
+                                        // 如果只有一个元素，直接返回
+                                        if (g.Count() == 1)
+                                        return g.First();
+
+                                        // 合并多个元素
+                                        var first = g.First();
+                                        var merged = new HeroData
+                                        {
+                                             HeroName = first.HeroName,
+                                             Cost = first.Cost,
+                                             Profession = MergeUniqueValues(g.Select(h => h.Profession)),
+                                             Peculiarity = MergeUniqueValues(g.Select(h => h.Peculiarity))
+                                        };
+                                        return merged;
+                                    })
+                    .ToList();
+
+                    // 按价格排序
+                    HeroDatas = groupedHeroes
                                 .OrderBy(h => h.Cost)
                                  .ToList();
-                    // 设置 JsonSerializerOptions 以保持中文字符的可读性
-                    var options = new JsonSerializerOptions
-                    {
-                        WriteIndented = true, // 格式化输出
-                        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping // 保留中文字符
-                    };
-                    // 序列化数据
-                    string js = JsonSerializer.Serialize(HeroDatas, options);
-                    File.WriteAllText(Path.Combine(Application.StartupPath, "Resources", "test.json"), js);
                 }
                 catch
                 {
@@ -593,6 +606,23 @@ namespace JinChanChanTool.Services.DataServices
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 合并同名英雄的职业与特质
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        private string MergeUniqueValues(IEnumerable<string> values)
+        {
+            // 分割所有值并去重
+            var uniqueItems = values
+                .SelectMany(v => v.Split('|', StringSplitOptions.RemoveEmptyEntries))
+                .Select(item => item.Trim())
+                .Distinct()
+                .ToList();
+
+            return string.Join("|", uniqueItems);
         }
         #endregion
 

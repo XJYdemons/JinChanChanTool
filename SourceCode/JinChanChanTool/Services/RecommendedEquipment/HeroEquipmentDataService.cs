@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.RecommendedEquipment
 {
     /// <summary>
     /// 负责管理本地的装备推荐数据，包括从JSON文件加载、保存数据，以及加载相关的装备图片。
@@ -180,7 +180,7 @@ namespace JinChanChanTool.Services.DataServices
 
             // 用新的数据完全覆盖内存中的旧数据
             // 创建一个新的列表实例，而不是直接赋值，这在某些UI绑定场景下更安全
-            this.HeroEquipments = new List<HeroEquipment>(crawledData);
+            HeroEquipments = new List<HeroEquipment>(crawledData);
 
             // 调用 Save() 方法，将刚刚更新到内存的数据存储JSON文件中
             System.Diagnostics.Debug.WriteLine("正在将新数据保存到本地文件...");
@@ -276,7 +276,7 @@ namespace JinChanChanTool.Services.DataServices
             StringBuilder errors = new StringBuilder();
 
             // 遍历每一个英雄的装备信息
-            foreach (var heroEquipment in this.HeroEquipments)
+            foreach (var heroEquipment in HeroEquipments)
             {
                 var imageListForHero = new List<Image>();
 

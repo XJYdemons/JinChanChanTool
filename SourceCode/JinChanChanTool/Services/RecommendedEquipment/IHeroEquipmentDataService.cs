@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.RecommendedEquipment
 {
     public interface IHeroEquipmentDataService
     {

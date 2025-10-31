@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.RecommendedEquipment
 {
     /// <summary>
     /// 包含用于反序列化从 api-hc.metatft.com 的 unit_detail API 获取的JSON响应的模型。

@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.RecommendedEquipment
 {
     /// <summary>
     /// 实现了 IDynamicGameDataService 接口。

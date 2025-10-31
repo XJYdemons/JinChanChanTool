@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.RecommendedEquipment
 {
     /// <summary>
     /// 包含用于反序列化从 data.metatft.com 获取的翻译JSON文件的模型。

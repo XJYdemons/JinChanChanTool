@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="Resources\CorrectionsList.json" />
     <None Remove="Resources\defaultHeroIcon.png" />
+    <None Remove="Resources\HeroDatas\S15天下无双格斗大会\EquipmentData.json" />
     <None Remove="Resources\HeroDatas\S15天下无双格斗大会\HeroData.json" />
     <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\乌迪尔.png" />
     <None Remove="Resources\HeroDatas\S15天下无双格斗大会\images\亚托克斯.png" />
@@ -220,6 +221,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\defaultHeroIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S15天下无双格斗大会\EquipmentData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\S15天下无双格斗大会\HeroData.json">
@@ -844,15 +848,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\CrawlerFiles\EquipmentNameMapping.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\CrawlerFiles\HeroKeyToNameMapping.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\CrawlerFiles\HeroNameMapping.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\三相之力.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

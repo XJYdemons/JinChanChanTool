@@ -1,4 +1,5 @@
 using JinChanChanTool.Services.DataServices;
+using JinChanChanTool.Services.RecommendedEquipment;
 using System.Diagnostics;
 namespace JinChanChanTool
 {

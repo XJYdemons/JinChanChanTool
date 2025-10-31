@@ -3,6 +3,7 @@ using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices;
+using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.LineUpCodeTools;
@@ -1327,7 +1328,6 @@ namespace JinChanChanTool
      
         private async Task UpdateEquipmentsAsync()
         {
-
             // 检查本地缓存的文件修改时间，避免频繁请求 
             try
             {
@@ -1342,8 +1342,8 @@ namespace JinChanChanTool
                     // 3. 设置一个缓存有效期，例如 24 小时
                     if (DateTime.Now - lastUpdateTime < TimeSpan.FromHours(24))
                     {
-                        //MessageBox.Show($"装备数据在 {lastUpdateTime:G} 刚刚更新过，已是最新，无需重复更新。",
-                        //                "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"装备数据在 {lastUpdateTime:G} 刚刚更新过，已是最新，无需重复更新。",
+                                        "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return; // 直接中断，不执行任何网络请求
                     }
                 }

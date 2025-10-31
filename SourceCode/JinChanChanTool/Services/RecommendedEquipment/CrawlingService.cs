@@ -1,5 +1,4 @@
 ﻿using JinChanChanTool.DataClass;
-using JinChanChanTool.Services.DataServices;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace JinChanChanTool.Services
+namespace JinChanChanTool.Services.RecommendedEquipment
 {
     /// <summary>
     /// 重构后的核心爬取服务。
@@ -135,7 +134,7 @@ namespace JinChanChanTool.Services
                     double avgPlacement = weightedSum / build.Total;
 
                     // 计算综合评分 (总场次 / 平均名次)
-                    double score = (double)build.Total / avgPlacement;
+                    double score = build.Total / avgPlacement;
 
                     if (score > maxScore)
                     {

@@ -1324,10 +1324,11 @@ namespace JinChanChanTool
         #endregion
 
         #region 更新装备数据       
+     
         private async Task UpdateEquipmentsAsync()
         {
-           
-            // 检查本地缓存的文件修改时间，避免频繁请求
+
+            // 检查本地缓存的文件修改时间，避免频繁请求 
             try
             {
                 // 1. 获取当前赛季的 EquipmentData.json 文件路径
@@ -1338,7 +1339,7 @@ namespace JinChanChanTool
                 if (File.Exists(dataFilePath))
                 {
                     DateTime lastUpdateTime = File.GetLastWriteTime(dataFilePath);
-                    // 3. 设置一个缓存有效期，例如 6 小时
+                    // 3. 设置一个缓存有效期，例如 24 小时
                     if (DateTime.Now - lastUpdateTime < TimeSpan.FromHours(24))
                     {
                         //MessageBox.Show($"装备数据在 {lastUpdateTime:G} 刚刚更新过，已是最新，无需重复更新。",
@@ -1353,10 +1354,10 @@ namespace JinChanChanTool
                 System.Diagnostics.Debug.WriteLine($"检查缓存时出错: {ex.Message}");
             }
 
-          
-            // 创建进度条窗口，用于向用户反馈进度
+
+            // 创建进度条窗口，用于向用户反馈进度 
             var progressForm = new JinChanChanTool.Forms.ProgressForm();
-            var progress = new Progress<Tuple<int, string>>(update =>
+            IProgress<Tuple<int, string>> progress = new Progress<Tuple<int, string>>(update =>
             {
                 progressForm.UpdateProgress(update.Item1, update.Item2);
             });
@@ -1366,21 +1367,25 @@ namespace JinChanChanTool
 
                 progressForm.Show(this); // 显示进度窗口
 
-                // 实时创建和注入服务 (遵循单一职责)
-                // 1. 创建本地配置数据服务，并加载所有映射文件
-                IApiRequestPayloadDataService payloadDataService = new ApiRequestPayloadDataService();
-                await payloadDataService.LoadAllAsync();
+                // 1. 创建新的动态数据服务
+                IDynamicGameDataService gameDataService = new DynamicGameDataService();
 
-                // 2. 创建网络爬取服务，并将 payloadDataService 注入进去
-                ICrawlingService crawlingService = new CrawlingService(payloadDataService);
+                // 2. 初始化服务，从网络获取英雄列表和翻译等基础数据
+                //    这里会捕获网络错误等问题
+                progress.Report(Tuple.Create(0, "正在初始化，获取最新游戏数据..."));
+                await gameDataService.InitializeAsync();
+                progress.Report(Tuple.Create(5, "基础数据获取成功！")); // 给用户一个初始反馈
 
-                // 3. 开始后台网络爬取，并等待结果
+                // 3. 创建网络爬取服务，并将新的 gameDataService 注入进去
+                ICrawlingService crawlingService = new CrawlingService(gameDataService);
+
+                // 4. 开始后台网络爬取，并等待结果
                 List<HeroEquipment> crawledData = await crawlingService.GetEquipmentsAsync(progress);
 
                 bool updateSuccess = false;
                 if (crawledData != null && crawledData.Any())
                 {
-                    // 4. 将爬取到的新数据，传递给我们注入的“数据中心”服务进行更新和保存
+                    // 5. 将爬取到的新数据，传递给我们注入的“数据中心”服务进行更新和保存 
                     _iheroEquipmentDataService.UpdateDataFromCrawling(crawledData);
                     updateSuccess = true;
                 }
@@ -1389,13 +1394,13 @@ namespace JinChanChanTool
                     MessageBox.Show("未能从网络获取到任何有效的装备数据，请检查网络连接或稍后再试。", "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                // 提示重启
+                // 提示重启 
                 if (updateSuccess)
                 {
-                    // 5. 重新加载数据中心的内存（特别是重新加载图片）
+                    // 6. 重新加载数据中心的内存
                     _iheroEquipmentDataService.ReLoad();
 
-                    // 6. 提示用户重启以确保所有状态都刷新
+                    // 7. 提示用户重启以确保所有状态都刷新
                     DialogResult result = MessageBox.Show(this,
                         "装备数据更新成功！\n\n为了确保所有组件都使用最新数据，建议重启程序。\n点击“确定”立即重启。",
                         "更新完成",
@@ -1411,15 +1416,16 @@ namespace JinChanChanTool
             }
             catch (Exception ex)
             {
-                // 捕获任何在流程中未被处理的异常
+                // 捕获任何在流程中未被处理的异常 (现在也能捕获到 InitializeAsync 的网络错误)
                 MessageBox.Show($"更新过程中发生未知错误: {ex.Message}", "严重错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                // 无论成功还是失败，都确保关闭进度窗口并恢复按钮
-                progressForm.Close();              
+                // 无论成功还是失败，都确保关闭进度窗口并恢复按钮 
+                progressForm.Close();
             }
         }
+
         #endregion
 
         #region 装备展示

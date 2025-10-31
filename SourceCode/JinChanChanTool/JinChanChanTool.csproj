@@ -853,9 +853,6 @@
     <None Update="Resources\CrawlerFiles\HeroNameMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\三相之力.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1069,6 +1066,9 @@
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\幽魂弯刀.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\强力剑刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\强袭者的链枷.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1213,6 +1213,9 @@
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\离子火花.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\究极剑刃升级.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\窃贼手套.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1220,6 +1223,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\纳什之牙.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\组合核心.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\HeroDatas\S15天下无双格斗大会\EquipmentImages\能量圣杯.png">

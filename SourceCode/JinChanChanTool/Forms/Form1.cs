@@ -2,6 +2,7 @@ using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services;
+using JinChanChanTool.Services.AutoSetCoordinates;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Tools;
@@ -95,7 +96,7 @@ namespace JinChanChanTool
             #endregion
 
             #region UI构建服务实例化并构建UI并绑定事件           
-            _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _iappConfigService.CurrentConfig.MaxOfChoices, Selector.Instance.flowLayoutPanel1, Selector.Instance.flowLayoutPanel2, Selector.Instance.flowLayoutPanel3, Selector.Instance.flowLayoutPanel4, Selector.Instance.flowLayoutPanel5,LineUpForm.Instance.flowLayoutPanel1, LineUpForm.Instance.flowLayoutPanel2, LineUpForm.Instance.flowLayoutPanel3);
+            _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _iappConfigService.CurrentConfig.MaxOfChoices, SelectForm.Instance.flowLayoutPanel1, SelectForm.Instance.flowLayoutPanel2, SelectForm.Instance.flowLayoutPanel3, SelectForm.Instance.flowLayoutPanel4, SelectForm.Instance.flowLayoutPanel5,LineUpForm.Instance.flowLayoutPanel1, LineUpForm.Instance.flowLayoutPanel2, LineUpForm.Instance.flowLayoutPanel3);
             UIBuildAndBidingEvents();
             #endregion
 
@@ -153,10 +154,10 @@ namespace JinChanChanTool
             #endregion
 
             #region 初始化英雄选择窗口
-            Selector.Instance.InitializeObject(_iappConfigService);
+            SelectForm.Instance.InitializeObject(_iappConfigService);
             if(_iappConfigService.CurrentConfig.UseSelectorForm)
             {
-                Selector.Instance.Show();
+                SelectForm.Instance.Show();
             }
             #endregion
 
@@ -222,13 +223,13 @@ namespace JinChanChanTool
             {
                 if(_iappConfigService.CurrentConfig.UseSelectorForm)
                 {                  
-                    Selector.Instance.TopMost = false;
-                    Selector.Instance.TopMost = true;
-                    Selector.Instance.Show();                    
+                    SelectForm.Instance.TopMost = false;
+                    SelectForm.Instance.TopMost = true;
+                    SelectForm.Instance.Show();                    
                 }
                 else
                 {                   
-                    Selector.Instance.Visible = false;
+                    SelectForm.Instance.Visible = false;
                 }
             }
             if (configChangedEventArgs.ChangedFields.Contains("UseLineUpForm"))

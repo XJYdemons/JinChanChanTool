@@ -13,21 +13,21 @@ using System.Windows.Forms;
 
 namespace JinChanChanTool.Forms
 {
-    public partial class Selector : Form
+    public partial class SelectForm : Form
     {
-        private static Selector _instance;
-        public static Selector Instance
+        private static SelectForm _instance;
+        public static SelectForm Instance
         {
             get
             {
                 if (_instance == null || _instance.IsDisposed)
                 {
-                    _instance = new Selector();
+                    _instance = new SelectForm();
                 }
                 return _instance;
             }
         }
-        private Selector()
+        private SelectForm()
         {           
             InitializeComponent();
             // 鼠标事件处理

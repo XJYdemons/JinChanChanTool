@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 
-namespace JinChanChanTool.Services
+namespace JinChanChanTool.Services.AutoSetCoordinates
 {
     /// <summary>
     /// 负责发现当前系统中拥有可见窗口的进程。
@@ -16,7 +16,7 @@ namespace JinChanChanTool.Services
         public List<Process> GetPotentiallyVisibleProcesses()
         {
             return Process.GetProcesses()
-                .Where(p => p.MainWindowHandle != System.IntPtr.Zero && !string.IsNullOrEmpty(p.MainWindowTitle))
+                .Where(p => p.MainWindowHandle != nint.Zero && !string.IsNullOrEmpty(p.MainWindowTitle))
                 .OrderBy(p => p.ProcessName)
                 .ToList();
         }

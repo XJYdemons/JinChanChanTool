@@ -207,6 +207,66 @@
     <None Remove="Resources\HeroDatas\符文大陆\images\雷克塞.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\雷克顿.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\黑默丁格.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\HeroData.json" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\亚索.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\伊泽瑞尔.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\佐伊.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\内瑟斯.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\努努和威朗普.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\卡尔玛.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\卡莎.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\厄斐琉斯.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\呲呲.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\图奇.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\塔莉垭.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\塞拉斯.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\墨菲特.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\奇亚娜.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\奈德丽.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\奥拉夫.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\奥瑞利安 · 索尔.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\婕拉.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\孙悟空.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\尼菈.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\巴德.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\布隆.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\希瓦娜.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\弗拉基米尔.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\扎克.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\拉克丝.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\敖兴.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\斯卡纳.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\斯维因.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\李青.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\杰斯.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\格雷福斯.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\永恩.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\沃利贝尔.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\泰拉.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\泽丽.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\洛.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\潘森.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\瑟庄妮.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\瑟提.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\石傲玉.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\索姆.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\索拉卡.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\纳尔.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\艾达丝.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\芮尔.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\莉莉娅.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\萨勒芬妮.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\蕾欧娜.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\诺姆希.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\贾克斯.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\赛娜.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\赛芬.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\赫卡里姆.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\迭嘉.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\雷恩加尔.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\霞.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\韦鲁斯.png" />
+    <None Remove="Resources\HeroDatas\隐秘海域\images\黛安娜.png" />
     <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json" />
     <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.pdiparams" />
     <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.yml" />
@@ -794,6 +854,186 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\符文大陆\images\黑默丁格.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\HeroData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\亚索.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\伊泽瑞尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\佐伊.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\内瑟斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\努努和威朗普.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\卡尔玛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\卡莎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\厄斐琉斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\呲呲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\图奇.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\塔莉垭.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\塞拉斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\墨菲特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\奇亚娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\奈德丽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\奥拉夫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\奥瑞利安 · 索尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\婕拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\孙悟空.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\尼菈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\巴德.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\布隆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\希瓦娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\弗拉基米尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\扎克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\拉克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\敖兴.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\斯卡纳.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\斯维因.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\李青.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\杰斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\格雷福斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\永恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\沃利贝尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\泰拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\泽丽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\洛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\潘森.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\瑟庄妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\瑟提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\石傲玉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\索姆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\索拉卡.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\纳尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\艾达丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\芮尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\莉莉娅.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\萨勒芬妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\蕾欧娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\诺姆希.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\贾克斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\赛娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\赛芬.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\赫卡里姆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\迭嘉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\雷恩加尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\霞.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\韦鲁斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\隐秘海域\images\黛安娜.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\icon.ico">

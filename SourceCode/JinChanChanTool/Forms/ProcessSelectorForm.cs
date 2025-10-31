@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.Services;
+﻿using JinChanChanTool.Services.AutoSetCoordinates;
 using System.Diagnostics;
 
 namespace JinChanChanTool.Forms

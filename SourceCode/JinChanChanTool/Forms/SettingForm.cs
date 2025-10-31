@@ -5,7 +5,7 @@ using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
-
+using JinChanChanTool.Services.AutoSetCoordinates;
 namespace JinChanChanTool
 {
     public partial class SettingForm : Form

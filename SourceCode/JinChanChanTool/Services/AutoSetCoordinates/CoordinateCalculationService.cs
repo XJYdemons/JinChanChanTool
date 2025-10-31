@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace JinChanChanTool.Services
+namespace JinChanChanTool.Services.AutoSetCoordinates
 {
     /// <summary>
     /// 使用锚点布局模型，动态计算UI元素屏幕绝对坐标的服务。
@@ -15,7 +15,7 @@ namespace JinChanChanTool.Services
 
         #region P/Invoke for DPI
         [DllImport("User32.dll")]
-        private static extern int GetDpiForWindow(IntPtr hWnd);
+        private static extern int GetDpiForWindow(nint hWnd);
         private const int USER_DEFAULT_SCREEN_DPI = 96;
         #endregion
 
@@ -107,11 +107,11 @@ namespace JinChanChanTool.Services
             double scaledOffsetX = profile.OffsetX * scale;
             double scaledOffsetY = profile.OffsetY * scale;
 
-            double currentAnchorX = _windowInteractionService.ClientX + (physicalClientWidth / 2);
+            double currentAnchorX = _windowInteractionService.ClientX + physicalClientWidth / 2;
             double currentAnchorY = _windowInteractionService.ClientY + physicalClientHeight;
 
-            int finalX = (int)Math.Round(currentAnchorX + scaledOffsetX - (scaledWidth / 2));
-            int finalY = (int)Math.Round(currentAnchorY + scaledOffsetY - (scaledHeight / 2));
+            int finalX = (int)Math.Round(currentAnchorX + scaledOffsetX - scaledWidth / 2);
+            int finalY = (int)Math.Round(currentAnchorY + scaledOffsetY - scaledHeight / 2);
 
             // --- 在这里添加调试代码 ---
             //Debug.WriteLine($"--- [CoordinateCalculationService] Calculation Details for '{gameMode}' ---");

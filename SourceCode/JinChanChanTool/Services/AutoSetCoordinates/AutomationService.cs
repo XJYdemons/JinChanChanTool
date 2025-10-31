@@ -1,9 +1,9 @@
 ﻿using JinChanChanTool.DataClass; // 包含 JccCoordinateTemplates    // 包含 TftCoordinateTemplates
 using System.Diagnostics;
 using System.Drawing;
-using static JinChanChanTool.Services.CoordinateCalculationService;
+using static JinChanChanTool.Services.AutoSetCoordinates.CoordinateCalculationService;
 
-namespace JinChanChanTool.Services
+namespace JinChanChanTool.Services.AutoSetCoordinates
 {
     /// <summary>
     /// 当前检测到的游戏模式。
@@ -160,7 +160,7 @@ namespace JinChanChanTool.Services
             }
 
             // 2. 调用坐标计算服务来获取最终结果
-            return _coordService.GetScaledRectangle(profile, baseResolution, this.CurrentGameMode);
+            return _coordService.GetScaledRectangle(profile, baseResolution, CurrentGameMode);
         }
 
         // --- 私有辅助方法，用于从模板中获取对应的Profile ---

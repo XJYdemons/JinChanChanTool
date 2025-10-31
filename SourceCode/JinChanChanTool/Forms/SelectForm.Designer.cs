@@ -1,6 +1,6 @@
 ﻿namespace JinChanChanTool.Forms
 {
-    partial class Selector
+    partial class SelectForm
     {
         /// <summary>
         /// Required designer variable.

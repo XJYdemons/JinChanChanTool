@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using static JinChanChanTool.Services.CoordinateCalculationService; // 引入AnchorProfile结构体
+using static JinChanChanTool.Services.AutoSetCoordinates.CoordinateCalculationService; // 引入AnchorProfile结构体
 
 namespace JinChanChanTool.DataClass // 根据你的要求，使用DataClass命名空间
 {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace JinChanChanTool.Services
+namespace JinChanChanTool.Services.AutoSetCoordinates
 {
     /// <summary>
     /// 负责与一个具体的目标窗口进行交互，获取其位置和大小等信息。
@@ -32,53 +32,53 @@ namespace JinChanChanTool.Services
         }
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+        private static extern bool GetClientRect(nint hWnd, out RECT lpRect);
 
         [DllImport("user32.dll")]
-        private static extern bool ClientToScreen(IntPtr hWnd, ref POINT lpPoint);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool IsWindowVisible(IntPtr hWnd);
+        private static extern bool ClientToScreen(nint hWnd, ref POINT lpPoint);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool IsWindowEnabled(IntPtr hWnd);
+        private static extern bool IsWindowVisible(nint hWnd);
 
         [DllImport("user32.dll")]
-        private static extern int GetWindowTextLength(IntPtr hWnd);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsWindowEnabled(nint hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowTextLength(nint hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        private static extern bool GetWindowRect(nint hWnd, out RECT lpRect);
 
         // EnumChildWindows 需要一个回调委托
-        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+        private delegate bool EnumWindowsProc(nint hWnd, nint lParam);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
+        private static extern bool EnumChildWindows(nint hwndParent, EnumWindowsProc lpEnumFunc, nint lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr GetAncestor(IntPtr hwnd, uint gaFlags);
+        private static extern nint GetAncestor(nint hwnd, uint gaFlags);
         private const uint GA_ROOT = 2;
-        [DllImport("user32.dll")] private static extern IntPtr GetParent(IntPtr hWnd);
+        [DllImport("user32.dll")] private static extern nint GetParent(nint hWnd);
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        private static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+        private static extern int GetClassName(nint hWnd, StringBuilder lpClassName, int nMaxCount);
 
         #endregion
 
         #region 公开属性
 
-        public IntPtr WindowHandle { get; private set; } = IntPtr.Zero;
+        public nint WindowHandle { get; private set; } = nint.Zero;
         public int ClientX { get; private set; }
         public int ClientY { get; private set; }
         public int ClientWidth { get; private set; }
         public int ClientHeight { get; private set; }
-        public bool IsWindowFound => WindowHandle != IntPtr.Zero;
+        public bool IsWindowFound => WindowHandle != nint.Zero;
 
-        private List<IntPtr> _candidateChildren;
+        private List<nint> _candidateChildren;
 
         #endregion
 
@@ -90,8 +90,8 @@ namespace JinChanChanTool.Services
         public bool SetTargetWindow(Process targetProcess)
         {
             // 重置状态
-            WindowHandle = IntPtr.Zero;
-            if (targetProcess == null || targetProcess.MainWindowHandle == IntPtr.Zero)
+            WindowHandle = nint.Zero;
+            if (targetProcess == null || targetProcess.MainWindowHandle == nint.Zero)
             {
                 return false;
             }
@@ -100,7 +100,7 @@ namespace JinChanChanTool.Services
 
             if (!GetClientRect(WindowHandle, out RECT clientRect))
             {
-                WindowHandle = IntPtr.Zero;
+                WindowHandle = nint.Zero;
                 return false;
             }
 
@@ -110,7 +110,7 @@ namespace JinChanChanTool.Services
             POINT clientTopLeft = new POINT { X = 0, Y = 0 };
             if (!ClientToScreen(WindowHandle, ref clientTopLeft))
             {
-                WindowHandle = IntPtr.Zero;
+                WindowHandle = nint.Zero;
                 return false;
             }
 
@@ -122,16 +122,16 @@ namespace JinChanChanTool.Services
        
         public bool SetTargetToBestChildWindow(Process parentProcess)
         {
-            WindowHandle = IntPtr.Zero;
-            if (parentProcess == null || parentProcess.MainWindowHandle == IntPtr.Zero)
+            WindowHandle = nint.Zero;
+            if (parentProcess == null || parentProcess.MainWindowHandle == nint.Zero)
             {
                 //Debug.WriteLine("[日志] 失敗：传入的父进程为null或没有主窗口。");
                 return false;
             }
 
-            IntPtr parentHwnd = parentProcess.MainWindowHandle;
+            nint parentHwnd = parentProcess.MainWindowHandle;
             //Debug.WriteLine($"[日志] 开始侦察父窗口 (句柄: {parentHwnd}) 的后代...");
-            var candidateChildren = new List<(IntPtr Hwnd, int Depth, long Area, string ClassName)>();
+            var candidateChildren = new List<(nint Hwnd, int Depth, long Area, string ClassName)>();
 
             EnumChildWindows(parentHwnd, (hWnd, lParam) => {
                 //Debug.WriteLine($"  -> 发现一个子窗口 (句柄: {hWnd})");
@@ -153,8 +153,8 @@ namespace JinChanChanTool.Services
                 }
 
                 int depth = 0;
-                IntPtr current = hWnd;
-                while ((current = GetParent(current)) != parentHwnd && current != IntPtr.Zero)
+                nint current = hWnd;
+                while ((current = GetParent(current)) != parentHwnd && current != nint.Zero)
                 {
                     depth++;
                 }
@@ -169,7 +169,7 @@ namespace JinChanChanTool.Services
                 candidateChildren.Add((hWnd, depth, area, className.ToString()));
 
                 return true;
-            }, IntPtr.Zero);
+            }, nint.Zero);
 
             if (candidateChildren.Count == 0)
             {
@@ -181,7 +181,7 @@ namespace JinChanChanTool.Services
 
             var sortedCandidates = candidateChildren.OrderByDescending(c => c.Depth).ThenByDescending(c => c.Area);
             var bestCandidate = sortedCandidates.First();
-            IntPtr bestHwnd = bestCandidate.Hwnd;
+            nint bestHwnd = bestCandidate.Hwnd;
 
             //Debug.WriteLine($"[日志] 决策结果：选择的最佳窗口是 -> 类名: {bestCandidate.ClassName}, 句柄: {bestHwnd}, 深度: {bestCandidate.Depth}, 面积: {bestCandidate.Area}");
 
@@ -190,7 +190,7 @@ namespace JinChanChanTool.Services
             if (!GetClientRect(WindowHandle, out RECT clientRect))
             {
                 //Debug.WriteLine("[日志] 致命错误：GetClientRect 失败！");
-                WindowHandle = IntPtr.Zero;
+                WindowHandle = nint.Zero;
                 return false;
             }
 
@@ -201,7 +201,7 @@ namespace JinChanChanTool.Services
             if (!ClientToScreen(WindowHandle, ref clientTopLeft))
             {
                 //Debug.WriteLine("[日志] 致命错误：ClientToScreen 失败！");
-                WindowHandle = IntPtr.Zero;
+                WindowHandle = nint.Zero;
                 return false;
             }
 

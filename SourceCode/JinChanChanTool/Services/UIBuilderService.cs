@@ -99,7 +99,7 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 主窗口实例
         /// </summary>
-        private readonly Form1 _form1;
+        private readonly MainForm _form1;
 
         /// <summary>
         /// 英雄数据服务实例
@@ -116,7 +116,7 @@ namespace JinChanChanTool.Services
         /// </summary>
         private Dictionary<int, Color> CostToColorMap { get; set; }
 
-        public UIBuilderService(Form1 form1,Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService,int countOfSubLineUpPictureBox,FlowLayoutPanel HeroPanel1, FlowLayoutPanel HeroPanel2, FlowLayoutPanel HeroPanel3, FlowLayoutPanel HeroPanel4, FlowLayoutPanel HeroPanel5, FlowLayoutPanel LineUpPanel1, FlowLayoutPanel LineUpPanel2, FlowLayoutPanel LineUpPanel3)
+        public UIBuilderService(MainForm form1,Panel panel_Cost1, Panel panel_Cost2, Panel panel_Cost3, Panel panel_Cost4, Panel panel_Cost5, Panel professionButtonPanel, Panel peculiarityButtonPanel, FlowLayoutPanel subLineUpPanel1, FlowLayoutPanel subLineUpPanel2, FlowLayoutPanel subLineUpPanel3, IHeroDataService iHeroDataService,int countOfSubLineUpPictureBox,FlowLayoutPanel HeroPanel1, FlowLayoutPanel HeroPanel2, FlowLayoutPanel HeroPanel3, FlowLayoutPanel HeroPanel4, FlowLayoutPanel HeroPanel5, FlowLayoutPanel LineUpPanel1, FlowLayoutPanel LineUpPanel2, FlowLayoutPanel LineUpPanel3)
         {
             _countOfSubLineUpPictureBox = countOfSubLineUpPictureBox;
             heroPictureBoxes = new List<HeroPictureBox>();

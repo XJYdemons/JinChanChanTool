@@ -16,7 +16,7 @@ using System.Drawing.Imaging;
 using System.Xml.Linq;
 namespace JinChanChanTool
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         #region 初始化相关
         /// <summary>
@@ -60,7 +60,7 @@ namespace JinChanChanTool
         // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐
         private string _seasonForEquipmentTooltip = "S15天下无双格斗大会"; // <-- 在这里硬编码指定赛季名
 
-        public Form1(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
+        public MainForm(IAppConfigService iappConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
             #region 自定义标题栏

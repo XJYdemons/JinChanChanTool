@@ -33,7 +33,7 @@ namespace JinChanChanTool
             _iheroEquipmentDataService.Load();
 
             // 运行主窗体并传入应用设置服务
-            Application.Run(new Form1(_iappConfigService, _iheroDataService, _ilineUpService, _iCorrectionService, _iheroEquipmentDataService));
+            Application.Run(new MainForm(_iappConfigService, _iheroDataService, _ilineUpService, _iCorrectionService, _iheroEquipmentDataService));
 
         }
     }

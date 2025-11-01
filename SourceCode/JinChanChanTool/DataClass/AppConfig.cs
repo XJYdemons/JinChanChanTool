@@ -45,27 +45,26 @@
                 UseCPU = this.UseCPU,
                 UseGPU = this.UseGPU,
                 UseFixedCoordinates = this.UseFixedCoordinates,
-                UseDynamicCoordinates =this.UseDynamicCoordinates,
-                TargetProcessName = this.TargetProcessName,
-                TargetProcessId = this.TargetProcessId,
+                UseDynamicCoordinates =this.UseDynamicCoordinates,               
                 MaxTimesWithoutGetCard = this.MaxTimesWithoutGetCard,
                 MaxTimesWithoutRefresh = this.MaxTimesWithoutRefresh,
                 DelayAfterMouseOperation = this.DelayAfterMouseOperation,
                 CPUDelayAfterRefreshStore = this.CPUDelayAfterRefreshStore,
-                GPUDelayAfterRefreshStore = this.GPUDelayAfterRefreshStore,
-                SelectorFormLocation = this.SelectorFormLocation ,
-                LineUpFormLocation = this.LineUpFormLocation,
-                StatusOverlayFormLocation =  this.StatusOverlayFormLocation,
+                GPUDelayAfterRefreshStore = this.GPUDelayAfterRefreshStore,               
                 UseSelectorForm = this.UseSelectorForm,
                 UseLineUpForm = this.UseLineUpForm,
                 UseStatusOverlayForm = this.UseStatusOverlayForm,
                 UseErrorShowForm = this.UseErrorShowForm,
-                StopRefreshWhenErrorCharacters =this.StopRefreshWhenErrorCharacters,
+                StopRefreshWhenErrorCharacters =this.StopRefreshWhenErrorCharacters,               
+                UpdateEquipmentInterval = this.UpdateEquipmentInterval,
+                IsAutoUpdateEquipment = this.IsAutoUpdateEquipment,
+                TargetProcessName = this.TargetProcessName,
+                TargetProcessId = this.TargetProcessId,
             };
         }
 
         /// <summary>
-        /// 比较函数，比较二者是否相等。
+        /// 比较函数，比较二者的指定属性是否相等。
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
@@ -107,21 +106,20 @@
                    UseGPU == other.UseGPU &&
                    UseFixedCoordinates == other.UseFixedCoordinates &&
                    UseDynamicCoordinates == other.UseDynamicCoordinates &&
-                   TargetProcessName == other.TargetProcessName &&
-                   TargetProcessId == other.TargetProcessId &&
                    MaxTimesWithoutGetCard == other.MaxTimesWithoutGetCard &&
                    MaxTimesWithoutRefresh == other.MaxTimesWithoutRefresh &&
                    DelayAfterMouseOperation == other.DelayAfterMouseOperation &&
                    CPUDelayAfterRefreshStore == other.CPUDelayAfterRefreshStore &&
                    GPUDelayAfterRefreshStore == other.GPUDelayAfterRefreshStore &&
-                   SelectorFormLocation == other.SelectorFormLocation &&
-                   LineUpFormLocation == other.LineUpFormLocation &&
-                   StatusOverlayFormLocation == other.StatusOverlayFormLocation &&
                    UseSelectorForm == other.UseSelectorForm &&
                    UseLineUpForm == other.UseLineUpForm &&
                    UseStatusOverlayForm == other.UseStatusOverlayForm &&
                    UseErrorShowForm == other.UseErrorShowForm &&
-                   StopRefreshWhenErrorCharacters == other.StopRefreshWhenErrorCharacters;
+                   StopRefreshWhenErrorCharacters == other.StopRefreshWhenErrorCharacters &&
+                   UpdateEquipmentInterval == other.UpdateEquipmentInterval &&
+                   IsAutoUpdateEquipment == other.IsAutoUpdateEquipment &&
+                   TargetProcessName == other.TargetProcessName &&
+                   TargetProcessId == other.TargetProcessId;
         }
 
         /// <summary>
@@ -290,16 +288,6 @@
         public bool UseDynamicCoordinates { get; set; }
 
         /// <summary>
-        /// 自动模式下要锁定的目标进程的名称。
-        /// </summary>
-        public string TargetProcessName { get; set; }
-
-        /// <summary>
-        /// 用于多模拟器窗口时，用户在UI中精确选择的进程ID。优先级高于按名称查找。
-        /// </summary>
-        public int TargetProcessId { get; set; }
-
-        /// <summary>
         /// 最大未拿牌次数，超过则自动停止拿牌
         /// </summary>
         public int MaxTimesWithoutGetCard { get; set; }
@@ -325,21 +313,6 @@
         public int GPUDelayAfterRefreshStore { get; set; }
 
         /// <summary>
-        /// 英雄选择面板位置
-        /// </summary>
-        public Point SelectorFormLocation { get; set; }
-
-        /// <summary>
-        /// 阵容选择面板位置
-        /// </summary>        
-        public Point LineUpFormLocation { get; set; }
-
-        /// <summary>
-        /// 状态显示面板位置
-        /// </summary>
-        public Point StatusOverlayFormLocation { get; set; }
-
-        /// <summary>
         /// 使用英雄选择面板
         /// </summary>
         public bool UseSelectorForm {  get; set; }
@@ -359,8 +332,30 @@
         /// </summary>
         public bool UseErrorShowForm { get; set; }
 
+        /// <summary>
+        /// 当识别到错误字符时停止刷新商店
+        /// </summary>
         public bool StopRefreshWhenErrorCharacters {  get; set; }
 
+        /// <summary>
+        /// 推荐装备更新频率，单位：小时
+        /// </summary>
+        public int UpdateEquipmentInterval { get; set; }
+
+        /// <summary>
+        /// 是否自动更新推荐装备
+        /// </summary>
+        public bool IsAutoUpdateEquipment { get; set; }
+
+        /// <summary>
+        /// 自动模式下要锁定的目标进程的名称。
+        /// </summary>
+        public string TargetProcessName { get; set; }
+
+        /// <summary>
+        /// 用于多模拟器窗口时，用户在UI中精确选择的进程ID。优先级高于按名称查找。
+        /// </summary>
+        public int TargetProcessId { get; set; }
         /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
@@ -398,22 +393,21 @@
             UseCPU = true;
             UseGPU = false;
             UseFixedCoordinates = true;
-            UseDynamicCoordinates = false;
-            TargetProcessName = "";
-            TargetProcessId = 0;
+            UseDynamicCoordinates = false;          
             MaxTimesWithoutGetCard = 3;
             MaxTimesWithoutRefresh = 3;
             DelayAfterMouseOperation = 20;
             CPUDelayAfterRefreshStore = 308;
-            GPUDelayAfterRefreshStore = 308;
-            SelectorFormLocation = new Point(-1, -1);
-            LineUpFormLocation = new Point(-1, -1);
-            StatusOverlayFormLocation = new Point(-1, -1);
+            GPUDelayAfterRefreshStore = 308;         
             UseSelectorForm = true;
             UseLineUpForm = true;
             UseStatusOverlayForm = true;
             UseErrorShowForm = true;
-            StopRefreshWhenErrorCharacters = true;
-    }
+            StopRefreshWhenErrorCharacters = true;          
+            UpdateEquipmentInterval = 12;
+            IsAutoUpdateEquipment = true;
+            TargetProcessName = "";
+            TargetProcessId = 0;
+        }
         }
 }

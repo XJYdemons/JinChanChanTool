@@ -1,18 +1,18 @@
 ﻿using JinChanChanTool.DataClass;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace JinChanChanTool.Services.DataServices
-{   
-    public interface IAppConfigService
+{
+    public interface IAutoConfigService
     {
         /// <summary>
         /// 当前的应用设置实例。
         /// </summary>
-        AppConfig CurrentConfig { get; set; }
-
-        /// <summary>
-        /// 设置变更事件，当设置保存后触发。
-        /// </summary>
-        event EventHandler<ConfigChangedEventArgs> OnConfigSaved;
+        AutoConfig CurrentConfig { get; set; }
 
         /// <summary>
         /// 从应用设置文件读取到对象。
@@ -22,7 +22,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 保存当前的对象设置到本地。
         /// </summary>
-        bool Save(bool isManually);
+        bool Save();
 
         /// <summary>
         /// 设置默认的应用设置。
@@ -32,13 +32,6 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 重新加载配置到对象。
         /// </summary>
-        void ReLoad();
-
-        /// <summary>
-        /// 内存中的设置相较于本地文件中的设置是否有改变。
-        /// </summary>
-        /// <returns></returns>
-        bool IsChanged();
+        void ReLoad();              
     }
-    
 }

@@ -192,10 +192,10 @@ namespace JinChanChanTool.Forms
         }
 
         #endregion
-        public IAppConfigService _iAppConfigService;
-        public void InitializeObject(IAppConfigService iAppConfigService)
+        public IAutoConfigService _iAutoConfigService;
+        public void InitializeObject(IAutoConfigService iAutoConfigService)
         {
-            _iAppConfigService = iAppConfigService;            
+            _iAutoConfigService = iAutoConfigService;            
         }
         protected override void OnShown(EventArgs e)
         {
@@ -203,7 +203,7 @@ namespace JinChanChanTool.Forms
             try
             {
                 this.StartPosition = FormStartPosition.Manual;
-                if (_iAppConfigService.CurrentConfig.StatusOverlayFormLocation.X == -1 && _iAppConfigService.CurrentConfig.StatusOverlayFormLocation.Y == -1)
+                if (_iAutoConfigService.CurrentConfig.StatusOverlayFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.StatusOverlayFormLocation.Y == -1)
                 {
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
@@ -213,9 +213,9 @@ namespace JinChanChanTool.Forms
                     return;
                 }
                 // 确保坐标在屏幕范围内
-                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAppConfigService.CurrentConfig.StatusOverlayFormLocation)))
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.StatusOverlayFormLocation)))
                 {
-                    this.Location = _iAppConfigService.CurrentConfig.StatusOverlayFormLocation;
+                    this.Location = _iAutoConfigService.CurrentConfig.StatusOverlayFormLocation;
                 }
                 else
                 {
@@ -301,10 +301,10 @@ namespace JinChanChanTool.Forms
         {
             try
             {
-                if (_iAppConfigService != null)
+                if (_iAutoConfigService != null)
                 {
-                    _iAppConfigService.CurrentConfig.StatusOverlayFormLocation = this.Location;
-                    _iAppConfigService.Save();
+                    _iAutoConfigService.CurrentConfig.StatusOverlayFormLocation = this.Location;
+                    _iAutoConfigService.Save();
                 }
             }
             catch (Exception ex)

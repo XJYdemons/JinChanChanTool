@@ -18,6 +18,11 @@ namespace JinChanChanTool.Services
         private readonly IAppConfigService _iappConfigService;
 
         /// <summary>
+        /// 自动设置服务实例
+        /// </summary>
+        private readonly IAutoConfigService _iAutoConfigService;
+
+        /// <summary>
         /// OCR结果纠正服务实例
         /// </summary>
         private readonly ICorrectionService _iCorrectionService;
@@ -68,12 +73,13 @@ namespace JinChanChanTool.Services
         private int 从上次尝试刷新到目前为止经过的轮次 = 0;
         private Stopwatch 计时器 = Stopwatch.StartNew();
 
-        public CardService(Button button1, Button button2, IAppConfigService iAppConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService)
+        public CardService(Button button1, Button button2, IAppConfigService iAppConfigService,IAutoConfigService iAutoConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService)
         {
 
             _button1 = button1;
             _button2 = button2;
             _iappConfigService = iAppConfigService;
+            _iAutoConfigService = iAutoConfigService;
             _iCorrectionService = iCorrectionService;
             _iheroDataService = iHeroDataService;
             _ilineUpService = iLineUpService;
@@ -555,27 +561,51 @@ namespace JinChanChanTool.Services
         {
             try
             {
-                // 1. 无条件地从 AppConfig 读取坐标，截取一张包含所有卡槽的大图
-                using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
-                         _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
-                        _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY,
-                        (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iappConfigService.CurrentConfig.Width_CardScreenshot,
-                         _iappConfigService.CurrentConfig.Height_CardScreenshot))
+                if(_iappConfigService.CurrentConfig.UseDynamicCoordinates)
                 {
-                    Bitmap[] bitmaps = new Bitmap[5];
+                    // 1. 无条件地从 AutoConfig 读取坐标，截取一张包含所有卡槽的大图
+                    using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
+                             _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
+                            _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY,
+                            (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iAutoConfigService.CurrentConfig.Width_CardScreenshot,
+                             _iAutoConfigService.CurrentConfig.Height_CardScreenshot))
+                    {
+                        Bitmap[] bitmaps = new Bitmap[5];
 
-                    // 2. 使用正确的、基于差值的相对偏移来分割图片
-                    bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                    bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                    bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                    bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                    bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);                  
-                    return bitmaps;
+                        // 2. 使用正确的、基于差值的相对偏移来分割图片
+                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        return bitmaps;
+                    }
                 }
+                else
+                {
+                    // 1. 无条件地从 AppConfig 读取坐标，截取一张包含所有卡槽的大图
+                    using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
+                             _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
+                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY,
+                            (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iappConfigService.CurrentConfig.Width_CardScreenshot,
+                             _iappConfigService.CurrentConfig.Height_CardScreenshot))
+                    {
+                        Bitmap[] bitmaps = new Bitmap[5];
+
+                        // 2. 使用正确的、基于差值的相对偏移来分割图片
+                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        return bitmaps;
+                    }
+                }
+                
             }
             catch (Exception ex)
             {
-                LogTool.Log($"截图失败: {ex.Message}. 请检查 AppConfig 中的坐标配置。");
+                LogTool.Log($"截图失败: {ex.Message}. 请检查坐标配置。");
                 var errorBitmaps = new Bitmap[5];
                 for (int i = 0; i < 5; i++)
                 {
@@ -640,34 +670,24 @@ namespace JinChanChanTool.Services
                 switch (i)
                 {
                     case 0:
-                        x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1;
+                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1;
                         break;
                     case 1:
-                        x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2;
+                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX2;
                         break;
                     case 2:
-                        x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3;
+                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX3;
                         break;
                     case 3:
-                        x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4;
+                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX4;
                         break;
                     case 4:
-                        x = _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5;
+                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX5;
                         break;
                 }
                 if (isGetArray[i])
                 {
-                    if (_iappConfigService.CurrentConfig.MouseGetCard)
-                    {
-                        // 鼠标操作
-                        MouseControlTool.SetMousePosition(x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);                        
-                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
-                        // 执行点击操作，逐个点击并等待
-                        await ClickOneTime();
-                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
-                        
-                    }
-                    else if (_iappConfigService.CurrentConfig.KeyboardGetCard)
+                    if (_iappConfigService.CurrentConfig.KeyboardGetCard)
                     {
                         switch (i)
                         {
@@ -686,10 +706,31 @@ namespace JinChanChanTool.Services
                             case 4:
                                 KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5);
                                 break;
-                        }                        
-                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);                       
+                        }
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
                     }
-                }
+                    else if (_iappConfigService.CurrentConfig.MouseGetCard)
+                    {
+                        if (_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+                        {
+                            // 鼠标操作
+                            MouseControlTool.SetMousePosition(x + _iAutoConfigService.CurrentConfig.Width_CardScreenshot / 2, _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2);
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                            // 执行点击操作，逐个点击并等待
+                            await ClickOneTime();
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                        }
+                        else if(_iappConfigService.CurrentConfig.UseFixedCoordinates)
+                        {
+                            // 鼠标操作
+                            MouseControlTool.SetMousePosition(x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                            // 执行点击操作，逐个点击并等待
+                            await ClickOneTime();
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                        }
+                    }
+                }                                  
             }
         }
 

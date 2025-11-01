@@ -87,10 +87,12 @@ namespace JinChanChanTool.Forms
             }
         }
         private  ILineUpService _ilineUpService;
-        public IAppConfigService _iAppConfigService;
-        public void InitializeObject(ILineUpService ilineUpService,IAppConfigService iAppConfigService)
+      
+        public IAutoConfigService _iAutoConfigService;
+        public void InitializeObject(ILineUpService ilineUpService, IAutoConfigService iAutoConfigService)
         {
-            _iAppConfigService = iAppConfigService;
+           
+            _iAutoConfigService = iAutoConfigService;
             _ilineUpService = ilineUpService;
             ApplySavedLocation();
         }       
@@ -115,7 +117,7 @@ namespace JinChanChanTool.Forms
             try
             {
                 this.StartPosition = FormStartPosition.Manual;
-                if (_iAppConfigService.CurrentConfig.LineUpFormLocation.X == -1 && _iAppConfigService.CurrentConfig.LineUpFormLocation.Y == -1)
+                if (_iAutoConfigService.CurrentConfig.LineUpFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.LineUpFormLocation.Y == -1)
                 {                   
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
@@ -125,9 +127,9 @@ namespace JinChanChanTool.Forms
                     return;
                 }
                 // 确保坐标在屏幕范围内
-                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAppConfigService.CurrentConfig.LineUpFormLocation)))
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.LineUpFormLocation)))
                 {
-                    this.Location = _iAppConfigService.CurrentConfig.LineUpFormLocation;
+                    this.Location = _iAutoConfigService.CurrentConfig.LineUpFormLocation;
                 }
                 else
                 {
@@ -155,10 +157,10 @@ namespace JinChanChanTool.Forms
         {          
             try
             {
-                if (_iAppConfigService != null)
+                if (_iAutoConfigService != null)
                 {
-                    _iAppConfigService.CurrentConfig.LineUpFormLocation = this.Location;
-                    _iAppConfigService.Save();
+                    _iAutoConfigService.CurrentConfig.LineUpFormLocation = this.Location;
+                    _iAutoConfigService.Save();
                 }
             }
             catch (Exception ex)

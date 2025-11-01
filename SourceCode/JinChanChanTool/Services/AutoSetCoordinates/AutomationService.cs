@@ -68,32 +68,7 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             _windowInteractionService = windowInteractionService;
             _coordService = coordService;
         }
-
-        ///// <summary>
-        ///// 设置用户选择的进程为自动化目标。
-        ///// </summary>
-        ///// <param name="process">用户选择的进程。</param>
-        //public void SetTargetProcess(Process process)
-        //{
-        //    if (_windowInteractionService.SetTargetWindow(process))
-        //    {
-        //        // 根据进程名判断游戏模式
-        //        // 假设：只有云顶是这个进程名，其他都是模拟器
-        //        if (process.ProcessName.Equals("League of Legends", StringComparison.OrdinalIgnoreCase))
-        //        {
-        //            CurrentGameMode = GameMode.TFT;
-        //        }
-        //        else
-        //        {
-        //            CurrentGameMode = GameMode.JCC;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        CurrentGameMode = GameMode.None;
-        //    }
-        //}
-
+       
         /// <summary>
         /// 设置用户选择的进程为自动化目标。
         /// 此方法会智能判断进程类型，并采用相应的窗口查找策略。

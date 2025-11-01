@@ -77,10 +77,10 @@ namespace JinChanChanTool.Forms
         }
         #endregion
 
-        public IAppConfigService _iAppConfigService;
-        public void InitializeObject(IAppConfigService iAppConfigService)
+        public IAutoConfigService _iAutoConfigService;
+        public void InitializeObject(IAutoConfigService iAutoConfigService)
         {           
-            _iAppConfigService = iAppConfigService;
+            _iAutoConfigService = iAutoConfigService;
             ApplySavedLocation();
         }
         private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -104,15 +104,15 @@ namespace JinChanChanTool.Forms
             try
             {
                 this.StartPosition = FormStartPosition.Manual;        
-                if(_iAppConfigService.CurrentConfig.SelectorFormLocation.X==-1&& _iAppConfigService.CurrentConfig.SelectorFormLocation.Y == -1)
+                if(_iAutoConfigService.CurrentConfig.SelectorFormLocation.X==-1&& _iAutoConfigService.CurrentConfig.SelectorFormLocation.Y == -1)
                 {
                     this.Location = new Point(0, 0);
                     return;
                 }
                 // 确保坐标在屏幕范围内
-                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAppConfigService.CurrentConfig.SelectorFormLocation)))
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.SelectorFormLocation)))
                 {
-                    this.Location = _iAppConfigService.CurrentConfig.SelectorFormLocation;
+                    this.Location = _iAutoConfigService.CurrentConfig.SelectorFormLocation;
                 }
                 else
                 {
@@ -132,10 +132,10 @@ namespace JinChanChanTool.Forms
         {           
             try
             {
-                if (_iAppConfigService != null)
+                if (_iAutoConfigService != null)
                 {
-                    _iAppConfigService.CurrentConfig.SelectorFormLocation = this.Location;
-                    _iAppConfigService.Save();
+                    _iAutoConfigService.CurrentConfig.SelectorFormLocation = this.Location;
+                    _iAutoConfigService.Save();
                 }
             }
             catch (Exception ex)

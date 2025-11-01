@@ -15,7 +15,12 @@ namespace JinChanChanTool
             //创建并加载应用设置服务
             IAppConfigService _iappConfigService = new AppConfigService();
             _iappConfigService.Load();
-            // 创建并加载英雄数据服务
+
+            //创建并加载应用设置服务
+            IAutoConfigService _iAutoConfigService = new AutoConfigService();
+            _iAutoConfigService.Load();
+
+            //创建并加载英雄数据服务
             IHeroDataService _iheroDataService = new HeroDataService();
             _iheroDataService.Load();
 
@@ -33,7 +38,7 @@ namespace JinChanChanTool
             _iheroEquipmentDataService.Load();
 
             // 运行主窗体并传入应用设置服务
-            Application.Run(new MainForm(_iappConfigService, _iheroDataService, _ilineUpService, _iCorrectionService, _iheroEquipmentDataService));
+            Application.Run(new MainForm(_iappConfigService,_iAutoConfigService, _iheroDataService, _ilineUpService, _iCorrectionService, _iheroEquipmentDataService));
 
         }
     }

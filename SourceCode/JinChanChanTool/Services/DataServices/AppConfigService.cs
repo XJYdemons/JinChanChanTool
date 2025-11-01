@@ -52,9 +52,50 @@ namespace JinChanChanTool.Services.DataServices
         }
 
         /// <summary>
+        /// 内存中的设置相较于本地文件中的设置是否有改变。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsChanged()
+        {
+            try
+            {
+                // 读取旧配置副本（用于比较）
+                AppConfig oldConfig = null;
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        string oldJson = File.ReadAllText(filePath);
+                        if (!string.IsNullOrEmpty(oldJson))
+                        {
+                            oldConfig = JsonSerializer.Deserialize<AppConfig>(oldJson);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+               if(oldConfig.Equals(CurrentConfig))
+                {
+                    return false;
+                    
+                }
+               else
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 保存当前的对象设置到本地。
         /// </summary>
-        public void Save()
+        public bool Save(bool isManually)
         {
             try
             {
@@ -86,15 +127,17 @@ namespace JinChanChanTool.Services.DataServices
                 // 计算差异字段
                 var changedFields = GetChangedFields(oldConfig, CurrentConfig);
                 // 触发通知事件
-                OnConfigSaved?.Invoke(this, new ConfigChangedEventArgs(changedFields));
+                OnConfigSaved?.Invoke(this, new ConfigChangedEventArgs(changedFields,isManually));
+                return true;
             }
             catch
             {
-                MessageBox.Show($"应用设置文件\"AppConfig.json\"保存失败\n路径：\n{filePath}",
+                MessageBox.Show($"用户应用设置文件\"AppConfig.json\"保存失败\n路径：\n{filePath}",
                                   "文件保存失败",
                                   MessageBoxButtons.OK,
                                   MessageBoxIcon.Error
                                   );
+                return false;
             }
 
         }
@@ -129,35 +172,35 @@ namespace JinChanChanTool.Services.DataServices
                 //判断Json文件是否存在
                 if (!File.Exists(filePath))
                 {
-                    MessageBox.Show($"找不到应用设置文件\"AppConfig.json\"\n路径：\n{filePath}\n将创建默认设置文件。",
+                    MessageBox.Show($"找不到用户应用设置文件\"AppConfig.json\"\n路径：\n{filePath}\n将创建默认设置文件。",
                                     "文件不存在",
                                     MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error
+                                    MessageBoxIcon.Warning
                                     );
-                    Save();
+                    Save(false);
                     return;
                 }
                 string json = File.ReadAllText(filePath);
                 if (string.IsNullOrEmpty(json))
                 {
-                    MessageBox.Show($"应用设置文件\"AppConfig.json\"内容为空。\n路径：\n{filePath}\n将创建默认设置文件。",
+                    MessageBox.Show($"用户应用设置文件\"AppConfig.json\"内容为空。\n路径：\n{filePath}\n将创建默认设置文件。",
                                "文件为空",
                                MessageBoxButtons.OK,
-                               MessageBoxIcon.Error
+                               MessageBoxIcon.Warning
                                );
-                    Save();
+                    Save(false);
                     return;
                 }
                 CurrentConfig = JsonSerializer.Deserialize<AppConfig>(json);                
             }
             catch
             {
-                MessageBox.Show($"应用设置文件\"AppConfig.json\"格式错误\n路径：\n{filePath}\n将创建默认设置文件。",
+                MessageBox.Show($"用户应用设置文件\"AppConfig.json\"格式错误\n路径：\n{filePath}\n将创建默认设置文件。",
                                    "文件格式错误",
                                    MessageBoxButtons.OK,
-                                   MessageBoxIcon.Error
+                                   MessageBoxIcon.Warning
                                    );
-                Save();
+                Save(false);
             }
         }
 
@@ -202,9 +245,15 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public List<string> ChangedFields { get; }
 
-        public ConfigChangedEventArgs(List<string> changedFields)
+        /// <summary>
+        /// 是否是手动触发的变更（true：手动保存，false：自动保存）
+        /// </summary>
+        public bool IsManualChange { get; }
+
+        public ConfigChangedEventArgs(List<string> changedFields, bool isManualChange)
         {
             ChangedFields = changedFields;
+            IsManualChange = isManualChange;
         }
     }
 }

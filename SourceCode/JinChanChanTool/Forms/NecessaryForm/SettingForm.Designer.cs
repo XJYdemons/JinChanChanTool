@@ -83,6 +83,7 @@
             textBox_最大阵容数量 = new TextBox();
             tabPage_拿牌相关 = new TabPage();
             panel_拿牌相关 = new Panel();
+            checkBox_StopRefreshWhenErrorCharacters = new CheckBox();
             label_GPU推理模式下刷新商店后等待时间 = new Label();
             textBox_GPUDelayAfterRefreshStore = new TextBox();
             label_CPU推理模式下刷新商店后等待时间 = new Label();
@@ -122,14 +123,19 @@
             radioButton__CPU推理 = new RadioButton();
             radioButton_CPU推理 = new RadioButton();
             tabPage_窗口 = new TabPage();
-            panel1 = new Panel();
+            panel_窗口 = new Panel();
             checkBox_UseErrorShowForm = new CheckBox();
             checkBox_UseStatusOverlayForm = new CheckBox();
             checkBox_UseSelectorForm = new CheckBox();
             checkBox_UseLineUpFormLocation = new CheckBox();
+            tabPage_其他 = new TabPage();
+            panel1 = new Panel();
+            label_小时后自动更新推荐装备 = new Label();
+            label_每隔 = new Label();
+            textBox_更新推荐装备间隔 = new TextBox();
+            checkBox_定时更新推荐装备 = new CheckBox();
             panel_BackGround = new Panel();
             panel_Buttons = new Panel();
-            checkBox_StopRefreshWhenErrorCharacters = new CheckBox();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
             tabPage_快捷键.SuspendLayout();
@@ -144,6 +150,8 @@
             tabPage_OCR相关.SuspendLayout();
             panel_OCR相关.SuspendLayout();
             tabPage_窗口.SuspendLayout();
+            panel_窗口.SuspendLayout();
+            tabPage_其他.SuspendLayout();
             panel1.SuspendLayout();
             panel_BackGround.SuspendLayout();
             panel_Buttons.SuspendLayout();
@@ -545,6 +553,7 @@
             tabControl_设置.Controls.Add(tabPage_拿牌相关);
             tabControl_设置.Controls.Add(tabPage_OCR相关);
             tabControl_设置.Controls.Add(tabPage_窗口);
+            tabControl_设置.Controls.Add(tabPage_其他);
             tabControl_设置.Location = new Point(5, 45);
             tabControl_设置.Name = "tabControl_设置";
             tabControl_设置.SelectedIndex = 0;
@@ -765,6 +774,16 @@
             panel_拿牌相关.Name = "panel_拿牌相关";
             panel_拿牌相关.Size = new Size(368, 325);
             panel_拿牌相关.TabIndex = 24;
+            // 
+            // checkBox_StopRefreshWhenErrorCharacters
+            // 
+            checkBox_StopRefreshWhenErrorCharacters.AutoSize = true;
+            checkBox_StopRefreshWhenErrorCharacters.Location = new Point(5, 137);
+            checkBox_StopRefreshWhenErrorCharacters.Name = "checkBox_StopRefreshWhenErrorCharacters";
+            checkBox_StopRefreshWhenErrorCharacters.Size = new Size(327, 21);
+            checkBox_StopRefreshWhenErrorCharacters.TabIndex = 36;
+            checkBox_StopRefreshWhenErrorCharacters.Text = "当识别到不属于任何英雄名称的字符时自动停止刷新商店";
+            checkBox_StopRefreshWhenErrorCharacters.UseVisualStyleBackColor = true;
             // 
             // label_GPU推理模式下刷新商店后等待时间
             // 
@@ -1160,7 +1179,7 @@
             // tabPage_窗口
             // 
             tabPage_窗口.BackColor = Color.White;
-            tabPage_窗口.Controls.Add(panel1);
+            tabPage_窗口.Controls.Add(panel_窗口);
             tabPage_窗口.Location = new Point(4, 26);
             tabPage_窗口.Name = "tabPage_窗口";
             tabPage_窗口.Padding = new Padding(3);
@@ -1168,18 +1187,18 @@
             tabPage_窗口.TabIndex = 7;
             tabPage_窗口.Text = "窗口";
             // 
-            // panel1
+            // panel_窗口
             // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(checkBox_UseErrorShowForm);
-            panel1.Controls.Add(checkBox_UseStatusOverlayForm);
-            panel1.Controls.Add(checkBox_UseSelectorForm);
-            panel1.Controls.Add(checkBox_UseLineUpFormLocation);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(3, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(368, 325);
-            panel1.TabIndex = 0;
+            panel_窗口.AutoScroll = true;
+            panel_窗口.Controls.Add(checkBox_UseErrorShowForm);
+            panel_窗口.Controls.Add(checkBox_UseStatusOverlayForm);
+            panel_窗口.Controls.Add(checkBox_UseSelectorForm);
+            panel_窗口.Controls.Add(checkBox_UseLineUpFormLocation);
+            panel_窗口.Dock = DockStyle.Fill;
+            panel_窗口.Location = new Point(3, 3);
+            panel_窗口.Name = "panel_窗口";
+            panel_窗口.Size = new Size(368, 325);
+            panel_窗口.TabIndex = 0;
             // 
             // checkBox_UseErrorShowForm
             // 
@@ -1221,6 +1240,68 @@
             checkBox_UseLineUpFormLocation.Text = "启用阵容选择面板";
             checkBox_UseLineUpFormLocation.UseVisualStyleBackColor = true;
             // 
+            // tabPage_其他
+            // 
+            tabPage_其他.Controls.Add(panel1);
+            tabPage_其他.Location = new Point(4, 26);
+            tabPage_其他.Name = "tabPage_其他";
+            tabPage_其他.Padding = new Padding(3);
+            tabPage_其他.Size = new Size(374, 331);
+            tabPage_其他.TabIndex = 8;
+            tabPage_其他.Text = "其他";
+            tabPage_其他.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(label_小时后自动更新推荐装备);
+            panel1.Controls.Add(label_每隔);
+            panel1.Controls.Add(textBox_更新推荐装备间隔);
+            panel1.Controls.Add(checkBox_定时更新推荐装备);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(3, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(368, 325);
+            panel1.TabIndex = 1;
+            // 
+            // label_小时后自动更新推荐装备
+            // 
+            label_小时后自动更新推荐装备.Location = new Point(119, 29);
+            label_小时后自动更新推荐装备.MinimumSize = new Size(23, 23);
+            label_小时后自动更新推荐装备.Name = "label_小时后自动更新推荐装备";
+            label_小时后自动更新推荐装备.Size = new Size(156, 23);
+            label_小时后自动更新推荐装备.TabIndex = 30;
+            label_小时后自动更新推荐装备.Text = "小时后自动更新推荐装备";
+            label_小时后自动更新推荐装备.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label_每隔
+            // 
+            label_每隔.Location = new Point(20, 29);
+            label_每隔.MinimumSize = new Size(23, 23);
+            label_每隔.Name = "label_每隔";
+            label_每隔.Size = new Size(34, 23);
+            label_每隔.TabIndex = 28;
+            label_每隔.Text = "每隔";
+            label_每隔.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_更新推荐装备间隔
+            // 
+            textBox_更新推荐装备间隔.Location = new Point(60, 29);
+            textBox_更新推荐装备间隔.Name = "textBox_更新推荐装备间隔";
+            textBox_更新推荐装备间隔.Size = new Size(53, 23);
+            textBox_更新推荐装备间隔.TabIndex = 29;
+            textBox_更新推荐装备间隔.TabStop = false;
+            // 
+            // checkBox_定时更新推荐装备
+            // 
+            checkBox_定时更新推荐装备.AutoSize = true;
+            checkBox_定时更新推荐装备.Location = new Point(5, 5);
+            checkBox_定时更新推荐装备.Name = "checkBox_定时更新推荐装备";
+            checkBox_定时更新推荐装备.Size = new Size(123, 21);
+            checkBox_定时更新推荐装备.TabIndex = 27;
+            checkBox_定时更新推荐装备.Text = "定时更新推荐装备";
+            checkBox_定时更新推荐装备.UseVisualStyleBackColor = true;
+            // 
             // panel_BackGround
             // 
             panel_BackGround.AutoScroll = true;
@@ -1247,16 +1328,6 @@
             panel_Buttons.Name = "panel_Buttons";
             panel_Buttons.Size = new Size(382, 36);
             panel_Buttons.TabIndex = 210;
-            // 
-            // checkBox_StopRefreshWhenErrorCharacters
-            // 
-            checkBox_StopRefreshWhenErrorCharacters.AutoSize = true;
-            checkBox_StopRefreshWhenErrorCharacters.Location = new Point(5, 137);
-            checkBox_StopRefreshWhenErrorCharacters.Name = "checkBox_StopRefreshWhenErrorCharacters";
-            checkBox_StopRefreshWhenErrorCharacters.Size = new Size(327, 21);
-            checkBox_StopRefreshWhenErrorCharacters.TabIndex = 36;
-            checkBox_StopRefreshWhenErrorCharacters.Text = "当识别到不属于任何英雄名称的字符时自动停止刷新商店";
-            checkBox_StopRefreshWhenErrorCharacters.UseVisualStyleBackColor = true;
             // 
             // SettingForm
             // 
@@ -1293,6 +1364,9 @@
             panel_OCR相关.ResumeLayout(false);
             panel_OCR相关.PerformLayout();
             tabPage_窗口.ResumeLayout(false);
+            panel_窗口.ResumeLayout(false);
+            panel_窗口.PerformLayout();
+            tabPage_其他.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel_BackGround.ResumeLayout(false);
@@ -1397,11 +1471,17 @@
         public Label label_CPU推理模式下刷新商店后等待时间;
         public TextBox textBox_CPUDelayAfterRefreshStore;
         private TabPage tabPage_窗口;
-        private Panel panel1;
+        private Panel panel_窗口;
         private CheckBox checkBox_UseStatusOverlayForm;
         private CheckBox checkBox_UseSelectorForm;
         private CheckBox checkBox_UseLineUpFormLocation;
         private CheckBox checkBox_UseErrorShowForm;
         private CheckBox checkBox_StopRefreshWhenErrorCharacters;
+        private TabPage tabPage_其他;
+        private Panel panel1;
+        public Label label_小时后自动更新推荐装备;
+        public Label label_每隔;
+        public TextBox textBox_更新推荐装备间隔;
+        private CheckBox checkBox_定时更新推荐装备;
     }
 }

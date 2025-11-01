@@ -19,7 +19,7 @@
         public string HeroName { get; set; }
 
         /// <summary>
-        /// 花费
+        /// 费用
         /// </summary>
         public int Cost { get; set; }
 

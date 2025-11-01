@@ -1,5 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Linq;
 
 namespace JinChanChanTool.Services.DataServices
@@ -396,7 +397,7 @@ namespace JinChanChanTool.Services.DataServices
                         MessageBox.Show($"找不到阵容文件\"LineUps.json\"\n路径：\n{filePath}\n将创建新的阵容文件。",
                                     "文件缺失",
                                     MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error
+                                    MessageBoxIcon.Warning
                                     );
                         LoadDefaultLineups();
                         Save();
@@ -409,13 +410,13 @@ namespace JinChanChanTool.Services.DataServices
                         MessageBox.Show($"阵容文件\"LineUps.json\"内容为空。\n路径：\n{filePath}\n将创建新的阵容文件。",
                                    "文件为空",
                                    MessageBoxButtons.OK,
-                                   MessageBoxIcon.Error
+                                   MessageBoxIcon.Warning
                                    );
                         LoadDefaultLineups();
                         Save();
                         return ;
-                    }
-
+                    }              
+                    
                     //检查阵容数量是否满足设置中的个数
                     List<LineUp> temp = JsonConvert.DeserializeObject<List<LineUp>>(json);                   
                     if (temp.Count < _countOfLineUps)
@@ -423,7 +424,7 @@ namespace JinChanChanTool.Services.DataServices
                         _lineUps.AddRange(temp);
                         for (int i = 0; i < _countOfLineUps - temp.Count; i++)
                         {
-                            _lineUps.Add(new LineUp { Name = $"阵容{i + 1 + temp.Count}", Selected = new List<string>[3] });
+                            _lineUps.Add(new LineUp { Name = $"阵容{i + 1 + temp.Count}", Selected = new List<string>[3] { new List<string>(), new List<string>() , new List<string>() } });
                         }
                      }
                     else if(temp.Count>_countOfLineUps)
@@ -436,10 +437,10 @@ namespace JinChanChanTool.Services.DataServices
                     else
                     {
                          _lineUps.AddRange(temp);
-                    }
-
+                    }        
+                    
                     //检查阵容数据是否与英雄数据冲突
-                    foreach(LineUp lineUp in _lineUps)
+                    foreach (LineUp lineUp in _lineUps)
                     {
                          foreach(List<string> subLineUp in lineUp.Selected)
                         {                            
@@ -457,8 +458,8 @@ namespace JinChanChanTool.Services.DataServices
                                 }
                             }
                          }
-                    }
-
+                    }       
+                    
                     //将阵容按照Cost排序
                     foreach (LineUp lineUp in _lineUps)
                     {
@@ -469,8 +470,8 @@ namespace JinChanChanTool.Services.DataServices
                                 .OrderBy(name => _iHeroDataService.GetHeroFromName(name).Cost)
                                 .ToList();
                         }
-                    }
-
+                    }  
+                    
                     //只保存设置中设置的最大选择英雄个数
                     foreach (LineUp lineUp in _lineUps)
                     {
@@ -491,7 +492,7 @@ namespace JinChanChanTool.Services.DataServices
                     MessageBox.Show($"阵容文件“LineUps.json”格式错误\n路径：\n{Path.Combine(paths[_pathIndex], "LineUps.json")}\n将创建新的阵容文件。",
                                   "文件格式错误",
                                   MessageBoxButtons.OK,
-                                  MessageBoxIcon.Error
+                                  MessageBoxIcon.Warning
                                   );
                     LoadDefaultLineups();
                     Save();                    

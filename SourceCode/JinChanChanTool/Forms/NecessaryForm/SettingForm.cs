@@ -14,12 +14,7 @@ namespace JinChanChanTool
         /// 应用设置服务类实例，用于加载和保存应用设置。
         /// </summary>
         private readonly IAppConfigService _iappConfigService;
-
-        /// <summary>
-        /// 用于存储旧的应用设置以便比较
-        /// </summary>
-        private AppConfig oldAppConfig;
-       
+        
         public SettingForm(IAppConfigService _iAppConfigService)
         {
             InitializeComponent();
@@ -31,9 +26,6 @@ namespace JinChanChanTool
 
             //初始化应用设置服务类实例
             _iappConfigService = _iAppConfigService;
-
-            // 克隆当前设置以备后续比较
-            oldAppConfig = (AppConfig)_iappConfigService.CurrentConfig.Clone();
 
             //为组件绑定事件
             Initialize_AllComponents();
@@ -55,7 +47,7 @@ namespace JinChanChanTool
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             // 检查设置是否已修改
-            if (!IsSaved())
+            if (_iappConfigService.IsChanged())
             {
                 var result = MessageBox.Show(
                     "您有未保存的设置，是否要保存？",
@@ -65,9 +57,8 @@ namespace JinChanChanTool
                 );
 
                 if (result == DialogResult.Yes)
-                {
-                    oldAppConfig = (AppConfig)_iappConfigService.CurrentConfig.Clone();
-                    _iappConfigService.Save();
+                {                    
+                    _iappConfigService.Save(true);
                 }
                 else if (result == DialogResult.Cancel)
                 {
@@ -77,8 +68,7 @@ namespace JinChanChanTool
                 }
                 else
                 {
-                    // 如果选择"No"，则不保存直接关闭
-                    _iappConfigService.CurrentConfig = oldAppConfig.Clone() as AppConfig;
+                    _iappConfigService.ReLoad();
                 }
 
             }
@@ -174,7 +164,9 @@ namespace JinChanChanTool
             checkBox_UseSelectorForm.Checked = _iappConfigService.CurrentConfig.UseSelectorForm;
             checkBox_UseLineUpFormLocation.Checked = _iappConfigService.CurrentConfig.UseLineUpForm;
             checkBox_UseStatusOverlayForm.Checked = _iappConfigService.CurrentConfig.UseStatusOverlayForm;
-            checkBox_UseErrorShowForm.Checked = _iappConfigService.CurrentConfig.UseErrorShowForm;            
+            checkBox_UseErrorShowForm.Checked = _iappConfigService.CurrentConfig.UseErrorShowForm;       
+            checkBox_定时更新推荐装备.Checked = _iappConfigService.CurrentConfig.IsAutoUpdateEquipment;
+            textBox_更新推荐装备间隔.Text = _iappConfigService.CurrentConfig.UpdateEquipmentInterval.ToString();
         }
 
         /// <summary>
@@ -296,6 +288,12 @@ namespace JinChanChanTool
             checkBox_UseLineUpFormLocation.CheckedChanged += checkBox_UseLineUpFormLocation_CheckedChanged;
             checkBox_UseStatusOverlayForm.CheckedChanged += checkBox_UseStatusOverlayForm_CheckedChanged;
             checkBox_UseErrorShowForm.CheckedChanged += checkBox_UseErrorShowForm_CheckedChanged;
+
+            textBox_更新推荐装备间隔.KeyDown += TextBox_KeyDown;
+            textBox_更新推荐装备间隔.Enter += TextBox_Enter;
+            textBox_更新推荐装备间隔.Leave += TextBox_更新推荐装备间隔_Leave;
+
+            checkBox_定时更新推荐装备.CheckedChanged += checkBox_定时更新推荐装备_CheckedChanged;
         }
 
         /// <summary>
@@ -348,6 +346,7 @@ namespace JinChanChanTool
 
         #endregion
 
+        #region 快捷键设置
         #region 修改-召出隐藏窗口快捷键-逻辑
 
         /// <summary>
@@ -366,9 +365,9 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey2) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey4))
-                {
-                    _iappConfigService.CurrentConfig.HotKey3 = key.ToString();
+                if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1)&& (key.ToString() != _iappConfigService.CurrentConfig.HotKey2) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey4))
+                {                   
+                    _iappConfigService.CurrentConfig.HotKey3 = key.ToString();                 
                     Update_AllComponents();
                 }
 
@@ -400,8 +399,8 @@ namespace JinChanChanTool
             if (GlobalHotkeyTool.IsRightKey(key))
             {
                 if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey2) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey3) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey4))
-                {
-                    _iappConfigService.CurrentConfig.HotKey1 = key.ToString();
+                {                    
+                    _iappConfigService.CurrentConfig.HotKey1 = key.ToString();                  
                     Update_AllComponents();
                 }
 
@@ -433,8 +432,8 @@ namespace JinChanChanTool
             if (GlobalHotkeyTool.IsRightKey(key))
             {
                 if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey3) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey4))
-                {
-                    _iappConfigService.CurrentConfig.HotKey2 = key.ToString();
+                {                   
+                    _iappConfigService.CurrentConfig.HotKey2 = key.ToString();                   
                     Update_AllComponents();
                 }
 
@@ -465,8 +464,8 @@ namespace JinChanChanTool
             if (GlobalHotkeyTool.IsRightKey(key))
             {
                 if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey3) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey2))
-                {
-                    _iappConfigService.CurrentConfig.HotKey4 = key.ToString();
+                {                    
+                    _iappConfigService.CurrentConfig.HotKey4 = key.ToString();                   
                     Update_AllComponents();
                 }
 
@@ -477,76 +476,9 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 修改-最大选择数量
-        /// <summary>
-        /// 离开TextBox4时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBox4_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_最大选择数量.Text))
-            {
-
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    int result = int.Parse(textBox_最大选择数量.Text);
-                    if (result > 0 && result <= 100)
-                    {
-                        _iappConfigService.CurrentConfig.MaxOfChoices = result;
-                    }
-                    Update_AllComponents();
-
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
         #endregion
 
-        #region 修改-最大阵容数量
-        /// <summary>
-        /// 离开TextBox5时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBox5_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_最大阵容数量.Text))
-            {
-
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    int result = int.Parse(textBox_最大阵容数量.Text);
-                    if (result > 0 && result <= 100)
-                    {
-                        _iappConfigService.CurrentConfig.CountOfLine = result;
-                    }
-                    Update_AllComponents();
-
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-        #endregion
-
+        #region 截图设置
         #region 修改-奕子起点坐标X1-逻辑
         /// <summary>
         /// 离开TextBox8时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
@@ -559,7 +491,6 @@ namespace JinChanChanTool
             GlobalHotkeyTool.Enabled = true;
             if (string.IsNullOrWhiteSpace(textBox_拿牌坐标X1.Text))
             {
-
                 Update_AllComponents();
             }
             else
@@ -865,15 +796,256 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 修改-单选框-逻辑
+        #region 坐标设置方式单选框改变
+        private void radioButton_手动设置坐标_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_手动设置坐标.Checked)
+            {
+                button_选择进程.Enabled = false;
+                comboBox_选择显示器.Enabled = true;
+                button_快速设置奕子截图坐标与大小.Enabled = true;
+                textBox_拿牌坐标X1.Enabled = true;
+                textBox_拿牌坐标X2.Enabled = true;
+                textBox_拿牌坐标X3.Enabled = true;
+                textBox_拿牌坐标X4.Enabled = true;
+                textBox_拿牌坐标X5.Enabled = true;
+                textBox_拿牌坐标Y.Enabled = true;
+                textBox_奕子截图宽度.Enabled = true;
+                textBox_奕子截图高度.Enabled = true;
+                button_快速设置商店刷新按钮坐标.Enabled = true;
+                textBox_商店刷新按钮坐标X.Enabled = true;
+                textBox_商店刷新按钮坐标Y.Enabled = true;
+            }
+            _iappConfigService.CurrentConfig.UseFixedCoordinates = radioButton_手动设置坐标.Checked;
+        }
+
+
+        private void radioButton_自动设置坐标_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_自动设置坐标.Checked)
+            {
+                button_选择进程.Enabled = true;
+                comboBox_选择显示器.Enabled = false;
+                button_快速设置奕子截图坐标与大小.Enabled = false;
+                textBox_拿牌坐标X1.Enabled = false;
+                textBox_拿牌坐标X2.Enabled = false;
+                textBox_拿牌坐标X3.Enabled = false;
+                textBox_拿牌坐标X4.Enabled = false;
+                textBox_拿牌坐标X5.Enabled = false;
+                textBox_拿牌坐标Y.Enabled = false;
+                textBox_奕子截图宽度.Enabled = false;
+                textBox_奕子截图高度.Enabled = false;
+                button_快速设置商店刷新按钮坐标.Enabled = false;
+                textBox_商店刷新按钮坐标X.Enabled = false;
+                textBox_商店刷新按钮坐标Y.Enabled = false;
+            }
+            _iappConfigService.CurrentConfig.UseDynamicCoordinates = radioButton_自动设置坐标.Checked;
+        }
+
+        #endregion
+
+        #region 快速设置坐标      
+        /// <summary>
+        /// 快速设置奕子截图坐标与大小按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            using (var setter = new FastSettingPositionService(targetScreen))
+            {
+                try
+                {
+                    // 第一张卡片
+                    var rect1 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第1张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rect1.X;
+
+                    // 第二张卡片
+                    var rect2 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第2张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rect2.X;
+
+                    // 第三张卡片
+                    var rect3 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第3张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rect3.X;
+
+                    // 第四张卡片
+                    var rect4 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第4张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rect4.X;
+
+                    // 第五张卡片（同时获取高度）
+                    var rect5 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第5张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rect5.X;
+                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rect5.Y;
+
+                    if (rect5.Width > 0 && rect5.Height > 0)
+                    {
+                        _iappConfigService.CurrentConfig.Width_CardScreenshot = rect5.Width;
+                        _iappConfigService.CurrentConfig.Height_CardScreenshot = rect5.Height;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"出现错误: {ex.Message}");
+                }
+            }
+            Update_AllComponents();
+        }
+
+
+
+        /// <summary>
+        /// 快速设置商店刷新按钮坐标按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void button5_Click(object sender, EventArgs e)
+        {
+            using (var setter = new FastSettingPositionService(targetScreen))
+            {
+                try
+                {
+                    var point = await setter.WaitForClickAsync("请点击商店刷新按钮的中心点");
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = point.X;
+                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = point.Y;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"出现错误: {ex.Message}");
+                }
+            }
+            Update_AllComponents();
+        }
+
+        #endregion
+
+        #region 选择进程
+        private void button_选择进程_Click(object sender, EventArgs e)
+        {
+            // 1. 实时创建进程发现服务
+            var discoveryService = new ProcessDiscoveryService();
+
+            // 2. 创建并显示进程选择窗体
+            using (var processForm = new ProcessSelectorForm(discoveryService))
+            {
+                if (processForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    var selectedProcess = processForm.SelectedProcess;
+                    if (selectedProcess != null)
+                    {
+                        // 同时保存 Name 和 ID
+                        _iappConfigService.CurrentConfig.TargetProcessName = selectedProcess.ProcessName;
+                        _iappConfigService.CurrentConfig.TargetProcessId = selectedProcess.Id;
+                        // 给用户反馈
+                        string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
+                        MessageBox.Show($"已选择进程：{displayName}\n请点击“保存设置”来保存此选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 阵容相关设置
+        #region 修改-最大选择数量
+        /// <summary>
+        /// 离开TextBox4时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox4_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_最大选择数量.Text))
+            {
+
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox_最大选择数量.Text);
+                    if (result > 0 && result <= 100)
+                    {
+                        _iappConfigService.CurrentConfig.MaxOfChoices = result;
+                    }
+                    Update_AllComponents();
+
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+
+        #region 修改-最大阵容数量
+        /// <summary>
+        /// 离开TextBox5时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox5_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_最大阵容数量.Text))
+            {
+
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox_最大阵容数量.Text);
+                    if (result > 0 && result <= 100)
+                    {
+                        _iappConfigService.CurrentConfig.CountOfLine = result;
+                    }
+                    Update_AllComponents();
+
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+
+        #region 打开英雄英雄配置文件编辑器
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            var form = new HeroInfoEditorForm();
+            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
+            form.TopMost = true;// 确保窗口在最前面
+            form.Show();// 显示窗口
+        }
+        #endregion
+        #endregion
+
+        #region 拿牌相关设置
+        #region 避免程序与用户争夺光标控制权
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.HighCursorcontrol = checkBox_避免程序与用户争夺光标控制权.Checked;            
+            _iappConfigService.CurrentConfig.HighCursorcontrol = checkBox_避免程序与用户争夺光标控制权.Checked;
         }
+
+        #endregion
+
+        #region 自动停止拿牌
         private void CheckBox2_CheckedChanged(object sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.AutoStopGet = checkBox_备战席满或金币不足时自动停止拿牌.Checked;
-            if(_iappConfigService.CurrentConfig.AutoStopGet)
+            if (_iappConfigService.CurrentConfig.AutoStopGet)
             {
                 textBox_MaxTimesWithoutGetCard.Enabled = true;
             }
@@ -882,6 +1054,36 @@ namespace JinChanChanTool
                 textBox_MaxTimesWithoutGetCard.Enabled = false;
             }
         }
+
+        /// <summary>
+        /// 离开textBox_MaxTimesWithoutGetCard时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_MaxTimesWithoutGetCard_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutGetCard.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutGetCard = int.Parse(textBox_MaxTimesWithoutGetCard.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+
+        #region 自动停止刷新商店
         private void CheckBox3_CheckedChanged(object sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.AutoStopRefresh = checkBox_自动停止刷新商店.Checked;
@@ -894,14 +1096,135 @@ namespace JinChanChanTool
                 textBox_MaxTimesWithoutRefresh.Enabled = false;
             }
         }
+
+        /// <summary>
+        /// 离开textBox_MaxTimesWithoutRefresh时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_MaxTimesWithoutRefresh_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutRefresh.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutRefresh = int.Parse(textBox_MaxTimesWithoutRefresh.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
         
+        #region 当识别到错误字符时停止刷新商店
         private void checkBox_StopRefreshWhenErrorCharacters_CheckedChanged(object sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.StopRefreshWhenErrorCharacters = checkBox_StopRefreshWhenErrorCharacters.Checked;           
         }
         #endregion
 
-        #region 拿牌方式单选框改变
+        #region 修改-键鼠操作间隔时间-逻辑
+        /// <summary>
+        /// 离开textBox_DelayAfterMouseOperation时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_DelayAfterMouseOperation_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_DelayAfterMouseOperation.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.DelayAfterMouseOperation = int.Parse(textBox_DelayAfterMouseOperation.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 修改-CPU推理模式下刷新商店后等待时间-逻辑
+        /// <summary>
+        /// 离开textBox_CPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_CPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_CPUDelayAfterRefreshStore.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore = int.Parse(textBox_CPUDelayAfterRefreshStore.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region 修改-GPU推理模式下刷新商店后等待时间-逻辑
+        /// <summary>
+        /// 离开textBox_GPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_GPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_GPUDelayAfterRefreshStore.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.GPUDelayAfterRefreshStore = int.Parse(textBox_GPUDelayAfterRefreshStore.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region 拿牌方式
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_鼠标模拟拿牌.Checked)
@@ -928,29 +1251,6 @@ namespace JinChanChanTool
             }
             _iappConfigService.CurrentConfig.KeyboardGetCard = radioButton_按键模拟拿牌.Checked;
         }
-
-        #endregion
-
-        #region 刷新方式单选框改变
-        private void radioButton4_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_鼠标模拟刷新商店.Checked)
-            {
-                textBox_刷新商店按键.Enabled = false;
-            }
-            _iappConfigService.CurrentConfig.MouseRefresh = radioButton_鼠标模拟刷新商店.Checked;
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_按键模拟刷新商店.Checked)
-            {
-                textBox_刷新商店按键.Enabled = true;
-            }
-            _iappConfigService.CurrentConfig.KeyboardRefresh = radioButton_按键模拟刷新商店.Checked;
-        }
-        #endregion
-
         #region 修改-按键模拟拿牌-按键1-逻辑
 
         /// <summary>
@@ -1090,6 +1390,26 @@ namespace JinChanChanTool
         }
 
         #endregion
+        #endregion
+
+        #region 刷新方式
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_鼠标模拟刷新商店.Checked)
+            {
+                textBox_刷新商店按键.Enabled = false;
+            }
+            _iappConfigService.CurrentConfig.MouseRefresh = radioButton_鼠标模拟刷新商店.Checked;
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_按键模拟刷新商店.Checked)
+            {
+                textBox_刷新商店按键.Enabled = true;
+            }
+            _iappConfigService.CurrentConfig.KeyboardRefresh = radioButton_按键模拟刷新商店.Checked;
+        }
 
         #region 修改-按键刷新商店按键-逻辑
 
@@ -1118,157 +1438,18 @@ namespace JinChanChanTool
         }
 
         #endregion
-
-        #region 修改-最大未拿牌次数-逻辑
-        /// <summary>
-        /// 离开textBox_MaxTimesWithoutGetCard时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_MaxTimesWithoutGetCard_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutGetCard.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.MaxTimesWithoutGetCard = int.Parse(textBox_MaxTimesWithoutGetCard.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
+        #endregion
         #endregion
 
-        #region 修改-最大未刷新次数-逻辑
-        /// <summary>
-        /// 离开textBox_MaxTimesWithoutRefresh时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_MaxTimesWithoutRefresh_Leave(object sender, EventArgs e)
+        #region OCR相关设置
+        #region 打开OCR纠正列表编辑器
+        private void button4_Click(object sender, EventArgs e)
         {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutRefresh.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.MaxTimesWithoutRefresh = int.Parse(textBox_MaxTimesWithoutRefresh.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
+            var form = new CorrectionEditorForm();
+            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
+            form.TopMost = true;// 确保窗口在最前面
+            form.Show();// 显示窗口
         }
-
-
-        #endregion
-
-        #region 修改-键鼠操作间隔时间-逻辑
-        /// <summary>
-        /// 离开textBox_DelayAfterMouseOperation时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_DelayAfterMouseOperation_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_DelayAfterMouseOperation.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.DelayAfterMouseOperation = int.Parse(textBox_DelayAfterMouseOperation.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-
-        #endregion
-
-        #region 修改-CPU推理模式下刷新商店后等待时间-逻辑
-        /// <summary>
-        /// 离开textBox_CPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_CPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_CPUDelayAfterRefreshStore.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore = int.Parse(textBox_CPUDelayAfterRefreshStore.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-
-
-        #endregion
-
-        #region 修改-GPU推理模式下刷新商店后等待时间-逻辑
-        /// <summary>
-        /// 离开textBox_GPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_GPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_GPUDelayAfterRefreshStore.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.GPUDelayAfterRefreshStore = int.Parse(textBox_GPUDelayAfterRefreshStore.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-
-
         #endregion
 
         #region 推理单选框改变
@@ -1283,201 +1464,9 @@ namespace JinChanChanTool
         }
 
         #endregion
-
-        #region 坐标设置方式单选框改变
-        private void radioButton_手动设置坐标_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_手动设置坐标.Checked)
-            {
-                button_选择进程.Enabled = false;
-                comboBox_选择显示器.Enabled = true;
-                button_快速设置奕子截图坐标与大小.Enabled = true;
-                textBox_拿牌坐标X1.Enabled = true;
-                textBox_拿牌坐标X2.Enabled = true;
-                textBox_拿牌坐标X3.Enabled = true;
-                textBox_拿牌坐标X4.Enabled = true;
-                textBox_拿牌坐标X5.Enabled = true;
-                textBox_拿牌坐标Y.Enabled = true;
-                textBox_奕子截图宽度.Enabled = true;
-                textBox_奕子截图高度.Enabled = true;
-                button_快速设置商店刷新按钮坐标.Enabled = true;
-                textBox_商店刷新按钮坐标X.Enabled = true;
-                textBox_商店刷新按钮坐标Y.Enabled = true;
-            }
-            _iappConfigService.CurrentConfig.UseFixedCoordinates = radioButton_手动设置坐标.Checked;
-        }
-
-
-        private void radioButton_自动设置坐标_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_自动设置坐标.Checked)
-            {
-                button_选择进程.Enabled = true;
-                comboBox_选择显示器.Enabled = false;
-                button_快速设置奕子截图坐标与大小.Enabled = false;
-                textBox_拿牌坐标X1.Enabled = false;
-                textBox_拿牌坐标X2.Enabled = false;
-                textBox_拿牌坐标X3.Enabled = false;
-                textBox_拿牌坐标X4.Enabled = false;
-                textBox_拿牌坐标X5.Enabled = false;
-                textBox_拿牌坐标Y.Enabled = false;
-                textBox_奕子截图宽度.Enabled = false;
-                textBox_奕子截图高度.Enabled = false;
-                button_快速设置商店刷新按钮坐标.Enabled = false;
-                textBox_商店刷新按钮坐标X.Enabled = false;
-                textBox_商店刷新按钮坐标Y.Enabled = false;
-            }
-            _iappConfigService.CurrentConfig.UseDynamicCoordinates = radioButton_自动设置坐标.Checked;
-        }
-
         #endregion
 
-        #region 快速设置坐标      
-        /// <summary>
-        /// 快速设置奕子截图坐标与大小按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void button3_Click(object sender, EventArgs e)
-        {
-            using (var setter = new FastSettingPositionService(targetScreen))
-            {
-                try
-                {
-                    // 第一张卡片
-                    var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1 = rect1.X;
-
-                    // 第二张卡片
-                    var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 = rect2.X;
-
-                    // 第三张卡片
-                    var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 = rect3.X;
-
-                    // 第四张卡片
-                    var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 = rect4.X;
-
-                    // 第五张卡片（同时获取高度）
-                    var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 = rect5.X;
-                    _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY = rect5.Y;
-
-                    if (rect5.Width > 0 && rect5.Height > 0)
-                    {
-                        _iappConfigService.CurrentConfig.Width_CardScreenshot = rect5.Width;
-                        _iappConfigService.CurrentConfig.Height_CardScreenshot = rect5.Height;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"出现错误: {ex.Message}");
-                }
-            }
-            Update_AllComponents();
-        }
-
-
-
-        /// <summary>
-        /// 快速设置商店刷新按钮坐标按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void button5_Click(object sender, EventArgs e)
-        {
-            using (var setter = new FastSettingPositionService(targetScreen))
-            {
-                try
-                {
-                    var point = await setter.WaitForClickAsync("请点击商店刷新按钮的中心点");
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreX = point.X;
-                    _iappConfigService.CurrentConfig.Point_RefreshStoreY = point.Y;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"出现错误: {ex.Message}");
-                }
-            }
-            Update_AllComponents();
-        }
-
-        #endregion
-
-        #region 设置存取相关
-
-        /// <summary>
-        /// /保存设置按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("已保存设置到本地！", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            oldAppConfig = (AppConfig)_iappConfigService.CurrentConfig.Clone();
-            _iappConfigService.Save();
-
-        }
-
-        /// <summary>
-        /// 还原默认设置按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button6_Click(object sender, EventArgs e)
-        {
-            var confirmResult = MessageBox.Show("确定要恢复默认设置吗？", "确认恢复默认设置", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirmResult != DialogResult.Yes)
-            {
-                return; // 用户取消操作
-            }
-            _iappConfigService.SetDefaultConfig();
-            oldAppConfig = (AppConfig)_iappConfigService.CurrentConfig.Clone();
-            Update_AllComponents();
-            _iappConfigService.Save();
-        }
-
-        /// <summary>
-        /// 判断当前设置是否已保存
-        /// </summary>
-        /// <returns></returns>
-        private bool IsSaved()
-        {
-            AppConfig current = _iappConfigService.CurrentConfig;
-            AppConfig original = oldAppConfig;
-            return current.Equals(original);
-        }
-        #endregion
-
-        #region 打开OCR纠正列表编辑器
-        private void button4_Click(object sender, EventArgs e)
-        {
-            var form = new CorrectionEditorForm();
-            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
-            form.TopMost = true;// 确保窗口在最前面
-            form.Show();// 显示窗口
-        }
-        #endregion
-
-        #region 打开英雄英雄配置文件编辑器
-        private void button6_Click_1(object sender, EventArgs e)
-        {
-            var form = new HeroInfoEditorForm();
-            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
-            form.TopMost = true;// 确保窗口在最前面
-            form.Show();// 显示窗口
-        }
-        #endregion
-
-        #region 面板设置
-
+        #region 窗口设置
         private void checkBox_UseSelectorForm_CheckedChanged(object sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.UseSelectorForm = checkBox_UseSelectorForm.Checked;
@@ -1499,36 +1488,91 @@ namespace JinChanChanTool
         }
         #endregion
 
+        #region 其他设置
+        #region 自动更新推荐装备设置
+        private void checkBox_定时更新推荐装备_CheckedChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsAutoUpdateEquipment = checkBox_定时更新推荐装备.Checked;
+            if (_iappConfigService.CurrentConfig.IsAutoUpdateEquipment)
+            {
+                textBox_更新推荐装备间隔.Enabled = true;
+
+            }
+            else
+            {
+                textBox_更新推荐装备间隔.Enabled = false;
+            }
+
+        }
+
+        /// <summary>
+        /// 离开textBox_更新推荐装备间隔时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_更新推荐装备间隔_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_更新推荐装备间隔.Text))
+            {
+
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox_更新推荐装备间隔.Text);
+                    if (result > 0)
+                    {
+                        _iappConfigService.CurrentConfig.UpdateEquipmentInterval = result;
+                    }
+                    Update_AllComponents();
+
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 设置存取相关
+
+        /// <summary>
+        /// /保存设置按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {            
+            _iappConfigService.Save(true);
+        }
+
+        /// <summary>
+        /// 还原默认设置按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var confirmResult = MessageBox.Show("确定要恢复默认设置吗？", "确认恢复默认设置", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.Yes)
+            {
+                return; // 用户取消操作
+            }
+            _iappConfigService.SetDefaultConfig();            
+            Update_AllComponents();
+        }       
+        #endregion
+
         private void SettingForm_Load(object sender, EventArgs e)
         {
 
         }
 
-        #region 选择进程
-        private void button_选择进程_Click(object sender, EventArgs e)
-        {
-            // 1. 实时创建进程发现服务
-            var discoveryService = new ProcessDiscoveryService();
-
-            // 2. 创建并显示进程选择窗体
-            using (var processForm = new ProcessSelectorForm(discoveryService))
-            {
-                if (processForm.ShowDialog(this) == DialogResult.OK)
-                {
-                    var selectedProcess = processForm.SelectedProcess;
-                    if (selectedProcess != null)
-                    {                      
-                        // 同时保存 Name 和 ID
-                        _iappConfigService.CurrentConfig.TargetProcessName = selectedProcess.ProcessName;
-                        _iappConfigService.CurrentConfig.TargetProcessId = selectedProcess.Id;
-
-                        // 4. 给用户反馈
-                        string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
-                        MessageBox.Show($"已选择进程：{displayName}\n请记得点击“保存设置”来保存此选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-        }
-        #endregion
     }
 }

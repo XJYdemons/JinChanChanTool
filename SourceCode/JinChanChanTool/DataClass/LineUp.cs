@@ -11,7 +11,7 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// 阵容勾选状态
+        /// 阵容状态
         /// </summary>
         public List<string>[] Selected { get; set; }
     }

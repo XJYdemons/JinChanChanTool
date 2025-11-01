@@ -101,7 +101,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// </summary>
         private async Task<HeroEquipment> FetchAndProcessHeroDataAsync(string heroKey, Dictionary<string, string> heroTranslations, Dictionary<string, string> itemTranslations)
         {
-            // 步骤 3: 动态构建请求URL并发起GET请求
             string apiUrl = $"https://api-hc.metatft.com/tft-stat-api/unit_detail?queue=1100&patch=current&days=1&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true&unit={heroKey}";
 
             try
@@ -111,45 +110,64 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
                 if (unitDetail?.Builds == null || unitDetail.Builds.Count == 0)
                 {
-                    return null;
+                    return null; // 仍然处理API没有返回任何数据的情况
                 }
 
-                // 步骤 4: 实现策略二，计算综合评分，找出最佳出装
-                Build bestBuild = null;
-                double maxScore = -1.0;
+                // 寻找两种最佳出装
+                Build bestBuild_HighQuality = null; // 1. 满足场次要求(>=100)的最佳出装
+                double maxScore_HighQuality = -1.0;
+
+                Build bestBuild_Any = null;         // 2. 不考虑场次要求，所有出装中的最佳出装 (作为备选)
+                double maxScore_Any = -1.0;
 
                 foreach (var build in unitDetail.Builds)
                 {
-                    // 过滤掉非三件套或数据量过小的组合
-                    if (build.BuildNames.Split('|').Length != 3 || build.Total < 100) continue;
+                    // 基本过滤条件
+                    if (build.BuildNames.Split('|').Length != 3) continue;
                     if (build.Places == null || build.Places.Count != 8) continue;
+                    if (build.Total == 0) continue;
 
-                    // 计算平均名次
+                    // 计算平均名次和综合评分 
                     double weightedSum = 0;
                     for (int i = 0; i < build.Places.Count; i++)
                     {
                         weightedSum += build.Places[i] * (i + 1);
                     }
-                    if (build.Total == 0) continue;
                     double avgPlacement = weightedSum / build.Total;
+                    double score = (double)build.Total / avgPlacement;
 
-                    // 计算综合评分 (总场次 / 平均名次)
-                    double score = build.Total / avgPlacement;
-
-                    if (score > maxScore)
+                    // 无论如何，都更新“备选”的最佳出装
+                    if (score > maxScore_Any)
                     {
-                        maxScore = score;
-                        bestBuild = build;
+                        maxScore_Any = score;
+                        bestBuild_Any = build;
+                    }
+
+                    // 仅当场次满足要求时，才更新最佳出装
+                    if (build.Total >= 100)
+                    {
+                        if (score > maxScore_HighQuality)
+                        {
+                            maxScore_HighQuality = score;
+                            bestBuild_HighQuality = build;
+                        }
                     }
                 }
 
-                if (bestBuild == null)
+                // 优先返回高质量的出装，如果不存在，则返回备选的最佳出装。
+                // '??' 是C#的空合并运算符，如果左边为null，则返回右边的值。
+                var finalBestBuild = bestBuild_HighQuality ?? bestBuild_Any;
+
+                // ========== 核心逻辑修改结束 ==========
+
+
+                if (finalBestBuild == null)
                 {
+                    // 如果两种都找不到（例如所有出装都不是三件套），则仍然放弃该英雄
                     return null;
                 }
 
-                // 步骤 5: 翻译并构建最终结果
-                var equipmentKeys = bestBuild.BuildNames.Split('|');
+                var equipmentKeys = finalBestBuild.BuildNames.Split('|');
                 var equipmentNames = equipmentKeys
                     .Select(key => itemTranslations.GetValueOrDefault(key, $"【翻译失败:{key}】"))
                     .ToList();
@@ -160,9 +178,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                     Equipments = equipmentNames
                 };
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException)
             {
-                System.Diagnostics.Debug.WriteLine($"请求英雄 {heroKey} 数据失败: {ex.Message}");
+                // 网络错误时，仍然静默失败，不影响其他英雄
                 return null;
             }
         }

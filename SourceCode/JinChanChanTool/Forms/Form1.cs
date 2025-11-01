@@ -1341,7 +1341,7 @@ namespace JinChanChanTool
                 {
                     DateTime lastUpdateTime = File.GetLastWriteTime(dataFilePath);
                     // 3. 设置一个缓存有效期，例如 24 小时
-                    if (DateTime.Now - lastUpdateTime < TimeSpan.FromHours(24))
+                    if (DateTime.Now - lastUpdateTime < TimeSpan.FromHours(12))
                     {
                         MessageBox.Show($"装备数据在 {lastUpdateTime:G} 刚刚更新过，已是最新，无需重复更新。",
                                         "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);

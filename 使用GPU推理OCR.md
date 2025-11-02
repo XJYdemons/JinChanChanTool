@@ -12,10 +12,10 @@
 2. 显示器适配器（GPU）的品牌必须英伟达，且满足以下型号中的任意一种：
    1. GTX10xx系（例如GTX1060）
    2. GTX16xx系（例如GTX1660Super）
-   3. RTX20xx系（例如RTX2070）
+   3. RTX20xx系（例如RTX2060）
    4. RTX30xx系（例如RTX3060）
-   5. RTX40xx系（例如RTX4070）
-   6. RTX50xx系（例如RTX5070）
+   5. RTX40xx系（例如RTX4060）
+   6. RTX50xx系（例如RTX5060）
 
 ## 已安装环境
 
@@ -34,30 +34,30 @@
 
 右下角任务栏托盘一般能找到这个图标的软件，这就是NVIDIA控制面板（若任务栏没有，请搜索已安装的应用NVIDIA Control Panel），打开该软件。
 
-![image-20250908173522390](./DemoImage/usegpu6.png)
+![image-20250908173522390](./使用GPU推理OCR.assets/usegpu6.png)
 
 
-![image-20250908173715403](./DemoImage/usegpu1.png)
+![image-20250908173715403](./使用GPU推理OCR.assets/usegpu1.png)
 
 点击左下角的系统信息
 
-![image-20250908173846051](./DemoImage/usegpu2.png)
+![image-20250908173846051](./使用GPU推理OCR.assets/usegpu2.png)
 
 打开后点击”组件“，在行”NVCUDA64“的产品名称列，找到支持的最高CUDA版本，若小于11.8，则应更新英伟达显卡驱动到版本>=520.06。
 
 英伟达显卡驱动下载地址：https://www.nvidia.cn/geforce/drivers/
 
-![image-20250908174159246](./DemoImage/usegpu3.png)
+![image-20250908174159246](./使用GPU推理OCR.assets/usegpu3.png)
 
-![image-20250908174252315](./DemoImage/usegpu4.png)
+![image-20250908174252315](./使用GPU推理OCR.assets/usegpu4.png)
 
-下载完成后打开安装程序：![image-20250908174511688](./DemoImage/usegpu5.png)
+下载完成后打开安装程序：![image-20250908174511688](./使用GPU推理OCR.assets/usegpu5.png)
 
-![image-20250908174607301](./DemoImage/usegpu7.png)
+![image-20250908174607301](./使用GPU推理OCR.assets/usegpu7.png)
 
-![image-20250908174627837](./DemoImage/usegpu8.png)
+![image-20250908174627837](./使用GPU推理OCR.assets/usegpu8.png)
 
-![image-20250908174721767](./DemoImage/usegpu9.png)
+![image-20250908174721767](./使用GPU推理OCR.assets/usegpu9.png)
 
 安装完成即可。
 
@@ -69,7 +69,7 @@
 
 `Win+R`键打开运行，输入`cmd`,确定。
 
-![image-20250908175122558](./DemoImage/usegpu10.png)
+![image-20250908175122558](./使用GPU推理OCR.assets/usegpu10.png)
 
 在CMD中输入命令
 
@@ -77,13 +77,13 @@
 nvcc -V
 ```
 
-![image-20250908175404288](./DemoImage/usegpu11.png)
+![image-20250908175404288](./使用GPU推理OCR.assets/usegpu11.png)
 
 **方式2：**
 
 打开目录“C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA”，若该目录存在且里面有版本号文件夹，且版本号满足11.8xxx或12.6xxx或12.9xxx，则无需安装CUDA。
 
-![image-20250908175704607](./DemoImage/usegpu12.png)
+![image-20250908175704607](./使用GPU推理OCR.assets/usegpu12.png)
 
 #### 安装CUDA
 
@@ -95,15 +95,15 @@ nvcc -V
 
 [CUDA 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive)
 
-![image-20250908180336336](./DemoImage/usegpu13.png)
+![image-20250908180336336](./使用GPU推理OCR.assets/usegpu13.png)
 
 下载后打开，
 
-![image-20250908181030070](./DemoImage/usegpu14.png)
+![image-20250908181030070](./使用GPU推理OCR.assets/usegpu14.png)
 
-![image-20250908181154873](./DemoImage/usegpu15.png)
+![image-20250908181154873](./使用GPU推理OCR.assets/usegpu15.png)
 
-![image-20250908181223176](./DemoImage/usegpu16.png)
+![image-20250908181223176](./使用GPU推理OCR.assets/usegpu16.png)
 
 ### 4.安装CUDNN
 
@@ -115,7 +115,7 @@ nvcc -V
 
 下载对应版本的压缩包，解压后得到一个文件夹，该文件夹内有三个子文件夹：bin、include、lib
 
-![image-20250908182155688](./DemoImage/usegpu17.png)
+![image-20250908182155688](./使用GPU推理OCR.assets/usegpu17.png)
 
 将这三个文件夹复制到CUDA的安装目录，一般在“C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\版本号”，复制完代表CUDNN安装成功。
 
@@ -143,10 +143,10 @@ nvcc -V
 
 假设我的显卡是4070，我安装的CUDA是12.9，CUDNN是9.10，所以我应该下载cu129_cudnn910_sm89.zip，解压后将其中的三个.dll文件复制到程序根目录替换掉原有的。
 
-![image-20250909121345387](./DemoImage/usegpu18.png)
+![image-20250909121345387](./使用GPU推理OCR.assets/usegpu18.png)
 
 ## 进入程序开启GPU推理功能
 
-打开程序，菜单栏-设置-OCR相关-GUI推理（勾选），保存设置，重启后即可。
+打开程序，菜单栏-设置-OCR相关-GUI推理（勾选），保存设置即可。
 
-![image-20250909121746684](./DemoImage/usegpu19.png)
+![image-20251103014129378](./使用GPU推理OCR.assets/usegpu19.png)

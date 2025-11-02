@@ -77,27 +77,27 @@
 
 #### 首次使用
 
-![image-20251102230622771](./README.assets/image-20251102230622771.png)
+![image-20251102230622771](./README.assets/ReadmeImage1.png)
 
 以**管理员身份运行**`JinChanChanTool.exe`,程序运行后会检查是否存在用户设置文件、应用缓存文件、阵容文件，由于是第一次运行，因此上述三者都不存在，因此会连续弹出三次对话框提示用户确认。
 
-![image-20251102231959853](./README.assets/image-20251102231959853.png)
+![image-20251102231959853](./README.assets/ReadmeImage2.png)
 
-![image-20251102232007547](./README.assets/image-20251102232007547.png)
+![image-20251102232007547](./README.assets/ReadmeImage3.png)
 
-![image-20251102232011881](./README.assets/image-20251102232011881.png)
+![image-20251102232011881](./README.assets/ReadmeImage4.png)
 
 在全部确认后，会弹出是否更新推荐装备数据的弹窗，点“是”即可。
 
-![image-20251102235152008](./README.assets/image-20251102235152008.png)
+![image-20251102235152008](./README.assets/ReadmeImage5.png)
 
 装备数据更新完成后，会弹窗提示重启程序，点确定即可。
 
-![image-20251102235231905](./README.assets/image-20251102235231905.png)
+![image-20251102235231905](./README.assets/ReadmeImage6.png)
 
 至此，首次打开程序的初始化工作便结束了。完成初始化工作后，便来到了程序的主界面：
 
-![image-20251103005354098](./README.assets/image-20251103005354098.png)
+![image-20251103005354098](./README.assets/ReadmeImage7.png)
 
 程序是通过截图并识别来获取到游戏内商店5个卡槽的卡牌信息的，因此程序需要设置截图位置，程序提供两种设置截图位置的方法：一种是**手动设置坐标**，另一种是**自动计算坐标**。
 
@@ -109,17 +109,17 @@
 
 2. 打开显示器下拉框，选择目标游戏进程所在的显示器（单显示器用户忽略该步骤）
 
-![image-20251103005956476](./README.assets/image-20251103005956476.png)
+![image-20251103005956476](./README.assets/ReadmeImage8.png)
 
 3. 打开游戏，进入对局
 
 * 点击-“快速设置奕子截图坐标与大小”，分别框选商店从左到右的5个奕子名称（需要将奕子名称行用矩形包裹，但不要包裹奕子价格）
 
-![image-20251103011013059](./README.assets/image-20251103011013059.png)
+![image-20251103011013059](./README.assets/ReadmeImage9.png)
 
 * 点击-“快速设置商店刷新按钮坐标”，将鼠标放置到用于刷新商店的按钮上，单击鼠标左键即可设置成功。
 
-![image-20251103011301353](./README.assets/image-20251103011301353.png)
+![image-20251103011301353](./README.assets/ReadmeImage10.png)
 
 **自动计算坐标**
 
@@ -127,11 +127,11 @@
 2. 点击“选择进程”按钮，打开“选择进程”窗口。
 3. 选择目标游戏进程，并点击按钮“选定此进程”
 
-![image-20251103011944211](./README.assets/image-20251103011944211.png)
+![image-20251103011944211](./README.assets/ReadmeImage11.png)
 
 4. 弹出弹窗，提示保存设置。
 
-   ![image-20251103012027163](./README.assets/image-20251103012027163.png)
+   ![image-20251103012027163](./README.assets/ReadmeImage12.png)
 
    无论是手动设置坐标还是自动计算坐标，设置完后都请点击设置窗口顶部的“保存设置”按钮来保存设置。
 
@@ -142,7 +142,7 @@
 
 1. 在软件根目录（软件的安装目录）下，找到Resources文件夹，HeroDatas文件夹，该文件夹下的每一个文件夹对应一个赛季英雄池，每个赛季英雄池文件夹内都应该有一个HeroData.json英雄数据文件以及一个英雄头像图片文件夹images（存放与HeroData.json文件内英雄同名的.png文件），使用程序自带的英雄配置文件编辑器（设置-阵容相关-英雄配置文件编辑器）可编辑该文件：
 
-![image-20251103012652856](./README.assets/image-20251103012652856.png)
+![image-20251103012652856](./README.assets/ReadmeImage13.png)
 
 2. 该文件结构是以一对`[]`包裹数个英雄数据结构，每个英雄数据的格式都严格遵循`{"HeroName": "英雄名字","Cost": 英雄费用,"Profession": "职业1|职业2","Peculiarity": "特质1|特质2"}`，在前一个英雄数据结构后增加一个需要先加一个英文逗号`,`.(若已是文件中最后一个英雄数据结构则无需加逗号)
 ```

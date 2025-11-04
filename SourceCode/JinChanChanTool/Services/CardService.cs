@@ -328,7 +328,7 @@ namespace JinChanChanTool.Services
                                 停止刷新商店();
                                 LogTool.Log("由于识别错误关闭自动刷新！");
                                 Debug.WriteLine("由于识别错误关闭自动刷新！");
-                            }                            
+                            }
                             // 更新UI
                             ErrorForm.Instance.GetTextBox().Invoke((MethodInvoker)delegate
                             {

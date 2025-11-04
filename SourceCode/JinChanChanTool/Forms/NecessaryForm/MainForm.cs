@@ -174,9 +174,10 @@ namespace JinChanChanTool
             #endregion
 
             #region 错误信息输出窗口
-            if(_iappConfigService.CurrentConfig.UseErrorShowForm)
+            ErrorForm.Instance.Show();
+            if (!_iappConfigService.CurrentConfig.UseErrorShowForm)
             {
-                ErrorForm.Instance.Show();
+                ErrorForm.Instance.Visible = false;
             }
             #endregion
 

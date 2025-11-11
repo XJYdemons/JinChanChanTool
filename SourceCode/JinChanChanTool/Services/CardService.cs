@@ -711,24 +711,40 @@ namespace JinChanChanTool.Services
                     }
                     else if (_iappConfigService.CurrentConfig.MouseGetCard)
                     {
+                        int randomX, randomY;
                         if (_iappConfigService.CurrentConfig.UseDynamicCoordinates)
                         {
-                            // 鼠标操作
-                            MouseControlTool.SetMousePosition(x + _iAutoConfigService.CurrentConfig.Width_CardScreenshot / 2, _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2);
-                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
-                            // 执行点击操作，逐个点击并等待
-                            await ClickOneTime();
-                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                            randomX = Random.Shared.Next(
+                            x + _iAutoConfigService.CurrentConfig.Width_CardScreenshot / 4,
+                            x + _iAutoConfigService.CurrentConfig.Width_CardScreenshot * 3 / 4 + 1);
+                            randomY = Random.Shared.Next(
+                            _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2,
+                            _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY + 1);                            
                         }
                         else if(_iappConfigService.CurrentConfig.UseFixedCoordinates)
                         {
-                            // 鼠标操作
-                            MouseControlTool.SetMousePosition(x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 2, _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2);
-                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
-                            // 执行点击操作，逐个点击并等待
-                            await ClickOneTime();
-                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                            randomX = Random.Shared.Next(
+                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 4,
+                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot * 3 / 4 + 1);
+                            randomY = Random.Shared.Next(
+                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2,
+                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY + 1);                           
                         }
+                        else
+                        {
+                            randomX = Random.Shared.Next(
+                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 4,
+                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot * 3 / 4 + 1);
+                            randomY = Random.Shared.Next(
+                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2,
+                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY + 1);                           
+                        }
+                        // 设置鼠标位置
+                        MouseControlTool.SetMousePosition(randomX, randomY);
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                        // 执行点击操作，逐个点击并等待
+                        await ClickOneTime();
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
                     }
                 }                                  
             }

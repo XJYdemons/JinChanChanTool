@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace JinChanChanTool.Services.DataServices
 {
@@ -180,12 +181,14 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public  string ConvertToRightResult(string result,out bool isError,out string errorMessage)
+        public  string ConvertToRightResult(string Result,out bool isError,out string errorMessage)
         {           
             // 清理输入字符串
             isError = true;
             errorMessage = null;
-            result = result.Replace(" ", "").Replace("?", "");
+            string result;
+            // 使用正则表达式只保留中文、英文、数字
+            result = Regex.Replace(Result, @"[^\u4e00-\u9fa5a-zA-Z0-9]", "");
             // 查找映射
             if (ResultDictionary.TryGetValue(result, out var correctValue))
             {
@@ -211,11 +214,11 @@ namespace JinChanChanTool.Services.DataServices
                     if(!Errorresult.Contains(result))
                     {
                         Errorresult.Add(result);
-                        return $"\"{result}\"";
+                        return $"“{result}”";
                     }                    
                 }
             }                                              
-                return null                ;                       
+            return null;                       
         }
     }
 }

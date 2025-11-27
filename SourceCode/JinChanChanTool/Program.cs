@@ -19,9 +19,10 @@ namespace JinChanChanTool
             //创建并加载应用设置服务
             IAutoConfigService _iAutoConfigService = new AutoConfigService();
             _iAutoConfigService.Load();
-
+            
             //创建并加载英雄数据服务
             IHeroDataService _iheroDataService = new HeroDataService();
+            _iheroDataService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectSeason);        
             _iheroDataService.Load();
 
             //创建OCR结果纠正服务
@@ -30,7 +31,8 @@ namespace JinChanChanTool
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
             
             //创建并加载阵容数据服务
-            ILineUpService _ilineUpService = new LineUpService(_iheroDataService, _iappConfigService.CurrentConfig.CountOfLine,_iappConfigService.CurrentConfig.MaxOfChoices);
+            ILineUpService _ilineUpService = new LineUpService(_iheroDataService, _iappConfigService.CurrentConfig.CountOfLine,_iappConfigService.CurrentConfig.MaxOfChoices,_iAutoConfigService.CurrentConfig.SelectedLineUpIndex);
+            _ilineUpService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectSeason);
             _ilineUpService.Load();
 
             // 创建并加载英雄装备推荐数据服务

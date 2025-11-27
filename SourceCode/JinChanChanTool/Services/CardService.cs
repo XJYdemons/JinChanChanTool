@@ -1,11 +1,12 @@
-﻿using JinChanChanTool.Forms;
+﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
 using System.Drawing.Imaging;
-using JinChanChanTool.DataClass;
+using System.Text.RegularExpressions;
 
 
 namespace JinChanChanTool.Services
@@ -189,10 +190,23 @@ namespace JinChanChanTool.Services
                         image.Dispose();
                     }
                     当前目标数组 = CompareResults(纠正结果数组);
-                    LogTool.Log($"原始结果 1:{原始结果数组[0],-8}({当前目标数组[0],-6})2:{原始结果数组[1],-8}({当前目标数组[1],-6})3:{原始结果数组[2],-8}({当前目标数组[2],-6})4:{原始结果数组[3],-8}({当前目标数组[3],-6})5:{原始结果数组[4],-8}({当前目标数组[4],-6})");
-                    Debug.WriteLine($"原始结果 1:{原始结果数组[0],-8}({当前目标数组[0],-6})2:{原始结果数组[1],-8}({当前目标数组[1],-6})3:{原始结果数组[2],-8}({当前目标数组[2],-6})4:{原始结果数组[3],-8}({当前目标数组[3],-6})5:{原始结果数组[4],-8}({当前目标数组[4],-6})");
-                    LogTool.Log($"纠正结果 1:{纠正结果数组[0],-8}({当前目标数组[0],-6})2:{纠正结果数组[1],-8}({当前目标数组[1],-6})3:{纠正结果数组[2],-8}({当前目标数组[2],-6})4:{纠正结果数组[3],-8}({当前目标数组[3],-6})5:{纠正结果数组[4],-8}({当前目标数组[4],-6})");
-                    Debug.WriteLine($"纠正结果 1:{纠正结果数组[0],-8}({当前目标数组[0],-6})2:{纠正结果数组[1],-8}({当前目标数组[1],-6})3:{纠正结果数组[2],-8}({当前目标数组[2],-6})4:{纠正结果数组[3],-8}({当前目标数组[3],-6})5:{纠正结果数组[4],-8}({当前目标数组[4],-6})");
+                    #region 结果输出、日志
+                    string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
+                    string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
+                    for (int i =0;i<原始结果数组.Length;i++)
+                    {
+                        
+                        输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
+                    }
+                    for (int i = 0; i < 纠正结果数组.Length; i++)
+                    {
+                        输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
+                    }
+                    LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                    #endregion
                     await GetCard(当前目标数组);
                     判断未拿牌并处理();                     
                     判断未刷新并处理();
@@ -313,66 +327,74 @@ namespace JinChanChanTool.Services
         }
 
         private void 更新纠正结果数组(Bitmap[] bitmaps)
-        {                      
+        {
+            // 定义ErrorImage文件夹路径
+            string errorImagePath = Path.Combine(Application.StartupPath,"Logs","ErrorImages");
+            for (int i = 0; i < 原始结果数组.Length; i++)
             {
-                for (int i = 0; i < 原始结果数组.Length; i++)
+                纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);                    
+                
+                if (!isError)
                 {
-                    纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);                    
-                    
-                    if (!isError)
+                    try
                     {
-                        try
+                        if(_iappConfigService.CurrentConfig.StopRefreshWhenErrorCharacters)
                         {
-                            if(_iappConfigService.CurrentConfig.StopRefreshWhenErrorCharacters)
-                            {
-                                停止刷新商店();
-                                LogTool.Log("由于识别错误关闭自动刷新！");
-                                Debug.WriteLine("由于识别错误关闭自动刷新！");
-                            }
-                            // 更新UI
-                            ErrorForm.Instance.GetTextBox().Invoke((MethodInvoker)delegate
-                            {
-                                ErrorForm.Instance.GetTextBox().AppendText("\r\n" + errorMessage + "\r\n图片已保存在“根目录/Logs”中。");
-                            });
-                            // 创建扩展后的位图（原图宽度 + 300像素文本区域）
-                            int textAreaWidth = bitmaps[i].Width; // 固定文本区域宽度
-                            int newWidth = bitmaps[i].Width + textAreaWidth;
-                            int newHeight = bitmaps[i].Height;
-                            // 创建字体和画刷
-                            using (Font font = new Font("SimSun-ExtB", 14, FontStyle.Bold))
-                            using (Brush brush = new SolidBrush(Color.Red))
-                            using (Bitmap extendedBitmap = new Bitmap(newWidth, newHeight))
-                            using (Graphics graphics = Graphics.FromImage(extendedBitmap))
-                            {
-                                // 设置高质量渲染
-                                graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-                                //绘制原始图像（左侧）
-                                graphics.DrawImage(bitmaps[i], 0, 0);
-
-                                //绘制文本区域背景（右侧）
-                                graphics.FillRectangle(Brushes.White, bitmaps[i].Width, 0, textAreaWidth, newHeight);
-                                //计算文本区域（右侧）
-                                RectangleF textArea = new RectangleF(
-                                    bitmaps[i].Width, // 从原图右侧开始
-                                    1, // 顶部边距
-                                    textAreaWidth - 1, // 宽度（减去边距）
-                                    newHeight - 1 // 高度（减去边距）
-                                );
-                                //绘制文本
-                                graphics.DrawString(errorMessage, font, brush, textArea);
-                                // 保存为PNG
-                                extendedBitmap.Save(Path.Combine(Application.StartupPath, "Logs", $"{DateTime.Now:MM_dd_HH_mm_ss.fff}_{i + 1}号卡.png"), ImageFormat.Png);
-                            }
+                            停止刷新商店();
+                            LogTool.Log("由于识别错误关闭自动刷新！");
+                            Debug.WriteLine("由于识别错误关闭自动刷新！");
                         }
-                        catch (Exception ex)
+                        // 更新UI
+                        ErrorForm.Instance.GetTextBox().Invoke((MethodInvoker)delegate
                         {
-                            Debug.WriteLine(ex);
+                            ErrorForm.Instance.GetTextBox().AppendText("\r\n" + errorMessage + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");
+                        });                       
+                        // 动态计算文本区域宽度（每个字符约20像素，加上边距）
+                        int estimatedCharWidth = 20;                        
+                        int textAreaWidth = (errorMessage.Length-2) * estimatedCharWidth+20;                    
+                        // 创建扩展后的位图（原图宽度 + 动态文本区域宽度）
+                        int newWidth = bitmaps[i].Width +Math.Max(textAreaWidth, 1);
+                        int newHeight =Math.Max(bitmaps[i].Height,19);
+                        // 创建字体和画刷
+                        using (Font font = new Font("SimSun-ExtB", 14, FontStyle.Bold))
+                        using (Brush brush = new SolidBrush(Color.Red))
+                        using (Bitmap extendedBitmap = new Bitmap(newWidth, newHeight))
+                        using (Graphics graphics = Graphics.FromImage(extendedBitmap))
+                        {
+                            // 设置高质量渲染
+                            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                            //绘制原始图像（左侧）
+                            graphics.DrawImage(bitmaps[i], 0, 0);
+
+                            //绘制文本区域背景（右侧）
+                            graphics.FillRectangle(Brushes.White, bitmaps[i].Width, 0, textAreaWidth, newHeight);
+                            //计算文本区域（右侧）
+                            RectangleF textArea = new RectangleF(
+                                bitmaps[i].Width, // 从原图右侧开始
+                                0, // 顶部边距
+                                textAreaWidth, // 宽度（减去边距）
+                                newHeight// 高度（减去边距）
+                            );
+                            //绘制文本                            
+                            graphics.DrawString(errorMessage, font, brush, textArea);
+                            // 确保ErrorImage文件夹存在
+                            if (!Directory.Exists(errorImagePath))
+                            {
+                                Directory.CreateDirectory(errorImagePath);
+                            }
+                            // 保存为PNG到ErrorImage文件夹                           
+                            string filePath = Path.Combine(errorImagePath, $"{DateTime.Now:MM月dd日HH时mm分ss秒.fff毫秒}_{i + 1}号卡_{errorMessage}.png");
+                            extendedBitmap.Save(filePath, ImageFormat.Png);
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
                 }
-            }
+            }           
         }
 
         private void 更新上一轮结果数组与目标数组()

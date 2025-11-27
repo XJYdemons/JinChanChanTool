@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using JinChanChanTool.DataClass;
+using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
-using JinChanChanTool.DataClass;
+using System.Xml.Linq;
 
 namespace JinChanChanTool.Services.DataServices
 {
@@ -321,6 +323,35 @@ namespace JinChanChanTool.Services.DataServices
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 设置文件路径索引
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool SetFilePathsIndex(string season)
+        {
+            int selectedIndex = 0;
+            bool isFound = false;
+            if (!string.IsNullOrEmpty(season))
+            {               
+                for (int i = 0; i < paths.Length; i++)
+                {                   
+                    if (Path.GetFileName(paths[i]).Equals(season, StringComparison.OrdinalIgnoreCase))
+                    {
+                        
+                        selectedIndex = i;
+                        isFound = true;
+                        break;
+                    }                  
+                }
+            }
+            if (paths.Length > 0)
+            {
+                pathIndex = Math.Min(selectedIndex, paths.Length - 1);                
+            }
+            return isFound;
         }
 
         /// <summary>

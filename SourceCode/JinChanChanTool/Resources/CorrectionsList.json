@@ -188,5 +188,17 @@
       "賽娜"
     ],
     "Correct": "赛娜"
+  },
+  {
+    "Incorrect": [
+      "奧莉安娜"
+    ],
+    "Correct": "奥莉安娜"
+  },
+  {
+    "Incorrect": [
+      "菲茲"
+    ],
+    "Correct": "菲兹"
   }
 ]

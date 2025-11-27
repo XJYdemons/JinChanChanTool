@@ -29,7 +29,9 @@ namespace JinChanChanTool.DataClass
                 SelectorFormLocation = this.SelectorFormLocation,
                 LineUpFormLocation = this.LineUpFormLocation,
                 StatusOverlayFormLocation = this.StatusOverlayFormLocation,
-                LastUpdateTime = this.LastUpdateTime
+                LastUpdateTime = this.LastUpdateTime,
+                SelectSeason = this.SelectSeason,
+                SelectedLineUpIndex = this.SelectedLineUpIndex
             };
         }
 
@@ -56,7 +58,9 @@ namespace JinChanChanTool.DataClass
                    SelectorFormLocation == other.SelectorFormLocation &&
                    LineUpFormLocation == other.LineUpFormLocation &&
                    StatusOverlayFormLocation == other.StatusOverlayFormLocation &&
-                   LastUpdateTime == other.LastUpdateTime;
+                   LastUpdateTime == other.LastUpdateTime&&
+                   SelectSeason == other.SelectSeason&&
+                   SelectedLineUpIndex == other.SelectedLineUpIndex;
         }
         /// <summary>
         /// 商店第一张卡的起点坐标X
@@ -129,6 +133,16 @@ namespace JinChanChanTool.DataClass
         public DateTime LastUpdateTime { get; set; }
 
         /// <summary>
+        /// 上次选择的赛季
+        /// </summary>
+        public string SelectSeason { get; set; }
+
+        /// <summary>
+        /// 当前选择的阵容下标
+        /// </summary>
+        public int SelectedLineUpIndex { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public AutoConfig()
@@ -146,7 +160,9 @@ namespace JinChanChanTool.DataClass
             SelectorFormLocation = new Point(-1, -1);
             LineUpFormLocation = new Point(-1, -1);
             StatusOverlayFormLocation = new Point(-1, -1);          
-            LastUpdateTime = new DateTime(2025, 11, 1, 2, 44, 0);           
+            LastUpdateTime = new DateTime(2025, 11, 1, 2, 44, 0);
+            SelectSeason = "英雄联盟传奇";
+            SelectedLineUpIndex = 0;
         }
     }
 }

@@ -113,14 +113,27 @@ namespace JinChanChanTool
         private async void Form1_Load(object sender, EventArgs e)
         {
             #region 初始化赛季下拉框
+            
             comboBox_HeroPool.Items.Clear();
             foreach (string name in _iheroDataService.GetFilePaths())
             {
                 comboBox_HeroPool.Items.Add(Path.GetFileName(name));
             }
+            int selectedIndex = 0;
+            if (!string.IsNullOrEmpty(_iAutoConfigService.CurrentConfig.SelectSeason))
+            {
+                for (int i = 0;i<comboBox_HeroPool.Items.Count;i++)
+                {
+                    if (comboBox_HeroPool.Items[i].ToString().Equals(_iAutoConfigService.CurrentConfig.SelectSeason, StringComparison.OrdinalIgnoreCase))
+                    {
+                        selectedIndex = i;
+                        break;
+                    }
+                }
+            }
             if (comboBox_HeroPool.Items.Count > 0)
             {
-                comboBox_HeroPool.SelectedIndex = 0;
+                comboBox_HeroPool.SelectedIndex = Math.Min(selectedIndex, comboBox_HeroPool.Items.Count - 1);
             }
             comboBox_HeroPool.SelectedIndexChanged += comboBox_HeroPool_SelectedIndexChanged;
             #endregion
@@ -788,17 +801,20 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void comboBox_HeroPool_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            _iheroDataService.SetFilePathsIndex(comboBox_HeroPool.SelectedIndex);
+            _iAutoConfigService.CurrentConfig.SelectSeason = comboBox_HeroPool.Items[comboBox_HeroPool.SelectedIndex].ToString();
+            _iAutoConfigService.Save();
+            _iheroDataService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectSeason);
             _iheroDataService.ReLoad();
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
-            if (!_ilineUpService.SetFilePathIndex(comboBox_HeroPool.SelectedIndex))
+            if (!_ilineUpService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectSeason))
             {
                 Debug.WriteLine("阵容文件路径下标设置失败，给定的下标不合法");
             }            
-            _ilineUpService.ReLoad(_iheroDataService);           
+            _ilineUpService.ReLoad(_iheroDataService);      
+            _iAutoConfigService.CurrentConfig.SelectedLineUpIndex = _ilineUpService.GetLineUpIndex();
+            _iAutoConfigService.Save();
             _uiBuilderService.UnBuild();            
-            UIBuildAndBidingEvents();
+            UIBuildAndBidingEvents();            
             LoadNameFromLineUpsToComboBox();
             LoadLineUpToUI();//分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容            
         }
@@ -813,8 +829,10 @@ namespace JinChanChanTool
         {
             ComboBox comboBox = sender as ComboBox;
             if (comboBox.SelectedIndex != -1)
-            {
+            {                
                 _ilineUpService.SetLineUpIndex(comboBox.SelectedIndex);
+                _iAutoConfigService.CurrentConfig.SelectedLineUpIndex = _ilineUpService.GetLineUpIndex();
+                _iAutoConfigService.Save();
             }
             
             //从本地阵容文件读取数据到_lineupManager

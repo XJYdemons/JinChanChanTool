@@ -97,6 +97,13 @@ namespace JinChanChanTool.Services.DataServices
         bool SetFilePathsIndex(int index);
 
         /// <summary>
+        /// 设置文件路径索引
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        bool SetFilePathsIndex(string Season);
+
+        /// <summary>
         /// 获取文件路径索引
         /// </summary>
         /// <returns></returns>

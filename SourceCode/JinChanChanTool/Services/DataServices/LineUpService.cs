@@ -55,7 +55,7 @@ namespace JinChanChanTool.Services.DataServices
 
         public event EventHandler SubLineUpIndexChanged;
         #region 初始化
-        public LineUpService(IHeroDataService iHeroDataService,int countOfLineUps,int maxOfChoice)
+        public LineUpService(IHeroDataService iHeroDataService,int countOfLineUps,int maxOfChoice,int lineUpIndex)
         {
             _iHeroDataService = iHeroDataService;
             _countOfLineUps = countOfLineUps;
@@ -63,7 +63,7 @@ namespace JinChanChanTool.Services.DataServices
 
             InitializePaths();
             _pathIndex = 0;
-            _lineUpIndex = 0;
+            _lineUpIndex = lineUpIndex;
             _subLineUpIndex = 0;
             
             _lineUps=new List<LineUp>();           
@@ -366,7 +366,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public bool SetFilePathIndex(int index)
+        public bool SetFilePathsIndex(int index)
         {
             if (index >= 0 && index < paths.Length)
             {
@@ -374,6 +374,34 @@ namespace JinChanChanTool.Services.DataServices
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 设置文件路径索引
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool SetFilePathsIndex(string season)
+        {
+            int selectedIndex = 0;
+            bool isFound = false;
+            if (!string.IsNullOrEmpty(season))
+            {
+                for (int i = 0; i < paths.Length; i++)
+                {
+                    if (Path.GetFileName(paths[i]).Equals(season, StringComparison.OrdinalIgnoreCase))
+                    {
+                        selectedIndex = i;
+                        isFound = true;
+                        break;
+                    }
+                }
+            }
+            if (paths.Length > 0)
+            {
+                _pathIndex = Math.Min(selectedIndex, paths.Length - 1);
+            }
+            return isFound;
         }
         #endregion
 

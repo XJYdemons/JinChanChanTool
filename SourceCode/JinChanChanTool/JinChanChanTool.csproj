@@ -207,6 +207,108 @@
     <None Remove="Resources\HeroDatas\符文大陆\images\雷克塞.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\雷克顿.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\黑默丁格.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\HeroData.json" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\丽桑卓.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\乐芙兰.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\亚恒.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\亚托克斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\亚索.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\佐伊.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\佛耶戈.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\俄洛伊.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\克格莫.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\兰博.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\内瑟斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\凯南.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\凯特琳.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\加里奥.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\千珏.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\卑尔维斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\卡莉丝塔.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\卡莎.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\卢锡安与赛娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\厄斐琉斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\厄运小姐.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\可酷伯与悠米.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\吉格斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\嘉文四世.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\基兰.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\塔姆.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\塔里克.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\塞恩.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\塞拉斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\奇亚娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\奈德丽.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\奥恩.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\奥莉安娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\妮蔻.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\娑娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\孙悟空.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\安妮.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\安蓓萨.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\岩宝.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\峡谷先锋.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\崔丝塔娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\崔斯特.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\巴德.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\布里茨.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\布隆.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\希瓦娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\德莱厄斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\德莱文.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\慎.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\拉克丝.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\提莫.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\斯卡纳.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\斯维因.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\普朗克.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\格温.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\格雷福斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\梅尔.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\永恩.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\沃利贝尔.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\沃里克.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\波比.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\泰达米尔.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\泽拉斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\洛里斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\海克斯霸龙.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\烬.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\玛尔扎哈.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\瑞兹.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\瑟庄妮.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\瑟提.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\璐璐.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\盖伦.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\科加斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\米利欧.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\约里克.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\纳什男爵.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\维迦.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\艾克.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\艾尼维亚.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\艾希.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\芸阿娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\菲兹.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\萨勒芬妮.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\蒙多医生.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\蔚.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\蕾欧娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\薇恩.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\诺提勒斯.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\贝蕾亚.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\费德提克.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\赛恩.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\赵信.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\辛吉德.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\金克丝.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\锤石.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\阿兹尔.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\阿狸.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\雷克塞.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\雷克顿.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\黛安娜.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\LineUps.json" />
     <None Remove="Resources\HeroDatas\隐秘海域\HeroData.json" />
     <None Remove="Resources\HeroDatas\隐秘海域\images\亚索.png" />
     <None Remove="Resources\HeroDatas\隐秘海域\images\伊泽瑞尔.png" />
@@ -854,6 +956,309 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\符文大陆\images\黑默丁格.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\HeroData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\丽桑卓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\乐芙兰.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\亚恒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\亚托克斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\亚索.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\佐伊.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\佛耶戈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\俄洛伊.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\克格莫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\兰博.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\内瑟斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\凯南.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\凯特琳.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\加里奥.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\千珏.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\卑尔维斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\卡莉丝塔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\卡莎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\卢锡安与赛娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\厄斐琉斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\厄运小姐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\可酷伯与悠米.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\吉格斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\嘉文四世.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\基兰.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\塔姆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\塔里克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\塞拉斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\奇亚娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\奈德丽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\奥恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\奥瑞利安索尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\奥莉安娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\妮蔻.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\娑娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\孙悟空.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\安妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\安蓓萨.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\岩宝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\峡谷先锋.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\崔丝塔娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\崔斯特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\巴德.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\布里茨.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\布隆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\希瓦娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\德莱厄斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\德莱文.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\慎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\拉克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\提莫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\斯卡纳.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\斯维因.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\普朗克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\格温.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\格雷福斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\梅尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\永恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\沃利贝尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\沃里克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\波比.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\泰达米尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\泽拉斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\洛里斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\海克斯霸龙.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\烬.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\玛尔扎哈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\瑞兹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\瑟庄妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\瑟提.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\璐璐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\盖伦.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\科加斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\米利欧.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\约里克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\纳什男爵.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\维迦.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\艾克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\艾尼维亚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\艾希.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\芸阿娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\菲兹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\萨勒芬妮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\蒙多医生.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\蔚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\蕾欧娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\薇恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\诺提勒斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\贝蕾亚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\费德提克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\赛恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\赵信.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\辛吉德.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\金克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\锤石.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\阿兹尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\阿狸.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\雷克塞.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\雷克顿.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\黛安娜.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\隐秘海域\HeroData.json">

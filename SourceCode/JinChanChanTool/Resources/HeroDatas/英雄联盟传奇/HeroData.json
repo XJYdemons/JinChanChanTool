@@ -1,0 +1,602 @@
+[
+  {
+    "HeroName": "艾尼维亚",
+    "Cost": 1,
+    "Profession": "神谕者",
+    "Peculiarity": "弗雷尔卓德"
+  },
+  {
+    "HeroName": "贝蕾亚",
+    "Cost": 1,
+    "Profession": "裁决战士|主宰",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "布里茨",
+    "Cost": 1,
+    "Profession": "主宰",
+    "Peculiarity": "祖安"
+  },
+  {
+    "HeroName": "俄洛伊",
+    "Cost": 1,
+    "Profession": "斗士",
+    "Peculiarity": "比尔吉沃特"
+  },
+  {
+    "HeroName": "佛耶戈",
+    "Cost": 1,
+    "Profession": "迅击战士",
+    "Peculiarity": "暗影岛"
+  },
+  {
+    "HeroName": "嘉文四世",
+    "Cost": 1,
+    "Profession": "护卫",
+    "Peculiarity": "德玛西亚"
+  },
+  {
+    "HeroName": "烬",
+    "Cost": 1,
+    "Profession": "枪手",
+    "Peculiarity": "艾欧尼亚"
+  },
+  {
+    "HeroName": "凯特琳",
+    "Cost": 1,
+    "Profession": "狙神",
+    "Peculiarity": "皮尔特沃夫"
+  },
+  {
+    "HeroName": "克格莫",
+    "Cost": 1,
+    "Profession": "法师|狙神",
+    "Peculiarity": "虚空"
+  },
+  {
+    "HeroName": "兰博",
+    "Cost": 1,
+    "Profession": "护卫",
+    "Peculiarity": "约德尔人"
+  },
+  {
+    "HeroName": "璐璐",
+    "Cost": 1,
+    "Profession": "法师",
+    "Peculiarity": "约德尔人"
+  },
+  {
+    "HeroName": "奇亚娜",
+    "Cost": 1,
+    "Profession": "裁决战士",
+    "Peculiarity": "以绪塔尔"
+  },
+  {
+    "HeroName": "慎",
+    "Cost": 1,
+    "Profession": "斗士",
+    "Peculiarity": "艾欧尼亚"
+  },
+  {
+    "HeroName": "娑娜",
+    "Cost": 1,
+    "Profession": "神谕者",
+    "Peculiarity": "德玛西亚"
+  },
+  {
+    "HeroName": "艾克",
+    "Cost": 2,
+    "Profession": "耀光使",
+    "Peculiarity": "祖安"
+  },
+  {
+    "HeroName": "艾希",
+    "Cost": 2,
+    "Profession": "迅击战士",
+    "Peculiarity": "弗雷尔卓德"
+  },
+  {
+    "HeroName": "奥莉安娜",
+    "Cost": 2,
+    "Profession": "神谕者",
+    "Peculiarity": "皮尔特沃夫"
+  },
+  {
+    "HeroName": "巴德",
+    "Cost": 2,
+    "Profession": "",
+    "Peculiarity": "星界游神"
+  },
+  {
+    "HeroName": "波比",
+    "Cost": 2,
+    "Profession": "主宰",
+    "Peculiarity": "德玛西亚|约德尔人"
+  },
+  {
+    "HeroName": "崔丝塔娜",
+    "Cost": 2,
+    "Profession": "枪手",
+    "Peculiarity": "约德尔人"
+  },
+  {
+    "HeroName": "崔斯特",
+    "Cost": 2,
+    "Profession": "迅击战士",
+    "Peculiarity": "比尔吉沃特"
+  },
+  {
+    "HeroName": "厄斐琉斯",
+    "Cost": 2,
+    "Profession": "",
+    "Peculiarity": "巨神峰"
+  },
+  {
+    "HeroName": "格雷福斯",
+    "Cost": 2,
+    "Profession": "枪手",
+    "Peculiarity": "比尔吉沃特"
+  },
+  {
+    "HeroName": "科加斯",
+    "Cost": 2,
+    "Profession": "主宰",
+    "Peculiarity": "虚空"
+  },
+  {
+    "HeroName": "雷克塞",
+    "Cost": 2,
+    "Profession": "征服者",
+    "Peculiarity": "虚空"
+  },
+  {
+    "HeroName": "妮蔻",
+    "Cost": 2,
+    "Profession": "法师|护卫",
+    "Peculiarity": "以绪塔尔"
+  },
+  {
+    "HeroName": "赛恩",
+    "Cost": 2,
+    "Profession": "斗士",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "泰达米尔",
+    "Cost": 2,
+    "Profession": "裁决战士",
+    "Peculiarity": "弗雷尔卓德"
+  },
+  {
+    "HeroName": "提莫",
+    "Cost": 2,
+    "Profession": "狙神",
+    "Peculiarity": "约德尔人"
+  },
+  {
+    "HeroName": "蔚",
+    "Cost": 2,
+    "Profession": "护卫",
+    "Peculiarity": "祖安|皮尔特沃夫"
+  },
+  {
+    "HeroName": "亚索",
+    "Cost": 2,
+    "Profession": "裁决战士",
+    "Peculiarity": "艾欧尼亚"
+  },
+  {
+    "HeroName": "约里克",
+    "Cost": 2,
+    "Profession": "神盾使",
+    "Peculiarity": "暗影岛"
+  },
+  {
+    "HeroName": "赵信",
+    "Cost": 2,
+    "Profession": "神盾使",
+    "Peculiarity": "德玛西亚|艾欧尼亚"
+  },
+  {
+    "HeroName": "阿狸",
+    "Cost": 3,
+    "Profession": "法师",
+    "Peculiarity": "艾欧尼亚"
+  },
+  {
+    "HeroName": "德莱厄斯",
+    "Cost": 3,
+    "Profession": "护卫",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "德莱文",
+    "Cost": 3,
+    "Profession": "迅击战士",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "格温",
+    "Cost": 3,
+    "Profession": "耀光使",
+    "Peculiarity": "暗影岛"
+  },
+  {
+    "HeroName": "金克丝",
+    "Cost": 3,
+    "Profession": "枪手",
+    "Peculiarity": "祖安"
+  },
+  {
+    "HeroName": "凯南",
+    "Cost": 3,
+    "Profession": "护卫",
+    "Peculiarity": "艾欧尼亚|约德尔人"
+  },
+  {
+    "HeroName": "可酷伯与悠米",
+    "Cost": 3,
+    "Profession": "神谕者|斗士",
+    "Peculiarity": "约德尔人"
+  },
+  {
+    "HeroName": "乐芙兰",
+    "Cost": 3,
+    "Profession": "神谕者",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "蕾欧娜",
+    "Cost": 3,
+    "Profession": "",
+    "Peculiarity": "巨神峰"
+  },
+  {
+    "HeroName": "洛里斯",
+    "Cost": 3,
+    "Profession": "神盾使",
+    "Peculiarity": "皮尔特沃夫"
+  },
+  {
+    "HeroName": "玛尔扎哈",
+    "Cost": 3,
+    "Profession": "耀光使",
+    "Peculiarity": "虚空"
+  },
+  {
+    "HeroName": "蒙多医生",
+    "Cost": 3,
+    "Profession": "斗士",
+    "Peculiarity": "祖安"
+  },
+  {
+    "HeroName": "米利欧",
+    "Cost": 3,
+    "Profession": "神谕者",
+    "Peculiarity": "以绪塔尔"
+  },
+  {
+    "HeroName": "诺提勒斯",
+    "Cost": 3,
+    "Profession": "神盾使|主宰",
+    "Peculiarity": "比尔吉沃特"
+  },
+  {
+    "HeroName": "普朗克",
+    "Cost": 3,
+    "Profession": "征服者|裁决战士",
+    "Peculiarity": "比尔吉沃特"
+  },
+  {
+    "HeroName": "瑟庄妮",
+    "Cost": 3,
+    "Profession": "护卫",
+    "Peculiarity": "弗雷尔卓德"
+  },
+  {
+    "HeroName": "薇恩",
+    "Cost": 3,
+    "Profession": "狙神",
+    "Peculiarity": "德玛西亚"
+  },
+  {
+    "HeroName": "佐伊",
+    "Cost": 3,
+    "Profession": "",
+    "Peculiarity": "巨神峰"
+  },
+  {
+    "HeroName": "安蓓萨",
+    "Cost": 4,
+    "Profession": "征服者",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "卑尔维斯",
+    "Cost": 4,
+    "Profession": "裁决战士",
+    "Peculiarity": "虚空"
+  },
+  {
+    "HeroName": "布隆",
+    "Cost": 4,
+    "Profession": "神盾使",
+    "Peculiarity": "弗雷尔卓德"
+  },
+  {
+    "HeroName": "黛安娜",
+    "Cost": 4,
+    "Profession": "",
+    "Peculiarity": "巨神峰"
+  },
+  {
+    "HeroName": "厄运小姐",
+    "Cost": 4,
+    "Profession": "枪手",
+    "Peculiarity": "比尔吉沃特"
+  },
+  {
+    "HeroName": "菲兹",
+    "Cost": 4,
+    "Profession": "",
+    "Peculiarity": "约德尔人|比尔吉沃特"
+  },
+  {
+    "HeroName": "盖伦",
+    "Cost": 4,
+    "Profession": "护卫",
+    "Peculiarity": "德玛西亚"
+  },
+  {
+    "HeroName": "卡莉丝塔",
+    "Cost": 4,
+    "Profession": "征服者",
+    "Peculiarity": "暗影岛"
+  },
+  {
+    "HeroName": "卡莎",
+    "Cost": 4,
+    "Profession": "狙神",
+    "Peculiarity": "虚空|虚空之女"
+  },
+  {
+    "HeroName": "拉克丝",
+    "Cost": 4,
+    "Profession": "法师",
+    "Peculiarity": "德玛西亚"
+  },
+  {
+    "HeroName": "雷克顿",
+    "Cost": 4,
+    "Profession": "",
+    "Peculiarity": "恕瑞玛"
+  },
+  {
+    "HeroName": "丽桑卓",
+    "Cost": 4,
+    "Profession": "神谕者",
+    "Peculiarity": "弗雷尔卓德"
+  },
+  {
+    "HeroName": "奈德丽",
+    "Cost": 4,
+    "Profession": "",
+    "Peculiarity": "狂野女猎手|以绪塔尔"
+  },
+  {
+    "HeroName": "内瑟斯",
+    "Cost": 4,
+    "Profession": "",
+    "Peculiarity": "恕瑞玛"
+  },
+  {
+    "HeroName": "萨勒芬妮",
+    "Cost": 4,
+    "Profession": "耀光使",
+    "Peculiarity": "皮尔特沃夫"
+  },
+  {
+    "HeroName": "斯卡纳",
+    "Cost": 4,
+    "Profession": "",
+    "Peculiarity": "以绪塔尔"
+  },
+  {
+    "HeroName": "斯维因",
+    "Cost": 4,
+    "Profession": "法师|主宰",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "孙悟空",
+    "Cost": 4,
+    "Profession": "斗士",
+    "Peculiarity": "艾欧尼亚"
+  },
+  {
+    "HeroName": "塔里克",
+    "Cost": 4,
+    "Profession": "",
+    "Peculiarity": "巨神峰"
+  },
+  {
+    "HeroName": "维迦",
+    "Cost": 4,
+    "Profession": "法师",
+    "Peculiarity": "约德尔人"
+  },
+  {
+    "HeroName": "沃里克",
+    "Cost": 4,
+    "Profession": "迅击战士",
+    "Peculiarity": "祖安"
+  },
+  {
+    "HeroName": "峡谷先锋",
+    "Cost": 4,
+    "Profession": "斗士",
+    "Peculiarity": "虚空"
+  },
+  {
+    "HeroName": "辛吉德",
+    "Cost": 4,
+    "Profession": "主宰",
+    "Peculiarity": "祖安"
+  },
+  {
+    "HeroName": "永恩",
+    "Cost": 4,
+    "Profession": "裁决战士",
+    "Peculiarity": "艾欧尼亚"
+  },
+  {
+    "HeroName": "芸阿娜",
+    "Cost": 4,
+    "Profession": "迅击战士",
+    "Peculiarity": "艾欧尼亚"
+  },
+  {
+    "HeroName": "阿兹尔",
+    "Cost": 5,
+    "Profession": "耀光使",
+    "Peculiarity": "恕瑞玛|沙漠皇帝"
+  },
+  {
+    "HeroName": "安妮",
+    "Cost": 5,
+    "Profession": "法师",
+    "Peculiarity": "黑暗之女"
+  },
+  {
+    "HeroName": "奥恩",
+    "Cost": 5,
+    "Profession": "神盾使",
+    "Peculiarity": "山隐之焰"
+  },
+  {
+    "HeroName": "锤石",
+    "Cost": 5,
+    "Profession": "神盾使",
+    "Peculiarity": "暗影岛"
+  },
+  {
+    "HeroName": "费德提克",
+    "Cost": 5,
+    "Profession": "征服者",
+    "Peculiarity": "远古恐惧"
+  },
+  {
+    "HeroName": "海克斯霸龙",
+    "Cost": 5,
+    "Profession": "枪手",
+    "Peculiarity": "海克斯机甲|皮尔特沃夫"
+  },
+  {
+    "HeroName": "基兰",
+    "Cost": 5,
+    "Profession": "神谕者",
+    "Peculiarity": "时光守护者"
+  },
+  {
+    "HeroName": "吉格斯",
+    "Cost": 5,
+    "Profession": "狙神",
+    "Peculiarity": "约德尔人|祖安"
+  },
+  {
+    "HeroName": "加里奥",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "德玛西亚|正义巨像"
+  },
+  {
+    "HeroName": "卢锡安与赛娜",
+    "Cost": 5,
+    "Profession": "枪手",
+    "Peculiarity": "系魂圣枪"
+  },
+  {
+    "HeroName": "梅尔",
+    "Cost": 5,
+    "Profession": "耀光使",
+    "Peculiarity": "诺克萨斯"
+  },
+  {
+    "HeroName": "千珏",
+    "Cost": 5,
+    "Profession": "迅击战士",
+    "Peculiarity": "永猎双子"
+  },
+  {
+    "HeroName": "瑟提",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "艾欧尼亚|腕豪"
+  },
+  {
+    "HeroName": "塔姆",
+    "Cost": 5,
+    "Profession": "斗士",
+    "Peculiarity": "比尔吉沃特|河流之王"
+  },
+  {
+    "HeroName": "沃利贝尔",
+    "Cost": 5,
+    "Profession": "斗士",
+    "Peculiarity": "弗雷尔卓德"
+  },
+  {
+    "HeroName": "希瓦娜",
+    "Cost": 5,
+    "Profession": "主宰",
+    "Peculiarity": "龙血武姬"
+  },
+  {
+    "HeroName": "亚托克斯",
+    "Cost": 5,
+    "Profession": "裁决战士",
+    "Peculiarity": "暗裔|暗裔剑魔"
+  },
+  {
+    "HeroName": "泽拉斯",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "恕瑞玛|远古巫灵"
+  },
+  {
+    "HeroName": "奥瑞利安索尔",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "巨神峰|铸星龙王"
+  },
+  {
+    "HeroName": "纳什男爵",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "纳什男爵|虚空"
+  },
+  {
+    "HeroName": "瑞兹",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "符文法师"
+  },
+  {
+    "HeroName": "塞拉斯",
+    "Cost": 5,
+    "Profession": "法师|护卫",
+    "Peculiarity": "解脱者"
+  },
+  {
+    "HeroName": "亚恒",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "暗裔|不落魔锋"
+  },
+  {
+    "HeroName": "岩宝",
+    "Cost": 5,
+    "Profession": "",
+    "Peculiarity": "以绪塔尔"
+  }
+]

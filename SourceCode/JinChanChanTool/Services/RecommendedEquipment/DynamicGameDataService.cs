@@ -1,5 +1,8 @@
-﻿using System;
+﻿using JinChanChanTool.Forms;
+using JinChanChanTool.Services.RecommendedEquipment.Interface;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -55,9 +58,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             }
 
             try
-            {
-                System.Diagnostics.Debug.WriteLine("DynamicGameDataService: 开始初始化，准备从网络获取数据...");
-
+            {                
+                Debug.WriteLine("DynamicGameDataService: 开始初始化，准备从网络获取数据...");
+                LogTool.Log("DynamicGameDataService: 开始初始化，准备从网络获取数据...");
+                OutputForm.Instance.WriteLineOutputMessage("DynamicGameDataService: 开始初始化，准备从网络获取数据...");
                 // 使用 Task.WhenAll 并行发起两个网络请求，可以显著缩短总等待时间。
                 var translationTask = _httpClient.GetStringAsync(TranslationsUrl);
                 var unitListTask = _httpClient.GetStringAsync(UnitListUrl);
@@ -73,13 +77,17 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 ProcessTranslationData(translationJson);
 
                 _isInitialized = true; // 标记初始化成功
-                System.Diagnostics.Debug.WriteLine("DynamicGameDataService: 初始化成功！");
+                Debug.WriteLine("DynamicGameDataService: 初始化成功！");
+                LogTool.Log("DynamicGameDataService: 初始化成功！");
+                OutputForm.Instance.WriteLineOutputMessage("DynamicGameDataService: 初始化成功！");
             }
             catch (Exception ex)
             {
                 // 如果在初始化过程中发生任何错误（如网络问题、JSON解析失败），记录错误并重新抛出。
                 // 让上层调用者（如应用程序启动逻辑）知道初始化失败，并据此决定如何响应（例如，向用户显示错误消息）。
-                System.Diagnostics.Debug.WriteLine($"DynamicGameDataService: 初始化失败! 错误: {ex.Message}");
+                Debug.WriteLine($"DynamicGameDataService: 初始化失败! 错误: {ex.Message}");
+                LogTool.Log($"DynamicGameDataService: 初始化失败! 错误: {ex.Message}");
+                OutputForm.Instance.WriteLineOutputMessage($"DynamicGameDataService: 初始化失败! 错误: {ex.Message}");
                 throw;
             }
         }
@@ -104,8 +112,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             CurrentSeasonHeroKeys = unitListResponse.Units.Keys
                 .Where(key => key.StartsWith(seasonPrefix, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-
-            System.Diagnostics.Debug.WriteLine($"已确定当前赛季: {seasonPrefix}，找到 {CurrentSeasonHeroKeys.Count} 位英雄。");
+            
+            Debug.WriteLine($"已确定当前赛季: {seasonPrefix}，找到 {CurrentSeasonHeroKeys.Count} 位英雄。");
+            LogTool.Log($"已确定当前赛季: {seasonPrefix}，找到 {CurrentSeasonHeroKeys.Count} 位英雄。");
+            OutputForm.Instance.WriteLineOutputMessage($"已确定当前赛季: {seasonPrefix}，找到 {CurrentSeasonHeroKeys.Count} 位英雄。");
         }
 
         /// <summary>
@@ -134,8 +144,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 .Where(item => !string.IsNullOrEmpty(item.ApiName) && !string.IsNullOrEmpty(item.Name))
                 .GroupBy(item => item.ApiName) // 对装备列表也进行同样的分组去重
                 .ToDictionary(g => g.Key, g => g.First().Name);
-
-            System.Diagnostics.Debug.WriteLine($"已加载 {HeroTranslations.Count} 条英雄翻译和 {ItemTranslations.Count} 条装备翻译。");
+            
+            Debug.WriteLine($"已加载 {HeroTranslations.Count} 条英雄翻译和 {ItemTranslations.Count} 条装备翻译。");
+            LogTool.Log($"已加载 {HeroTranslations.Count} 条英雄翻译和 {ItemTranslations.Count} 条装备翻译。");
+            OutputForm.Instance.WriteLineOutputMessage($"已加载 {HeroTranslations.Count} 条英雄翻译和 {ItemTranslations.Count} 条装备翻译。");
         }
 
         #region 内部数据模型

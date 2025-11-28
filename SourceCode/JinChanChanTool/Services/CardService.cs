@@ -1,6 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
-using JinChanChanTool.Services.DataServices;
+using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
@@ -16,12 +16,12 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 程序设置服务实例
         /// </summary>
-        private readonly IAppConfigService _iappConfigService;
+        private readonly IManualSettingsService _iappConfigService;
 
         /// <summary>
         /// 自动设置服务实例
         /// </summary>
-        private readonly IAutoConfigService _iAutoConfigService;
+        private readonly IAutomaticSettingsService _iAutoConfigService;
 
         /// <summary>
         /// OCR结果纠正服务实例
@@ -74,7 +74,7 @@ namespace JinChanChanTool.Services
         private int 从上次尝试刷新到目前为止经过的轮次 = 0;
         private Stopwatch 计时器 = Stopwatch.StartNew();
 
-        public CardService(Button button1, Button button2, IAppConfigService iAppConfigService,IAutoConfigService iAutoConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService)
+        public CardService(Button button1, Button button2, IManualSettingsService iAppConfigService,IAutomaticSettingsService iAutoConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService)
         {
 
             _button1 = button1;
@@ -85,11 +85,11 @@ namespace JinChanChanTool.Services
             _iheroDataService = iHeroDataService;
             _ilineUpService = iLineUpService;
             // 根据选中的按钮初始化OCR
-            if (iAppConfigService.CurrentConfig.UseCPU)
+            if (iAppConfigService.CurrentConfig.IsUseCPUForInference)
             {
                 InitializeOcrService(QueuedOCRService.设备.CPU);
             }
-            else if (iAppConfigService.CurrentConfig.UseGPU)
+            else if (iAppConfigService.CurrentConfig.IsUseGPUForInference)
             {
                 InitializeOcrService(QueuedOCRService.设备.GPU);
             }
@@ -155,17 +155,28 @@ namespace JinChanChanTool.Services
             is自动刷新商店 = false;          
         }
 
+        /// <summary>
+        /// 鼠标左键按下事件处理
+        /// </summary>
         public void MouseLeftButtonDown()
         {
             鼠标左键是否按下 = true;
             本轮是否按下过鼠标 = true;
         }
 
+        /// <summary>
+        /// 鼠标左键抬起事件处理
+        /// </summary>
         public void MouseLeftButtonUp()
         {
             鼠标左键是否按下 = false;
         }
-            
+
+        /// <summary>
+        /// OCR处理主循环
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         private async Task ProcessLoop(CancellationToken token)
         {
             int 循环计数 = 0;
@@ -174,11 +185,10 @@ namespace JinChanChanTool.Services
             {                
                 try
                 {
-                    循环计数++;
-                    
-
+                    循环计数++;                           
                     LogTool.Log($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
                     Debug.WriteLine($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
+                    OutputForm.Instance.WriteLineOutputMessage($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");                   
                     if (!自动停止拿牌()) return;
                     自动停止刷新商店();
                     Bitmap[] bitmaps = CaptureAndSplit();
@@ -204,8 +214,11 @@ namespace JinChanChanTool.Services
                     }
                     LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
                     Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
                     LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");                                       
+                    OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                  
                     #endregion
                     await GetCard(当前目标数组);
                     判断未拿牌并处理();                     
@@ -213,17 +226,17 @@ namespace JinChanChanTool.Services
                     更新上一轮结果数组与目标数组();
                     if(await 判断是否需要刷新商店并处理())
                     {
-                        if(_iappConfigService.CurrentConfig.UseCPU)
+                        if(_iappConfigService.CurrentConfig.IsUseCPUForInference)
                         {
-                            await Task.Delay(_iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore);
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
                         }                            
-                        else if(_iappConfigService.CurrentConfig.UseGPU)
+                        else if(_iappConfigService.CurrentConfig.IsUseGPUForInference)
                         {
-                            await Task.Delay(_iappConfigService.CurrentConfig.GPUDelayAfterRefreshStore);
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU);
                         }  
                         else
                         {
-                            await Task.Delay(_iappConfigService.CurrentConfig.CPUDelayAfterRefreshStore);
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
                         }
                     }
                     本轮是否按下过鼠标 = false;                   
@@ -338,17 +351,15 @@ namespace JinChanChanTool.Services
                 {
                     try
                     {
-                        if(_iappConfigService.CurrentConfig.StopRefreshWhenErrorCharacters)
+                        if(_iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters)
                         {
                             停止刷新商店();
                             LogTool.Log("由于识别错误关闭自动刷新！");
-                            Debug.WriteLine("由于识别错误关闭自动刷新！");
+                            Debug.WriteLine("由于识别错误关闭自动刷新！");                           
+                            OutputForm.Instance.WriteLineOutputMessage($"由于识别错误关闭自动刷新！" + "\r\n");                         
                         }
                         // 更新UI
-                        ErrorForm.Instance.GetTextBox().Invoke((MethodInvoker)delegate
-                        {
-                            ErrorForm.Instance.GetTextBox().AppendText("\r\n" + errorMessage + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");
-                        });                       
+                        OutputForm.Instance.WriteLineErrorMessage(errorMessage + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");                                          
                         // 动态计算文本区域宽度（每个字符约20像素，加上边距）
                         int estimatedCharWidth = 20;                        
                         int textAreaWidth = (errorMessage.Length-2) * estimatedCharWidth+20;                    
@@ -391,7 +402,7 @@ namespace JinChanChanTool.Services
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine(ex);
+                                              
                     }
                 }
             }           
@@ -416,10 +427,11 @@ namespace JinChanChanTool.Services
 
         private bool 自动停止拿牌()
         {           
-            if (未拿牌累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutGetCard && _iappConfigService.CurrentConfig.AutoStopGet)
+            if (未拿牌累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase && _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
             {
                 LogTool.Log("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
-                Debug.WriteLine("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
+                Debug.WriteLine("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");              
+                OutputForm.Instance.WriteLineOutputMessage($"存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");               
                 is自动拿牌 = false;
                 _button1.Invoke((MethodInvoker)delegate
                 {                    
@@ -434,10 +446,11 @@ namespace JinChanChanTool.Services
         
         private void 自动停止刷新商店()
         {           
-            if (未刷新累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutRefresh && _iappConfigService.CurrentConfig.AutoStopRefresh)
+            if (未刷新累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore && _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore)
             {
                 LogTool.Log("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
-                Debug.WriteLine("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
+                Debug.WriteLine("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");                
+                OutputForm.Instance.WriteLineOutputMessage($"自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");                
                 停止刷新商店();
             }
         }
@@ -479,11 +492,13 @@ namespace JinChanChanTool.Services
                     {
                         从上次尝试刷新到目前为止经过的轮次++;
                         LogTool.Log($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");
-                        Debug.WriteLine($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");                       
+                        Debug.WriteLine($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");                        
+                        OutputForm.Instance.WriteLineOutputMessage($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");                       
                         if (从上次尝试刷新到目前为止经过的轮次 >= 未刷新最大回合数 || 计时器.Elapsed.TotalSeconds >= 未刷新最大时间秒数)
                         {
                             LogTool.Log($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");
                             Debug.WriteLine($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");
+                            OutputForm.Instance.WriteLineOutputMessage($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");                          
                             从上次尝试刷新到目前为止经过的轮次 = 0;
                             当前商店刷新状态 = 刷新状态.未开始;
                             未刷新累积次数++;
@@ -492,7 +507,8 @@ namespace JinChanChanTool.Services
                     else if(本轮是否为空())//上次刷新命令后本轮商店反而为空,可能是用户操作导致商店临时消失，不刷新，不处理。
                     {
                         LogTool.Log($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");
-                        Debug.WriteLine($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");
+                        Debug.WriteLine($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");                        
+                        OutputForm.Instance.WriteLineOutputMessage($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");                        
                     }
                     else
                     {
@@ -514,7 +530,8 @@ namespace JinChanChanTool.Services
             if (!is自动刷新商店)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
-                Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
+                Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");                
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");               
                 return false;
             }
 
@@ -522,6 +539,7 @@ namespace JinChanChanTool.Services
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");                
                 return false;
             }
 
@@ -529,6 +547,7 @@ namespace JinChanChanTool.Services
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");                
                 return false;
             }
 
@@ -536,6 +555,7 @@ namespace JinChanChanTool.Services
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");                
                 return false;
             }
 
@@ -543,12 +563,14 @@ namespace JinChanChanTool.Services
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");                
                 return false;
             }
 
             LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     本轮操作:刷新");
             Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     本轮操作:刷新");
-
+            OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     本轮操作:刷新");
+           
             更新最近一次刷新轮商店状态();
 
             // 重置计时器和状态
@@ -562,16 +584,16 @@ namespace JinChanChanTool.Services
 
         private async Task 刷新商店()
         {
-            if (_iappConfigService.CurrentConfig.MouseRefresh)
+            if (_iappConfigService.CurrentConfig.IsMouseRefreshStore)
             {
-                MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.Point_RefreshStoreX, _iappConfigService.CurrentConfig.Point_RefreshStoreY);                              
-                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                              
+                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
                 await ClickOneTime();                   
              
             }
-            else if (_iappConfigService.CurrentConfig.KeyboardRefresh)
+            else if (_iappConfigService.CurrentConfig.IsKeyboardRefreshStore)
             {
-                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshKey);                
+                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);                
             }
         }
 
@@ -583,23 +605,23 @@ namespace JinChanChanTool.Services
         {
             try
             {
-                if(_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+                if(_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
                     // 1. 无条件地从 AutoConfig 读取坐标，截取一张包含所有卡槽的大图
                     using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
-                             _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
-                            _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY,
-                            (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iAutoConfigService.CurrentConfig.Width_CardScreenshot,
+                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1,
+                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y,
+                            (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1) + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth,
                              _iAutoConfigService.CurrentConfig.Height_CardScreenshot))
                     {
                         Bitmap[] bitmaps = new Bitmap[5];
 
                         // 2. 使用正确的、基于差值的相对偏移来分割图片
-                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iAutoConfigService.CurrentConfig.Width_CardScreenshot, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
                         return bitmaps;
                     }
                 }
@@ -607,19 +629,19 @@ namespace JinChanChanTool.Services
                 {
                     // 1. 无条件地从 AppConfig 读取坐标，截取一张包含所有卡槽的大图
                     using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
-                             _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1,
-                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY,
-                            (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1) + _iappConfigService.CurrentConfig.Width_CardScreenshot,
-                             _iappConfigService.CurrentConfig.Height_CardScreenshot))
+                             _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1,
+                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y,
+                            (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1) + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth,
+                             _iappConfigService.CurrentConfig.HeroNameScreenshotHeight))
                     {
                         Bitmap[] bitmaps = new Bitmap[5];
 
                         // 2. 使用正确的、基于差值的相对偏移来分割图片
-                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX2 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX3 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX4 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.StartPoint_CardScreenshotX5 - _iappConfigService.CurrentConfig.StartPoint_CardScreenshotX1), 0, _iappConfigService.CurrentConfig.Width_CardScreenshot, _iappConfigService.CurrentConfig.Height_CardScreenshot);
+                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
+                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
+                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
+                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
+                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
                         return bitmaps;
                     }
                 }
@@ -692,81 +714,81 @@ namespace JinChanChanTool.Services
                 switch (i)
                 {
                     case 0:
-                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX1;
+                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
                         break;
                     case 1:
-                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX2;
+                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
                         break;
                     case 2:
-                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX3;
+                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
                         break;
                     case 3:
-                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX4;
+                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
                         break;
                     case 4:
-                        x = _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotX5;
+                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
                         break;
                 }
                 if (isGetArray[i])
                 {
-                    if (_iappConfigService.CurrentConfig.KeyboardGetCard)
+                    if (_iappConfigService.CurrentConfig.IsKeyboardHeroPurchase)
                     {
                         switch (i)
                         {
                             case 0:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey1);
+                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey1);
                                 break;
                             case 1:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey2);
+                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey2);
                                 break;
                             case 2:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey3);
+                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey3);
                                 break;
                             case 3:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey4);
+                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey4);
                                 break;
                             case 4:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.GetCardKey5);
+                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey5);
                                 break;
                         }
-                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
                     }
-                    else if (_iappConfigService.CurrentConfig.MouseGetCard)
+                    else if (_iappConfigService.CurrentConfig.IsMouseHeroPurchase)
                     {
                         int randomX, randomY;
-                        if (_iappConfigService.CurrentConfig.UseDynamicCoordinates)
+                        if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                         {
                             randomX = Random.Shared.Next(
-                            x + _iAutoConfigService.CurrentConfig.Width_CardScreenshot / 4,
-                            x + _iAutoConfigService.CurrentConfig.Width_CardScreenshot * 3 / 4 + 1);
+                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,
+                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
-                            _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2,
-                            _iAutoConfigService.CurrentConfig.StartPoint_CardScreenshotY + 1);                            
+                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2,
+                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);                            
                         }
-                        else if(_iappConfigService.CurrentConfig.UseFixedCoordinates)
+                        else if(_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                         {
                             randomX = Random.Shared.Next(
-                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 4,
-                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot * 3 / 4 + 1);
+                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,
+                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
-                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2,
-                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY + 1);                           
+                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iappConfigService.CurrentConfig.HeroNameScreenshotHeight * 2,
+                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);                           
                         }
                         else
                         {
                             randomX = Random.Shared.Next(
-                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot / 4,
-                            x + _iappConfigService.CurrentConfig.Width_CardScreenshot * 3 / 4 + 1);
+                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,
+                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
-                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY - _iappConfigService.CurrentConfig.Height_CardScreenshot * 2,
-                            _iappConfigService.CurrentConfig.StartPoint_CardScreenshotY + 1);                           
+                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iappConfigService.CurrentConfig.HeroNameScreenshotHeight * 2,
+                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);                           
                         }
                         // 设置鼠标位置
                         MouseControlTool.SetMousePosition(randomX, randomY);
-                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
                         // 执行点击操作，逐个点击并等待
                         await ClickOneTime();
-                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterMouseOperation);
+                        await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
                     }
                 }                                  
             }

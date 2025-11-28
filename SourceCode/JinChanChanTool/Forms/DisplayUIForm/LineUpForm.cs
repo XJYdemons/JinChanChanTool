@@ -1,11 +1,13 @@
-﻿using JinChanChanTool.Services.DataServices;
-using System.Diagnostics;
-
+﻿using JinChanChanTool.Services.DataServices.Interface;
 
 namespace JinChanChanTool.Forms
 {
+    /// <summary>
+    /// 阵容选择与展示窗体
+    /// </summary>
     public partial class LineUpForm : Form
     {
+        //单例模式
         private static LineUpForm _instance;
         public static LineUpForm Instance
         {
@@ -18,13 +20,21 @@ namespace JinChanChanTool.Forms
                 return _instance;
             }
         }
+
+        // 拖动相关变量
+        private Point _dragStartPoint;
+        private bool _dragging;
+
+        private ILineUpService _ilineUpService;//阵容数据服务对象
+        public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
+
         private LineUpForm()
         {
             InitializeComponent();
             // 鼠标事件处理
-            panel1.MouseDown += panel1_MouseDown;
-            panel1.MouseMove += panel1_MouseMove;
-            panel1.MouseUp += panel1_MouseUp;
+            panel_拖动条.MouseDown += panel_拖动条_MouseDown;
+            panel_拖动条.MouseMove += panel_拖动条_MouseMove;
+            panel_拖动条.MouseUp += panel_拖动条_MouseUp;
         }
 
         private void LineUpForm_Load(object sender, EventArgs e)
@@ -32,83 +42,18 @@ namespace JinChanChanTool.Forms
            
         }
 
-        #region 拖动窗体功能
-        // 拖动相关变量
-        private Point _dragStartPoint;
-        private bool _dragging;
-        // 鼠标按下事件 - 开始拖动
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        /// <summary>
+        /// 初始化阵容窗体所需的服务
+        /// </summary>
+        /// <param name="ilineUpService">阵容数据服务对象</param>
+        /// <param name="iAutoConfigService">程序自动设置数据服务对象</param>        
+        public void InitializeObject(ILineUpService ilineUpService, IAutomaticSettingsService iAutoConfigService)
         {
-            Panel panel = sender as Panel;
-            if (e.Button == MouseButtons.Left)
-            {
-                _dragging = true;
-                _dragStartPoint = new Point(e.X, e.Y);
-                panel.BackColor = Color.FromArgb(96, 223, 84);
-            }
-        }
-
-        // 鼠标移动事件 - 处理拖动
-        private void panel1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (_dragging)
-            {
-                Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
-                newLocation.Offset(-_dragStartPoint.X, -_dragStartPoint.Y);
-                this.Location = newLocation;
-            }
-        }
-
-        // 鼠标释放事件 - 结束拖动
-        private void panel1_MouseUp(object sender, MouseEventArgs e)
-        {
-            Panel panel = sender as Panel;
-            panel.BackColor = Color.FromArgb(218, 218, 218);
-            _dragging = false;
-            SaveFormLocation();
-        }
-        #endregion
-
-        private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (panel2.Visible == true)
-            {
-                panel2.Visible = false;
-                comboBox_LineUp.Visible = false;
-                button_保存.Visible = false;
-                button_清空.Visible = false;
-            }
-            else
-            {
-                panel2.Visible = true;
-                comboBox_LineUp.Visible = true;
-                button_保存.Visible = true;
-                button_清空.Visible = true;
-            }
-        }
-        private  ILineUpService _ilineUpService;
-      
-        public IAutoConfigService _iAutoConfigService;
-        public void InitializeObject(ILineUpService ilineUpService, IAutoConfigService iAutoConfigService)
-        {
-           
             _iAutoConfigService = iAutoConfigService;
             _ilineUpService = ilineUpService;
             ApplySavedLocation();
-        }       
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (_ilineUpService.Save())
-            {
-                MessageBox.Show("阵容已保存", "阵容已保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            _ilineUpService.ClearCurrentSubLineUp();
-        }
-        #region 位置保存与读取
         /// <summary>
         /// 从配置中读取并应用窗口位置
         /// </summary>
@@ -118,11 +63,11 @@ namespace JinChanChanTool.Forms
             {
                 this.StartPosition = FormStartPosition.Manual;
                 if (_iAutoConfigService.CurrentConfig.LineUpFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.LineUpFormLocation.Y == -1)
-                {                   
+                {
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
-                        screen.Right - this.Width /*- 10*/,
-                        screen.Bottom - this.Height /*+ 10*/
+                        screen.Right - this.Width,
+                        screen.Bottom - this.Height
                     );
                     return;
                 }
@@ -135,8 +80,8 @@ namespace JinChanChanTool.Forms
                 {
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
-                        screen.Right - this.Width /*- 10*/,
-                        screen.Bottom - this.Height /*+ 10*/
+                        screen.Right - this.Width,
+                        screen.Bottom - this.Height
                     );
                 }
             }
@@ -144,10 +89,102 @@ namespace JinChanChanTool.Forms
             {
                 var screen = Screen.PrimaryScreen.Bounds;
                 this.Location = new Point(
-                    screen.Right - this.Width /*- 10*/,
-                    screen.Bottom - this.Height /*+ 10*/
+                    screen.Right - this.Width,
+                    screen.Bottom - this.Height
                 );
             }
+        }
+
+        #region 拖动窗体功能        
+        /// <summary>
+        /// 鼠标按下事件 - 开始拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void panel_拖动条_MouseDown(object sender, MouseEventArgs e)
+        {
+            Panel panel = sender as Panel;
+            if (e.Button == MouseButtons.Left)
+            {
+                _dragging = true;
+                _dragStartPoint = new Point(e.X, e.Y);
+                panel.BackColor = Color.FromArgb(96, 223, 84);
+            }
+        }
+
+        /// <summary>
+        /// 鼠标移动事件 - 处理拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void panel_拖动条_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_dragging)
+            {
+                Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
+                newLocation.Offset(-_dragStartPoint.X, -_dragStartPoint.Y);
+                this.Location = newLocation;
+            }
+        }
+
+        /// <summary>
+        /// 鼠标释放事件 - 结束拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void panel_拖动条_MouseUp(object sender, MouseEventArgs e)
+        {
+            Panel panel = sender as Panel;
+            panel.BackColor = Color.FromArgb(218, 218, 218);
+            _dragging = false;
+            SaveFormLocation();
+        }
+        #endregion
+
+        /// <summary>
+        /// 双击拖动条显示或隐藏阵容选择面板
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (panel_子阵容容器.Visible == true)
+            {
+                panel_子阵容容器.Visible = false;
+                comboBox_LineUp.Visible = false;
+                button_保存.Visible = false;
+                button_清空.Visible = false;
+            }
+            else
+            {
+                panel_子阵容容器.Visible = true;
+                comboBox_LineUp.Visible = true;
+                button_保存.Visible = true;
+                button_清空.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// 保存当前阵容按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_保存_Click(object sender, EventArgs e)
+        {
+            if (_ilineUpService.Save())
+            {
+                MessageBox.Show("阵容已保存", "阵容已保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        /// <summary>
+        /// 清空当前阵容按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_清空_Click(object sender, EventArgs e)
+        {
+            _ilineUpService.ClearCurrentSubLineUp();
         }
 
         /// <summary>
@@ -168,7 +205,5 @@ namespace JinChanChanTool.Forms
                 
             }
         }
-
-        #endregion
     }
 }

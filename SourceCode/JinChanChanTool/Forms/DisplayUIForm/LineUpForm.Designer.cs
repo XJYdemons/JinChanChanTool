@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            this.panel_拖动条 = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            panel2 = new Panel();
+            panel_子阵容容器 = new Panel();
             flowLayoutPanel3 = new FlowLayoutPanel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             button_清空 = new Button();
             button_保存 = new Button();
             comboBox_LineUp = new ComboBox();
-            panel2.SuspendLayout();
+            panel_子阵容容器.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // panel_拖动条
             // 
-            panel1.BackColor = Color.FromArgb(218, 218, 218);
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Location = new Point(0, 30);
-            panel1.Margin = new Padding(0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(6, 108);
-            panel1.TabIndex = 1;
-            panel1.MouseDoubleClick += panel1_MouseDoubleClick;
+            this.panel_拖动条.BackColor = Color.FromArgb(218, 218, 218);
+            this.panel_拖动条.BorderStyle = BorderStyle.FixedSingle;
+            this.panel_拖动条.Location = new Point(0, 30);
+            this.panel_拖动条.Margin = new Padding(0);
+            this.panel_拖动条.Name = "panel_拖动条";
+            this.panel_拖动条.Size = new Size(6, 108);
+            this.panel_拖动条.TabIndex = 1;
+            this.panel_拖动条.MouseDoubleClick += this.panel1_MouseDoubleClick;
             // 
             // flowLayoutPanel1
             // 
@@ -61,17 +61,17 @@
             flowLayoutPanel1.TabIndex = 4;
             flowLayoutPanel1.WrapContents = false;
             // 
-            // panel2
+            // panel_子阵容容器
             // 
-            panel2.AutoScroll = true;
-            panel2.Controls.Add(flowLayoutPanel3);
-            panel2.Controls.Add(flowLayoutPanel2);
-            panel2.Controls.Add(flowLayoutPanel1);
-            panel2.Location = new Point(6, 30);
-            panel2.Margin = new Padding(0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(391, 126);
-            panel2.TabIndex = 5;
+            panel_子阵容容器.AutoScroll = true;
+            panel_子阵容容器.Controls.Add(flowLayoutPanel3);
+            panel_子阵容容器.Controls.Add(flowLayoutPanel2);
+            panel_子阵容容器.Controls.Add(flowLayoutPanel1);
+            panel_子阵容容器.Location = new Point(6, 30);
+            panel_子阵容容器.Margin = new Padding(0);
+            panel_子阵容容器.Name = "panel_子阵容容器";
+            panel_子阵容容器.Size = new Size(391, 126);
+            panel_子阵容容器.TabIndex = 5;
             // 
             // flowLayoutPanel3
             // 
@@ -105,7 +105,7 @@
             button_清空.TabIndex = 9;
             button_清空.Text = "清空";
             button_清空.UseVisualStyleBackColor = false;
-            button_清空.Click += button2_Click;
+            button_清空.Click += button_清空_Click;
             // 
             // button_保存
             // 
@@ -117,7 +117,7 @@
             button_保存.TabIndex = 8;
             button_保存.Text = "保存";
             button_保存.UseVisualStyleBackColor = false;
-            button_保存.Click += button1_Click;
+            button_保存.Click += button_保存_Click;
             // 
             // comboBox_LineUp
             // 
@@ -135,9 +135,9 @@
             ClientSize = new Size(399, 157);
             Controls.Add(button_清空);
             Controls.Add(button_保存);
-            Controls.Add(panel2);
+            Controls.Add(panel_子阵容容器);
             Controls.Add(comboBox_LineUp);
-            Controls.Add(panel1);
+            Controls.Add(this.panel_拖动条);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LineUpForm";
             ShowInTaskbar = false;
@@ -145,14 +145,14 @@
             TopMost = true;
             TransparencyKey = Color.Magenta;
             Load += LineUpForm_Load;
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            panel_子阵容容器.ResumeLayout(false);
+            panel_子阵容容器.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel panel1;
-        private Panel panel2;
+        private Panel panel_拖动条;
+        private Panel panel_子阵容容器;
         public FlowLayoutPanel flowLayoutPanel1;
         public FlowLayoutPanel flowLayoutPanel3;
         public FlowLayoutPanel flowLayoutPanel2;

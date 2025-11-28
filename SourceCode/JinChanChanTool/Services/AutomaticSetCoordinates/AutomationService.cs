@@ -1,6 +1,5 @@
-﻿using JinChanChanTool.DataClass; // 包含 JccCoordinateTemplates    // 包含 TftCoordinateTemplates
+﻿using JinChanChanTool.DataClass.StaticData;
 using System.Diagnostics;
-using System.Drawing;
 using static JinChanChanTool.Services.AutoSetCoordinates.CoordinateCalculationService;
 
 namespace JinChanChanTool.Services.AutoSetCoordinates
@@ -138,7 +137,12 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             return _coordService.GetScaledRectangle(profile, baseResolution, CurrentGameMode);
         }
 
-        // --- 私有辅助方法，用于从模板中获取对应的Profile ---
+        /// <summary>
+        /// 根据UI元素枚举，获取对应的云顶之弈坐标模板档案。
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private AnchorProfile GetTftProfile(UiElement element)
         {
             switch (element)
@@ -160,6 +164,12 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             }
         }
 
+        /// <summary>
+        /// 根据UI元素枚举，获取对应的金铲铲之战坐标模板档案。
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private AnchorProfile GetJccProfile(UiElement element)
         {
             switch (element)

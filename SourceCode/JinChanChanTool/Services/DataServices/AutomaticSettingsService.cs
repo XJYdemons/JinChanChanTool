@@ -1,19 +1,15 @@
 ﻿using JinChanChanTool.DataClass;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using JinChanChanTool.Services.DataServices.Interface;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace JinChanChanTool.Services.DataServices
 {
-    public class AutoConfigService:IAutoConfigService
+    public class AutomaticSettingsService:IAutomaticSettingsService
     {
         /// <summary>
         /// 当前的应用设置实例。
         /// </summary>
-        public AutoConfig CurrentConfig { get; set; }
+        public AutomaticSettings CurrentConfig { get; set; }
      
         /// <summary>
         /// 应用设置文件路径。
@@ -21,9 +17,9 @@ namespace JinChanChanTool.Services.DataServices
         private string filePath;
 
         #region 初始化
-        public AutoConfigService()
+        public AutomaticSettingsService()
         {
-            CurrentConfig = new AutoConfig();
+            CurrentConfig = new AutomaticSettings();
             InitializePaths();
         }
 
@@ -38,7 +34,8 @@ namespace JinChanChanTool.Services.DataServices
             {
                 Directory.CreateDirectory(parentPath);
             }
-            filePath = Path.Combine(parentPath, "AutoConfig.json");
+            filePath = Path.Combine(parentPath, "AutomaticSettings.json");
+            
         }
         #endregion
 
@@ -70,7 +67,7 @@ namespace JinChanChanTool.Services.DataServices
             }
             catch
             {
-                MessageBox.Show($"自动应用配置文件\"AutoConfig.json\"保存失败\n路径：\n{filePath}",
+                MessageBox.Show($"自动应用配置文件\"{Path.GetFileName(filePath)}\"保存失败\n路径：\n{filePath}",
                                   "文件保存失败",
                                   MessageBoxButtons.OK,
                                   MessageBoxIcon.Error
@@ -85,7 +82,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public void SetDefaultConfig()
         {
-            CurrentConfig = new AutoConfig();
+            CurrentConfig = new AutomaticSettings();
         }
 
         /// <summary>
@@ -104,13 +101,13 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         private void LoadFromFile()
         {
-            CurrentConfig = new AutoConfig();
+            CurrentConfig = new AutomaticSettings();
             try
             {
                 //判断Json文件是否存在
                 if (!File.Exists(filePath))
                 {
-                    MessageBox.Show($"找不到自动应用配置文件\"AutoConfig.json\"\n路径：\n{filePath}\n将创建默认配置文件。",
+                    MessageBox.Show($"找不到自动应用配置文件\"{Path.GetFileName(filePath)}\"\n路径：\n{filePath}\n将创建默认配置文件。",
                                     "文件不存在",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning
@@ -121,7 +118,7 @@ namespace JinChanChanTool.Services.DataServices
                 string json = File.ReadAllText(filePath);
                 if (string.IsNullOrEmpty(json))
                 {
-                    MessageBox.Show($"自动应用配置文件\"AutoConfig.json\"内容为空。\n路径：\n{filePath}\n将创建默认配置文件。",
+                    MessageBox.Show($"自动应用配置文件\"{Path.GetFileName(filePath)}\"内容为空。\n路径：\n{filePath}\n将创建默认配置文件。",
                                "文件为空",
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Warning
@@ -129,11 +126,11 @@ namespace JinChanChanTool.Services.DataServices
                     Save();
                     return;
                 }
-                CurrentConfig = JsonSerializer.Deserialize<AutoConfig>(json);
+                CurrentConfig = JsonSerializer.Deserialize<AutomaticSettings>(json);
             }
             catch
             {
-                MessageBox.Show($"自动应用配置文件\"AutoConfig.json\"格式错误\n路径：\n{filePath}\n将创建默认配置文件。",
+                MessageBox.Show($"自动应用配置文件\"{Path.GetFileName(filePath)}\"格式错误\n路径：\n{filePath}\n将创建默认配置文件。",
                                    "文件格式错误",
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Warning

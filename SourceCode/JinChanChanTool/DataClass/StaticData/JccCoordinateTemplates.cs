@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using static JinChanChanTool.Services.AutoSetCoordinates.CoordinateCalculationService; // 引入AnchorProfile结构体
+﻿using static JinChanChanTool.Services.AutoSetCoordinates.CoordinateCalculationService; // 引入AnchorProfile结构体
 
-namespace JinChanChanTool.DataClass
+namespace JinChanChanTool.DataClass.StaticData
 {
     /// <summary>
     /// 存放“金铲铲（模拟器）”的基准坐标模板。

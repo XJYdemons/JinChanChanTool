@@ -1,6 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
-using JinChanChanTool.Services.DataServices;
+using JinChanChanTool.Services.DataServices.Interface;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -8,6 +8,9 @@ using static System.Windows.Forms.AxHost;
 
 namespace JinChanChanTool.Services
 {
+    /// <summary>
+    /// UI构建服务
+    /// </summary>
     public class UIBuilderService
     {
         #region 主窗口组件相关
@@ -170,7 +173,7 @@ namespace JinChanChanTool.Services
             }
         }
 
-        private void CreateTransparentHeroPictureBoxGroup(int cost, List<HeroData> heroes)
+        private void CreateTransparentHeroPictureBoxGroup(int cost, List<Hero> heroes)
         {
             FlowLayoutPanel panel = GetTransparentPanel(cost);
             if (panel == null) return;
@@ -201,7 +204,7 @@ namespace JinChanChanTool.Services
             };
         }
         
-        private HeroPictureBox CreateTransparentPictureBox(HeroData hero)
+        private HeroPictureBox CreateTransparentPictureBox(Hero hero)
         {
             HeroPictureBox pictureBox = new HeroPictureBox();
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -267,7 +270,7 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 创建单个费用组的英雄选择器
         /// </summary>
-        private void CreateHeroSelectorGroup(int cost, List<HeroData> heroes)
+        private void CreateHeroSelectorGroup(int cost, List<Hero> heroes)
         {
             // 获取对应的费用面板
             Panel panel = GetCostPanel(cost);
@@ -339,7 +342,7 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 创建标签函数
         /// </summary>
-        private Label CreatLabel(HeroData hero)
+        private Label CreatLabel(Hero hero)
         {
             Label label = new Label();
             label.TextAlign = ContentAlignment.MiddleCenter;
@@ -353,7 +356,7 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 创建CheckBox函数
         /// </summary>
-        private CheckBox CreatCheckBox(HeroData hero)
+        private CheckBox CreatCheckBox(Hero hero)
         {
             CheckBox checkBox = new CheckBox();
             checkBox.UseVisualStyleBackColor = true;
@@ -368,7 +371,7 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 创建HeroPictureBox函数
         /// </summary>
-        private HeroPictureBox CreatPictureBox(HeroData hero)
+        private HeroPictureBox CreatPictureBox(Hero hero)
         {
             HeroPictureBox pictureBox = new HeroPictureBox();
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;

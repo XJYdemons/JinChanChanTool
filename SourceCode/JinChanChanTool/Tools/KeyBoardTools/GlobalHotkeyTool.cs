@@ -237,10 +237,21 @@ namespace JinChanChanTool.Tools.KeyBoardTools
         public static void Disable() => Enabled = false;
         #endregion
 
+        /// <summary>
+        /// 将按键名称字符串转换为 Keys 枚举值。
+        /// </summary>
+        /// <param name="keyString"></param>
+        /// <returns></returns>
         public static Keys ConvertKeyNameToEnumValue(string keyString)
         {
             return (Keys)Enum.Parse(typeof(Keys), keyString);
         }
+
+        /// <summary>
+        /// 判断指定按键是否为支持的“正确”按键。
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static bool IsRightKey(Keys key)
         {
             switch (key)

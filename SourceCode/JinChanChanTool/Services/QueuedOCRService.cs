@@ -8,6 +8,9 @@ using System.Drawing.Imaging;
 
 namespace JinChanChanTool.Services
 {
+    /// <summary>
+    /// 基于队列的PaddleOCR文字识别服务，支持CPU和GPU设备。
+    /// </summary>
     public class QueuedOCRService : IDisposable
     {
         private QueuedPaddleOcrAll _ocrQueue;      
@@ -45,10 +48,9 @@ namespace JinChanChanTool.Services
         }
 
         /// <summary>
-        /// 通过环境变量设置 Paddle/MKL/OpenBLAS/OpenMP 的线程数。
-        /// threadCount <= 0 时采用自动推荐值（逻辑处理器数的一半，至少 1）。
-        /// 必须在创建 Paddle 设备之前调用（即在 InitializeOcrQueueCPU 的开头调用）。
+        /// 通过环境变量设置 Paddle/MKL/OpenBLAS/OpenMP 的线程数。threadCount <= 0 时采用自动推荐值（逻辑处理器数的一半，至少 1）。必须在创建 Paddle 设备之前调用（即在 InitializeOcrQueueCPU 的开头调用）。
         /// </summary>
+        /// <param name="threadCount"></param>
         private void SetCpuThreadCount(int threadCount = 0)
         {
             int count = threadCount > 0 ? threadCount : Math.Max(1, Environment.ProcessorCount / 2);
@@ -62,6 +64,9 @@ namespace JinChanChanTool.Services
             Environment.SetEnvironmentVariable("PADDLE_CPU_THREADS", count.ToString());          
         }
 
+        /// <summary>
+        /// 初始化基于CPU的OCR队列服务
+        /// </summary>
         private void InitializeOcrQueueCPU()
         {
             // 先设置 CPU 线程数（如果 _cpuThreadCount <= 0，会自动计算推荐值）
@@ -93,6 +98,10 @@ namespace JinChanChanTool.Services
             _cts = new CancellationTokenSource();
           
         }
+
+        /// <summary>
+        /// 初始化基于GPU的OCR队列服务
+        /// </summary>
         private void InitializeOcrQueueGPU()
         {
             // 创建OCR工厂方法

@@ -1,6 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.DataServices.Interface
 {
     public interface ILineUpService
     {               

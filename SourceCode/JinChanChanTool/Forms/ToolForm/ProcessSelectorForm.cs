@@ -3,11 +3,14 @@ using System.Diagnostics;
 
 namespace JinChanChanTool.Forms
 {
+    /// <summary>
+    /// 用于选择进程的窗体
+    /// </summary>
     public partial class ProcessSelectorForm : Form
     {
-        private readonly ProcessDiscoveryService _processDiscoveryService;
+        private readonly ProcessDiscoveryService _processDiscoveryService;//进程发现服务
 
-        public Process SelectedProcess { get; private set; }
+        public Process SelectedProcess { get; private set; }//选中的进程
 
         private class ProcessDisplayItem
         {
@@ -17,7 +20,10 @@ namespace JinChanChanTool.Forms
             public override string ToString() => DisplayName;
         }
 
-        // 这是正确的构造函数，它接收一个外部服务
+        /// <summary>
+        /// 构造函数，它接收一个外部服务
+        /// </summary>
+        /// <param name="processDiscoveryService"></param>
         public ProcessSelectorForm(ProcessDiscoveryService processDiscoveryService)
         {
             InitializeComponent();
@@ -35,6 +41,9 @@ namespace JinChanChanTool.Forms
             this.Load += (s, e) => LoadProcesses();
         }
 
+        /// <summary>
+        /// 加载进程列表
+        /// </summary>
         private void LoadProcesses()
         {
             listBox_Processes.Items.Clear();
@@ -45,6 +54,11 @@ namespace JinChanChanTool.Forms
             }
         }
 
+        /// <summary>
+        /// 选择按钮点击事件处理程序
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Select_Click(object sender, EventArgs e)
         {
             if (listBox_Processes.SelectedItem is ProcessDisplayItem selectedItem)
@@ -57,11 +71,6 @@ namespace JinChanChanTool.Forms
             {
                 MessageBox.Show("请先在列表中选择一个进程！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private void ProcessSelectorForm_Load(object sender, EventArgs e)
-        {
-            // 这个方法可以保留为空，或者删除（如果Designer.cs中没有对它的引用）
-        }
+        }       
     }
 }

@@ -1,6 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.DataServices.Interface
 {
     public interface IHeroDataService
     {                         
@@ -23,28 +23,28 @@ namespace JinChanChanTool.Services.DataServices
         /// 获取对应费用的英雄对象列表
         /// </summary>
         /// <returns></returns>
-        List<HeroData> GetHeroDatasFromCost(int cost);
+        List<Hero> GetHeroDatasFromCost(int cost);
 
         /// <summary>
         /// 从英雄名获取英雄对象
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        HeroData GetHeroFromName(string name);
+        Hero GetHeroFromName(string name);
 
         /// <summary>
         /// 从图像获取英雄对象
         /// </summary>
         /// <param name="hero"></param>
         /// <returns></returns>
-        Image GetImageFromHero(HeroData hero);
+        Image GetImageFromHero(Hero hero);
 
         /// <summary>
         /// 从英雄对象获取图像
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
-        HeroData GetHeroFromImage(Image image);
+        Hero GetHeroFromImage(Image image);
 
         /// <summary>
         /// 获取职业对象列表
@@ -69,7 +69,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="hero"></param>
         /// <param name="image"></param>
-        bool AddHero(HeroData hero, Image image);
+        bool AddHero(Hero hero, Image image);
 
         /// <summary>
         /// 获取英雄数量
@@ -113,7 +113,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 获取英雄数据对象列表
         /// </summary>
         /// <returns></returns>
-        List<HeroData> GetHeroDatas();
+        List<Hero> GetHeroDatas();
 
         /// <summary>
         /// 获取英雄字符哈希表

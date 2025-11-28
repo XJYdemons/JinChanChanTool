@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices;
+using JinChanChanTool.Services.DataServices.Interface;
 
 namespace JinChanChanTool.Forms
 {
@@ -164,7 +165,7 @@ namespace JinChanChanTool.Forms
         {
             // 绑定数据
             dataGridView_英雄数据编辑器.DataSource = null;
-            dataGridView_英雄数据编辑器.DataSource = new BindingList<HeroData>(_iheroDataService.GetHeroDatas());
+            dataGridView_英雄数据编辑器.DataSource = new BindingList<Hero>(_iheroDataService.GetHeroDatas());
         }
 
         /// <summary>
@@ -184,7 +185,7 @@ namespace JinChanChanTool.Forms
                 if (!string.IsNullOrEmpty(heroName))
                 {
                     //加载图片
-                    HeroData hero = _iheroDataService.GetHeroDatas().FirstOrDefault(h => h.HeroName == heroName);
+                    Hero hero = _iheroDataService.GetHeroDatas().FirstOrDefault(h => h.HeroName == heroName);
                     Image image = _iheroDataService.GetImageFromHero(hero);
                     if (hero != null&& image != null)
                     {                                              
@@ -241,7 +242,7 @@ namespace JinChanChanTool.Forms
         private void addButton_Click(object sender, EventArgs e)
         {
             // 添加新英雄
-            var newHero = new HeroData();
+            var newHero = new Hero();
             _iheroDataService.AddHero(newHero, defaultImage);                              
             isChanged = true;
             // 刷新数据绑定
@@ -409,7 +410,7 @@ namespace JinChanChanTool.Forms
             // 记录滚动位置
             int firstDisplayedIndex = dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex;
             // 交换数据源中的位置
-            HeroData temp = _iheroDataService.GetHeroDatas()[currentIndex];
+            Hero temp = _iheroDataService.GetHeroDatas()[currentIndex];
             _iheroDataService.GetHeroDatas()[currentIndex] = _iheroDataService.GetHeroDatas()[currentIndex - 1];
             _iheroDataService.GetHeroDatas()[currentIndex - 1] = temp;
             isChanged = true;
@@ -456,7 +457,7 @@ namespace JinChanChanTool.Forms
             int firstDisplayedIndex = dataGridView_英雄数据编辑器.FirstDisplayedScrollingRowIndex;
 
             // 交换数据源中的位置
-            HeroData temp = _iheroDataService.GetHeroDatas()[currentIndex];
+            Hero temp = _iheroDataService.GetHeroDatas()[currentIndex];
             _iheroDataService.GetHeroDatas()[currentIndex] = _iheroDataService.GetHeroDatas()[currentIndex + 1];
             _iheroDataService.GetHeroDatas()[currentIndex + 1] = temp;
             isChanged = true;

@@ -1,14 +1,16 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using JinChanChanTool.DataClass;
+using JinChanChanTool.Services.DataServices.Interface;
 
 namespace JinChanChanTool.Services.DataServices
 {   
-    public class AppConfigService : IAppConfigService
+    public class ManualSettingsService : IManualSettingsService
     {       
         /// <summary>
         /// 当前的应用设置实例。
         /// </summary>
-        public AppConfig CurrentConfig { get; set; }
+        public ManualSettings CurrentConfig { get; set; }
 
         /// <summary>
         /// 设置变更事件，当设置保存后触发。
@@ -21,9 +23,9 @@ namespace JinChanChanTool.Services.DataServices
         private string filePath;
 
         #region 初始化
-        public AppConfigService()
+        public ManualSettingsService()
         {
-            CurrentConfig = new AppConfig();
+            CurrentConfig = new ManualSettings();
             InitializePaths();
         }
 
@@ -38,7 +40,7 @@ namespace JinChanChanTool.Services.DataServices
             {
                 Directory.CreateDirectory(parentPath);
             }
-            filePath = Path.Combine(parentPath, "AppConfig.json");
+            filePath = Path.Combine(parentPath, "ManualSettings.json");            
         }
         #endregion
 
@@ -60,7 +62,7 @@ namespace JinChanChanTool.Services.DataServices
             try
             {
                 // 读取旧配置副本（用于比较）
-                AppConfig oldConfig = null;
+                ManualSettings oldConfig = null;
                 if (File.Exists(filePath))
                 {
                     try
@@ -68,7 +70,7 @@ namespace JinChanChanTool.Services.DataServices
                         string oldJson = File.ReadAllText(filePath);
                         if (!string.IsNullOrEmpty(oldJson))
                         {
-                            oldConfig = JsonSerializer.Deserialize<AppConfig>(oldJson);
+                            oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson);
                         }
                     }
                     catch
@@ -100,7 +102,7 @@ namespace JinChanChanTool.Services.DataServices
             try
             {
                 // 读取旧配置副本（用于比较）
-                AppConfig oldConfig = null;
+                ManualSettings oldConfig = null;
                 if(File.Exists(filePath))
                 {
                     try
@@ -108,7 +110,7 @@ namespace JinChanChanTool.Services.DataServices
                         string oldJson = File.ReadAllText(filePath);
                         if (!string.IsNullOrEmpty(oldJson))
                         {
-                            oldConfig = JsonSerializer.Deserialize<AppConfig>(oldJson);
+                            oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson);
                         }
                     }
                     catch
@@ -132,7 +134,7 @@ namespace JinChanChanTool.Services.DataServices
             }
             catch
             {
-                MessageBox.Show($"用户应用设置文件\"AppConfig.json\"保存失败\n路径：\n{filePath}",
+                MessageBox.Show($"用户应用设置文件\"{Path.GetFileName(filePath)}\"保存失败\n路径：\n{filePath}",
                                   "文件保存失败",
                                   MessageBoxButtons.OK,
                                   MessageBoxIcon.Error
@@ -147,7 +149,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public void SetDefaultConfig()
         {
-            CurrentConfig = new AppConfig();
+            CurrentConfig = new ManualSettings();
         }
 
         /// <summary>
@@ -166,13 +168,13 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         private void LoadFromFile()
         {
-            CurrentConfig =new AppConfig(); 
+            CurrentConfig =new ManualSettings(); 
             try
             {
                 //判断Json文件是否存在
                 if (!File.Exists(filePath))
                 {
-                    MessageBox.Show($"找不到用户应用设置文件\"AppConfig.json\"\n路径：\n{filePath}\n将创建默认设置文件。",
+                    MessageBox.Show($"找不到用户应用设置文件\"{Path.GetFileName(filePath)}\"\n路径：\n{filePath}\n将创建默认设置文件。",
                                     "文件不存在",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning
@@ -183,7 +185,7 @@ namespace JinChanChanTool.Services.DataServices
                 string json = File.ReadAllText(filePath);
                 if (string.IsNullOrEmpty(json))
                 {
-                    MessageBox.Show($"用户应用设置文件\"AppConfig.json\"内容为空。\n路径：\n{filePath}\n将创建默认设置文件。",
+                    MessageBox.Show($"用户应用设置文件\"{Path.GetFileName(filePath)}\"内容为空。\n路径：\n{filePath}\n将创建默认设置文件。",
                                "文件为空",
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Warning
@@ -191,11 +193,11 @@ namespace JinChanChanTool.Services.DataServices
                     Save(false);
                     return;
                 }
-                CurrentConfig = JsonSerializer.Deserialize<AppConfig>(json);                
+                CurrentConfig = JsonSerializer.Deserialize<ManualSettings>(json);                
             }
             catch
             {
-                MessageBox.Show($"用户应用设置文件\"AppConfig.json\"格式错误\n路径：\n{filePath}\n将创建默认设置文件。",
+                MessageBox.Show($"用户应用设置文件\"{Path.GetFileName(filePath)}\"格式错误\n路径：\n{filePath}\n将创建默认设置文件。",
                                    "文件格式错误",
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Warning
@@ -207,14 +209,14 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 比较两个 AppConfig，返回所有值不同的属性名。
         /// </summary>
-        private List<string> GetChangedFields(AppConfig oldConfig, AppConfig newConfig)
+        private List<string> GetChangedFields(ManualSettings oldConfig, ManualSettings newConfig)
         {
             var changed = new List<string>();
 
             if (oldConfig == null || newConfig == null)
                 return changed;
 
-            var properties = typeof(AppConfig).GetProperties();
+            var properties = typeof(ManualSettings).GetProperties();
 
             foreach (var prop in properties)
             {
@@ -238,6 +240,10 @@ namespace JinChanChanTool.Services.DataServices
 
 
     }
+
+    /// <summary>
+    /// 应用设置变更事件参数。
+    /// </summary>
     public class ConfigChangedEventArgs : EventArgs
     {
         /// <summary>

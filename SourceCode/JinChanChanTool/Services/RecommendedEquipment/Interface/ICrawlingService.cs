@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace JinChanChanTool.Services.RecommendedEquipment
+namespace JinChanChanTool.Services.RecommendedEquipment.Interface
 {
     /// <summary>
     /// 该服务封装了所有与网络API交互的逻辑，

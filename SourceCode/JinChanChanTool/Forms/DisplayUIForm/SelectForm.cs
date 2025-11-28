@@ -1,20 +1,13 @@
-﻿using JinChanChanTool.Services;
-using JinChanChanTool.Services.DataServices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using JinChanChanTool.Services.DataServices.Interface;
 
 namespace JinChanChanTool.Forms
 {
+    /// <summary>
+    /// 选择英雄窗体
+    /// </summary>
     public partial class SelectForm : Form
     {
+        //单例模式
         private static SelectForm _instance;
         public static SelectForm Instance
         {
@@ -27,6 +20,12 @@ namespace JinChanChanTool.Forms
                 return _instance;
             }
         }
+
+        // 拖动相关变量
+        private Point _dragStartPoint;
+        private bool _dragging;
+
+        public IAutomaticSettingsService _iAutoConfigService;// 自动设置数据服务对象
         private SelectForm()
         {           
             InitializeComponent();
@@ -41,10 +40,12 @@ namespace JinChanChanTool.Forms
         }
 
         #region 拖动窗体功能
-        // 拖动相关变量
-        private Point _dragStartPoint;
-        private bool _dragging;
-        // 鼠标按下事件 - 开始拖动
+        
+        /// <summary>
+        /// 鼠标按下事件 - 开始拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             Panel panel = sender as Panel;
@@ -56,7 +57,11 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        // 鼠标移动事件 - 处理拖动
+        /// <summary>
+        /// 鼠标移动事件 - 处理拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             if (_dragging)
@@ -67,7 +72,11 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        // 鼠标释放事件 - 结束拖动
+        /// <summary>
+        /// 鼠标释放事件 - 结束拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
             Panel panel = sender as Panel;
@@ -77,12 +86,50 @@ namespace JinChanChanTool.Forms
         }
         #endregion
 
-        public IAutoConfigService _iAutoConfigService;
-        public void InitializeObject(IAutoConfigService iAutoConfigService)
+        /// <summary>
+        /// 初始化对象
+        /// </summary>
+        /// <param name="iAutoConfigService"></param>
+        public void InitializeObject(IAutomaticSettingsService iAutoConfigService)
         {           
             _iAutoConfigService = iAutoConfigService;
             ApplySavedLocation();
         }
+
+        /// <summary>
+        /// 从配置中读取并应用窗口位置
+        /// </summary>
+        private void ApplySavedLocation()
+        {
+            try
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                if (_iAutoConfigService.CurrentConfig.SelectFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.SelectFormLocation.Y == -1)
+                {
+                    this.Location = new Point(0, 0);
+                    return;
+                }
+                // 确保坐标在屏幕范围内
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.SelectFormLocation)))
+                {
+                    this.Location = _iAutoConfigService.CurrentConfig.SelectFormLocation;
+                }
+                else
+                {
+                    this.Location = new Point(0, 0); // 超出屏幕则重置为左上角                        
+                }
+            }
+            catch
+            {
+                this.Location = new Point(0, 0); // 出错时兜底
+            }
+        }
+
+        /// <summary>
+        /// 面板双击事件，切换可见性
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (panel2.Visible == true)
@@ -96,34 +143,7 @@ namespace JinChanChanTool.Forms
         }
 
         #region 位置保存与读取
-        /// <summary>
-        /// 从配置中读取并应用窗口位置
-        /// </summary>
-        private void ApplySavedLocation()
-        {
-            try
-            {
-                this.StartPosition = FormStartPosition.Manual;        
-                if(_iAutoConfigService.CurrentConfig.SelectorFormLocation.X==-1&& _iAutoConfigService.CurrentConfig.SelectorFormLocation.Y == -1)
-                {
-                    this.Location = new Point(0, 0);
-                    return;
-                }
-                // 确保坐标在屏幕范围内
-                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.SelectorFormLocation)))
-                {
-                    this.Location = _iAutoConfigService.CurrentConfig.SelectorFormLocation;
-                }
-                else
-                {
-                    this.Location = new Point(0, 0); // 超出屏幕则重置为左上角                        
-                }              
-            }
-            catch
-            {               
-                this.Location = new Point(0, 0); // 出错时兜底
-            }
-        }
+        
 
         /// <summary>
         /// 拖动结束时保存窗口位置到配置服务
@@ -134,7 +154,7 @@ namespace JinChanChanTool.Forms
             {
                 if (_iAutoConfigService != null)
                 {
-                    _iAutoConfigService.CurrentConfig.SelectorFormLocation = this.Location;
+                    _iAutoConfigService.CurrentConfig.SelectFormLocation = this.Location;
                     _iAutoConfigService.Save();
                 }
             }

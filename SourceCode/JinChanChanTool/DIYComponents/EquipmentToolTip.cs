@@ -1,23 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-
-namespace JinChanChanTool.DIYComponents 
+﻿namespace JinChanChanTool.DIYComponents 
 {
     /// <summary>
-    /// 只负责展示的自定义装备提示组件。
-    /// 它完全与数据来源解耦，只接收一个图片列表并将其绘制出来。
+    /// 负责展示推荐装备图片的自定义提示框控件。
     /// </summary>
     public class EquipmentToolTip : ToolTip
     {
-        // --- 内部状态 ---
-        private readonly List<Image> _images;
-
-        // --- 外观常量 ---
-        private const int IMAGE_SIZE = 48;
-        private const int PADDING = 5;
-        private const int MARGIN = 3;
+        private readonly List<Image> _images;// 存储需要展示的图片列表
+        private const int IMAGE_SIZE = 48;// 每个图片的固定尺寸
+        private const int PADDING = 5;// 提示框内边距
+        private const int MARGIN = 3;// 图片之间的间距
 
         /// <summary>
         /// 构造函数，接收一个图片列表作为唯一的依赖。

@@ -107,6 +107,11 @@ namespace JinChanChanTool
 
         }
 
+        /// <summary>
+        /// 打开GitHub主页。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(new ProcessStartInfo
@@ -116,6 +121,11 @@ namespace JinChanChanTool
             });
         }
 
+        /// <summary>
+        /// 打开GitHub主页。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkLabel3_Click(object sender, EventArgs e)
         {
         

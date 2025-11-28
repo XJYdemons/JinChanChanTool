@@ -1,13 +1,13 @@
 ﻿using JinChanChanTool.DataClass;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.DataServices.Interface
 {   
-    public interface IAppConfigService
+    public interface IManualSettingsService
     {
         /// <summary>
         /// 当前的应用设置实例。
         /// </summary>
-        AppConfig CurrentConfig { get; set; }
+        ManualSettings CurrentConfig { get; set; }
 
         /// <summary>
         /// 设置变更事件，当设置保存后触发。

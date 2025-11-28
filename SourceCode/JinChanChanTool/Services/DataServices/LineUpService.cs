@@ -1,4 +1,5 @@
 ﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.Services.DataServices.Interface;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;

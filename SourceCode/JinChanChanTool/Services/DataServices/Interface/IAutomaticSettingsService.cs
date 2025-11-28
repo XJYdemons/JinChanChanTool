@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JinChanChanTool.Services.DataServices
+namespace JinChanChanTool.Services.DataServices.Interface
 {
-    public interface IAutoConfigService
+    public interface IAutomaticSettingsService
     {
         /// <summary>
         /// 当前的应用设置实例。
         /// </summary>
-        AutoConfig CurrentConfig { get; set; }
+        AutomaticSettings CurrentConfig { get; set; }
 
         /// <summary>
         /// 从应用设置文件读取到对象。

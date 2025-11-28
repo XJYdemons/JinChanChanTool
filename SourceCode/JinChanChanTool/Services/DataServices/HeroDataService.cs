@@ -1,4 +1,5 @@
 ﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.Services.DataServices.Interface;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
@@ -26,7 +27,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 英雄数据对象列表
         /// </summary>
-        public List<HeroData> HeroDatas;
+        public List<Hero> HeroDatas;
 
         /// <summary>
         /// 英雄头像图片列表
@@ -46,17 +47,17 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 图片到英雄数据对象的字典
         /// </summary>
-        private Dictionary<Image, HeroData> imageToHeroDataMap;
+        private Dictionary<Image, Hero> imageToHeroDataMap;
 
         /// <summary>
         /// 英雄数据对象到图片的字典
         /// </summary>
-        private Dictionary<HeroData, Image> heroDataToImageMap;
+        private Dictionary<Hero, Image> heroDataToImageMap;
 
         /// <summary>
         /// 英雄名称到对象的字典
         /// </summary>
-        private Dictionary<string, HeroData> nameToHeroDataMap;
+        private Dictionary<string, Hero> nameToHeroDataMap;
 
         /// <summary>
         /// 英雄名字符哈希表
@@ -67,13 +68,13 @@ namespace JinChanChanTool.Services.DataServices
         {
             InitializePaths();            
             pathIndex = 0;           
-            HeroDatas = new List<HeroData>();
+            HeroDatas = new List<Hero>();
             HeroImages = new List<Image>();
             professions = new List<Profession>();
             peculiarities = new List<Peculiarity>();
-            imageToHeroDataMap = new Dictionary<Image, HeroData>();
-            heroDataToImageMap = new Dictionary<HeroData, Image>();
-            nameToHeroDataMap = new Dictionary<string, HeroData>();
+            imageToHeroDataMap = new Dictionary<Image, Hero>();
+            heroDataToImageMap = new Dictionary<Hero, Image>();
+            nameToHeroDataMap = new Dictionary<string, Hero>();
             _charDictionary = new HashSet<char>();
         }
 
@@ -173,9 +174,9 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public HeroData GetHeroFromName(string name)
+        public Hero GetHeroFromName(string name)
         {
-            if (nameToHeroDataMap.TryGetValue(name, out HeroData hero))
+            if (nameToHeroDataMap.TryGetValue(name, out Hero hero))
             {
                 return hero;
             }
@@ -190,7 +191,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="hero"></param>
         /// <returns></returns>
-        public Image GetImageFromHero(HeroData hero)
+        public Image GetImageFromHero(Hero hero)
         {
             if (heroDataToImageMap.TryGetValue(hero, out Image image))
             {
@@ -207,9 +208,9 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
-        public HeroData GetHeroFromImage(Image image)
+        public Hero GetHeroFromImage(Image image)
         {
-            if (imageToHeroDataMap.TryGetValue(image, out HeroData hero))
+            if (imageToHeroDataMap.TryGetValue(image, out Hero hero))
             {
                 return hero;
             }
@@ -227,7 +228,7 @@ namespace JinChanChanTool.Services.DataServices
         {
             if (index < HeroDatas.Count && index >= 0)
             {
-                HeroData hero = HeroDatas[index];
+                Hero hero = HeroDatas[index];
                 if (heroDataToImageMap.ContainsKey(hero))
                 {
                     Image image = heroDataToImageMap[hero];
@@ -264,7 +265,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="hero"></param>
         /// <param name="image"></param>
-        public bool AddHero(HeroData hero, Image image)
+        public bool AddHero(Hero hero, Image image)
         {
             if (hero == null || image == null) return false;
             HeroDatas.Add(hero);
@@ -367,7 +368,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 获取对应费用的英雄对象列表
         /// </summary>
         /// <returns></returns>
-        public List<HeroData> GetHeroDatasFromCost(int cost)
+        public List<Hero> GetHeroDatasFromCost(int cost)
         {
             return HeroDatas.Where(h => h.Cost == cost).ToList();
         }
@@ -385,7 +386,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 获取英雄数据对象列表
         /// </summary>
         /// <returns></returns>
-        public List<HeroData> GetHeroDatas()
+        public List<Hero> GetHeroDatas()
         {
             return HeroDatas;
         }
@@ -434,7 +435,7 @@ namespace JinChanChanTool.Services.DataServices
                         Save();
                         return;
                     }
-                    List<HeroData> temp = JsonSerializer.Deserialize<List<HeroData>>(json);
+                    List<Hero> temp = JsonSerializer.Deserialize<List<Hero>>(json);
                     //合并同名英雄
                     var groupedHeroes = temp
                         .GroupBy(h => h.HeroName)
@@ -446,7 +447,7 @@ namespace JinChanChanTool.Services.DataServices
 
                                         // 合并多个元素
                                         var first = g.First();
-                                        var merged = new HeroData
+                                        var merged = new Hero
                                         {
                                              HeroName = first.HeroName,
                                              Cost = first.Cost,
@@ -612,7 +613,7 @@ namespace JinChanChanTool.Services.DataServices
             {
                 heroDataToImageMap[HeroDatas[i]] = HeroImages[i];
             }
-            foreach (HeroData hero in HeroDatas)
+            foreach (Hero hero in HeroDatas)
             {
                 nameToHeroDataMap[hero.HeroName] = hero;
             }
@@ -626,7 +627,7 @@ namespace JinChanChanTool.Services.DataServices
             _charDictionary.Clear();
             if (HeroDatas.Count > 0)
             {
-                foreach (HeroData hero in HeroDatas)
+                foreach (Hero hero in HeroDatas)
                 {
                     if (!string.IsNullOrEmpty(hero.HeroName))
                     {

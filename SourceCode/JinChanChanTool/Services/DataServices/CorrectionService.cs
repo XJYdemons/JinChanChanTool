@@ -1,4 +1,5 @@
 ﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.Services.DataServices.Interface;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -28,11 +29,11 @@ namespace JinChanChanTool.Services.DataServices
         /// 识别错误结果存放列表
         /// </summary>
         HashSet<string> Errorresult { get; set; }
+
         /// <summary>        
         /// OCR结果纠正列表文件路径
         /// </summary>
         private string filePath;
-
        
         public CorrectionService()
         {          
@@ -205,6 +206,11 @@ namespace JinChanChanTool.Services.DataServices
             }                                       
         }
 
+        /// <summary>
+        /// 更新错误目录
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
         private string UpdataErrorDir(string result)
         {          
             foreach (char c in result)

@@ -1,6 +1,9 @@
 ﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.Forms;
+using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -51,7 +54,12 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             // 获取所有子目录的完整路径，这些子目录代表了不同的赛季
             Paths = Directory.GetDirectories(parentPath);
         }
-        
+
+        /// <summary>
+        /// 通过英雄名称获取对应的 HeroEquipment 对象。
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public HeroEquipment GetHeroEquipmentFromName(string name)
         {
             if(nameToHeroEquipmentMap.ContainsKey(name))
@@ -64,6 +72,11 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             }
         }
 
+        /// <summary>
+        /// 通过 HeroEquipment 对象获取对应的装备图片列表。
+        /// </summary>
+        /// <param name="heroEquipment"></param>
+        /// <returns></returns>
         public List<Image> GetImagesFromHeroEquipment(HeroEquipment heroEquipment)
         {
             if(EquipmentImageMap.ContainsKey(heroEquipment))
@@ -75,6 +88,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 return null; 
             }
         }
+
+        /// <summary>
+        /// 构建英雄名称到 HeroEquipment 对象的映射字典，便于快速查找。
+        /// </summary>
         private void BuildMap()
         {
             foreach(HeroEquipment heroEquipment in HeroEquipments)
@@ -89,8 +106,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// </summary>
         public void Load()
         {
-            System.Diagnostics.Debug.WriteLine($"HeroEquipmentDataService: 开始加载赛季索引 {PathIndex} 的数据...");
-
+            
+            Debug.WriteLine($"HeroEquipmentDataService: 开始加载赛季索引 {PathIndex} 的数据...");
+            LogTool.Log($"HeroEquipmentDataService: 开始加载赛季索引 {PathIndex} 的数据...");
+            OutputForm.Instance.WriteLineOutputMessage($"HeroEquipmentDataService: 开始加载赛季索引 {PathIndex} 的数据...");
             // 步骤 1: 从 EquipmentData.json 文件加载英雄和装备的文本信息。
             // 这个方法会填充 HeroEquipments 列表。
             LoadFromJson();
@@ -99,7 +118,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             // 这个方法会使用 HeroEquipments 列表来构建 EquipmentImageMap 字典。
             LoadEquipmentImages();
             BuildMap();
-            System.Diagnostics.Debug.WriteLine("HeroEquipmentDataService: 数据加载完成。");
+            Debug.WriteLine("HeroEquipmentDataService: 数据加载完成。");
+            LogTool.Log("HeroEquipmentDataService: 数据加载完成。");
+            OutputForm.Instance.WriteLineOutputMessage("HeroEquipmentDataService: 数据加载完成。");
         }
 
         /// <summary>
@@ -109,7 +130,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         {
             if (Paths == null || Paths.Length == 0 || PathIndex >= Paths.Length)
             {
-                System.Diagnostics.Debug.WriteLine("错误: HeroEquipmentDataService - 无法保存，没有任何有效的赛季路径。");
+                Debug.WriteLine("错误: HeroEquipmentDataService - 无法保存，没有任何有效的赛季路径。");
+                LogTool.Log("错误: HeroEquipmentDataService - 无法保存，没有任何有效的赛季路径。");
+                OutputForm.Instance.WriteLineOutputMessage("错误: HeroEquipmentDataService - 无法保存，没有任何有效的赛季路径。");
                 return;
             }
 
@@ -136,7 +159,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 // 序列化数据并写入文件
                 string json = JsonSerializer.Serialize(dataToSave, options);
                 File.WriteAllText(filePath, json);
-                System.Diagnostics.Debug.WriteLine($"成功将 {dataToSave.Count} 条装备数据保存到 {filePath}");
+                Debug.WriteLine($"成功将 {dataToSave.Count} 条装备数据保存到 {filePath}");
+                LogTool.Log($"成功将 {dataToSave.Count} 条装备数据保存到 {filePath}");
+                OutputForm.Instance.WriteLineOutputMessage($"成功将 {dataToSave.Count} 条装备数据保存到 {filePath}");
             }
             catch (Exception ex)
             {
@@ -153,8 +178,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// </summary>
         public void ReLoad()
         {
-            System.Diagnostics.Debug.WriteLine("HeroEquipmentDataService: 正在执行 ReLoad...");
-
+            Debug.WriteLine("HeroEquipmentDataService: 正在执行 ReLoad...");
+            LogTool.Log("HeroEquipmentDataService: 正在执行 ReLoad...");
+            OutputForm.Instance.WriteLineOutputMessage("HeroEquipmentDataService: 正在执行 ReLoad...");
             // 清空所有核心数据集合
             HeroEquipments.Clear();
             EquipmentImageMap.Clear();
@@ -172,18 +198,23 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             // 检查传入的数据是否有效
             if (crawledData == null)
             {
-                System.Diagnostics.Debug.WriteLine("警告: UpdateDataFromCrawling 接收到的数据为 null，已中止更新。");
+                Debug.WriteLine("警告: UpdateDataFromCrawling 接收到的数据为 null，已中止更新。");
+                LogTool.Log("警告: UpdateDataFromCrawling 接收到的数据为 null，已中止更新。");
+                OutputForm.Instance.WriteLineOutputMessage("警告: UpdateDataFromCrawling 接收到的数据为 null，已中止更新。");
                 return;
             }
 
-            System.Diagnostics.Debug.WriteLine($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
-
+            Debug.WriteLine($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
+            LogTool.Log($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
+            OutputForm.Instance.WriteLineOutputMessage($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
             // 用新的数据完全覆盖内存中的旧数据
             // 创建一个新的列表实例，而不是直接赋值，这在某些UI绑定场景下更安全
             HeroEquipments = new List<HeroEquipment>(crawledData);
 
             // 调用 Save() 方法，将刚刚更新到内存的数据存储JSON文件中
-            System.Diagnostics.Debug.WriteLine("正在将新数据保存到本地文件...");
+            Debug.WriteLine("正在将新数据保存到本地文件...");
+            LogTool.Log("正在将新数据保存到本地文件...");
+            OutputForm.Instance.WriteLineOutputMessage("正在将新数据保存到本地文件...");
             Save();
         }
 
@@ -202,7 +233,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             if (Paths == null || Paths.Length == 0 || PathIndex >= Paths.Length)
             {
                 // 这里不弹出消息框，让UI层决定如何处理无数据的情况
-                System.Diagnostics.Debug.WriteLine("警告: HeroEquipmentDataService - 没有任何有效的赛季路径可供加载。");
+                Debug.WriteLine("警告: HeroEquipmentDataService - 没有任何有效的赛季路径可供加载。");
+                LogTool.Log("警告: HeroEquipmentDataService - 没有任何有效的赛季路径可供加载。");
+                OutputForm.Instance.WriteLineOutputMessage("警告: HeroEquipmentDataService - 没有任何有效的赛季路径可供加载。");
                 return;
             }
 
@@ -214,7 +247,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 if (!File.Exists(filePath))
                 {
                     // 如果文件不存在，可能是第一次运行或数据被删除。创建一个空的。
-                    System.Diagnostics.Debug.WriteLine($"提示: 文件 {filePath} 不存在，将创建一个新的空文件。");
+                    Debug.WriteLine($"提示: 文件 {filePath} 不存在，将创建一个新的空文件。");
+                    LogTool.Log($"提示: 文件 {filePath} 不存在，将创建一个新的空文件。");
+                    OutputForm.Instance.WriteLineOutputMessage($"提示: 文件 {filePath} 不存在，将创建一个新的空文件。");
                     Save(); // 调用Save会创建一个空的JSON文件
                     return;
                 }
@@ -223,7 +258,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 if (string.IsNullOrWhiteSpace(json))
                 {
                     // 文件存在但内容为空
-                    System.Diagnostics.Debug.WriteLine($"提示: 文件 {filePath} 内容为空。");
+                    Debug.WriteLine($"提示: 文件 {filePath} 内容为空。");
+                    LogTool.Log($"提示: 文件 {filePath} 内容为空。");
+                    OutputForm.Instance.WriteLineOutputMessage($"提示: 文件 {filePath} 内容为空。");
                     return; // HeroEquipments 保持为空
                 }
 
@@ -237,7 +274,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                         .Select(kvp => new HeroEquipment { HeroName = kvp.Key, Equipments = kvp.Value })
                         .OrderBy(he => he.HeroName) // 按英雄名排序，保持列表顺序稳定
                         .ToList();
-                    System.Diagnostics.Debug.WriteLine($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");
+                    Debug.WriteLine($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");
+                    LogTool.Log($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");
+                    OutputForm.Instance.WriteLineOutputMessage($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");
                 }
             }
             catch (Exception ex)
@@ -268,7 +307,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             string imagesFolderPath = Path.Combine(Paths[PathIndex], "EquipmentImages");
             if (!Directory.Exists(imagesFolderPath))
             {
-                System.Diagnostics.Debug.WriteLine($"警告: 装备图片文件夹不存在: {imagesFolderPath}");
+                Debug.WriteLine($"警告: 装备图片文件夹不存在: {imagesFolderPath}");
+                LogTool.Log($"警告: 装备图片文件夹不存在: {imagesFolderPath}");
+                OutputForm.Instance.WriteLineOutputMessage($"警告: 装备图片文件夹不存在: {imagesFolderPath}");
                 return;
             }
 
@@ -314,7 +355,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                                 MessageBoxIcon.Warning);
             }
 
-            System.Diagnostics.Debug.WriteLine($"成功为 {EquipmentImageMap.Count} 位英雄构建了装备图片映射。");
+            Debug.WriteLine($"成功为 {EquipmentImageMap.Count} 位英雄构建了装备图片映射。");
+            LogTool.Log($"成功为 {EquipmentImageMap.Count} 位英雄构建了装备图片映射。");
+            OutputForm.Instance.WriteLineOutputMessage($"成功为 {EquipmentImageMap.Count} 位英雄构建了装备图片映射。");
         }
 
     }

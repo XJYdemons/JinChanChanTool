@@ -42,7 +42,7 @@
             label_选择显示器 = new Label();
             button_快速设置商店刷新按钮坐标 = new Button();
             button_快速设置奕子截图坐标与大小 = new Button();
-            label1_奕子截图起点坐标 = new Label();
+            label_奕子截图起点坐标 = new Label();
             label_奕子截图起点坐标X1 = new Label();
             textBox_拿牌坐标X1 = new TextBox();
             label_奕子截图起点坐标Y = new Label();
@@ -76,9 +76,9 @@
             radioButton_手动设置坐标 = new RadioButton();
             tabPage_阵容相关 = new TabPage();
             panel_阵容相关 = new Panel();
-            label_最大选择数量 = new Label();
+            label_单个阵容最大英雄容量 = new Label();
             button_英雄配置文件编辑器 = new Button();
-            textBox_最大选择数量 = new TextBox();
+            textBox_单个阵容最大英雄容量 = new TextBox();
             label_最大阵容数量 = new Label();
             textBox_最大阵容数量 = new TextBox();
             tabPage_拿牌相关 = new TabPage();
@@ -129,7 +129,7 @@
             checkBox_UseSelectorForm = new CheckBox();
             checkBox_UseLineUpFormLocation = new CheckBox();
             tabPage_其他 = new TabPage();
-            panel1 = new Panel();
+            panel_其他 = new Panel();
             label_小时后自动更新推荐装备 = new Label();
             label_每隔 = new Label();
             textBox_更新推荐装备间隔 = new TextBox();
@@ -152,7 +152,7 @@
             tabPage_窗口.SuspendLayout();
             panel_窗口.SuspendLayout();
             tabPage_其他.SuspendLayout();
-            panel1.SuspendLayout();
+            panel_其他.SuspendLayout();
             panel_BackGround.SuspendLayout();
             panel_Buttons.SuspendLayout();
             SuspendLayout();
@@ -283,7 +283,7 @@
             button_快速设置商店刷新按钮坐标.TabStop = false;
             button_快速设置商店刷新按钮坐标.Text = "快速设置商店刷新按钮坐标";
             button_快速设置商店刷新按钮坐标.UseVisualStyleBackColor = true;
-            button_快速设置商店刷新按钮坐标.Click += button5_Click;
+            button_快速设置商店刷新按钮坐标.Click += button_快速设置商店刷新按钮坐标_Click;
             // 
             // button_快速设置奕子截图坐标与大小
             // 
@@ -296,18 +296,18 @@
             button_快速设置奕子截图坐标与大小.TabStop = false;
             button_快速设置奕子截图坐标与大小.Text = "快速设置奕子截图坐标与大小";
             button_快速设置奕子截图坐标与大小.UseVisualStyleBackColor = true;
-            button_快速设置奕子截图坐标与大小.Click += button3_Click;
+            button_快速设置奕子截图坐标与大小.Click += button_快速设置奕子截图坐标与大小_Click;
             // 
-            // label1_奕子截图起点坐标
+            // label_奕子截图起点坐标
             // 
-            label1_奕子截图起点坐标.AutoSize = true;
-            label1_奕子截图起点坐标.Location = new Point(5, 89);
-            label1_奕子截图起点坐标.MinimumSize = new Size(104, 17);
-            label1_奕子截图起点坐标.Name = "label1_奕子截图起点坐标";
-            label1_奕子截图起点坐标.Size = new Size(104, 17);
-            label1_奕子截图起点坐标.TabIndex = 0;
-            label1_奕子截图起点坐标.Text = "奕子截图起点坐标";
-            label1_奕子截图起点坐标.TextAlign = ContentAlignment.MiddleLeft;
+            label_奕子截图起点坐标.AutoSize = true;
+            label_奕子截图起点坐标.Location = new Point(5, 89);
+            label_奕子截图起点坐标.MinimumSize = new Size(104, 17);
+            label_奕子截图起点坐标.Name = "label_奕子截图起点坐标";
+            label_奕子截图起点坐标.Size = new Size(104, 17);
+            label_奕子截图起点坐标.TabIndex = 0;
+            label_奕子截图起点坐标.Text = "奕子截图起点坐标";
+            label_奕子截图起点坐标.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label_奕子截图起点坐标X1
             // 
@@ -611,7 +611,7 @@
             panel_截图.Controls.Add(button_快速设置奕子截图坐标与大小);
             panel_截图.Controls.Add(textBox_拿牌坐标X4);
             panel_截图.Controls.Add(textBox_拿牌坐标Y);
-            panel_截图.Controls.Add(label1_奕子截图起点坐标);
+            panel_截图.Controls.Add(label_奕子截图起点坐标);
             panel_截图.Controls.Add(label_奕子截图起点坐标X5);
             panel_截图.Controls.Add(label_奕子截图起点坐标Y);
             panel_截图.Controls.Add(label_奕子截图起点坐标X1);
@@ -674,9 +674,9 @@
             // 
             panel_阵容相关.AutoScroll = true;
             panel_阵容相关.BackColor = Color.White;
-            panel_阵容相关.Controls.Add(label_最大选择数量);
+            panel_阵容相关.Controls.Add(label_单个阵容最大英雄容量);
             panel_阵容相关.Controls.Add(button_英雄配置文件编辑器);
-            panel_阵容相关.Controls.Add(textBox_最大选择数量);
+            panel_阵容相关.Controls.Add(textBox_单个阵容最大英雄容量);
             panel_阵容相关.Controls.Add(label_最大阵容数量);
             panel_阵容相关.Controls.Add(textBox_最大阵容数量);
             panel_阵容相关.Dock = DockStyle.Fill;
@@ -687,14 +687,14 @@
             // 
             // label_最大选择数量
             // 
-            label_最大选择数量.AutoSize = true;
-            label_最大选择数量.Location = new Point(5, 43);
-            label_最大选择数量.MinimumSize = new Size(84, 23);
-            label_最大选择数量.Name = "label_最大选择数量";
-            label_最大选择数量.Size = new Size(84, 23);
-            label_最大选择数量.TabIndex = 14;
-            label_最大选择数量.Text = "最大选择数量";
-            label_最大选择数量.TextAlign = ContentAlignment.MiddleLeft;
+            label_单个阵容最大英雄容量.AutoSize = true;
+            label_单个阵容最大英雄容量.Location = new Point(5, 43);
+            label_单个阵容最大英雄容量.MinimumSize = new Size(84, 23);
+            label_单个阵容最大英雄容量.Name = "label_最大选择数量";
+            label_单个阵容最大英雄容量.Size = new Size(128, 23);
+            label_单个阵容最大英雄容量.TabIndex = 14;
+            label_单个阵容最大英雄容量.Text = "单个阵容最大英雄容量";
+            label_单个阵容最大英雄容量.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // button_英雄配置文件编辑器
             // 
@@ -707,15 +707,15 @@
             button_英雄配置文件编辑器.TabStop = false;
             button_英雄配置文件编辑器.Text = "英雄配置文件编辑器";
             button_英雄配置文件编辑器.UseVisualStyleBackColor = true;
-            button_英雄配置文件编辑器.Click += button6_Click_1;
+            button_英雄配置文件编辑器.Click += button_英雄配置文件编辑器_Click;
             // 
             // textBox_最大选择数量
             // 
-            textBox_最大选择数量.Location = new Point(295, 43);
-            textBox_最大选择数量.Name = "textBox_最大选择数量";
-            textBox_最大选择数量.Size = new Size(70, 23);
-            textBox_最大选择数量.TabIndex = 13;
-            textBox_最大选择数量.TabStop = false;
+            textBox_单个阵容最大英雄容量.Location = new Point(295, 43);
+            textBox_单个阵容最大英雄容量.Name = "textBox_最大选择数量";
+            textBox_单个阵容最大英雄容量.Size = new Size(70, 23);
+            textBox_单个阵容最大英雄容量.TabIndex = 13;
+            textBox_单个阵容最大英雄容量.TabStop = false;
             // 
             // label_最大阵容数量
             // 
@@ -1152,7 +1152,7 @@
             button_OCR结果纠正列表编辑器.TabStop = false;
             button_OCR结果纠正列表编辑器.Text = "OCR结果纠正列表编辑器";
             button_OCR结果纠正列表编辑器.UseVisualStyleBackColor = true;
-            button_OCR结果纠正列表编辑器.Click += button4_Click;
+            button_OCR结果纠正列表编辑器.Click += button_OCR结果纠正列表编辑器_Click;
             // 
             // radioButton__CPU推理
             // 
@@ -1242,7 +1242,7 @@
             // 
             // tabPage_其他
             // 
-            tabPage_其他.Controls.Add(panel1);
+            tabPage_其他.Controls.Add(panel_其他);
             tabPage_其他.Location = new Point(4, 26);
             tabPage_其他.Name = "tabPage_其他";
             tabPage_其他.Padding = new Padding(3);
@@ -1251,18 +1251,18 @@
             tabPage_其他.Text = "其他";
             tabPage_其他.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // panel_其他
             // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(label_小时后自动更新推荐装备);
-            panel1.Controls.Add(label_每隔);
-            panel1.Controls.Add(textBox_更新推荐装备间隔);
-            panel1.Controls.Add(checkBox_定时更新推荐装备);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(3, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(368, 325);
-            panel1.TabIndex = 1;
+            panel_其他.AutoScroll = true;
+            panel_其他.Controls.Add(label_小时后自动更新推荐装备);
+            panel_其他.Controls.Add(label_每隔);
+            panel_其他.Controls.Add(textBox_更新推荐装备间隔);
+            panel_其他.Controls.Add(checkBox_定时更新推荐装备);
+            panel_其他.Dock = DockStyle.Fill;
+            panel_其他.Location = new Point(3, 3);
+            panel_其他.Name = "panel_其他";
+            panel_其他.Size = new Size(368, 325);
+            panel_其他.TabIndex = 1;
             // 
             // label_小时后自动更新推荐装备
             // 
@@ -1367,8 +1367,8 @@
             panel_窗口.ResumeLayout(false);
             panel_窗口.PerformLayout();
             tabPage_其他.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            panel_其他.ResumeLayout(false);
+            panel_其他.PerformLayout();
             panel_BackGround.ResumeLayout(false);
             panel_Buttons.ResumeLayout(false);
             ResumeLayout(false);
@@ -1388,7 +1388,7 @@
         public Label label_选择显示器;
         public Button button_快速设置商店刷新按钮坐标;
         public Button button_快速设置奕子截图坐标与大小;
-        public Label label1_奕子截图起点坐标;
+        public Label label_奕子截图起点坐标;
         public Label label_奕子截图起点坐标X1;
         public TextBox textBox_拿牌坐标X1;
         public Label label_奕子截图起点坐标Y;
@@ -1417,8 +1417,8 @@
         private TabPage tabPage_截图;
         private Panel panel_截图;
         private TabPage tabPage_阵容相关;
-        public Label label_最大选择数量;
-        public TextBox textBox_最大选择数量;
+        public Label label_单个阵容最大英雄容量;
+        public TextBox textBox_单个阵容最大英雄容量;
         public Label label_最大阵容数量;
         public TextBox textBox_最大阵容数量;
         private Button button_OCR结果纠正列表编辑器;
@@ -1478,7 +1478,7 @@
         private CheckBox checkBox_UseErrorShowForm;
         private CheckBox checkBox_StopRefreshWhenErrorCharacters;
         private TabPage tabPage_其他;
-        private Panel panel1;
+        private Panel panel_其他;
         public Label label_小时后自动更新推荐装备;
         public Label label_每隔;
         public TextBox textBox_更新推荐装备间隔;

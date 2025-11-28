@@ -1,7 +1,10 @@
 ﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.Forms;
+using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -43,14 +46,18 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             var itemTranslations = _gameDataService.ItemTranslations;
 
             if (heroKeys == null || heroKeys.Count == 0)
-            {
-                System.Diagnostics.Debug.WriteLine("CrawlingService: 英雄列表为空，请确保 DynamicGameDataService 已成功初始化。");
+            {                
+                Debug.WriteLine("CrawlingService: 英雄列表为空，请确保 DynamicGameDataService 已成功初始化。");
+                LogTool.Log("CrawlingService: 英雄列表为空，请确保 DynamicGameDataService 已成功初始化。");
+                OutputForm.Instance.WriteLineOutputMessage("错误：未能获取英雄列表，请检查网络连接或数据服务状态。");
                 progress?.Report(Tuple.Create(100, "错误：未能获取英雄列表！"));
                 return new List<HeroEquipment>();
             }
 
             // 步骤 2: 并行请求英雄装备详情
-            System.Diagnostics.Debug.WriteLine($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求装备详情...");
+            Debug.WriteLine($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求装备详情...");
+            LogTool.Log($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求装备详情...");
+            OutputForm.Instance.WriteLineOutputMessage($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求装备详情...");
             var finalHeroEquipments = new ConcurrentBag<HeroEquipment>();
 
             // 限制并发数量，防止因请求过于频繁而被目标服务器拒绝服务。
@@ -76,7 +83,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine($"处理英雄 {heroKey} 时发生未知错误: {ex.Message}");
+                        Debug.WriteLine($"处理英雄 {heroKey} 时发生未知错误: {ex.Message}");
+                        LogTool.Log($"处理英雄 {heroKey} 时发生未知错误: {ex.Message}");
+                        OutputForm.Instance.WriteLineOutputMessage($"处理英雄 {heroKey} 时发生未知错误: {ex.Message}");
                     }
                     finally
                     {

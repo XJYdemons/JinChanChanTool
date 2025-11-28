@@ -1,10 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Linq;
+﻿using System.Text;
 using System.Diagnostics;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace JinChanChanTool.Services.AutoSetCoordinates
 {
@@ -119,7 +115,12 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
 
             return true;
         }
-       
+
+        /// <summary>
+        /// 设置目标窗口为指定父进程的最佳子窗口。
+        /// </summary>
+        /// <param name="parentProcess"></param>
+        /// <returns></returns>
         public bool SetTargetToBestChildWindow(Process parentProcess)
         {
             WindowHandle = nint.Zero;

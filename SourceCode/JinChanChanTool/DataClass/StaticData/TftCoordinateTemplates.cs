@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using static JinChanChanTool.Services.AutoSetCoordinates.CoordinateCalculationService; // 引入AnchorProfile结构体
+﻿using static JinChanChanTool.Services.AutoSetCoordinates.CoordinateCalculationService; // 引入AnchorProfile结构体
 
-namespace JinChanChanTool.DataClass
+namespace JinChanChanTool.DataClass.StaticData
 {
     /// <summary>
     /// 存放“云顶之弈”PC客户端的基准坐标模板。

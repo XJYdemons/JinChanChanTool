@@ -3,16 +3,8 @@
     /// <summary>
     /// 英雄数据对象
     /// </summary>
-    public class HeroData
-    {                   
-        public HeroData()
-        {
-            HeroName = "";
-            Cost = 1;
-            Profession = "";
-            Peculiarity = "";            
-        }
-
+    public class Hero
+    {                           
         /// <summary>
         /// 英雄名
         /// </summary>
@@ -31,6 +23,15 @@
         /// <summary>
         /// 特质，以“|”分割
         /// </summary>
-        public string Peculiarity { get; set; } = "";      
+        public string Peculiarity { get; set; } = "";
+
+        public Hero()
+        {
+            HeroName = "";
+            Cost = 1;
+            Profession = "";
+            Peculiarity = "";
+        }
+
     }
 }

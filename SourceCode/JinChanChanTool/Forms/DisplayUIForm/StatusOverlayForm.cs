@@ -1,21 +1,16 @@
 ﻿using JinChanChanTool.Services;
-using JinChanChanTool.Services.DataServices;
+using JinChanChanTool.Services.DataServices.Interface;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace JinChanChanTool.Forms
 {
+    /// <summary>
+    /// 状态显示窗口
+    /// </summary>
     public partial class StatusOverlayForm : Form
     {
+        //单例模式
         private static StatusOverlayForm _instance;
         public static StatusOverlayForm Instance
         {
@@ -28,16 +23,18 @@ namespace JinChanChanTool.Forms
                 return _instance;
             }
         }
+
         // 状态标签
         private Label lblStatus1;
         private Label lblStatus2;      
         private Label lblStatus3;
         private Label lblStatus4;
+
         // 拖动相关变量
         private Point _dragStartPoint;
         private bool _dragging;
-       
-       
+
+        public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
 
         private StatusOverlayForm()
         {
@@ -45,6 +42,9 @@ namespace JinChanChanTool.Forms
             InitializeComponents();
         }
 
+        /// <summary>
+        /// 初始化自定义组件
+        /// </summary>
         private void InitializeComponents()
         {
             // 窗体设置
@@ -162,8 +162,13 @@ namespace JinChanChanTool.Forms
 
             lblStatus4.Text = $"{hotkey4} - 自动D牌";
         }
+
         #region 拖动窗体功能
-        // 鼠标按下事件 - 开始拖动
+        /// <summary>
+        /// 鼠标按下事件 - 开始拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusOverlayForm_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -173,7 +178,11 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        // 鼠标移动事件 - 处理拖动
+        /// <summary>
+        /// 鼠标移动事件 - 处理拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusOverlayForm_MouseMove(object sender, MouseEventArgs e)
         {
             if (_dragging)
@@ -184,7 +193,11 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        // 鼠标释放事件 - 结束拖动
+        /// <summary>
+        /// 鼠标释放事件 - 结束拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusOverlayForm_MouseUp(object sender, MouseEventArgs e)
         {
             _dragging = false;
@@ -192,11 +205,20 @@ namespace JinChanChanTool.Forms
         }
 
         #endregion
-        public IAutoConfigService _iAutoConfigService;
-        public void InitializeObject(IAutoConfigService iAutoConfigService)
+
+        /// <summary>
+        /// 初始化配置服务
+        /// </summary>
+        /// <param name="iAutoConfigService"></param>
+        public void InitializeObject(IAutomaticSettingsService iAutoConfigService)
         {
             _iAutoConfigService = iAutoConfigService;            
         }
+
+        /// <summary>
+        /// 显示窗体时应用保存的位置
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);           
@@ -236,7 +258,9 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        // 重写创建控件时的行为，使窗口支持半透明
+        /// <summary>
+        /// 重写创建控件时的行为，使窗口支持半透明
+        /// </summary>
         protected override CreateParams CreateParams
         {
             get
@@ -247,7 +271,10 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        // 设置窗口透明度
+        /// <summary>
+        /// 设置窗口透明度
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -255,6 +282,10 @@ namespace JinChanChanTool.Forms
             SetWindowOpacity(168); // 提高透明度减少残影
         }
 
+        /// <summary>
+        /// 设置窗口透明度
+        /// </summary>
+        /// <param name="opacity"></param>
         private void SetWindowOpacity(byte opacity)
         {
             // 使用User32.dll中的SetLayeredWindowAttributes函数
@@ -264,7 +295,10 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        // 绘制背景为纯色
+        /// <summary>
+        /// 绘制背景为纯色
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);

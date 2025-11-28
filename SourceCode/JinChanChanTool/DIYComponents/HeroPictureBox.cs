@@ -5,7 +5,8 @@
     /// </summary>
     public class HeroPictureBox : PictureBox
     {
-        private Color _borderColor = SystemColors.Control;
+        private Color _borderColor = SystemColors.Control;//默认边框颜色
+
         /// <summary>
         /// 边框颜色（自动重绘）
         /// </summary>
@@ -22,7 +23,8 @@
             }
         }
 
-        private int _borderWidth = 3;
+        private int _borderWidth = 3;//默认边框宽度
+
         /// <summary>
         /// 边框宽度（自动重绘）
         /// </summary>
@@ -39,7 +41,8 @@
             }
         }
 
-        private bool _isSelected = false;
+        private bool _isSelected = false;//默认不选中 
+
         /// <summary>
         /// 是否选中（自动重绘）
         /// </summary>
@@ -57,6 +60,7 @@
         }
 
         private Color _selectionColor = Color.FromArgb(125, 255, 0, 0); // 半透明红色滤镜
+
         /// <summary>
         /// 选中状态滤镜颜色（默认半透明红色）
         /// </summary>

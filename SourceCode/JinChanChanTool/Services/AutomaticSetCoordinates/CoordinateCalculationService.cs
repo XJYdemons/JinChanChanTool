@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 
 namespace JinChanChanTool.Services.AutoSetCoordinates
 {
@@ -38,13 +34,24 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             }
         }
 
+        /// <summary>
+        /// 描述：构造函数，注入窗口交互服务的依赖。
+        /// </summary>
+        /// <param name="windowInteractionService"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public CoordinateCalculationService(WindowInteractionService windowInteractionService)
         {
             _windowInteractionService = windowInteractionService ?? throw new ArgumentNullException(nameof(windowInteractionService));
         }
 
-        
 
+        /// <summary>
+        /// 描述：根据提供的锚点档案、基准分辨率和游戏模式，计算UI元素在屏幕上的绝对坐标矩形。
+        /// </summary>
+        /// <param name="profile"></param>
+        /// <param name="baseResolution"></param>
+        /// <param name="gameMode"></param>
+        /// <returns></returns>
         public Rectangle? GetScaledRectangle(AnchorProfile profile, Size baseResolution, GameMode gameMode)
         {
             if (!_windowInteractionService.IsWindowFound) return null;

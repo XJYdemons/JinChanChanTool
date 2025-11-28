@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.DataClass;
+using JinChanChanTool.Services.DataServices.Interface;
 
 namespace JinChanChanTool
 {

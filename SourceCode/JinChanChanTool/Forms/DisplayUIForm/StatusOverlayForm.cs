@@ -30,12 +30,16 @@ namespace JinChanChanTool.Forms
         private Label lblStatus3;
         private Label lblStatus4;
 
+        private Button autoGetCardButton;
+        private Button refreshStoreButton;
+
         // 拖动相关变量
         private Point _dragStartPoint;
         private bool _dragging;
 
         public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
-
+                                                             //
+        private CardService _cardService; //自动拿牌服务
         private StatusOverlayForm()
         {
             InitializeComponent();
@@ -113,10 +117,58 @@ namespace JinChanChanTool.Forms
                 TextAlign = ContentAlignment.MiddleLeft,
                 BackColor = Color.Transparent
             };
+
+            // 创建按钮容器面板
+            Panel buttonPanel = new Panel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Height = 30,
+                Padding = new Padding(2),
+                Margin = new Padding(2),
+                BackColor = Color.Transparent
+            };
+
+            // 创建左侧按钮
+            autoGetCardButton = new Button
+            {
+                Text = "自动拿牌",
+                Font = new Font("微软雅黑", 9, FontStyle.Regular),
+                Size = new Size(80, 25),
+                Location = new Point(0, 0),
+                BackColor = Color.FromArgb(80, 80, 80),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                UseVisualStyleBackColor = false
+            };
+            autoGetCardButton.FlatAppearance.BorderColor = Color.Gray;
+            autoGetCardButton.FlatAppearance.MouseOverBackColor = Color.Green;
+            autoGetCardButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(16, 70, 16);
+
+            // 创建右侧按钮
+            refreshStoreButton = new Button
+            {
+                Text = "自动刷新",
+                Font = new Font("微软雅黑", 9, FontStyle.Regular),
+                Size = new Size(80, 25),
+                Location = new Point(85, 0), // 左侧按钮宽度+间距
+                BackColor = Color.FromArgb(80, 80, 80),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                UseVisualStyleBackColor = false
+            };
+            refreshStoreButton.FlatAppearance.BorderColor = Color.Gray;
+            refreshStoreButton.FlatAppearance.MouseOverBackColor = Color.Green;
+            refreshStoreButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(16, 70, 16);
+            // 添加按钮到按钮面板
+            buttonPanel.Controls.Add(autoGetCardButton);
+            buttonPanel.Controls.Add(refreshStoreButton);
+            
             panel.Controls.Add(lblStatus1);
             panel.Controls.Add(lblStatus2);
             panel.Controls.Add(lblStatus3);
             panel.Controls.Add(lblStatus4);
+            panel.Controls.Add(buttonPanel);
             this.Controls.Add(panel);
           
             // 鼠标事件处理
@@ -142,27 +194,88 @@ namespace JinChanChanTool.Forms
             lblStatus4.MouseDown += StatusOverlayForm_MouseDown;
             lblStatus4.MouseMove += StatusOverlayForm_MouseMove;
             lblStatus4.MouseUp += StatusOverlayForm_MouseUp;
+
+            // 按钮点击事件（示例）
+            autoGetCardButton.Click += autoGetCardButton_Click;
+            refreshStoreButton.Click += refreshStoreButton_Click;
         }
 
+        /// <summary>
+        /// 按钮点击事件
+        /// </summary>
+        private void autoGetCardButton_Click(object sender, EventArgs e)
+        {
+            _cardService.ToggleLoop();
+        }
+
+        /// <summary>
+        /// 按钮点击事件
+        /// </summary>
+        private void refreshStoreButton_Click(object sender, EventArgs e)
+        {
+            _cardService.ToggleRefreshStore();
+        }
+
+        string _hotkey1 = "";
+        string _hotkey2 = "";
+        string _hotkey3 = "";   
+        string _hotkey4 = "";
+        bool _status1 = false;
+        bool _status2 = false;
         // 更新状态显示
-        public void UpdateStatus(bool status1, bool status2,string hotkey1,string hotkey2,string hotkey3,string hotkey4)
+        public void UpdateStatus(string hotkey1,string hotkey2,string hotkey3,string hotkey4)
+        {          
+            _hotkey1 = hotkey1;
+            _hotkey2 = hotkey2;
+            _hotkey3 = hotkey3;
+            _hotkey4 = hotkey4;
+            UpdateUI();
+        }
+        private void OnStartLoop(bool isRunning)
+        {
+            _status1 = isRunning;
+            if(isRunning)
+            {
+                autoGetCardButton.BackColor = Color.Green;
+            }
+            else
+            {
+
+                autoGetCardButton.BackColor = Color.FromArgb(80, 80, 80);
+            }
+
+            UpdateUI();
+        }
+
+        private void OnAutoRefreshStatusChanged(bool isRunning)
+        {
+            _status2 = isRunning;
+            if (isRunning)
+            {
+                refreshStoreButton.BackColor = Color.Green;
+            }
+            else
+            {
+
+                refreshStoreButton.BackColor = Color.FromArgb(80, 80, 80);
+            }
+            UpdateUI();
+        }
+
+        private void UpdateUI()
         {
             if (lblStatus1.InvokeRequired)
             {
-                lblStatus1.Invoke(new Action(() => UpdateStatus(status1, status2,hotkey1,hotkey2,hotkey3,hotkey4)));
+                lblStatus1.Invoke(new Action(() => UpdateUI()));
                 return;
             }
-            lblStatus1.Text = $"{hotkey1} - 自动拿牌: [{(status1 ? "开" : "关")}]";
-            lblStatus1.ForeColor = status1 ? Color.LimeGreen : Color.White;
-
-            lblStatus2.Text = $"{hotkey2} - 自动刷新商店: [{(status2 ? "开" : "关")}]";
-            lblStatus2.ForeColor = status2 ? Color.LimeGreen : Color.White;
-
-            lblStatus3.Text = $"{hotkey3} - 隐藏/召出主窗口";
-
-            lblStatus4.Text = $"{hotkey4} - 自动D牌";
+            lblStatus1.Text = $"{_hotkey1} - 自动拿牌: [{(_status1 ? "开" : "关")}]";
+            lblStatus1.ForeColor = _status1 ? Color.LimeGreen : Color.White;
+            lblStatus2.Text = $"{_hotkey2} - 自动刷新商店: [{(_status2 ? "开" : "关")}]";
+            lblStatus2.ForeColor = _status2 ? Color.LimeGreen : Color.White;
+            lblStatus3.Text = $"{_hotkey3} - 隐藏/召出主窗口";
+            lblStatus4.Text = $"{_hotkey4} - 自动D牌";
         }
-
         #region 拖动窗体功能
         /// <summary>
         /// 鼠标按下事件 - 开始拖动
@@ -175,6 +288,7 @@ namespace JinChanChanTool.Forms
             {
                 _dragging = true;
                 _dragStartPoint = new Point(e.X, e.Y);
+                Cursor = Cursors.SizeAll;
             }
         }
 
@@ -201,6 +315,7 @@ namespace JinChanChanTool.Forms
         private void StatusOverlayForm_MouseUp(object sender, MouseEventArgs e)
         {
             _dragging = false;
+            Cursor = Cursors.Arrow;
             SaveFormLocation();
         }
 
@@ -210,11 +325,16 @@ namespace JinChanChanTool.Forms
         /// 初始化配置服务
         /// </summary>
         /// <param name="iAutoConfigService"></param>
-        public void InitializeObject(IAutomaticSettingsService iAutoConfigService)
+        public void InitializeObject(IAutomaticSettingsService iAutoConfigService,CardService cardService)
         {
-            _iAutoConfigService = iAutoConfigService;            
+            _iAutoConfigService = iAutoConfigService;      
+            _cardService = cardService;
+            _cardService.isGetCardStatusChanged += OnStartLoop;
+            _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;
         }
 
+        
+     
         /// <summary>
         /// 显示窗体时应用保存的位置
         /// </summary>

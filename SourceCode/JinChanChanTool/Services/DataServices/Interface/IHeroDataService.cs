@@ -120,5 +120,11 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// </summary>
         /// <returns></returns>
         public HashSet<char> GetCharDictionary();
+
+        /// <summary>
+        /// 获取费用种类列表，升序排列
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetCostType();      
     }
 }

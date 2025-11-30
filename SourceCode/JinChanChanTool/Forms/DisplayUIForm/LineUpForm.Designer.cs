@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel_拖动条 = new Panel();
+            draggingBar = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             panel_子阵容容器 = new Panel();
             flowLayoutPanel3 = new FlowLayoutPanel();
@@ -39,22 +39,22 @@
             panel_子阵容容器.SuspendLayout();
             SuspendLayout();
             // 
-            // panel_拖动条
+            // draggingBar
             // 
-            this.panel_拖动条.BackColor = Color.FromArgb(218, 218, 218);
-            this.panel_拖动条.BorderStyle = BorderStyle.FixedSingle;
-            this.panel_拖动条.Location = new Point(0, 30);
-            this.panel_拖动条.Margin = new Padding(0);
-            this.panel_拖动条.Name = "panel_拖动条";
-            this.panel_拖动条.Size = new Size(6, 108);
-            this.panel_拖动条.TabIndex = 1;
-            this.panel_拖动条.MouseDoubleClick += this.panel1_MouseDoubleClick;
+            draggingBar.BackColor = Color.FromArgb(218, 218, 218);
+            draggingBar.BorderStyle = BorderStyle.FixedSingle;
+            draggingBar.Location = new Point(0, 30);
+            draggingBar.Margin = new Padding(0);
+            draggingBar.Name = "draggingBar";
+            draggingBar.Size = new Size(8, 108);
+            draggingBar.TabIndex = 1;
+            draggingBar.MouseDoubleClick += panel1_MouseDoubleClick;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoSize = true;
             flowLayoutPanel1.BackColor = SystemColors.Control;
-            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Location = new Point(2, 0);
             flowLayoutPanel1.Margin = new Padding(0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(387, 33);
@@ -77,7 +77,7 @@
             // 
             flowLayoutPanel3.AutoSize = true;
             flowLayoutPanel3.BackColor = SystemColors.Control;
-            flowLayoutPanel3.Location = new Point(0, 74);
+            flowLayoutPanel3.Location = new Point(2, 74);
             flowLayoutPanel3.Margin = new Padding(0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
             flowLayoutPanel3.Size = new Size(387, 33);
@@ -88,7 +88,7 @@
             // 
             flowLayoutPanel2.AutoSize = true;
             flowLayoutPanel2.BackColor = SystemColors.Control;
-            flowLayoutPanel2.Location = new Point(0, 37);
+            flowLayoutPanel2.Location = new Point(2, 37);
             flowLayoutPanel2.Margin = new Padding(0);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Size = new Size(387, 33);
@@ -137,7 +137,7 @@
             Controls.Add(button_保存);
             Controls.Add(panel_子阵容容器);
             Controls.Add(comboBox_LineUp);
-            Controls.Add(this.panel_拖动条);
+            Controls.Add(draggingBar);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LineUpForm";
             ShowInTaskbar = false;
@@ -151,7 +151,7 @@
         }
 
         #endregion
-        private Panel panel_拖动条;
+        private Panel draggingBar;
         private Panel panel_子阵容容器;
         public FlowLayoutPanel flowLayoutPanel1;
         public FlowLayoutPanel flowLayoutPanel3;

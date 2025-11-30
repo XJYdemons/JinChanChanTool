@@ -399,6 +399,18 @@ namespace JinChanChanTool.Services.DataServices
         {
             return _charDictionary;
         }
+
+        /// <summary>
+        /// 获取费用种类列表，升序排列
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetCostType()
+        {
+            return HeroDatas.Select(hero => hero.Cost)
+                   .Distinct()
+                   .OrderBy(cost => cost)
+                   .ToList();
+        }
         #endregion
 
         #region 私有方法

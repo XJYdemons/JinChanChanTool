@@ -1,4 +1,5 @@
-﻿using JinChanChanTool.Services.DataServices.Interface;
+﻿using JinChanChanTool.DIYComponents;
+using JinChanChanTool.Services.DataServices.Interface;
 
 namespace JinChanChanTool.Forms
 {
@@ -32,9 +33,9 @@ namespace JinChanChanTool.Forms
         {
             InitializeComponent();
             // 鼠标事件处理
-            panel_拖动条.MouseDown += panel_拖动条_MouseDown;
-            panel_拖动条.MouseMove += panel_拖动条_MouseMove;
-            panel_拖动条.MouseUp += panel_拖动条_MouseUp;
+            draggingBar.MouseDown += panel_拖动条_MouseDown;
+            draggingBar.MouseMove += panel_拖动条_MouseMove;
+            draggingBar.MouseUp += panel_拖动条_MouseUp;
         }
 
         private void LineUpForm_Load(object sender, EventArgs e)
@@ -103,13 +104,17 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void panel_拖动条_MouseDown(object sender, MouseEventArgs e)
         {
-            Panel panel = sender as Panel;
-            if (e.Button == MouseButtons.Left)
+            if (sender is Panel)
             {
-                _dragging = true;
-                _dragStartPoint = new Point(e.X, e.Y);
-                panel.BackColor = Color.FromArgb(96, 223, 84);
-            }
+                if (e.Button == MouseButtons.Left)
+                {
+                    draggingBar.BackColor = Color.FromArgb(96, 223, 84);
+                    _dragging = true;
+                    _dragStartPoint = new Point(e.X, e.Y);
+                    //改变鼠标光标
+                    Cursor = Cursors.SizeAll;
+                }
+            }            
         }
 
         /// <summary>
@@ -134,10 +139,10 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void panel_拖动条_MouseUp(object sender, MouseEventArgs e)
         {
-            Panel panel = sender as Panel;
-            panel.BackColor = Color.FromArgb(218, 218, 218);
+            draggingBar.BackColor = Color.FromArgb(218, 218, 218);
             _dragging = false;
-            SaveFormLocation();
+            Cursor = Cursors.Arrow;
+            SaveFormLocation();           
         }
         #endregion
 

@@ -565,38 +565,38 @@
   },
   {
     "HeroName": "奥瑞利安索尔",
-    "Cost": 5,
+    "Cost": 7,
     "Profession": "",
     "Peculiarity": "巨神峰|铸星龙王"
   },
   {
     "HeroName": "纳什男爵",
-    "Cost": 5,
+    "Cost": 7,
     "Profession": "",
     "Peculiarity": "纳什男爵|虚空"
   },
   {
     "HeroName": "瑞兹",
-    "Cost": 5,
+    "Cost": 7,
     "Profession": "",
     "Peculiarity": "符文法师"
   },
   {
     "HeroName": "塞拉斯",
-    "Cost": 5,
+    "Cost": 7,
     "Profession": "法师|护卫",
     "Peculiarity": "解脱者"
   },
   {
     "HeroName": "亚恒",
-    "Cost": 5,
+    "Cost": 7,
     "Profession": "",
     "Peculiarity": "暗裔|不落魔锋"
   },
   {
     "HeroName": "岩宝",
-    "Cost": 5,
+    "Cost": 7,
     "Profession": "",
     "Peculiarity": "以绪塔尔"
-  }
+  } 
 ]

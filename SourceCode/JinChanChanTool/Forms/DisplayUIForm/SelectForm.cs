@@ -1,4 +1,6 @@
-﻿using JinChanChanTool.Services.DataServices.Interface;
+﻿using JinChanChanTool.DIYComponents;
+using JinChanChanTool.Services.DataServices.Interface;
+using System.Reflection.Metadata;
 
 namespace JinChanChanTool.Forms
 {
@@ -30,9 +32,9 @@ namespace JinChanChanTool.Forms
         {           
             InitializeComponent();
             // 鼠标事件处理
-            panel1.MouseDown += panel1_MouseDown;
-            panel1.MouseMove += panel1_MouseMove;
-            panel1.MouseUp += panel1_MouseUp;
+            draggingBar.MouseDown += panel_MouseDown;
+            draggingBar.MouseMove += panel_MouseMove;
+            draggingBar.MouseUp += panel_MouseUp;
         }
 
         private void Selector_Load(object sender, EventArgs e)
@@ -46,15 +48,30 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            Panel panel = sender as Panel;
-            if (e.Button == MouseButtons.Left)
+        private void panel_MouseDown(object sender, MouseEventArgs e)
+        {                        
+            if(sender is Panel)
             {
-                _dragging = true;
-                _dragStartPoint = new Point(e.X, e.Y);
-                panel.BackColor =Color.FromArgb(96, 223, 84); 
+                if (e.Button == MouseButtons.Left)
+                {                   
+                    draggingBar.BackColor = Color.FromArgb(96, 223, 84);                                     
+                    _dragging = true;
+                    _dragStartPoint = new Point(e.X, e.Y);
+                    //改变鼠标光标
+                    Cursor = Cursors.SizeAll;
+                }
             }
+            else if(sender is HeroPictureBox)
+            {
+                if (e.Button == MouseButtons.Right)
+                {                   
+                    _dragging = true;
+                    _dragStartPoint = new Point(e.X, e.Y);
+                    draggingBar.BackColor = Color.FromArgb(96, 223, 84);
+                    Cursor = Cursors.SizeAll;
+                }
+            }
+            
         }
 
         /// <summary>
@@ -62,7 +79,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        private void panel_MouseMove(object sender, MouseEventArgs e)
         {
             if (_dragging)
             {
@@ -72,17 +89,28 @@ namespace JinChanChanTool.Forms
             }
         }
 
+        
         /// <summary>
         /// 鼠标释放事件 - 结束拖动
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel1_MouseUp(object sender, MouseEventArgs e)
-        {
-            Panel panel = sender as Panel;
-            panel.BackColor = Color.FromArgb(218, 218, 218);
+        private void panel_MouseUp(object sender, MouseEventArgs e)
+        {          
+            draggingBar.BackColor =  Color.FromArgb(218, 218, 218);                                
             _dragging = false;
+            Cursor = Cursors.Arrow;
             SaveFormLocation();
+        }
+
+        public void 绑定拖动(Control 要拖动的控件)
+        {
+            要拖动的控件.MouseDown -= panel_MouseDown;
+            要拖动的控件.MouseMove -= panel_MouseMove;
+            要拖动的控件.MouseUp -= panel_MouseUp;
+            要拖动的控件.MouseDown += panel_MouseDown;
+            要拖动的控件.MouseMove += panel_MouseMove;
+            要拖动的控件.MouseUp += panel_MouseUp;
         }
         #endregion
 
@@ -95,6 +123,12 @@ namespace JinChanChanTool.Forms
             _iAutoConfigService = iAutoConfigService;
             ApplySavedLocation();
         }
+
+        public void InitializeComponents(int numberOfTypes)
+        {
+           
+        }
+      
 
         /// <summary>
         /// 从配置中读取并应用窗口位置
@@ -130,15 +164,15 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void panel_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (panel2.Visible == true)
+            if (panel_Background.Visible == true)
             {
-                panel2.Visible = false;
+                panel_Background.Visible = false;
             }
             else
             {
-                panel2.Visible = true;
+                panel_Background.Visible = true;
             }
         }
 

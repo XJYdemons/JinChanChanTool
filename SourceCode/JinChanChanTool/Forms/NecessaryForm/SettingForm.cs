@@ -168,6 +168,10 @@ namespace JinChanChanTool
             checkBox_UseErrorShowForm.Checked = _iappConfigService.CurrentConfig.IsUseOutputForm;       
             checkBox_定时更新推荐装备.Checked = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
             textBox_更新推荐装备间隔.Text = _iappConfigService.CurrentConfig.UpdateEquipmentInterval.ToString();
+            textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxSize.ToString();
+            textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing.ToString();
+            textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPanelsVerticalSpacing.ToString();
+            textBox_拖动条宽度_英雄选择面板.Text = _iappConfigService.CurrentConfig.TransparentPanelDraggingBarWidth.ToString();
         }
 
         /// <summary>
@@ -200,7 +204,8 @@ namespace JinChanChanTool
             textBox_单个阵容最大英雄容量.Leave += textBox_单个阵容最大英雄容量_Leave;
             textBox_最大阵容数量.KeyDown += TextBox_KeyDown;
             textBox_最大阵容数量.Enter += TextBox_Enter;
-            textBox_最大阵容数量.Leave += textBox_最大阵容数量_Leave;
+            textBox_最大阵容数量.Leave += textBox_最大阵容数量_Leave;            
+
             textBox_拿牌坐标X1.KeyDown += TextBox_KeyDown;
             textBox_拿牌坐标X1.Enter += TextBox_Enter;
             textBox_拿牌坐标X1.Leave += textBox_拿牌坐标X1_Leave;
@@ -295,6 +300,22 @@ namespace JinChanChanTool
             textBox_更新推荐装备间隔.Leave += TextBox_更新推荐装备间隔_Leave;
 
             checkBox_定时更新推荐装备.CheckedChanged += checkBox_定时更新推荐装备_CheckedChanged;
+
+            textBox_英雄头像框边长.KeyDown += TextBox_KeyDown;
+            textBox_英雄头像框边长.Enter += TextBox_Enter;
+            textBox_英雄头像框边长.Leave += textBox_英雄头像框边长_Leave;
+
+            textBox_英雄头像框水平间隔.KeyDown += TextBox_KeyDown;
+            textBox_英雄头像框水平间隔.Enter += TextBox_Enter;
+            textBox_英雄头像框水平间隔.Leave += textBox_英雄头像框水平间隔_Leave;
+
+            textBox_英雄头像框垂直间隔.KeyDown += TextBox_KeyDown;
+            textBox_英雄头像框垂直间隔.Enter += TextBox_Enter;
+            textBox_英雄头像框垂直间隔.Leave += textBox_英雄头像框垂直间隔_Leave;
+
+            textBox_拖动条宽度_英雄选择面板.KeyDown += TextBox_KeyDown;
+            textBox_拖动条宽度_英雄选择面板.Enter += TextBox_Enter;
+            textBox_拖动条宽度_英雄选择面板.Leave += textBox_拖动条宽度_英雄选择面板_Leave;
         }
 
         /// <summary>
@@ -1580,6 +1601,132 @@ namespace JinChanChanTool
         {
             _iappConfigService.CurrentConfig.IsUseOutputForm = checkBox_UseErrorShowForm.Checked;
         }
+
+        #region 英雄选择面板UI设置
+        /// <summary>
+        /// 离开textBox_英雄头像框边长时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_英雄头像框边长_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_英雄头像框边长.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox_英雄头像框边长.Text);
+                    if (result > 0)
+                    {
+                        _iappConfigService.CurrentConfig.TransparentHeroPictureBoxSize = result;
+                    }
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 离开textBox_英雄头像框水平间隔时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_英雄头像框水平间隔_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_英雄头像框水平间隔.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox_英雄头像框水平间隔.Text);
+                    if (result >= 0)
+                    {
+                        _iappConfigService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing = result;
+                    }
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 离开textBox_英雄头像框垂直间隔时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_英雄头像框垂直间隔_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_英雄头像框垂直间隔.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox_英雄头像框垂直间隔.Text);
+                    if (result >= 0)
+                    {
+                        _iappConfigService.CurrentConfig.TransparentHeroPanelsVerticalSpacing = result;
+                    }
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 离开textBox_拖动条宽度_英雄选择面板时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_拖动条宽度_英雄选择面板_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_拖动条宽度_英雄选择面板.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox_拖动条宽度_英雄选择面板.Text);
+                    if (result > 0)
+                    {
+                        _iappConfigService.CurrentConfig.TransparentPanelDraggingBarWidth = result;
+                    }
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #region 其他设置

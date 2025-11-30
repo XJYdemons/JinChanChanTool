@@ -44,8 +44,10 @@ namespace JinChanChanTool.Services
 
         private QueuedOCRService _ocrService;
 
-        private bool is自动拿牌 = false;//是否开启 自动拿牌 标志(初始false)
-        private bool is自动刷新商店 = false;//是否开启 自动刷新商店 标志(初始false)               
+        private bool isGetCard = false;//是否开启 自动拿牌 标志(初始false)
+        public event Action<bool> isGetCardStatusChanged;
+        private bool isRefreshStore = false;//是否开启 自动刷新商店 标志(初始false)
+        public event Action<bool> isRefreshStoreStatusChanged;
         private CancellationTokenSource cts = new CancellationTokenSource();//控制拿牌D牌多线程操作的变量
 
         private bool 鼠标左键是否按下;
@@ -121,8 +123,9 @@ namespace JinChanChanTool.Services
         /// </summary>
         public void StartLoop()
         {
-            is自动拿牌 = true;
+            isGetCard = true;
             cts = new CancellationTokenSource();
+            isGetCardStatusChanged?.Invoke(true);
             // 启动循环任务
             Task.Run(() => ProcessLoop(cts.Token), cts.Token);
         }
@@ -132,19 +135,42 @@ namespace JinChanChanTool.Services
         /// </summary>
         public void StopLoop()
         {
-            is自动拿牌 = false;
+            isGetCard = false;
             cts?.Cancel();
             cts?.Dispose();
             cts = null;
+            isGetCardStatusChanged?.Invoke(false);
+        }
+
+        public void ToggleLoop()
+        {
+            if (isGetCard)
+                StopLoop();
+            else
+                StartLoop();
+        }
+
+        public void ToggleRefreshStore()
+        {
+            if (isRefreshStore)
+            {
+                AutoRefreshOff();
+            }                
+            else
+            {
+                AutoRefreshOn();
+            }              
+            
         }
 
         /// <summary>
         /// 开启自动刷新商店
         /// </summary>
-        public  void AutoRefreshOn()
+        public void AutoRefreshOn()
         {
-            is自动刷新商店 = true;
+            isRefreshStore = true;
             未刷新累积次数 = 0;
+            isRefreshStoreStatusChanged?.Invoke(true);
         }
 
         /// <summary>
@@ -152,7 +178,8 @@ namespace JinChanChanTool.Services
         /// </summary>
         public void AutoRefreshOff()
         {
-            is自动刷新商店 = false;          
+            isRefreshStore = false;
+            isRefreshStoreStatusChanged?.Invoke(false);
         }
 
         /// <summary>
@@ -181,7 +208,7 @@ namespace JinChanChanTool.Services
         {
             int 循环计数 = 0;
             循环前的标志重置();
-            while (is自动拿牌 && !token.IsCancellationRequested)
+            while (isGetCard && !token.IsCancellationRequested)
             {                
                 try
                 {
@@ -252,6 +279,8 @@ namespace JinChanChanTool.Services
                     break;                    
                 }
             }
+            StopLoop();           
+            AutoRefreshOff();                                  
         }
 
         private bool 本轮与上轮商店状态是否相同()
@@ -431,13 +460,7 @@ namespace JinChanChanTool.Services
             {
                 LogTool.Log("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
                 Debug.WriteLine("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");              
-                OutputForm.Instance.WriteLineOutputMessage($"存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");               
-                is自动拿牌 = false;
-                _button1.Invoke((MethodInvoker)delegate
-                {                    
-                    _button1.Text = "启动";                                      
-                });
-                cts.Cancel();
+                OutputForm.Instance.WriteLineOutputMessage($"存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");              
                 return false;
             }
             return true;
@@ -456,12 +479,7 @@ namespace JinChanChanTool.Services
         }
         private void 停止刷新商店()
         {
-            is自动刷新商店 = false;
-            _button2.Invoke((MethodInvoker)delegate
-            {
-                _button2.Text = "启动";
-               
-            });
+            AutoRefreshOff();                      
         }
         private void  判断未拿牌并处理()
         {
@@ -527,7 +545,7 @@ namespace JinChanChanTool.Services
 
         private async Task<bool> 判断是否需要刷新商店并处理()
         {
-            if (!is自动刷新商店)
+            if (!isRefreshStore)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");                

@@ -11,6 +11,7 @@ using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.LineUpCodeTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
+using System.Linq;
 
 namespace JinChanChanTool
 {
@@ -20,12 +21,12 @@ namespace JinChanChanTool
         /// <summary>
         /// 程序设置服务实例
         /// </summary>
-        private readonly IManualSettingsService _iappConfigService;
+        private readonly IManualSettingsService _iManualSettingsService;
 
         /// <summary>
         /// 自动设置服务实例
         /// </summary>
-        private readonly IAutomaticSettingsService _iAutoConfigService;
+        private readonly IAutomaticSettingsService _iAutomaticSettingsService;
 
         /// <summary>
         /// OCR结果纠正服务实例
@@ -59,7 +60,7 @@ namespace JinChanChanTool
         
         // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐
         private string _seasonForEquipmentTooltip = "S15天下无双格斗大会"; // <-- 在这里硬编码指定赛季名
-
+        
         public MainForm(IManualSettingsService iappConfigService,IAutomaticSettingsService iAutoConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();
@@ -68,13 +69,13 @@ namespace JinChanChanTool
             CustomTitleBar titleBar = new CustomTitleBar(this, 32, Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "icon.ico")), "JinChanChanTool", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
             this.Controls.Add(titleBar);
             #endregion
-
+            
             LogTool.Log("主窗口已初始化！");
 
             #region 设置服务实例化并绑定事件
-            _iappConfigService = iappConfigService;
-            _iappConfigService.OnConfigSaved += OnConfigSaved;//绑定设置保存事件
-            _iAutoConfigService = iAutoConfigService;            
+            _iManualSettingsService = iappConfigService;
+            _iManualSettingsService.OnConfigSaved += OnConfigSaved;//绑定设置保存事件
+            _iAutomaticSettingsService = iAutoConfigService;            
             #endregion
 
             #region OCR结果纠正服务实例化
@@ -97,8 +98,9 @@ namespace JinChanChanTool
             #endregion
 
             #region UI构建服务实例化并构建UI并绑定事件           
-            _uiBuilderService = new UIBuilderService(this, panel_1Cost, panel_2Cost, panel_3Cost, panel_4Cost, panel_5Cost, panel_SelectByProfession, panel_SelectByPeculiarity, flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3, _iheroDataService, _iappConfigService.CurrentConfig.MaxHerosCount, SelectForm.Instance.flowLayoutPanel1, SelectForm.Instance.flowLayoutPanel2, SelectForm.Instance.flowLayoutPanel3, SelectForm.Instance.flowLayoutPanel4, SelectForm.Instance.flowLayoutPanel5,LineUpForm.Instance.flowLayoutPanel1, LineUpForm.Instance.flowLayoutPanel2, LineUpForm.Instance.flowLayoutPanel3);
-            UIBuildAndBidingEvents();
+            _uiBuilderService = new UIBuilderService(_iheroDataService, _iManualSettingsService,this, tabControl_HeroSelector,flowLayoutPanel_SubLineUp1, flowLayoutPanel__SubLineUp2, flowLayoutPanel__SubLineUp3,LineUpForm.Instance.flowLayoutPanel1, LineUpForm.Instance.flowLayoutPanel2, LineUpForm.Instance.flowLayoutPanel3);
+            _uiBuilderService.BuildWhenStart();
+            UIBindingWhenStart();
             #endregion
 
             #region 创建游戏窗口服务实例化并绑定事件
@@ -117,11 +119,11 @@ namespace JinChanChanTool
                 comboBox_HeroPool.Items.Add(Path.GetFileName(name));
             }
             int selectedIndex = 0;
-            if (!string.IsNullOrEmpty(_iAutoConfigService.CurrentConfig.SelectedSeason))
+            if (!string.IsNullOrEmpty(_iAutomaticSettingsService.CurrentConfig.SelectedSeason))
             {
                 for (int i = 0;i<comboBox_HeroPool.Items.Count;i++)
                 {
-                    if (comboBox_HeroPool.Items[i].ToString().Equals(_iAutoConfigService.CurrentConfig.SelectedSeason, StringComparison.OrdinalIgnoreCase))
+                    if (comboBox_HeroPool.Items[i].ToString().Equals(_iAutomaticSettingsService.CurrentConfig.SelectedSeason, StringComparison.OrdinalIgnoreCase))
                     {
                         selectedIndex = i;
                         break;
@@ -142,15 +144,17 @@ namespace JinChanChanTool
             #region 加载阵容到UI            
             LoadLineUpToUI();//分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容    
             #endregion  
-
+            
+            #region 自动拿牌服务实例化
+            _cardService = new CardService(button_GetCard, button_Refresh, _iManualSettingsService,_iAutomaticSettingsService, _iCorrectionService, _iheroDataService, _ilineUpService);
+            _cardService.isGetCardStatusChanged += OnIsGetCardChanged;
+            _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;
+            #endregion   
+            
             #region 初始化热键管理器并注册快捷键
             GlobalHotkeyTool.Initialize(this);
             RegisterHotKeys();//注册快捷键
             #endregion
-
-            #region 自动拿牌服务实例化
-            _cardService = new CardService(button_GetCard, button_Refresh, _iappConfigService,_iAutoConfigService, _iCorrectionService, _iheroDataService, _ilineUpService);            
-            #endregion    
 
             #region 初始化鼠标钩子并绑定事件
             MouseHookTool.Initialize();
@@ -159,8 +163,8 @@ namespace JinChanChanTool
             #endregion
 
             #region 初始化状态显示窗口
-            StatusOverlayForm.Instance.InitializeObject(_iAutoConfigService);
-            if(_iappConfigService.CurrentConfig.IsUseStatusOverlayForm)
+            StatusOverlayForm.Instance.InitializeObject(_iAutomaticSettingsService,_cardService);
+            if(_iManualSettingsService.CurrentConfig.IsUseStatusOverlayForm)
             {
                 StatusOverlayForm.Instance.Show();
                 UpdateOverlayStatus();
@@ -168,16 +172,16 @@ namespace JinChanChanTool
             #endregion
 
             #region 初始化英雄选择窗口
-            SelectForm.Instance.InitializeObject(_iAutoConfigService);
-            if(_iappConfigService.CurrentConfig.IsUseSelectForm)
+            SelectForm.Instance.InitializeObject(_iAutomaticSettingsService);
+            if(_iManualSettingsService.CurrentConfig.IsUseSelectForm)
             {
                 SelectForm.Instance.Show();
             }
             #endregion
 
             #region 初始化阵容选择窗口
-            LineUpForm.Instance.InitializeObject(_ilineUpService, _iAutoConfigService);
-            if(_iappConfigService.CurrentConfig.IsUseLineUpForm)
+            LineUpForm.Instance.InitializeObject(_ilineUpService, _iAutomaticSettingsService);
+            if(_iManualSettingsService.CurrentConfig.IsUseLineUpForm)
             {
                 LineUpForm.Instance.Show();
             }
@@ -185,7 +189,7 @@ namespace JinChanChanTool
             
             #region 更新英雄推荐装备
             // 检查是否启用自动更新推荐装备数据
-            if (_iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment)
+            if (_iManualSettingsService.CurrentConfig.IsAutomaticUpdateEquipment)
             {
                 await UpdateEquipmentsAsync();
             }            
@@ -242,12 +246,13 @@ namespace JinChanChanTool
                 e.ChangedFields.Contains("HotKey4"))
             {
                 RegisterHotKeys();
-            }
+                UpdateOverlayStatus();
+            }          
 
             #region 如果变更的是窗口显示相关设置，则更新对应窗口的显示状态           
             if (e.ChangedFields.Contains("IsUseSelectForm"))
             {
-                if(_iappConfigService.CurrentConfig.IsUseSelectForm)
+                if(_iManualSettingsService.CurrentConfig.IsUseSelectForm)
                 {                  
                     SelectForm.Instance.TopMost = false;
                     SelectForm.Instance.TopMost = true;
@@ -261,7 +266,7 @@ namespace JinChanChanTool
 
             if (e.ChangedFields.Contains("IsUseLineUpForm"))
             {
-                if (_iappConfigService.CurrentConfig.IsUseLineUpForm)
+                if (_iManualSettingsService.CurrentConfig.IsUseLineUpForm)
                 {
                     LineUpForm.Instance.TopMost = false;
                     LineUpForm.Instance.TopMost = true;
@@ -275,7 +280,7 @@ namespace JinChanChanTool
 
             if (e.ChangedFields.Contains("IsUseStatusOverlayForm"))
             {
-                if (_iappConfigService.CurrentConfig.IsUseStatusOverlayForm)
+                if (_iManualSettingsService.CurrentConfig.IsUseStatusOverlayForm)
                 {
                     StatusOverlayForm.Instance.TopMost = false;
                     StatusOverlayForm.Instance.TopMost = true;
@@ -290,7 +295,7 @@ namespace JinChanChanTool
 
             if (e.ChangedFields.Contains("IsUseOutputForm"))
             {
-                if (_iappConfigService.CurrentConfig.IsUseOutputForm)
+                if (_iManualSettingsService.CurrentConfig.IsUseOutputForm)
                 {
                     OutputForm.Instance.TopMost = false;
                     OutputForm.Instance.TopMost = true;
@@ -302,9 +307,18 @@ namespace JinChanChanTool
                 }
             }
             #endregion
-
+           
+            if(e.ChangedFields.Contains("TransparentHeroPictureBoxSize")||
+               e.ChangedFields.Contains("TransparentHeroPictureBoxHorizontalSpacing")||
+               e.ChangedFields.Contains("TransparentHeroPanelsVerticalSpacing")||
+               e.ChangedFields.Contains("TransparentPanelDraggingBarWidth"))
+            {
+                _uiBuilderService.ReBuild();
+                UIReBinding();
+            }
+           
             //如果变更的是需要重启才能生效的设置，则询问用户是否重启应用
-            if (e.ChangedFields.Contains("MaxHerosCount") ||
+            if (e.ChangedFields.Contains("MaxHerosCount")||
                 e.ChangedFields.Contains("MaxLineUpCount") ||
                 e.ChangedFields.Contains("IsUseCPUForInference") ||
                 e.ChangedFields.Contains("IsUseGPUForInference")) 
@@ -336,10 +350,10 @@ namespace JinChanChanTool
         private void RegisterHotKeys()
         {
             GlobalHotkeyTool.UnregisterAll();//先注销所有热键
-            string hotKey1 = _iappConfigService.CurrentConfig.HotKey1;
-            string hotKey2 = _iappConfigService.CurrentConfig.HotKey2;
-            string hotKey3 = _iappConfigService.CurrentConfig.HotKey3;
-            string hotKey4 = _iappConfigService.CurrentConfig.HotKey4;
+            string hotKey1 = _iManualSettingsService.CurrentConfig.HotKey1;
+            string hotKey2 = _iManualSettingsService.CurrentConfig.HotKey2;
+            string hotKey3 = _iManualSettingsService.CurrentConfig.HotKey3;
+            string hotKey4 = _iManualSettingsService.CurrentConfig.HotKey4;
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1)))
             {
                 GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1), () => button_GetCard_Click(this, EventArgs.Empty));
@@ -355,55 +369,36 @@ namespace JinChanChanTool
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey4)))
             {
                 GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey4), () =>
-                {
-                    if (button_GetCard.Text == "启动")
-                    {
-                        button_GetCard_Click(button_GetCard, EventArgs.Empty);
-                    }
-
-                    if (button_Refresh.Text == "启动")
-                    {
-                        button_Refresh_Click(button_Refresh, EventArgs.Empty);
-                    }
+                {                   
+                    _cardService.StartLoop();
+                    _cardService.AutoRefreshOn();
                 });
             }
             GlobalHotkeyTool.RegisterKeyUp(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey4), () =>
-            {
-                if (button_GetCard.Text == "停止")
-                {
-                    button_GetCard_Click(button_GetCard, EventArgs.Empty);
-                }
-
-                if (button_Refresh.Text == "停止")
-                {
-                    button_Refresh_Click(button_Refresh, EventArgs.Empty);
-                }
+            {               
+                _cardService.StopLoop();
+                _cardService.AutoRefreshOff();
             });
         }
         #endregion
 
-        #region UI构建
+        #region UI构建       
         /// <summary>
-        /// 构建UI并绑定事件
+        /// 首次启动绑定UI事件
         /// </summary>
-        private void UIBuildAndBidingEvents()
+        private void UIBindingWhenStart()
         {
-            _uiBuilderService.CreateHeroSelectors();
-            _uiBuilderService.CreateProfessionAndPeculiarityButtons();           
-            _uiBuilderService.CreateSubLineUpComponents();
-            _uiBuilderService.CreateLineUpComponents();
-            _uiBuilderService.CreateTransparentHeroPictureBox();
+            #region 主窗口UI事件绑定
             //为主窗口每个奕子单选框绑定事件——选择状态改变时触发
             for (int i = 0; i < _uiBuilderService.checkBoxes.Count; i++)
             {
                 _uiBuilderService.checkBoxes[i].CheckedChanged += CheckBoxCheckedChanged;
-
             }
 
             //为主窗口英雄头像框绑定交互事件
-            for (int i = 0; i < _iheroDataService.GetHeroCount(); i++)
+            for (int i = 0; i < _uiBuilderService.heroPictureBoxes.Count; i++)
             {
-               
+
                 _uiBuilderService.heroPictureBoxes[i].MouseEnter += HeroPictureBox_MouseEnter;
                 _uiBuilderService.heroPictureBoxes[i].MouseLeave += HeroPictureBox_MouseLeave;
                 _uiBuilderService.heroPictureBoxes[i].MouseDown += HeroPictureBox_MouseDown;
@@ -437,27 +432,29 @@ namespace JinChanChanTool
             //为主窗口子阵容面板绑定交互事件
             for (int i = 0; i < _uiBuilderService.subLineUpPanels.Count; i++)
             {
-                _uiBuilderService.subLineUpPanels[i].MouseEnter -= Panel_MouseEnter;
-                _uiBuilderService.subLineUpPanels[i].MouseLeave -= Panel_MouseLeave;
-                _uiBuilderService.subLineUpPanels[i].MouseDown -= Panel_MouseDown;
-                _uiBuilderService.subLineUpPanels[i].MouseUp -= Panel_MouseUp;
                 _uiBuilderService.subLineUpPanels[i].MouseEnter += Panel_MouseEnter;
                 _uiBuilderService.subLineUpPanels[i].MouseLeave += Panel_MouseLeave;
                 _uiBuilderService.subLineUpPanels[i].MouseDown += Panel_MouseDown;
                 _uiBuilderService.subLineUpPanels[i].MouseUp += Panel_MouseUp;
             }
+            #endregion
 
+            #region 半透明英雄选择窗口UI事件
             //为英雄选择窗口英雄头像框绑定交互事件
-            for (int i = 0; i < _iheroDataService.GetHeroCount(); i++)
+            for (int i = 0; i < _uiBuilderService.TransparentheroPictureBoxes.Count; i++)
             {
-                _uiBuilderService.TransparentheroPictureBoxes[i].Click += TransparentheroPictureBoxes_Click;
-                
+                _uiBuilderService.TransparentheroPictureBoxes[i].MouseDown += TransparentheroPictureBoxes_Click;
+                SelectForm.Instance.绑定拖动(_uiBuilderService.TransparentheroPictureBoxes[i]);
+
             }
 
+
+            #endregion
+
+            #region 阵容窗口UI事件
             //为阵容窗口子阵容面板绑定交互事件
-            for(int i =0;i<_uiBuilderService.lineUpPanels.Count;i++)
+            for (int i = 0; i < _uiBuilderService.lineUpPanels.Count; i++)
             {
-                _uiBuilderService.lineUpPanels[i].MouseUp -= LineUpPanel_MouseUp;
                 _uiBuilderService.lineUpPanels[i].MouseUp += LineUpPanel_MouseUp;
             }
 
@@ -466,19 +463,70 @@ namespace JinChanChanTool
             {
                 for (int i = 0; i < _uiBuilderService.lineUpPictureBoxes.GetLength(1); i++)
                 {
-                    _uiBuilderService.lineUpPictureBoxes[j, i].MouseUp -= LinePictureBox_MouseUp;
                     _uiBuilderService.lineUpPictureBoxes[j, i].MouseUp += LinePictureBox_MouseUp;
                 }
             }
-            //为阵容窗口阵容下拉框绑定事件
-            LineUpForm.Instance.comboBox_LineUp.DropDownClosed -= comboBox_LineUps_DropDownClosed;
+
+            //为阵容下拉框绑定事件
             LineUpForm.Instance.comboBox_LineUp.DropDownClosed += comboBox_LineUps_DropDownClosed;
-
-            LineUpForm.Instance.comboBox_LineUp.Leave -= comboBox_LineUps_Leave;
             LineUpForm.Instance.comboBox_LineUp.Leave += comboBox_LineUps_Leave;
-
-            LineUpForm.Instance.comboBox_LineUp.KeyDown -= comboBox_LineUps_KeyDown;
             LineUpForm.Instance.comboBox_LineUp.KeyDown += comboBox_LineUps_KeyDown;
+            #endregion
+        }
+
+        private void UIReBinding()
+        {
+            #region 主窗口UI事件绑定
+            //为主窗口每个奕子单选框绑定事件——选择状态改变时触发
+            for (int i = 0; i < _uiBuilderService.checkBoxes.Count; i++)
+            {
+                _uiBuilderService.checkBoxes[i].CheckedChanged += CheckBoxCheckedChanged;
+            }
+
+            //为主窗口英雄头像框绑定交互事件
+            for (int i = 0; i < _uiBuilderService.heroPictureBoxes.Count; i++)
+            {
+
+                _uiBuilderService.heroPictureBoxes[i].MouseEnter += HeroPictureBox_MouseEnter;
+                _uiBuilderService.heroPictureBoxes[i].MouseLeave += HeroPictureBox_MouseLeave;
+                _uiBuilderService.heroPictureBoxes[i].MouseDown += HeroPictureBox_MouseDown;
+                _uiBuilderService.heroPictureBoxes[i].MouseUp += HeroPictureBox_MouseUp;
+            }
+
+            //为主窗口按职业选择英雄按钮添加点击事件
+            for (int i = 0; i < _uiBuilderService.professionButtons.Count; i++)
+            {
+                _uiBuilderService.professionButtons[i].Click += ProfessionButtonClick;
+            }
+
+            //为主窗口按特质选择英雄按钮添加点击事件
+            for (int i = 0; i < _uiBuilderService.peculiarityButtons.Count; i++)
+            {
+                _uiBuilderService.peculiarityButtons[i].Click += PeculiarityButtonClick;
+            }
+            #endregion
+
+            #region 半透明英雄选择窗口UI事件
+            //为英雄选择窗口英雄头像框绑定交互事件
+            for (int i = 0; i < _uiBuilderService.TransparentheroPictureBoxes.Count; i++)
+            {
+                _uiBuilderService.TransparentheroPictureBoxes[i].MouseDown += TransparentheroPictureBoxes_Click;
+                SelectForm.Instance.绑定拖动(_uiBuilderService.TransparentheroPictureBoxes[i]);
+            }
+
+
+            #endregion
+
+            #region 阵容窗口UI事件          
+            //为阵容窗口英雄头像框绑定交互事件
+            for (int j = 0; j < _uiBuilderService.lineUpPictureBoxes.GetLength(0); j++)
+            {
+                for (int i = 0; i < _uiBuilderService.lineUpPictureBoxes.GetLength(1); i++)
+                {                    
+                    _uiBuilderService.lineUpPictureBoxes[j, i].MouseUp += LinePictureBox_MouseUp;
+                }
+            }           
+            #endregion
         }
         #endregion
 
@@ -487,12 +535,8 @@ namespace JinChanChanTool
         /// 更新状态显示
         /// </summary>
         public void UpdateOverlayStatus()
-        {
-            // 获取两个开关的状态
-            bool status1 = button_GetCard.Text == "停止"; // 假设按钮1是第一个开关
-            bool status2 = button_Refresh.Text == "停止"; // 假设按钮2是第二个开关
-
-            StatusOverlayForm.Instance.UpdateStatus(status1, status2,_iappConfigService.CurrentConfig.HotKey1,_iappConfigService.CurrentConfig.HotKey2, _iappConfigService.CurrentConfig.HotKey3, _iappConfigService.CurrentConfig.HotKey4);
+        {            
+            StatusOverlayForm.Instance.UpdateStatus(_iManualSettingsService.CurrentConfig.HotKey1,_iManualSettingsService.CurrentConfig.HotKey2, _iManualSettingsService.CurrentConfig.HotKey3, _iManualSettingsService.CurrentConfig.HotKey4);
         }
         #endregion
 
@@ -564,7 +608,7 @@ namespace JinChanChanTool
             // 检查窗口是否已存在且未被释放
             if (_settingFormInstance == null || _settingFormInstance.IsDisposed)
             {
-                _settingFormInstance = new SettingForm(_iappConfigService);
+                _settingFormInstance = new SettingForm(_iManualSettingsService);
                 _settingFormInstance.FormClosed += (s, args) => _settingFormInstance = null; // 窗口关闭时重置实例
                 _settingFormInstance.TopMost = true;
                 _settingFormInstance.Show();
@@ -621,20 +665,8 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public async void button_GetCard_Click(object sender, EventArgs e)
-        {
-            if (button_GetCard.Text == "停止")
-            {
-                button_GetCard.Text = "启动";
-                comboBox_HeroPool.Enabled = true;
-                _cardService.StopLoop();
-            }
-            else
-            {
-                button_GetCard.Text = "停止";
-                comboBox_HeroPool.Enabled = false;
-                _cardService.StartLoop();
-            }
-            UpdateOverlayStatus();
+        {            
+            _cardService.ToggleLoop();
         }
 
         /// <summary>
@@ -643,41 +675,32 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void button_Refresh_Click(object sender, EventArgs e)
-        {            
-            if (button_Refresh.Text == "停止")
-            {
-                button_Refresh.Text = "启动";
-                _cardService.AutoRefreshOff();
-            }
-            else
-            {
-                button_Refresh.Text = "停止";
-                _cardService.AutoRefreshOn();
-            }
-            UpdateOverlayStatus();
-
+        {          
+            _cardService.ToggleRefreshStore();
         }
 
-        /// <summary>
-        /// 自动拿牌按钮文本改变事件处理程序
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_GetCard_TextChanged(object sender, EventArgs e)
+        private void OnIsGetCardChanged(bool isRunning)
         {
-            UpdateOverlayStatus();
+            // 确保在UI线程上更新
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<bool>(OnIsGetCardChanged), isRunning);
+                return;
+            }
+            button_GetCard.Text = isRunning ? "停止" : "开启";           
         }
-
-        /// <summary>
-        /// 自动刷新商店按钮文本改变事件处理程序
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_Refresh_TextChanged(object sender, EventArgs e)
+       
+        private void OnAutoRefreshStatusChanged(bool isRunning)
         {
-            UpdateOverlayStatus();
+            // 确保在UI线程上更新
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<bool>(OnAutoRefreshStatusChanged), isRunning);
+                return;
+            }
+            button_Refresh.Text = isRunning ? "停止" : "开启";            
         }
-
+             
         /// <summary>
         /// 鼠标左键按下事件处理程序
         /// </summary>
@@ -690,7 +713,7 @@ namespace JinChanChanTool
                 Invoke((MethodInvoker)delegate { MouseHook_MouseLeftButtonDown(sender, e); });
                 return;
             }
-            if (_iappConfigService.CurrentConfig.IsHighUserPriority)
+            if (_iManualSettingsService.CurrentConfig.IsHighUserPriority)
             {
                 _cardService.MouseLeftButtonDown();
             }
@@ -802,23 +825,25 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void comboBox_HeroPool_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _iAutoConfigService.CurrentConfig.SelectedSeason = comboBox_HeroPool.Items[comboBox_HeroPool.SelectedIndex].ToString();
-            _iAutoConfigService.Save();
-            _iheroDataService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectedSeason);
+            _iAutomaticSettingsService.CurrentConfig.SelectedSeason = comboBox_HeroPool.Items[comboBox_HeroPool.SelectedIndex].ToString();
+            _iAutomaticSettingsService.Save();
+            _iheroDataService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iheroDataService.ReLoad();
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
-            if (!_ilineUpService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectedSeason))
+            if (!_ilineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason))
             {
-                Debug.WriteLine($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutoConfigService.CurrentConfig.SelectedSeason}”的赛季！");
-                LogTool.Log($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutoConfigService.CurrentConfig.SelectedSeason}”的赛季！");
-                OutputForm.Instance.WriteLineOutputMessage($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutoConfigService.CurrentConfig.SelectedSeason}”的赛季！");
-                MessageBox.Show($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutoConfigService.CurrentConfig.SelectedSeason}”的赛季！","严重错误",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                Debug.WriteLine($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutomaticSettingsService.CurrentConfig.SelectedSeason}”的赛季！");
+                LogTool.Log($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutomaticSettingsService.CurrentConfig.SelectedSeason}”的赛季！");
+                OutputForm.Instance.WriteLineOutputMessage($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutomaticSettingsService.CurrentConfig.SelectedSeason}”的赛季！");
+                MessageBox.Show($"严重错误：阵容数据服务对象所读取的阵容中，未包含赛季名为“{_iAutomaticSettingsService.CurrentConfig.SelectedSeason}”的赛季！","严重错误",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }            
             _ilineUpService.ReLoad(_iheroDataService);      
-            _iAutoConfigService.CurrentConfig.SelectedLineUpIndex = _ilineUpService.GetLineUpIndex();
-            _iAutoConfigService.Save();
-            _uiBuilderService.UnBuild();            
-            UIBuildAndBidingEvents();            
+            _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _ilineUpService.GetLineUpIndex();
+            _iAutomaticSettingsService.Save();
+
+            _uiBuilderService.ReBuild();
+            UIReBinding();           
+
             LoadNameFromLineUpsToComboBox();
             LoadLineUpToUI();//分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容            
         }
@@ -835,8 +860,8 @@ namespace JinChanChanTool
             if (comboBox.SelectedIndex != -1)
             {                
                 _ilineUpService.SetLineUpIndex(comboBox.SelectedIndex);
-                _iAutoConfigService.CurrentConfig.SelectedLineUpIndex = _ilineUpService.GetLineUpIndex();
-                _iAutoConfigService.Save();
+                _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _ilineUpService.GetLineUpIndex();
+                _iAutomaticSettingsService.Save();
             }
             
             //从本地阵容文件读取数据到_lineupManager
@@ -1076,11 +1101,14 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TransparentheroPictureBoxes_Click(object sender, EventArgs e)
+        private void TransparentheroPictureBoxes_Click(object sender, MouseEventArgs e)
         {
-            HeroPictureBox clickedBox = sender as HeroPictureBox;
-            string name = clickedBox.Tag as string;
-            _ilineUpService.AddAndDeleteHero(name);
+            if (e.Button == MouseButtons.Left)
+            {
+                HeroPictureBox clickedBox = sender as HeroPictureBox;
+                string name = clickedBox.Tag as string;
+                _ilineUpService.AddAndDeleteHero(name);
+            }            
         }
         #endregion
 
@@ -1397,9 +1425,9 @@ namespace JinChanChanTool
         /// <returns></returns>
         private async Task UpdateEquipmentsAsync()
         {                                            
-            TimeSpan timeDifference = DateTime.Now - _iAutoConfigService.CurrentConfig.EquipmentLastUpdateTime;
+            TimeSpan timeDifference = DateTime.Now - _iAutomaticSettingsService.CurrentConfig.EquipmentLastUpdateTime;
             // 如果上次更新距离现在的时间小于配置的间隔时间，则跳过更新
-            if (timeDifference.TotalHours<=_iappConfigService.CurrentConfig.UpdateEquipmentInterval)
+            if (timeDifference.TotalHours<=_iManualSettingsService.CurrentConfig.UpdateEquipmentInterval)
             {
                 //MessageBox.Show($"装备数据在 {_iAutoConfigService.CurrentConfig.LastUpdateTime:yyyy年MM月dd日HH:mm:ss} 刚刚更新过，已是最新，无需重复更新。",
                 //                "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1408,7 +1436,7 @@ namespace JinChanChanTool
 
             // 询问用户是否进行更新         
             var r = MessageBox.Show(
-                $"最后一次更新推荐装备数据的时间是：{_iAutoConfigService.CurrentConfig.EquipmentLastUpdateTime:yyyy年MM月dd日HH:mm:ss}，距现在已经过去了{(int)((DateTime.Now - _iAutoConfigService.CurrentConfig.EquipmentLastUpdateTime).TotalHours)}个小时,是否要获取最新的推荐装备数据？",
+                $"最后一次更新推荐装备数据的时间是：{_iAutomaticSettingsService.CurrentConfig.EquipmentLastUpdateTime:yyyy年MM月dd日HH:mm:ss}，距现在已经过去了{(int)((DateTime.Now - _iAutomaticSettingsService.CurrentConfig.EquipmentLastUpdateTime).TotalHours)}个小时,是否要获取最新的推荐装备数据？",
                 "是否获取最新的推荐装备数据",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
@@ -1463,9 +1491,9 @@ namespace JinChanChanTool
                     // 重新加载数据中心的内存
                     _iheroEquipmentDataService.ReLoad();
 
-                    _iAutoConfigService.CurrentConfig.EquipmentLastUpdateTime = DateTime.Now;
+                    _iAutomaticSettingsService.CurrentConfig.EquipmentLastUpdateTime = DateTime.Now;
 
-                    _iAutoConfigService.Save();
+                    _iAutomaticSettingsService.Save();
                     // 提示用户重启以确保所有状态都刷新
                     DialogResult result = MessageBox.Show(this,
                         "装备数据更新成功！\n\n为了确保所有组件都使用最新数据，建议重启程序。\n点击“确定”立即重启。",
@@ -1572,9 +1600,15 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
-        {            
+        {
+            string put = "";
+            foreach(string name in _ilineUpService.GetCurrentSubLineUp())
+            {
+                put += name+"   ";
+            }
+            Debug.WriteLine(put);
             // 检查是否处于自动坐标模式
-            if (!_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
+            if (!_iManualSettingsService.CurrentConfig.IsUseDynamicCoordinates)
             {
                 _automationService.SetTargetProcess(null);
                 return;
@@ -1586,7 +1620,7 @@ namespace JinChanChanTool
             Process[] processes = null;
 
             // ID 优先,检查用户上次精确选择的进程ID是否依然有效
-            int targetId = _iappConfigService.CurrentConfig.TargetProcessId;
+            int targetId = _iManualSettingsService.CurrentConfig.TargetProcessId;
             if (targetId > 0)
             {               
                 var runningProcessIds = Process.GetProcesses().Select(p => p.Id).ToHashSet();
@@ -1598,7 +1632,7 @@ namespace JinChanChanTool
                     try
                     {
                         Process p = Process.GetProcessById(targetId);
-                        if (p.ProcessName.Equals(_iappConfigService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
+                        if (p.ProcessName.Equals(_iManualSettingsService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
                         {
                             targetProcess = p;
                             processFound = true;
@@ -1612,14 +1646,14 @@ namespace JinChanChanTool
                 else
                 {
                     // 如果ID不存在，说明进程已关闭
-                    _iappConfigService.CurrentConfig.TargetProcessId = 0;
+                    _iManualSettingsService.CurrentConfig.TargetProcessId = 0;
                 }
             }
 
             // 如果在按ID查找时未找到进程，则按名称查找
             if (!processFound)
             {
-                string targetName = _iappConfigService.CurrentConfig.TargetProcessName;
+                string targetName = _iManualSettingsService.CurrentConfig.TargetProcessName;
                 if (string.IsNullOrEmpty(targetName))
                 {
                     _automationService.SetTargetProcess(null);
@@ -1632,7 +1666,7 @@ namespace JinChanChanTool
                 {
                     targetProcess = processes[0];
                     // 找到了唯一匹配的进程，更新我们的精确ID以便下次快速查找
-                    _iappConfigService.CurrentConfig.TargetProcessId = targetProcess.Id;
+                    _iManualSettingsService.CurrentConfig.TargetProcessId = targetProcess.Id;
                 }
                 else if (processes.Length > 1)
                 {
@@ -1679,36 +1713,36 @@ namespace JinChanChanTool
 
                 if (rectSlot1.HasValue)
                 {
-                    _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1 = rectSlot1.Value.X;
-                    _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y = rectSlot1.Value.Y;
-                    _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth = rectSlot1.Value.Width;
-                    _iAutoConfigService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;                   
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X1 = rectSlot1.Value.X;
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_Y = rectSlot1.Value.Y;
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotWidth = rectSlot1.Value.Width;
+                    _iAutomaticSettingsService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;                   
                 }
 
                 if (rectSlot2.HasValue)
                 {
-                    _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2 = rectSlot2.Value.X;                  
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X2 = rectSlot2.Value.X;                  
                 }
 
                 if (rectSlot3.HasValue)
                 {
-                    _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3 = rectSlot3.Value.X;                    
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X3 = rectSlot3.Value.X;                    
                 }
 
                 if (rectSlot4.HasValue)
                 {
-                    _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4 = rectSlot4.Value.X;                   
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X4 = rectSlot4.Value.X;                   
                 }
 
                 if (rectSlot5.HasValue)
                 {
-                    _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 = rectSlot5.Value.X;                   
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X5 = rectSlot5.Value.X;                   
                 }
                 // --- 刷新按钮中心点 ---
                 if (rectRefresh.HasValue)
                 {
-                    _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
-                    _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;                   
+                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonCoordinates_X = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
+                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonCoordinates_Y = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;                   
                 }
             }
         }

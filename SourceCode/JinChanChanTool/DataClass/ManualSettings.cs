@@ -241,6 +241,26 @@
         public int TargetProcessId { get; set; }
 
         /// <summary>
+        /// 半透明英雄面板英雄头像框的边长大小，单位：像素
+        /// </summary>
+        public int TransparentHeroPictureBoxSize { get; set; }
+
+        /// <summary>
+        /// 半透明英雄面板英雄头像框的水平间距，单位：像素
+        /// </summary>
+        public int TransparentHeroPictureBoxHorizontalSpacing { get; set; }
+
+        /// <summary>
+        /// 半透明英雄面板英雄头像框的垂直平间距，单位：像素
+        /// </summary>
+        public int TransparentHeroPanelsVerticalSpacing { get; set; }
+
+        /// <summary>
+        /// 半透明英雄面板拖拽条的宽度，单位：像素
+        /// </summary>
+        public int TransparentPanelDraggingBarWidth { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public ManualSettings()
@@ -292,6 +312,10 @@
             IsAutomaticUpdateEquipment = true;
             TargetProcessName = "";
             TargetProcessId = 0;
+            TransparentHeroPictureBoxSize = 36;
+            TransparentHeroPictureBoxHorizontalSpacing = 0;
+            TransparentHeroPanelsVerticalSpacing = 0;
+            TransparentPanelDraggingBarWidth = 8;
         }
 
         /// <summary>
@@ -349,6 +373,10 @@
                 IsAutomaticUpdateEquipment = this.IsAutomaticUpdateEquipment,
                 TargetProcessName = this.TargetProcessName,
                 TargetProcessId = this.TargetProcessId,
+                TransparentHeroPictureBoxSize = this.TransparentHeroPictureBoxSize,
+                TransparentHeroPictureBoxHorizontalSpacing = this.TransparentHeroPictureBoxHorizontalSpacing,
+                TransparentHeroPanelsVerticalSpacing = this.TransparentHeroPanelsVerticalSpacing,
+                TransparentPanelDraggingBarWidth = this.TransparentPanelDraggingBarWidth,
             };
         }
 
@@ -408,7 +436,11 @@
                    UpdateEquipmentInterval == other.UpdateEquipmentInterval &&
                    IsAutomaticUpdateEquipment == other.IsAutomaticUpdateEquipment &&
                    TargetProcessName == other.TargetProcessName &&
-                   TargetProcessId == other.TargetProcessId;
+                   TargetProcessId == other.TargetProcessId &&
+                   TransparentHeroPictureBoxSize == other.TransparentHeroPictureBoxSize &&
+                   TransparentHeroPictureBoxHorizontalSpacing == other.TransparentHeroPictureBoxHorizontalSpacing &&
+                   TransparentHeroPanelsVerticalSpacing == other.TransparentHeroPanelsVerticalSpacing &&
+                   TransparentPanelDraggingBarWidth == other.TransparentPanelDraggingBarWidth;
         }
 
         

@@ -1600,13 +1600,7 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
-        {
-            string put = "";
-            foreach(string name in _ilineUpService.GetCurrentSubLineUp())
-            {
-                put += name+"   ";
-            }
-            Debug.WriteLine(put);
+        {                      
             // 检查是否处于自动坐标模式
             if (!_iManualSettingsService.CurrentConfig.IsUseDynamicCoordinates)
             {

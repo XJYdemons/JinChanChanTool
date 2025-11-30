@@ -685,12 +685,12 @@
             panel_阵容相关.Size = new Size(368, 325);
             panel_阵容相关.TabIndex = 18;
             // 
-            // label_最大选择数量
+            // label_单个阵容最大英雄容量
             // 
             label_单个阵容最大英雄容量.AutoSize = true;
             label_单个阵容最大英雄容量.Location = new Point(5, 43);
             label_单个阵容最大英雄容量.MinimumSize = new Size(84, 23);
-            label_单个阵容最大英雄容量.Name = "label_最大选择数量";
+            label_单个阵容最大英雄容量.Name = "label_单个阵容最大英雄容量";
             label_单个阵容最大英雄容量.Size = new Size(128, 23);
             label_单个阵容最大英雄容量.TabIndex = 14;
             label_单个阵容最大英雄容量.Text = "单个阵容最大英雄容量";
@@ -709,10 +709,10 @@
             button_英雄配置文件编辑器.UseVisualStyleBackColor = true;
             button_英雄配置文件编辑器.Click += button_英雄配置文件编辑器_Click;
             // 
-            // textBox_最大选择数量
+            // textBox_单个阵容最大英雄容量
             // 
             textBox_单个阵容最大英雄容量.Location = new Point(295, 43);
-            textBox_单个阵容最大英雄容量.Name = "textBox_最大选择数量";
+            textBox_单个阵容最大英雄容量.Name = "textBox_单个阵容最大英雄容量";
             textBox_单个阵容最大英雄容量.Size = new Size(70, 23);
             textBox_单个阵容最大英雄容量.TabIndex = 13;
             textBox_单个阵容最大英雄容量.TabStop = false;
@@ -1205,9 +1205,9 @@
             checkBox_UseErrorShowForm.AutoSize = true;
             checkBox_UseErrorShowForm.Location = new Point(5, 83);
             checkBox_UseErrorShowForm.Name = "checkBox_UseErrorShowForm";
-            checkBox_UseErrorShowForm.Size = new Size(147, 21);
+            checkBox_UseErrorShowForm.Size = new Size(75, 21);
             checkBox_UseErrorShowForm.TabIndex = 22;
-            checkBox_UseErrorShowForm.Text = "启用错误信息展示窗口";
+            checkBox_UseErrorShowForm.Text = "输出窗口";
             checkBox_UseErrorShowForm.UseVisualStyleBackColor = true;
             // 
             // checkBox_UseStatusOverlayForm

@@ -223,8 +223,14 @@ namespace JinChanChanTool
                     MessageBox.Show("保存成功！本次保存无设置项发生修改。", "无设置项发生修改", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 return;
-            }           
-            if(e.IsManualChange)
+            }
+            //Debug.WriteLine("-----------------------");
+            //foreach (var f in e.ChangedFields)
+            //{
+            //    Debug.WriteLine(f.ToString());
+            //}
+
+            if (e.IsManualChange)
             {
                 MessageBox.Show("设置保存成功！", "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -239,7 +245,7 @@ namespace JinChanChanTool
             }
 
             #region 如果变更的是窗口显示相关设置，则更新对应窗口的显示状态           
-            if (e.ChangedFields.Contains("UseSelectorForm"))
+            if (e.ChangedFields.Contains("IsUseSelectForm"))
             {
                 if(_iappConfigService.CurrentConfig.IsUseSelectForm)
                 {                  
@@ -253,7 +259,7 @@ namespace JinChanChanTool
                 }
             }
 
-            if (e.ChangedFields.Contains("UseLineUpForm"))
+            if (e.ChangedFields.Contains("IsUseLineUpForm"))
             {
                 if (_iappConfigService.CurrentConfig.IsUseLineUpForm)
                 {
@@ -267,7 +273,7 @@ namespace JinChanChanTool
                 }
             }
 
-            if (e.ChangedFields.Contains("UseStatusOverlayForm"))
+            if (e.ChangedFields.Contains("IsUseStatusOverlayForm"))
             {
                 if (_iappConfigService.CurrentConfig.IsUseStatusOverlayForm)
                 {
@@ -282,7 +288,7 @@ namespace JinChanChanTool
                 }
             }
 
-            if (e.ChangedFields.Contains("UseErrorShowForm"))
+            if (e.ChangedFields.Contains("IsUseOutputForm"))
             {
                 if (_iappConfigService.CurrentConfig.IsUseOutputForm)
                 {
@@ -298,10 +304,10 @@ namespace JinChanChanTool
             #endregion
 
             //如果变更的是需要重启才能生效的设置，则询问用户是否重启应用
-            if (e.ChangedFields.Contains("MaxOfChoices")||
-                e.ChangedFields.Contains("CountOfLine") ||
-                e.ChangedFields.Contains("UseCPU") ||
-                e.ChangedFields.Contains("UseGPU")) 
+            if (e.ChangedFields.Contains("MaxHerosCount") ||
+                e.ChangedFields.Contains("MaxLineUpCount") ||
+                e.ChangedFields.Contains("IsUseCPUForInference") ||
+                e.ChangedFields.Contains("IsUseGPUForInference")) 
             {
                 // 配置已保存，询问用户是否重启应用
                 var result = MessageBox.Show(

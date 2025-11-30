@@ -23,6 +23,7 @@ namespace JinChanChanTool
         {
             InitializeComponent();
             // 添加自定义标题栏
+
             CustomTitleBar titleBar = new CustomTitleBar(this, 32, null, "设置", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
             this.Controls.Add(titleBar);
             //隐藏图标

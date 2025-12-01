@@ -35,8 +35,9 @@ namespace JinChanChanTool.Forms
             draggingBar.MouseDown += panel_MouseDown;
             draggingBar.MouseMove += panel_MouseMove;
             draggingBar.MouseUp += panel_MouseUp;
+            
         }
-
+      
         private void Selector_Load(object sender, EventArgs e)
         {                       
         }

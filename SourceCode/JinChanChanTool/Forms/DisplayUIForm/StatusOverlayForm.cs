@@ -118,28 +118,32 @@ namespace JinChanChanTool.Forms
                 BackColor = Color.Transparent
             };
 
-            // 创建按钮容器面板
-            Panel buttonPanel = new Panel
+            // 创建按钮容器面板 - 使用FlowLayoutPanel实现自动布局
+            FlowLayoutPanel buttonPanel = new FlowLayoutPanel
             {
+                FlowDirection = FlowDirection.LeftToRight,
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                Height = 30,
-                Padding = new Padding(2),
+                Padding = new Padding(0),
                 Margin = new Padding(2),
-                BackColor = Color.Transparent
+                BackColor = Color.Transparent,
+                WrapContents = false
             };
+
+            // 使用LogicalToDeviceUnits进行DPI缩放
+            Size buttonSize = new Size(this.LogicalToDeviceUnits(80), this.LogicalToDeviceUnits(25));
 
             // 创建左侧按钮
             autoGetCardButton = new Button
             {
                 Text = "自动拿牌",
                 Font = new Font("微软雅黑", 9, FontStyle.Regular),
-                Size = new Size(80, 25),
-                Location = new Point(0, 0),
+                Size = buttonSize,
                 BackColor = Color.FromArgb(80, 80, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false
+                UseVisualStyleBackColor = false,
+                Margin = new Padding(2, 0, 2, 0)
             };
             autoGetCardButton.FlatAppearance.BorderColor = Color.Gray;
             autoGetCardButton.FlatAppearance.MouseOverBackColor = Color.Green;
@@ -150,12 +154,12 @@ namespace JinChanChanTool.Forms
             {
                 Text = "自动刷新",
                 Font = new Font("微软雅黑", 9, FontStyle.Regular),
-                Size = new Size(80, 25),
-                Location = new Point(85, 0), // 左侧按钮宽度+间距
+                Size = buttonSize,
                 BackColor = Color.FromArgb(80, 80, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false
+                UseVisualStyleBackColor = false,
+                Margin = new Padding(2, 0, 2, 0)
             };
             refreshStoreButton.FlatAppearance.BorderColor = Color.Gray;
             refreshStoreButton.FlatAppearance.MouseOverBackColor = Color.Green;

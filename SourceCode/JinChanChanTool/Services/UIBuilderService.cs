@@ -4,6 +4,7 @@ using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using System.Diagnostics;
+using Windows.AI.MachineLearning;
 
 namespace JinChanChanTool.Services
 {
@@ -156,18 +157,37 @@ namespace JinChanChanTool.Services
            
         }
 
+        /// <summary>
+        /// 针对SelectForm的DPI缩放转换函数
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        private int Dpi_S(int i)
+        {
+            return SelectForm.Instance.LogicalToDeviceUnits(i);
+        }
+
+        /// <summary>
+        /// 针对MainForm的DPI缩放转换函数
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>        
+        private int Dpi_M(int i)
+        {
+            return _mainForm.LogicalToDeviceUnits(i);
+        }
         #region 创建半透明英雄头像框
         /// <summary>
         /// 创建英雄选择面板
         /// </summary>
         public void CreatFlowLayoutPanel()
         {
-            //移除原来的英雄选择面板                      
+            //移除原来的英雄选择面板
             while (SelectForm.Instance.panel_Background.Controls.Count > 0)
             {
                 Control control = SelectForm.Instance.panel_Background.Controls[0];
                 SelectForm.Instance.panel_Background.Controls.Remove(control);
-                control.Dispose();      
+                control.Dispose();
             }
             HeroPanels = new List<FlowLayoutPanel>();
 
@@ -179,35 +199,48 @@ namespace JinChanChanTool.Services
                 int count = _iHeroDataService.GetHeroDatasFromCost(i).Count;
                 if (count > MaxHeroCountOfOneType) MaxHeroCountOfOneType = count;
             }
-            transparentHeroPictureBoxSize = new Size( _iManualSettingsService.CurrentConfig.TransparentHeroPictureBoxSize, _iManualSettingsService.CurrentConfig.TransparentHeroPictureBoxSize);
-            transparentHeroPictureBoxHorizontalSpacing= _iManualSettingsService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing ;
-            transparentHeroPanelsVerticalSpacing = _iManualSettingsService.CurrentConfig.TransparentHeroPanelsVerticalSpacing;
-            draggingBarWidth = _iManualSettingsService.CurrentConfig.TransparentPanelDraggingBarWidth; //拖动条宽度
+
+            // 使用Dpi()方法进行DPI缩放转换
+            int pictureBoxSize = Dpi_S(_iManualSettingsService.CurrentConfig.TransparentHeroPictureBoxSize);
+            transparentHeroPictureBoxSize = new Size(pictureBoxSize, pictureBoxSize);
+            transparentHeroPictureBoxHorizontalSpacing = Dpi_S(_iManualSettingsService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing);
+            transparentHeroPanelsVerticalSpacing = Dpi_S(_iManualSettingsService.CurrentConfig.TransparentHeroPanelsVerticalSpacing);
+            draggingBarWidth = Dpi_S(_iManualSettingsService.CurrentConfig.TransparentPanelDraggingBarWidth); //拖动条宽度
+
+            // 对常量padding值也进行DPI转换
+            int bottomPadding = Dpi_S(transparentBackgroundPanelbottomPadding);
+            int rightPadding = Dpi_S(transparentBackgroundPanelRightPadding);
+            int formRightPadding = Dpi_S(transparentFormRightPadding);
+            int formBottomPadding = Dpi_S(transparentFormbottomPadding);
 
             int heroPanelHeight = transparentHeroPictureBoxSize.Height;
-            int newDraggingBarHeight = costTypeCount * (heroPanelHeight + transparentHeroPanelsVerticalSpacing)- transparentHeroPanelsVerticalSpacing;
-            int backgroundPanelHeight = costTypeCount * (heroPanelHeight + transparentHeroPanelsVerticalSpacing) - transparentHeroPanelsVerticalSpacing + transparentBackgroundPanelbottomPadding;
-            int backgroundPanelWidth = MaxHeroCountOfOneType * (transparentHeroPictureBoxSize.Width + transparentHeroPictureBoxHorizontalSpacing) - transparentHeroPictureBoxHorizontalSpacing + transparentBackgroundPanelRightPadding;
-            int formWidth = draggingBarWidth+ backgroundPanelWidth+ transparentFormRightPadding;
-            int formHeight = backgroundPanelHeight+ transparentFormbottomPadding;
+            int newDraggingBarHeight = costTypeCount * (heroPanelHeight + transparentHeroPanelsVerticalSpacing) - transparentHeroPanelsVerticalSpacing;
+            int backgroundPanelHeight = costTypeCount * (heroPanelHeight + transparentHeroPanelsVerticalSpacing) - transparentHeroPanelsVerticalSpacing + bottomPadding;
+            int backgroundPanelWidth = MaxHeroCountOfOneType * (transparentHeroPictureBoxSize.Width + transparentHeroPictureBoxHorizontalSpacing) - transparentHeroPictureBoxHorizontalSpacing + rightPadding;
+            int formWidth = draggingBarWidth + backgroundPanelWidth + formRightPadding;
+            int formHeight = backgroundPanelHeight + formBottomPadding;
+
             SelectForm.Instance.Size = new Size(formWidth, formHeight);
-            SelectForm.Instance.draggingBar.Size =new Size(draggingBarWidth,newDraggingBarHeight) ;
+            SelectForm.Instance.draggingBar.Size = new Size(draggingBarWidth, newDraggingBarHeight);
             SelectForm.Instance.panel_Background.Location = new Point(draggingBarWidth, 0);
             SelectForm.Instance.panel_Background.Size = new Size(backgroundPanelWidth, backgroundPanelHeight);
-            Debug.WriteLine($"formWidth:{formWidth},backgroundPanelWidth:{backgroundPanelWidth}");                       
-            
+            //SelectForm.Instance.BackColor = Color.Green;
+            //SelectForm.Instance.panel_Background.BackColor = Color.Blue;
+
             for (int i = 0; i < costTypeList.Count; i++)
             {
-                
+
                 FlowLayoutPanel heroPanel = new FlowLayoutPanel();
-                heroPanel.AutoSize = true;
-                heroPanel.Size = new Size(_iHeroDataService.GetHeroDatasFromCost(i).Count * (transparentHeroPictureBoxSize.Width + transparentHeroPictureBoxHorizontalSpacing) - transparentHeroPictureBoxHorizontalSpacing, heroPanelHeight);
-                heroPanel.Location = new Point(0, i*(heroPanelHeight + transparentHeroPanelsVerticalSpacing));
+                heroPanel.Location = new Point(0, i * (heroPanelHeight + transparentHeroPanelsVerticalSpacing));
+                heroPanel.Size = new Size(MaxHeroCountOfOneType * (transparentHeroPictureBoxSize.Width + transparentHeroPictureBoxHorizontalSpacing) - transparentHeroPictureBoxHorizontalSpacing, heroPanelHeight);
+                heroPanel.AutoSize = false;
+
+
                 heroPanel.Margin = new Padding(0);
-                heroPanel.Name = $"flowLayoutPanel{costTypeList[i]}";                             
+                heroPanel.Name = $"flowLayoutPanel{costTypeList[i]}";
                 heroPanel.WrapContents = false;
                 heroPanel.Tag = costTypeList[i];
-                heroPanel.BackColor = Color.Transparent;
+                heroPanel.BackColor = Color.Transparent /*Color.FromArgb(255-(i*40),20*i, 20 * i)*/;
                 SelectForm.Instance.panel_Background.Controls.Add(heroPanel);
                 HeroPanels.Add(heroPanel);
             }
@@ -260,7 +293,7 @@ namespace JinChanChanTool.Services
             pictureBox.TabStop = false;
             pictureBox.BackColor = SystemColors.Control;
             pictureBox.BorderWidth = 1;
-            pictureBox.Size = _mainForm.LogicalToDeviceUnits(transparentHeroPictureBoxSize);
+            pictureBox.Size = transparentHeroPictureBoxSize;
             pictureBox.Image = _iHeroDataService.GetImageFromHero(hero);
             pictureBox.Tag = hero.HeroName;
             pictureBox.BorderColor = GetColor(hero.Cost);
@@ -358,7 +391,7 @@ namespace JinChanChanTool.Services
             label_职业.Dock = DockStyle.Top;
             label_职业.Location = new Point(0, 0);
             label_职业.Name = "label_职业";
-            label_职业.Size = new Size(184, 21);           
+            label_职业.Size = new Size(Dpi_M(184), Dpi_M(21));
             label_职业.Text = "--------- 职业 ---------";
             label_职业.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -367,9 +400,9 @@ namespace JinChanChanTool.Services
             panel_SelectByProfession.AutoScroll = true;
             panel_SelectByProfession.Controls.Add(label_职业);
             panel_SelectByProfession.Dock = DockStyle.Left;
-            panel_SelectByProfession.Location = new Point(3, 3);
+            panel_SelectByProfession.Location = new Point(Dpi_M(3), Dpi_M(3));
             panel_SelectByProfession.Name = "panel_SelectByProfession";
-            panel_SelectByProfession.Size = new Size(184, 259);          
+            panel_SelectByProfession.Size = new Size(Dpi_M(184), Dpi_M(259));
             panel_SelectByProfession.ResumeLayout(false);
             _professionButtonPanel = panel_SelectByProfession;
 
@@ -377,7 +410,7 @@ namespace JinChanChanTool.Services
             label_特质.Dock = DockStyle.Top;
             label_特质.Location = new Point(0, 0);
             label_特质.Name = "label_特质";
-            label_特质.Size = new Size(184, 21);            
+            label_特质.Size = new Size(Dpi_M(184), Dpi_M(21));
             label_特质.Text = "--------- 特质 ---------";
             label_特质.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -386,9 +419,9 @@ namespace JinChanChanTool.Services
             panel_SelectByPeculiarity.AutoScroll = true;
             panel_SelectByPeculiarity.Controls.Add(label_特质);
             panel_SelectByPeculiarity.Dock = DockStyle.Right;
-            panel_SelectByPeculiarity.Location = new Point(199, 3);
+            panel_SelectByPeculiarity.Location = new Point(Dpi_M(199), Dpi_M(3));
             panel_SelectByPeculiarity.Name = "panel_SelectByPeculiarity";
-            panel_SelectByPeculiarity.Size = new Size(184, 259);           
+            panel_SelectByPeculiarity.Size = new Size(Dpi_M(184), Dpi_M(259));
             panel_SelectByPeculiarity.ResumeLayout(false);
             _peculiarityButtonPanel = panel_SelectByPeculiarity;
 
@@ -543,7 +576,7 @@ namespace JinChanChanTool.Services
         /// <param name="buttonList">按钮列表</param>
         private void CreateButtonGroup<T>(Panel panel, List<T> items, List<Button> buttonList)
         {
-            // 清空面板和列表          
+            // 清空面板和列表
             buttonList.Clear();
 
             const int startX = 0; // 起始X坐标
@@ -556,13 +589,13 @@ namespace JinChanChanTool.Services
             for (int i = 0; i < items.Count; i++)
             {
                 dynamic item = items[i];
-                Button button = CreatButton((Point)_mainForm.LogicalToDeviceUnits((Size)(new Point(currentX, currentY))),item.Title,item);
-             
+                Button button = CreatButton(new Point(Dpi_M(currentX), Dpi_M(currentY)), item.Title, item);
+
                 // 添加到面板和列表
                 panel.Controls.Add(button);
                 buttonList.Add(button);
 
-                // 更新位置
+                // 更新位置（使用逻辑像素计算，最后转换）
                 columnCount++;
                 currentX += professionAndPeculiarityButtonSize.Width + horizontalSpacing;
 
@@ -591,7 +624,7 @@ namespace JinChanChanTool.Services
             button.ForeColor = SystemColors.ControlText;
             button.Margin = new Padding(0, 0, 0, 0);
             button.TextAlign = ContentAlignment.MiddleCenter;
-            button.Size = _mainForm.LogicalToDeviceUnits( professionAndPeculiarityButtonSize);
+            button.Size = new Size(Dpi_M(professionAndPeculiarityButtonSize.Width), Dpi_M(professionAndPeculiarityButtonSize.Height));
             button.Location = location;
             button.Text = text;
             button.Tag = tag;

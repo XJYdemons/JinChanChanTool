@@ -149,6 +149,7 @@
     <None Remove="Resources\HeroDatas\强音对决\images\阿萝拉.png" />
     <None Remove="Resources\HeroDatas\符文大陆\HeroData.json" />
     <None Remove="Resources\HeroDatas\符文大陆\images\丽桑卓.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\乐芙兰.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\亚托克斯.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\亚索.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\佛耶戈.png" />
@@ -180,6 +181,7 @@
     <None Remove="Resources\HeroDatas\符文大陆\images\斯维因.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\杰斯.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\格温.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\梅尔.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\沃里克.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\波比.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\泽丽.png" />
@@ -198,6 +200,7 @@
     <None Remove="Resources\HeroDatas\符文大陆\images\茂凯.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\莎弥拉.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\蔚.png" />
+    <None Remove="Resources\HeroDatas\符文大陆\images\贝蕾亚.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\赛娜.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\赛恩.png" />
     <None Remove="Resources\HeroDatas\符文大陆\images\金克丝.png" />
@@ -784,6 +787,9 @@
     <Content Include="Resources\HeroDatas\符文大陆\images\丽桑卓.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\乐芙兰.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\HeroDatas\符文大陆\images\亚托克斯.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -877,6 +883,9 @@
     <Content Include="Resources\HeroDatas\符文大陆\images\格温.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\梅尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\HeroDatas\符文大陆\images\沃里克.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -929,6 +938,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\符文大陆\images\蔚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\符文大陆\images\贝蕾亚.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\符文大陆\images\赛娜.png">

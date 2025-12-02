@@ -352,5 +352,23 @@
     "Cost": 5,
     "Profession": "流浪法师|神谕者",
     "Peculiarity": ""
+  },
+  {
+    "HeroName": "贝蕾亚",
+    "Cost": 5,
+    "Profession": "常胜之师|狂厄蔷薇|潜行者",
+    "Peculiarity": "常胜之师"
+  },
+  {
+    "HeroName": "乐芙兰",
+    "Cost": 5,
+    "Profession": "常胜之师|神谕者",
+    "Peculiarity": "常胜之师"
+  },
+  {
+    "HeroName": "梅尔",
+    "Cost": 5,
+    "Profession": "常胜之师|放逐法|挑战者",
+    "Peculiarity": "常胜之师"
   }
 ]

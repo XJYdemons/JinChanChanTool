@@ -298,7 +298,7 @@
             IsUseGPUForInference = false;
             IsUseFixedCoordinates = true;
             IsUseDynamicCoordinates = false;
-            MaxTimesWithoutHeroPurchase = 3;
+            MaxTimesWithoutHeroPurchase = 5;
             MaxTimesWithoutRefreshStore = 3;
             DelayAfterOperation = 20;
             DelayAfterRefreshStore_CPU = 308;

@@ -71,6 +71,7 @@
             tabPage_快捷键 = new TabPage();
             tabPage_截图 = new TabPage();
             panel_截图 = new Panel();
+            label1 = new Label();
             button_选择进程 = new Button();
             radioButton_自动设置坐标 = new RadioButton();
             radioButton_手动设置坐标 = new RadioButton();
@@ -124,6 +125,15 @@
             radioButton_CPU推理 = new RadioButton();
             tabPage_窗口 = new TabPage();
             panel_窗口 = new Panel();
+            groupBox_英雄选择面板UI设置 = new GroupBox();
+            label_拖动条宽度_英雄选择面板 = new Label();
+            textBox_拖动条宽度_英雄选择面板 = new TextBox();
+            label_英雄头像框垂直间隔 = new Label();
+            textBox_英雄头像框垂直间隔 = new TextBox();
+            label_英雄头像框水平间隔 = new Label();
+            textBox_英雄头像框水平间隔 = new TextBox();
+            label_英雄头像框边长 = new Label();
+            textBox_英雄头像框边长 = new TextBox();
             checkBox_UseErrorShowForm = new CheckBox();
             checkBox_UseStatusOverlayForm = new CheckBox();
             checkBox_UseSelectorForm = new CheckBox();
@@ -136,15 +146,6 @@
             checkBox_定时更新推荐装备 = new CheckBox();
             panel_BackGround = new Panel();
             panel_Buttons = new Panel();
-            this.groupBox_英雄选择面板UI设置 = new GroupBox();
-            this.label_英雄头像框边长 = new Label();
-            textBox_英雄头像框边长 = new TextBox();
-            label_英雄头像框水平间隔 = new Label();
-            textBox_英雄头像框水平间隔 = new TextBox();
-            label_英雄头像框垂直间隔 = new Label();
-            textBox_英雄头像框垂直间隔 = new TextBox();
-            label_拖动条宽度_英雄选择面板 = new Label();
-            textBox_拖动条宽度_英雄选择面板 = new TextBox();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
             tabPage_快捷键.SuspendLayout();
@@ -160,11 +161,11 @@
             panel_OCR相关.SuspendLayout();
             tabPage_窗口.SuspendLayout();
             panel_窗口.SuspendLayout();
+            groupBox_英雄选择面板UI设置.SuspendLayout();
             tabPage_其他.SuspendLayout();
             panel_其他.SuspendLayout();
             panel_BackGround.SuspendLayout();
             panel_Buttons.SuspendLayout();
-            this.groupBox_英雄选择面板UI设置.SuspendLayout();
             SuspendLayout();
             // 
             // panel_快捷键
@@ -597,6 +598,7 @@
             // 
             panel_截图.AutoScroll = true;
             panel_截图.BackColor = Color.White;
+            panel_截图.Controls.Add(label1);
             panel_截图.Controls.Add(button_选择进程);
             panel_截图.Controls.Add(radioButton_自动设置坐标);
             panel_截图.Controls.Add(radioButton_手动设置坐标);
@@ -632,6 +634,16 @@
             panel_截图.Name = "panel_截图";
             panel_截图.Size = new Size(368, 325);
             panel_截图.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.Peru;
+            label1.Location = new Point(108, 258);
+            label1.Name = "label1";
+            label1.Size = new Size(251, 51);
+            label1.TabIndex = 223;
+            label1.Text = "←自动计算仅端游云顶之弈（任意分辨率）与\r\nmumu模拟器（分辨率1600x910，DPI:227）\r\n可用";
             // 
             // button_选择进程
             // 
@@ -1200,7 +1212,7 @@
             // panel_窗口
             // 
             panel_窗口.AutoScroll = true;
-            panel_窗口.Controls.Add(this.groupBox_英雄选择面板UI设置);
+            panel_窗口.Controls.Add(groupBox_英雄选择面板UI设置);
             panel_窗口.Controls.Add(checkBox_UseErrorShowForm);
             panel_窗口.Controls.Add(checkBox_UseStatusOverlayForm);
             panel_窗口.Controls.Add(checkBox_UseSelectorForm);
@@ -1210,6 +1222,95 @@
             panel_窗口.Name = "panel_窗口";
             panel_窗口.Size = new Size(368, 325);
             panel_窗口.TabIndex = 0;
+            // 
+            // groupBox_英雄选择面板UI设置
+            // 
+            groupBox_英雄选择面板UI设置.Controls.Add(label_拖动条宽度_英雄选择面板);
+            groupBox_英雄选择面板UI设置.Controls.Add(textBox_拖动条宽度_英雄选择面板);
+            groupBox_英雄选择面板UI设置.Controls.Add(label_英雄头像框垂直间隔);
+            groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框垂直间隔);
+            groupBox_英雄选择面板UI设置.Controls.Add(label_英雄头像框水平间隔);
+            groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框水平间隔);
+            groupBox_英雄选择面板UI设置.Controls.Add(label_英雄头像框边长);
+            groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框边长);
+            groupBox_英雄选择面板UI设置.Location = new Point(5, 109);
+            groupBox_英雄选择面板UI设置.Name = "groupBox_英雄选择面板UI设置";
+            groupBox_英雄选择面板UI设置.Size = new Size(360, 139);
+            groupBox_英雄选择面板UI设置.TabIndex = 23;
+            groupBox_英雄选择面板UI设置.TabStop = false;
+            groupBox_英雄选择面板UI设置.Text = "英雄选择面板UI设置";
+            // 
+            // label_拖动条宽度_英雄选择面板
+            // 
+            label_拖动条宽度_英雄选择面板.Location = new Point(5, 103);
+            label_拖动条宽度_英雄选择面板.MinimumSize = new Size(23, 23);
+            label_拖动条宽度_英雄选择面板.Name = "label_拖动条宽度_英雄选择面板";
+            label_拖动条宽度_英雄选择面板.Size = new Size(153, 23);
+            label_拖动条宽度_英雄选择面板.TabIndex = 38;
+            label_拖动条宽度_英雄选择面板.Text = "拖动条宽度";
+            label_拖动条宽度_英雄选择面板.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_拖动条宽度_英雄选择面板
+            // 
+            textBox_拖动条宽度_英雄选择面板.Location = new Point(276, 103);
+            textBox_拖动条宽度_英雄选择面板.Name = "textBox_拖动条宽度_英雄选择面板";
+            textBox_拖动条宽度_英雄选择面板.Size = new Size(70, 23);
+            textBox_拖动条宽度_英雄选择面板.TabIndex = 39;
+            textBox_拖动条宽度_英雄选择面板.TabStop = false;
+            // 
+            // label_英雄头像框垂直间隔
+            // 
+            label_英雄头像框垂直间隔.Location = new Point(5, 75);
+            label_英雄头像框垂直间隔.MinimumSize = new Size(23, 23);
+            label_英雄头像框垂直间隔.Name = "label_英雄头像框垂直间隔";
+            label_英雄头像框垂直间隔.Size = new Size(153, 23);
+            label_英雄头像框垂直间隔.TabIndex = 36;
+            label_英雄头像框垂直间隔.Text = "英雄头像框垂直间隔";
+            label_英雄头像框垂直间隔.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_英雄头像框垂直间隔
+            // 
+            textBox_英雄头像框垂直间隔.Location = new Point(276, 75);
+            textBox_英雄头像框垂直间隔.Name = "textBox_英雄头像框垂直间隔";
+            textBox_英雄头像框垂直间隔.Size = new Size(70, 23);
+            textBox_英雄头像框垂直间隔.TabIndex = 37;
+            textBox_英雄头像框垂直间隔.TabStop = false;
+            // 
+            // label_英雄头像框水平间隔
+            // 
+            label_英雄头像框水平间隔.Location = new Point(5, 47);
+            label_英雄头像框水平间隔.MinimumSize = new Size(23, 23);
+            label_英雄头像框水平间隔.Name = "label_英雄头像框水平间隔";
+            label_英雄头像框水平间隔.Size = new Size(153, 23);
+            label_英雄头像框水平间隔.TabIndex = 34;
+            label_英雄头像框水平间隔.Text = "英雄头像框水平间隔";
+            label_英雄头像框水平间隔.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_英雄头像框水平间隔
+            // 
+            textBox_英雄头像框水平间隔.Location = new Point(276, 47);
+            textBox_英雄头像框水平间隔.Name = "textBox_英雄头像框水平间隔";
+            textBox_英雄头像框水平间隔.Size = new Size(70, 23);
+            textBox_英雄头像框水平间隔.TabIndex = 35;
+            textBox_英雄头像框水平间隔.TabStop = false;
+            // 
+            // label_英雄头像框边长
+            // 
+            label_英雄头像框边长.Location = new Point(5, 19);
+            label_英雄头像框边长.MinimumSize = new Size(23, 23);
+            label_英雄头像框边长.Name = "label_英雄头像框边长";
+            label_英雄头像框边长.Size = new Size(153, 23);
+            label_英雄头像框边长.TabIndex = 32;
+            label_英雄头像框边长.Text = "英雄头像框边长";
+            label_英雄头像框边长.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_英雄头像框边长
+            // 
+            textBox_英雄头像框边长.Location = new Point(276, 19);
+            textBox_英雄头像框边长.Name = "textBox_英雄头像框边长";
+            textBox_英雄头像框边长.Size = new Size(70, 23);
+            textBox_英雄头像框边长.TabIndex = 33;
+            textBox_英雄头像框边长.TabStop = false;
             // 
             // checkBox_UseErrorShowForm
             // 
@@ -1340,95 +1441,6 @@
             panel_Buttons.Size = new Size(382, 36);
             panel_Buttons.TabIndex = 210;
             // 
-            // groupBox_英雄选择面板UI设置
-            // 
-            this.groupBox_英雄选择面板UI设置.Controls.Add(label_拖动条宽度_英雄选择面板);
-            this.groupBox_英雄选择面板UI设置.Controls.Add(textBox_拖动条宽度_英雄选择面板);
-            this.groupBox_英雄选择面板UI设置.Controls.Add(label_英雄头像框垂直间隔);
-            this.groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框垂直间隔);
-            this.groupBox_英雄选择面板UI设置.Controls.Add(label_英雄头像框水平间隔);
-            this.groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框水平间隔);
-            this.groupBox_英雄选择面板UI设置.Controls.Add(this.label_英雄头像框边长);
-            this.groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框边长);
-            this.groupBox_英雄选择面板UI设置.Location = new Point(5, 109);
-            this.groupBox_英雄选择面板UI设置.Name = "groupBox_英雄选择面板UI设置";
-            this.groupBox_英雄选择面板UI设置.Size = new Size(360, 139);
-            this.groupBox_英雄选择面板UI设置.TabIndex = 23;
-            this.groupBox_英雄选择面板UI设置.TabStop = false;
-            this.groupBox_英雄选择面板UI设置.Text = "英雄选择面板UI设置";
-            // 
-            // label_英雄头像框边长
-            // 
-            this.label_英雄头像框边长.Location = new Point(5, 19);
-            this.label_英雄头像框边长.MinimumSize = new Size(23, 23);
-            this.label_英雄头像框边长.Name = "label_英雄头像框边长";
-            this.label_英雄头像框边长.Size = new Size(153, 23);
-            this.label_英雄头像框边长.TabIndex = 32;
-            this.label_英雄头像框边长.Text = "英雄头像框边长";
-            this.label_英雄头像框边长.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_英雄头像框边长
-            // 
-            textBox_英雄头像框边长.Location = new Point(276, 19);
-            textBox_英雄头像框边长.Name = "textBox_英雄头像框边长";
-            textBox_英雄头像框边长.Size = new Size(70, 23);
-            textBox_英雄头像框边长.TabIndex = 33;
-            textBox_英雄头像框边长.TabStop = false;
-            // 
-            // label_英雄头像框水平间隔
-            // 
-            label_英雄头像框水平间隔.Location = new Point(5, 47);
-            label_英雄头像框水平间隔.MinimumSize = new Size(23, 23);
-            label_英雄头像框水平间隔.Name = "label_英雄头像框水平间隔";
-            label_英雄头像框水平间隔.Size = new Size(153, 23);
-            label_英雄头像框水平间隔.TabIndex = 34;
-            label_英雄头像框水平间隔.Text = "英雄头像框水平间隔";
-            label_英雄头像框水平间隔.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_英雄头像框水平间隔
-            // 
-            textBox_英雄头像框水平间隔.Location = new Point(276, 47);
-            textBox_英雄头像框水平间隔.Name = "textBox_英雄头像框水平间隔";
-            textBox_英雄头像框水平间隔.Size = new Size(70, 23);
-            textBox_英雄头像框水平间隔.TabIndex = 35;
-            textBox_英雄头像框水平间隔.TabStop = false;
-            // 
-            // label_英雄头像框垂直间隔
-            // 
-            label_英雄头像框垂直间隔.Location = new Point(5, 75);
-            label_英雄头像框垂直间隔.MinimumSize = new Size(23, 23);
-            label_英雄头像框垂直间隔.Name = "label_英雄头像框垂直间隔";
-            label_英雄头像框垂直间隔.Size = new Size(153, 23);
-            label_英雄头像框垂直间隔.TabIndex = 36;
-            label_英雄头像框垂直间隔.Text = "英雄头像框垂直间隔";
-            label_英雄头像框垂直间隔.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_英雄头像框垂直间隔
-            // 
-            textBox_英雄头像框垂直间隔.Location = new Point(276, 75);
-            textBox_英雄头像框垂直间隔.Name = "textBox_英雄头像框垂直间隔";
-            textBox_英雄头像框垂直间隔.Size = new Size(70, 23);
-            textBox_英雄头像框垂直间隔.TabIndex = 37;
-            textBox_英雄头像框垂直间隔.TabStop = false;
-            // 
-            // label_拖动条宽度_英雄选择面板
-            // 
-            label_拖动条宽度_英雄选择面板.Location = new Point(5, 103);
-            label_拖动条宽度_英雄选择面板.MinimumSize = new Size(23, 23);
-            label_拖动条宽度_英雄选择面板.Name = "label_拖动条宽度_英雄选择面板";
-            label_拖动条宽度_英雄选择面板.Size = new Size(153, 23);
-            label_拖动条宽度_英雄选择面板.TabIndex = 38;
-            label_拖动条宽度_英雄选择面板.Text = "拖动条宽度";
-            label_拖动条宽度_英雄选择面板.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_拖动条宽度_英雄选择面板
-            // 
-            textBox_拖动条宽度_英雄选择面板.Location = new Point(276, 103);
-            textBox_拖动条宽度_英雄选择面板.Name = "textBox_拖动条宽度_英雄选择面板";
-            textBox_拖动条宽度_英雄选择面板.Size = new Size(70, 23);
-            textBox_拖动条宽度_英雄选择面板.TabIndex = 39;
-            textBox_拖动条宽度_英雄选择面板.TabStop = false;
-            // 
             // SettingForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -1466,13 +1478,13 @@
             tabPage_窗口.ResumeLayout(false);
             panel_窗口.ResumeLayout(false);
             panel_窗口.PerformLayout();
+            groupBox_英雄选择面板UI设置.ResumeLayout(false);
+            groupBox_英雄选择面板UI设置.PerformLayout();
             tabPage_其他.ResumeLayout(false);
             panel_其他.ResumeLayout(false);
             panel_其他.PerformLayout();
             panel_BackGround.ResumeLayout(false);
             panel_Buttons.ResumeLayout(false);
-            this.groupBox_英雄选择面板UI设置.ResumeLayout(false);
-            this.groupBox_英雄选择面板UI设置.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1594,5 +1606,6 @@
         public TextBox textBox_英雄头像框垂直间隔;
         public Label label_英雄头像框水平间隔;
         public TextBox textBox_英雄头像框水平间隔;
+        private Label label1;
     }
 }

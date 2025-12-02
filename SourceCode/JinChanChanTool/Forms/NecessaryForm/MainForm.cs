@@ -443,7 +443,7 @@ namespace JinChanChanTool
             //为英雄选择窗口英雄头像框绑定交互事件
             for (int i = 0; i < _uiBuilderService.TransparentheroPictureBoxes.Count; i++)
             {
-                _uiBuilderService.TransparentheroPictureBoxes[i].MouseDown += TransparentheroPictureBoxes_Click;
+                _uiBuilderService.TransparentheroPictureBoxes[i].MouseUp += TransparentheroPictureBoxes_Click;
                 SelectForm.Instance.绑定拖动(_uiBuilderService.TransparentheroPictureBoxes[i]);
 
             }
@@ -510,7 +510,7 @@ namespace JinChanChanTool
             //为英雄选择窗口英雄头像框绑定交互事件
             for (int i = 0; i < _uiBuilderService.TransparentheroPictureBoxes.Count; i++)
             {
-                _uiBuilderService.TransparentheroPictureBoxes[i].MouseDown += TransparentheroPictureBoxes_Click;
+                _uiBuilderService.TransparentheroPictureBoxes[i].MouseUp += TransparentheroPictureBoxes_Click;
                 SelectForm.Instance.绑定拖动(_uiBuilderService.TransparentheroPictureBoxes[i]);
             }
 

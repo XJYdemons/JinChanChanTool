@@ -452,15 +452,15 @@ namespace JinChanChanTool.Services
             {
                 最近一次刷新轮商店状态[i] = 纠正结果数组[i];
             }
-        }
-
+        }       
         private bool 自动停止拿牌()
         {           
             if (未拿牌累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase && _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
             {
                 LogTool.Log("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
                 Debug.WriteLine("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");              
-                OutputForm.Instance.WriteLineOutputMessage($"存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");              
+                OutputForm.Instance.WriteLineOutputMessage($"存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
+                StopLoop();
                 return false;
             }
             return true;
@@ -604,10 +604,22 @@ namespace JinChanChanTool.Services
         {
             if (_iappConfigService.CurrentConfig.IsMouseRefreshStore)
             {
-                MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                              
+               
+                if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
+                {
+                    MouseControlTool.SetMousePosition(_iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                   
+                }
+                else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
+                {
+                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                   
+                }
+                else
+                {
+                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                    
+                }
                 await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
-                await ClickOneTime();                   
-             
+                await ClickOneTime();
+
             }
             else if (_iappConfigService.CurrentConfig.IsKeyboardRefreshStore)
             {
@@ -777,8 +789,7 @@ namespace JinChanChanTool.Services
                         if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                         {
                             randomX = Random.Shared.Next(
-                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,
-                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
+                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2,
                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);                            

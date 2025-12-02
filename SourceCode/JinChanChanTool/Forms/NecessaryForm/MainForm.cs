@@ -1601,8 +1601,8 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
-        {                      
-            // 检查是否处于自动坐标模式
+        {
+            // 1. 检查是否处于自动模式
             if (!_iManualSettingsService.CurrentConfig.IsUseDynamicCoordinates)
             {
                 _automationService.SetTargetProcess(null);
@@ -1611,41 +1611,30 @@ namespace JinChanChanTool
 
             Process targetProcess = null;
             bool processFound = false;
+            Process[] processesByName = null; // 用于按名称查找的结果
 
-            Process[] processes = null;
-
-            // ID 优先,检查用户上次精确选择的进程ID是否依然有效
+            // 2.【ID】使用Process.GetProcesses()获取当前的系统进程快照，然后用irstOrDefault(p => p.Id == targetId)在这个快照中查找ID匹配的进程
+            //    如果找到了，它会返回那个 Process 对象；如果没找到（因为进程已经关闭），它只会返回 null，而不会抛出任何异常。
             int targetId = _iManualSettingsService.CurrentConfig.TargetProcessId;
             if (targetId > 0)
-            {               
-                var runningProcessIds = Process.GetProcesses().Select(p => p.Id).ToHashSet();
+            {
+                // 获取当前所有进程的快照，然后从中查找
+                Process pById = Process.GetProcesses().FirstOrDefault(p => p.Id == targetId);
 
-                // 检查保存的ID是否存在于这个集合中
-                if (runningProcessIds.Contains(targetId))
+                // 检查是否找到了进程，并且进程名是否匹配
+                if (pById != null && pById.ProcessName.Equals(_iManualSettingsService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
                 {
-                    // 只有在确定进程ID存在时，才安全地调用 GetProcessById
-                    try
-                    {
-                        Process p = Process.GetProcessById(targetId);
-                        if (p.ProcessName.Equals(_iManualSettingsService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            targetProcess = p;
-                            processFound = true;
-                        }
-                    }
-                    catch
-                    {
-                        // 即使ID存在，GetProcessById也可能因为权限等乱七八糟的问题失败，留一个空的catch以防万一
-                    }
+                    targetProcess = pById;
+                    processFound = true;
                 }
                 else
                 {
-                    // 如果ID不存在，说明进程已关闭
+                    // 如果没找到，或进程名不匹配（PID被重用），则清除ID
                     _iManualSettingsService.CurrentConfig.TargetProcessId = 0;
                 }
             }
 
-            // 如果在按ID查找时未找到进程，则按名称查找
+            // 3.【名称】如果按ID查找失败，则回退到按名称查找
             if (!processFound)
             {
                 string targetName = _iManualSettingsService.CurrentConfig.TargetProcessName;
@@ -1655,21 +1644,19 @@ namespace JinChanChanTool
                     return;
                 }
 
-                processes = Process.GetProcessesByName(targetName);
+                processesByName = Process.GetProcessesByName(targetName);
 
-                if (processes.Length == 1)
+                if (processesByName.Length == 1)
                 {
-                    targetProcess = processes[0];
-                    // 找到了唯一匹配的进程，更新我们的精确ID以便下次快速查找
+                    targetProcess = processesByName[0];
                     _iManualSettingsService.CurrentConfig.TargetProcessId = targetProcess.Id;
                 }
-                else if (processes.Length > 1)
+                else if (processesByName.Length > 1)
                 {
-                    // 【多进程冲突处理】
-                    _automationService.SetTargetProcess(null); // 暂停坐标更新
+                    _automationService.SetTargetProcess(null);
                     if (!_multiProcessWarningShown)
                     {
-                        _multiProcessWarningShown = true; // 先设置标志，防止重复弹窗
+                        _multiProcessWarningShown = true;
                         this.Invoke((Action)(() => {
                             MessageBox.Show(this,
                                 $"检测到多个名为 '{targetName}' 的进程。\n\n自动坐标计算已暂停，请通过“设置”->“选择进程”来精确指定一个。",
@@ -1678,24 +1665,24 @@ namespace JinChanChanTool
                                 MessageBoxIcon.Warning);
                         }));
                     }
-                    return; // 直接返回，不进行后续的坐标更新
+                    return;
                 }
-                else // processes.Length == 0
+                else
                 {
                     targetProcess = null;
                 }
             }
 
-            // 将最终确定的目标（或null）交给 AutomationService
+            // 4. 将最终确定的目标（或null）交给 AutomationService
             _automationService.SetTargetProcess(targetProcess);
 
-            // 检查 processes 是否为 null，以避免在 ID 优先路径成功时出错
-            if (processes == null || processes.Length <= 1)
+            // 5. 重置多进程警告标志
+            if (processesByName == null || processesByName.Length <= 1)
             {
                 _multiProcessWarningShown = false;
             }
 
-            // 如果成功锁定了有效窗口（无论是父窗口还是子窗口），则更新 AppConfig
+            // 6. 如果成功锁定，则更新 AppConfig
             if (_automationService.IsGameDetected)
             {
                 var rectSlot1 = _automationService.GetTargetRectangle(UiElement.CardSlot1_Name);
@@ -1705,39 +1692,22 @@ namespace JinChanChanTool
                 var rectSlot5 = _automationService.GetTargetRectangle(UiElement.CardSlot5_Name);
                 var rectRefresh = _automationService.GetTargetRectangle(UiElement.RefreshButton);
 
-
-                if (rectSlot1.HasValue)
+                if (rectSlot1.HasValue && rectSlot1.Value.Width > 0 && rectSlot1.Value.Height > 0)
                 {
                     _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X1 = rectSlot1.Value.X;
                     _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_Y = rectSlot1.Value.Y;
                     _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotWidth = rectSlot1.Value.Width;
-                    _iAutomaticSettingsService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;                   
+                    _iAutomaticSettingsService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;
                 }
+                if (rectSlot2.HasValue && rectSlot2.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X2 = rectSlot2.Value.X;
+                if (rectSlot3.HasValue && rectSlot3.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X3 = rectSlot3.Value.X;
+                if (rectSlot4.HasValue && rectSlot4.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X4 = rectSlot4.Value.X;
+                if (rectSlot5.HasValue && rectSlot5.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X5 = rectSlot5.Value.X;
 
-                if (rectSlot2.HasValue)
-                {
-                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X2 = rectSlot2.Value.X;                  
-                }
-
-                if (rectSlot3.HasValue)
-                {
-                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X3 = rectSlot3.Value.X;                    
-                }
-
-                if (rectSlot4.HasValue)
-                {
-                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X4 = rectSlot4.Value.X;                   
-                }
-
-                if (rectSlot5.HasValue)
-                {
-                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X5 = rectSlot5.Value.X;                   
-                }
-                // --- 刷新按钮中心点 ---
-                if (rectRefresh.HasValue)
+                if (rectRefresh.HasValue && rectRefresh.Value.Width > 0)
                 {
                     _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonCoordinates_X = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
-                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonCoordinates_Y = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;                   
+                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonCoordinates_Y = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;
                 }
             }
         }

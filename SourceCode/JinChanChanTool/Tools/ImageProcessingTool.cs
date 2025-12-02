@@ -15,13 +15,18 @@ namespace JinChanChanTool.Tools
         /// <returns></returns>
         public static Bitmap AreaScreenshots(int x, int y, int width, int height)
         {
+            if (width <= 0 || height <= 0)
+            {
+                // 如果传入的尺寸无效，直接返回一个1x1的空白图片，防止程序崩溃
+                return new Bitmap(1, 1, PixelFormat.Format24bppRgb);
+            }
+
             Bitmap image = new Bitmap(width, height, PixelFormat.Format24bppRgb);//创建新图像
-            Graphics screenshot = Graphics.FromImage(image);// 从Bitmap对象创建一个Graphics对象。Graphics对象提供方法来绘画到这个Bitmap上。
-
-
-            screenshot.CopyFromScreen(x, y, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy); // 使用Graphics对象的CopyFromScreen方法从屏幕上指定位置(x, y)开始，复制指定大小(width, height)的区域到Bitmap。
-
-            screenshot.Dispose();  // 释放Graphics对象的资源。完成绘画后，应当释放此资源以避免内存泄漏。
+            using (Graphics screenshot = Graphics.FromImage(image))
+            {
+                screenshot.CopyFromScreen(x, y, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+            }
+            
             return image;
         }
 

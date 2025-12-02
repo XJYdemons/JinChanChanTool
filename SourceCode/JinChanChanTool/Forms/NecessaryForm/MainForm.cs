@@ -687,7 +687,8 @@ namespace JinChanChanTool
                 this.Invoke(new Action<bool>(OnIsGetCardChanged), isRunning);
                 return;
             }
-            button_GetCard.Text = isRunning ? "停止" : "开启";           
+            button_GetCard.Text = isRunning ? "停止" : "开启";
+            comboBox_HeroPool.Enabled = !isRunning;
         }
        
         private void OnAutoRefreshStatusChanged(bool isRunning)

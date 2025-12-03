@@ -60,7 +60,8 @@ namespace JinChanChanTool
         
         // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐
         private string _seasonForEquipmentTooltip = "S15天下无双格斗大会"; // <-- 在这里硬编码指定赛季名
-        
+        //private string _seasonForEquipmentTooltip = "英雄联盟传奇";
+
         public MainForm(IManualSettingsService iappConfigService,IAutomaticSettingsService iAutoConfigService, IHeroDataService iheroDataService, ILineUpService ilineUpService, ICorrectionService iCorrectionService, IHeroEquipmentDataService iheroEquipmentDataService)
         {
             InitializeComponent();

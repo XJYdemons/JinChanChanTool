@@ -209,18 +209,29 @@ namespace JinChanChanTool.Services
             int 循环计数 = 0;
             循环前的标志重置();
             while (isGetCard && !token.IsCancellationRequested)
-            {                
+            {
                 try
                 {
-                    循环计数++;                           
+                   
+                    循环计数++;
                     LogTool.Log($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
                     Debug.WriteLine($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
-                    OutputForm.Instance.WriteLineOutputMessage($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");                   
+                    OutputForm.Instance.WriteLineOutputMessage($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
                     if (!自动停止拿牌()) return;
                     自动停止刷新商店();
+
+                    
                     Bitmap[] bitmaps = CaptureAndSplit();
+                   
+
+                   
                     原始结果数组 = await RecognizeImages(bitmaps);
+                    
+
+                   
                     更新纠正结果数组(bitmaps);
+                   
+
                     // 释放图像资源
                     foreach (Bitmap image in bitmaps)
                     {
@@ -231,8 +242,7 @@ namespace JinChanChanTool.Services
                     string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
                     string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
                     for (int i =0;i<原始结果数组.Length;i++)
-                    {
-                        
+                    {                        
                         输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
                     }
                     for (int i = 0; i < 纠正结果数组.Length; i++)
@@ -243,30 +253,39 @@ namespace JinChanChanTool.Services
                     Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
                     OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
                     LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");                                       
+                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
                     OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                  
+
                     #endregion
+
                     await GetCard(当前目标数组);
-                    判断未拿牌并处理();                     
+
+                    判断未拿牌并处理();
                     判断未刷新并处理();
                     更新上一轮结果数组与目标数组();
+
+                   
+                    
+
+                    
                     if(await 判断是否需要刷新商店并处理())
                     {
+                       
                         if(_iappConfigService.CurrentConfig.IsUseCPUForInference)
                         {
                             await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
-                        }                            
+                        }
                         else if(_iappConfigService.CurrentConfig.IsUseGPUForInference)
                         {
                             await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU);
-                        }  
+                        }
                         else
                         {
                             await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
                         }
+                        
                     }
-                    本轮是否按下过鼠标 = false;                   
+                    本轮是否按下过鼠标 = false;
                 }
                 catch (OperationCanceledException)
                 {
@@ -382,10 +401,10 @@ namespace JinChanChanTool.Services
                     {
                         if(_iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters)
                         {
-                            停止刷新商店();
                             LogTool.Log("由于识别错误关闭自动刷新！");
-                            Debug.WriteLine("由于识别错误关闭自动刷新！");                           
-                            OutputForm.Instance.WriteLineOutputMessage($"由于识别错误关闭自动刷新！" + "\r\n");                         
+                            Debug.WriteLine("由于识别错误关闭自动刷新！");
+                            OutputForm.Instance.WriteLineOutputMessage($"由于识别错误关闭自动刷新！" + "\r\n");
+                            停止刷新商店();                                                 
                         }
                         // 更新UI
                         OutputForm.Instance.WriteLineErrorMessage(errorMessage + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");                                          
@@ -428,12 +447,24 @@ namespace JinChanChanTool.Services
                             string filePath = Path.Combine(errorImagePath, $"{DateTime.Now:MM月dd日HH时mm分ss秒.fff毫秒}_{i + 1}号卡_{errorMessage}.png");
                             extendedBitmap.Save(filePath, ImageFormat.Png);
                         }
+                       
                     }
                     catch (Exception ex)
                     {
-                                              
+                        
                     }
                 }
+                //else
+                //{
+                //    string imagePath = Path.Combine(Application.StartupPath, "Logs", "Images");
+                //    if (!Directory.Exists(imagePath))
+                //    {
+                //        Directory.CreateDirectory(imagePath);
+                //    }
+                //    // 保存为PNG到ErrorImage文件夹                           
+                //    string filePath = Path.Combine(imagePath, $"{DateTime.Now:MM月dd日HH时mm分ss秒.fff毫秒}_{i + 1}号卡_{纠正结果数组[i]}.png");
+                //    bitmaps[i].Save(filePath, ImageFormat.Png);
+                //}
             }           
         }
 
@@ -548,47 +579,47 @@ namespace JinChanChanTool.Services
             if (!isRefreshStore)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
-                Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");                
-                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");               
-                return false;
+                Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     刷新未开启，不刷新");
+                return (false);
             }
 
             if (本轮是否按下过鼠标 || 鼠标左键是否按下)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");
-                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");                
-                return false;
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     鼠标左键被按下，本轮不刷新！");
+                return (false);
             }
 
             if (本轮是否存在目标卡())
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");
-                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");                
-                return false;
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     存在目标卡，本轮不刷新！");
+                return (false);
             }
 
             if (当前商店刷新状态 == 刷新状态.刷新中)
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");
-                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");                
-                return false;
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     商店刷新中，本轮不刷新！");
+                return (false);
             }
 
             if (本轮是否为空())
             {
                 LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");
                 Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");
-                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");                
-                return false;
+                OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     商店为空，本轮不刷新！");
+                return (false);
             }
 
             LogTool.Log($"刷新判断前的刷新状态:{当前商店刷新状态}     本轮操作:刷新");
             Debug.WriteLine($"刷新判断前的刷新状态:{当前商店刷新状态}     本轮操作:刷新");
             OutputForm.Instance.WriteLineOutputMessage($"刷新判断前的刷新状态:{当前商店刷新状态}     本轮操作:刷新");
-           
+
             更新最近一次刷新轮商店状态();
 
             // 重置计时器和状态
@@ -597,33 +628,46 @@ namespace JinChanChanTool.Services
 
             // 执行刷新操作
             await 刷新商店();
-            return true;
+            return (true);
         }
 
         private async Task 刷新商店()
         {
+            Stopwatch 操作计时器 = new Stopwatch();
+            Stopwatch 延迟计时器 = new Stopwatch();
+            long 总操作耗时 = 0;
+            long 总延迟耗时 = 0;
+
             if (_iappConfigService.CurrentConfig.IsMouseRefreshStore)
             {
-               
+                操作计时器.Restart();
                 if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
-                    MouseControlTool.SetMousePosition(_iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                   
+                    MouseControlTool.SetMousePosition(_iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
                 }
                 else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                 {
-                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                   
+                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
                 }
                 else
                 {
-                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);                    
+                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
                 }
-                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
-                await ClickOneTime();
+                总操作耗时 += 操作计时器.ElapsedMilliseconds;
 
+                延迟计时器.Restart();
+                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
+                总延迟耗时 += 延迟计时器.ElapsedMilliseconds;
+
+                操作计时器.Restart();
+                await ClickOneTime();
+                总操作耗时 += 操作计时器.ElapsedMilliseconds;
             }
             else if (_iappConfigService.CurrentConfig.IsKeyboardRefreshStore)
             {
-                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);                
+                操作计时器.Restart();
+                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);
+                总操作耗时 += 操作计时器.ElapsedMilliseconds;
             }
         }
 
@@ -763,6 +807,7 @@ namespace JinChanChanTool.Services
                 {
                     if (_iappConfigService.CurrentConfig.IsKeyboardHeroPurchase)
                     {
+                       
                         switch (i)
                         {
                             case 0:
@@ -781,10 +826,13 @@ namespace JinChanChanTool.Services
                                 KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey5);
                                 break;
                         }
+                       
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
+                        
                     }
                     else if (_iappConfigService.CurrentConfig.IsMouseHeroPurchase)
                     {
+                       
                         int randomX, randomY;
                         if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                         {
@@ -792,7 +840,7 @@ namespace JinChanChanTool.Services
                             x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2,
-                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);                            
+                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
                         }
                         else if(_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                         {
@@ -801,7 +849,7 @@ namespace JinChanChanTool.Services
                             x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
                             _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iappConfigService.CurrentConfig.HeroNameScreenshotHeight * 2,
-                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);                           
+                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
                         }
                         else
                         {
@@ -810,16 +858,22 @@ namespace JinChanChanTool.Services
                             x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
                             _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iappConfigService.CurrentConfig.HeroNameScreenshotHeight * 2,
-                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);                           
+                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
                         }
                         // 设置鼠标位置
                         MouseControlTool.SetMousePosition(randomX, randomY);
+                       
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
+                       
+
                         // 执行点击操作，逐个点击并等待
+                       
                         await ClickOneTime();
+                       
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
+                        
                     }
-                }                                  
+                }
             }
         }
 

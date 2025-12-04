@@ -17,7 +17,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment.Interface
         /// <summary>
         /// 获取或设置当前选中的赛季路径的索引。
         /// </summary>
-        int PathIndex { get; set; }
+       // int PathIndex { get; set; }
 
         /// <summary>
         /// 获取当前加载的英雄装备推荐数据列表。

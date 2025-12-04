@@ -19,7 +19,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
     public class DynamicGameDataService : IDynamicGameDataService
     {
         // 定义数据源的URL常量，便于管理和修改
-        private const string TranslationsUrl = "https://data.metatft.com/lookups/TFTSet15_latest_zh_cn.json";
+        private const string TranslationsUrl = "https://data.metatft.com/lookups/TFTSet16_pbe_zh_cn.json";
         private const string UnitListUrl = "https://api-hc.metatft.com/tft-comps-api/unit_items_processed";
 
         // 遵循最佳实践，在整个应用程序生命周期内共享一个HttpClient实例，以提高性能和避免套接字耗尽问题。

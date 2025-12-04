@@ -1991,6 +1991,633 @@
     <None Update="Resources\HeroDatas\强音对决\LineUps.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\三相之力.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\不稳定的财宝箱.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\中娅悖论.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\主宰纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\亡者的短剑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\以绪塔尔纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\修复型回响.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\假面摔角手纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版冕卫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版圣盾使的誓约.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版坚定之心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版夜之锋刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版大天使之杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版巨人杀手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版巨龙之爪.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版强袭者的链枷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版振奋盔甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版斯特拉克的挑战护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版无尽之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版日炎斗篷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版最后的轻语.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版朔极之矛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版棘刺背心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版正义之手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版死亡之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版水银.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版泰坦的坚决.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版海克斯科技枪刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版海妖之怒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版灭世者的死亡之帽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版狂徒铠甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版珠光护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版石像鬼石板甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版离子火花.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版窃贼手套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版红霸符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版纳什之牙.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版莫雷洛秘典.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版蓝霸符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版薄暮法袍.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版虚空之杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版适应性头盔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版饮血剑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光明版鬼索的狂暴之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\光盾徽章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\兰顿之兆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\兵王纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\兹若特传送门.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\冕卫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\军团圣盾.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\冥火之拥.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\决斗大师纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\刀锋领主纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\卢登的激荡.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\反曲之弓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\司令纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\圣盾使的誓约.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\圣盾使纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\坚定之心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\坚定投资器.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\基克的先驱.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\夜之锋刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\大亨之铠.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\大副的燧发枪.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\大天使之杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\天才纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\女妖面纱.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\女神之泪.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\密银黎明.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\巨人杀手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\巨人腰带.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\巨型九头蛇.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\巨龙之爪.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\巫妖之祸.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\帽子饮品.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\幸运达布隆金币.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\幽魂弯刀.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\弗雷尔卓德纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\强力剑刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\强盗的骰子.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\强袭者的链枷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\征服者纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\德玛西亚纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\恶意.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\恶火小斧.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\成堆柑橘.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\战斗学院纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\投机者之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\护卫纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\拳套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\振奋盔甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\探索者的护臂.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\斗士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\斗魂战士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\斯塔缇克电刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\斯特拉克的挑战护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\无尽之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\无用大宝石.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\无用大棒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\无终恨意.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\日炎斗篷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\星之守护者纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\智慧末刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\暗影木偶.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\暗行者之爪.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\暗裔之弓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\暗裔之杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\暗裔之盾.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\暗裔之镰.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\暴风之剑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\最后的轻语.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\月石再生器.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\朔极之矛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\枪手纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\枯萎珠宝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\棘刺背心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\次级镜像人格面具.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\正义之手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\死亡之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\死亡之蔑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\殉道美德.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\残酷弯刀.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\比尔吉沃特纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\水晶玫瑰纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\水银.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\永恒凛冬.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\永恒契约.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\永恒烈焰.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\法师纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\泰坦的坚决.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\海克斯科技枪刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\海妖之怒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\激发之匣.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\灭世者的死亡之帽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\灵风.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\烁刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\狂徒铠甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\狙击手的专注.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\狙神纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\珠光护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\疾射火炮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\皮尔特沃夫纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\石像鬼石板甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\碎舰者.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\祖安纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\神器装备.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\神盾使纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\神谕者纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\禁忌雕像.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\离子火花.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\究极剑刃升级.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\窃贼手套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\红霸符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\约德尔人纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\纳什之牙.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\组合核心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\耀光使纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\能量圣杯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\至高天纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\船长的帽子.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\船长的酿造品.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\艾欧尼亚纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\莫雷洛秘典.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\蓝霸符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\薄暮法袍.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\虚空之杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\虚空护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\虚空纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\裁决使者纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\裁决战士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\视界专注.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\诡术师之镜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\诺克萨斯纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\负极斗篷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\辅助手套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\迅击战士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\连指手套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\迷离风衣.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\适应性头盔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\酒吧指虎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\重量级斗士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\金币收集者.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\金铲铲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\金铲铲冠冕.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\金锅铲冠冕.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\金锅锅.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\金锅锅冠冕.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\钢铁烈阳之匣.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\钻石之手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\铁匠手套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\锁子甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\镜像人格面具.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\震畏大炮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\静止法衣.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\顽强不屈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\飞升护符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\饮血剑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\骑士之誓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\鬼影望远镜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\鬼索的狂暴之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\魔蕴.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\鱼骨头.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黄昏圣盾.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黎明圣盾.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黎明核心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黑市炸药.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黑市补货.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黑暗吸血鬼节杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黑曜石切割者.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

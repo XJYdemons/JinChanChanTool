@@ -215,5 +215,23 @@
       "凱南"
     ],
     "Correct": "凯南"
+  },
+  {
+    "Incorrect": [
+      "格溫"
+    ],
+    "Correct": "格温"
+  },
+  {
+    "Incorrect": [
+      "內瑟斯"
+    ],
+    "Correct": "内瑟斯"
+  },
+  {
+    "Incorrect": [
+      "基"
+    ],
+    "Correct": "基兰"
   }
 ]

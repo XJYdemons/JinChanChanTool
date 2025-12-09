@@ -684,7 +684,7 @@ namespace JinChanChanTool.Services
             {
                 if(_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
-                    // 1. 无条件地从 AutoConfig 读取坐标，截取一张包含所有卡槽的大图
+                    // 从 AutoConfig 读取坐标，截取一张包含所有卡槽的大图
                     using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
                              _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1,
                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y,
@@ -693,7 +693,7 @@ namespace JinChanChanTool.Services
                     {
                         Bitmap[] bitmaps = new Bitmap[5];
 
-                        // 2. 使用正确的、基于差值的相对偏移来分割图片
+                        // 使用正确的、基于差值的相对偏移来分割图片
                         bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
                         bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
                         bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
@@ -704,7 +704,7 @@ namespace JinChanChanTool.Services
                 }
                 else
                 {
-                    // 1. 无条件地从 AppConfig 读取坐标，截取一张包含所有卡槽的大图
+                    // 从 AppConfig 读取坐标，截取一张包含所有卡槽的大图
                     using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
                              _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1,
                             _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y,
@@ -713,7 +713,7 @@ namespace JinChanChanTool.Services
                     {
                         Bitmap[] bitmaps = new Bitmap[5];
 
-                        // 2. 使用正确的、基于差值的相对偏移来分割图片
+                        // 使用正确的、基于差值的相对偏移来分割图片
                         bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
                         bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
                         bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);

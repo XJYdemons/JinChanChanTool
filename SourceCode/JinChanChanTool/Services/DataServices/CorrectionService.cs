@@ -188,8 +188,8 @@ namespace JinChanChanTool.Services.DataServices
             isError = true;
             errorMessage = null;
             string result;
-            // 使用正则表达式只保留中文、英文、数字
-            result = Regex.Replace(Result, @"[^\u4e00-\u9fa5a-zA-Z0-9]", "");
+            // 使用正则表达式只保留中文
+            result = Regex.Replace(Result, @"[^\u4e00-\u9fa5]", "");
             // 查找映射
             if (ResultDictionary.TryGetValue(result, out var correctValue))
             {

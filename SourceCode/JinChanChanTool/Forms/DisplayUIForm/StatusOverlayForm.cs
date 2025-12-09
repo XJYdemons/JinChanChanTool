@@ -145,9 +145,7 @@ namespace JinChanChanTool.Forms
                 UseVisualStyleBackColor = false,
                 Margin = new Padding(2, 0, 2, 0)
             };
-            autoGetCardButton.FlatAppearance.BorderColor = Color.Gray;
-            autoGetCardButton.FlatAppearance.MouseOverBackColor = Color.Green;
-            autoGetCardButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(16, 70, 16);
+            autoGetCardButton.FlatAppearance.BorderColor = Color.Gray;           
 
             // 创建右侧按钮
             refreshStoreButton = new Button
@@ -162,8 +160,7 @@ namespace JinChanChanTool.Forms
                 Margin = new Padding(2, 0, 2, 0)
             };
             refreshStoreButton.FlatAppearance.BorderColor = Color.Gray;
-            refreshStoreButton.FlatAppearance.MouseOverBackColor = Color.Green;
-            refreshStoreButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(16, 70, 16);
+            
             // 添加按钮到按钮面板
             buttonPanel.Controls.Add(autoGetCardButton);
             buttonPanel.Controls.Add(refreshStoreButton);
@@ -201,8 +198,24 @@ namespace JinChanChanTool.Forms
 
             // 按钮点击事件（示例）
             autoGetCardButton.Click += autoGetCardButton_Click;
+            autoGetCardButton.MouseEnter += Button_MouseEnter;
+            autoGetCardButton.MouseLeave += Button_MouseLeave;
             refreshStoreButton.Click += refreshStoreButton_Click;
+            refreshStoreButton.MouseEnter += Button_MouseEnter;
+            refreshStoreButton.MouseLeave += Button_MouseLeave;
         }
+
+        private void Button_MouseEnter(object? sender, EventArgs e)
+        {
+            Button bt = sender as Button;
+            bt.FlatAppearance.BorderColor = Color.Yellow;
+        }
+        private void Button_MouseLeave(object? sender, EventArgs e)
+        {
+            Button bt = sender as Button;
+            bt.FlatAppearance.BorderColor = Color.Gray;
+        }
+
 
         /// <summary>
         /// 按钮点击事件

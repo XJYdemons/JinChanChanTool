@@ -26,7 +26,7 @@ public static class LogTool
 
     // 文件路径配置
     private static readonly string _logPath = Path.Combine(Application.StartupPath, "Logs");// 日志目录
-    private static readonly string _logFilePath = Path.Combine(_logPath, "Application.log");// 当前日志文件路径
+    private static readonly string _logFilePath = Path.Combine(_logPath, $"Log_{DateTime.Now:yyyy_MM_dd_HH_mm_ss}.log");// 当前日志文件路径（每次启动生成新文件）
     private static readonly string _backupDir = Path.Combine(_logPath, "BackUp");// 备份目录
 
     /// <summary>

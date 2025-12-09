@@ -50,14 +50,15 @@
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             panel_BackGround = new Panel();
-            panel1 = new Panel();
-            label1 = new Label();
+            this.panel_按钮面板 = new Panel();
+            button_生成阵容码 = new Button();
+            this.label_赛季 = new Label();
             toolTipTimer = new System.Windows.Forms.Timer(components);
             timer_UpdateCoordinates = new System.Windows.Forms.Timer(components);
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
-            panel1.SuspendLayout();
+            this.panel_按钮面板.SuspendLayout();
             SuspendLayout();
             // 
             // panel_SubLineUpParent
@@ -122,10 +123,10 @@
             // button_ParseLineUp
             // 
             button_ParseLineUp.FlatStyle = FlatStyle.Flat;
-            button_ParseLineUp.Location = new Point(192, 67);
+            button_ParseLineUp.Location = new Point(116, 67);
             button_ParseLineUp.Margin = new Padding(0);
             button_ParseLineUp.Name = "button_ParseLineUp";
-            button_ParseLineUp.Size = new Size(42, 25);
+            button_ParseLineUp.Size = new Size(50, 25);
             button_ParseLineUp.TabIndex = 1;
             button_ParseLineUp.Text = "解析";
             button_ParseLineUp.UseVisualStyleBackColor = true;
@@ -133,11 +134,12 @@
             // 
             // textBox_LineUpCode
             // 
+            textBox_LineUpCode.Font = new Font("Microsoft YaHei UI", 7.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
             textBox_LineUpCode.Location = new Point(5, 67);
             textBox_LineUpCode.Margin = new Padding(5);
             textBox_LineUpCode.Multiline = true;
             textBox_LineUpCode.Name = "textBox_LineUpCode";
-            textBox_LineUpCode.Size = new Size(182, 25);
+            textBox_LineUpCode.Size = new Size(111, 25);
             textBox_LineUpCode.TabIndex = 0;
             textBox_LineUpCode.Text = "请在此处粘贴阵容代码";
             textBox_LineUpCode.Enter += textBox_LineUpCode_Enter;
@@ -172,9 +174,9 @@
             label_自动拿牌.AutoSize = true;
             label_自动拿牌.Location = new Point(5, 5);
             label_自动拿牌.Margin = new Padding(2, 5, 0, 5);
-            label_自动拿牌.MinimumSize = new Size(90, 25);
+            label_自动拿牌.MinimumSize = new Size(75, 25);
             label_自动拿牌.Name = "label_自动拿牌";
-            label_自动拿牌.Size = new Size(90, 25);
+            label_自动拿牌.Size = new Size(75, 25);
             label_自动拿牌.TabIndex = 2;
             label_自动拿牌.Text = "自动拿牌";
             label_自动拿牌.TextAlign = ContentAlignment.MiddleCenter;
@@ -185,20 +187,20 @@
             button_GetCard.Location = new Point(5, 35);
             button_GetCard.Margin = new Padding(2, 5, 0, 5);
             button_GetCard.Name = "button_GetCard";
-            button_GetCard.Size = new Size(90, 27);
+            button_GetCard.Size = new Size(75, 27);
             button_GetCard.TabIndex = 0;
             button_GetCard.Text = "启动";
-            button_GetCard.UseVisualStyleBackColor = true;            
+            button_GetCard.UseVisualStyleBackColor = true;
             button_GetCard.Click += button_GetCard_Click;
             // 
             // label_自动刷新
             // 
             label_自动刷新.AutoSize = true;
-            label_自动刷新.Location = new Point(100, 5);
+            label_自动刷新.Location = new Point(91, 5);
             label_自动刷新.Margin = new Padding(2, 5, 0, 5);
-            label_自动刷新.MinimumSize = new Size(90, 25);
+            label_自动刷新.MinimumSize = new Size(75, 25);
             label_自动刷新.Name = "label_自动刷新";
-            label_自动刷新.Size = new Size(90, 25);
+            label_自动刷新.Size = new Size(75, 25);
             label_自动刷新.TabIndex = 3;
             label_自动刷新.Text = "自动刷新";
             label_自动刷新.TextAlign = ContentAlignment.MiddleCenter;
@@ -206,14 +208,14 @@
             // button_Refresh
             // 
             button_Refresh.FlatStyle = FlatStyle.Flat;
-            button_Refresh.Location = new Point(100, 35);
+            button_Refresh.Location = new Point(91, 35);
             button_Refresh.Margin = new Padding(2, 5, 2, 5);
-            button_Refresh.MinimumSize = new Size(90, 27);
+            button_Refresh.MinimumSize = new Size(75, 27);
             button_Refresh.Name = "button_Refresh";
-            button_Refresh.Size = new Size(90, 27);
+            button_Refresh.Size = new Size(75, 27);
             button_Refresh.TabIndex = 1;
             button_Refresh.Text = "启动";
-            button_Refresh.UseVisualStyleBackColor = true;          
+            button_Refresh.UseVisualStyleBackColor = true;
             button_Refresh.Click += button_Refresh_Click;
             // 
             // comboBox_LineUps
@@ -221,7 +223,7 @@
             comboBox_LineUps.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_LineUps.FormattingEnabled = true;
             comboBox_LineUps.Items.AddRange(new object[] { "阵容1", "阵容2", "阵容3", "阵容4", "阵容5", "阵容6", "阵容7", "阵容8", "阵容9", "阵容10" });
-            comboBox_LineUps.Location = new Point(239, 67);
+            comboBox_LineUps.Location = new Point(242, 68);
             comboBox_LineUps.Margin = new Padding(2, 5, 2, 5);
             comboBox_LineUps.Name = "comboBox_LineUps";
             comboBox_LineUps.Size = new Size(149, 25);
@@ -286,7 +288,7 @@
             // 
             panel_BackGround.AutoSize = true;
             panel_BackGround.BackColor = Color.White;
-            panel_BackGround.Controls.Add(panel1);
+            panel_BackGround.Controls.Add(this.panel_按钮面板);
             panel_BackGround.Controls.Add(panel_SubLineUpParent);
             panel_BackGround.Controls.Add(tabControl_HeroSelector);
             panel_BackGround.Controls.Add(menuStrip_Main);
@@ -298,35 +300,49 @@
             panel_BackGround.Size = new Size(407, 640);
             panel_BackGround.TabIndex = 5;
             // 
-            // panel1
+            // panel_按钮面板
             // 
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(label_自动拿牌);
-            panel1.Controls.Add(comboBox_HeroPool);
-            panel1.Controls.Add(button_Clear);
-            panel1.Controls.Add(label_自动刷新);
-            panel1.Controls.Add(button_GetCard);
-            panel1.Controls.Add(button_Refresh);
-            panel1.Controls.Add(comboBox_LineUps);
-            panel1.Controls.Add(button_Save);
-            panel1.Controls.Add(button_ParseLineUp);
-            panel1.Controls.Add(textBox_LineUpCode);
-            panel1.Location = new Point(5, 30);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(394, 97);
-            panel1.TabIndex = 11;
+            this.panel_按钮面板.Controls.Add(button_生成阵容码);
+            this.panel_按钮面板.Controls.Add(this.label_赛季);
+            this.panel_按钮面板.Controls.Add(label_自动拿牌);
+            this.panel_按钮面板.Controls.Add(comboBox_HeroPool);
+            this.panel_按钮面板.Controls.Add(button_Clear);
+            this.panel_按钮面板.Controls.Add(label_自动刷新);
+            this.panel_按钮面板.Controls.Add(button_GetCard);
+            this.panel_按钮面板.Controls.Add(button_Refresh);
+            this.panel_按钮面板.Controls.Add(comboBox_LineUps);
+            this.panel_按钮面板.Controls.Add(button_Save);
+            this.panel_按钮面板.Controls.Add(button_ParseLineUp);
+            this.panel_按钮面板.Controls.Add(textBox_LineUpCode);
+            this.panel_按钮面板.Location = new Point(5, 30);
+            this.panel_按钮面板.Name = "panel_按钮面板";
+            this.panel_按钮面板.Size = new Size(394, 97);
+            this.panel_按钮面板.TabIndex = 11;
             // 
-            // label1
+            // button_生成阵容码
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(195, 5);
-            label1.Margin = new Padding(2, 5, 0, 5);
-            label1.MinimumSize = new Size(35, 25);
-            label1.Name = "label1";
-            label1.Size = new Size(35, 25);
-            label1.TabIndex = 9;
-            label1.Text = "赛季";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            button_生成阵容码.FlatStyle = FlatStyle.Flat;
+            button_生成阵容码.Font = new Font("Microsoft YaHei UI", 7.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            button_生成阵容码.Location = new Point(168, 67);
+            button_生成阵容码.Margin = new Padding(0);
+            button_生成阵容码.Name = "button_生成阵容码";
+            button_生成阵容码.Size = new Size(69, 25);
+            button_生成阵容码.TabIndex = 10;
+            button_生成阵容码.Text = "生成阵容码";
+            button_生成阵容码.UseVisualStyleBackColor = true;
+            button_生成阵容码.Click += button_生成阵容码_Click;
+            // 
+            // label_赛季
+            // 
+            this.label_赛季.AutoSize = true;
+            this.label_赛季.Location = new Point(195, 5);
+            this.label_赛季.Margin = new Padding(2, 5, 0, 5);
+            this.label_赛季.MinimumSize = new Size(35, 25);
+            this.label_赛季.Name = "label_赛季";
+            this.label_赛季.Size = new Size(35, 25);
+            this.label_赛季.TabIndex = 9;
+            this.label_赛季.Text = "赛季";
+            this.label_赛季.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // toolTipTimer
             // 
@@ -358,8 +374,8 @@
             menuStrip_Main.PerformLayout();
             panel_BackGround.ResumeLayout(false);
             panel_BackGround.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            this.panel_按钮面板.ResumeLayout(false);
+            this.panel_按钮面板.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -388,8 +404,9 @@
         private FlowLayoutPanel flowLayoutPanel__SubLineUp2;
         private FlowLayoutPanel flowLayoutPanel_SubLineUp1;
         private System.Windows.Forms.Timer toolTipTimer;
-        private Panel panel1;
-        private Label label1;
+        private Panel panel_按钮面板;
+        private Label label_赛季;
         private System.Windows.Forms.Timer timer_UpdateCoordinates;
+        private Button button_生成阵容码;
     }
 }

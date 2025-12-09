@@ -50,15 +50,15 @@
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             panel_BackGround = new Panel();
-            this.panel_按钮面板 = new Panel();
+            panel_按钮面板 = new Panel();
             button_生成阵容码 = new Button();
-            this.label_赛季 = new Label();
+            label_赛季 = new Label();
             toolTipTimer = new System.Windows.Forms.Timer(components);
             timer_UpdateCoordinates = new System.Windows.Forms.Timer(components);
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
-            this.panel_按钮面板.SuspendLayout();
+            panel_按钮面板.SuspendLayout();
             SuspendLayout();
             // 
             // panel_SubLineUpParent
@@ -288,7 +288,7 @@
             // 
             panel_BackGround.AutoSize = true;
             panel_BackGround.BackColor = Color.White;
-            panel_BackGround.Controls.Add(this.panel_按钮面板);
+            panel_BackGround.Controls.Add(panel_按钮面板);
             panel_BackGround.Controls.Add(panel_SubLineUpParent);
             panel_BackGround.Controls.Add(tabControl_HeroSelector);
             panel_BackGround.Controls.Add(menuStrip_Main);
@@ -302,22 +302,22 @@
             // 
             // panel_按钮面板
             // 
-            this.panel_按钮面板.Controls.Add(button_生成阵容码);
-            this.panel_按钮面板.Controls.Add(this.label_赛季);
-            this.panel_按钮面板.Controls.Add(label_自动拿牌);
-            this.panel_按钮面板.Controls.Add(comboBox_HeroPool);
-            this.panel_按钮面板.Controls.Add(button_Clear);
-            this.panel_按钮面板.Controls.Add(label_自动刷新);
-            this.panel_按钮面板.Controls.Add(button_GetCard);
-            this.panel_按钮面板.Controls.Add(button_Refresh);
-            this.panel_按钮面板.Controls.Add(comboBox_LineUps);
-            this.panel_按钮面板.Controls.Add(button_Save);
-            this.panel_按钮面板.Controls.Add(button_ParseLineUp);
-            this.panel_按钮面板.Controls.Add(textBox_LineUpCode);
-            this.panel_按钮面板.Location = new Point(5, 30);
-            this.panel_按钮面板.Name = "panel_按钮面板";
-            this.panel_按钮面板.Size = new Size(394, 97);
-            this.panel_按钮面板.TabIndex = 11;
+            panel_按钮面板.Controls.Add(button_生成阵容码);
+            panel_按钮面板.Controls.Add(label_赛季);
+            panel_按钮面板.Controls.Add(label_自动拿牌);
+            panel_按钮面板.Controls.Add(comboBox_HeroPool);
+            panel_按钮面板.Controls.Add(button_Clear);
+            panel_按钮面板.Controls.Add(label_自动刷新);
+            panel_按钮面板.Controls.Add(button_GetCard);
+            panel_按钮面板.Controls.Add(button_Refresh);
+            panel_按钮面板.Controls.Add(comboBox_LineUps);
+            panel_按钮面板.Controls.Add(button_Save);
+            panel_按钮面板.Controls.Add(button_ParseLineUp);
+            panel_按钮面板.Controls.Add(textBox_LineUpCode);
+            panel_按钮面板.Location = new Point(5, 30);
+            panel_按钮面板.Name = "panel_按钮面板";
+            panel_按钮面板.Size = new Size(394, 97);
+            panel_按钮面板.TabIndex = 11;
             // 
             // button_生成阵容码
             // 
@@ -328,21 +328,21 @@
             button_生成阵容码.Name = "button_生成阵容码";
             button_生成阵容码.Size = new Size(69, 25);
             button_生成阵容码.TabIndex = 10;
-            button_生成阵容码.Text = "生成阵容码";
+            button_生成阵容码.Text = "导出阵容码";
             button_生成阵容码.UseVisualStyleBackColor = true;
             button_生成阵容码.Click += button_生成阵容码_Click;
             // 
             // label_赛季
             // 
-            this.label_赛季.AutoSize = true;
-            this.label_赛季.Location = new Point(195, 5);
-            this.label_赛季.Margin = new Padding(2, 5, 0, 5);
-            this.label_赛季.MinimumSize = new Size(35, 25);
-            this.label_赛季.Name = "label_赛季";
-            this.label_赛季.Size = new Size(35, 25);
-            this.label_赛季.TabIndex = 9;
-            this.label_赛季.Text = "赛季";
-            this.label_赛季.TextAlign = ContentAlignment.MiddleCenter;
+            label_赛季.AutoSize = true;
+            label_赛季.Location = new Point(195, 5);
+            label_赛季.Margin = new Padding(2, 5, 0, 5);
+            label_赛季.MinimumSize = new Size(35, 25);
+            label_赛季.Name = "label_赛季";
+            label_赛季.Size = new Size(35, 25);
+            label_赛季.TabIndex = 9;
+            label_赛季.Text = "赛季";
+            label_赛季.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // toolTipTimer
             // 
@@ -374,8 +374,8 @@
             menuStrip_Main.PerformLayout();
             panel_BackGround.ResumeLayout(false);
             panel_BackGround.PerformLayout();
-            this.panel_按钮面板.ResumeLayout(false);
-            this.panel_按钮面板.PerformLayout();
+            panel_按钮面板.ResumeLayout(false);
+            panel_按钮面板.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

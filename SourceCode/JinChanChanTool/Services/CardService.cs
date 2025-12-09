@@ -4,6 +4,7 @@ using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
+using System;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
@@ -633,41 +634,43 @@ namespace JinChanChanTool.Services
 
         private async Task 刷新商店()
         {
-            Stopwatch 操作计时器 = new Stopwatch();
-            Stopwatch 延迟计时器 = new Stopwatch();
-            long 总操作耗时 = 0;
-            long 总延迟耗时 = 0;
-
+           
             if (_iappConfigService.CurrentConfig.IsMouseRefreshStore)
             {
-                操作计时器.Restart();
+                int X = 0;
+                int Y = 0;
                 if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
-                    MouseControlTool.SetMousePosition(_iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
+                    X =  Random.Shared.Next(
+                         _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X -10 , _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X + 10);
+                    Y = Random.Shared.Next(
+                        _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y-10, _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y+10);                    
                 }
                 else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                 {
                     MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
+                    X = Random.Shared.Next(
+                         _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X + 10);
+                    Y = Random.Shared.Next(
+                        _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y + 10);
                 }
                 else
                 {
                     MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
+                    X = Random.Shared.Next(
+                         _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X + 10);
+                    Y = Random.Shared.Next(
+                        _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y + 10);
                 }
-                总操作耗时 += 操作计时器.ElapsedMilliseconds;
 
-                延迟计时器.Restart();
-                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
-                总延迟耗时 += 延迟计时器.ElapsedMilliseconds;
-
-                操作计时器.Restart();
+                MouseControlTool.SetMousePosition(X, Y);
+                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);                              
                 await ClickOneTime();
-                总操作耗时 += 操作计时器.ElapsedMilliseconds;
+              
             }
             else if (_iappConfigService.CurrentConfig.IsKeyboardRefreshStore)
-            {
-                操作计时器.Restart();
-                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);
-                总操作耗时 += 操作计时器.ElapsedMilliseconds;
+            {                
+                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);               
             }
         }
 

@@ -1452,14 +1452,14 @@ namespace JinChanChanTool
                 Clipboard.SetText(lineupCode);
 
                 int usedCount = Math.Min(selectedHeroNames.Count, 10);
-                MessageBox.Show($"已生成阵容码！\n已生成的英雄数量: {usedCount}{countMessage}\n阵容码已复制到剪贴板。",
+                MessageBox.Show($"已导出阵容码！\n已导出的英雄数量: {usedCount}{countMessage}\n阵容码已复制到剪贴板。",
                                 "成功",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"生成阵容码失败！\n错误信息: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"导出阵容码失败！\n错误信息: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion

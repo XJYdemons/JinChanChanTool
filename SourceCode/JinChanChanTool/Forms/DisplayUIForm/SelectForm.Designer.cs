@@ -1,4 +1,6 @@
-﻿namespace JinChanChanTool.Forms
+﻿using JinChanChanTool.DIYComponents;
+
+namespace JinChanChanTool.Forms
 {
     partial class SelectForm
     {
@@ -28,23 +30,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            draggingBar = new Panel();
-            panel_Background = new Panel();
+            panel_Background = new CustomPanel();
             SuspendLayout();
-            // 
-            // draggingBar
-            // 
-            draggingBar.BackColor = Color.FromArgb(218, 218, 218);
-            draggingBar.BorderStyle = BorderStyle.FixedSingle;
-            draggingBar.Location = new Point(0, 0);
-            draggingBar.Name = "draggingBar";
-            draggingBar.Size = new Size(6, 164);
-            draggingBar.TabIndex = 1;
-            draggingBar.MouseDoubleClick += panel_MouseDoubleClick;
             // 
             // panel_Background
             // 
-            panel_Background.Location = new Point(6, 0);
+            panel_Background.BorderColor = Color.Magenta;
+            panel_Background.Location = new Point(0, 0);
             panel_Background.Margin = new Padding(0);
             panel_Background.Name = "panel_Background";
             panel_Background.Size = new Size(608, 182);
@@ -55,9 +47,8 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.Magenta;
-            ClientSize = new Size(617, 195);
+            ClientSize = new Size(611, 195);
             Controls.Add(panel_Background);
-            Controls.Add(draggingBar);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SelectForm";
             ShowInTaskbar = false;
@@ -69,7 +60,6 @@
         }
 
         #endregion
-        public Panel draggingBar;
-        public Panel panel_Background;
+        public CustomPanel panel_Background;
     }
 }

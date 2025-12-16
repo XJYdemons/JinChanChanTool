@@ -1,0 +1,923 @@
+{
+  "UpdateTime": "2025-12-17T03:42:16.4319638+08:00",
+  "LineUps": [
+    {
+      "LineUpName": "小炮加里奥混搭",
+      "LineUpUnits": [
+        {
+          "HeroName": "崔丝塔娜",
+          "EquipmentNames": [
+            "祖安纹章",
+            "大副的燧发枪",
+            "船长的酿造品"
+          ]
+        },
+        {
+          "HeroName": "雷克顿",
+          "EquipmentNames": [
+            "狙击手的专注",
+            "光明版无尽之刃",
+            "密银黎明"
+          ]
+        },
+        {
+          "HeroName": "加里奥",
+          "EquipmentNames": [
+            "鱼骨头",
+            "恶火小斧",
+            "女神之泪"
+          ]
+        },
+        {
+          "HeroName": "泰达米尔",
+          "EquipmentNames": [
+            "暗裔之弓",
+            "适应性头盔",
+            "适应性头盔"
+          ]
+        },
+        {
+          "HeroName": "辛吉德",
+          "EquipmentNames": [
+            "枪手纹章",
+            "亡者的短剑",
+            "光明版泰坦的坚决"
+          ]
+        },
+        {
+          "HeroName": "可酷伯与悠米",
+          "EquipmentNames": [
+            "蓝霸符",
+            "红霸符",
+            "皮尔特沃夫纹章"
+          ]
+        },
+        {
+          "HeroName": "阿兹尔",
+          "EquipmentNames": [
+            "光明版虚空之杖",
+            "智慧末刃",
+            "饮血剑"
+          ]
+        },
+        {
+          "HeroName": "妮蔻",
+          "EquipmentNames": [
+            "护卫纹章",
+            "窃贼手套",
+            "光明版薄暮法袍"
+          ]
+        },
+        {
+          "HeroName": "佛耶戈",
+          "EquipmentNames": [
+            "幸运达布隆金币",
+            "金铲铲",
+            "投机者之刃"
+          ]
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 94.67879486083984,
+      "AverageRank": 4.38,
+      "PickRate": 81.3768310546875,
+      "TopFourRate": 31.665477752685547,
+      "Tags": [
+        "简单",
+        "7级"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "冰鸟挖掘机",
+      "LineUpUnits": [
+        {
+          "HeroName": "艾尼维亚",
+          "EquipmentNames": [
+            "强袭者的链枷",
+            "海克斯科技枪刃",
+            "裁决战士纹章"
+          ]
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "虚空之杖",
+            "无尽之刃",
+            "酒吧指虎"
+          ]
+        },
+        {
+          "HeroName": "塔里克",
+          "EquipmentNames": [
+            "薄暮法袍",
+            "光明版泰坦的坚决",
+            "三相之力"
+          ]
+        },
+        {
+          "HeroName": "孙悟空",
+          "EquipmentNames": [
+            "黎明核心",
+            "光明版冕卫",
+            "光明版日炎斗篷"
+          ]
+        },
+        {
+          "HeroName": "锤石",
+          "EquipmentNames": [
+            "残酷弯刀",
+            "死亡之蔑",
+            "反曲之弓"
+          ]
+        },
+        {
+          "HeroName": "德莱厄斯",
+          "EquipmentNames": [
+            "光明版巨人杀手",
+            "光明版日炎斗篷",
+            "光明版窃贼手套"
+          ]
+        },
+        {
+          "HeroName": "芸阿娜",
+          "EquipmentNames": [
+            "光明版饮血剑",
+            "光明版狂徒铠甲",
+            "光明版坚定之心"
+          ]
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "诺克萨斯纹章",
+            "坚定之心",
+            "暗裔之杖"
+          ]
+        },
+        {
+          "HeroName": "普朗克",
+          "EquipmentNames": [
+            "适应性头盔",
+            "以绪塔尔纹章",
+            "光明版斯特拉克的挑战护手"
+          ]
+        },
+        {
+          "HeroName": "安妮",
+          "EquipmentNames": [
+            "密银黎明",
+            "适应性头盔",
+            "碎舰者"
+          ]
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 36.91748046875,
+      "AverageRank": 3.76,
+      "PickRate": 59.87302017211914,
+      "TopFourRate": 15.243446350097656,
+      "Tags": [
+        "简单",
+        "8级"
+      ],
+      "Description": "车葫芦画来回转话车葫芦来回转，车轱辘话来回转，胡来转车轱辘，车葫芦画来回转话车葫芦来回转，车轱辘话来回转，胡来转车轱辘，车葫芦画来回转话车葫芦来回转，车轱辘话来回转，胡来转车轱辘，车！"
+    },
+    {
+      "LineUpName": "掘墓梅尔",
+      "LineUpUnits": [
+        {
+          "HeroName": "约里克",
+          "EquipmentNames": [
+            "征服者纹章",
+            "成堆柑橘",
+            "飞升护符"
+          ]
+        },
+        {
+          "HeroName": "梅尔",
+          "EquipmentNames": [
+            "黎明圣盾",
+            "斗士纹章",
+            "鬼索的狂暴之刃"
+          ]
+        },
+        {
+          "HeroName": "克格莫",
+          "EquipmentNames": [
+            "暗裔之镰",
+            "光明版圣盾使的誓约",
+            "暗裔之杖"
+          ]
+        },
+        {
+          "HeroName": "永恩",
+          "EquipmentNames": [
+            "死亡之刃",
+            "斯塔缇克电刃",
+            "坚铁甲壳"
+          ]
+        },
+        {
+          "HeroName": "阿狸",
+          "EquipmentNames": [
+            "光明版虚空之杖",
+            "榨血核体",
+            "光明版斯特拉克的挑战护手"
+          ]
+        },
+        {
+          "HeroName": "普朗克",
+          "EquipmentNames": [
+            "负极斗篷",
+            "黎明圣盾",
+            "光盾徽章"
+          ]
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "约德尔人纹章",
+            "船长的酿造品",
+            "虚空护手"
+          ]
+        },
+        {
+          "HeroName": "斯卡纳",
+          "EquipmentNames": [
+            "振奋盔甲",
+            "无用大棒",
+            "护卫纹章"
+          ]
+        },
+        {
+          "HeroName": "赵信",
+          "EquipmentNames": [
+            "无尽之刃",
+            "虚空护手",
+            "黑市炸药"
+          ]
+        },
+        {
+          "HeroName": "安蓓萨",
+          "EquipmentNames": [
+            "珠光护手",
+            "暗裔之镰",
+            "无尽之刃"
+          ]
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 10.857196807861328,
+      "AverageRank": 2.44,
+      "PickRate": 19.004331588745117,
+      "TopFourRate": 14.220770835876465,
+      "Tags": [
+        "困难",
+        "速9"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "安蓓撒贝蕾亚",
+      "LineUpUnits": [
+        {
+          "HeroName": "安蓓萨",
+          "EquipmentNames": [
+            "光明版纳什之牙",
+            "光明版斯特拉克的挑战护手",
+            "光明版日炎斗篷"
+          ]
+        },
+        {
+          "HeroName": "加里奥",
+          "EquipmentNames": [
+            "掠食本能",
+            "暗裔之镰",
+            "卢登的激荡"
+          ]
+        },
+        {
+          "HeroName": "贝蕾亚",
+          "EquipmentNames": [
+            "掠食本能",
+            "光明版海克斯科技枪刃",
+            "黑市炸药"
+          ]
+        },
+        {
+          "HeroName": "凯南",
+          "EquipmentNames": [
+            "最后的轻语",
+            "珠光护手",
+            "皇室外壳"
+          ]
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "巨人腰带",
+            "海妖之怒",
+            "光明版窃贼手套"
+          ]
+        },
+        {
+          "HeroName": "布隆",
+          "EquipmentNames": [
+            "虚空护手",
+            "光明版巨龙之爪",
+            "碎舰者"
+          ]
+        },
+        {
+          "HeroName": "锤石",
+          "EquipmentNames": [
+            "光明版灭世者的死亡之帽",
+            "巨人腰带",
+            "光明版石像鬼石板甲"
+          ]
+        },
+        {
+          "HeroName": "希瓦娜",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "光明版薄暮法袍",
+            "光明版大天使之杖"
+          ]
+        },
+        {
+          "HeroName": "厄运小姐",
+          "EquipmentNames": [
+            "朔极之矛",
+            "神谕者纹章",
+            "最后的轻语"
+          ]
+        },
+        {
+          "HeroName": "普朗克",
+          "EquipmentNames": [
+            "艾欧尼亚纹章",
+            "薄暮法袍",
+            "死亡之蔑"
+          ]
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 40.61613082885742,
+      "AverageRank": 5.96,
+      "PickRate": 48.23863220214844,
+      "TopFourRate": 14.161384582519531,
+      "Tags": [
+        "中等",
+        "8级"
+      ],
+      "Description": "诺克专精"
+    },
+    {
+      "LineUpName": "炸弹人梅尔",
+      "LineUpUnits": [
+        {
+          "HeroName": "吉格斯",
+          "EquipmentNames": [
+            "灭世者的死亡之帽",
+            "耀光使纹章",
+            "鱼骨头"
+          ]
+        },
+        {
+          "HeroName": "梅尔",
+          "EquipmentNames": [
+            "约德尔人纹章",
+            "皮尔特沃夫纹章",
+            "狙击手的专注"
+          ]
+        },
+        {
+          "HeroName": "海克斯霸龙",
+          "EquipmentNames": [
+            "光明版圣盾使的誓约",
+            "光明版薄暮法袍",
+            "光明版狂徒铠甲"
+          ]
+        },
+        {
+          "HeroName": "菲兹",
+          "EquipmentNames": [
+            "光明版薄暮法袍",
+            "黄昏圣盾",
+            "光明版夜之锋刃"
+          ]
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "斯特拉克的挑战护手",
+            "大天使之杖",
+            "光明版巨龙之爪"
+          ]
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "巨型九头蛇",
+            "法师纹章",
+            "三相之力"
+          ]
+        },
+        {
+          "HeroName": "泰达米尔",
+          "EquipmentNames": [
+            "死亡之蔑",
+            "最后的轻语",
+            "光明版薄暮法袍"
+          ]
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "光明版死亡之刃",
+            "狙神纹章"
+          ]
+        },
+        {
+          "HeroName": "克格莫",
+          "EquipmentNames": [
+            "耀光使纹章",
+            "虚空纹章",
+            "金锅锅冠冕"
+          ]
+        },
+        {
+          "HeroName": "孙悟空",
+          "EquipmentNames": [
+            "棘刺背心",
+            "负极斗篷",
+            "光明版巨龙之爪"
+          ]
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 22.5354061126709,
+      "AverageRank": 4.28,
+      "PickRate": 77.21681213378906,
+      "TopFourRate": 12.621042251586914,
+      "Tags": [
+        "困难",
+        "速9"
+      ],
+      "Description": "后期阵容"
+    },
+    {
+      "LineUpName": "佐伊猪妹",
+      "LineUpUnits": [
+        {
+          "HeroName": "佐伊",
+          "EquipmentNames": [
+            "诺克萨斯纹章",
+            "光明版最后的轻语",
+            "暗裔之盾"
+          ]
+        },
+        {
+          "HeroName": "瑟庄妮",
+          "EquipmentNames": [
+            "中娅悖论",
+            "黄昏圣盾",
+            "坚铁甲壳"
+          ]
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "幸运达布隆金币",
+            "船长的酿造品",
+            "光明版红霸符"
+          ]
+        },
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "纳什之牙",
+            "薄暮法袍",
+            "死亡之蔑"
+          ]
+        },
+        {
+          "HeroName": "塞拉斯",
+          "EquipmentNames": [
+            "狙神纹章",
+            "负极斗篷",
+            "枪手纹章"
+          ]
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "女神之泪",
+            "永恒契约",
+            "窃贼手套"
+          ]
+        },
+        {
+          "HeroName": "璐璐",
+          "EquipmentNames": [
+            "枯萎珠宝",
+            "无用大棒",
+            "金币收集者"
+          ]
+        },
+        {
+          "HeroName": "阿狸",
+          "EquipmentNames": [
+            "斗士纹章",
+            "狙击手的专注",
+            "光明版泰坦的坚决"
+          ]
+        },
+        {
+          "HeroName": "提莫",
+          "EquipmentNames": [
+            "帽子饮品",
+            "征服者纹章",
+            "德玛西亚纹章"
+          ]
+        },
+        {
+          "HeroName": "奈德丽",
+          "EquipmentNames": [
+            "窃贼手套",
+            "耀光使纹章",
+            "适应性头盔"
+          ]
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 28.759918212890625,
+      "AverageRank": 3.76,
+      "PickRate": 55.110530853271484,
+      "TopFourRate": 41.35961151123047,
+      "Tags": [
+        "简单"
+      ],
+      "Description": "很强的一套过渡阵容"
+    },
+    {
+      "LineUpName": "时光塞恩",
+      "LineUpUnits": [
+        {
+          "HeroName": "基兰",
+          "EquipmentNames": [
+            "光明版坚定之心",
+            "坚铁甲壳",
+            "神谕者纹章"
+          ]
+        },
+        {
+          "HeroName": "赛恩",
+          "EquipmentNames": [
+            "光明版红霸符",
+            "光明版无尽之刃",
+            "黑市炸药"
+          ]
+        },
+        {
+          "HeroName": "希瓦娜",
+          "EquipmentNames": [
+            "枪手纹章",
+            "光明版水银",
+            "光明版莫雷洛秘典"
+          ]
+        },
+        {
+          "HeroName": "娑娜",
+          "EquipmentNames": [
+            "弗雷尔卓德纹章",
+            "智慧末刃",
+            "光明版正义之手"
+          ]
+        },
+        {
+          "HeroName": "卡莉丝塔",
+          "EquipmentNames": [
+            "黄昏圣盾",
+            "海妖之怒",
+            "光明版死亡之刃"
+          ]
+        },
+        {
+          "HeroName": "峡谷先锋",
+          "EquipmentNames": [
+            "坚定之心",
+            "光明版坚定之心",
+            "光明版海克斯科技枪刃"
+          ]
+        },
+        {
+          "HeroName": "吉格斯",
+          "EquipmentNames": [
+            "光明版最后的轻语",
+            "夜之锋刃",
+            "红霸符"
+          ]
+        },
+        {
+          "HeroName": "璐璐",
+          "EquipmentNames": [
+            "光明版狂徒铠甲",
+            "虚空护手",
+            "金铲铲"
+          ]
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 40.82175064086914,
+      "AverageRank": 3.5,
+      "PickRate": 99.35165405273438,
+      "TopFourRate": 14.477570533752441,
+      "Tags": [
+        "困难",
+        "速9",
+	"狗运"
+      ],
+      "Description": "拖住能玩"
+    },
+    {
+      "LineUpName": "时光蕾欧娜",
+      "LineUpUnits": [
+        {
+          "HeroName": "基兰",
+          "EquipmentNames": [
+            "约德尔人纹章",
+            "水银",
+            "死亡之刃"
+          ]
+        },
+        {
+          "HeroName": "可酷伯与悠米",
+          "EquipmentNames": [
+            "光明版石像鬼石板甲",
+            "最后的轻语",
+            "暗裔之杖"
+          ]
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "鱼骨头",
+            "飞升护符"
+          ]
+        },
+        {
+          "HeroName": "塞拉斯",
+          "EquipmentNames": [
+            "暗裔之镰",
+            "三相之力",
+            "皮尔特沃夫纹章"
+          ]
+        },
+        {
+          "HeroName": "妮蔻",
+          "EquipmentNames": [
+            "帽子饮品",
+            "冕卫",
+            "拳套"
+          ]
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "迅击战士纹章",
+            "光明版适应性头盔",
+            "虚空护手"
+          ]
+        },
+        {
+          "HeroName": "梅尔",
+          "EquipmentNames": [
+            "大亨之铠",
+            "帽子饮品",
+            "巨龙之爪"
+          ]
+        },
+        {
+          "HeroName": "斯维因",
+          "EquipmentNames": [
+            "光明版强袭者的链枷",
+            "幸运达布隆金币",
+            "锁子甲"
+          ]
+        },
+        {
+          "HeroName": "奥莉安娜",
+          "EquipmentNames": [
+            "帽子饮品",
+            "黑市炸药",
+            "斯特拉克的挑战护手"
+          ]
+        },
+        {
+          "HeroName": "玛尔扎哈",
+          "EquipmentNames": [
+            "虚空护手",
+            "恶火小斧",
+            "锁子甲"
+          ]
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 75.92607116699219,
+      "AverageRank": 2.7,
+      "PickRate": 40.02301025390625,
+      "TopFourRate": 72.42296600341797,
+      "Tags": [
+        "困难",
+        "速9"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "凯南蒙多",
+      "LineUpUnits": [
+        {
+          "HeroName": "凯南",
+          "EquipmentNames": [
+            "巨型九头蛇",
+            "虚空纹章",
+            "女神之泪"
+          ]
+        },
+        {
+          "HeroName": "蒙多医生",
+          "EquipmentNames": [
+            "最后的轻语",
+            "朔极之矛",
+            "皮尔特沃夫纹章"
+          ]
+        },
+        {
+          "HeroName": "奥莉安娜",
+          "EquipmentNames": [
+            "皇室外壳",
+            "离子火花",
+            "暗裔之镰"
+          ]
+        },
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "迅击战士纹章",
+            "光明版红霸符",
+            "光明版水银"
+          ]
+        },
+        {
+          "HeroName": "斯卡纳",
+          "EquipmentNames": [
+            "光明版振奋盔甲",
+            "残酷弯刀",
+            "船长的酿造品"
+          ]
+        },
+        {
+          "HeroName": "奥瑞利安索尔",
+          "EquipmentNames": [
+            "红霸符",
+            "皇室外壳",
+            "黄昏圣盾"
+          ]
+        },
+        {
+          "HeroName": "塔里克",
+          "EquipmentNames": [
+            "强袭者的链枷",
+            "肾上腺素模块",
+            "朔极之矛"
+          ]
+        },
+        {
+          "HeroName": "艾克",
+          "EquipmentNames": [
+            "皇室外壳",
+            "船长的酿造品",
+            "金铲铲冠冕"
+          ]
+        },
+        {
+          "HeroName": "费德提克",
+          "EquipmentNames": [
+            "碎舰者",
+            "三相之力",
+            "掠食本能"
+          ]
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 87.82843780517578,
+      "AverageRank": 4.44,
+      "PickRate": 70.046142578125,
+      "TopFourRate": 2.45682692527771,
+      "Tags": [
+        "简单",
+        "速8"
+      ],
+      "Description": "纯蒙多"
+    },
+    {
+      "LineUpName": "亚恒佐伊",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚恒",
+          "EquipmentNames": [
+            "弗雷尔卓德纹章",
+            "朔极之矛",
+            "光明版泰坦的坚决"
+          ]
+        },
+        {
+          "HeroName": "金克丝",
+          "EquipmentNames": [
+            "日炎斗篷",
+            "灭世者的死亡之帽",
+            "智慧末刃"
+          ]
+        },
+        {
+          "HeroName": "佐伊",
+          "EquipmentNames": [
+            "海妖之怒",
+            "耀光使纹章",
+            "光明版棘刺背心"
+          ]
+        },
+        {
+          "HeroName": "艾克",
+          "EquipmentNames": [
+            "莫雷洛秘典",
+            "投机者之刃",
+            "强袭者的链枷"
+          ]
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "无尽之刃",
+            "金锅锅冠冕",
+            "暗裔之盾"
+          ]
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "光明版石像鬼石板甲",
+            "最后的轻语"
+          ]
+        },
+        {
+          "HeroName": "瑟提",
+          "EquipmentNames": [
+            "正义之手",
+            "泰坦的坚决",
+            "冕卫"
+          ]
+        },
+        {
+          "HeroName": "崔丝塔娜",
+          "EquipmentNames": [
+            "大天使之杖",
+            "鬼索的狂暴之刃",
+            "拳套"
+          ]
+        },
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "光明版水银",
+            "鱼骨头",
+            "最后的轻语"
+          ]
+        },
+        {
+          "HeroName": "维迦",
+          "EquipmentNames": [
+            "金锅锅",
+            "正义之手",
+            "斗士纹章"
+          ]
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 35.153812408447266,
+      "AverageRank": 6.63,
+      "PickRate": 88.8927993774414,
+      "TopFourRate": 45.50337219238281,
+      "Tags": [
+        "困难",
+        "速10"
+      ],
+      "Description": "很贵，但值得！"
+    }
+  ]
+}

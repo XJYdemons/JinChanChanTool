@@ -32,9 +32,7 @@ namespace JinChanChanTool.Forms
         {           
             InitializeComponent();
             // 鼠标事件处理
-            draggingBar.MouseDown += panel_MouseDown;
-            draggingBar.MouseMove += panel_MouseMove;
-            draggingBar.MouseUp += panel_MouseUp;
+           
             
         }
       
@@ -51,27 +49,16 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void panel_MouseDown(object sender, MouseEventArgs e)
         {                        
-            if(sender is Panel)
-            {
-                if (e.Button == MouseButtons.Left)
-                {                   
-                    draggingBar.BackColor = Color.FromArgb(96, 223, 84);                                     
-                    _dragging = true;
-                    _dragStartPoint = new Point(e.X, e.Y);
-                    //改变鼠标光标
-                    Cursor = Cursors.SizeAll;
-                }
-            }
-            else if(sender is HeroPictureBox)
-            {
+           
                 if (e.Button == MouseButtons.Right)
                 {                   
                     _dragging = true;
                     _dragStartPoint = new Point(e.X, e.Y);
-                    draggingBar.BackColor = Color.FromArgb(96, 223, 84);
+                    
+                   
                     Cursor = Cursors.SizeAll;
                 }
-            }
+           
             
         }
 
@@ -97,8 +84,9 @@ namespace JinChanChanTool.Forms
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void panel_MouseUp(object sender, MouseEventArgs e)
-        {          
-            draggingBar.BackColor =  Color.FromArgb(218, 218, 218);                                
+        {
+            
+          
             _dragging = false;
             Cursor = Cursors.Arrow;
             SaveFormLocation();
@@ -160,22 +148,7 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        /// <summary>
-        /// 面板双击事件，切换可见性
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void panel_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (panel_Background.Visible == true)
-            {
-                panel_Background.Visible = false;
-            }
-            else
-            {
-                panel_Background.Visible = true;
-            }
-        }
+       
 
         #region 位置保存与读取
         

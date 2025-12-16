@@ -128,8 +128,7 @@ namespace JinChanChanTool
             textBox_自动刷新商店快捷键.Text = _iappConfigService.CurrentConfig.HotKey2;
             textBox_长按自动D牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey4;
             radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseFixedCoordinates;
-            radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;
-            textBox_单个阵容最大英雄容量.Text = _iappConfigService.CurrentConfig.MaxHerosCount.ToString();
+            radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;          
             textBox_最大阵容数量.Text = _iappConfigService.CurrentConfig.MaxLineUpCount.ToString();
             textBox_拿牌坐标X1.Text = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1.ToString();
             textBox_拿牌坐标X2.Text = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2.ToString();
@@ -171,7 +170,7 @@ namespace JinChanChanTool
             textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxSize.ToString();
             textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing.ToString();
             textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPanelsVerticalSpacing.ToString();
-            textBox_拖动条宽度_英雄选择面板.Text = _iappConfigService.CurrentConfig.TransparentPanelDraggingBarWidth.ToString();
+            
         }
 
         /// <summary>
@@ -198,10 +197,7 @@ namespace JinChanChanTool
             radioButton_手动设置坐标.CheckedChanged += radioButton_手动设置坐标_CheckedChanged;
 
             radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
-
-            textBox_单个阵容最大英雄容量.KeyDown += TextBox_KeyDown;
-            textBox_单个阵容最大英雄容量.Enter += TextBox_Enter;
-            textBox_单个阵容最大英雄容量.Leave += textBox_单个阵容最大英雄容量_Leave;
+          
             textBox_最大阵容数量.KeyDown += TextBox_KeyDown;
             textBox_最大阵容数量.Enter += TextBox_Enter;
             textBox_最大阵容数量.Leave += textBox_最大阵容数量_Leave;            
@@ -313,9 +309,7 @@ namespace JinChanChanTool
             textBox_英雄头像框垂直间隔.Enter += TextBox_Enter;
             textBox_英雄头像框垂直间隔.Leave += textBox_英雄头像框垂直间隔_Leave;
 
-            textBox_拖动条宽度_英雄选择面板.KeyDown += TextBox_KeyDown;
-            textBox_拖动条宽度_英雄选择面板.Enter += TextBox_Enter;
-            textBox_拖动条宽度_英雄选择面板.Leave += textBox_拖动条宽度_英雄选择面板_Leave;
+           
         }
 
         /// <summary>
@@ -986,41 +980,7 @@ namespace JinChanChanTool
         #endregion
         #endregion
 
-        #region 阵容相关设置
-        #region 修改-单个阵容最大英雄容量
-        /// <summary>
-        /// 离开textBox_单个阵容最大英雄容量时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_单个阵容最大英雄容量_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_单个阵容最大英雄容量.Text))
-            {
-
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    int result = int.Parse(textBox_单个阵容最大英雄容量.Text);
-                    if (result > 0 && result <= 100)
-                    {
-                        _iappConfigService.CurrentConfig.MaxHerosCount = result;
-                    }
-                    Update_AllComponents();
-
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-        #endregion
+        #region 阵容相关设置       
 
         #region 修改-最大阵容数量
         /// <summary>
@@ -1696,36 +1656,7 @@ namespace JinChanChanTool
             }
         }
 
-        /// <summary>
-        /// 离开textBox_拖动条宽度_英雄选择面板时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_拖动条宽度_英雄选择面板_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_拖动条宽度_英雄选择面板.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    int result = int.Parse(textBox_拖动条宽度_英雄选择面板.Text);
-                    if (result > 0)
-                    {
-                        _iappConfigService.CurrentConfig.TransparentPanelDraggingBarWidth = result;
-                    }
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
+        
         #endregion
         #endregion
 

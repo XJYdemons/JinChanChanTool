@@ -28,12 +28,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 英雄数据对象列表
         /// </summary>
         public List<Hero> HeroDatas;
-
-        /// <summary>
-        /// 英雄头像图片列表
-        /// </summary>
-        private List<Image> HeroImages;
-
+       
         /// <summary>
         /// 职业对象列表
         /// </summary>
@@ -43,17 +38,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 特质对象列表
         /// </summary>
         private List<Peculiarity> peculiarities;
-
-        /// <summary>
-        /// 图片到英雄数据对象的字典
-        /// </summary>
-        private Dictionary<Image, Hero> imageToHeroDataMap;
-
-        /// <summary>
-        /// 英雄数据对象到图片的字典
-        /// </summary>
-        private Dictionary<Hero, Image> heroDataToImageMap;
-
+       
         /// <summary>
         /// 英雄名称到对象的字典
         /// </summary>
@@ -63,17 +48,15 @@ namespace JinChanChanTool.Services.DataServices
         /// 英雄名字符哈希表
         /// </summary>
         private HashSet<char> _charDictionary;
+
         #region 初始化
         public HeroDataService()
         {
             InitializePaths();            
             pathIndex = 0;           
-            HeroDatas = new List<Hero>();
-            HeroImages = new List<Image>();
+            HeroDatas = new List<Hero>();        
             professions = new List<Profession>();
-            peculiarities = new List<Peculiarity>();
-            imageToHeroDataMap = new Dictionary<Image, Hero>();
-            heroDataToImageMap = new Dictionary<Hero, Image>();
+            peculiarities = new List<Peculiarity>();         
             nameToHeroDataMap = new Dictionary<string, Hero>();
             _charDictionary = new HashSet<char>();
         }
@@ -159,11 +142,11 @@ namespace JinChanChanTool.Services.DataServices
         public void ReLoad()
         {
             HeroDatas.Clear();
-            HeroImages.Clear();
+            //HeroImages.Clear();
             professions.Clear();
             peculiarities.Clear();
-            imageToHeroDataMap.Clear();
-            heroDataToImageMap.Clear();
+            //imageToHeroDataMap.Clear();
+            //heroDataToImageMap.Clear();
             nameToHeroDataMap.Clear();
             _charDictionary.Clear();
             Load();
@@ -186,39 +169,39 @@ namespace JinChanChanTool.Services.DataServices
             }
         }
 
-        /// <summary>
-        /// 从图像获取英雄对象
-        /// </summary>
-        /// <param name="hero"></param>
-        /// <returns></returns>
-        public Image GetImageFromHero(Hero hero)
-        {
-            if (heroDataToImageMap.TryGetValue(hero, out Image image))
-            {
-                return image;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// 从图像获取英雄对象
+        ///// </summary>
+        ///// <param name="hero"></param>
+        ///// <returns></returns>
+        //public Image GetImageFromHero(Hero hero)
+        //{
+        //    if (heroDataToImageMap.TryGetValue(hero, out Image image))
+        //    {
+        //        return image;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
-        /// <summary>
-        /// 从英雄对象获取图像
-        /// </summary>
-        /// <param name="image"></param>
-        /// <returns></returns>
-        public Hero GetHeroFromImage(Image image)
-        {
-            if (imageToHeroDataMap.TryGetValue(image, out Hero hero))
-            {
-                return hero;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// 从英雄对象获取图像
+        ///// </summary>
+        ///// <param name="image"></param>
+        ///// <returns></returns>
+        //public Hero GetHeroFromImage(Image image)
+        //{
+        //    if (imageToHeroDataMap.TryGetValue(image, out Hero hero))
+        //    {
+        //        return hero;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// 根据索引删除英雄
@@ -229,23 +212,23 @@ namespace JinChanChanTool.Services.DataServices
             if (index < HeroDatas.Count && index >= 0)
             {
                 Hero hero = HeroDatas[index];
-                if (heroDataToImageMap.ContainsKey(hero))
-                {
-                    Image image = heroDataToImageMap[hero];
-                    heroDataToImageMap.Remove(hero);
-                    if (imageToHeroDataMap.ContainsKey(image))
-                    {
-                        imageToHeroDataMap.Remove(image);
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                //if (heroDataToImageMap.ContainsKey(hero))
+                //{
+                //    Image image = heroDataToImageMap[hero];
+                //    heroDataToImageMap.Remove(hero);
+                //    if (imageToHeroDataMap.ContainsKey(image))
+                //    {
+                //        imageToHeroDataMap.Remove(image);
+                //    }
+                //    else
+                //    {
+                //        return false;
+                //    }
+                //}
+                //else
+                //{
+                //    return false;
+                //}
                 if (nameToHeroDataMap.ContainsKey(hero.HeroName))
                 {
                     nameToHeroDataMap.Remove(hero.HeroName);
@@ -269,8 +252,8 @@ namespace JinChanChanTool.Services.DataServices
         {
             if (hero == null || image == null) return false;
             HeroDatas.Add(hero);
-            heroDataToImageMap[hero] = image;
-            imageToHeroDataMap[image] = hero;
+            //heroDataToImageMap[hero] = image;
+            //imageToHeroDataMap[image] = hero;
             nameToHeroDataMap[hero.HeroName] = hero;
             return true;
         }
@@ -422,12 +405,13 @@ namespace JinChanChanTool.Services.DataServices
             HeroDatas.Clear();
             if (paths.Length > 0 && pathIndex < paths.Length)
             {
+                string filePath = Path.Combine(paths[pathIndex], "HeroData.json");
                 try
                 {
-                    string filePath = Path.Combine(paths[pathIndex], "HeroData.json");
+                    
                     if (!File.Exists(filePath))
                     {
-                        MessageBox.Show($"找不到英雄配置文件\"HeroData.json\"\n路径：\n{filePath}\n将创建新的文件。",
+                        MessageBox.Show($"找不到英雄配置文件\"{Path.GetFileName(filePath)}\"\n路径：\n{filePath}\n将创建新的文件。",
                                     "文件缺失",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error
@@ -439,7 +423,7 @@ namespace JinChanChanTool.Services.DataServices
                     string json = File.ReadAllText(filePath);
                     if (string.IsNullOrEmpty(json))
                     {
-                        MessageBox.Show($"英雄配置文件\"HeroData.json\"内容为空。\n路径：\n{filePath}\n将创建新的文件。",
+                        MessageBox.Show($"英雄配置文件\"{Path.GetFileName(filePath)}\"内容为空。\n路径：\n{filePath}\n将创建新的文件。",
                                    "文件为空",
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
@@ -477,7 +461,7 @@ namespace JinChanChanTool.Services.DataServices
                 }
                 catch
                 {
-                    MessageBox.Show($"英雄配置文件\"HeroData.json\"格式错误\n路径：\n{Path.Combine(paths[pathIndex], "HeroData.json")}\n将创建新的文件。",
+                    MessageBox.Show($"英雄配置文件\"{Path.GetFileName(filePath)}\"格式错误\n路径：\n{filePath}\n将创建新的文件。",
                                    "文件格式错误",
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
@@ -499,8 +483,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 从本地加载图片到英雄头像图片列表
         /// </summary>
         private void LoadImages()
-        {
-            HeroImages.Clear();
+        {            
             // 使用StringBuilder收集错误信息            
             StringBuilder errors = new StringBuilder();
             string head = "";
@@ -512,7 +495,8 @@ namespace JinChanChanTool.Services.DataServices
                 {
                     string imagePath = Path.Combine(paths[pathIndex], "images", $"{HeroDatas[i].HeroName}.png");
                     Image image = Image.FromFile(imagePath);
-                    HeroImages.Add(image);
+                    //HeroImages.Add(image);
+                    HeroDatas[i].Image = new Bitmap(image);
                 }
                 catch
                 {
@@ -522,13 +506,14 @@ namespace JinChanChanTool.Services.DataServices
                     try
                     {
                         Image image = Image.FromFile(defaultImagePath);
-                        HeroImages.Add(image);
+                        //HeroImages.Add(image);
+                        HeroDatas[i].Image = new Bitmap(image);
                     }
                     catch
                     {
                         isDefautlImageLost = true;
-                        // 添加替代图片避免崩溃
-                        HeroImages.Add(new Bitmap(64, 64));
+                        // 添加替代图片避免崩溃                        
+                        HeroDatas[i].Image = new Bitmap(64, 64);
                     }
 
                 }
@@ -560,22 +545,23 @@ namespace JinChanChanTool.Services.DataServices
             professions.Clear();
             for (int i = 0; i < HeroDatas.Count; i++)
             {
-                string[] result = HeroDatas[i].Profession.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                for (int j = 0; j < result.Length; j++)
+                foreach (string professionName in HeroDatas[i].Profession)
                 {
-                    Profession existingGroup = professions.FirstOrDefault(p => string.Equals(p.Title, result[j], StringComparison.OrdinalIgnoreCase));
+                    if (string.IsNullOrWhiteSpace(professionName)) continue;
+
+                    Profession existingGroup = professions.FirstOrDefault(p => string.Equals(p.Title, professionName, StringComparison.OrdinalIgnoreCase));
                     if (existingGroup != null)
                     {
-                        existingGroup.HeroNames.Add(HeroDatas[i].HeroName);
+                        existingGroup.Heros.Add(HeroDatas[i]);
                     }
                     else
                     {
-                        var newObject = new Profession
+                        Profession newObject = new Profession
                         {
-                            Title = result[j],
-                            HeroNames = new List<string>()
+                            Title = professionName,
+                            Heros = new List<Hero>()
                         };
-                        newObject.HeroNames.Add(HeroDatas[i].HeroName);
+                        newObject.Heros.Add(HeroDatas[i]);
                         professions.Add(newObject);
                     }
                 }
@@ -590,22 +576,23 @@ namespace JinChanChanTool.Services.DataServices
             peculiarities.Clear();
             for (int i = 0; i < HeroDatas.Count; i++)
             {
-                string[] result = HeroDatas[i].Peculiarity.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                for (int j = 0; j < result.Length; j++)
+                foreach (string peculiarityName in HeroDatas[i].Peculiarity)
                 {
-                    var existingGroup = peculiarities.FirstOrDefault(p => string.Equals(p.Title, result[j], StringComparison.OrdinalIgnoreCase));
+                    if (string.IsNullOrWhiteSpace(peculiarityName)) continue;
+
+                    Peculiarity existingGroup = peculiarities.FirstOrDefault(p => string.Equals(p.Title, peculiarityName, StringComparison.OrdinalIgnoreCase));
                     if (existingGroup != null)
                     {
-                        existingGroup.HeroNames.Add(HeroDatas[i].HeroName);
+                        existingGroup.Heros.Add(HeroDatas[i]);
                     }
                     else
                     {
-                        var newObject = new Peculiarity
+                        Peculiarity newObject = new Peculiarity
                         {
-                            Title = result[j],
-                            HeroNames = new List<string>()
+                            Title = peculiarityName,
+                            Heros = new List<Hero>()
                         };
-                        newObject.HeroNames.Add(HeroDatas[i].HeroName);
+                        newObject.Heros.Add(HeroDatas[i]);
                         peculiarities.Add(newObject);
                     }
                 }
@@ -616,15 +603,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 建立字典联系
         /// </summary>
         private void BuildMap()
-        {
-            for (int i = 0; i < HeroImages.Count; i++)
-            {
-                imageToHeroDataMap[HeroImages[i]] = HeroDatas[i];
-            }
-            for (int i = 0; i < HeroDatas.Count; i++)
-            {
-                heroDataToImageMap[HeroDatas[i]] = HeroImages[i];
-            }
+        {           
             foreach (Hero hero in HeroDatas)
             {
                 nameToHeroDataMap[hero.HeroName] = hero;
@@ -657,16 +636,15 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        private string MergeUniqueValues(IEnumerable<string> values)
+        private List<string> MergeUniqueValues(IEnumerable<List<string>> values)
         {
-            // 分割所有值并去重
-            var uniqueItems = values
-                .SelectMany(v => v.Split('|', StringSplitOptions.RemoveEmptyEntries))
+            // 合并所有列表并去重
+            return values
+                .SelectMany(v => v ?? new List<string>())
                 .Select(item => item.Trim())
+                .Where(item => !string.IsNullOrWhiteSpace(item))
                 .Distinct()
                 .ToList();
-
-            return string.Join("|", uniqueItems);
         }
         #endregion
 

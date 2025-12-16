@@ -11,48 +11,59 @@ namespace JinChanChanTool
         [STAThread]
         static void Main()
         {
-            // ÉèÖÃ¸ßDPIÄ£Ê½
+            // è®¾ç½®é«˜DPIæ¨¡å¼
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             ApplicationConfiguration.Initialize();
-        
-            //´´½¨²¢¼ÓÔØÓ¦ÓÃÉèÖÃ·şÎñ
-            IManualSettingsService _iappConfigService = new ManualSettingsService();
-            _iappConfigService.Load();
 
-            #region ´íÎóĞÅÏ¢Êä³ö´°¿Ú
+            // æœ€å¤§é€‰æ‹©è‹±é›„æ•°é‡
+            const int MaxCountOfHero = 10;
+
+            //åˆ›å»ºå¹¶åŠ è½½ç”¨æˆ·åº”ç”¨è®¾ç½®æœåŠ¡
+            IManualSettingsService _iManualSettingsService = new ManualSettingsService();
+            _iManualSettingsService.Load();
+
+            // å±•ç¤ºè¾“å‡ºçª—å£          
             OutputForm.Instance.Show();
-            if (!_iappConfigService.CurrentConfig.IsUseOutputForm)
+            if (!_iManualSettingsService.CurrentConfig.IsUseOutputForm)
             {
                 OutputForm.Instance.Visible = false;
             }
-            #endregion
 
-            //´´½¨²¢¼ÓÔØÓ¦ÓÃÉèÖÃ·şÎñ
-            IAutomaticSettingsService _iAutoConfigService = new AutomaticSettingsService();
-            _iAutoConfigService.Load();
-            
-            //´´½¨²¢¼ÓÔØÓ¢ĞÛÊı¾İ·şÎñ
+            //åˆ›å»ºå¹¶åŠ è½½è‡ªåŠ¨åº”ç”¨è®¾ç½®æœåŠ¡
+            IAutomaticSettingsService _iAutomaticSettingsService = new AutomaticSettingsService();
+            _iAutomaticSettingsService.Load();
+
+            //åˆ›å»ºå¹¶åŠ è½½è‹±é›„æ•°æ®æœåŠ¡
             IHeroDataService _iheroDataService = new HeroDataService();
-            _iheroDataService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectedSeason);        
+            _iheroDataService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);        
             _iheroDataService.Load();
 
-            //´´½¨OCR½á¹û¾ÀÕı·şÎñ
+            //åˆ›å»ºå¹¶åŠ è½½è£…å¤‡æ•°æ®æœåŠ¡
+            IEquipmentService _iEquipmentService = new EquipmentService();
+            _iEquipmentService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iEquipmentService.Load();
+
+            //åˆ›å»ºOCRç»“æœçº æ­£æœåŠ¡
             ICorrectionService _iCorrectionService = new CorrectionService();
             _iCorrectionService.Load();
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
-            
-            //´´½¨²¢¼ÓÔØÕóÈİÊı¾İ·şÎñ
-            ILineUpService _ilineUpService = new LineUpService(_iheroDataService, _iappConfigService.CurrentConfig.MaxLineUpCount,_iappConfigService.CurrentConfig.MaxHerosCount,_iAutoConfigService.CurrentConfig.SelectedLineUpIndex);
-            _ilineUpService.SetFilePathsIndex(_iAutoConfigService.CurrentConfig.SelectedSeason);
-            _ilineUpService.Load();
 
-            // ´´½¨²¢¼ÓÔØÓ¢ĞÛ×°±¸ÍÆ¼öÊı¾İ·şÎñ
-            IHeroEquipmentDataService _iheroEquipmentDataService = new HeroEquipmentDataService();
-            _iheroEquipmentDataService.Load();
+            //åˆ›å»ºå¹¶åŠ è½½é˜µå®¹æ•°æ®æœåŠ¡
+            ILineUpService _iLineUpService = new LineUpService(_iheroDataService, _iManualSettingsService.CurrentConfig.MaxLineUpCount,MaxCountOfHero,_iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex);
+            _iLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iLineUpService.Load();
 
-            // ÔËĞĞÖ÷´°Ìå²¢´«ÈëÓ¦ÓÃÉèÖÃ·şÎñ
-            Application.Run(new MainForm(_iappConfigService,_iAutoConfigService, _iheroDataService, _ilineUpService, _iCorrectionService, _iheroEquipmentDataService));
+            // åˆ›å»ºå¹¶åŠ è½½è‹±é›„è£…å¤‡æ¨èæ•°æ®æœåŠ¡
+            IHeroEquipmentDataService _iHeroEquipmentDataService = new HeroEquipmentDataService();
+            _iHeroEquipmentDataService.Load();
 
+            // åˆ›å»ºå¹¶é…ç½®æ¨èé˜µå®¹æ•°æ®æœåŠ¡
+            IRecommendedLineUpService _iRecommendedLineUpService = new RecommendedLineUpService();
+            _iRecommendedLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iRecommendedLineUpService.Load();
+
+            // è¿è¡Œä¸»çª—ä½“å¹¶ä¼ å…¥åº”ç”¨è®¾ç½®æœåŠ¡
+            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService));
         }
     }
 }

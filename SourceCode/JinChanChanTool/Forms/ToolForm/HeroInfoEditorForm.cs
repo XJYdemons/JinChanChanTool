@@ -129,20 +129,18 @@ namespace JinChanChanTool.Forms
             costColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
             dataGridView_英雄数据编辑器.Columns.Add(costColumn);
 
-            // 添加职业列
+            // 添加职业列（不绑定 DataPropertyName，因为是 List<string> 类型）
             DataGridViewTextBoxColumn professionColumn = new DataGridViewTextBoxColumn();
             professionColumn.HeaderText = "职业";
             professionColumn.Name = "Profession";
-            professionColumn.DataPropertyName = "Profession";
             professionColumn.Width = 205;
             professionColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
             dataGridView_英雄数据编辑器.Columns.Add(professionColumn);
 
-            // 添加特性列
+            // 添加特性列（不绑定 DataPropertyName，因为是 List<string> 类型）
             DataGridViewTextBoxColumn peculiarityColumn = new DataGridViewTextBoxColumn();
             peculiarityColumn.HeaderText = "特性";
             peculiarityColumn.Name = "Peculiarity";
-            peculiarityColumn.DataPropertyName = "Peculiarity";
             peculiarityColumn.Width = 205;
             peculiarityColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
             dataGridView_英雄数据编辑器.Columns.Add(peculiarityColumn);
@@ -151,6 +149,7 @@ namespace JinChanChanTool.Forms
 
             // 绑定事件
             dataGridView_英雄数据编辑器.CellFormatting += DataGridView_CellFormatting;
+            dataGridView_英雄数据编辑器.CellParsing += DataGridView_CellParsing;
             dataGridView_英雄数据编辑器.CellValueChanged += DataGridView_CellValueChanged;
             dataGridView_英雄数据编辑器.DataError += DataGridView_DataError;
 
@@ -169,27 +168,29 @@ namespace JinChanChanTool.Forms
         }
 
         /// <summary>
-        /// 在单元格格式化时动态加载图片。
+        /// 在单元格格式化时动态加载图片和转换 List 类型属性。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            //判断是否是名称列
-            if (dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name == "Image" && e.RowIndex >= 0)
+            if (e.RowIndex < 0) return;
+
+            string columnName = dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name;
+
+            // 处理图片列
+            if (columnName == "Image")
             {
                 DataGridViewRow row = dataGridView_英雄数据编辑器.Rows[e.RowIndex];
                 string heroName = row.Cells["HeroName"].Value?.ToString();
 
-                //如果名称不为空
                 if (!string.IsNullOrEmpty(heroName))
                 {
-                    //加载图片
                     Hero hero = _iheroDataService.GetHeroDatas().FirstOrDefault(h => h.HeroName == heroName);
-                    Image image = _iheroDataService.GetImageFromHero(hero);
-                    if (hero != null&& image != null)
-                    {                                              
-                        e.Value = image;                      
+                    Image image = hero?.Image;
+                    if (hero != null && image != null)
+                    {
+                        e.Value = image;
                     }
                     else
                     {
@@ -202,6 +203,69 @@ namespace JinChanChanTool.Forms
                 }
 
                 e.FormattingApplied = true;
+            }
+            // 处理职业列 - 将 List<string> 转换为用 | 分隔的字符串显示
+            else if (columnName == "Profession")
+            {
+                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
+                if (hero != null && hero.Profession != null)
+                {
+                    e.Value = string.Join("|", hero.Profession);
+                    e.FormattingApplied = true;
+                }
+            }
+            // 处理特性列 - 将 List<string> 转换为用 | 分隔的字符串显示
+            else if (columnName == "Peculiarity")
+            {
+                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
+                if (hero != null && hero.Peculiarity != null)
+                {
+                    e.Value = string.Join("|", hero.Peculiarity);
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 在单元格解析时将字符串转换回 List 类型。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataGridView_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            string columnName = dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name;
+
+            // 处理职业列 - 将用 | 分隔的字符串解析为 List<string>
+            if (columnName == "Profession")
+            {
+                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
+                if (hero != null && e.Value != null)
+                {
+                    string input = e.Value.ToString();
+                    hero.Profession = input.Split('|', StringSplitOptions.RemoveEmptyEntries)
+                                           .Select(s => s.Trim())
+                                           .Where(s => !string.IsNullOrWhiteSpace(s))
+                                           .ToList();
+                    e.ParsingApplied = true;
+                    isChanged = true;
+                }
+            }
+            // 处理特性列 - 将用 | 分隔的字符串解析为 List<string>
+            else if (columnName == "Peculiarity")
+            {
+                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
+                if (hero != null && e.Value != null)
+                {
+                    string input = e.Value.ToString();
+                    hero.Peculiarity = input.Split('|', StringSplitOptions.RemoveEmptyEntries)
+                                            .Select(s => s.Trim())
+                                            .Where(s => !string.IsNullOrWhiteSpace(s))
+                                            .ToList();
+                    e.ParsingApplied = true;
+                    isChanged = true;
+                }
             }
         }
 

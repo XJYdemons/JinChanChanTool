@@ -7,6 +7,12 @@
     {
         private Color _borderColor = SystemColors.Control;//默认边框颜色
 
+        public HeroPictureBox()
+        {
+            BorderStyle = BorderStyle.None;
+            SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
         /// <summary>
         /// 边框颜色（自动重绘）
         /// </summary>
@@ -33,10 +39,11 @@
             get => _borderWidth;
             set
             {
+                value = Math.Max(0, value);
                 if (_borderWidth != value)
                 {
-                    _borderWidth = Math.Max(1, value); // 确保最小为1
-                    Invalidate();  // 触发重绘
+                    _borderWidth = value;
+                    Invalidate();
                 }
             }
         }
@@ -86,8 +93,9 @@
             base.OnPaint(e);
 
             // 绘制边框
-            using (Pen pen = new Pen(BorderColor, BorderWidth))
+            if (BorderWidth > 0)
             {
+                using var pen = new Pen(BorderColor, BorderWidth);
                 Rectangle rect = new Rectangle(
                     BorderWidth / 2,
                     BorderWidth / 2,
@@ -96,14 +104,12 @@
                 );
                 e.Graphics.DrawRectangle(pen, rect);
             }
-
+          
             // 如果选中状态，添加红色滤镜
             if (IsSelected)
             {
-                using (Brush overlay = new SolidBrush(SelectionColor))
-                {
-                    e.Graphics.FillRectangle(overlay, 0, 0, Width, Height);
-                }
+                using var overlay = new SolidBrush(SelectionColor);
+                e.Graphics.FillRectangle(overlay, ClientRectangle);
             }
         }
     }

@@ -77,9 +77,7 @@
             radioButton_手动设置坐标 = new RadioButton();
             tabPage_阵容相关 = new TabPage();
             panel_阵容相关 = new Panel();
-            label_单个阵容最大英雄容量 = new Label();
             button_英雄配置文件编辑器 = new Button();
-            textBox_单个阵容最大英雄容量 = new TextBox();
             label_最大阵容数量 = new Label();
             textBox_最大阵容数量 = new TextBox();
             tabPage_拿牌相关 = new TabPage();
@@ -126,8 +124,6 @@
             tabPage_窗口 = new TabPage();
             panel_窗口 = new Panel();
             groupBox_英雄选择面板UI设置 = new GroupBox();
-            label_拖动条宽度_英雄选择面板 = new Label();
-            textBox_拖动条宽度_英雄选择面板 = new TextBox();
             label_英雄头像框垂直间隔 = new Label();
             textBox_英雄头像框垂直间隔 = new TextBox();
             label_英雄头像框水平间隔 = new Label();
@@ -696,9 +692,7 @@
             // 
             panel_阵容相关.AutoScroll = true;
             panel_阵容相关.BackColor = Color.White;
-            panel_阵容相关.Controls.Add(label_单个阵容最大英雄容量);
             panel_阵容相关.Controls.Add(button_英雄配置文件编辑器);
-            panel_阵容相关.Controls.Add(textBox_单个阵容最大英雄容量);
             panel_阵容相关.Controls.Add(label_最大阵容数量);
             panel_阵容相关.Controls.Add(textBox_最大阵容数量);
             panel_阵容相关.Dock = DockStyle.Fill;
@@ -706,17 +700,6 @@
             panel_阵容相关.Name = "panel_阵容相关";
             panel_阵容相关.Size = new Size(368, 325);
             panel_阵容相关.TabIndex = 18;
-            // 
-            // label_单个阵容最大英雄容量
-            // 
-            label_单个阵容最大英雄容量.AutoSize = true;
-            label_单个阵容最大英雄容量.Location = new Point(5, 43);
-            label_单个阵容最大英雄容量.MinimumSize = new Size(84, 23);
-            label_单个阵容最大英雄容量.Name = "label_单个阵容最大英雄容量";
-            label_单个阵容最大英雄容量.Size = new Size(128, 23);
-            label_单个阵容最大英雄容量.TabIndex = 14;
-            label_单个阵容最大英雄容量.Text = "单个阵容最大英雄容量";
-            label_单个阵容最大英雄容量.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // button_英雄配置文件编辑器
             // 
@@ -731,18 +714,10 @@
             button_英雄配置文件编辑器.UseVisualStyleBackColor = true;
             button_英雄配置文件编辑器.Click += button_英雄配置文件编辑器_Click;
             // 
-            // textBox_单个阵容最大英雄容量
-            // 
-            textBox_单个阵容最大英雄容量.Location = new Point(295, 43);
-            textBox_单个阵容最大英雄容量.Name = "textBox_单个阵容最大英雄容量";
-            textBox_单个阵容最大英雄容量.Size = new Size(70, 23);
-            textBox_单个阵容最大英雄容量.TabIndex = 13;
-            textBox_单个阵容最大英雄容量.TabStop = false;
-            // 
             // label_最大阵容数量
             // 
             label_最大阵容数量.AutoSize = true;
-            label_最大阵容数量.Location = new Point(5, 71);
+            label_最大阵容数量.Location = new Point(5, 43);
             label_最大阵容数量.MinimumSize = new Size(84, 23);
             label_最大阵容数量.Name = "label_最大阵容数量";
             label_最大阵容数量.Size = new Size(84, 23);
@@ -752,7 +727,7 @@
             // 
             // textBox_最大阵容数量
             // 
-            textBox_最大阵容数量.Location = new Point(295, 71);
+            textBox_最大阵容数量.Location = new Point(295, 43);
             textBox_最大阵容数量.Name = "textBox_最大阵容数量";
             textBox_最大阵容数量.Size = new Size(70, 23);
             textBox_最大阵容数量.TabIndex = 15;
@@ -1225,8 +1200,6 @@
             // 
             // groupBox_英雄选择面板UI设置
             // 
-            groupBox_英雄选择面板UI设置.Controls.Add(label_拖动条宽度_英雄选择面板);
-            groupBox_英雄选择面板UI设置.Controls.Add(textBox_拖动条宽度_英雄选择面板);
             groupBox_英雄选择面板UI设置.Controls.Add(label_英雄头像框垂直间隔);
             groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框垂直间隔);
             groupBox_英雄选择面板UI设置.Controls.Add(label_英雄头像框水平间隔);
@@ -1235,28 +1208,10 @@
             groupBox_英雄选择面板UI设置.Controls.Add(textBox_英雄头像框边长);
             groupBox_英雄选择面板UI设置.Location = new Point(5, 109);
             groupBox_英雄选择面板UI设置.Name = "groupBox_英雄选择面板UI设置";
-            groupBox_英雄选择面板UI设置.Size = new Size(360, 139);
+            groupBox_英雄选择面板UI设置.Size = new Size(360, 110);
             groupBox_英雄选择面板UI设置.TabIndex = 23;
             groupBox_英雄选择面板UI设置.TabStop = false;
             groupBox_英雄选择面板UI设置.Text = "英雄选择面板UI设置";
-            // 
-            // label_拖动条宽度_英雄选择面板
-            // 
-            label_拖动条宽度_英雄选择面板.Location = new Point(5, 103);
-            label_拖动条宽度_英雄选择面板.MinimumSize = new Size(23, 23);
-            label_拖动条宽度_英雄选择面板.Name = "label_拖动条宽度_英雄选择面板";
-            label_拖动条宽度_英雄选择面板.Size = new Size(153, 23);
-            label_拖动条宽度_英雄选择面板.TabIndex = 38;
-            label_拖动条宽度_英雄选择面板.Text = "拖动条宽度";
-            label_拖动条宽度_英雄选择面板.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // textBox_拖动条宽度_英雄选择面板
-            // 
-            textBox_拖动条宽度_英雄选择面板.Location = new Point(276, 103);
-            textBox_拖动条宽度_英雄选择面板.Name = "textBox_拖动条宽度_英雄选择面板";
-            textBox_拖动条宽度_英雄选择面板.Size = new Size(70, 23);
-            textBox_拖动条宽度_英雄选择面板.TabIndex = 39;
-            textBox_拖动条宽度_英雄选择面板.TabStop = false;
             // 
             // label_英雄头像框垂直间隔
             // 
@@ -1531,8 +1486,6 @@
         private TabPage tabPage_截图;
         private Panel panel_截图;
         private TabPage tabPage_阵容相关;
-        public Label label_单个阵容最大英雄容量;
-        public TextBox textBox_单个阵容最大英雄容量;
         public Label label_最大阵容数量;
         public TextBox textBox_最大阵容数量;
         private Button button_OCR结果纠正列表编辑器;
@@ -1600,8 +1553,6 @@
         private GroupBox groupBox_英雄选择面板UI设置;
         public Label label_英雄头像框边长;
         public TextBox textBox_英雄头像框边长;
-        public Label label_拖动条宽度_英雄选择面板;
-        public TextBox textBox_拖动条宽度_英雄选择面板;
         public Label label_英雄头像框垂直间隔;
         public TextBox textBox_英雄头像框垂直间隔;
         public Label label_英雄头像框水平间隔;

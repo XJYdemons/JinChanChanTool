@@ -37,7 +37,7 @@
         public CustomTitleBar(Form form,int height, Image icon = null, string title = null,ButtonOptions buttons = ButtonOptions.All)
         {
             _form = form;
-            InitializeComponents(icon,height, title ?? "", buttons);
+            InitializeComponents(icon,height, title ?? "", buttons);            
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace JinChanChanTool
+﻿using JinChanChanTool.DIYComponents;
+
+namespace JinChanChanTool
 {
     partial class MainForm
     {
@@ -30,9 +32,10 @@
         {
             components = new System.ComponentModel.Container();
             panel_SubLineUpParent = new Panel();
-            flowLayoutPanel__SubLineUp3 = new FlowLayoutPanel();
-            flowLayoutPanel__SubLineUp2 = new FlowLayoutPanel();
-            flowLayoutPanel_SubLineUp1 = new FlowLayoutPanel();
+            button_变阵3 = new Button();
+            button_变阵2 = new Button();
+            button_变阵1 = new Button();
+            flowLayoutPanel_SubLineUp = new CustomFlowLayoutPanel();
             tabControl_HeroSelector = new TabControl();
             button_ParseLineUp = new Button();
             textBox_LineUpCode = new TextBox();
@@ -42,8 +45,8 @@
             button_GetCard = new Button();
             label_自动刷新 = new Label();
             button_Refresh = new Button();
-            comboBox_LineUps = new ComboBox();
-            comboBox_HeroPool = new ComboBox();
+            comboBox_SelectedLineUp = new ComboBox();
+            comboBox_Season = new ComboBox();
             menuStrip_Main = new MenuStrip();
             toolStripMenuItem_设置 = new ToolStripMenuItem();
             toolStripMenuItem_帮助 = new ToolStripMenuItem();
@@ -65,51 +68,61 @@
             // 
             panel_SubLineUpParent.AutoScroll = true;
             panel_SubLineUpParent.BackColor = Color.White;
-            panel_SubLineUpParent.Controls.Add(flowLayoutPanel__SubLineUp3);
-            panel_SubLineUpParent.Controls.Add(flowLayoutPanel__SubLineUp2);
-            panel_SubLineUpParent.Controls.Add(flowLayoutPanel_SubLineUp1);
-            panel_SubLineUpParent.Location = new Point(5, 432);
+            panel_SubLineUpParent.Controls.Add(button_变阵3);
+            panel_SubLineUpParent.Controls.Add(button_变阵2);
+            panel_SubLineUpParent.Controls.Add(button_变阵1);
+            panel_SubLineUpParent.Controls.Add(flowLayoutPanel_SubLineUp);
+            panel_SubLineUpParent.Location = new Point(5, 442);
             panel_SubLineUpParent.Margin = new Padding(0);
             panel_SubLineUpParent.Name = "panel_SubLineUpParent";
             panel_SubLineUpParent.Padding = new Padding(3);
-            panel_SubLineUpParent.Size = new Size(394, 152);
+            panel_SubLineUpParent.Size = new Size(394, 189);
             panel_SubLineUpParent.TabIndex = 10;
             // 
-            // flowLayoutPanel__SubLineUp3
+            // button_变阵3
             // 
-            flowLayoutPanel__SubLineUp3.AutoSize = true;
-            flowLayoutPanel__SubLineUp3.BackColor = Color.White;
-            flowLayoutPanel__SubLineUp3.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel__SubLineUp3.Location = new Point(5, 91);
-            flowLayoutPanel__SubLineUp3.Margin = new Padding(3, 3, 3, 7);
-            flowLayoutPanel__SubLineUp3.Name = "flowLayoutPanel__SubLineUp3";
-            flowLayoutPanel__SubLineUp3.Size = new Size(384, 38);
-            flowLayoutPanel__SubLineUp3.TabIndex = 2;
-            flowLayoutPanel__SubLineUp3.WrapContents = false;
+            button_变阵3.FlatStyle = FlatStyle.Flat;
+            button_变阵3.Location = new Point(153, 11);
+            button_变阵3.Name = "button_变阵3";
+            button_变阵3.Size = new Size(75, 25);
+            button_变阵3.TabIndex = 3;
+            button_变阵3.Text = "后期";
+            button_变阵3.UseVisualStyleBackColor = true;
+            button_变阵3.Click += button_变阵3_Click;
+            button_变阵3.MouseUp += button_变阵3_MouseUp;
             // 
-            // flowLayoutPanel__SubLineUp2
+            // button_变阵2
             // 
-            flowLayoutPanel__SubLineUp2.AutoSize = true;
-            flowLayoutPanel__SubLineUp2.BackColor = Color.White;
-            flowLayoutPanel__SubLineUp2.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel__SubLineUp2.Location = new Point(5, 48);
-            flowLayoutPanel__SubLineUp2.Margin = new Padding(3, 3, 3, 7);
-            flowLayoutPanel__SubLineUp2.Name = "flowLayoutPanel__SubLineUp2";
-            flowLayoutPanel__SubLineUp2.Size = new Size(384, 38);
-            flowLayoutPanel__SubLineUp2.TabIndex = 1;
-            flowLayoutPanel__SubLineUp2.WrapContents = false;
+            button_变阵2.FlatStyle = FlatStyle.Flat;
+            button_变阵2.Location = new Point(79, 11);
+            button_变阵2.Name = "button_变阵2";
+            button_变阵2.Size = new Size(75, 25);
+            button_变阵2.TabIndex = 2;
+            button_变阵2.Text = "中期";
+            button_变阵2.UseVisualStyleBackColor = true;
+            button_变阵2.Click += button_变阵2_Click;
+            button_变阵2.MouseUp += button_变阵2_MouseUp;
             // 
-            // flowLayoutPanel_SubLineUp1
+            // button_变阵1
             // 
-            flowLayoutPanel_SubLineUp1.AutoSize = true;
-            flowLayoutPanel_SubLineUp1.BackColor = Color.White;
-            flowLayoutPanel_SubLineUp1.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel_SubLineUp1.Location = new Point(5, 5);
-            flowLayoutPanel_SubLineUp1.Margin = new Padding(3, 3, 3, 7);
-            flowLayoutPanel_SubLineUp1.Name = "flowLayoutPanel_SubLineUp1";
-            flowLayoutPanel_SubLineUp1.Size = new Size(384, 38);
-            flowLayoutPanel_SubLineUp1.TabIndex = 0;
-            flowLayoutPanel_SubLineUp1.WrapContents = false;
+            button_变阵1.FlatStyle = FlatStyle.Flat;
+            button_变阵1.Location = new Point(5, 11);
+            button_变阵1.Name = "button_变阵1";
+            button_变阵1.Size = new Size(75, 25);
+            button_变阵1.TabIndex = 1;
+            button_变阵1.Text = "前期";
+            button_变阵1.UseVisualStyleBackColor = true;
+            button_变阵1.Click += button_变阵1_Click;
+            button_变阵1.MouseUp += button_变阵1_MouseUp;
+            // 
+            // flowLayoutPanel_SubLineUp
+            // 
+            flowLayoutPanel_SubLineUp.BackColor = Color.Transparent;
+            flowLayoutPanel_SubLineUp.Location = new Point(5, 36);
+            flowLayoutPanel_SubLineUp.Margin = new Padding(3, 3, 3, 7);
+            flowLayoutPanel_SubLineUp.Name = "flowLayoutPanel_SubLineUp";
+            flowLayoutPanel_SubLineUp.Size = new Size(384, 146);
+            flowLayoutPanel_SubLineUp.TabIndex = 0;
             // 
             // tabControl_HeroSelector
             // 
@@ -220,30 +233,30 @@
             // 
             // comboBox_LineUps
             // 
-            comboBox_LineUps.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            comboBox_LineUps.FormattingEnabled = true;
-            comboBox_LineUps.Items.AddRange(new object[] { "阵容1", "阵容2", "阵容3", "阵容4", "阵容5", "阵容6", "阵容7", "阵容8", "阵容9", "阵容10" });
-            comboBox_LineUps.Location = new Point(242, 68);
-            comboBox_LineUps.Margin = new Padding(2, 5, 2, 5);
-            comboBox_LineUps.Name = "comboBox_LineUps";
-            comboBox_LineUps.Size = new Size(149, 25);
-            comboBox_LineUps.TabIndex = 1;
-            comboBox_LineUps.Text = "阵容1";
-            comboBox_LineUps.DropDownClosed += comboBox_LineUps_DropDownClosed;
-            comboBox_LineUps.KeyDown += comboBox_LineUps_KeyDown;
-            comboBox_LineUps.Leave += comboBox_LineUps_Leave;
+            comboBox_SelectedLineUp.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            comboBox_SelectedLineUp.FormattingEnabled = true;
+            comboBox_SelectedLineUp.Items.AddRange(new object[] { "阵容1", "阵容2", "阵容3", "阵容4", "阵容5", "阵容6", "阵容7", "阵容8", "阵容9", "阵容10" });
+            comboBox_SelectedLineUp.Location = new Point(242, 68);
+            comboBox_SelectedLineUp.Margin = new Padding(2, 5, 2, 5);
+            comboBox_SelectedLineUp.Name = "comboBox_LineUps";
+            comboBox_SelectedLineUp.Size = new Size(149, 25);
+            comboBox_SelectedLineUp.TabIndex = 1;
+            comboBox_SelectedLineUp.Text = "阵容1";
+            comboBox_SelectedLineUp.DropDownClosed += comboBox_LineUps_DropDownClosed;
+            comboBox_SelectedLineUp.KeyDown += comboBox_LineUps_KeyDown;
+            comboBox_SelectedLineUp.Leave += comboBox_LineUps_Leave;
             // 
             // comboBox_HeroPool
             // 
-            comboBox_HeroPool.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox_HeroPool.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            comboBox_HeroPool.FormattingEnabled = true;
-            comboBox_HeroPool.Items.AddRange(new object[] { "巨龙之牙", "符文之地" });
-            comboBox_HeroPool.Location = new Point(239, 5);
-            comboBox_HeroPool.Margin = new Padding(2, 5, 2, 5);
-            comboBox_HeroPool.Name = "comboBox_HeroPool";
-            comboBox_HeroPool.Size = new Size(149, 25);
-            comboBox_HeroPool.TabIndex = 8;
+            comboBox_Season.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_Season.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            comboBox_Season.FormattingEnabled = true;
+            comboBox_Season.Items.AddRange(new object[] { "巨龙之牙", "符文之地" });
+            comboBox_Season.Location = new Point(239, 5);
+            comboBox_Season.Margin = new Padding(2, 5, 2, 5);
+            comboBox_Season.Name = "comboBox_HeroPool";
+            comboBox_Season.Size = new Size(149, 25);
+            comboBox_Season.TabIndex = 8;
             // 
             // menuStrip_Main
             // 
@@ -305,12 +318,12 @@
             panel_按钮面板.Controls.Add(button_生成阵容码);
             panel_按钮面板.Controls.Add(label_赛季);
             panel_按钮面板.Controls.Add(label_自动拿牌);
-            panel_按钮面板.Controls.Add(comboBox_HeroPool);
+            panel_按钮面板.Controls.Add(comboBox_Season);
             panel_按钮面板.Controls.Add(button_Clear);
             panel_按钮面板.Controls.Add(label_自动刷新);
             panel_按钮面板.Controls.Add(button_GetCard);
             panel_按钮面板.Controls.Add(button_Refresh);
-            panel_按钮面板.Controls.Add(comboBox_LineUps);
+            panel_按钮面板.Controls.Add(comboBox_SelectedLineUp);
             panel_按钮面板.Controls.Add(button_Save);
             panel_按钮面板.Controls.Add(button_ParseLineUp);
             panel_按钮面板.Controls.Add(textBox_LineUpCode);
@@ -369,7 +382,6 @@
             TopMost = true;
             Load += Form1_Load;
             panel_SubLineUpParent.ResumeLayout(false);
-            panel_SubLineUpParent.PerformLayout();
             menuStrip_Main.ResumeLayout(false);
             menuStrip_Main.PerformLayout();
             panel_BackGround.ResumeLayout(false);
@@ -387,9 +399,9 @@
         private ToolStripMenuItem toolStripMenuItem_设置;
         private ToolStripMenuItem toolStripMenuItem_帮助;
         private ToolStripMenuItem toolStripMenuItem_关于;
-        private ComboBox comboBox_LineUps;
+        private ComboBox comboBox_SelectedLineUp;
         private ToolStripMenuItem toolStripMenuItem_运行日志;
-        private ComboBox comboBox_HeroPool;
+        private ComboBox comboBox_Season;
         private Button button_Clear;
         private Button button_Save;
         private Button button_GetCard;
@@ -400,13 +412,14 @@
         private TextBox textBox_LineUpCode;
         private Button button_ParseLineUp;
         private Panel panel_SubLineUpParent;
-        private FlowLayoutPanel flowLayoutPanel__SubLineUp3;
-        private FlowLayoutPanel flowLayoutPanel__SubLineUp2;
-        private FlowLayoutPanel flowLayoutPanel_SubLineUp1;
+        private CustomFlowLayoutPanel flowLayoutPanel_SubLineUp;
         private System.Windows.Forms.Timer toolTipTimer;
         private Panel panel_按钮面板;
         private Label label_赛季;
         private System.Windows.Forms.Timer timer_UpdateCoordinates;
         private Button button_生成阵容码;
+        private Button button_变阵1;
+        private Button button_变阵3;
+        private Button button_变阵2;
     }
 }

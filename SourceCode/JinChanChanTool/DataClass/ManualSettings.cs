@@ -74,12 +74,7 @@
         /// 刷新商店按钮的Y坐标
         /// </summary>
         public int RefreshStoreButtonCoordinates_Y { get; set; }
-
-        /// <summary>
-        /// 单个子阵容的最大英雄数量
-        /// </summary>
-        public int MaxHerosCount { get; set; }
-
+        
         /// <summary>
         /// 阵容下拉框展示的最大阵容数量
         /// </summary>
@@ -255,10 +250,7 @@
         /// </summary>
         public int TransparentHeroPanelsVerticalSpacing { get; set; }
 
-        /// <summary>
-        /// 半透明英雄面板拖拽条的宽度，单位：像素
-        /// </summary>
-        public int TransparentPanelDraggingBarWidth { get; set; }
+        
 
         /// <summary>
         /// 创建默认设置的构造函数
@@ -268,8 +260,7 @@
             HotKey1 = "F7";
             HotKey2 = "F8";
             HotKey3 = "Home";
-            HotKey4 = "F9";
-            MaxHerosCount = 10;
+            HotKey4 = "F9";            
             MaxLineUpCount = 10;
             HeroNameScreenshotCoordinates_X1 = 549;
             HeroNameScreenshotCoordinates_X2 = 755;
@@ -315,7 +306,7 @@
             TransparentHeroPictureBoxSize = 36;
             TransparentHeroPictureBoxHorizontalSpacing = 0;
             TransparentHeroPanelsVerticalSpacing = 0;
-            TransparentPanelDraggingBarWidth = 8;
+            
         }
 
         /// <summary>
@@ -339,8 +330,7 @@
                 HeroNameScreenshotWidth = this.HeroNameScreenshotWidth,
                 HeroNameScreenshotHeight = this.HeroNameScreenshotHeight,
                 RefreshStoreButtonCoordinates_X = this.RefreshStoreButtonCoordinates_X,
-                RefreshStoreButtonCoordinates_Y = this.RefreshStoreButtonCoordinates_Y,
-                MaxHerosCount = this.MaxHerosCount,
+                RefreshStoreButtonCoordinates_Y = this.RefreshStoreButtonCoordinates_Y,               
                 MaxLineUpCount = this.MaxLineUpCount,
                 IsHighUserPriority = this.IsHighUserPriority,
                 IsAutomaticStopHeroPurchase = this.IsAutomaticStopHeroPurchase,
@@ -376,7 +366,7 @@
                 TransparentHeroPictureBoxSize = this.TransparentHeroPictureBoxSize,
                 TransparentHeroPictureBoxHorizontalSpacing = this.TransparentHeroPictureBoxHorizontalSpacing,
                 TransparentHeroPanelsVerticalSpacing = this.TransparentHeroPanelsVerticalSpacing,
-                TransparentPanelDraggingBarWidth = this.TransparentPanelDraggingBarWidth,
+                
             };
         }
 
@@ -403,8 +393,7 @@
                    HeroNameScreenshotWidth == other.HeroNameScreenshotWidth &&
                    HeroNameScreenshotHeight == other.HeroNameScreenshotHeight &&
                    RefreshStoreButtonCoordinates_X == other.RefreshStoreButtonCoordinates_X &&
-                   RefreshStoreButtonCoordinates_Y == other.RefreshStoreButtonCoordinates_Y &&
-                   MaxHerosCount == other.MaxHerosCount &&
+                   RefreshStoreButtonCoordinates_Y == other.RefreshStoreButtonCoordinates_Y &&                   
                    MaxLineUpCount == other.MaxLineUpCount &&
                    IsHighUserPriority == other.IsHighUserPriority &&
                    IsAutomaticStopHeroPurchase == other.IsAutomaticStopHeroPurchase &&
@@ -439,8 +428,7 @@
                    TargetProcessId == other.TargetProcessId &&
                    TransparentHeroPictureBoxSize == other.TransparentHeroPictureBoxSize &&
                    TransparentHeroPictureBoxHorizontalSpacing == other.TransparentHeroPictureBoxHorizontalSpacing &&
-                   TransparentHeroPanelsVerticalSpacing == other.TransparentHeroPanelsVerticalSpacing &&
-                   TransparentPanelDraggingBarWidth == other.TransparentPanelDraggingBarWidth;
+                   TransparentHeroPanelsVerticalSpacing == other.TransparentHeroPanelsVerticalSpacing;
         }
 
         

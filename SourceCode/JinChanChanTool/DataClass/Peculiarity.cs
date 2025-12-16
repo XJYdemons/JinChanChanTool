@@ -13,11 +13,11 @@
         /// <summary>
         /// 属于该特质的英雄数据对象列表
         /// </summary>
-        public List<String> HeroNames { get; set; }
+        public List<Hero> Heros { get; set; }
         public Peculiarity()
         {
             Title = "";
-            HeroNames = new List<String>();            
+            Heros = new List<Hero>();            
         }        
     }
 }

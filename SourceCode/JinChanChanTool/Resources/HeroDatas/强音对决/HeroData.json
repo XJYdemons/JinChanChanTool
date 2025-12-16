@@ -1,386 +1,633 @@
 [
-    {
-        "HeroName": "库奇",
-        "Cost": 1,
-        "Profession": "大腕射手",
-        "Peculiarity": "8比特"
-    },
-    {
-        "HeroName": "莉莉娅",
-        "Cost": 1,
-        "Profession": "超级粉丝|秘术护卫",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "亚索",
-        "Cost": 1,
-        "Profession": "刀锋领主",
-        "Peculiarity": "真实伤害"
-    },
-    {
-        "HeroName": "塔姆",
-        "Cost": 1,
-        "Profession": "格斗家",
-        "Peculiarity": "乡村乐"
-    },
-    {
-        "HeroName": "奥拉夫",
-        "Cost": 1,
-        "Profession": "格斗家",
-        "Peculiarity": "五杀摇滚"
-    },
-    {
-        "HeroName": "奎桑提",
-        "Cost": 1,
-        "Profession": "秘术护卫",
-        "Peculiarity": "心之钢"
-    },
-    {
-        "HeroName": "塔里克",
-        "Cost": 1,
-        "Profession": "护卫",
-        "Peculiarity": "迪斯科"
-    },
-    {
-        "HeroName": "娜美",
-        "Cost": 1,
-        "Profession": "耀光使",
-        "Peculiarity": "迪斯科"
-    },
-    {
-        "HeroName": "凯南",
-        "Cost": 1,
-        "Profession": "超级粉丝|护卫",
-        "Peculiarity": "真实伤害"
-    },
-    {
-        "HeroName": "伊芙琳",
-        "Cost": 1,
-        "Profession": "音浪刺客",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "蔚",
-        "Cost": 1,
-        "Profession": "舞者",
-        "Peculiarity": "朋克"
-    },
-    {
-        "HeroName": "金克丝",
-        "Cost": 1,
-        "Profession": "疾射枪手",
-        "Peculiarity": "朋克"
-    },
-    {
-        "HeroName": "安妮",
-        "Cost": 1,
-        "Profession": "法师",
-        "Peculiarity": "EMO"
-    },
-    {
-        "HeroName": "厄斐琉斯",
-        "Cost": 2,
-        "Profession": "疾射枪手",
-        "Peculiarity": "心之钢"
-    },
-    {
-        "HeroName": "萨勒芬妮",
-        "Cost": 2,
-        "Profession": "法师",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "卡莎",
-        "Cost": 2,
-        "Profession": "大腕射手",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "凯尔",
-        "Cost": 2,
-        "Profession": "刀锋领主",
-        "Peculiarity": "五杀摇滚"
-    },
-    {
-        "HeroName": "卡特琳娜",
-        "Cost": 2,
-        "Profession": "音浪刺客",
-        "Peculiarity": "乡村乐"
-    },
-    {
-        "HeroName": "潘森",
-        "Cost": 2,
-        "Profession": "护卫",
-        "Peculiarity": "朋克"
-    },
-    {
-        "HeroName": "古拉加斯",
-        "Cost": 2,
-        "Profession": "法师|格斗家",
-        "Peculiarity": "迪斯科"
-    },
-    {
-        "HeroName": "贾克斯",
-        "Cost": 2,
-        "Profession": "舞者",
-        "Peculiarity": "电子舞曲"
-    },
-    {
-        "HeroName": "赛娜",
-        "Cost": 2,
-        "Profession": "疾射枪手",
-        "Peculiarity": "真实伤害"
-    },
-    {
-        "HeroName": "图奇",
-        "Cost": 2,
-        "Profession": "裁决使",
-        "Peculiarity": "朋克"
-    },
-    {
-        "HeroName": "纳尔",
-        "Cost": 2,
-        "Profession": "舞者|超级粉丝",
-        "Peculiarity": "五杀摇滚"
-    },
-    {
-        "HeroName": "盖伦",
-        "Cost": 2,
-        "Profession": "秘术护卫",
-        "Peculiarity": "8比特"
-    },
-    {
-        "HeroName": "巴德",
-        "Cost": 2,
-        "Profession": "耀光使",
-        "Peculiarity": "爵士乐"
-    },
-    {
-        "HeroName": "萨勒芬妮",
-        "Cost": 2,
-        "Profession": "法师",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "卡莎",
-        "Cost": 2,
-        "Profession": "大腕射手",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "厄加特",
-        "Cost": 3,
-        "Profession": "舞者",
-        "Peculiarity": "乡村乐"
-    },
-    {
-        "HeroName": "永恩",
-        "Cost": 3,
-        "Profession": "刀锋领主|音浪刺客",
-        "Peculiarity": "心之钢"
-    },
-    {
-        "HeroName": "阿木木",
-        "Cost": 3,
-        "Profession": "护卫",
-        "Peculiarity": "EMO"
-    },
-    {
-        "HeroName": "璐璐",
-        "Cost": 3,
-        "Profession": "法师",
-        "Peculiarity": "高能流行"
-    },
-    {
-        "HeroName": "莫德凯撒",
-        "Cost": 3,
-        "Profession": "秘术护卫",
-        "Peculiarity": "五杀摇滚"
-    },
-    {
-        "HeroName": "拉克丝",
-        "Cost": 3,
-        "Profession": "耀光使",
-        "Peculiarity": "电子舞曲"
-    },
-    {
-        "HeroName": "锐雯",
-        "Cost": 3,
-        "Profession": "刀锋领主",
-        "Peculiarity": "8比特"
-    },
-    {
-        "HeroName": "厄运小姐",
-        "Cost": 3,
-        "Profession": "大腕射手",
-        "Peculiarity": "爵士乐"
-    },
-    {
-        "HeroName": "莎弥拉",
-        "Cost": 3,
-        "Profession": "裁决使",
-        "Peculiarity": "乡村乐"
-    },
-    {
-        "HeroName": "瑟提",
-        "Cost": 3,
-        "Profession": "格斗家|舞者",
-        "Peculiarity": "心之钢"
-    },
-    {
-        "HeroName": "妮蔻",
-        "Cost": 3,
-        "Profession": "超级粉丝|护卫",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "艾克",
-        "Cost": 3,
-        "Profession": "法师|秘术护卫",
-        "Peculiarity": "真实伤害"
-    },
-    {
-        "HeroName": "薇古丝",
-        "Cost": 3,
-        "Profession": "裁决使",
-        "Peculiarity": "EMO"
-    },
-    {
-        "HeroName": "崔斯特",
-        "Cost": 4,
-        "Profession": "耀光使",
-        "Peculiarity": "迪斯科"
-    },
-    {
-        "HeroName": "扎克",
-        "Cost": 4,
-        "Profession": "格斗家",
-        "Peculiarity": "电子舞曲"
-    },
-    {
-        "HeroName": "阿狸",
-        "Cost": 4,
-        "Profession": "法师",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "伊泽瑞尔",
-        "Cost": 4,
-        "Profession": "大腕射手",
-        "Peculiarity": "心之钢"
-    },
-    {
-        "HeroName": "卡尔萨斯",
-        "Cost": 4,
-        "Profession": "裁决使",
-        "Peculiarity": "五杀摇滚"
-    },
-    {
-        "HeroName": "劫",
-        "Cost": 4,
-        "Profession": "音浪刺客",
-        "Peculiarity": "电子舞曲"
-    },
-    {
-        "HeroName": "波比",
-        "Cost": 4,
-        "Profession": "舞者",
-        "Peculiarity": "EMO"
-    },
-    {
-        "HeroName": "凯特琳",
-        "Cost": 4,
-        "Profession": "疾射枪手",
-        "Peculiarity": "8比特"
-    },
-    {
-        "HeroName": "锤石",
-        "Cost": 4,
-        "Profession": "护卫",
-        "Peculiarity": "乡村乐"
-    },
-    {
-        "HeroName": "佛耶戈",
-        "Cost": 4,
-        "Profession": "刀锋领主",
-        "Peculiarity": "五杀摇滚"
-    },
-    {
-        "HeroName": "布里茨",
-        "Cost": 4,
-        "Profession": "秘术护卫",
-        "Peculiarity": "迪斯科"
-    },
-    {
-        "HeroName": "阿卡丽",
-        "Cost": 4,
-        "Profession": "双修出道|裁决使",
-        "Peculiarity": "K/DA"
-    },
-    {
-        "HeroName": "奇亚娜",
-        "Cost": 5,
-        "Profession": "音浪刺客",
-        "Peculiarity": "真实伤害"
-    },
-    {
-        "HeroName": "吉格斯",
-        "Cost": 5,
-        "Profession": "耀光使",
-        "Peculiarity": "高能流行"
-    },
-    {
-        "HeroName": "凯隐",
-        "Cost": 5,
-        "Profession": "影流之镰|刀锋领主",
-        "Peculiarity": "心之钢"
-    },
-    {
-        "HeroName": "约里克",
-        "Cost": 5,
-        "Profession": "舞者|护卫",
-        "Peculiarity": "五杀摇滚"
-    },
-    {
-        "HeroName": "卢锡安",
-        "Cost": 5,
-        "Profession": "疾射枪手",
-        "Peculiarity": "爵士乐"
-    },
-    {
-        "HeroName": "烬",
-        "Cost": 5,
-        "Profession": "大腕射手",
-        "Peculiarity": "戏命师"
-    },
-    {
-        "HeroName": "俄洛伊",
-        "Cost": 5,
-        "Profession": "格斗家",
-        "Peculiarity": "大触打击乐"
-    },
-    {
-        "HeroName": "娑娜",
-        "Cost": 5,
-        "Profession": "法师",
-        "Peculiarity": "DJ娑娜"
-    },
-    {
-        "HeroName": "伊莉丝",
-        "Cost": 5,
-        "Profession": "练习生",
-        "Peculiarity": "爆裂鼓手"
-    },
-    {
-        "HeroName": "阿萝拉",
-        "Cost": 5,
-        "Profession": "练习生",
-        "Peculiarity": "灵魂贝斯"
-    },
-    {
-        "HeroName": "格温",
-        "Cost": 5,
-        "Profession": "练习生",
-        "Peculiarity": "灵罗吉他"
-    }
+  {
+    "HeroName": "库奇",
+    "Cost": 1,
+    "Profession": [
+      "大腕射手"
+    ],
+    "Peculiarity": [
+      "8比特"
+    ]
+  },
+  {
+    "HeroName": "莉莉娅",
+    "Cost": 1,
+    "Profession": [
+      "超级粉丝",
+      "秘术护卫"
+    ],
+    "Peculiarity": [
+      "K/DA"
+    ]
+  },
+  {
+    "HeroName": "亚索",
+    "Cost": 1,
+    "Profession": [
+      "刀锋领主"
+    ],
+    "Peculiarity": [
+      "真实伤害"
+    ]
+  },
+  {
+    "HeroName": "塔姆",
+    "Cost": 1,
+    "Profession": [
+      "格斗家"
+    ],
+    "Peculiarity": [
+      "乡村乐"
+    ]
+  },
+  {
+    "HeroName": "奥拉夫",
+    "Cost": 1,
+    "Profession": [
+      "格斗家"
+    ],
+    "Peculiarity": [
+      "五杀摇滚"
+    ]
+  },
+  {
+    "HeroName": "奎桑提",
+    "Cost": 1,
+    "Profession": [
+      "秘术护卫"
+    ],
+    "Peculiarity": [
+      "心之钢"
+    ]
+  },
+  {
+    "HeroName": "塔里克",
+    "Cost": 1,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "迪斯科"
+    ]
+  },
+  {
+    "HeroName": "娜美",
+    "Cost": 1,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "迪斯科"
+    ]
+  },
+  {
+    "HeroName": "凯南",
+    "Cost": 1,
+    "Profession": [
+      "超级粉丝",
+      "护卫"
+    ],
+    "Peculiarity": [
+      "真实伤害"
+    ]
+  },
+  {
+    "HeroName": "伊芙琳",
+    "Cost": 1,
+    "Profession": [
+      "音浪刺客"
+    ],
+    "Peculiarity": [
+      "K/DA"
+    ]
+  },
+  {
+    "HeroName": "蔚",
+    "Cost": 1,
+    "Profession": [
+      "舞者"
+    ],
+    "Peculiarity": [
+      "朋克"
+    ]
+  },
+  {
+    "HeroName": "金克丝",
+    "Cost": 1,
+    "Profession": [
+      "疾射枪手"
+    ],
+    "Peculiarity": [
+      "朋克"
+    ]
+  },
+  {
+    "HeroName": "安妮",
+    "Cost": 1,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "EMO"
+    ]
+  },
+  {
+    "HeroName": "厄斐琉斯",
+    "Cost": 2,
+    "Profession": [
+      "疾射枪手"
+    ],
+    "Peculiarity": [
+      "心之钢"
+    ]
+  },
+  {
+    "HeroName": "萨勒芬妮",
+    "Cost": 2,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "K/DA"
+    ]
+  },
+  {
+    "HeroName": "卡莎",
+    "Cost": 2,
+    "Profession": [
+      "大腕射手"
+    ],
+    "Peculiarity": [
+      "K/DA"
+    ]
+  },
+  {
+    "HeroName": "凯尔",
+    "Cost": 2,
+    "Profession": [
+      "刀锋领主"
+    ],
+    "Peculiarity": [
+      "五杀摇滚"
+    ]
+  },
+  {
+    "HeroName": "卡特琳娜",
+    "Cost": 2,
+    "Profession": [
+      "音浪刺客"
+    ],
+    "Peculiarity": [
+      "乡村乐"
+    ]
+  },
+  {
+    "HeroName": "潘森",
+    "Cost": 2,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "朋克"
+    ]
+  },
+  {
+    "HeroName": "古拉加斯",
+    "Cost": 2,
+    "Profession": [
+      "法师",
+      "格斗家"
+    ],
+    "Peculiarity": [
+      "迪斯科"
+    ]
+  },
+  {
+    "HeroName": "贾克斯",
+    "Cost": 2,
+    "Profession": [
+      "舞者"
+    ],
+    "Peculiarity": [
+      "电子舞曲"
+    ]
+  },
+  {
+    "HeroName": "赛娜",
+    "Cost": 2,
+    "Profession": [
+      "疾射枪手"
+    ],
+    "Peculiarity": [
+      "真实伤害"
+    ]
+  },
+  {
+    "HeroName": "图奇",
+    "Cost": 2,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "朋克"
+    ]
+  },
+  {
+    "HeroName": "纳尔",
+    "Cost": 2,
+    "Profession": [
+      "舞者",
+      "超级粉丝"
+    ],
+    "Peculiarity": [
+      "五杀摇滚"
+    ]
+  },
+  {
+    "HeroName": "盖伦",
+    "Cost": 2,
+    "Profession": [
+      "秘术护卫"
+    ],
+    "Peculiarity": [
+      "8比特"
+    ]
+  },
+  {
+    "HeroName": "巴德",
+    "Cost": 2,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "爵士乐"
+    ]
+  },
+  {
+    "HeroName": "厄加特",
+    "Cost": 3,
+    "Profession": [
+      "舞者"
+    ],
+    "Peculiarity": [
+      "乡村乐"
+    ]
+  },
+  {
+    "HeroName": "永恩",
+    "Cost": 3,
+    "Profession": [
+      "刀锋领主",
+      "音浪刺客"
+    ],
+    "Peculiarity": [
+      "心之钢"
+    ]
+  },
+  {
+    "HeroName": "阿木木",
+    "Cost": 3,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "EMO"
+    ]
+  },
+  {
+    "HeroName": "璐璐",
+    "Cost": 3,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "高能流行"
+    ]
+  },
+  {
+    "HeroName": "莫德凯撒",
+    "Cost": 3,
+    "Profession": [
+      "秘术护卫"
+    ],
+    "Peculiarity": [
+      "五杀摇滚"
+    ]
+  },
+  {
+    "HeroName": "拉克丝",
+    "Cost": 3,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "电子舞曲"
+    ]
+  },
+  {
+    "HeroName": "锐雯",
+    "Cost": 3,
+    "Profession": [
+      "刀锋领主"
+    ],
+    "Peculiarity": [
+      "8比特"
+    ]
+  },
+  {
+    "HeroName": "厄运小姐",
+    "Cost": 3,
+    "Profession": [
+      "大腕射手"
+    ],
+    "Peculiarity": [
+      "爵士乐"
+    ]
+  },
+  {
+    "HeroName": "莎弥拉",
+    "Cost": 3,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "乡村乐"
+    ]
+  },
+  {
+    "HeroName": "瑟提",
+    "Cost": 3,
+    "Profession": [
+      "格斗家",
+      "舞者"
+    ],
+    "Peculiarity": [
+      "心之钢"
+    ]
+  },
+  {
+    "HeroName": "妮蔻",
+    "Cost": 3,
+    "Profession": [
+      "超级粉丝",
+      "护卫"
+    ],
+    "Peculiarity": [
+      "K/DA"
+    ]
+  },
+  {
+    "HeroName": "艾克",
+    "Cost": 3,
+    "Profession": [
+      "法师",
+      "秘术护卫"
+    ],
+    "Peculiarity": [
+      "真实伤害"
+    ]
+  },
+  {
+    "HeroName": "薇古丝",
+    "Cost": 3,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "EMO"
+    ]
+  },
+  {
+    "HeroName": "崔斯特",
+    "Cost": 4,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "迪斯科"
+    ]
+  },
+  {
+    "HeroName": "扎克",
+    "Cost": 4,
+    "Profession": [
+      "格斗家"
+    ],
+    "Peculiarity": [
+      "电子舞曲"
+    ]
+  },
+  {
+    "HeroName": "阿狸",
+    "Cost": 4,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "K/DA"
+    ]
+  },
+  {
+    "HeroName": "伊泽瑞尔",
+    "Cost": 4,
+    "Profession": [
+      "大腕射手"
+    ],
+    "Peculiarity": [
+      "心之钢"
+    ]
+  },
+  {
+    "HeroName": "卡尔萨斯",
+    "Cost": 4,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "五杀摇滚"
+    ]
+  },
+  {
+    "HeroName": "劫",
+    "Cost": 4,
+    "Profession": [
+      "音浪刺客"
+    ],
+    "Peculiarity": [
+      "电子舞曲"
+    ]
+  },
+  {
+    "HeroName": "波比",
+    "Cost": 4,
+    "Profession": [
+      "舞者"
+    ],
+    "Peculiarity": [
+      "EMO"
+    ]
+  },
+  {
+    "HeroName": "凯特琳",
+    "Cost": 4,
+    "Profession": [
+      "疾射枪手"
+    ],
+    "Peculiarity": [
+      "8比特"
+    ]
+  },
+  {
+    "HeroName": "锤石",
+    "Cost": 4,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "乡村乐"
+    ]
+  },
+  {
+    "HeroName": "佛耶戈",
+    "Cost": 4,
+    "Profession": [
+      "刀锋领主"
+    ],
+    "Peculiarity": [
+      "五杀摇滚"
+    ]
+  },
+  {
+    "HeroName": "布里茨",
+    "Cost": 4,
+    "Profession": [
+      "秘术护卫"
+    ],
+    "Peculiarity": [
+      "迪斯科"
+    ]
+  },
+  {
+    "HeroName": "阿卡丽",
+    "Cost": 4,
+    "Profession": [
+      "双修出道",
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "K/DA"
+    ]
+  },
+  {
+    "HeroName": "奇亚娜",
+    "Cost": 5,
+    "Profession": [
+      "音浪刺客"
+    ],
+    "Peculiarity": [
+      "真实伤害"
+    ]
+  },
+  {
+    "HeroName": "吉格斯",
+    "Cost": 5,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "高能流行"
+    ]
+  },
+  {
+    "HeroName": "凯隐",
+    "Cost": 5,
+    "Profession": [
+      "影流之镰",
+      "刀锋领主"
+    ],
+    "Peculiarity": [
+      "心之钢"
+    ]
+  },
+  {
+    "HeroName": "约里克",
+    "Cost": 5,
+    "Profession": [
+      "舞者",
+      "护卫"
+    ],
+    "Peculiarity": [
+      "五杀摇滚"
+    ]
+  },
+  {
+    "HeroName": "卢锡安",
+    "Cost": 5,
+    "Profession": [
+      "疾射枪手"
+    ],
+    "Peculiarity": [
+      "爵士乐"
+    ]
+  },
+  {
+    "HeroName": "烬",
+    "Cost": 5,
+    "Profession": [
+      "大腕射手"
+    ],
+    "Peculiarity": [
+      "戏命师"
+    ]
+  },
+  {
+    "HeroName": "俄洛伊",
+    "Cost": 5,
+    "Profession": [
+      "格斗家"
+    ],
+    "Peculiarity": [
+      "大触打击乐"
+    ]
+  },
+  {
+    "HeroName": "娑娜",
+    "Cost": 5,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "DJ娑娜"
+    ]
+  },
+  {
+    "HeroName": "伊莉丝",
+    "Cost": 5,
+    "Profession": [
+      "练习生"
+    ],
+    "Peculiarity": [
+      "爆裂鼓手"
+    ]
+  },
+  {
+    "HeroName": "阿萝拉",
+    "Cost": 5,
+    "Profession": [
+      "练习生"
+    ],
+    "Peculiarity": [
+      "灵魂贝斯"
+    ]
+  },
+  {
+    "HeroName": "格温",
+    "Cost": 5,
+    "Profession": [
+      "练习生"
+    ],
+    "Peculiarity": [
+      "灵罗吉他"
+    ]
+  }
 ]

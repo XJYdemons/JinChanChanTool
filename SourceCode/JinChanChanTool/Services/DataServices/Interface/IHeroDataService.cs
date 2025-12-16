@@ -33,20 +33,6 @@ namespace JinChanChanTool.Services.DataServices.Interface
         Hero GetHeroFromName(string name);
 
         /// <summary>
-        /// 从图像获取英雄对象
-        /// </summary>
-        /// <param name="hero"></param>
-        /// <returns></returns>
-        Image GetImageFromHero(Hero hero);
-
-        /// <summary>
-        /// 从英雄对象获取图像
-        /// </summary>
-        /// <param name="image"></param>
-        /// <returns></returns>
-        Hero GetHeroFromImage(Image image);
-
-        /// <summary>
         /// 获取职业对象列表
         /// </summary>
         /// <returns></returns>

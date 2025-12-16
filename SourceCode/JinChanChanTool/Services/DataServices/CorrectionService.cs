@@ -86,7 +86,7 @@ namespace JinChanChanTool.Services.DataServices
                 //判断Json文件是否存在
                 if (!File.Exists(filePath))
                 {
-                    MessageBox.Show($"找不到OCR结果纠正列表文件\"CorrectionsList.json\"\n路径：\n{filePath}\n将创建新的文件。",
+                    MessageBox.Show($"找不到OCR结果纠正列表文件\"{Path.GetFileName(filePath)}\"\n路径：\n{filePath}\n将创建新的文件。",
                                     "文件不存在",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error
@@ -97,7 +97,7 @@ namespace JinChanChanTool.Services.DataServices
                 string json = File.ReadAllText(filePath);
                 if (string.IsNullOrEmpty(json))
                 {
-                    MessageBox.Show($"OCR结果纠正列表文件\"CorrectionsList.json\"内容为空。\n路径：\n{filePath}\n将创建新的文件。",
+                    MessageBox.Show($"OCR结果纠正列表文件\"{Path.GetFileName(filePath)}\"内容为空。\n路径：\n{filePath}\n将创建新的文件。",
                                "文件为空",
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Error
@@ -110,7 +110,7 @@ namespace JinChanChanTool.Services.DataServices
             }
             catch
             {
-                MessageBox.Show($"OCR结果纠正列表文件\"CorrectionsList.json\"格式错误\n路径：\n{filePath}\n将创建新的文件。",
+                MessageBox.Show($"OCR结果纠正列表文件\"{Path.GetFileName(filePath)}\"格式错误\n路径：\n{filePath}\n将创建新的文件。",
                                    "文件格式错误",
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
@@ -139,7 +139,7 @@ namespace JinChanChanTool.Services.DataServices
             }
             catch
             {               
-                MessageBox.Show($"OCR结果纠正列表文件\"CorrectionsList.json\"保存失败\n路径：\n{filePath}",
+                MessageBox.Show($"OCR结果纠正列表文件\"{Path.GetFileName(filePath)}\"保存失败\n路径：\n{filePath}",
                                   "文件保存失败",
                                   MessageBoxButtons.OK,
                                   MessageBoxIcon.Error

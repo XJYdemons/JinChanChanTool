@@ -8,6 +8,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
+using static JinChanChanTool.DataClass.LineUp;
 
 
 namespace JinChanChanTool.Services
@@ -762,7 +763,13 @@ namespace JinChanChanTool.Services
         /// <returns></returns>
         private bool[] CompareResults(string[] results)
         {
-            List<string> selectedHeros = _ilineUpService.GetCurrentSubLineUp();
+            List<string> selectedHeros = new List<string>();
+            foreach (LineUpUnit unit in _ilineUpService.GetCurrentSubLineUp().LineUpUnits)
+            {
+                string name = unit.HeroName;
+                selectedHeros.Add(name);
+            }
+           
             bool[] 本轮牌库状态 = new bool[5] { false,false,false,false,false};
             for(int i =0;i<results.Length;i++)
             {                  

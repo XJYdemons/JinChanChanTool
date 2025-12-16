@@ -138,5 +138,11 @@
     {
         public string HeroName { get; set; } = "";
         public string[] EquipmentNames { get; set; } = ["", "", ""];      
+
+        public LineUpUnit(string heroName,string equipmentName1, string equipmentName2, string equipmentName3)
+        {
+            HeroName=heroName;
+            EquipmentNames = [equipmentName1,equipmentName2, equipmentName3];
+        }
     }
 }

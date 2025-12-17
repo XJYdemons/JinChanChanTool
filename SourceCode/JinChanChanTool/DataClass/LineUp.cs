@@ -144,5 +144,10 @@
             HeroName=heroName;
             EquipmentNames = [equipmentName1,equipmentName2, equipmentName3];
         }
+
+        public LineUpUnit()
+        {
+            
+        }
     }
 }

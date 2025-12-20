@@ -28,6 +28,12 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// </summary>
         [JsonPropertyName("items")]
         public List<TranslationEntry> Items { get; set; }
+
+        /// <summary>
+        /// 包含所有羁绊翻译信息的列表。
+        /// </summary>
+        [JsonPropertyName("traits")]
+        public List<TranslationEntry> Traits { get; set; }
     }
 
     /// <summary>

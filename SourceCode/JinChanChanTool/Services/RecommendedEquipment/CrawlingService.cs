@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
+using JinChanChanTool.Services.Network; // 引入全局网络管理
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,58 +11,49 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace JinChanChanTool.Services.RecommendedEquipment
 {
     /// <summary>
-    /// 重构后的核心爬取服务。
-    /// 该服务现在依赖于 IDynamicGameDataService 来获取基础数据，并实现了全新的、
-    /// 基于 metatft.com API 的英雄装备数据抓取和分析逻辑。
+    /// 接入全局 HttpProvider 以共享连接池，并优化了高并发下的异常处理。
     /// </summary>
     public class CrawlingService : ICrawlingService
     {
-        // 共享的HttpClient实例
-        private static readonly HttpClient _httpClient = new HttpClient();
+        // 删除了本地 static readonly HttpClient 实例，改用 HttpProvider.Client
 
-        // 从外部注入的、提供动态游戏数据的服务。
         private readonly IDynamicGameDataService _gameDataService;
 
         /// <summary>
-        /// 构造函数，用于实现依赖注入。
+        /// 构造函数，通过依赖注入获取动态数据服务。
         /// </summary>
-        /// <param name="gameDataService">一个实现了 IDynamicGameDataService 接口的对象。</param>
         public CrawlingService(IDynamicGameDataService gameDataService)
         {
-            _gameDataService = gameDataService; // 依赖注入新的服务
+            _gameDataService = gameDataService;
         }
 
         /// <summary>
-        /// (核心方法) 异步执行完整的网络爬取流程。
+        /// 异步执行完整的网络爬取流程。
         /// </summary>
         public async Task<List<HeroEquipment>> GetEquipmentsAsync(IProgress<Tuple<int, string>> progress)
         {
-            // 步骤 1: 从新服务获取基础数据
+            // 1. 获取基础翻译数据
             var heroKeys = _gameDataService.CurrentSeasonHeroKeys;
             var heroTranslations = _gameDataService.HeroTranslations;
             var itemTranslations = _gameDataService.ItemTranslations;
 
             if (heroKeys == null || heroKeys.Count == 0)
-            {                
-                Debug.WriteLine("CrawlingService: 英雄列表为空，请确保 DynamicGameDataService 已成功初始化。");
-                LogTool.Log("CrawlingService: 英雄列表为空，请确保 DynamicGameDataService 已成功初始化。");
-                OutputForm.Instance.WriteLineOutputMessage("错误：未能获取英雄列表，请检查网络连接或数据服务状态。");
-                progress?.Report(Tuple.Create(100, "错误：未能获取英雄列表！"));
+            {
+                LogAndReportError("英雄列表为空，请确保数据服务已初始化。", progress);
                 return new List<HeroEquipment>();
             }
 
-            // 步骤 2: 并行请求英雄装备详情
-            Debug.WriteLine($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求装备详情...");
-            LogTool.Log($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求装备详情...");
-            OutputForm.Instance.WriteLineOutputMessage($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求装备详情...");
-            var finalHeroEquipments = new ConcurrentBag<HeroEquipment>();
+            Debug.WriteLine($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求数据...");
+            LogTool.Log($"CrawlingService: 开始为 {heroKeys.Count} 位英雄并行请求数据...");
+            OutputForm.Instance.WriteLineOutputMessage($"CrawlingService: 开始并行请求 {heroKeys.Count} 位英雄的出装详情...");
 
-            // 限制并发数量，防止因请求过于频繁而被目标服务器拒绝服务。
-            const int MAX_CONCURRENT_TASKS = 3;
+            var finalHeroEquipments = new ConcurrentBag<HeroEquipment>();
+            const int MAX_CONCURRENT_TASKS = 10; // 保持限制并发数量
             var semaphore = new SemaphoreSlim(MAX_CONCURRENT_TASKS);
             var tasks = new List<Task>();
             var processedCount = 0;
@@ -83,9 +75,8 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"处理英雄 {heroKey} 时发生未知错误: {ex.Message}");
-                        LogTool.Log($"处理英雄 {heroKey} 时发生未知错误: {ex.Message}");
-                        OutputForm.Instance.WriteLineOutputMessage($"处理英雄 {heroKey} 时发生未知错误: {ex.Message}");
+                        string heroName = heroTranslations.GetValueOrDefault(heroKey, heroKey);
+                        Debug.WriteLine($"处理英雄 {heroName} 时发生未知错误: {ex.Message}");
                     }
                     finally
                     {
@@ -101,7 +92,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
             await Task.WhenAll(tasks);
 
-            progress?.Report(Tuple.Create(100, "所有数据处理完毕！"));
+            progress?.Report(Tuple.Create(100, "所有英雄装备数据处理完毕！"));
             return finalHeroEquipments.ToList();
         }
 
@@ -112,86 +103,113 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         {
             string apiUrl = $"https://api-hc.metatft.com/tft-stat-api/unit_detail?queue=1100&patch=current&days=1&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true&unit={heroKey}";
 
-            try
+            const int MaxRetries = 2; // 总计最多尝试 3 次
+            int retryCount = 0;
+
+            while (true)
             {
-                string jsonResponse = await _httpClient.GetStringAsync(apiUrl);
-                var unitDetail = JsonSerializer.Deserialize<UnitDetailResponse>(jsonResponse);
-
-                if (unitDetail?.Builds == null || unitDetail.Builds.Count == 0)
+                try
                 {
-                    return null; // 仍然处理API没有返回任何数据的情况
-                }
-
-                // 寻找两种最佳出装
-                Build bestBuild_HighQuality = null; // 1. 满足场次要求(>=100)的最佳出装
-                double maxScore_HighQuality = -1.0;
-
-                Build bestBuild_Any = null;         // 2. 不考虑场次要求，所有出装中的最佳出装 (作为备选)
-                double maxScore_Any = -1.0;
-
-                foreach (var build in unitDetail.Builds)
-                {
-                    // 基本过滤条件
-                    if (build.BuildNames.Split('|').Length != 3) continue;
-                    if (build.Places == null || build.Places.Count != 8) continue;
-                    if (build.Total == 0) continue;
-
-                    // 计算平均名次和综合评分 
-                    double weightedSum = 0;
-                    for (int i = 0; i < build.Places.Count; i++)
+                    // 使用全局 HttpProvider.Client 发起请求
+                    using (var response = await HttpProvider.Client.GetAsync(apiUrl, HttpCompletionOption.ResponseContentRead))
                     {
-                        weightedSum += build.Places[i] * (i + 1);
-                    }
-                    double avgPlacement = weightedSum / build.Total;
-                    double score = (double)build.Total / avgPlacement;
+                        // 检查状态码
+                        if (!response.IsSuccessStatusCode) return null;
 
-                    // 无论如何，都更新“备选”的最佳出装
-                    if (score > maxScore_Any)
-                    {
-                        maxScore_Any = score;
-                        bestBuild_Any = build;
-                    }
+                        // 先读取为字节数组再转字符串，确保数据流被完整排空，减少 IOException 概率
+                        byte[] contentBytes = await response.Content.ReadAsByteArrayAsync();
+                        string jsonResponse = System.Text.Encoding.UTF8.GetString(contentBytes);
 
-                    // 仅当场次满足要求时，才更新最佳出装
-                    if (build.Total >= 100)
-                    {
-                        if (score > maxScore_HighQuality)
+                        var unitDetail = JsonSerializer.Deserialize<UnitDetailResponse>(jsonResponse);
+                        if (unitDetail?.Builds == null || unitDetail.Builds.Count == 0) return null;
+
+                        // 后续解析逻辑 (ExtractBestBuild 是类内部的辅助方法)
+                        Build bestBuild = ExtractBestBuild(unitDetail.Builds);
+                        if (bestBuild == null) return null;
+
+                        var equipmentKeys = bestBuild.BuildNames.Split('|');
+                        var equipmentNames = equipmentKeys
+                            .Select(key => itemTranslations.GetValueOrDefault(key, $"【翻译失败:{key}】"))
+                            .ToList();
+
+                        return new HeroEquipment
                         {
-                            maxScore_HighQuality = score;
-                            bestBuild_HighQuality = build;
-                        }
+                            HeroName = heroTranslations.GetValueOrDefault(heroKey, heroKey),
+                            Equipments = equipmentNames
+                        };
                     }
                 }
-
-                // 优先返回高质量的出装，如果不存在，则返回备选的最佳出装。
-                // '??' 是C#的空合并运算符，如果左边为null，则返回右边的值。
-                var finalBestBuild = bestBuild_HighQuality ?? bestBuild_Any;
-
-                // ========== 核心逻辑修改结束 ==========
-
-
-                if (finalBestBuild == null)
+                catch (Exception ex) when (ex is HttpRequestException || ex is IOException || ex is TaskCanceledException)
                 {
-                    // 如果两种都找不到（例如所有出装都不是三件套），则仍然放弃该英雄
+                    // 如果达到最大重试次数，则记录并退出
+                    if (retryCount >= MaxRetries)
+                    {
+                        Debug.WriteLine($"[网络错误] 英雄 {heroKey} 在重试 {MaxRetries} 次后仍然失败: {ex.Message}");
+                        return null;
+                    }
+
+                    retryCount++;
+                    int delay = retryCount * 2000;
+                    Debug.WriteLine($"[重试提示] 英雄 {heroKey} 请求失败 (SSL/IO抖动)，正在进行第 {retryCount} 次重试...");
+                    await Task.Delay(delay);
+                }
+                catch (Exception ex)
+                {
+                    // 严重的逻辑异常（如解析失败）不进行重试
+                    Debug.WriteLine($"[逻辑异常] 英雄 {heroKey}: {ex.Message}");
                     return null;
                 }
-
-                var equipmentKeys = finalBestBuild.BuildNames.Split('|');
-                var equipmentNames = equipmentKeys
-                    .Select(key => itemTranslations.GetValueOrDefault(key, $"【翻译失败:{key}】"))
-                    .ToList();
-
-                return new HeroEquipment
-                {
-                    HeroName = heroTranslations.GetValueOrDefault(heroKey, heroKey),
-                    Equipments = equipmentNames
-                };
             }
-            catch (HttpRequestException)
+        }
+
+        /// <summary>
+        /// 内部优化：从所有出装中提取最优解
+        /// </summary>
+        private Build ExtractBestBuild(List<Build> builds)
+        {
+            Build bestBuild_HighQuality = null;
+            double maxScore_HighQuality = -1.0;
+
+            Build bestBuild_Any = null;
+            double maxScore_Any = -1.0;
+
+            foreach (var build in builds)
             {
-                // 网络错误时，仍然静默失败，不影响其他英雄
-                return null;
+                if (string.IsNullOrEmpty(build.BuildNames) || build.BuildNames.Split('|').Length != 3) continue;
+                if (build.Places == null || build.Places.Count != 8 || build.Total == 0) continue;
+
+                // 计算加权平均排名评分
+                double weightedSum = 0;
+                for (int i = 0; i < build.Places.Count; i++)
+                {
+                    weightedSum += build.Places[i] * (i + 1);
+                }
+                double avgPlacement = weightedSum / build.Total;
+                double score = (double)build.Total / avgPlacement;
+
+                if (score > maxScore_Any)
+                {
+                    maxScore_Any = score;
+                    bestBuild_Any = build;
+                }
+
+                // 高质量标准：场次 >= 100
+                if (build.Total >= 100 && score > maxScore_HighQuality)
+                {
+                    maxScore_HighQuality = score;
+                    bestBuild_HighQuality = build;
+                }
             }
+
+            return bestBuild_HighQuality ?? bestBuild_Any;
+        }
+
+        private void LogAndReportError(string message, IProgress<Tuple<int, string>> progress)
+        {
+            Debug.WriteLine($"CrawlingService: {message}");
+            LogTool.Log($"CrawlingService: {message}");
+            OutputForm.Instance.WriteLineOutputMessage($"错误：{message}");
+            progress?.Report(Tuple.Create(100, $"错误：{message}"));
         }
     }
 }

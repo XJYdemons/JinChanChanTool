@@ -1,6 +1,8 @@
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.LineupCrawling;
+using JinChanChanTool.Services.LineupCrawling.Interface;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System.Diagnostics;
@@ -53,6 +55,15 @@ namespace JinChanChanTool
             _iLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iLineUpService.Load();
 
+            //创建动态游戏数据服务
+            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
+
+            //创建装备爬取服务
+            ICrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);
+
+            //创建阵容爬取服务
+            ILineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
+
             // 创建并加载英雄装备推荐数据服务
             IHeroEquipmentDataService _iHeroEquipmentDataService = new HeroEquipmentDataService();
             _iHeroEquipmentDataService.Load();
@@ -63,7 +74,7 @@ namespace JinChanChanTool
             _iRecommendedLineUpService.Load();
 
             // 运行主窗体并传入应用设置服务
-            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService));
+            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iDynamicGameDataService, _iCrawlingService, _iLineupCrawlingService));
         }
     }
 }

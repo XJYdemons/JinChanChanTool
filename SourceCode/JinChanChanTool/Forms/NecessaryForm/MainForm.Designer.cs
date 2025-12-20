@@ -58,6 +58,7 @@ namespace JinChanChanTool
             label_赛季 = new Label();
             toolTipTimer = new System.Windows.Forms.Timer(components);
             timer_UpdateCoordinates = new System.Windows.Forms.Timer(components);
+            更新阵容推荐ToolStripMenuItem = new ToolStripMenuItem();
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
@@ -231,14 +232,14 @@ namespace JinChanChanTool
             button_Refresh.UseVisualStyleBackColor = true;
             button_Refresh.Click += button_Refresh_Click;
             // 
-            // comboBox_LineUps
+            // comboBox_SelectedLineUp
             // 
             comboBox_SelectedLineUp.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_SelectedLineUp.FormattingEnabled = true;
             comboBox_SelectedLineUp.Items.AddRange(new object[] { "阵容1", "阵容2", "阵容3", "阵容4", "阵容5", "阵容6", "阵容7", "阵容8", "阵容9", "阵容10" });
             comboBox_SelectedLineUp.Location = new Point(242, 68);
             comboBox_SelectedLineUp.Margin = new Padding(2, 5, 2, 5);
-            comboBox_SelectedLineUp.Name = "comboBox_LineUps";
+            comboBox_SelectedLineUp.Name = "comboBox_SelectedLineUp";
             comboBox_SelectedLineUp.Size = new Size(149, 25);
             comboBox_SelectedLineUp.TabIndex = 1;
             comboBox_SelectedLineUp.Text = "阵容1";
@@ -246,7 +247,7 @@ namespace JinChanChanTool
             comboBox_SelectedLineUp.KeyDown += comboBox_LineUps_KeyDown;
             comboBox_SelectedLineUp.Leave += comboBox_LineUps_Leave;
             // 
-            // comboBox_HeroPool
+            // comboBox_Season
             // 
             comboBox_Season.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_Season.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
@@ -254,7 +255,7 @@ namespace JinChanChanTool
             comboBox_Season.Items.AddRange(new object[] { "巨龙之牙", "符文之地" });
             comboBox_Season.Location = new Point(239, 5);
             comboBox_Season.Margin = new Padding(2, 5, 2, 5);
-            comboBox_Season.Name = "comboBox_HeroPool";
+            comboBox_Season.Name = "comboBox_Season";
             comboBox_Season.Size = new Size(149, 25);
             comboBox_Season.TabIndex = 8;
             // 
@@ -262,7 +263,7 @@ namespace JinChanChanTool
             // 
             menuStrip_Main.BackColor = Color.White;
             menuStrip_Main.ImageScalingSize = new Size(24, 24);
-            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于 });
+            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于, 更新阵容推荐ToolStripMenuItem });
             menuStrip_Main.Location = new Point(3, 2);
             menuStrip_Main.Name = "menuStrip_Main";
             menuStrip_Main.Size = new Size(401, 25);
@@ -368,6 +369,13 @@ namespace JinChanChanTool
             timer_UpdateCoordinates.Interval = 1000;
             timer_UpdateCoordinates.Tick += timer_UpdateCoordinates_Tick;
             // 
+            // 更新阵容推荐ToolStripMenuItem
+            // 
+            更新阵容推荐ToolStripMenuItem.Name = "更新阵容推荐ToolStripMenuItem";
+            更新阵容推荐ToolStripMenuItem.Size = new Size(92, 21);
+            更新阵容推荐ToolStripMenuItem.Text = "更新阵容推荐";
+            更新阵容推荐ToolStripMenuItem.Click += 更新阵容推荐ToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -421,5 +429,6 @@ namespace JinChanChanTool
         private Button button_变阵1;
         private Button button_变阵3;
         private Button button_变阵2;
+        private ToolStripMenuItem 更新阵容推荐ToolStripMenuItem;
     }
 }

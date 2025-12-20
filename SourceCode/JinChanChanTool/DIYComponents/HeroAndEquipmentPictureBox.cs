@@ -159,11 +159,11 @@ namespace JinChanChanTool.DIYComponents
 
         public void Clear()
         {
-            
+
             heroPictureBox.Image = null ;
             heroPictureBox.Tag = null;
             heroPictureBox.BorderColor = Color.Transparent ;
-          
+
                  equipmentPictureBox1.Image = null;
                 equipmentPictureBox1.Tag = null;
             equipmentPictureBox1.BorderColor = Color.Transparent;
@@ -175,6 +175,26 @@ namespace JinChanChanTool.DIYComponents
             equipmentPictureBox3.Image = null;
                 equipmentPictureBox3.Tag = null;
             equipmentPictureBox3.BorderColor = Color.Transparent;
+        }
+
+        /// <summary>
+        /// 为所有子控件绑定拖动事件，确保整个组件任意位置都可以拖动窗体
+        /// </summary>
+        /// <param name="bindAction">绑定拖动的委托方法，通常是窗体的"绑定拖动"方法</param>
+        public void BindFormDrag(Action<Control> bindAction)
+        {
+            // 为主容器绑定拖动
+            bindAction(this);
+            bindAction(panelHero);
+            bindAction(panelEquip);
+
+            // 为英雄头像框绑定拖动
+            bindAction(heroPictureBox);
+
+            // 为所有装备框绑定拖动
+            bindAction(equipmentPictureBox1);
+            bindAction(equipmentPictureBox2);
+            bindAction(equipmentPictureBox3);
         }
     }
 }

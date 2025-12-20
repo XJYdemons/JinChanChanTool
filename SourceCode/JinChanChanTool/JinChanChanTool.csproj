@@ -288,6 +288,7 @@
     <None Remove="Resources\HeroDatas\英雄联盟传奇\images\德莱文.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\images\慎.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\images\拉克丝.png" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\images\提伯斯.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\images\提莫.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\images\斯卡纳.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\images\斯维因.png" />
@@ -1176,6 +1177,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\英雄联盟传奇\images\拉克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\images\提伯斯.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\英雄联盟传奇\images\提莫.png">

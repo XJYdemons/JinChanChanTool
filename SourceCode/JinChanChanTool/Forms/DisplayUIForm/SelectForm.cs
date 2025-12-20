@@ -26,6 +26,13 @@ namespace JinChanChanTool.Forms
         // 拖动相关变量
         private Point _dragStartPoint;
         private bool _dragging;
+        private bool _isDragged; // 标志位：是否发生了真正的拖动
+        private const int DRAG_THRESHOLD = 3; // 拖动阈值（像素）
+
+        /// <summary>
+        /// 获取当前是否发生了拖动（用于区分拖动和点击）
+        /// </summary>
+        public bool IsDragged => _isDragged;
 
         public IAutomaticSettingsService _iAutoConfigService;// 自动设置数据服务对象
         private SelectForm()
@@ -48,18 +55,13 @@ namespace JinChanChanTool.Forms
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void panel_MouseDown(object sender, MouseEventArgs e)
-        {                        
-           
-                if (e.Button == MouseButtons.Right)
-                {                   
-                    _dragging = true;
-                    _dragStartPoint = new Point(e.X, e.Y);
-                    
-                   
-                    Cursor = Cursors.SizeAll;
-                }
-           
-            
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                _dragging = true;
+                _isDragged = false; // 重置拖动标志位
+                _dragStartPoint = new Point(e.X, e.Y);
+            }
         }
 
         /// <summary>
@@ -71,13 +73,24 @@ namespace JinChanChanTool.Forms
         {
             if (_dragging)
             {
-                Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
-                newLocation.Offset(-_dragStartPoint.X, -_dragStartPoint.Y);
-                this.Location = newLocation;
+                // 计算鼠标移动距离
+                int deltaX = e.X - _dragStartPoint.X;
+                int deltaY = e.Y - _dragStartPoint.Y;
+                double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                // 只有移动距离超过阈值才认为是真正的拖动
+                if (distance > DRAG_THRESHOLD)
+                {
+                    _isDragged = true;
+                    Cursor = Cursors.SizeAll;
+
+                    Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
+                    newLocation.Offset(-_dragStartPoint.X, -_dragStartPoint.Y);
+                    this.Location = newLocation;
+                }
             }
         }
 
-        
         /// <summary>
         /// 鼠标释放事件 - 结束拖动
         /// </summary>
@@ -85,11 +98,19 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void panel_MouseUp(object sender, MouseEventArgs e)
         {
-            
-          
-            _dragging = false;
-            Cursor = Cursors.Arrow;
-            SaveFormLocation();
+            if (_dragging)
+            {
+                _dragging = false;
+                Cursor = Cursors.Arrow;
+
+                if (_isDragged)
+                {
+                    SaveFormLocation();
+                }
+
+                // 延迟重置拖动标志位，让其他 MouseUp 事件处理器能够检查到
+                BeginInvoke(new Action(() => _isDragged = false));
+            }
         }
 
         public void 绑定拖动(Control 要拖动的控件)

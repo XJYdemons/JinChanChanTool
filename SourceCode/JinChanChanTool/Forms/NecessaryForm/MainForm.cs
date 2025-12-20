@@ -53,7 +53,7 @@ namespace JinChanChanTool
         /// 英雄装备推荐数据服务实例
         /// </summary>
         private readonly IHeroEquipmentDataService _iHeroEquipmentDataService;
-
+        
         /// <summary>
         /// 推荐阵容数据服务实例
         /// </summary>
@@ -506,11 +506,10 @@ namespace JinChanChanTool
                 _uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox1.MouseUp += LineUpFormEquipmentPictureBox_MouseUp;
                 _uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox2.MouseUp += LineUpFormEquipmentPictureBox_MouseUp;
                 _uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox3.MouseUp += LineUpFormEquipmentPictureBox_MouseUp;
-                LineUpForm.Instance.绑定拖动(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i]);
-                LineUpForm.Instance.绑定拖动(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].heroPictureBox);
-                LineUpForm.Instance.绑定拖动(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox1);
-                LineUpForm.Instance.绑定拖动(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox2);
-                LineUpForm.Instance.绑定拖动(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox3);
+
+                // 使用新的 BindFormDrag 方法简化拖动绑定
+                _uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].BindFormDrag(LineUpForm.Instance.绑定拖动);
+
                 // 为LineUpForm窗口装备图片框设置独立的ToolTip
                 _lineUpFormEquipmentToolTip.SetEquipment(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox1);
                 _lineUpFormEquipmentToolTip.SetEquipment(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox2);
@@ -1070,6 +1069,12 @@ namespace JinChanChanTool
         {
             if (e.Button == MouseButtons.Left)
             {
+                // 检查是否发生了拖动，如果是拖动则不触发点击功能
+                if (LineUpForm.Instance.IsDragged)
+                {
+                    return;
+                }
+
                 HeroPictureBox pictureBox_ = sender as HeroPictureBox;
                 Image image = pictureBox_.Image;
                 if (image != null)
@@ -1148,6 +1153,12 @@ namespace JinChanChanTool
         {
             if (e.Button == MouseButtons.Left)
             {
+                // 检查是否发生了拖动，如果是拖动则不触发点击功能
+                if (LineUpForm.Instance.IsDragged)
+                {
+                    return;
+                }
+
                 if (sender is not HeroPictureBox pictureBox)
                     return;
 
@@ -1286,6 +1297,12 @@ namespace JinChanChanTool
         {
             if (e.Button == MouseButtons.Left)
             {
+                // 检查是否发生了拖动，如果是拖动则不触发点击功能
+                if (SelectForm.Instance.IsDragged)
+                {
+                    return;
+                }
+
                 HeroPictureBox clickedBox = sender as HeroPictureBox;
                 string name = clickedBox.Tag as string;
                 _iLineUpService.AddAndDeleteHero(name, new string[] { "", "", "" });
@@ -2001,5 +2018,7 @@ namespace JinChanChanTool
         }
 
         #endregion
+        
+       
     }
 }

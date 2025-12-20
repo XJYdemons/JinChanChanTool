@@ -775,6 +775,14 @@
     ]
   },
   {
+    "HeroName": "提伯斯",
+    "Cost": 5,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [ ]
+  },
+  {
     "HeroName": "奥恩",
     "Cost": 5,
     "Profession": [

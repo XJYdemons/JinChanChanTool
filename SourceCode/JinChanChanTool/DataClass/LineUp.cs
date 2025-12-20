@@ -137,14 +137,19 @@
     public class LineUpUnit
     {
         public string HeroName { get; set; } = "";
-        public string[] EquipmentNames { get; set; } = ["", "", ""];      
-
+        public string[] EquipmentNames { get; set; } = ["", "", ""];
+        public (int, int) Position { get; set; } = (0, 0);
         public LineUpUnit(string heroName,string equipmentName1, string equipmentName2, string equipmentName3)
         {
             HeroName=heroName;
             EquipmentNames = [equipmentName1,equipmentName2, equipmentName3];
         }
-
+        public LineUpUnit(string heroName, string equipmentName1, string equipmentName2, string equipmentName3,(int,int) position)
+        {
+            HeroName = heroName;
+            EquipmentNames = [equipmentName1, equipmentName2, equipmentName3];
+            Position = position;
+        }
         public LineUpUnit()
         {
             

@@ -549,7 +549,12 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         private void UpdateHeroPanel(FlowLayoutPanel heroPanel, RecommendedLineUp lineUp)
         {
-            int heroCount = lineUp.LineUpUnits.Count;
+            // 按英雄费用升序排序（低费用在左边，高费用在右边）
+            List<LineUpUnit> sortedUnits = lineUp.LineUpUnits
+                .OrderBy(unit => _heroDataService.GetHeroFromName(unit.HeroName)?.Cost ?? 99)
+                .ToList();
+
+            int heroCount = sortedUnits.Count;
 
             // 确保有足够的 HeroAndEquipmentPictureBox
             while (heroPanel.Controls.Count < heroCount)
@@ -565,7 +570,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             // 更新每个英雄框
             for (int i = 0; i < heroCount; i++)
             {
-                var unit = lineUp.LineUpUnits[i];
+                var unit = sortedUnits[i];
                 var hero = _heroDataService.GetHeroFromName(unit.HeroName);
 
                 if (heroPanel.Controls[i] is HeroAndEquipmentPictureBox heroPicBox)

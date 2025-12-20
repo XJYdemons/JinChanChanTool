@@ -1,10 +1,9 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms.DisplayUIForm;
 using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices.Interface;
-using JinChanChanTool.DIYComponents;
-using System.Diagnostics;
+
 namespace JinChanChanTool.Forms
 {
     /// <summary>
@@ -12,7 +11,7 @@ namespace JinChanChanTool.Forms
     /// </summary>
     public partial class LineUpForm : Form
     {
-        //单例模式
+        // 单例模式
         private static LineUpForm _instance;
         public static LineUpForm Instance
         {
@@ -29,17 +28,32 @@ namespace JinChanChanTool.Forms
         // 拖动相关变量
         private Point _dragStartPoint;
         private bool _dragging;
+        private bool _isDragged; // 标志位：是否发生了真正的拖动
+        private const int DRAG_THRESHOLD = 2; // 拖动阈值（像素）
 
-        private ILineUpService _ilineUpService;//阵容数据服务对象
-        public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
-        private IRecommendedLineUpService _iRecommendedLineUpService;//推荐阵容数据服务对象
-        private IHeroDataService _heroDataService;//英雄数据服务对象
-        private IEquipmentService _equipmentService;//装备数据服务对象
+        /// <summary>
+        /// 获取当前是否发生了拖动（用于区分拖动和点击）
+        /// </summary>
+        public bool IsDragged => _isDragged;
+
+        // 棋盘展开/收起状态
+        private bool _isBoardExpanded;
+
+        // 窗体高度常量（逻辑像素）
+        private const int COLLAPSED_HEIGHT = 95;
+        private const int BOARD_HEIGHT = 200;
+        private const int BENCH_HEIGHT = 50;
+
+        private ILineUpService _ilineUpService; // 阵容数据服务对象
+        public IAutomaticSettingsService _iAutoConfigService; // 自动设置数据服务对象
+        private IRecommendedLineUpService _iRecommendedLineUpService; // 推荐阵容数据服务对象
+        private IHeroDataService _heroDataService; // 英雄数据服务对象
+        private IEquipmentService _equipmentService; // 装备数据服务对象
 
         private LineUpForm()
         {
             InitializeComponent();
-
+            _isBoardExpanded = false;
         }
 
         private void LineUpForm_Load(object sender, EventArgs e)
@@ -62,7 +76,54 @@ namespace JinChanChanTool.Forms
             _iRecommendedLineUpService = iRecommendedLineUpService;
             _heroDataService = heroDataService;
             _equipmentService = equipmentService;
+
+            // 初始化棋盘服务
+            hexagonBoard.InitializeServices(_heroDataService);
+
+            // 绑定棋盘事件
+            hexagonBoard.HeroPositionChanged += HexagonBoard_HeroPositionChanged;
+            hexagonBoard.HeroCleared += HexagonBoard_HeroCleared;
+
+            // 初始化备战席服务
+            benchPanel.InitializeServices(_heroDataService);
+
+            // 绑定备战席事件
+            benchPanel.HeroPositionChanged += BenchPanel_HeroPositionChanged;
+
             ApplySavedLocation();
+        }
+
+        /// <summary>
+        /// 棋盘英雄位置变更事件处理
+        /// </summary>
+        private void HexagonBoard_HeroPositionChanged(object sender, BoardHeroPositionChangedEventArgs e)
+        {
+            // 刷新备战席显示（因为可能有英雄从备战席拖到棋盘，或从棋盘交换到备战席）
+            benchPanel.RefreshBench();
+        }
+
+        /// <summary>
+        /// 棋盘英雄清除事件处理
+        /// </summary>
+        private void HexagonBoard_HeroCleared(object sender, BoardHeroClearedEventArgs e)
+        {
+            // 英雄被清除到备战席，刷新备战席显示
+            benchPanel.RefreshBench();
+        }
+
+        /// <summary>
+        /// 备战席英雄位置变更事件处理（从棋盘拖到备战席）
+        /// </summary>
+        private void BenchPanel_HeroPositionChanged(object sender, BenchHeroPositionChangedEventArgs e)
+        {
+            // 将从棋盘拖来的英雄移到备战席（位置设为0,0）
+            if (e.MovedUnit != null)
+            {
+                e.MovedUnit.Position = (0, 0);
+            }
+
+            // 刷新棋盘和备战席显示
+            RefreshHexagonBoard();
         }
 
         /// <summary>
@@ -114,13 +175,11 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void panel_MouseDown(object sender, MouseEventArgs e)
         {
-
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
                 _dragging = true;
+                _isDragged = false; // 重置拖动标志位
                 _dragStartPoint = new Point(e.X, e.Y);
-                flowLayoutPanel1.BorderColor = Color.FromArgb(96, 223, 84);
-                Cursor = Cursors.SizeAll;
             }
         }
 
@@ -133,9 +192,22 @@ namespace JinChanChanTool.Forms
         {
             if (_dragging)
             {
-                Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
-                newLocation.Offset(-_dragStartPoint.X, -_dragStartPoint.Y);
-                this.Location = newLocation;
+                // 计算鼠标移动距离
+                int deltaX = e.X - _dragStartPoint.X;
+                int deltaY = e.Y - _dragStartPoint.Y;
+                double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                // 只有移动距离超过阈值才认为是真正的拖动
+                if (distance > DRAG_THRESHOLD)
+                {
+                    _isDragged = true;
+                    flowLayoutPanel1.BorderColor = Color.FromArgb(96, 223, 84);
+                    Cursor = Cursors.SizeAll;
+
+                    Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
+                    newLocation.Offset(-_dragStartPoint.X, -_dragStartPoint.Y);
+                    this.Location = newLocation;
+                }
             }
         }
 
@@ -146,10 +218,20 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void panel_MouseUp(object sender, MouseEventArgs e)
         {
-            flowLayoutPanel1.BorderColor = Color.Gray;
-            _dragging = false;
-            Cursor = Cursors.Arrow;
-            SaveFormLocation();
+            if (_dragging)
+            {
+                flowLayoutPanel1.BorderColor = Color.Gray;
+                _dragging = false;
+                Cursor = Cursors.Arrow;
+
+                if (_isDragged)
+                {
+                    SaveFormLocation();
+                }
+
+                // 延迟重置拖动标志位，让其他 MouseUp 事件处理器能够检查到
+                BeginInvoke(new Action(() => _isDragged = false));
+            }
         }
 
         public void 绑定拖动(Control 要拖动的控件)
@@ -225,6 +307,73 @@ namespace JinChanChanTool.Forms
             button__变阵1.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[0].SubLineUpName;
             button__变阵2.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[1].SubLineUpName;
             button__变阵3.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[2].SubLineUpName;
+
+            // 刷新棋盘显示
+            RefreshHexagonBoard();
+        }
+
+        /// <summary>
+        /// 刷新蜂巢棋盘和备战席显示
+        /// </summary>
+        public void RefreshHexagonBoard()
+        {
+            if (_ilineUpService == null) return;
+
+            SubLineUp currentSubLineUp = _ilineUpService.GetCurrentSubLineUp();
+            hexagonBoard.BindSubLineUp(currentSubLineUp);
+            benchPanel.BindSubLineUp(currentSubLineUp);
+        }
+
+        /// <summary>
+        /// 展开/收起按钮点击事件 - 切换棋盘显示状态
+        /// </summary>
+        private void button_展开收起_Click(object sender, EventArgs e)
+        {
+            ToggleBoardExpanded();
+        }
+
+        /// <summary>
+        /// 切换棋盘展开/收起状态
+        /// </summary>
+        private void ToggleBoardExpanded()
+        {
+            _isBoardExpanded = !_isBoardExpanded;
+
+            if (_isBoardExpanded)
+            {
+                // 展开棋盘和备战席
+                int expandedHeight = LogicalToDeviceUnits(COLLAPSED_HEIGHT + BOARD_HEIGHT + BENCH_HEIGHT);
+                int boardY = LogicalToDeviceUnits(COLLAPSED_HEIGHT - 2);
+                int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
+                int benchY = LogicalToDeviceUnits(COLLAPSED_HEIGHT - 2 + BOARD_HEIGHT);
+                int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+
+                // 设置棋盘位置和大小
+                hexagonBoard.Location = new Point(LogicalToDeviceUnits(2), boardY);
+                hexagonBoard.Size = new Size(LogicalToDeviceUnits(628), boardHeight);
+                hexagonBoard.Visible = true;
+
+                // 设置备战席位置和大小
+                benchPanel.Location = new Point(LogicalToDeviceUnits(2), benchY);
+                benchPanel.Size = new Size(LogicalToDeviceUnits(628), benchHeight);
+                benchPanel.Visible = true;
+
+                this.ClientSize = new Size(LogicalToDeviceUnits(632), expandedHeight);
+
+                button_展开收起.BackColor = Color.FromArgb(130, 189, 39);
+
+                // 刷新棋盘和备战席数据
+                RefreshHexagonBoard();
+            }
+            else
+            {
+                // 收起棋盘和备战席
+                hexagonBoard.Visible = false;
+                benchPanel.Visible = false;
+                this.ClientSize = new Size(LogicalToDeviceUnits(632), LogicalToDeviceUnits(COLLAPSED_HEIGHT));
+
+                button_展开收起.BackColor = Color.FromArgb(45, 45, 48);
+            }
         }
 
 
@@ -351,11 +500,11 @@ namespace JinChanChanTool.Forms
             //Random random = new Random();
             //float min = 0.0f;
             //float max = 100.0f;
-            //for (int i = 0;i<10;i++)
+            //for (int i = 0; i < 10; i++)
             //{
             //    int r = random.Next(0, 4);
             //    LineUpTier l;
-            //    switch(r)
+            //    switch (r)
             //    {
             //        case 0:
             //            l = LineUpTier.S;
@@ -375,9 +524,9 @@ namespace JinChanChanTool.Forms
             //        default:
             //            l = LineUpTier.D;
             //            break;
-            //    }               
+            //    }
             //    SubLineUp sb = new SubLineUp("前期");
-            //    for(int j =0;j<10;j++)
+            //    for (int j = 0; j < 10; j++)
             //    {
             //        int index = random.Next(0, _heroDataService.GetHeroCount() - 1);
             //        int index2 = random.Next(0, _equipmentService.GetEquipmentDatas().Count - 1);
@@ -394,10 +543,11 @@ namespace JinChanChanTool.Forms
             //        PickRate = (float)(random.NextDouble() * (max - min) + min),
             //        TopFourRate = (float)(random.NextDouble() * (max - min) + min),
             //        Tags = ["简单", "速9"],
-            //        LineUpUnits = sb.LineUpUnits 
+            //        LineUpUnits = sb.LineUpUnits,
+            //        Description = "描述"
             //    };
             //    _iRecommendedLineUpService.AddRecommendedLineUp(re);
-            //}          
+            //}
             //_iRecommendedLineUpService.Save();
 
             // 检查是否有推荐阵容数据

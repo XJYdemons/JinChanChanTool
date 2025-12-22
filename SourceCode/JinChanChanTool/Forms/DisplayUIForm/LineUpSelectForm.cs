@@ -22,7 +22,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         private const int HERO_SIZE_BASE = 52;
         private const int CARD_PADDING_BASE = 8;
         private const int TIER_WIDTH_BASE = 70;          // 评级区域宽度
-        private const int NAME_WIDTH_BASE = 120;         // 名称+标签区域宽度
+        private const int NAME_WIDTH_BASE = 160;         // 名称+标签区域宽度（支持约11个中文字符）
         private const int STATS_WIDTH_BASE = 140;        // 统计数据田字格宽度
         private const int DESC_WIDTH_BASE = 150;         // 描述区域宽度
 
@@ -316,34 +316,40 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             card.Controls.Add(tierPanel);
             currentX += _tierWidth + _padding;
 
-            // ========== 2. 名称+标签区域 ==========
-            var namePanel = new Panel
+            // ========== 2. 名称+标签区域（使用 FlowLayoutPanel 自动布局） ==========
+            var namePanel = new FlowLayoutPanel
             {
                 Name = "namePanel",
                 Location = new Point(currentX, _padding),
                 Size = new Size(_nameWidth, _cardHeight - _padding * 2),
-                BackColor = Color.Transparent
+                BackColor = Color.Transparent,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = false,
+                Padding = new Padding(0)
             };
 
+            // 阵容名称标签（支持多行显示）
             var lblName = new Label
             {
                 Name = "lblName",
                 ForeColor = Color.White,
                 Font = new Font("Microsoft YaHei UI", 10f, FontStyle.Bold, GraphicsUnit.Point),
-                Location = new Point(0, Dpi((int)((_cardHeight - _padding * 2) * 0.3f))),
                 AutoSize = true,
-                MaximumSize = new Size(_nameWidth, 0)
+                MaximumSize = new Size(_nameWidth, 0),
+                Margin = new Padding(0, Dpi(4), 0, Dpi(2))
             };
             namePanel.Controls.Add(lblName);
 
+            // 阵容标签（自动跟随名称位置）
             var lblTags = new Label
             {
                 Name = "lblTags",
                 ForeColor = Color.FromArgb(100, 149, 237),
                 Font = new Font("Microsoft YaHei UI", 8f, FontStyle.Regular, GraphicsUnit.Point),
-                Location = new Point(0, Dpi((int)((_cardHeight - _padding * 2) * 0.6f))),
                 AutoSize = true,
-                MaximumSize = new Size(_nameWidth, 0)
+                MaximumSize = new Size(_nameWidth, 0),
+                Margin = new Padding(0, 0, 0, 0)
             };
             namePanel.Controls.Add(lblTags);
 
@@ -452,6 +458,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             BindClickEvents(card, tierPanel);
             BindClickEvents(card, namePanel);
             BindClickEvents(card, statsPanel);
+            BindClickEvents(card, heroPanel);
             BindClickEvents(card, descPanel);
 
             return card;
@@ -478,21 +485,24 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             }
 
             // 更新名称和标签
-            var namePanel = card.Controls.Find("namePanel", false).FirstOrDefault() as Panel;
+            FlowLayoutPanel? namePanel = card.Controls.Find("namePanel", false).FirstOrDefault() as FlowLayoutPanel;
             if (namePanel != null)
             {
-                var lblName = namePanel.Controls.Find("lblName", false).FirstOrDefault() as Label;
+                Label? lblName = namePanel.Controls.Find("lblName", false).FirstOrDefault() as Label;
                 if (lblName != null)
                 {
                     lblName.Text = lineUp.LineUpName;
                 }
 
-                var lblTags = namePanel.Controls.Find("lblTags", false).FirstOrDefault() as Label;
+                Label? lblTags = namePanel.Controls.Find("lblTags", false).FirstOrDefault() as Label;
                 if (lblTags != null)
                 {
                     lblTags.Text = lineUp.Tags.Count > 0 ? string.Join(" ", lineUp.Tags) : "";
                     lblTags.Visible = lineUp.Tags.Count > 0;
                 }
+
+                // 计算内容总高度并设置垂直居中的 Padding
+                CenterNamePanelContent(namePanel, lblName, lblTags);
             }
 
             // 更新统计数据
@@ -513,10 +523,10 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             }
 
             // 更新英雄展示区域
-            var heroPanel = card.Controls.Find("heroPanel", false).FirstOrDefault() as FlowLayoutPanel;
+            FlowLayoutPanel? heroPanel = card.Controls.Find("heroPanel", false).FirstOrDefault() as FlowLayoutPanel;
             if (heroPanel != null)
             {
-                UpdateHeroPanel(heroPanel, lineUp);
+                UpdateHeroPanel(card, heroPanel, lineUp);
             }
 
             // 更新描述
@@ -547,7 +557,10 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 更新英雄面板（使用对象池）
         /// </summary>
-        private void UpdateHeroPanel(FlowLayoutPanel heroPanel, RecommendedLineUp lineUp)
+        /// <param name="card">卡片面板（用于绑定点击事件）</param>
+        /// <param name="heroPanel">英雄展示面板</param>
+        /// <param name="lineUp">推荐阵容数据</param>
+        private void UpdateHeroPanel(Panel card, FlowLayoutPanel heroPanel, RecommendedLineUp lineUp)
         {
             // 按英雄费用升序排序（低费用在左边，高费用在右边）
             List<LineUpUnit> sortedUnits = lineUp.LineUpUnits
@@ -559,11 +572,15 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             // 确保有足够的 HeroAndEquipmentPictureBox
             while (heroPanel.Controls.Count < heroCount)
             {
-                var heroPicBox = new HeroAndEquipmentPictureBox
+                HeroAndEquipmentPictureBox heroPicBox = new HeroAndEquipmentPictureBox
                 {
                     Size = new Size(_heroSize, _cardHeight - _padding * 2),
                     Margin = new Padding(0, 0, Dpi(2), 0)
                 };
+
+                // 为新创建的英雄框及其所有子控件绑定点击事件
+                BindClickEvents(card, heroPicBox);
+
                 heroPanel.Controls.Add(heroPicBox);
             }
 
@@ -602,16 +619,56 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         }
 
         /// <summary>
-        /// 为面板及其子控件绑定点击事件
+        /// 计算并设置名称面板内容的垂直居中
         /// </summary>
-        private void BindClickEvents(Panel card, Panel panel)
+        /// <param name="namePanel">名称面板（FlowLayoutPanel）</param>
+        /// <param name="lblName">名称标签</param>
+        /// <param name="lblTags">标签标签</param>
+        private void CenterNamePanelContent(FlowLayoutPanel namePanel, Label? lblName, Label? lblTags)
         {
-            panel.Click += (s, e) => Card_Click(card, e);
-            panel.DoubleClick += (s, e) => Card_DoubleClick(card, e);
-            foreach (Control ctrl in panel.Controls)
+            if (lblName == null)
             {
-                ctrl.Click += (s, e) => Card_Click(card, e);
-                ctrl.DoubleClick += (s, e) => Card_DoubleClick(card, e);
+                return;
+            }
+
+            // 获取名称标签的实际高度（包含 Margin）
+            int nameHeight = lblName.GetPreferredSize(new Size(_nameWidth, 0)).Height;
+            int nameMarginVertical = lblName.Margin.Top + lblName.Margin.Bottom;
+
+            // 获取标签标签的实际高度（如果可见）
+            int tagsHeight = 0;
+            int tagsMarginVertical = 0;
+            if (lblTags != null && lblTags.Visible)
+            {
+                tagsHeight = lblTags.GetPreferredSize(new Size(_nameWidth, 0)).Height;
+                tagsMarginVertical = lblTags.Margin.Top + lblTags.Margin.Bottom;
+            }
+
+            // 计算内容总高度
+            int totalContentHeight = nameHeight + nameMarginVertical + tagsHeight + tagsMarginVertical;
+
+            // 计算顶部 Padding 以实现垂直居中
+            int panelHeight = namePanel.Height;
+            int topPadding = Math.Max(0, (panelHeight - totalContentHeight) / 2);
+
+            // 设置 Padding（只修改 Top，保持其他为 0）
+            namePanel.Padding = new Padding(0, topPadding, 0, 0);
+        }
+
+        /// <summary>
+        /// 为面板及其所有子控件递归绑定点击事件
+        /// </summary>
+        /// <param name="card">卡片面板（用于传递给点击事件处理器）</param>
+        /// <param name="control">要绑定事件的控件</param>
+        private void BindClickEvents(Panel card, Control control)
+        {
+            control.Click += (s, e) => Card_Click(card, e);
+            control.DoubleClick += (s, e) => Card_DoubleClick(card, e);
+
+            // 递归绑定所有子控件
+            foreach (Control child in control.Controls)
+            {
+                BindClickEvents(card, child);
             }
         }
 

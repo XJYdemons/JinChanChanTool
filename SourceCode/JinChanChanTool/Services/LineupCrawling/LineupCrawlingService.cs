@@ -343,6 +343,9 @@ namespace JinChanChanTool.Services.LineupCrawling
                     int row = 4 - (cellId - 1) / 7;
                     int col = (cellId - 1) % 7 + 1;
 
+                    // 保存站位到 LineUpUnit
+                    units[i].Position = (row, col);
+
                     string heroName = units[i].HeroName;
                     Debug.WriteLine($"棋子: {heroName.PadRight(6)} | 分配格: cell_{cellId.ToString().PadRight(2)} | 坐标: ({row}, {col})");
                 }

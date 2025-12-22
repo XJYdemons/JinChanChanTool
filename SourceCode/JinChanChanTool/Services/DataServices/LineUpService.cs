@@ -291,7 +291,8 @@ namespace JinChanChanTool.Services.DataServices
                     var newUnit = new LineUpUnit
                     {
                         HeroName = unit.HeroName,
-                        EquipmentNames = unit.EquipmentNames?.ToArray() ?? ["", "", ""]
+                        EquipmentNames = unit.EquipmentNames?.ToArray() ?? ["", "", ""],
+                        Position = unit.Position
                     };
                     _lineUps[_lineUpIndex].SubLineUps[变阵索引].LineUpUnits.Add(newUnit);
                 }

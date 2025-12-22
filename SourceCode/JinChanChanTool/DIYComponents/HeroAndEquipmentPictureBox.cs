@@ -131,9 +131,13 @@ namespace JinChanChanTool.DIYComponents
                 totalEquipWidth -= 1;
             }
 
-            /* ---------- Hero 区（水平居中）---------- */
+            // 计算内容总高度（用于垂直居中）
+            int totalContentHeight = margin + heroSize + margin + equipSize + margin;
+            int topOffset = Math.Max(0, (height - totalContentHeight) / 2);
+
+            /* ---------- Hero 区（水平居中，垂直居中）---------- */
             int heroX = (width - heroSize) / 2;
-            int heroY = margin;
+            int heroY = topOffset + margin;
 
             panelHero.Bounds = new Rectangle(heroX, heroY, heroSize, heroSize);
             heroPictureBox.Bounds = new Rectangle(0, 0, heroSize, heroSize);

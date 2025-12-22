@@ -502,7 +502,7 @@ namespace JinChanChanTool.Services
         
         private void 自动停止刷新商店()
         {           
-            if (未刷新累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore && _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore)
+            if (未刷新累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore && _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore&&isRefreshStore)
             {
                 LogTool.Log("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
                 Debug.WriteLine("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");                
@@ -795,29 +795,75 @@ namespace JinChanChanTool.Services
             for (int i = 0; i < isGetArray.Length; i++)
             {
                 int x = 0;
-                switch (i)
+                if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
-                    case 0:
-                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
-                        break;
-                    case 1:
-                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
-                        break;
-                    case 2:
-                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
-                        break;
-                    case 3:
-                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
-                        break;
-                    case 4:
-                        x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
-                        break;
+                    switch (i)
+                    {
+                        case 0:
+                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
+                            break;
+                        case 1:
+                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
+                            break;
+                        case 2:
+                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
+                            break;
+                        case 3:
+                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
+                            break;
+                        case 4:
+                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
+                            break;
+                    }
                 }
+                else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
+                            break;
+                        case 1:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
+                            break;
+                        case 2:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
+                            break;
+                        case 3:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
+                            break;
+                        case 4:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
+                            break;
+                        case 1:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
+                            break;
+                        case 2:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
+                            break;
+                        case 3:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
+                            break;
+                        case 4:
+                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
+                            break;
+                    }
+                }
+
                 if (isGetArray[i])
                 {
                     if (_iappConfigService.CurrentConfig.IsKeyboardHeroPurchase)
                     {
-                       
+
                         switch (i)
                         {
                             case 0:
@@ -836,23 +882,23 @@ namespace JinChanChanTool.Services
                                 KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey5);
                                 break;
                         }
-                       
+
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
-                        
+
                     }
                     else if (_iappConfigService.CurrentConfig.IsMouseHeroPurchase)
                     {
-                       
+
                         int randomX, randomY;
                         if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                         {
                             randomX = Random.Shared.Next(
-                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
+                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth / 4, x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
                             randomY = Random.Shared.Next(
                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2,
                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
                         }
-                        else if(_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
+                        else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                         {
                             randomX = Random.Shared.Next(
                             x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,
@@ -870,18 +916,20 @@ namespace JinChanChanTool.Services
                             _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iappConfigService.CurrentConfig.HeroNameScreenshotHeight * 2,
                             _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
                         }
+
+
                         // 设置鼠标位置
                         MouseControlTool.SetMousePosition(randomX, randomY);
-                       
+
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
-                       
+
 
                         // 执行点击操作，逐个点击并等待
-                       
+
                         await ClickOneTime();
-                       
+
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
-                        
+
                     }
                 }
             }

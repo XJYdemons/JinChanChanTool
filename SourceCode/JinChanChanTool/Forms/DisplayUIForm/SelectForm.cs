@@ -27,7 +27,7 @@ namespace JinChanChanTool.Forms
         private Point _dragStartPoint;
         private bool _dragging;
         private bool _isDragged; // 标志位：是否发生了真正的拖动
-        private const int DRAG_THRESHOLD = 3; // 拖动阈值（像素）
+        private const int DRAG_THRESHOLD = 2; // 拖动阈值（像素）
 
         /// <summary>
         /// 获取当前是否发生了拖动（用于区分拖动和点击）

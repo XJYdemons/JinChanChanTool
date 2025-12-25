@@ -31,6 +31,31 @@ namespace JinChanChanTool.Tools
         }
 
         /// <summary>
+        /// 区域截图
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static Bitmap AreaScreenshots(Rectangle rectangle)
+        {
+            if (rectangle.Width<=0 || rectangle.Height <= 0)
+            {
+                // 如果传入的尺寸无效，直接返回一个1x1的空白图片，防止程序崩溃
+                return new Bitmap(1, 1, PixelFormat.Format24bppRgb);
+            }
+
+            Bitmap image = new Bitmap(rectangle.Width, rectangle.Height, PixelFormat.Format24bppRgb);//创建新图像
+            using (Graphics screenshot = Graphics.FromImage(image))
+            {
+                screenshot.CopyFromScreen(rectangle.X, rectangle.Y, 0, 0, new Size(rectangle.Width, rectangle.Height), CopyPixelOperation.SourceCopy);
+            }
+
+            return image;
+        }
+
+        /// <summary>
         /// 裁剪位图
         /// </summary>
         /// <param name="source"></param>

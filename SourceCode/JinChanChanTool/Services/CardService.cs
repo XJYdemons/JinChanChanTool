@@ -1,5 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
+using JinChanChanTool.Forms.DisplayUIForm;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
@@ -8,6 +9,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using static JinChanChanTool.DataClass.LineUp;
 
 
@@ -128,6 +130,8 @@ namespace JinChanChanTool.Services
             isGetCard = true;
             cts = new CancellationTokenSource();
             isGetCardStatusChanged?.Invoke(true);
+            // 显示高亮覆盖层窗体
+            CardHighlightOverlayForm.Instance.ShowOverlay();
             // 启动循环任务
             Task.Run(() => ProcessLoop(cts.Token), cts.Token);
         }
@@ -142,6 +146,8 @@ namespace JinChanChanTool.Services
             cts?.Dispose();
             cts = null;
             isGetCardStatusChanged?.Invoke(false);
+            // 隐藏高亮覆盖层窗体
+            CardHighlightOverlayForm.Instance.HideOverlay();
         }
 
         public void ToggleLoop()
@@ -209,85 +215,135 @@ namespace JinChanChanTool.Services
         private async Task ProcessLoop(CancellationToken token)
         {
             int 循环计数 = 0;
+            int 高亮模式循环计数 = 0;
             循环前的标志重置();
             while (isGetCard && !token.IsCancellationRequested)
             {
                 try
                 {
-                   
-                    循环计数++;
-                    LogTool.Log($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
-                    Debug.WriteLine($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
-                    OutputForm.Instance.WriteLineOutputMessage($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
-                    if (!自动停止拿牌()) return;
-                    自动停止刷新商店();
-
-                    
-                    Bitmap[] bitmaps = CaptureAndSplit();
-                   
-
-                   
-                    原始结果数组 = await RecognizeImages(bitmaps);
-                    
-
-                   
-                    更新纠正结果数组(bitmaps);
-                   
-
-                    // 释放图像资源
-                    foreach (Bitmap image in bitmaps)
+                  
+                   if(_iappConfigService.CurrentConfig.IsUseHightLightPrompt)
                     {
-                        image.Dispose();
+                        高亮模式循环计数++;
+                        LogTool.Log($"轮次:{高亮模式循环计数}");
+                        Debug.WriteLine($"轮次:{高亮模式循环计数}");
+                        OutputForm.Instance.WriteLineOutputMessage($"轮次:{高亮模式循环计数}");
+                      
+
+
+                        Bitmap[] bitmaps = CaptureAndSplit();
+
+
+
+                        原始结果数组 = await RecognizeImages(bitmaps);
+
+
+
+                        更新纠正结果数组(bitmaps);
+
+
+                        // 释放图像资源
+                        foreach (Bitmap image in bitmaps)
+                        {
+                            image.Dispose();
+                        }
+                        当前目标数组 = CompareResults(纠正结果数组);
+                        #region 结果输出、日志
+                        string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
+                        string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
+                        for (int i = 0; i < 原始结果数组.Length; i++)
+                        {
+                            输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
+                        }
+                        for (int i = 0; i < 纠正结果数组.Length; i++)
+                        {
+                            输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
+                        }
+                        LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                        Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                        OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                        LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                        Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                        OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+
+                        #endregion                        
+                        // 更新高亮显示
+                        Rectangle[] cardRectangles = CalculateCardRectangles();
+                        CardHighlightOverlayForm.Instance.UpdateHighlight(当前目标数组, cardRectangles);                                                                                              
                     }
-                    当前目标数组 = CompareResults(纠正结果数组);
-                    #region 结果输出、日志
-                    string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
-                    string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
-                    for (int i =0;i<原始结果数组.Length;i++)
-                    {                        
-                        输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
-                    }
-                    for (int i = 0; i < 纠正结果数组.Length; i++)
+                   else
                     {
-                        输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
-                    }
-                    LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                    Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                    OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                    LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                    OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                        循环计数++;
+                        LogTool.Log($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
+                        Debug.WriteLine($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
+                        OutputForm.Instance.WriteLineOutputMessage($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
+                        if (!自动停止拿牌()) return;
+                        自动停止刷新商店();
 
-                    #endregion
 
-                    await GetCard(当前目标数组);
+                        Bitmap[] bitmaps = CaptureAndSplit();
 
-                    判断未拿牌并处理();
-                    判断未刷新并处理();
-                    更新上一轮结果数组与目标数组();
 
-                   
-                    
 
-                    
-                    if(await 判断是否需要刷新商店并处理())
-                    {
-                       
-                        if(_iappConfigService.CurrentConfig.IsUseCPUForInference)
+                        原始结果数组 = await RecognizeImages(bitmaps);
+
+
+
+                        更新纠正结果数组(bitmaps);
+
+
+                        // 释放图像资源
+                        foreach (Bitmap image in bitmaps)
                         {
-                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
+                            image.Dispose();
                         }
-                        else if(_iappConfigService.CurrentConfig.IsUseGPUForInference)
+                        当前目标数组 = CompareResults(纠正结果数组);
+                        #region 结果输出、日志
+                        string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
+                        string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
+                        for (int i = 0; i < 原始结果数组.Length; i++)
                         {
-                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU);
+                            输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
                         }
-                        else
+                        for (int i = 0; i < 纠正结果数组.Length; i++)
                         {
-                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
+                            输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
                         }
+                        LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                        Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                        OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                        LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                        Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                        OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+
+                        #endregion
+
+                        await GetCard(当前目标数组);
                         
+                        判断未拿牌并处理();
+                        判断未刷新并处理();
+                        更新上一轮结果数组与目标数组();
+
+                        if (await 判断是否需要刷新商店并处理())
+                        {
+
+                            if (_iappConfigService.CurrentConfig.IsUseCPUForInference)
+                            {
+                                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
+                            }
+                            else if (_iappConfigService.CurrentConfig.IsUseGPUForInference)
+                            {
+                                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU);
+                            }
+                            else
+                            {
+                                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
+                            }
+
+                        }
+                        本轮是否按下过鼠标 = false;
                     }
-                    本轮是否按下过鼠标 = false;
+                    
                 }
                 catch (OperationCanceledException)
                 {
@@ -642,26 +698,24 @@ namespace JinChanChanTool.Services
                 int Y = 0;
                 if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
-                    X =  Random.Shared.Next(
-                         _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X -10 , _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X + 10);
-                    Y = Random.Shared.Next(
-                        _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y-10, _iAutoConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y+10);                    
+                    X = Random.Shared.Next(_iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.X + _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width / 5,
+                         _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.X + _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width * 4 / 5);
+                    Y = Random.Shared.Next(_iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height / 5,
+                        _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height * 4 / 5);
                 }
                 else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
-                {
-                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
-                    X = Random.Shared.Next(
-                         _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X + 10);
-                    Y = Random.Shared.Next(
-                        _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y + 10);
+                {                    
+                    X = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.X+_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width/5,
+                        _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.X + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width * 4 / 5);
+                    Y = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y+_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height/5,
+                        _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height *4 / 5);
                 }
                 else
                 {
-                    MouseControlTool.SetMousePosition(_iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y);
-                    X = Random.Shared.Next(
-                         _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_X + 10);
-                    Y = Random.Shared.Next(
-                        _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y - 10, _iappConfigService.CurrentConfig.RefreshStoreButtonCoordinates_Y + 10);
+                    X = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.X + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width / 5,
+                        _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.X + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width * 4 / 5);
+                    Y = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height / 5,
+                        _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height * 4 / 5);
                 }
 
                 MouseControlTool.SetMousePosition(X, Y);
@@ -685,41 +739,82 @@ namespace JinChanChanTool.Services
             {
                 if(_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
-                    // 从 AutoConfig 读取坐标，截取一张包含所有卡槽的大图
-                    using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
-                             _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1,
-                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y,
-                            (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1) + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth,
-                             _iAutoConfigService.CurrentConfig.Height_CardScreenshot))
+                    Rectangle[] rects = new Rectangle[]
+                      {
+                         _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_1,
+                         _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_2,
+                         _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_3,
+                         _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_4,
+                         _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_5
+                     };
+                    // 计算包含所有矩形的最小外接矩形(Bounding Box)
+                    int minX = rects.Min(r => r.X);
+                    int minY = rects.Min(r => r.Y);
+                    int maxX = rects.Max(r => r.X + r.Width);
+                    int maxY = rects.Max(r => r.Y + r.Height);
+
+                    Rectangle boundingBox = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+                    //截取大图
+                    using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(boundingBox))
                     {
                         Bitmap[] bitmaps = new Bitmap[5];
 
-                        // 使用正确的、基于差值的相对偏移来分割图片
-                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
-                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth, _iAutoConfigService.CurrentConfig.Height_CardScreenshot);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            // 计算每个矩形相对于大图左上角的偏移量
+                            int offsetX = rects[i].X - minX;
+                            int offsetY = rects[i].Y - minY;
+
+                            bitmaps[i] = ImageProcessingTool.CropBitmap(
+                                bigImage,
+                                offsetX,
+                                offsetY,
+                                rects[i].Width,
+                                rects[i].Height
+                            );
+                        }
+
                         return bitmaps;
                     }
                 }
                 else
                 {
-                    // 从 AppConfig 读取坐标，截取一张包含所有卡槽的大图
-                    using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(
-                             _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1,
-                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y,
-                            (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1) + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth,
-                             _iappConfigService.CurrentConfig.HeroNameScreenshotHeight))
+
+                    Rectangle[] rects = new Rectangle[]
+                     {
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_1,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_2,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_3,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_4,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_5
+                    };
+                    // 计算包含所有矩形的最小外接矩形(Bounding Box)
+                    int minX = rects.Min(r => r.X);
+                    int minY = rects.Min(r => r.Y);
+                    int maxX = rects.Max(r => r.X + r.Width);
+                    int maxY = rects.Max(r => r.Y + r.Height);
+
+                    Rectangle boundingBox = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+                    //截取大图
+                    using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(boundingBox))
                     {
                         Bitmap[] bitmaps = new Bitmap[5];
+                        
+                        for (int i = 0; i < 5; i++)
+                        {
+                            // 计算每个矩形相对于大图左上角的偏移量
+                            int offsetX = rects[i].X - minX;
+                            int offsetY = rects[i].Y - minY;
 
-                        // 使用正确的、基于差值的相对偏移来分割图片
-                        bitmaps[0] = ImageProcessingTool.CropBitmap(bigImage, 0, 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
-                        bitmaps[1] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
-                        bitmaps[2] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
-                        bitmaps[3] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
-                        bitmaps[4] = ImageProcessingTool.CropBitmap(bigImage, (_iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5 - _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1), 0, _iappConfigService.CurrentConfig.HeroNameScreenshotWidth, _iappConfigService.CurrentConfig.HeroNameScreenshotHeight);
+                            bitmaps[i] = ImageProcessingTool.CropBitmap(
+                                bigImage,
+                                offsetX,
+                                offsetY,
+                                rects[i].Width,
+                                rects[i].Height
+                            );
+                        }
+
                         return bitmaps;
                     }
                 }
@@ -792,73 +887,24 @@ namespace JinChanChanTool.Services
         /// <returns></returns>
         private async Task GetCard(bool[] isGetArray)
         {
+            Rectangle[] rects = new Rectangle[]
+                     {
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_1,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_2,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_3,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_4,
+                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_5
+                    };
+            Rectangle[] rects_Auto = new Rectangle[]
+            {
+                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_1,
+                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_2,
+                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_3,
+                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_4,
+                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_5
+            };
             for (int i = 0; i < isGetArray.Length; i++)
             {
-                int x = 0;
-                if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
-                {
-                    switch (i)
-                    {
-                        case 0:
-                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
-                            break;
-                        case 1:
-                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
-                            break;
-                        case 2:
-                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
-                            break;
-                        case 3:
-                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
-                            break;
-                        case 4:
-                            x = _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
-                            break;
-                    }
-                }
-                else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
-                {
-                    switch (i)
-                    {
-                        case 0:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
-                            break;
-                        case 1:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
-                            break;
-                        case 2:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
-                            break;
-                        case 3:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
-                            break;
-                        case 4:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (i)
-                    {
-                        case 0:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X1;
-                            break;
-                        case 1:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X2;
-                            break;
-                        case 2:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X3;
-                            break;
-                        case 3:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X4;
-                            break;
-                        case 4:
-                            x = _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_X5;
-                            break;
-                    }
-                }
-
                 if (isGetArray[i])
                 {
                     if (_iappConfigService.CurrentConfig.IsKeyboardHeroPurchase)
@@ -888,33 +934,21 @@ namespace JinChanChanTool.Services
                     }
                     else if (_iappConfigService.CurrentConfig.IsMouseHeroPurchase)
                     {
-
                         int randomX, randomY;
                         if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                         {
-                            randomX = Random.Shared.Next(
-                            x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth / 4, x + _iAutoConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
-                            randomY = Random.Shared.Next(
-                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iAutoConfigService.CurrentConfig.Height_CardScreenshot * 2,
-                            _iAutoConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
+                            randomX = Random.Shared.Next(rects_Auto[i].Left + rects_Auto[i].Width / 5, rects_Auto[i].Left + rects_Auto[i].Width * 4 / 5);
+                            randomY = Random.Shared.Next(rects_Auto[i].Top + rects_Auto[i].Height / 5, rects_Auto[i].Top + rects_Auto[i].Height * 4 / 5);
                         }
                         else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                         {
-                            randomX = Random.Shared.Next(
-                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,
-                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
-                            randomY = Random.Shared.Next(
-                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iappConfigService.CurrentConfig.HeroNameScreenshotHeight * 2,
-                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
+                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width/5, rects[i].Left + rects[i].Width *4 / 5);
+                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height/5, rects[i].Top + rects[i].Height *4 / 5);
                         }
                         else
                         {
-                            randomX = Random.Shared.Next(
-                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth / 4,
-                            x + _iappConfigService.CurrentConfig.HeroNameScreenshotWidth * 3 / 4 + 1);
-                            randomY = Random.Shared.Next(
-                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y - _iappConfigService.CurrentConfig.HeroNameScreenshotHeight * 2,
-                            _iappConfigService.CurrentConfig.HeroNameScreenshotCoordinates_Y + 1);
+                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width / 5, rects[i].Left + rects[i].Width * 4 / 5);
+                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height / 5, rects[i].Top + rects[i].Height * 4 / 5);
                         }
 
 
@@ -931,7 +965,7 @@ namespace JinChanChanTool.Services
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
 
                     }
-                }
+                }                
             }
         }
 
@@ -949,6 +983,48 @@ namespace JinChanChanTool.Services
 
             MouseHookTool.DecrementProgramClickCount(); // 减少计数
 
+        }
+
+        /// <summary>
+        /// 计算5个卡槽的矩形区域（用于高亮显示）
+        /// </summary>
+        /// <returns>包含5个Rectangle的数组</returns>
+        private Rectangle[] CalculateCardRectangles()
+        {
+            Rectangle[] rectangles = new Rectangle[5];
+
+            if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
+            {
+                //rectangles = new Rectangle[]
+                //    {
+                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_1,
+                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_2,
+                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_3,
+                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_4,
+                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_5
+                //   };
+                rectangles = new Rectangle[]
+                    {
+                         _iappConfigService.CurrentConfig.HighLightRectangle_1,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_2,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_3,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_4,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_5
+                   };
+            }
+            else
+            {              
+                    rectangles = new Rectangle[]
+                     {
+                         _iappConfigService.CurrentConfig.HighLightRectangle_1,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_2,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_3,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_4,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_5
+                    };               
+            }
+
+            return rectangles;
         }
     }
 }

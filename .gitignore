@@ -57,3 +57,5 @@ SourceCode/JinChanChanTool/bin
 .craft/
 
 SourceCode/JinChanChanTool/CLAUDE.md
+SourceCode/JinChanChanTool/.claude
+SourceCode/JinChanChanTool/.claude/settings.local.json

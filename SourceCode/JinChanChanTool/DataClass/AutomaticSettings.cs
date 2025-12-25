@@ -11,52 +11,32 @@ namespace JinChanChanTool.DataClass
         /// <summary>
         /// 商店售卖的第一张英雄的名称截图起点坐标X
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X1 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_1 { get; set; }
 
         /// <summary>
         /// 商店售卖的第二张英雄的名称截图起点坐标X
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X2 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_2 { get; set; }
 
         /// <summary>
         /// 商店售卖的第三张英雄的名称截图起点坐标X
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X3 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_3 { get; set; }
 
         /// <summary>
         /// 商店售卖的第四张英雄的名称截图起点坐标X
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X4 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_4 { get; set; }
 
         /// <summary>
         /// 商店售卖的第五张英雄的名称截图起点坐标X
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X5 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_5 { get; set; }
 
         /// <summary>
-        /// 商店售卖的所有英雄的名称截图起点坐标Y
+        /// 刷新商店按钮的数据矩形
         /// </summary>
-        public int HeroNameScreenshotCoordinates_Y { get; set; }
-
-        /// <summary>
-        /// 商店售卖的所有英雄的名称截图的宽度
-        /// </summary>
-        public int HeroNameScreenshotWidth { get; set; }
-
-        /// <summary>
-        /// 商店售卖的所有英雄的名称截图的高度
-        /// </summary>
-        public int Height_CardScreenshot { get; set; }
-
-        /// <summary>
-        /// 刷新商店按钮的X坐标
-        /// </summary>
-        public int RefreshStoreButtonCoordinates_X { get; set; }
-
-        /// <summary>
-        /// 刷新商店按钮的坐标
-        /// </summary>
-        public int RefreshStoreButtonCoordinates_Y { get; set; }
+        public Rectangle RefreshStoreButtonRectangle { get; set; }
 
         /// <summary>
         /// 英雄选择面板位置
@@ -93,16 +73,12 @@ namespace JinChanChanTool.DataClass
         /// </summary>
         public AutomaticSettings()
         {
-            HeroNameScreenshotCoordinates_X1 = 549;
-            HeroNameScreenshotCoordinates_X2 = 755;
-            HeroNameScreenshotCoordinates_X3 = 961;
-            HeroNameScreenshotCoordinates_X4 = 1173;
-            HeroNameScreenshotCoordinates_X5 = 1380;
-            HeroNameScreenshotCoordinates_Y = 1029;
-            HeroNameScreenshotWidth = 146;
-            Height_CardScreenshot = 31;
-            RefreshStoreButtonCoordinates_X = 441;
-            RefreshStoreButtonCoordinates_Y = 1027;
+            HeroNameScreenshotRectangle_1 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_2 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_3 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_4 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_5 = new Rectangle(0, 0, 10, 10);
+            RefreshStoreButtonRectangle = new Rectangle(0, 0, 10, 10);
             SelectFormLocation = new Point(-1, -1);
             LineUpFormLocation = new Point(-1, -1);
             StatusOverlayFormLocation = new Point(-1, -1);
@@ -119,16 +95,12 @@ namespace JinChanChanTool.DataClass
         {
             return new AutomaticSettings
             {
-                HeroNameScreenshotCoordinates_X1 = this.HeroNameScreenshotCoordinates_X1,
-                HeroNameScreenshotCoordinates_X2 = this.HeroNameScreenshotCoordinates_X2,
-                HeroNameScreenshotCoordinates_X3 = this.HeroNameScreenshotCoordinates_X3,
-                HeroNameScreenshotCoordinates_X4 = this.HeroNameScreenshotCoordinates_X4,
-                HeroNameScreenshotCoordinates_X5 = this.HeroNameScreenshotCoordinates_X5,
-                HeroNameScreenshotCoordinates_Y = this.HeroNameScreenshotCoordinates_Y,
-                HeroNameScreenshotWidth = this.HeroNameScreenshotWidth,
-                Height_CardScreenshot = this.Height_CardScreenshot,
-                RefreshStoreButtonCoordinates_X = this.RefreshStoreButtonCoordinates_X,
-                RefreshStoreButtonCoordinates_Y = this.RefreshStoreButtonCoordinates_Y,
+                HeroNameScreenshotRectangle_1 = this.HeroNameScreenshotRectangle_1,
+                HeroNameScreenshotRectangle_2 = this.HeroNameScreenshotRectangle_2,
+                HeroNameScreenshotRectangle_3 = this.HeroNameScreenshotRectangle_3,
+                HeroNameScreenshotRectangle_4 = this.HeroNameScreenshotRectangle_4,
+                HeroNameScreenshotRectangle_5 = this.HeroNameScreenshotRectangle_5,
+                RefreshStoreButtonRectangle = this.RefreshStoreButtonRectangle,
                 SelectFormLocation = this.SelectFormLocation,
                 LineUpFormLocation = this.LineUpFormLocation,
                 StatusOverlayFormLocation = this.StatusOverlayFormLocation,
@@ -148,16 +120,12 @@ namespace JinChanChanTool.DataClass
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-           return  HeroNameScreenshotCoordinates_X1 == other.HeroNameScreenshotCoordinates_X1 &&
-                   HeroNameScreenshotCoordinates_X2 == other.HeroNameScreenshotCoordinates_X2 &&
-                   HeroNameScreenshotCoordinates_X3 == other.HeroNameScreenshotCoordinates_X3 &&
-                   HeroNameScreenshotCoordinates_X4 == other.HeroNameScreenshotCoordinates_X4 &&
-                   HeroNameScreenshotCoordinates_X5 == other.HeroNameScreenshotCoordinates_X5 &&
-                   HeroNameScreenshotCoordinates_Y == other.HeroNameScreenshotCoordinates_Y &&
-                   HeroNameScreenshotWidth == other.HeroNameScreenshotWidth &&
-                   Height_CardScreenshot == other.Height_CardScreenshot &&
-                   RefreshStoreButtonCoordinates_X == other.RefreshStoreButtonCoordinates_X &&
-                   RefreshStoreButtonCoordinates_Y == other.RefreshStoreButtonCoordinates_Y &&
+           return  HeroNameScreenshotRectangle_1 == other.HeroNameScreenshotRectangle_1 &&
+                   HeroNameScreenshotRectangle_2 == other.HeroNameScreenshotRectangle_2 &&
+                   HeroNameScreenshotRectangle_3 == other.HeroNameScreenshotRectangle_3 &&
+                   HeroNameScreenshotRectangle_4 == other.HeroNameScreenshotRectangle_4 &&
+                   HeroNameScreenshotRectangle_5 == other.HeroNameScreenshotRectangle_5 &&
+                   RefreshStoreButtonRectangle == other.RefreshStoreButtonRectangle &&
                    SelectFormLocation == other.SelectFormLocation &&
                    LineUpFormLocation == other.LineUpFormLocation &&
                    StatusOverlayFormLocation == other.StatusOverlayFormLocation &&

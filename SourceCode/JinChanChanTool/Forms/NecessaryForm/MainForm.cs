@@ -2021,20 +2021,28 @@ namespace JinChanChanTool
 
                 if (rectSlot1.HasValue && rectSlot1.Value.Width > 0 && rectSlot1.Value.Height > 0)
                 {
-                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X1 = rectSlot1.Value.X;
-                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_Y = rectSlot1.Value.Y;
-                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotWidth = rectSlot1.Value.Width;
-                    _iAutomaticSettingsService.CurrentConfig.Height_CardScreenshot = rectSlot1.Value.Height;
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotRectangle_1 = (Rectangle)rectSlot1;
                 }
-                if (rectSlot2.HasValue && rectSlot2.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X2 = rectSlot2.Value.X;
-                if (rectSlot3.HasValue && rectSlot3.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X3 = rectSlot3.Value.X;
-                if (rectSlot4.HasValue && rectSlot4.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X4 = rectSlot4.Value.X;
-                if (rectSlot5.HasValue && rectSlot5.Value.Width > 0) _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotCoordinates_X5 = rectSlot5.Value.X;
+                if (rectSlot2.HasValue && rectSlot2.Value.Width > 0 && rectSlot2.Value.Height > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotRectangle_2 = (Rectangle)rectSlot2;
+                }
+                if (rectSlot3.HasValue && rectSlot3.Value.Width > 0 && rectSlot3.Value.Height > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotRectangle_3 = (Rectangle)rectSlot3;
+                }
+                if (rectSlot4.HasValue && rectSlot4.Value.Width > 0 && rectSlot4.Value.Height > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotRectangle_4 = (Rectangle)rectSlot4;
+                }
+                if (rectSlot5.HasValue && rectSlot5.Value.Width > 0 && rectSlot5.Value.Height > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HeroNameScreenshotRectangle_5 = (Rectangle)rectSlot5;
+                }
 
                 if (rectRefresh.HasValue && rectRefresh.Value.Width > 0)
                 {
-                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonCoordinates_X = rectRefresh.Value.X + rectRefresh.Value.Width / 2;
-                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonCoordinates_Y = rectRefresh.Value.Y + rectRefresh.Value.Height / 2;
+                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonRectangle = (Rectangle)rectRefresh;                   
                 }
             }
         }

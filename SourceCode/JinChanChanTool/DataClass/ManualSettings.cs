@@ -6,6 +6,10 @@
     public class ManualSettings : ICloneable, IEquatable<ManualSettings>
     {
         /// <summary>
+        /// 选择的屏幕索引
+        /// </summary>
+        public int SelectedScreenIndex { get; set; }
+        /// <summary>
         /// 快捷键1-自动拿牌功能
         /// </summary>
         public string HotKey1 { get; set; }
@@ -26,55 +30,64 @@
         public string HotKey4 { get; set; }
 
         /// <summary>
-        /// 商店售卖的第一张英雄的名称截图起点坐标X
+        /// 商店售卖的第一张英雄的名称截图数据矩形
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X1 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_1 { get; set; }
 
         /// <summary>
-        /// 商店售卖的第二张英雄的名称截图起点坐标X
+        /// 商店售卖的第二张英雄的名称截图数据矩形
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X2 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_2 { get; set; }
 
         /// <summary>
-        /// 商店售卖的第三张英雄名称的截图起点坐标X
+        /// 商店售卖的第三张英雄名称的截图数据矩形
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X3 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_3 { get; set; }
 
         /// <summary>
-        /// 商店售卖的第四张英雄名称的截图起点坐标X
+        /// 商店售卖的第四张英雄名称的截图数据矩形
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X4 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_4 { get; set; }
 
         /// <summary>
-        /// 商店售卖的第五张英雄名称的截图起点坐标X
+        /// 商店售卖的第五张英雄名称的截图数据矩形
         /// </summary>
-        public int HeroNameScreenshotCoordinates_X5 { get; set; }
+        public Rectangle HeroNameScreenshotRectangle_5 { get; set; }
+      
+        /// <summary>
+        /// 刷新商店按钮的数据矩形
+        /// </summary>
+        public Rectangle RefreshStoreButtonRectangle { get; set; }
 
         /// <summary>
-        /// 商店售卖的所有英雄的名称截图起点坐标Y
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形1
         /// </summary>
-        public int HeroNameScreenshotCoordinates_Y { get; set; }
+        public Rectangle HighLightRectangle_1 { get; set; }
 
         /// <summary>
-        /// 商店售卖的所有英雄的名称截图的宽度
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形2
         /// </summary>
-        public int HeroNameScreenshotWidth { get; set; }
+        public Rectangle HighLightRectangle_2 { get; set; }
 
         /// <summary>
-        /// 商店售卖的所有英雄的名称截图的高度
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形3
         /// </summary>
-        public int HeroNameScreenshotHeight { get; set; }
+        public Rectangle HighLightRectangle_3 { get; set; }
 
         /// <summary>
-        /// 刷新商店按钮的X坐标
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形4
         /// </summary>
-        public int RefreshStoreButtonCoordinates_X { get; set; }
+        public Rectangle HighLightRectangle_4 { get; set; }
 
         /// <summary>
-        /// 刷新商店按钮的Y坐标
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形5
         /// </summary>
-        public int RefreshStoreButtonCoordinates_Y { get; set; }
-        
+        public Rectangle HighLightRectangle_5 { get; set; }
+
+        /// <summary>
+        /// 是否启用高亮提示功能
+        /// </summary>
+        public bool IsUseHightLightPrompt { get; set; }
         /// <summary>
         /// 阵容下拉框展示的最大阵容数量
         /// </summary>
@@ -262,16 +275,19 @@
             HotKey3 = "Home";
             HotKey4 = "F9";            
             MaxLineUpCount = 10;
-            HeroNameScreenshotCoordinates_X1 = 549;
-            HeroNameScreenshotCoordinates_X2 = 755;
-            HeroNameScreenshotCoordinates_X3 = 961;
-            HeroNameScreenshotCoordinates_X4 = 1173;
-            HeroNameScreenshotCoordinates_X5 = 1380;
-            HeroNameScreenshotCoordinates_Y = 1029;
-            HeroNameScreenshotWidth = 146;
-            HeroNameScreenshotHeight = 31;
-            RefreshStoreButtonCoordinates_X = 441;
-            RefreshStoreButtonCoordinates_Y = 1027;
+            SelectedScreenIndex = 0;
+            HeroNameScreenshotRectangle_1 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_2 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_3 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_4 = new Rectangle(0, 0, 10, 10);
+            HeroNameScreenshotRectangle_5 = new Rectangle(0, 0, 10, 10);                       
+            RefreshStoreButtonRectangle = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_1 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_2 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_3 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_4 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_5 = new Rectangle(0, 0, 10, 10);
+            IsUseHightLightPrompt = false;
             IsHighUserPriority = true;
             IsAutomaticStopHeroPurchase = true;
             IsAutomaticStopRefreshStore = true;
@@ -321,16 +337,19 @@
                 HotKey2 = this.HotKey2,
                 HotKey3 = this.HotKey3,
                 HotKey4 = this.HotKey4,
-                HeroNameScreenshotCoordinates_X1 = this.HeroNameScreenshotCoordinates_X1,
-                HeroNameScreenshotCoordinates_X2 = this.HeroNameScreenshotCoordinates_X2,
-                HeroNameScreenshotCoordinates_X3 = this.HeroNameScreenshotCoordinates_X3,
-                HeroNameScreenshotCoordinates_X4 = this.HeroNameScreenshotCoordinates_X4,
-                HeroNameScreenshotCoordinates_X5 = this.HeroNameScreenshotCoordinates_X5,
-                HeroNameScreenshotCoordinates_Y = this.HeroNameScreenshotCoordinates_Y,
-                HeroNameScreenshotWidth = this.HeroNameScreenshotWidth,
-                HeroNameScreenshotHeight = this.HeroNameScreenshotHeight,
-                RefreshStoreButtonCoordinates_X = this.RefreshStoreButtonCoordinates_X,
-                RefreshStoreButtonCoordinates_Y = this.RefreshStoreButtonCoordinates_Y,               
+                SelectedScreenIndex = this.SelectedScreenIndex,
+                HeroNameScreenshotRectangle_1 = this.HeroNameScreenshotRectangle_1,
+                HeroNameScreenshotRectangle_2 = this.HeroNameScreenshotRectangle_2,
+                HeroNameScreenshotRectangle_3 = this.HeroNameScreenshotRectangle_3,
+                HeroNameScreenshotRectangle_4 = this.HeroNameScreenshotRectangle_4,
+                HeroNameScreenshotRectangle_5 = this.HeroNameScreenshotRectangle_5,             
+                RefreshStoreButtonRectangle = this.RefreshStoreButtonRectangle,
+                HighLightRectangle_1 = this.HighLightRectangle_1,
+                HighLightRectangle_2 = this.HighLightRectangle_2,
+                HighLightRectangle_3 = this.HighLightRectangle_3,
+                HighLightRectangle_4 = this.HighLightRectangle_4,
+                HighLightRectangle_5 = this.HighLightRectangle_5,
+                IsUseHightLightPrompt = this.IsUseHightLightPrompt,
                 MaxLineUpCount = this.MaxLineUpCount,
                 IsHighUserPriority = this.IsHighUserPriority,
                 IsAutomaticStopHeroPurchase = this.IsAutomaticStopHeroPurchase,
@@ -384,16 +403,19 @@
                    HotKey2 == other.HotKey2 &&
                    HotKey3 == other.HotKey3 &&
                    HotKey4 == other.HotKey4 &&
-                   HeroNameScreenshotCoordinates_X1 == other.HeroNameScreenshotCoordinates_X1 &&
-                   HeroNameScreenshotCoordinates_X2 == other.HeroNameScreenshotCoordinates_X2 &&
-                   HeroNameScreenshotCoordinates_X3 == other.HeroNameScreenshotCoordinates_X3 &&
-                   HeroNameScreenshotCoordinates_X4 == other.HeroNameScreenshotCoordinates_X4 &&
-                   HeroNameScreenshotCoordinates_X5 == other.HeroNameScreenshotCoordinates_X5 &&
-                   HeroNameScreenshotCoordinates_Y == other.HeroNameScreenshotCoordinates_Y &&
-                   HeroNameScreenshotWidth == other.HeroNameScreenshotWidth &&
-                   HeroNameScreenshotHeight == other.HeroNameScreenshotHeight &&
-                   RefreshStoreButtonCoordinates_X == other.RefreshStoreButtonCoordinates_X &&
-                   RefreshStoreButtonCoordinates_Y == other.RefreshStoreButtonCoordinates_Y &&                   
+                   SelectedScreenIndex == other.SelectedScreenIndex &&
+                   HeroNameScreenshotRectangle_1 == other.HeroNameScreenshotRectangle_1 &&
+                   HeroNameScreenshotRectangle_2 == other.HeroNameScreenshotRectangle_2 &&
+                   HeroNameScreenshotRectangle_3 == other.HeroNameScreenshotRectangle_3 &&
+                   HeroNameScreenshotRectangle_4 == other.HeroNameScreenshotRectangle_4 &&
+                   HeroNameScreenshotRectangle_5 == other.HeroNameScreenshotRectangle_5 &&                  
+                   RefreshStoreButtonRectangle == other.RefreshStoreButtonRectangle &&      
+                   HighLightRectangle_1 == other.HighLightRectangle_1 &&
+                   HighLightRectangle_2 == other.HighLightRectangle_2 &&
+                   HighLightRectangle_3 == other.HighLightRectangle_3 &&
+                   HighLightRectangle_4 == other.HighLightRectangle_4 &&
+                   HighLightRectangle_5 == other.HighLightRectangle_5 &&
+                   IsUseHightLightPrompt == other.IsUseHightLightPrompt &&
                    MaxLineUpCount == other.MaxLineUpCount &&
                    IsHighUserPriority == other.IsHighUserPriority &&
                    IsAutomaticStopHeroPurchase == other.IsAutomaticStopHeroPurchase &&

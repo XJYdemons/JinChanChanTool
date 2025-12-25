@@ -39,6 +39,31 @@ namespace JinChanChanTool.DataClass
         public Rectangle RefreshStoreButtonRectangle { get; set; }
 
         /// <summary>
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形1
+        /// </summary>
+        public Rectangle HighLightRectangle_1 { get; set; }
+
+        /// <summary>
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形2
+        /// </summary>
+        public Rectangle HighLightRectangle_2 { get; set; }
+
+        /// <summary>
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形3
+        /// </summary>
+        public Rectangle HighLightRectangle_3 { get; set; }
+
+        /// <summary>
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形4
+        /// </summary>
+        public Rectangle HighLightRectangle_4 { get; set; }
+
+        /// <summary>
+        /// 高亮显示商店需要购买的英雄按钮的数据矩形5
+        /// </summary>
+        public Rectangle HighLightRectangle_5 { get; set; }
+
+        /// <summary>
         /// 英雄选择面板位置
         /// </summary>
         public Point SelectFormLocation { get; set; }
@@ -79,6 +104,11 @@ namespace JinChanChanTool.DataClass
             HeroNameScreenshotRectangle_4 = new Rectangle(0, 0, 10, 10);
             HeroNameScreenshotRectangle_5 = new Rectangle(0, 0, 10, 10);
             RefreshStoreButtonRectangle = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_1 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_2 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_3 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_4 = new Rectangle(0, 0, 10, 10);
+            HighLightRectangle_5 = new Rectangle(0, 0, 10, 10);
             SelectFormLocation = new Point(-1, -1);
             LineUpFormLocation = new Point(-1, -1);
             StatusOverlayFormLocation = new Point(-1, -1);
@@ -101,6 +131,11 @@ namespace JinChanChanTool.DataClass
                 HeroNameScreenshotRectangle_4 = this.HeroNameScreenshotRectangle_4,
                 HeroNameScreenshotRectangle_5 = this.HeroNameScreenshotRectangle_5,
                 RefreshStoreButtonRectangle = this.RefreshStoreButtonRectangle,
+                HighLightRectangle_1 = this.HighLightRectangle_1,
+                HighLightRectangle_2 = this.HighLightRectangle_2,
+                HighLightRectangle_3 = this.HighLightRectangle_3,
+                HighLightRectangle_4 = this.HighLightRectangle_4,
+                HighLightRectangle_5 = this.HighLightRectangle_5,
                 SelectFormLocation = this.SelectFormLocation,
                 LineUpFormLocation = this.LineUpFormLocation,
                 StatusOverlayFormLocation = this.StatusOverlayFormLocation,
@@ -126,6 +161,11 @@ namespace JinChanChanTool.DataClass
                    HeroNameScreenshotRectangle_4 == other.HeroNameScreenshotRectangle_4 &&
                    HeroNameScreenshotRectangle_5 == other.HeroNameScreenshotRectangle_5 &&
                    RefreshStoreButtonRectangle == other.RefreshStoreButtonRectangle &&
+                   HighLightRectangle_1 == other.HighLightRectangle_1 &&
+                   HighLightRectangle_2 == other.HighLightRectangle_2 &&
+                   HighLightRectangle_3 == other.HighLightRectangle_3 &&
+                   HighLightRectangle_4 == other.HighLightRectangle_4 &&
+                   HighLightRectangle_5 == other.HighLightRectangle_5 &&
                    SelectFormLocation == other.SelectFormLocation &&
                    LineUpFormLocation == other.LineUpFormLocation &&
                    StatusOverlayFormLocation == other.StatusOverlayFormLocation &&

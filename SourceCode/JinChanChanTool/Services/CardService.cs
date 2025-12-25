@@ -995,22 +995,14 @@ namespace JinChanChanTool.Services
 
             if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
             {
-                //rectangles = new Rectangle[]
-                //    {
-                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_1,
-                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_2,
-                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_3,
-                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_4,
-                //         _iAutoConfigService.CurrentConfig.HighLightRectangle_5
-                //   };
                 rectangles = new Rectangle[]
                     {
-                         _iappConfigService.CurrentConfig.HighLightRectangle_1,
-                         _iappConfigService.CurrentConfig.HighLightRectangle_2,
-                         _iappConfigService.CurrentConfig.HighLightRectangle_3,
-                         _iappConfigService.CurrentConfig.HighLightRectangle_4,
-                         _iappConfigService.CurrentConfig.HighLightRectangle_5
-                   };
+                         _iAutoConfigService.CurrentConfig.HighLightRectangle_1,
+                         _iAutoConfigService.CurrentConfig.HighLightRectangle_2,
+                         _iAutoConfigService.CurrentConfig.HighLightRectangle_3,
+                         _iAutoConfigService.CurrentConfig.HighLightRectangle_4,
+                         _iAutoConfigService.CurrentConfig.HighLightRectangle_5
+                   };               
             }
             else
             {              

@@ -2018,6 +2018,12 @@ namespace JinChanChanTool
                 var rectSlot4 = _automationService.GetTargetRectangle(UiElement.CardSlot4_Name);
                 var rectSlot5 = _automationService.GetTargetRectangle(UiElement.CardSlot5_Name);
                 var rectRefresh = _automationService.GetTargetRectangle(UiElement.RefreshButton);
+                // 获取高亮区域矩形
+                var rectHighLight1 = _automationService.GetTargetRectangle(UiElement.CardSlot1_Highlight);
+                var rectHighLight2 = _automationService.GetTargetRectangle(UiElement.CardSlot2_Highlight);
+                var rectHighLight3 = _automationService.GetTargetRectangle(UiElement.CardSlot3_Highlight);
+                var rectHighLight4 = _automationService.GetTargetRectangle(UiElement.CardSlot4_Highlight);
+                var rectHighLight5 = _automationService.GetTargetRectangle(UiElement.CardSlot5_Highlight);
 
                 if (rectSlot1.HasValue && rectSlot1.Value.Width > 0 && rectSlot1.Value.Height > 0)
                 {
@@ -2043,6 +2049,27 @@ namespace JinChanChanTool
                 if (rectRefresh.HasValue && rectRefresh.Value.Width > 0)
                 {
                     _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonRectangle = (Rectangle)rectRefresh;                   
+                }
+                // 更新高亮区域矩形
+                if (rectHighLight1.HasValue && rectHighLight1.Value.Width > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HighLightRectangle_1 = (Rectangle)rectHighLight1;
+                }
+                if (rectHighLight2.HasValue && rectHighLight2.Value.Width > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HighLightRectangle_2 = (Rectangle)rectHighLight2;
+                }
+                if (rectHighLight3.HasValue && rectHighLight3.Value.Width > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HighLightRectangle_3 = (Rectangle)rectHighLight3;
+                }
+                if (rectHighLight4.HasValue && rectHighLight4.Value.Width > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HighLightRectangle_4 = (Rectangle)rectHighLight4;
+                }
+                if (rectHighLight5.HasValue && rectHighLight5.Value.Width > 0)
+                {
+                    _iAutomaticSettingsService.CurrentConfig.HighLightRectangle_5 = (Rectangle)rectHighLight5;
                 }
             }
         }

@@ -40,7 +40,12 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         CardSlot3_Click,
         CardSlot4_Click,
         CardSlot5_Click,
-        GoldAmount
+        GoldAmount,
+        CardSlot1_Highlight,
+        CardSlot2_Highlight,
+        CardSlot3_Highlight,
+        CardSlot4_Highlight,
+        CardSlot5_Highlight
     }
 
     /// <summary>
@@ -160,6 +165,11 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                 case UiElement.CardSlot4_Click: return TftCoordinateTemplates.CardSlot4_Click;
                 case UiElement.CardSlot5_Click: return TftCoordinateTemplates.CardSlot5_Click;
                 case UiElement.GoldAmount: return TftCoordinateTemplates.GoldAmount;
+                case UiElement.CardSlot1_Highlight: return TftCoordinateTemplates.CardSlot1_Click;
+                case UiElement.CardSlot2_Highlight: return TftCoordinateTemplates.CardSlot2_Click;
+                case UiElement.CardSlot3_Highlight: return TftCoordinateTemplates.CardSlot3_Click;
+                case UiElement.CardSlot4_Highlight: return TftCoordinateTemplates.CardSlot4_Click;
+                case UiElement.CardSlot5_Highlight: return TftCoordinateTemplates.CardSlot5_Click;
                 default: throw new ArgumentOutOfRangeException(nameof(element), "未知的UI元素。");
             }
         }
@@ -187,6 +197,11 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                 case UiElement.CardSlot4_Click: return JccCoordinateTemplates.CardSlot4_Click;
                 case UiElement.CardSlot5_Click: return JccCoordinateTemplates.CardSlot5_Click;
                 case UiElement.GoldAmount: return JccCoordinateTemplates.GoldAmount;
+                case UiElement.CardSlot1_Highlight: return JccCoordinateTemplates.CardSlot1_Click;
+                case UiElement.CardSlot2_Highlight: return JccCoordinateTemplates.CardSlot2_Click;
+                case UiElement.CardSlot3_Highlight: return JccCoordinateTemplates.CardSlot3_Click;
+                case UiElement.CardSlot4_Highlight: return JccCoordinateTemplates.CardSlot4_Click;
+                case UiElement.CardSlot5_Highlight: return JccCoordinateTemplates.CardSlot5_Click;
                 default: throw new ArgumentOutOfRangeException(nameof(element), "未知的UI元素。");
             }
         }

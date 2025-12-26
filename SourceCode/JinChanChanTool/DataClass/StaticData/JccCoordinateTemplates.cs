@@ -58,29 +58,29 @@ namespace JinChanChanTool.DataClass.StaticData
         // --- 备用区域 ---
 
         /// <summary>
-        /// 第一个卡槽的可点击区域
+        /// 第一个卡槽的高亮/点击区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot1_Click = new(-301.5, -47.5, 155, 125);
+        public static readonly AnchorProfile CardSlot1_Click = new(-262.8, -81.9, 166, 136);
 
         /// <summary>
-        /// 第二个卡槽的可点击区域
+        /// 第二个卡槽的高亮/点击区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot2_Click = new(-124, -47.5, 150, 125);
+        public static readonly AnchorProfile CardSlot2_Click = new(-88.4, -81.9, 166, 136);
 
         /// <summary>
-        /// 第三个卡槽的可点击区域
+        /// 第三个卡槽的高亮/点击区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot3_Click = new(53.5, -47.5, 155, 125);
+        public static readonly AnchorProfile CardSlot3_Click = new(86.4, -81.9, 166, 136);
 
         /// <summary>
-        /// 第四个卡槽的可点击区域
+        /// 第四个卡槽的高亮/点击区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot4_Click = new(229, -47.5, 150, 125);
+        public static readonly AnchorProfile CardSlot4_Click = new(261.3, -81.9, 166, 136);
 
         /// <summary>
-        /// 第五个卡槽的可点击区域
+        /// 第五个卡槽的高亮/点击区域
         /// </summary>
-        public static readonly AnchorProfile CardSlot5_Click = new(404, -47.5, 150, 125);
+        public static readonly AnchorProfile CardSlot5_Click = new(436.1, -81.9, 166, 136);
 
         /// <summary>
         /// 金币数量识别区域

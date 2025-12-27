@@ -51,18 +51,9 @@ namespace JinChanChanTool
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
 
             //创建并加载阵容数据服务
-            ILineUpService _iLineUpService = new LineUpService(_iheroDataService, _iManualSettingsService.CurrentConfig.MaxLineUpCount,MaxCountOfHero,_iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex);
+            ILineUpService _iLineUpService = new LineUpService(_iheroDataService, MaxCountOfHero,_iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex);
             _iLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
-            _iLineUpService.Load();
-
-            //创建动态游戏数据服务
-            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
-
-            //创建装备爬取服务
-            ICrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);
-
-            //创建阵容爬取服务
-            ILineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
+            _iLineUpService.Load();        
 
             // 创建并加载英雄装备推荐数据服务
             IHeroEquipmentDataService _iHeroEquipmentDataService = new HeroEquipmentDataService();
@@ -72,9 +63,9 @@ namespace JinChanChanTool
             IRecommendedLineUpService _iRecommendedLineUpService = new RecommendedLineUpService();
             _iRecommendedLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iRecommendedLineUpService.Load();
-
+            
             // 运行主窗体并传入应用设置服务
-            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iDynamicGameDataService, _iCrawlingService, _iLineupCrawlingService));
+            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService));
         }
     }
 }

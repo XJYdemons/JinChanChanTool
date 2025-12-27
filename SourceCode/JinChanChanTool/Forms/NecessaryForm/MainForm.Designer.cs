@@ -58,7 +58,6 @@ namespace JinChanChanTool
             label_赛季 = new Label();
             toolTipTimer = new System.Windows.Forms.Timer(components);
             timer_UpdateCoordinates = new System.Windows.Forms.Timer(components);
-            更新阵容推荐ToolStripMenuItem = new ToolStripMenuItem();
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
@@ -243,6 +242,7 @@ namespace JinChanChanTool
             comboBox_SelectedLineUp.Size = new Size(149, 25);
             comboBox_SelectedLineUp.TabIndex = 1;
             comboBox_SelectedLineUp.Text = "阵容1";
+            comboBox_SelectedLineUp.DropDown += comboBox_SelectedLineUp_DropDown;
             comboBox_SelectedLineUp.DropDownClosed += comboBox_LineUps_DropDownClosed;
             comboBox_SelectedLineUp.KeyDown += comboBox_LineUps_KeyDown;
             comboBox_SelectedLineUp.Leave += comboBox_LineUps_Leave;
@@ -263,7 +263,7 @@ namespace JinChanChanTool
             // 
             menuStrip_Main.BackColor = Color.White;
             menuStrip_Main.ImageScalingSize = new Size(24, 24);
-            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于, 更新阵容推荐ToolStripMenuItem });
+            menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于 });
             menuStrip_Main.Location = new Point(3, 2);
             menuStrip_Main.Name = "menuStrip_Main";
             menuStrip_Main.Size = new Size(401, 25);
@@ -369,13 +369,6 @@ namespace JinChanChanTool
             timer_UpdateCoordinates.Interval = 1000;
             timer_UpdateCoordinates.Tick += timer_UpdateCoordinates_Tick;
             // 
-            // 更新阵容推荐ToolStripMenuItem
-            // 
-            更新阵容推荐ToolStripMenuItem.Name = "更新阵容推荐ToolStripMenuItem";
-            更新阵容推荐ToolStripMenuItem.Size = new Size(92, 21);
-            更新阵容推荐ToolStripMenuItem.Text = "更新阵容推荐";
-            更新阵容推荐ToolStripMenuItem.Click += 更新阵容推荐ToolStripMenuItem_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -429,6 +422,5 @@ namespace JinChanChanTool
         private Button button_变阵1;
         private Button button_变阵3;
         private Button button_变阵2;
-        private ToolStripMenuItem 更新阵容推荐ToolStripMenuItem;
     }
 }

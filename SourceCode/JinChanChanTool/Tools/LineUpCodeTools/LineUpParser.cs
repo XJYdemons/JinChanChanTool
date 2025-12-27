@@ -28,7 +28,7 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
             {"36a", "纳什男爵"}, {"363", "岩宝"}, {"35b", "费德提克"}, {"35f", "加里奥"}, {"358", "千珏"},
             {"034", "卢锡安与赛娜"}, {"019", "梅尔"}, {"357", "奥恩"}, {"013", "瑞兹"}, {"362", "瑟提"},
             {"35d", "希瓦娜"}, {"012", "塞拉斯"}, {"360", "塔姆"}, {"365", "海克斯霸龙"}, {"021", "锤石"},
-            {"373", "沃利贝尔"}, {"01f", "泽拉斯"}, {"030", "亚恒"}, {"371", "吉格斯"}, {"35a", "基兰"},
+            {"373", "沃利贝尔"}, {"01f", "泽拉斯"}, {"030", "亚恒"}, {"371", "吉格斯"}, {"35a", "基兰"}
         };
 
         // 从英雄名到代码的逆映射
@@ -67,16 +67,16 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
         /// 将英雄名加密为3位16进制字符串
         /// </summary>
         /// <param name="heroName">英雄名</param>
-        /// <returns>3位16进制字符串</returns>
-        private static string HexEncrypt(string heroName)
+        /// <returns>3位16进制字符串，如果英雄不在字典中则返回null</returns>
+        private static string? HexEncrypt(string heroName)
         {
-            if (nameToCodeMap.ContainsKey(heroName))
+            if (nameToCodeMap.TryGetValue(heroName, out string? code))
             {
-                return nameToCodeMap[heroName];
+                return code;
             }
 
-            // 如果字典里找不到对应的英雄名，就抛出一个异常
-            throw new ArgumentException($"英雄名 '{heroName}' 无法识别，不是有效的英雄名。");
+            // 字典中找不到的英雄（如提伯斯等宠物）返回null，由调用方跳过
+            return null;
         }
 
         /// <summary>
@@ -144,14 +144,11 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
             // 转换英雄名为十六进制代码（只转换前10个）
             for (int i = 0; i < effectiveCount; i++)
             {
-                try
+                string? hexCode = HexEncrypt(heroNames[i]);
+                // 跳过字典中不存在的英雄（如提伯斯等宠物）
+                if (hexCode != null)
                 {
-                    string hexCode = HexEncrypt(heroNames[i]);
                     hexCodes.Add(hexCode);
-                }
-                catch (Exception ex)
-                {
-                    throw new ArgumentException($"英雄 '{heroNames[i]}' 无法生成代码: {ex.Message}");
                 }
             }
 

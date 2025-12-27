@@ -6,6 +6,7 @@ using JinChanChanTool.Services;
 using JinChanChanTool.Services.AutoSetCoordinates;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.LineupCrawling;
 using JinChanChanTool.Services.LineupCrawling.Interface;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
@@ -54,7 +55,7 @@ namespace JinChanChanTool
         /// 英雄装备推荐数据服务实例
         /// </summary>
         private readonly IHeroEquipmentDataService _iHeroEquipmentDataService;
-        
+
         /// <summary>
         /// 推荐阵容数据服务实例
         /// </summary>
@@ -65,20 +66,7 @@ namespace JinChanChanTool
         /// </summary>
         private readonly UIBuilderService _uiBuilderService;
 
-        /// <summary>
-        /// 动态游戏数据服务实例
-        /// </summary>
-        private readonly IDynamicGameDataService _iDynamicGameDataService;
-
-        /// <summary>
-        /// 网络爬虫服务实例
-        /// </summary>
-        private readonly ICrawlingService _iCrawlingService;
-
-        /// <summary>
-        /// 阵容推荐爬虫服务实例
-        /// </summary>
-        private readonly ILineupCrawlingService _iLineupCrawlingService;
+       
 
         /// <summary>
         /// 自动拿牌服务
@@ -98,7 +86,7 @@ namespace JinChanChanTool
         // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐       
         private string _seasonForEquipmentTooltip = "英雄联盟传奇";
 
-        public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService, IDynamicGameDataService iDynamicGameDataService, ICrawlingService iCrawlingService, ILineupCrawlingService iLineupCrawlingService)
+        public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService)
         {
             InitializeComponent();
             #region 自定义标题栏
@@ -153,19 +141,7 @@ namespace JinChanChanTool
             _windowInteractionService = new WindowInteractionService();
             _coordService = new CoordinateCalculationService(_windowInteractionService);
             _automationService = new AutomationService(_windowInteractionService, _coordService);
-            #endregion
-
-            #region 动态游戏数据服务实例化
-            _iDynamicGameDataService = iDynamicGameDataService;
-            #endregion
-
-            #region 网络爬虫服务实例化
-            _iCrawlingService = iCrawlingService;
-            #endregion
-
-            #region 阵容爬虫服务实例化
-            _iLineupCrawlingService = iLineupCrawlingService;
-            #endregion
+            #endregion          
         }
         private async void Form1_Load(object sender, EventArgs e)
         {
@@ -549,12 +525,16 @@ namespace JinChanChanTool
 
 
 
-            //为阵容下拉框绑定事件
+            //为阵容下拉框绑定事件    
             LineUpForm.Instance.GetLineUpSelectedComboBox().DropDownClosed += comboBox_LineUps_DropDownClosed;
             LineUpForm.Instance.GetLineUpSelectedComboBox().Leave += comboBox_LineUps_Leave;
             LineUpForm.Instance.GetLineUpSelectedComboBox().KeyDown += comboBox_LineUps_KeyDown;
+            LineUpForm.Instance.GetLineUpSelectedComboBox().DropDown += comboBox_SelectedLineUp_DropDown;
             #endregion
         }
+
+      
+        
 
         /// <summary>
         /// 再次绑定UI事件(切换赛季或修改UI布局时调用)
@@ -624,7 +604,7 @@ namespace JinChanChanTool
             // 检查窗口是否已存在且未被释放
             if (_settingFormInstance == null || _settingFormInstance.IsDisposed)
             {
-                _settingFormInstance = new SettingForm(_iManualSettingsService);
+                _settingFormInstance = new SettingForm(_iManualSettingsService,_iRecommendedLineUpService);
                 _settingFormInstance.FormClosed += (s, args) => _settingFormInstance = null; // 窗口关闭时重置实例
                 _settingFormInstance.TopMost = true;
                 _settingFormInstance.Show();
@@ -957,7 +937,22 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 阵容下拉框交互事件
+        #region 阵容下拉框交互事件      
+        /// <summary>
+        /// 当下拉框展开时触发——>在末尾添加"添加阵容"项
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBox_SelectedLineUp_DropDown(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            // 检查末尾是否已有"添加阵容"项，若没有则添加
+            if (comboBox.Items.Count == 0 || !comboBox.Items[comboBox.Items.Count - 1].Equals("添加阵容"))
+            {
+                comboBox.Items.Add("添加阵容");
+            }
+        }
+
         /// <summary>
         /// 当下拉框被关闭（即选择了新的或没选）时触发——>记录当前选择的下拉框，并从中读取阵容组合到单选框
         /// </summary>
@@ -966,18 +961,38 @@ namespace JinChanChanTool
         private void comboBox_LineUps_DropDownClosed(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-            if (comboBox.SelectedIndex != -1)
-            {
-                _iLineUpService.SetLineUpIndex(comboBox.SelectedIndex);
-                _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _iLineUpService.GetLineUpIndex();
-                _iAutomaticSettingsService.Save();
-            }
 
-            //从本地阵容文件读取数据到_lineupManager
+            // 检测是否选择了"添加阵容"项
+            if (comboBox.SelectedItem != null && comboBox.SelectedItem.Equals("添加阵容"))
+            {
+                int i = 0;
+                while (!_iLineUpService.IsLineUpNameAvailable($"阵容{i}"))
+                {
+                    i++;
+                }
+                string newLineUpName= $"阵容{i}";
+
+                // 添加新阵容
+                if (_iLineUpService.AddLineUp(newLineUpName))
+                {
+                    // 保存阵容数据
+                    _iLineUpService.Save();
+                    // 设置当前阵容为新添加的阵容（最后一个）
+                    int newLineUpIndex = _iLineUpService.GetLineUps().Count - 1;
+                    _iLineUpService.SetLineUpIndex(newLineUpIndex);                    
+                }
+            }
+            else if (comboBox.SelectedIndex != -1)
+            {
+                _iLineUpService.SetLineUpIndex(comboBox.SelectedIndex);               
+            }
+            _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _iLineUpService.GetLineUpIndex();
+            _iAutomaticSettingsService.Save();
+            // 从本地阵容文件读取数据到_lineupManager
             _iLineUpService.Load();
-            //读取阵容名称到阵容下拉框，并将阵容下拉框当前选中项同步程序记录的值
+            // 读取阵容名称到阵容下拉框，并将阵容下拉框当前选中项同步程序记录的值
             LoadLineUpsToComboBox();
-            //分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容            
+            // 分别加载阵容到三个子阵容英雄头像框，并且最后选择第一个子阵容
             LoadLineUpToUI();
         }
 
@@ -989,11 +1004,18 @@ namespace JinChanChanTool
         private void comboBox_LineUps_Leave(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-            if (comboBox.Items.Count > _iLineUpService.GetLineUpIndex())
+            if (_iLineUpService.SetLineUpName(comboBox.Text))
             {
-                comboBox.Items[_iLineUpService.GetLineUpIndex()] = comboBox.Text;
+                if (comboBox.Items.Count > _iLineUpService.GetLineUpIndex())
+                {
+                    comboBox.Items[_iLineUpService.GetLineUpIndex()] = comboBox.Text;
+                }
             }
-            UpdataNameFromComboBoxToLineUps(comboBox);
+            else
+            {
+                // 如果保存失败，恢复下拉框文本为当前阵容名称
+                comboBox.Text = _iLineUpService.GetCurrentLineUp().LineUpName;
+            }
         }
 
         /// <summary>
@@ -1008,26 +1030,24 @@ namespace JinChanChanTool
             var key = e.KeyCode; // 获取按键代码
             if (key == Keys.Enter)
             {
-                if (comboBox.Items.Count > _iLineUpService.GetLineUpIndex())
+                if (_iLineUpService.SetLineUpName(comboBox.Text))
                 {
-                    comboBox.Items[_iLineUpService.GetLineUpIndex()] = comboBox.Text;
+                    if (comboBox.Items.Count > _iLineUpService.GetLineUpIndex())
+                    {
+                        comboBox.Items[_iLineUpService.GetLineUpIndex()] = comboBox.Text;
+                    }
                 }
-                UpdataNameFromComboBoxToLineUps(comboBox);
+                else
+                {
+                    // 如果保存失败，恢复下拉框文本为当前阵容名称
+                    comboBox.Text = _iLineUpService.GetCurrentLineUp().LineUpName;
+                }
                 this.ActiveControl = null;  // 将活动控件设置为null，下拉框失去焦点
             }
 
         }
 
-        /// <summary>
-        /// 从阵容下拉框更新阵容数据服务对象中的阵容名称
-        /// </summary>
-        private void UpdataNameFromComboBoxToLineUps(ComboBox comboBox)
-        {
-            for (int i = 0; i < _iLineUpService.GetMaxLineUpCount(); i++)
-            {
-                _iLineUpService.SetLineUpName(i, comboBox.Items[i].ToString());
-            }
-        }
+
 
         /// <summary>
         /// 从阵容数据服务对象读取阵容名称到下拉框
@@ -1085,9 +1105,10 @@ namespace JinChanChanTool
             }
 
         }
+       
         #endregion
 
-        #region 主窗口HeroAndEquipmentPictureBox交互      
+        #region 主窗口HeroAndEquipmentPictureBox交互
         /// <summary>
         /// 从阵容中移除该英雄头像框所对应的英雄。
         /// </summary>
@@ -1751,13 +1772,11 @@ namespace JinChanChanTool
         #endregion
 
         #region 更新装备数据       
-
-        /// <summary>
-        /// 更新推荐装备数据异步方法
-        /// </summary>
-        /// <returns></returns>
         private async Task UpdateEquipmentsAsync()
         {
+            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
+            ICrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);           
+
             TimeSpan timeDifference = DateTime.Now - _iAutomaticSettingsService.CurrentConfig.EquipmentLastUpdateTime;
             // 如果上次更新距离现在的时间小于配置的间隔时间，则跳过更新
             if (timeDifference.TotalHours <= _iManualSettingsService.CurrentConfig.UpdateEquipmentInterval)
@@ -1848,7 +1867,6 @@ namespace JinChanChanTool
                 progressForm.Close();
             }
         }
-
         #endregion
 
         #region 装备展示
@@ -2048,7 +2066,7 @@ namespace JinChanChanTool
 
                 if (rectRefresh.HasValue && rectRefresh.Value.Width > 0)
                 {
-                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonRectangle = (Rectangle)rectRefresh;                   
+                    _iAutomaticSettingsService.CurrentConfig.RefreshStoreButtonRectangle = (Rectangle)rectRefresh;
                 }
                 // 更新高亮区域矩形
                 if (rectHighLight1.HasValue && rectHighLight1.Value.Width > 0)
@@ -2074,95 +2092,6 @@ namespace JinChanChanTool
             }
         }
 
-        #endregion
-
-        #region 更新阵容数据
-        /// <summary>
-        /// 点击更新阵容推荐菜单项时的处理逻辑
-        /// </summary>
-        private async void 更新阵容推荐ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // 暂时禁用菜单项，防止用户重复点击
-                更新阵容推荐ToolStripMenuItem.Enabled = false;
-
-                // 调用异步更新逻辑
-                await UpdateRecommendedLineUpsAsync();
-            }
-            finally
-            {
-                // 恢复菜单项可用状态
-                更新阵容推荐ToolStripMenuItem.Enabled = true;
-            }
-        }
-
-        /// <summary>
-        /// 业务逻辑：从网络获取最新阵容数据并保存，完成后直接刷新不重启
-        /// </summary>
-        private async Task UpdateRecommendedLineUpsAsync()
-        {
-            // 1. 询问用户是否进行更新
-            var r = MessageBox.Show(
-                "是否要从网络获取最新的推荐阵容数据？\n\n注意：更新期间程序将处于静默运行状态，完成后会自动提示。",
-                "确认获取最新阵容",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (r != DialogResult.Yes)
-            {
-                return;
-            }
-
-            try
-            {
-                //  确保基础数据服务初始化
-                // 这里不再传递 progress，实现静默初始化
-                await _iDynamicGameDataService.InitializeAsync();
-
-                //  执行爬虫流程
-                // 传入 null。LineupCrawlingService 内部使用 ?. 运算符，
-                // 传入 null 后将不会触发任何进度报告逻辑，静默运行。
-                List<RecommendedLineUp> crawledLineups = await _iLineupCrawlingService.GetRecommendedLineUpsAsync(null);
-
-                if (crawledLineups != null && crawledLineups.Any())
-                {
-                    // 数据保存
-                    _iRecommendedLineUpService.ClearAll();
-
-                    // 批量添加爬取到的数据
-                    int addedCount = _iRecommendedLineUpService.AddRecommendedLineUps(crawledLineups);
-
-                    // 保存到 RecommendedLineUps.json
-                    bool saveResult = _iRecommendedLineUpService.Save();
-
-                    if (saveResult)
-                    {
-                        // 刷新内存数据
-                        _iRecommendedLineUpService.ReLoad();
-
-                        // 静默运行结束后的唯一提示
-                        MessageBox.Show(this,
-                            $"推荐阵容数据更新成功！\n\n共成功抓取并加载了 {addedCount} 套阵容数据。\n数据已实时生效，无需重启程序。",
-                            "更新完成",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("未能抓取到有效的阵容数据，请检查网络连接或稍后再试。",
-                                  "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                // 仅在发生严重错误时进行弹窗提示
-                MessageBox.Show($"更新推荐阵容时发生未知错误:\n{ex.Message}",
-                              "严重错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        #endregion
-    }   
+        #endregion                    
+    }
 }

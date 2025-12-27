@@ -87,11 +87,7 @@
         /// <summary>
         /// 是否启用高亮提示功能
         /// </summary>
-        public bool IsUseHightLightPrompt { get; set; }
-        /// <summary>
-        /// 阵容下拉框展示的最大阵容数量
-        /// </summary>
-        public int MaxLineUpCount { get; set; }
+        public bool IsUseHightLightPrompt { get; set; }       
 
         /// <summary>
         /// 是否启用用户高优先级模式（该模式下程序会尽可能的减少与用户的鼠标争夺）
@@ -273,8 +269,7 @@
             HotKey1 = "F7";
             HotKey2 = "F8";
             HotKey3 = "Home";
-            HotKey4 = "F9";            
-            MaxLineUpCount = 10;
+            HotKey4 = "F9";                        
             SelectedScreenIndex = 0;
             HeroNameScreenshotRectangle_1 = new Rectangle(0, 0, 10, 10);
             HeroNameScreenshotRectangle_2 = new Rectangle(0, 0, 10, 10);
@@ -349,8 +344,7 @@
                 HighLightRectangle_3 = this.HighLightRectangle_3,
                 HighLightRectangle_4 = this.HighLightRectangle_4,
                 HighLightRectangle_5 = this.HighLightRectangle_5,
-                IsUseHightLightPrompt = this.IsUseHightLightPrompt,
-                MaxLineUpCount = this.MaxLineUpCount,
+                IsUseHightLightPrompt = this.IsUseHightLightPrompt,             
                 IsHighUserPriority = this.IsHighUserPriority,
                 IsAutomaticStopHeroPurchase = this.IsAutomaticStopHeroPurchase,
                 IsAutomaticStopRefreshStore = this.IsAutomaticStopRefreshStore,
@@ -415,8 +409,7 @@
                    HighLightRectangle_3 == other.HighLightRectangle_3 &&
                    HighLightRectangle_4 == other.HighLightRectangle_4 &&
                    HighLightRectangle_5 == other.HighLightRectangle_5 &&
-                   IsUseHightLightPrompt == other.IsUseHightLightPrompt &&
-                   MaxLineUpCount == other.MaxLineUpCount &&
+                   IsUseHightLightPrompt == other.IsUseHightLightPrompt &&               
                    IsHighUserPriority == other.IsHighUserPriority &&
                    IsAutomaticStopHeroPurchase == other.IsAutomaticStopHeroPurchase &&
                    IsAutomaticStopRefreshStore == other.IsAutomaticStopRefreshStore &&

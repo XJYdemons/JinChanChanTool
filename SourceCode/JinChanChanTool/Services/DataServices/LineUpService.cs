@@ -9,7 +9,7 @@ using static JinChanChanTool.DataClass.LineUp;
 
 namespace JinChanChanTool.Services.DataServices
 {
-    public class LineUpService:ILineUpService
+    public class LineUpService : ILineUpService
     {
         /// <summary>
         /// 文件路径列表
@@ -25,7 +25,7 @@ namespace JinChanChanTool.Services.DataServices
         /// LineUp对象列表，存储多个阵容信息。
         /// </summary>
         private List<LineUp> _lineUps;
-              
+
         /// <summary>
         /// 阵容索引
         /// </summary>
@@ -42,10 +42,10 @@ namespace JinChanChanTool.Services.DataServices
         private IHeroDataService _iHeroDataService;
 
         /// <summary>
-        /// 阵容数量       
+        /// 阵容数量
         /// </summary>
-        private int _countOfLineUps;
-
+        private const int DefaultCountOfLineUp = 10;
+      
         /// <summary>
         /// 最大选择数量
         /// </summary>
@@ -61,18 +61,17 @@ namespace JinChanChanTool.Services.DataServices
         /// 阵容名改变事件
         /// </summary>
         public event EventHandler LineUpNameChanged;
-       
+
         #region 初始化
-        public LineUpService(IHeroDataService iHeroDataService,int countOfLineUps,int maxOfChoice,int lineUpIndex)
+        public LineUpService(IHeroDataService iHeroDataService, int maxOfChoice, int lineUpIndex)
         {
             _iHeroDataService = iHeroDataService;
-            _countOfLineUps = countOfLineUps;
             _maxOfChoice = maxOfChoice;
             InitializePaths();
             _pathIndex = 0;
             变阵索引 = 0;
-            _lineUpIndex = lineUpIndex;                        
-            _lineUps=new List<LineUp>();           
+            _lineUpIndex = lineUpIndex;
+            _lineUps = new List<LineUp>();
         }
 
         /// <summary>
@@ -92,7 +91,7 @@ namespace JinChanChanTool.Services.DataServices
             {
                 subDirs[i] = Path.Combine(parentPath, subDirs[i]);
             }
-            _paths = subDirs;            
+            _paths = subDirs;
         }
         #endregion
 
@@ -115,7 +114,7 @@ namespace JinChanChanTool.Services.DataServices
                 string filePath = Path.Combine(_paths[_pathIndex], "LineUps.json");
                 try
                 {
-                    
+
                     string json = JsonConvert.SerializeObject(_lineUps, Formatting.Indented);
                     File.WriteAllText(filePath, json);
                     NotifyLineUpNameChanged();
@@ -152,8 +151,32 @@ namespace JinChanChanTool.Services.DataServices
             _iHeroDataService = heroDataService;
             变阵索引 = 0;
             _lineUpIndex = 0;
-            _lineUps = new List<LineUp>();                 
+            _lineUps = new List<LineUp>();
             LoadFromFile();
+        }
+        /// <summary>
+        /// 新增阵容
+        /// </summary>
+        /// <param name="lineUpName"></param>
+        /// <returns></returns>
+        public bool AddLineUp(string lineUpName)
+        {
+            if(IsLineUpNameAvailable(lineUpName))
+            {
+                _lineUps.Add(new LineUp(lineUpName));
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 判断阵容名是否可用（不与现有阵容重名）
+        /// </summary>
+        /// <param name="name">待检查的阵容名</param>
+        /// <returns>可用返回true，已存在返回false</returns>
+        public bool IsLineUpNameAvailable(string name)
+        {
+            return !_lineUps.Any(lineUp => lineUp.LineUpName == name);
         }
 
         /// <summary>
@@ -344,7 +367,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <returns></returns>
         public SubLineUp GetCurrentSubLineUp()
-        {                       
+        {
             return _lineUps[_lineUpIndex].SubLineUps[变阵索引];
         }
 
@@ -354,11 +377,11 @@ namespace JinChanChanTool.Services.DataServices
         /// <param name="lineUpIndex"></param>
         public bool SetLineUpIndex(int lineUpIndex)
         {
-            if (lineUpIndex >= 0 && lineUpIndex < _countOfLineUps)
+            if (lineUpIndex >= 0 && lineUpIndex < _lineUps.Count)
             {
                 _lineUpIndex = lineUpIndex;
                 变阵索引 = 0;
-                
+
                 return true;
             }
             return false;
@@ -403,12 +426,32 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="index"></param>
         /// <param name="name"></param>
-        /// <returns></returns>        
-        public bool SetLineUpName(int index, string name)
+        /// <returns></returns>
+        public bool SetLineUpName(string name)
         {
-            if (!string.IsNullOrWhiteSpace(name) && index >= 0 && index < _countOfLineUps)
+            // 检查是否使用了保留名称"添加阵容"
+            if (name == "添加阵容")
             {
-                _lineUps[index].LineUpName = name;              
+                MessageBox.Show($"阵容名称\"{name}\"为保留名称，请使用其他名称。",
+                    "保留名称",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                    );
+                return false;
+            }
+
+            if (GetCurrentLineUp().LineUpName != name && !IsLineUpNameAvailable(name))
+            {
+                MessageBox.Show($"阵容名称\"{name}\"已存在，请使用其他名称。",
+                    "名称已存在",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                    );
+                return false;
+            }
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                GetCurrentLineUp().LineUpName = name;
                 return true;
             }
             return false;
@@ -447,14 +490,14 @@ namespace JinChanChanTool.Services.DataServices
         }
 
         /// <summary>
-        /// 获取最大阵容数量
+        /// 获取当前阵容数量
         /// </summary>
         /// <returns></returns>
         public int GetMaxLineUpCount()
         {
-            return _countOfLineUps;
+            return _lineUps.Count;
         }
-      
+
         /// <summary>
         /// 设置文件路径索引
         /// </summary>
@@ -484,7 +527,6 @@ namespace JinChanChanTool.Services.DataServices
         }
         #endregion
 
-        #region 私有方法
         /// <summary>
         /// 从本地文件加载阵容数据，若失败则创建默认阵容文件并加载。
         /// </summary>
@@ -494,12 +536,12 @@ namespace JinChanChanTool.Services.DataServices
         private void LoadFromFile()
         {
             _lineUps.Clear();
-            if (_paths.Length > 0&&_pathIndex<_paths.Length)
+            if (_paths.Length > 0 && _pathIndex < _paths.Length)
             {
                 string filePath = Path.Combine(_paths[_pathIndex], "LineUps.json");
                 try
                 {
-                    
+
                     if (!File.Exists(filePath))
                     {
                         MessageBox.Show($"找不到阵容文件\"{Path.GetFileName(filePath)}\"\n路径：\n{filePath}\n将创建新的阵容文件。",
@@ -509,7 +551,7 @@ namespace JinChanChanTool.Services.DataServices
                                     );
                         LoadDefaultLineups();
                         Save();
-                        return ;
+                        return;
                     }
 
                     string json = File.ReadAllText(filePath);
@@ -522,35 +564,34 @@ namespace JinChanChanTool.Services.DataServices
                                    );
                         LoadDefaultLineups();
                         Save();
-                        return ;
-                    }              
-                    
-                    //检查阵容数量是否满足设置中的个数
-                    List<LineUp> temp = JsonConvert.DeserializeObject<List<LineUp>>(json);                   
-                    if (temp.Count < _countOfLineUps)
+                        return;
+                    }
+
+
+                    List<LineUp> temp = JsonConvert.DeserializeObject<List<LineUp>>(json);
+                    _lineUps.AddRange(temp);
+                    RemoveDuplicateLineUps();
+                    if (_lineUps.Count < DefaultCountOfLineUp)
                     {
-                        _lineUps.AddRange(temp);
-                        for (int i = 0; i < _countOfLineUps - temp.Count; i++)
+                        int countToAdd = DefaultCountOfLineUp - _lineUps.Count;
+                        int baseCount = _lineUps.Count;
+                        for (int i = 0; i < countToAdd; i++)
                         {
-                            _lineUps.Add(new LineUp ($"阵容{i + 1 + temp.Count}"));
-                        }
-                     }
-                    else if(temp.Count>_countOfLineUps)
-                    {
-                        for (int i = 0; i < _countOfLineUps; i++)
-                        {
-                             _lineUps.Add(temp[i]);
+                            int j = i;
+                            while (!IsLineUpNameAvailable($"阵容{j + 1 + baseCount}"))
+                            {
+                                j++;
+                            }
+
+                            _lineUps.Add(new LineUp($"阵容{j + 1 + baseCount}"));
+                            Debug.WriteLine("添加：" + $"阵容{j + 1 + baseCount}");
                         }
                     }
-                    else
-                    {
-                         _lineUps.AddRange(temp);
-                    }        
-                    
+
                     //检查阵容数据是否与英雄数据冲突
                     foreach (LineUp lineUp in _lineUps)
-                    {                        
-                        for(int i =0;i<lineUp.SubLineUps.Length;i++)
+                    {
+                        for (int i = 0; i < lineUp.SubLineUps.Length; i++)
                         {
                             foreach (LineUpUnit sUnit in lineUp.SubLineUps[i].LineUpUnits)
                             {
@@ -566,10 +607,10 @@ namespace JinChanChanTool.Services.DataServices
                                 }
                             }
                         }
-                                        
-                        
-                    }       
-                    
+
+
+                    }
+
                     //将阵容按照Cost排序
                     foreach (LineUp lineUp in _lineUps)
                     {
@@ -579,9 +620,9 @@ namespace JinChanChanTool.Services.DataServices
                             lineUp.SubLineUps[i].LineUpUnits.Clear();
                             lineUp.SubLineUps[i].LineUpUnits.AddRange(newList);
                         }
-                                               
-                    }  
-                    
+
+                    }
+
                     //只保存设置中设置的最大选择英雄个数
                     foreach (LineUp lineUp in _lineUps)
                     {
@@ -595,8 +636,9 @@ namespace JinChanChanTool.Services.DataServices
                                 lineUp.SubLineUps[i].LineUpUnits.AddRange(newList);
                             }
                         }
-                                                                                
+
                     }
+                    SaveWithoutNotify();
                 }
                 catch
                 {
@@ -606,9 +648,9 @@ namespace JinChanChanTool.Services.DataServices
                                   MessageBoxIcon.Warning
                                   );
                     LoadDefaultLineups();
-                    Save();                    
+                    Save();
                 }
-                
+
             }
             else
             {
@@ -616,32 +658,91 @@ namespace JinChanChanTool.Services.DataServices
                     "文件夹不存在",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
-                    );                                
-            }                                      
+                    );
+            }
+        }
+
+        private void LoadDefaultLineups()
+        {
+            _lineUps.Clear();
+            for (int i = 1; i <= DefaultCountOfLineUp; i++)
+            {
+                _lineUps.Add(new LineUp($"阵容{i}"));
+            }
         }
 
         /// <summary>
-        /// 创建默认阵容数据，并添加到阵容列表中。
+        /// 移除列表中的同名阵容，只保留下标最小的那一个
         /// </summary>
-        /// <param name="countOfHeros"></param>
-        /// <param name="TotalLineups"></param>
-        private void LoadDefaultLineups()
+        /// <param name="lineUps">待检查的阵容列表</param>
+        private void RemoveDuplicateLineUps()
         {
-            _lineUps.Clear();            
-            for (int i = 1; i <= _countOfLineUps; i++)
+            HashSet<string> seenNames = new HashSet<string>();
+            int i = 0;
+            while (i < _lineUps.Count)
             {
-                _lineUps.Add(new LineUp($"阵容{i}"));                   
-            }           
+                string lineUpName = _lineUps[i].LineUpName;
+                if (seenNames.Contains(lineUpName))
+                {
+                    // 名称已存在，移除当前项（它是重复的）
+                    _lineUps.RemoveAt(i);
+                    // 不增加i，因为后面的元素前移了
+                }
+                else
+                {
+                    seenNames.Add(lineUpName);
+                    i++;
+                }
+            }
+        }
+
+        
+
+        /// <summary>
+        /// 仅保存文件，不触发事件（供内部使用，避免循环调用）
+        /// </summary>
+        /// <returns>是否保存成功</returns>
+        private bool SaveWithoutNotify()
+        {
+            if (_paths.Length > 0 && _pathIndex < _paths.Length)
+            {
+                string filePath = Path.Combine(_paths[_pathIndex], "LineUps.json");
+                try
+                {
+
+                    string json = JsonConvert.SerializeObject(_lineUps, Formatting.Indented);
+                    File.WriteAllText(filePath, json);                    
+                    return true;
+                }
+                catch
+                {
+                    MessageBox.Show($"阵容文件\"{Path.GetFileName(filePath)}\"保存失败\n路径：\n{filePath}",
+                                  "文件保存失败",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Error
+                                  );
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show($"路径不存在，保存失败！",
+                                 "路径不存在",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error
+                                 );
+                return false;
+            }
         }
 
         /// <summary>
         /// 按Cost升序排序当前子阵容的英雄
         /// </summary>
         private void OrderCurrentSubLineUp()
-        {                      
+        {
             List<LineUpUnit> newList = GetCurrentSubLineUp().LineUpUnits.OrderBy(unit => _iHeroDataService.GetHeroFromName(unit.HeroName).Cost).ToList();
             GetCurrentSubLineUp().LineUpUnits.Clear();
-            GetCurrentSubLineUp().LineUpUnits.AddRange(newList);           
+            GetCurrentSubLineUp().LineUpUnits.AddRange(newList);
         }
 
         private void NotifyLineUpChanged()
@@ -653,7 +754,6 @@ namespace JinChanChanTool.Services.DataServices
         {
             LineUpNameChanged?.Invoke(this, EventArgs.Empty);
         }
-       
-        #endregion        
-    }  
+    }
 }
+

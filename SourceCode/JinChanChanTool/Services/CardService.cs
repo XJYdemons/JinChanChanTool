@@ -870,9 +870,10 @@ namespace JinChanChanTool.Services
             {                  
                 foreach(string j in selectedHeros)
                 {
-                    if (results[i] ==j)
+                    // 空字符串不允许匹配，使用包含匹配以容忍OCR识别结果带有多余字符的情况
+                    if (!string.IsNullOrEmpty(results[i]) && !string.IsNullOrEmpty(j) && results[i].Contains(j))
                     {
-                        本轮牌库状态[i] = true;                        
+                        本轮牌库状态[i] = true;
                         break;
                     }
                 }                                                   

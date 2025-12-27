@@ -23,6 +23,20 @@ namespace JinChanChanTool.Services.DataServices.Interface
         void ReLoad(IHeroDataService heroDataService);
 
         /// <summary>
+        /// 新增阵容
+        /// </summary>
+        /// <param name="lineUpName"></param>
+        /// <returns></returns>
+        public bool AddLineUp(string lineUpName);
+
+        /// <summary>
+        /// 判断阵容名是否可用（不与现有阵容重名）
+        /// </summary>
+        /// <param name="name">待检查的阵容名</param>
+        /// <returns>可用返回true，已存在返回false</returns>
+        public bool IsLineUpNameAvailable(string name);
+
+        /// <summary>
         /// 检查当前子阵容是否包含指定英雄名称，若包含则将其从子阵容删除，否则将其添加到子阵容。
         /// </summary>
         /// <param name="name"></param>
@@ -120,7 +134,7 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// <param name="index"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        bool SetLineUpName(int index, string name);
+        bool SetLineUpName(string name);
 
         /// <summary>
         /// 设置当前阵容下指定下标变阵名称

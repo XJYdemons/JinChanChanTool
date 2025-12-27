@@ -1,12 +1,17 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services;
+using JinChanChanTool.Services.AutoSetCoordinates;
+using JinChanChanTool.Services.DataServices;
+using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.LineupCrawling;
+using JinChanChanTool.Services.LineupCrawling.Interface;
+using JinChanChanTool.Services.ManuallySetCoordinates;
+using JinChanChanTool.Services.RecommendedEquipment;
+using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
-using JinChanChanTool.Services.AutoSetCoordinates;
-using JinChanChanTool.Services.DataServices.Interface;
-using JinChanChanTool.Services.ManuallySetCoordinates;
 namespace JinChanChanTool
 {
     public partial class SettingForm : Form
@@ -15,11 +20,16 @@ namespace JinChanChanTool
         /// 应用设置服务类实例，用于加载和保存应用设置。
         /// </summary>
         private readonly IManualSettingsService _iappConfigService;
+     
+        /// <summary>
+        /// 推荐阵容数据服务实例
+        /// </summary>
+        private readonly IRecommendedLineUpService _iRecommendedLineUpService;
 
         private Screen targetScreen;//目标显示器
         private Screen[] screens;//显示器数组
 
-        public SettingForm(IManualSettingsService _iAppConfigService)
+        public SettingForm(IManualSettingsService iAppConfigService,IRecommendedLineUpService iRecommendedLineUpService)
         {
             InitializeComponent();
             // 添加自定义标题栏
@@ -35,17 +45,14 @@ namespace JinChanChanTool
             LoadDisplays();
 
             //初始化应用设置服务类实例
-            _iappConfigService = _iAppConfigService;
-
+            _iappConfigService = iAppConfigService;
+            
+            _iRecommendedLineUpService = iRecommendedLineUpService;
             //为组件绑定事件
             Initialize_AllComponents();
 
             //初始化显示文本
             Update_AllComponents();
-
-            
-
-           
         }
 
         /// <summary>
@@ -97,7 +104,7 @@ namespace JinChanChanTool
             {
                 // 将显示器的序号和设备名称添加到显示器下拉框
                 comboBox_选择显示器.Items.Add($"{i + 1} - {screens[i].DeviceName}");
-            }          
+            }
         }
 
         /// <summary>
@@ -119,17 +126,16 @@ namespace JinChanChanTool
         /// </summary>
         private void Update_AllComponents()
         {
-            if(comboBox_选择显示器.Items.Count> _iappConfigService.CurrentConfig.SelectedScreenIndex)
+            if (comboBox_选择显示器.Items.Count > _iappConfigService.CurrentConfig.SelectedScreenIndex)
             {
                 comboBox_选择显示器.SelectedIndex = _iappConfigService.CurrentConfig.SelectedScreenIndex;
-            }          
+            }
             textBox_召出隐藏窗口快捷键.Text = _iappConfigService.CurrentConfig.HotKey3;
             textBox_自动拿牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey1;
             textBox_自动刷新商店快捷键.Text = _iappConfigService.CurrentConfig.HotKey2;
             textBox_长按自动D牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey4;
             radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseFixedCoordinates;
             radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;
-            textBox_最大阵容数量.Text = _iappConfigService.CurrentConfig.MaxLineUpCount.ToString();
             checkBox_避免程序与用户争夺光标控制权.Checked = _iappConfigService.CurrentConfig.IsHighUserPriority;
             checkBox_备战席满或金币不足时自动停止拿牌.Checked = _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase;
             checkBox_自动停止刷新商店.Checked = _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore;
@@ -187,10 +193,6 @@ namespace JinChanChanTool
             radioButton_手动设置坐标.CheckedChanged += radioButton_手动设置坐标_CheckedChanged;
 
             radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
-
-            textBox_最大阵容数量.KeyDown += TextBox_KeyDown;
-            textBox_最大阵容数量.Enter += TextBox_Enter;
-            textBox_最大阵容数量.Leave += textBox_最大阵容数量_Leave;
 
             checkBox_避免程序与用户争夺光标控制权.CheckedChanged += checkBox_避免程序与用户争夺光标控制权_CheckedChanged;
             checkBox_备战席满或金币不足时自动停止拿牌.CheckedChanged += checkBox_备战席满或金币不足时自动停止拿牌_CheckedChanged;
@@ -272,7 +274,7 @@ namespace JinChanChanTool
             checkBox_用高亮提示替代自动拿牌.CheckedChanged += CheckBox_用高亮提示替代自动拿牌_CheckedChanged;
         }
 
-       
+
 
         /// <summary>
         /// 通用的文本框进入事件 ——> 进入时清空文本框内容并禁用快捷键
@@ -604,7 +606,7 @@ namespace JinChanChanTool
                 catch (Exception ex)
                 {
                     MessageBox.Show($"出现错误: {ex.Message}");
-                }                
+                }
             }
             Update_AllComponents();
         }
@@ -642,43 +644,7 @@ namespace JinChanChanTool
         #endregion
         #endregion
 
-        #region 阵容相关设置       
-
-        #region 修改-最大阵容数量
-        /// <summary>
-        /// 离开textBox_最大阵容数量时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_最大阵容数量_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_最大阵容数量.Text))
-            {
-
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    int result = int.Parse(textBox_最大阵容数量.Text);
-                    if (result > 0 && result <= 100)
-                    {
-                        _iappConfigService.CurrentConfig.MaxLineUpCount = result;
-                    }
-                    Update_AllComponents();
-
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-        #endregion
-
+        #region 阵容相关设置               
         #region 打开英雄英雄配置文件编辑器
         /// <summary>
         /// 描述：打开英雄配置文件编辑器按钮被单击时触发的事件处理程序。
@@ -1419,6 +1385,89 @@ namespace JinChanChanTool
 
         }
 
-       
+        private async void button1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                // 暂时禁用菜单项，防止用户重复点击
+                button1.Enabled = false;
+
+                // 调用异步更新逻辑
+                await UpdateRecommendedLineUpsAsync();
+            }
+            finally
+            {
+                // 恢复菜单项可用状态
+                button1.Enabled = true;
+            }
+        }
+        /// <summary>
+        /// 业务逻辑：从网络获取最新阵容数据并保存，完成后直接刷新不重启
+        /// </summary>
+        private async Task UpdateRecommendedLineUpsAsync()
+        {
+            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();           
+            ILineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
+            // 1. 询问用户是否进行更新
+            var r = MessageBox.Show(
+                "是否要从网络获取最新的推荐阵容数据？\n\n注意：更新期间程序将处于静默运行状态，完成后会自动提示。",
+                "确认获取最新阵容",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (r != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                //  确保基础数据服务初始化
+                // 这里不再传递 progress，实现静默初始化
+                await _iDynamicGameDataService.InitializeAsync();
+
+                //  执行爬虫流程
+                // 传入 null。LineupCrawlingService 内部使用 ?. 运算符，
+                // 传入 null 后将不会触发任何进度报告逻辑，静默运行。
+                List<RecommendedLineUp> crawledLineups = await _iLineupCrawlingService.GetRecommendedLineUpsAsync(null);
+
+                if (crawledLineups != null && crawledLineups.Any())
+                {
+                    // 数据保存
+                    _iRecommendedLineUpService.ClearAll();
+
+                    // 批量添加爬取到的数据
+                    int addedCount = _iRecommendedLineUpService.AddRecommendedLineUps(crawledLineups);
+
+                    // 保存到 RecommendedLineUps.json
+                    bool saveResult = _iRecommendedLineUpService.Save();
+
+                    if (saveResult)
+                    {
+                        // 刷新内存数据
+                        _iRecommendedLineUpService.ReLoad();
+
+                        // 静默运行结束后的唯一提示
+                        MessageBox.Show(this,
+                            $"推荐阵容数据更新成功！\n\n共成功抓取并加载了 {addedCount} 套阵容数据。\n数据已实时生效，无需重启程序。",
+                            "更新完成",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("未能抓取到有效的阵容数据，请检查网络连接或稍后再试。",
+                                  "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                // 仅在发生严重错误时进行弹窗提示
+                MessageBox.Show($"更新推荐阵容时发生未知错误:\n{ex.Message}",
+                              "严重错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

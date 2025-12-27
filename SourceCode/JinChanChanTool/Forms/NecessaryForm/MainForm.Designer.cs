@@ -248,7 +248,7 @@ namespace JinChanChanTool
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Padding = new Padding(3, 2, 3, 5);
-            panel_BackGround.Size = new Size(404, 723);
+            panel_BackGround.Size = new Size(404, 629);
             panel_BackGround.TabIndex = 5;
             // 
             // roundedButton8
@@ -493,7 +493,7 @@ namespace JinChanChanTool
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(404, 723);
+            ClientSize = new Size(404, 629);
             Controls.Add(panel_BackGround);
             FormBorderStyle = FormBorderStyle.None;
             MainMenuStrip = menuStrip_Main;

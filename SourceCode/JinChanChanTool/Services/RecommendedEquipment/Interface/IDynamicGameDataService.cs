@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace JinChanChanTool.Services.RecommendedEquipment.Interface
+﻿namespace JinChanChanTool.Services.RecommendedEquipment.Interface
 {
     /// <summary>
     /// 为动态游戏数据服务定义接口。

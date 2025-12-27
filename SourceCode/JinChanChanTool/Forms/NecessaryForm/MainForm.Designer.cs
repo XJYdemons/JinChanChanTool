@@ -255,7 +255,7 @@ namespace JinChanChanTool
             // 
             roundedButton8.BorderColor = Color.Transparent;
             roundedButton8.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton8.CornerRadius = 5;
+            roundedButton8.CornerRadius = 3;
             roundedButton8.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton8.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton8.Location = new Point(316, 56);
@@ -271,7 +271,7 @@ namespace JinChanChanTool
             // 
             roundedButton7.BorderColor = Color.Transparent;
             roundedButton7.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton7.CornerRadius = 5;
+            roundedButton7.CornerRadius = 3;
             roundedButton7.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton7.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton7.Location = new Point(230, 56);
@@ -287,7 +287,7 @@ namespace JinChanChanTool
             // 
             roundedButton6.BorderColor = Color.Transparent;
             roundedButton6.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton6.CornerRadius = 5;
+            roundedButton6.CornerRadius = 3;
             roundedButton6.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton6.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton6.Location = new Point(359, 86);
@@ -304,7 +304,7 @@ namespace JinChanChanTool
             // 
             roundedButton2.BorderColor = Color.Transparent;
             roundedButton2.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton2.CornerRadius = 5;
+            roundedButton2.CornerRadius = 3;
             roundedButton2.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton2.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton2.Location = new Point(316, 86);
@@ -321,7 +321,7 @@ namespace JinChanChanTool
             // 
             roundedButton5.BorderColor = Color.Transparent;
             roundedButton5.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton5.CornerRadius = 5;
+            roundedButton5.CornerRadius = 3;
             roundedButton5.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton5.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton5.Location = new Point(273, 86);
@@ -338,7 +338,7 @@ namespace JinChanChanTool
             // 
             roundedButton4.BorderColor = Color.Transparent;
             roundedButton4.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton4.CornerRadius = 5;
+            roundedButton4.CornerRadius = 3;
             roundedButton4.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton4.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton4.Location = new Point(230, 86);
@@ -355,7 +355,7 @@ namespace JinChanChanTool
             // 
             roundedButton3.BorderColor = Color.Transparent;
             roundedButton3.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton3.CornerRadius = 5;
+            roundedButton3.CornerRadius = 3;
             roundedButton3.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton3.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton3.Location = new Point(230, 116);
@@ -372,7 +372,7 @@ namespace JinChanChanTool
             // 
             roundedButton1.BorderColor = Color.Transparent;
             roundedButton1.ButtonColor = Color.FromArgb(0, 153, 255);
-            roundedButton1.CornerRadius = 5;
+            roundedButton1.CornerRadius = 3;
             roundedButton1.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton1.HoverColor = Color.FromArgb(0, 141, 235);
             roundedButton1.Location = new Point(316, 116);

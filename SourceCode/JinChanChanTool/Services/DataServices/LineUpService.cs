@@ -40,12 +40,7 @@ namespace JinChanChanTool.Services.DataServices
         /// 英雄数据服务对象
         /// </summary>
         private IHeroDataService _iHeroDataService;
-
-        /// <summary>
-        /// 阵容数量
-        /// </summary>
-        private const int DefaultCountOfLineUp = 10;
-      
+            
         /// <summary>
         /// 最大选择数量
         /// </summary>
@@ -154,6 +149,7 @@ namespace JinChanChanTool.Services.DataServices
             _lineUps = new List<LineUp>();
             LoadFromFile();
         }
+
         /// <summary>
         /// 新增阵容
         /// </summary>
@@ -164,6 +160,37 @@ namespace JinChanChanTool.Services.DataServices
             if(IsLineUpNameAvailable(lineUpName))
             {
                 _lineUps.Add(new LineUp(lineUpName));
+                _lineUpIndex = _lineUps.Count - 1;
+                Save();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 删除当前阵容
+        /// </summary>
+        /// <returns></returns>
+        public bool DeleteLineUp()
+        {
+            if(_lineUps.Count<=1)
+            {
+                MessageBox.Show($"至少保留一个阵容，无法删除当前阵容。",
+                    "删除失败",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                    );
+                return false;
+            }
+            if(_lineUpIndex>=0 && _lineUpIndex<_lineUps.Count)
+            {                
+                _lineUps.RemoveAt(_lineUpIndex);
+                // 调整当前阵容索引
+                if (_lineUpIndex >= _lineUps.Count)
+                {
+                    _lineUpIndex = _lineUps.Count - 1;
+                }
+                Save();                
                 return true;
             }
             return false;
@@ -568,25 +595,19 @@ namespace JinChanChanTool.Services.DataServices
                     }
 
 
-                    List<LineUp> temp = JsonConvert.DeserializeObject<List<LineUp>>(json);
+                    List<LineUp> temp = JsonConvert.DeserializeObject<List<LineUp>>(json);                    
+                    if (temp.Count == 0)
+                    {
+                        int i = 1;
+                        while (!IsLineUpNameAvailable($"阵容{i}"))
+                        {
+                            i++;
+                        }
+                        temp.Add(new LineUp($"阵容{i}"));
+                    }
                     _lineUps.AddRange(temp);
                     RemoveDuplicateLineUps();
-                    if (_lineUps.Count < DefaultCountOfLineUp)
-                    {
-                        int countToAdd = DefaultCountOfLineUp - _lineUps.Count;
-                        int baseCount = _lineUps.Count;
-                        for (int i = 0; i < countToAdd; i++)
-                        {
-                            int j = i;
-                            while (!IsLineUpNameAvailable($"阵容{j + 1 + baseCount}"))
-                            {
-                                j++;
-                            }
-
-                            _lineUps.Add(new LineUp($"阵容{j + 1 + baseCount}"));
-                            Debug.WriteLine("添加：" + $"阵容{j + 1 + baseCount}");
-                        }
-                    }
+                   
 
                     //检查阵容数据是否与英雄数据冲突
                     foreach (LineUp lineUp in _lineUps)
@@ -665,10 +686,7 @@ namespace JinChanChanTool.Services.DataServices
         private void LoadDefaultLineups()
         {
             _lineUps.Clear();
-            for (int i = 1; i <= DefaultCountOfLineUp; i++)
-            {
-                _lineUps.Add(new LineUp($"阵容{i}"));
-            }
+            _lineUps.Add(new LineUp($"阵容1"));           
         }
 
         /// <summary>

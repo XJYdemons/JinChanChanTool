@@ -37,14 +37,7 @@ namespace JinChanChanTool
             button_变阵1 = new Button();
             flowLayoutPanel_SubLineUp = new CustomFlowLayoutPanel();
             tabControl_HeroSelector = new TabControl();
-            button_ParseLineUp = new Button();
             textBox_LineUpCode = new TextBox();
-            button_Clear = new Button();
-            button_Save = new Button();
-            label_自动拿牌 = new Label();
-            button_GetCard = new Button();
-            label_自动刷新 = new Label();
-            button_Refresh = new Button();
             comboBox_SelectedLineUp = new ComboBox();
             comboBox_Season = new ComboBox();
             menuStrip_Main = new MenuStrip();
@@ -53,15 +46,27 @@ namespace JinChanChanTool
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             panel_BackGround = new Panel();
-            panel_按钮面板 = new Panel();
-            button_生成阵容码 = new Button();
+            roundedButton8 = new RoundedButton();
+            roundedButton7 = new RoundedButton();
+            roundedButton6 = new RoundedButton();
+            roundedButton2 = new RoundedButton();
+            roundedButton5 = new RoundedButton();
+            roundedButton4 = new RoundedButton();
+            roundedButton3 = new RoundedButton();
+            roundedButton1 = new RoundedButton();
+            label4 = new Label();
+            label3 = new Label();
             label_赛季 = new Label();
+            capsuleSwitch3 = new CapsuleSwitch();
+            label2 = new Label();
+            capsuleSwitch2 = new CapsuleSwitch();
+            label1 = new Label();
+            capsuleSwitch1 = new CapsuleSwitch();
             toolTipTimer = new System.Windows.Forms.Timer(components);
             timer_UpdateCoordinates = new System.Windows.Forms.Timer(components);
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
-            panel_按钮面板.SuspendLayout();
             SuspendLayout();
             // 
             // panel_SubLineUpParent
@@ -72,17 +77,17 @@ namespace JinChanChanTool
             panel_SubLineUpParent.Controls.Add(button_变阵2);
             panel_SubLineUpParent.Controls.Add(button_变阵1);
             panel_SubLineUpParent.Controls.Add(flowLayoutPanel_SubLineUp);
-            panel_SubLineUpParent.Location = new Point(5, 442);
+            panel_SubLineUpParent.Location = new Point(5, 446);
             panel_SubLineUpParent.Margin = new Padding(0);
             panel_SubLineUpParent.Name = "panel_SubLineUpParent";
             panel_SubLineUpParent.Padding = new Padding(3);
-            panel_SubLineUpParent.Size = new Size(394, 189);
+            panel_SubLineUpParent.Size = new Size(394, 177);
             panel_SubLineUpParent.TabIndex = 10;
             // 
             // button_变阵3
             // 
             button_变阵3.FlatStyle = FlatStyle.Flat;
-            button_变阵3.Location = new Point(153, 11);
+            button_变阵3.Location = new Point(153, 2);
             button_变阵3.Name = "button_变阵3";
             button_变阵3.Size = new Size(75, 25);
             button_变阵3.TabIndex = 3;
@@ -94,7 +99,7 @@ namespace JinChanChanTool
             // button_变阵2
             // 
             button_变阵2.FlatStyle = FlatStyle.Flat;
-            button_变阵2.Location = new Point(79, 11);
+            button_变阵2.Location = new Point(79, 2);
             button_变阵2.Name = "button_变阵2";
             button_变阵2.Size = new Size(75, 25);
             button_变阵2.TabIndex = 2;
@@ -106,7 +111,7 @@ namespace JinChanChanTool
             // button_变阵1
             // 
             button_变阵1.FlatStyle = FlatStyle.Flat;
-            button_变阵1.Location = new Point(5, 11);
+            button_变阵1.Location = new Point(5, 2);
             button_变阵1.Name = "button_变阵1";
             button_变阵1.Size = new Size(75, 25);
             button_变阵1.TabIndex = 1;
@@ -118,7 +123,7 @@ namespace JinChanChanTool
             // flowLayoutPanel_SubLineUp
             // 
             flowLayoutPanel_SubLineUp.BackColor = Color.Transparent;
-            flowLayoutPanel_SubLineUp.Location = new Point(5, 36);
+            flowLayoutPanel_SubLineUp.Location = new Point(5, 27);
             flowLayoutPanel_SubLineUp.Margin = new Padding(3, 3, 3, 7);
             flowLayoutPanel_SubLineUp.Name = "flowLayoutPanel_SubLineUp";
             flowLayoutPanel_SubLineUp.Size = new Size(384, 146);
@@ -126,123 +131,37 @@ namespace JinChanChanTool
             // 
             // tabControl_HeroSelector
             // 
-            tabControl_HeroSelector.Location = new Point(5, 132);
+            tabControl_HeroSelector.Location = new Point(5, 146);
             tabControl_HeroSelector.Margin = new Padding(5);
             tabControl_HeroSelector.Name = "tabControl_HeroSelector";
             tabControl_HeroSelector.SelectedIndex = 0;
             tabControl_HeroSelector.Size = new Size(394, 295);
             tabControl_HeroSelector.TabIndex = 8;
             // 
-            // button_ParseLineUp
-            // 
-            button_ParseLineUp.FlatStyle = FlatStyle.Flat;
-            button_ParseLineUp.Location = new Point(116, 67);
-            button_ParseLineUp.Margin = new Padding(0);
-            button_ParseLineUp.Name = "button_ParseLineUp";
-            button_ParseLineUp.Size = new Size(50, 25);
-            button_ParseLineUp.TabIndex = 1;
-            button_ParseLineUp.Text = "解析";
-            button_ParseLineUp.UseVisualStyleBackColor = true;
-            button_ParseLineUp.Click += button_ParseLineUp_Click;
-            // 
             // textBox_LineUpCode
             // 
-            textBox_LineUpCode.Font = new Font("Microsoft YaHei UI", 7.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            textBox_LineUpCode.Location = new Point(5, 67);
+            textBox_LineUpCode.Font = new Font("Microsoft YaHei UI", 9F);
+            textBox_LineUpCode.Location = new Point(11, 116);
             textBox_LineUpCode.Margin = new Padding(5);
             textBox_LineUpCode.Multiline = true;
             textBox_LineUpCode.Name = "textBox_LineUpCode";
-            textBox_LineUpCode.Size = new Size(111, 25);
+            textBox_LineUpCode.Size = new Size(214, 25);
             textBox_LineUpCode.TabIndex = 0;
             textBox_LineUpCode.Text = "请在此处粘贴阵容代码";
             textBox_LineUpCode.Enter += textBox_LineUpCode_Enter;
             textBox_LineUpCode.Leave += textBox_LineUpCode_Leave;
-            // 
-            // button_Clear
-            // 
-            button_Clear.FlatStyle = FlatStyle.Flat;
-            button_Clear.Location = new Point(316, 35);
-            button_Clear.Margin = new Padding(5);
-            button_Clear.Name = "button_Clear";
-            button_Clear.Size = new Size(72, 27);
-            button_Clear.TabIndex = 0;
-            button_Clear.Text = "清空";
-            button_Clear.UseVisualStyleBackColor = true;
-            button_Clear.Click += button_Clear_Click;
-            // 
-            // button_Save
-            // 
-            button_Save.FlatStyle = FlatStyle.Flat;
-            button_Save.Location = new Point(239, 35);
-            button_Save.Margin = new Padding(5);
-            button_Save.Name = "button_Save";
-            button_Save.Size = new Size(72, 27);
-            button_Save.TabIndex = 1;
-            button_Save.Text = "保存";
-            button_Save.UseVisualStyleBackColor = true;
-            button_Save.Click += button_Save_Click;
-            // 
-            // label_自动拿牌
-            // 
-            label_自动拿牌.AutoSize = true;
-            label_自动拿牌.Location = new Point(5, 5);
-            label_自动拿牌.Margin = new Padding(2, 5, 0, 5);
-            label_自动拿牌.MinimumSize = new Size(75, 25);
-            label_自动拿牌.Name = "label_自动拿牌";
-            label_自动拿牌.Size = new Size(75, 25);
-            label_自动拿牌.TabIndex = 2;
-            label_自动拿牌.Text = "自动拿牌";
-            label_自动拿牌.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // button_GetCard
-            // 
-            button_GetCard.FlatStyle = FlatStyle.Flat;
-            button_GetCard.Location = new Point(5, 35);
-            button_GetCard.Margin = new Padding(2, 5, 0, 5);
-            button_GetCard.Name = "button_GetCard";
-            button_GetCard.Size = new Size(75, 27);
-            button_GetCard.TabIndex = 0;
-            button_GetCard.Text = "启动";
-            button_GetCard.UseVisualStyleBackColor = true;
-            button_GetCard.Click += button_GetCard_Click;
-            // 
-            // label_自动刷新
-            // 
-            label_自动刷新.AutoSize = true;
-            label_自动刷新.Location = new Point(91, 5);
-            label_自动刷新.Margin = new Padding(2, 5, 0, 5);
-            label_自动刷新.MinimumSize = new Size(75, 25);
-            label_自动刷新.Name = "label_自动刷新";
-            label_自动刷新.Size = new Size(75, 25);
-            label_自动刷新.TabIndex = 3;
-            label_自动刷新.Text = "自动刷新";
-            label_自动刷新.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // button_Refresh
-            // 
-            button_Refresh.FlatStyle = FlatStyle.Flat;
-            button_Refresh.Location = new Point(91, 35);
-            button_Refresh.Margin = new Padding(2, 5, 2, 5);
-            button_Refresh.MinimumSize = new Size(75, 27);
-            button_Refresh.Name = "button_Refresh";
-            button_Refresh.Size = new Size(75, 27);
-            button_Refresh.TabIndex = 1;
-            button_Refresh.Text = "启动";
-            button_Refresh.UseVisualStyleBackColor = true;
-            button_Refresh.Click += button_Refresh_Click;
             // 
             // comboBox_SelectedLineUp
             // 
             comboBox_SelectedLineUp.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_SelectedLineUp.FormattingEnabled = true;
             comboBox_SelectedLineUp.Items.AddRange(new object[] { "阵容1", "阵容2", "阵容3", "阵容4", "阵容5", "阵容6", "阵容7", "阵容8", "阵容9", "阵容10" });
-            comboBox_SelectedLineUp.Location = new Point(242, 68);
+            comboBox_SelectedLineUp.Location = new Point(76, 86);
             comboBox_SelectedLineUp.Margin = new Padding(2, 5, 2, 5);
             comboBox_SelectedLineUp.Name = "comboBox_SelectedLineUp";
             comboBox_SelectedLineUp.Size = new Size(149, 25);
             comboBox_SelectedLineUp.TabIndex = 1;
             comboBox_SelectedLineUp.Text = "阵容1";
-            comboBox_SelectedLineUp.DropDown += comboBox_SelectedLineUp_DropDown;
             comboBox_SelectedLineUp.DropDownClosed += comboBox_LineUps_DropDownClosed;
             comboBox_SelectedLineUp.KeyDown += comboBox_LineUps_KeyDown;
             comboBox_SelectedLineUp.Leave += comboBox_LineUps_Leave;
@@ -253,7 +172,7 @@ namespace JinChanChanTool
             comboBox_Season.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_Season.FormattingEnabled = true;
             comboBox_Season.Items.AddRange(new object[] { "巨龙之牙", "符文之地" });
-            comboBox_Season.Location = new Point(239, 5);
+            comboBox_Season.Location = new Point(76, 56);
             comboBox_Season.Margin = new Padding(2, 5, 2, 5);
             comboBox_Season.Name = "comboBox_Season";
             comboBox_Season.Size = new Size(149, 25);
@@ -266,7 +185,7 @@ namespace JinChanChanTool
             menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于 });
             menuStrip_Main.Location = new Point(3, 2);
             menuStrip_Main.Name = "menuStrip_Main";
-            menuStrip_Main.Size = new Size(401, 25);
+            menuStrip_Main.Size = new Size(398, 25);
             menuStrip_Main.TabIndex = 5;
             menuStrip_Main.Text = "菜单栏1";
             // 
@@ -302,7 +221,25 @@ namespace JinChanChanTool
             // 
             panel_BackGround.AutoSize = true;
             panel_BackGround.BackColor = Color.White;
-            panel_BackGround.Controls.Add(panel_按钮面板);
+            panel_BackGround.Controls.Add(roundedButton8);
+            panel_BackGround.Controls.Add(roundedButton7);
+            panel_BackGround.Controls.Add(roundedButton6);
+            panel_BackGround.Controls.Add(roundedButton2);
+            panel_BackGround.Controls.Add(roundedButton5);
+            panel_BackGround.Controls.Add(roundedButton4);
+            panel_BackGround.Controls.Add(roundedButton3);
+            panel_BackGround.Controls.Add(roundedButton1);
+            panel_BackGround.Controls.Add(label4);
+            panel_BackGround.Controls.Add(label3);
+            panel_BackGround.Controls.Add(label_赛季);
+            panel_BackGround.Controls.Add(capsuleSwitch3);
+            panel_BackGround.Controls.Add(label2);
+            panel_BackGround.Controls.Add(comboBox_Season);
+            panel_BackGround.Controls.Add(comboBox_SelectedLineUp);
+            panel_BackGround.Controls.Add(capsuleSwitch2);
+            panel_BackGround.Controls.Add(textBox_LineUpCode);
+            panel_BackGround.Controls.Add(label1);
+            panel_BackGround.Controls.Add(capsuleSwitch1);
             panel_BackGround.Controls.Add(panel_SubLineUpParent);
             panel_BackGround.Controls.Add(tabControl_HeroSelector);
             panel_BackGround.Controls.Add(menuStrip_Main);
@@ -311,52 +248,234 @@ namespace JinChanChanTool
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Padding = new Padding(3, 2, 3, 5);
-            panel_BackGround.Size = new Size(407, 640);
+            panel_BackGround.Size = new Size(404, 723);
             panel_BackGround.TabIndex = 5;
             // 
-            // panel_按钮面板
+            // roundedButton8
             // 
-            panel_按钮面板.Controls.Add(button_生成阵容码);
-            panel_按钮面板.Controls.Add(label_赛季);
-            panel_按钮面板.Controls.Add(label_自动拿牌);
-            panel_按钮面板.Controls.Add(comboBox_Season);
-            panel_按钮面板.Controls.Add(button_Clear);
-            panel_按钮面板.Controls.Add(label_自动刷新);
-            panel_按钮面板.Controls.Add(button_GetCard);
-            panel_按钮面板.Controls.Add(button_Refresh);
-            panel_按钮面板.Controls.Add(comboBox_SelectedLineUp);
-            panel_按钮面板.Controls.Add(button_Save);
-            panel_按钮面板.Controls.Add(button_ParseLineUp);
-            panel_按钮面板.Controls.Add(textBox_LineUpCode);
-            panel_按钮面板.Location = new Point(5, 30);
-            panel_按钮面板.Name = "panel_按钮面板";
-            panel_按钮面板.Size = new Size(394, 97);
-            panel_按钮面板.TabIndex = 11;
+            roundedButton8.BorderColor = Color.Transparent;
+            roundedButton8.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton8.CornerRadius = 5;
+            roundedButton8.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton8.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton8.Location = new Point(316, 56);
+            roundedButton8.Name = "roundedButton8";
+            roundedButton8.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton8.Size = new Size(83, 25);
+            roundedButton8.TabIndex = 29;
+            roundedButton8.Text = "编辑赛季装备";
+            roundedButton8.TextColor = Color.White;
+            roundedButton8.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
-            // button_生成阵容码
+            // roundedButton7
             // 
-            button_生成阵容码.FlatStyle = FlatStyle.Flat;
-            button_生成阵容码.Font = new Font("Microsoft YaHei UI", 7.5F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            button_生成阵容码.Location = new Point(168, 67);
-            button_生成阵容码.Margin = new Padding(0);
-            button_生成阵容码.Name = "button_生成阵容码";
-            button_生成阵容码.Size = new Size(69, 25);
-            button_生成阵容码.TabIndex = 10;
-            button_生成阵容码.Text = "导出阵容码";
-            button_生成阵容码.UseVisualStyleBackColor = true;
-            button_生成阵容码.Click += button_生成阵容码_Click;
+            roundedButton7.BorderColor = Color.Transparent;
+            roundedButton7.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton7.CornerRadius = 5;
+            roundedButton7.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton7.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton7.Location = new Point(230, 56);
+            roundedButton7.Name = "roundedButton7";
+            roundedButton7.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton7.Size = new Size(83, 25);
+            roundedButton7.TabIndex = 28;
+            roundedButton7.Text = "编辑赛季英雄";
+            roundedButton7.TextColor = Color.White;
+            roundedButton7.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            // 
+            // roundedButton6
+            // 
+            roundedButton6.BorderColor = Color.Transparent;
+            roundedButton6.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton6.CornerRadius = 5;
+            roundedButton6.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton6.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton6.Location = new Point(359, 86);
+            roundedButton6.Name = "roundedButton6";
+            roundedButton6.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton6.Size = new Size(40, 25);
+            roundedButton6.TabIndex = 27;
+            roundedButton6.Text = "删除";
+            roundedButton6.TextColor = Color.White;
+            roundedButton6.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton6.Click += roundedButton6_Click;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.BorderColor = Color.Transparent;
+            roundedButton2.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton2.CornerRadius = 5;
+            roundedButton2.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton2.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton2.Location = new Point(316, 86);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton2.Size = new Size(40, 25);
+            roundedButton2.TabIndex = 26;
+            roundedButton2.Text = "添加";
+            roundedButton2.TextColor = Color.White;
+            roundedButton2.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton2.Click += roundedButton2_Click;
+            // 
+            // roundedButton5
+            // 
+            roundedButton5.BorderColor = Color.Transparent;
+            roundedButton5.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton5.CornerRadius = 5;
+            roundedButton5.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton5.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton5.Location = new Point(273, 86);
+            roundedButton5.Name = "roundedButton5";
+            roundedButton5.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton5.Size = new Size(40, 25);
+            roundedButton5.TabIndex = 25;
+            roundedButton5.Text = "清空";
+            roundedButton5.TextColor = Color.White;
+            roundedButton5.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton5.Click += roundedButton5_Click;
+            // 
+            // roundedButton4
+            // 
+            roundedButton4.BorderColor = Color.Transparent;
+            roundedButton4.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton4.CornerRadius = 5;
+            roundedButton4.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton4.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton4.Location = new Point(230, 86);
+            roundedButton4.Name = "roundedButton4";
+            roundedButton4.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton4.Size = new Size(40, 25);
+            roundedButton4.TabIndex = 24;
+            roundedButton4.Text = "保存";
+            roundedButton4.TextColor = Color.White;
+            roundedButton4.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton4.Click += roundedButton4_Click;
+            // 
+            // roundedButton3
+            // 
+            roundedButton3.BorderColor = Color.Transparent;
+            roundedButton3.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton3.CornerRadius = 5;
+            roundedButton3.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton3.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton3.Location = new Point(230, 116);
+            roundedButton3.Name = "roundedButton3";
+            roundedButton3.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton3.Size = new Size(83, 25);
+            roundedButton3.TabIndex = 23;
+            roundedButton3.Text = "解析阵容码";
+            roundedButton3.TextColor = Color.White;
+            roundedButton3.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton3.Click += roundedButton3_Click;
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.BorderColor = Color.Transparent;
+            roundedButton1.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton1.CornerRadius = 5;
+            roundedButton1.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton1.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton1.Location = new Point(316, 116);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton1.Size = new Size(83, 25);
+            roundedButton1.TabIndex = 21;
+            roundedButton1.Text = "导出阵容码";
+            roundedButton1.TextColor = Color.White;
+            roundedButton1.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton1.Click += roundedButton1_Click;
+            // 
+            // label4
+            // 
+            label4.Location = new Point(11, 86);
+            label4.Margin = new Padding(2, 5, 0, 5);
+            label4.Name = "label4";
+            label4.Size = new Size(58, 25);
+            label4.TabIndex = 20;
+            label4.Text = "阵容选择";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            label3.Location = new Point(259, 31);
+            label3.Margin = new Padding(2, 5, 0, 5);
+            label3.Name = "label3";
+            label3.Size = new Size(84, 20);
+            label3.TabIndex = 16;
+            label3.Text = "自动刷新商店";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label_赛季
             // 
-            label_赛季.AutoSize = true;
-            label_赛季.Location = new Point(195, 5);
+            label_赛季.Location = new Point(11, 56);
             label_赛季.Margin = new Padding(2, 5, 0, 5);
-            label_赛季.MinimumSize = new Size(35, 25);
             label_赛季.Name = "label_赛季";
-            label_赛季.Size = new Size(35, 25);
+            label_赛季.Size = new Size(58, 25);
             label_赛季.TabIndex = 9;
-            label_赛季.Text = "赛季";
-            label_赛季.TextAlign = ContentAlignment.MiddleCenter;
+            label_赛季.Text = "赛季选择";
+            label_赛季.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // capsuleSwitch3
+            // 
+            capsuleSwitch3.Location = new Point(344, 31);
+            capsuleSwitch3.Name = "capsuleSwitch3";
+            capsuleSwitch3.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch3.OnColor = Color.FromArgb(76, 175, 80);
+            capsuleSwitch3.ShowText = false;
+            capsuleSwitch3.Size = new Size(55, 20);
+            capsuleSwitch3.TabIndex = 15;
+            capsuleSwitch3.Text = "capsuleSwitch3";
+            capsuleSwitch3.TextColor = Color.DimGray;
+            capsuleSwitch3.ThumbColor = Color.White;
+            capsuleSwitch3.IsOnChanged += capsuleSwitch3_IsOnChanged;
+            // 
+            // label2
+            // 
+            label2.Location = new Point(133, 31);
+            label2.Margin = new Padding(2, 5, 0, 5);
+            label2.Name = "label2";
+            label2.Size = new Size(62, 20);
+            label2.TabIndex = 14;
+            label2.Text = "自动拿牌";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // capsuleSwitch2
+            // 
+            capsuleSwitch2.Location = new Point(196, 31);
+            capsuleSwitch2.Name = "capsuleSwitch2";
+            capsuleSwitch2.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch2.OnColor = Color.FromArgb(76, 175, 80);
+            capsuleSwitch2.ShowText = false;
+            capsuleSwitch2.Size = new Size(55, 20);
+            capsuleSwitch2.TabIndex = 13;
+            capsuleSwitch2.Text = "capsuleSwitch2";
+            capsuleSwitch2.TextColor = Color.DimGray;
+            capsuleSwitch2.ThumbColor = Color.White;
+            capsuleSwitch2.IsOnChanged += capsuleSwitch2_IsOnChanged;
+            // 
+            // label1
+            // 
+            label1.Location = new Point(5, 31);
+            label1.Margin = new Padding(2, 5, 0, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(62, 20);
+            label1.TabIndex = 12;
+            label1.Text = "高亮显示";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // capsuleSwitch1
+            // 
+            capsuleSwitch1.Location = new Point(68, 31);
+            capsuleSwitch1.Name = "capsuleSwitch1";
+            capsuleSwitch1.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch1.OnColor = Color.FromArgb(76, 175, 80);
+            capsuleSwitch1.ShowText = false;
+            capsuleSwitch1.Size = new Size(55, 20);
+            capsuleSwitch1.TabIndex = 0;
+            capsuleSwitch1.Text = "capsuleSwitch1";
+            capsuleSwitch1.TextColor = Color.DimGray;
+            capsuleSwitch1.ThumbColor = Color.White;
+            capsuleSwitch1.IsOnChanged += capsuleSwitch1_IsOnChanged;
             // 
             // toolTipTimer
             // 
@@ -374,7 +493,7 @@ namespace JinChanChanTool
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(407, 640);
+            ClientSize = new Size(404, 723);
             Controls.Add(panel_BackGround);
             FormBorderStyle = FormBorderStyle.None;
             MainMenuStrip = menuStrip_Main;
@@ -387,8 +506,6 @@ namespace JinChanChanTool
             menuStrip_Main.PerformLayout();
             panel_BackGround.ResumeLayout(false);
             panel_BackGround.PerformLayout();
-            panel_按钮面板.ResumeLayout(false);
-            panel_按钮面板.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -403,24 +520,30 @@ namespace JinChanChanTool
         private ComboBox comboBox_SelectedLineUp;
         private ToolStripMenuItem toolStripMenuItem_运行日志;
         private ComboBox comboBox_Season;
-        private Button button_Clear;
-        private Button button_Save;
-        private Button button_GetCard;
-        private Button button_Refresh;
-        private Label label_自动拿牌;
-        private Label label_自动刷新;
         private TabControl tabControl_HeroSelector;
         private TextBox textBox_LineUpCode;
-        private Button button_ParseLineUp;
         private Panel panel_SubLineUpParent;
         private CustomFlowLayoutPanel flowLayoutPanel_SubLineUp;
         private System.Windows.Forms.Timer toolTipTimer;
-        private Panel panel_按钮面板;
         private Label label_赛季;
         private System.Windows.Forms.Timer timer_UpdateCoordinates;
-        private Button button_生成阵容码;
         private Button button_变阵1;
         private Button button_变阵3;
         private Button button_变阵2;
+        private CapsuleSwitch capsuleSwitch1;
+        private Label label1;
+        private Label label3;
+        private CapsuleSwitch capsuleSwitch3;
+        private Label label2;
+        private CapsuleSwitch capsuleSwitch2;
+        private Label label4;
+        private RoundedButton roundedButton1;
+        private RoundedButton roundedButton3;
+        private RoundedButton roundedButton4;
+        private RoundedButton roundedButton5;
+        private RoundedButton roundedButton6;
+        private RoundedButton roundedButton2;
+        private RoundedButton roundedButton8;
+        private RoundedButton roundedButton7;
     }
 }

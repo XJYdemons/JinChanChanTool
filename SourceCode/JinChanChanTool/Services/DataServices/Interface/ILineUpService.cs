@@ -30,6 +30,12 @@ namespace JinChanChanTool.Services.DataServices.Interface
         public bool AddLineUp(string lineUpName);
 
         /// <summary>
+        /// 删除当前阵容
+        /// </summary>
+        /// <returns></returns>
+        public bool DeleteLineUp();
+
+        /// <summary>
         /// 判断阵容名是否可用（不与现有阵容重名）
         /// </summary>
         /// <param name="name">待检查的阵容名</param>

@@ -97,9 +97,6 @@
             label_次后自动停止刷新 = new Label();
             radioButton_鼠标模拟刷新商店 = new RadioButton();
             label_刷新失败 = new Label();
-            tabPage2 = new TabPage();
-            panel3 = new Panel();
-            checkBox_用高亮提示替代自动拿牌 = new CheckBox();
             tabPage_截图 = new TabPage();
             panel_截图 = new Panel();
             radioButton_手动设置坐标 = new RadioButton();
@@ -149,7 +146,6 @@
             textBox_更新推荐装备间隔 = new TextBox();
             checkBox_定时更新推荐装备 = new CheckBox();
             panel_BackGround = new Panel();
-            panel4 = new Panel();
             panel_Buttons = new Panel();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
@@ -162,8 +158,6 @@
             panel_拿牌相关.SuspendLayout();
             tabPage4.SuspendLayout();
             panel2.SuspendLayout();
-            tabPage2.SuspendLayout();
-            panel3.SuspendLayout();
             tabPage_截图.SuspendLayout();
             panel_截图.SuspendLayout();
             tabPage_阵容相关.SuspendLayout();
@@ -389,7 +383,6 @@
             tabControl1.Controls.Add(tabPage5);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
-            tabControl1.Controls.Add(tabPage2);
             tabControl1.Location = new Point(6, 6);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -758,10 +751,10 @@
             // 
             label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label13.ForeColor = Color.Silver;
-            label13.Location = new Point(5, 808);
+            label13.Location = new Point(5, 919);
             label13.Margin = new Padding(0);
             label13.Name = "label13";
-            label13.Size = new Size(178, 10);
+            label13.Size = new Size(127, 10);
             label13.TabIndex = 234;
             label13.Text = "———————————————————————————————————\r\n";
             label13.TextAlign = ContentAlignment.MiddleLeft;
@@ -770,10 +763,10 @@
             // 
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.ForeColor = Color.Silver;
-            label11.Location = new Point(1, 689);
+            label11.Location = new Point(1, 800);
             label11.Margin = new Padding(0);
             label11.Name = "label11";
-            label11.Size = new Size(178, 10);
+            label11.Size = new Size(127, 10);
             label11.TabIndex = 233;
             label11.Text = "———————————————————————————————————\r\n";
             label11.TextAlign = ContentAlignment.MiddleLeft;
@@ -944,38 +937,6 @@
             label_刷新失败.TabIndex = 27;
             label_刷新失败.Text = "刷新失败";
             label_刷新失败.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // tabPage2
-            // 
-            tabPage2.BackColor = Color.White;
-            tabPage2.Controls.Add(panel3);
-            tabPage2.Location = new Point(4, 26);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(445, 289);
-            tabPage2.TabIndex = 3;
-            tabPage2.Text = "高亮提示";
-            // 
-            // panel3
-            // 
-            panel3.AutoScroll = true;
-            panel3.BackColor = Color.White;
-            panel3.Controls.Add(checkBox_用高亮提示替代自动拿牌);
-            panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(3, 3);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(439, 283);
-            panel3.TabIndex = 212;
-            // 
-            // checkBox_用高亮提示替代自动拿牌
-            // 
-            checkBox_用高亮提示替代自动拿牌.AutoSize = true;
-            checkBox_用高亮提示替代自动拿牌.Location = new Point(5, 5);
-            checkBox_用高亮提示替代自动拿牌.Name = "checkBox_用高亮提示替代自动拿牌";
-            checkBox_用高亮提示替代自动拿牌.Size = new Size(159, 21);
-            checkBox_用高亮提示替代自动拿牌.TabIndex = 28;
-            checkBox_用高亮提示替代自动拿牌.Text = "用高亮提示替代自动拿牌";
-            checkBox_用高亮提示替代自动拿牌.UseVisualStyleBackColor = true;
             // 
             // tabPage_截图
             // 
@@ -1536,7 +1497,6 @@
             panel_BackGround.AutoScroll = true;
             panel_BackGround.AutoSize = true;
             panel_BackGround.BackColor = Color.White;
-            panel_BackGround.Controls.Add(panel4);
             panel_BackGround.Controls.Add(tabControl_设置);
             panel_BackGround.Controls.Add(panel_Buttons);
             panel_BackGround.Dock = DockStyle.Fill;
@@ -1544,17 +1504,8 @@
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Padding = new Padding(5);
-            panel_BackGround.Size = new Size(937, 574);
+            panel_BackGround.Size = new Size(480, 409);
             panel_BackGround.TabIndex = 210;
-            // 
-            // panel4
-            // 
-            panel4.AutoScroll = true;
-            panel4.BackColor = Color.White;
-            panel4.Location = new Point(502, 161);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(175, 283);
-            panel4.TabIndex = 213;
             // 
             // panel_Buttons
             // 
@@ -1573,7 +1524,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(937, 574);
+            ClientSize = new Size(480, 409);
             Controls.Add(panel_BackGround);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
@@ -1596,9 +1547,6 @@
             tabPage4.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            tabPage2.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             tabPage_截图.ResumeLayout(false);
             panel_截图.ResumeLayout(false);
             panel_截图.PerformLayout();
@@ -1708,17 +1656,13 @@
         public Button button_设置高亮提示框坐标;
         private Label label2;
         private Label label3;
-        private CheckBox checkBox_用高亮提示替代自动拿牌;
         private TabPage tabPage_功能;
         private TabControl tabControl1;
         private TabPage tabPage3;
         private TabPage tabPage4;
         private TabPage tabPage5;
         private Panel panel1;
-        private TabPage tabPage2;
         private Panel panel2;
-        private Panel panel3;
-        private Panel panel4;
         private Label label6;
         private Label label7;
         private Label label4;

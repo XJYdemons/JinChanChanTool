@@ -66,7 +66,7 @@ namespace JinChanChanTool
         /// </summary>
         private readonly UIBuilderService _uiBuilderService;
 
-       
+
 
         /// <summary>
         /// 自动拿牌服务
@@ -202,9 +202,10 @@ namespace JinChanChanTool
             #endregion
 
             #region 自动拿牌服务对象实例化
-            _cardService = new CardService(button_GetCard, button_Refresh, _iManualSettingsService, _iAutomaticSettingsService, _iCorrectionService, _iheroDataService, _iLineUpService);
+            _cardService = new CardService(_iManualSettingsService, _iAutomaticSettingsService, _iCorrectionService, _iheroDataService, _iLineUpService);
+            _cardService.isHighLightStatusChanged += OnIsHighLightChanged;
             _cardService.isGetCardStatusChanged += OnIsGetCardChanged;
-            _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;
+            _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;           
             #endregion
 
             #region 初始化状态显示窗口
@@ -234,6 +235,11 @@ namespace JinChanChanTool
                 await UpdateEquipmentsAsync();
             }
             #endregion
+        }
+
+        private void _cardService_isOCRLoopChanged(bool obj)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -396,11 +402,11 @@ namespace JinChanChanTool
             string hotKey4 = _iManualSettingsService.CurrentConfig.HotKey4;
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1)))
             {
-                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1), () => button_GetCard_Click(this, EventArgs.Empty));
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1), () => capsuleSwitch2.IsOn = !capsuleSwitch2.IsOn);
             }
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey2)))
             {
-                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey2), () => button_Refresh_Click(this, EventArgs.Empty));
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey2), () => capsuleSwitch3.IsOn = !capsuleSwitch3.IsOn);
             }
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey3)))
             {
@@ -529,12 +535,11 @@ namespace JinChanChanTool
             LineUpForm.Instance.GetLineUpSelectedComboBox().DropDownClosed += comboBox_LineUps_DropDownClosed;
             LineUpForm.Instance.GetLineUpSelectedComboBox().Leave += comboBox_LineUps_Leave;
             LineUpForm.Instance.GetLineUpSelectedComboBox().KeyDown += comboBox_LineUps_KeyDown;
-            LineUpForm.Instance.GetLineUpSelectedComboBox().DropDown += comboBox_SelectedLineUp_DropDown;
             #endregion
         }
 
-      
-        
+
+
 
         /// <summary>
         /// 再次绑定UI事件(切换赛季或修改UI布局时调用)
@@ -604,7 +609,7 @@ namespace JinChanChanTool
             // 检查窗口是否已存在且未被释放
             if (_settingFormInstance == null || _settingFormInstance.IsDisposed)
             {
-                _settingFormInstance = new SettingForm(_iManualSettingsService,_iRecommendedLineUpService);
+                _settingFormInstance = new SettingForm(_iManualSettingsService, _iRecommendedLineUpService);
                 _settingFormInstance.FormClosed += (s, args) => _settingFormInstance = null; // 窗口关闭时重置实例
                 _settingFormInstance.TopMost = true;
                 _settingFormInstance.Show();
@@ -704,24 +709,42 @@ namespace JinChanChanTool
         #endregion
 
         #region 拿牌相关
-        /// <summary>
-        /// 自动拿牌按钮触发
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public async void button_GetCard_Click(object sender, EventArgs e)
+        // 标记位，表示是否正在同步状态
+        private bool _isSyncingHighLight = false;
+        private bool _isSyncingGetCard = false;
+        private bool _isSyncingRefreshStore = false;
+
+       
+        private void capsuleSwitch1_IsOnChanged(object sender, EventArgs e)
         {
+            if (_isSyncingHighLight) return;
+            _cardService.ToggleHighLight();
+        }
+
+        private void capsuleSwitch2_IsOnChanged(object sender, EventArgs e)
+        {
+            if (_isSyncingGetCard) return;
             _cardService.ToggleLoop();
         }
 
-        /// <summary>
-        /// 自动刷新商店按钮触发
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void button_Refresh_Click(object sender, EventArgs e)
+        private void capsuleSwitch3_IsOnChanged(object sender, EventArgs e)
         {
+            if (_isSyncingRefreshStore) return;
             _cardService.ToggleRefreshStore();
+        }
+
+        private void OnIsHighLightChanged(bool isRunning)
+        {
+            if(this.InvokeRequired)
+            {
+                this.Invoke(new Action<bool>(OnIsHighLightChanged), isRunning);
+                return;
+            }
+            _isSyncingHighLight = true;
+            capsuleSwitch1.IsOn = isRunning;
+            _isSyncingHighLight = false;
+            
+            comboBox_Season.Enabled = !_cardService.isHighLight && !_cardService.isGetCard;
         }
 
         /// <summary>
@@ -736,8 +759,10 @@ namespace JinChanChanTool
                 this.Invoke(new Action<bool>(OnIsGetCardChanged), isRunning);
                 return;
             }
-            button_GetCard.Text = isRunning ? "停止" : "开启";
-            comboBox_Season.Enabled = !isRunning;
+            _isSyncingGetCard = true;
+            capsuleSwitch2.IsOn = isRunning;
+            _isSyncingGetCard = false;         
+            comboBox_Season.Enabled = !_cardService.isGetCard && !_cardService.isHighLight;
         }
 
         /// <summary>
@@ -752,7 +777,9 @@ namespace JinChanChanTool
                 this.Invoke(new Action<bool>(OnAutoRefreshStatusChanged), isRunning);
                 return;
             }
-            button_Refresh.Text = isRunning ? "停止" : "开启";
+            _isSyncingRefreshStore = true;
+            capsuleSwitch3.IsOn = isRunning;
+            _isSyncingRefreshStore = false;
         }
 
         /// <summary>
@@ -797,25 +824,66 @@ namespace JinChanChanTool
         private bool waitForLoad = false;
 
         /// <summary>
+        /// “保存阵容”按钮_单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void roundedButton4_Click(object sender, EventArgs e)
+        {
+            if (_iLineUpService.Save())
+            {
+                MessageBox.Show("阵容已保存", "阵容已保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        /// <summary>
         /// “清空”按钮_单击——>执行取消选择所有奕子
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_Clear_Click(object sender, EventArgs e)
+        private void roundedButton5_Click(object sender, EventArgs e)
         {
             _iLineUpService.ClearCurrentSubLineUp();
         }
 
         /// <summary>
-        /// “保存阵容”按钮_单击
+        /// 添加阵容按钮
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_Save_Click(object sender, EventArgs e)
+        private void roundedButton2_Click(object sender, EventArgs e)
         {
-            if (_iLineUpService.Save())
+            int i = 1;
+            while (!_iLineUpService.IsLineUpNameAvailable($"阵容{i}"))
             {
-                MessageBox.Show("阵容已保存", "阵容已保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                i++;
+            }
+            _iLineUpService.AddLineUp($"阵容{i}");
+            _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _iLineUpService.GetLineUpIndex();
+            _iAutomaticSettingsService.Save();
+        }
+
+        /// <summary>
+        /// 删除阵容按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void roundedButton6_Click(object sender, EventArgs e)
+        {
+            // 配置已保存，询问用户是否重启应用
+            var result = MessageBox.Show(
+                "确定要删除当前选中的阵容吗？",
+                "二次确认",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                _iLineUpService.DeleteLineUp();
+                _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _iLineUpService.GetLineUpIndex();
+                _iAutomaticSettingsService.Save();
             }
         }
 
@@ -937,22 +1005,7 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 阵容下拉框交互事件      
-        /// <summary>
-        /// 当下拉框展开时触发——>在末尾添加"添加阵容"项
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void comboBox_SelectedLineUp_DropDown(object sender, EventArgs e)
-        {
-            ComboBox comboBox = sender as ComboBox;
-            // 检查末尾是否已有"添加阵容"项，若没有则添加
-            if (comboBox.Items.Count == 0 || !comboBox.Items[comboBox.Items.Count - 1].Equals("添加阵容"))
-            {
-                comboBox.Items.Add("添加阵容");
-            }
-        }
-
+        #region 阵容下拉框交互事件             
         /// <summary>
         /// 当下拉框被关闭（即选择了新的或没选）时触发——>记录当前选择的下拉框，并从中读取阵容组合到单选框
         /// </summary>
@@ -961,33 +1014,12 @@ namespace JinChanChanTool
         private void comboBox_LineUps_DropDownClosed(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-
-            // 检测是否选择了"添加阵容"项
-            if (comboBox.SelectedItem != null && comboBox.SelectedItem.Equals("添加阵容"))
+            if (comboBox.SelectedItem != null && comboBox.SelectedIndex != -1)
             {
-                int i = 0;
-                while (!_iLineUpService.IsLineUpNameAvailable($"阵容{i}"))
-                {
-                    i++;
-                }
-                string newLineUpName= $"阵容{i}";
-
-                // 添加新阵容
-                if (_iLineUpService.AddLineUp(newLineUpName))
-                {
-                    // 保存阵容数据
-                    _iLineUpService.Save();
-                    // 设置当前阵容为新添加的阵容（最后一个）
-                    int newLineUpIndex = _iLineUpService.GetLineUps().Count - 1;
-                    _iLineUpService.SetLineUpIndex(newLineUpIndex);                    
-                }
+                _iLineUpService.SetLineUpIndex(comboBox.SelectedIndex);
+                _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _iLineUpService.GetLineUpIndex();
+                _iAutomaticSettingsService.Save();
             }
-            else if (comboBox.SelectedIndex != -1)
-            {
-                _iLineUpService.SetLineUpIndex(comboBox.SelectedIndex);               
-            }
-            _iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex = _iLineUpService.GetLineUpIndex();
-            _iAutomaticSettingsService.Save();
             // 从本地阵容文件读取数据到_lineupManager
             _iLineUpService.Load();
             // 读取阵容名称到阵容下拉框，并将阵容下拉框当前选中项同步程序记录的值
@@ -1103,9 +1135,8 @@ namespace JinChanChanTool
             {
                 LineUpForm.Instance.GetLineUpSelectedComboBox().SelectedIndex = Math.Min(lineUpFormLineUpSelectedComboBoxIndex, LineUpForm.Instance.GetLineUpSelectedComboBox().Items.Count - 1);
             }
-
         }
-       
+
         #endregion
 
         #region 主窗口HeroAndEquipmentPictureBox交互
@@ -1661,7 +1692,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_ParseLineUp_Click(object sender, EventArgs e)
+        private void roundedButton3_Click(object sender, EventArgs e)
         {
             string lineupCode = textBox_LineUpCode.Text.Trim();
             if (string.IsNullOrEmpty(lineupCode))
@@ -1699,34 +1730,11 @@ namespace JinChanChanTool
         }
 
         /// <summary>
-        /// 阵容码文本框进入
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_LineUpCode_Enter(object sender, EventArgs e)
-        {
-            textBox_LineUpCode.Text = "";
-        }
-
-        /// <summary>
-        /// 阵容码文本块离开
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_LineUpCode_Leave(object sender, EventArgs e)
-        {
-            if (textBox_LineUpCode.Text == "")
-            {
-                textBox_LineUpCode.Text = "请在此处粘贴阵容代码";
-            }
-        }
-
-        /// <summary>
         /// 生成阵容码按钮点击事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_生成阵容码_Click(object sender, EventArgs e)
+        private void roundedButton1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1769,13 +1777,36 @@ namespace JinChanChanTool
                 MessageBox.Show($"导出阵容码失败！\n错误信息: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// 阵容码文本框进入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_LineUpCode_Enter(object sender, EventArgs e)
+        {
+            textBox_LineUpCode.Text = "";
+        }
+
+        /// <summary>
+        /// 阵容码文本块离开
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_LineUpCode_Leave(object sender, EventArgs e)
+        {
+            if (textBox_LineUpCode.Text == "")
+            {
+                textBox_LineUpCode.Text = "请在此处粘贴阵容代码";
+            }
+        }
         #endregion
 
         #region 更新装备数据       
         private async Task UpdateEquipmentsAsync()
         {
             IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
-            ICrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);           
+            ICrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);
 
             TimeSpan timeDifference = DateTime.Now - _iAutomaticSettingsService.CurrentConfig.EquipmentLastUpdateTime;
             // 如果上次更新距离现在的时间小于配置的间隔时间，则跳过更新
@@ -2092,6 +2123,12 @@ namespace JinChanChanTool
             }
         }
 
-        #endregion                    
+        #endregion
+
+
+
+
+
+        
     }
 }

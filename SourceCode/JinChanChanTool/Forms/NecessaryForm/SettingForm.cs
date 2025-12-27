@@ -166,7 +166,7 @@ namespace JinChanChanTool
             textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxSize.ToString();
             textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing.ToString();
             textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPanelsVerticalSpacing.ToString();
-            checkBox_用高亮提示替代自动拿牌.Checked = _iappConfigService.CurrentConfig.IsUseHightLightPrompt;
+           
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace JinChanChanTool
             textBox_英雄头像框垂直间隔.Enter += TextBox_Enter;
             textBox_英雄头像框垂直间隔.Leave += textBox_英雄头像框垂直间隔_Leave;
 
-            checkBox_用高亮提示替代自动拿牌.CheckedChanged += CheckBox_用高亮提示替代自动拿牌_CheckedChanged;
+           
         }
 
 
@@ -1344,13 +1344,7 @@ namespace JinChanChanTool
         }
         #endregion
         #endregion
-
-        #region 高亮提示
-        private void CheckBox_用高亮提示替代自动拿牌_CheckedChanged(object? sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsUseHightLightPrompt = checkBox_用高亮提示替代自动拿牌.Checked;
-        }
-        #endregion
+       
         #region 设置存取相关
 
         /// <summary>

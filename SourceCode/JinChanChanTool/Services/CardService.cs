@@ -41,18 +41,17 @@ namespace JinChanChanTool.Services
         /// 阵容数据服务实例
         /// </summary>
         private readonly ILineUpService _ilineUpService;
-
-        private readonly Button _button1;
-
-        private readonly Button _button2;
-
+       
         private QueuedOCRService _ocrService;
 
-        private bool isGetCard = false;//是否开启 自动拿牌 标志(初始false)
+        public bool isHighLight = false;//是否开启 高亮提示 标志(初始false)
+        public event Action<bool> isHighLightStatusChanged;
+        public bool isGetCard = false;//是否开启 自动拿牌 标志(初始false)
         public event Action<bool> isGetCardStatusChanged;
-        private bool isRefreshStore = false;//是否开启 自动刷新商店 标志(初始false)
+        public bool isRefreshStore = false;//是否开启 自动刷新商店 标志(初始false)
         public event Action<bool> isRefreshStoreStatusChanged;
-        private CancellationTokenSource cts = new CancellationTokenSource();//控制拿牌D牌多线程操作的变量
+        private CancellationTokenSource ctsHighLight = null;//控制高亮循环的取消令牌
+        private CancellationTokenSource ctsGetCard = null;//控制拿牌循环的取消令牌
 
         private bool 鼠标左键是否按下;
         private bool 本轮是否按下过鼠标;
@@ -65,9 +64,9 @@ namespace JinChanChanTool.Services
         private string[] 最近一次刷新轮商店状态 = new string[5] { "", "", "", "", "" };
         private bool[] 上一轮目标数组 = new bool[5] { false, false, false, false, false };
         private bool[] 当前目标数组 = new bool[5] { false, false, false, false, false };
-               
+
         private const int 未刷新最大回合数 = 5;
-        private const double 未刷新最大时间秒数 = 3.0;              
+        private const double 未刷新最大时间秒数 = 3.0;
         enum 刷新状态
         {
             未开始,
@@ -80,11 +79,8 @@ namespace JinChanChanTool.Services
         private int 从上次尝试刷新到目前为止经过的轮次 = 0;
         private Stopwatch 计时器 = Stopwatch.StartNew();
 
-        public CardService(Button button1, Button button2, IManualSettingsService iAppConfigService,IAutomaticSettingsService iAutoConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService)
-        {
-
-            _button1 = button1;
-            _button2 = button2;
+        public CardService(IManualSettingsService iAppConfigService, IAutomaticSettingsService iAutoConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService)
+        {          
             _iappConfigService = iAppConfigService;
             _iAutoConfigService = iAutoConfigService;
             _iCorrectionService = iCorrectionService;
@@ -121,33 +117,72 @@ namespace JinChanChanTool.Services
                 MessageBox.Show($"OCR初始化失败: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-              
         /// <summary>
-        /// 开始OCR循环
+        /// 开始OCR循环_高亮模式
         /// </summary>
-        public void StartLoop()
+        public void StartHighLight()
         {
-            isGetCard = true;
-            cts = new CancellationTokenSource();
-            isGetCardStatusChanged?.Invoke(true);
+            if(isGetCard)
+            {
+                StopLoop();
+            }
+            isHighLight = true;
+            ctsHighLight = new CancellationTokenSource();
+            isHighLightStatusChanged?.Invoke(true);
             // 显示高亮覆盖层窗体
             CardHighlightOverlayForm.Instance.ShowOverlay();
             // 启动循环任务
-            Task.Run(() => ProcessLoop(cts.Token), cts.Token);
+            Task.Run(() => ProcessLoop_HighLight(ctsHighLight.Token), ctsHighLight.Token);
         }
 
         /// <summary>
-        /// 停止OCR循环
+        /// 停止OCR循环_高亮模式
+        /// </summary>
+        public void StopHighLight()
+        {
+            isHighLight = false;
+            ctsHighLight?.Cancel();
+            ctsHighLight?.Dispose();
+            ctsHighLight = null;
+            isHighLightStatusChanged?.Invoke(false);
+            // 隐藏高亮覆盖层窗体
+            CardHighlightOverlayForm.Instance.HideOverlay();
+        }
+
+        public void ToggleHighLight()
+        {
+            if (isHighLight)
+                StopHighLight();
+            else
+                StartHighLight();
+        }
+
+        /// <summary>
+        /// 开始OCR循环_自动拿牌
+        /// </summary>
+        public void StartLoop()
+        {
+            if(isHighLight)
+            {
+                StopHighLight();
+            }
+            isGetCard = true;
+            ctsGetCard = new CancellationTokenSource();
+            isGetCardStatusChanged?.Invoke(true);
+            // 启动循环任务
+            Task.Run(() => ProcessLoop_GetCard(ctsGetCard.Token), ctsGetCard.Token);
+        }
+
+        /// <summary>
+        /// 停止OCR循环_自动拿牌
         /// </summary>
         public void StopLoop()
         {
             isGetCard = false;
-            cts?.Cancel();
-            cts?.Dispose();
-            cts = null;
+            ctsGetCard?.Cancel();
+            ctsGetCard?.Dispose();
+            ctsGetCard = null;
             isGetCardStatusChanged?.Invoke(false);
-            // 隐藏高亮覆盖层窗体
-            CardHighlightOverlayForm.Instance.HideOverlay();
         }
 
         public void ToggleLoop()
@@ -163,12 +198,12 @@ namespace JinChanChanTool.Services
             if (isRefreshStore)
             {
                 AutoRefreshOff();
-            }                
+            }
             else
             {
                 AutoRefreshOn();
-            }              
-            
+            }
+
         }
 
         /// <summary>
@@ -212,138 +247,48 @@ namespace JinChanChanTool.Services
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        private async Task ProcessLoop(CancellationToken token)
-        {
-            int 循环计数 = 0;
-            int 高亮模式循环计数 = 0;
-            循环前的标志重置();
-            while (isGetCard && !token.IsCancellationRequested)
+        private async Task ProcessLoop_HighLight(CancellationToken token)
+        {            
+            int 高亮模式循环计数 = 0;            
+            while (isHighLight && !token.IsCancellationRequested)
             {
                 try
                 {
-                  
-                   if(_iappConfigService.CurrentConfig.IsUseHightLightPrompt)
+                    高亮模式循环计数++;
+                    LogTool.Log($"轮次:{高亮模式循环计数}");
+                    Debug.WriteLine($"轮次:{高亮模式循环计数}");
+                    OutputForm.Instance.WriteLineOutputMessage($"轮次:{高亮模式循环计数}");
+                    Bitmap[] bitmaps = CaptureAndSplit();
+                    原始结果数组 = await RecognizeImages(bitmaps);
+                    更新纠正结果数组(bitmaps);
+                    // 释放图像资源
+                    foreach (Bitmap image in bitmaps)
                     {
-                        高亮模式循环计数++;
-                        LogTool.Log($"轮次:{高亮模式循环计数}");
-                        Debug.WriteLine($"轮次:{高亮模式循环计数}");
-                        OutputForm.Instance.WriteLineOutputMessage($"轮次:{高亮模式循环计数}");
-                      
-
-
-                        Bitmap[] bitmaps = CaptureAndSplit();
-
-
-
-                        原始结果数组 = await RecognizeImages(bitmaps);
-
-
-
-                        更新纠正结果数组(bitmaps);
-
-
-                        // 释放图像资源
-                        foreach (Bitmap image in bitmaps)
-                        {
-                            image.Dispose();
-                        }
-                        当前目标数组 = CompareResults(纠正结果数组);
-                        #region 结果输出、日志
-                        string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
-                        string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
-                        for (int i = 0; i < 原始结果数组.Length; i++)
-                        {
-                            输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
-                        }
-                        for (int i = 0; i < 纠正结果数组.Length; i++)
-                        {
-                            输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
-                        }
-                        LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                        Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                        OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                        LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                        Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                        OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-
-                        #endregion                        
-                        // 更新高亮显示
-                        Rectangle[] cardRectangles = CalculateCardRectangles();
-                        CardHighlightOverlayForm.Instance.UpdateHighlight(当前目标数组, cardRectangles);                                                                                              
+                        image.Dispose();
                     }
-                   else
+                    当前目标数组 = CompareResults(纠正结果数组);
+                    #region 结果输出、日志
+                    string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
+                    string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
+                    for (int i = 0; i < 原始结果数组.Length; i++)
                     {
-                        循环计数++;
-                        LogTool.Log($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
-                        Debug.WriteLine($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
-                        OutputForm.Instance.WriteLineOutputMessage($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
-                        if (!自动停止拿牌()) return;
-                        自动停止刷新商店();
-
-
-                        Bitmap[] bitmaps = CaptureAndSplit();
-
-
-
-                        原始结果数组 = await RecognizeImages(bitmaps);
-
-
-
-                        更新纠正结果数组(bitmaps);
-
-
-                        // 释放图像资源
-                        foreach (Bitmap image in bitmaps)
-                        {
-                            image.Dispose();
-                        }
-                        当前目标数组 = CompareResults(纠正结果数组);
-                        #region 结果输出、日志
-                        string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
-                        string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
-                        for (int i = 0; i < 原始结果数组.Length; i++)
-                        {
-                            输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
-                        }
-                        for (int i = 0; i < 纠正结果数组.Length; i++)
-                        {
-                            输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
-                        }
-                        LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                        Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                        OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
-                        LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                        Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-                        OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
-
-                        #endregion
-
-                        await GetCard(当前目标数组);
-                        
-                        判断未拿牌并处理();
-                        判断未刷新并处理();
-                        更新上一轮结果数组与目标数组();
-
-                        if (await 判断是否需要刷新商店并处理())
-                        {
-
-                            if (_iappConfigService.CurrentConfig.IsUseCPUForInference)
-                            {
-                                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
-                            }
-                            else if (_iappConfigService.CurrentConfig.IsUseGPUForInference)
-                            {
-                                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU);
-                            }
-                            else
-                            {
-                                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
-                            }
-
-                        }
-                        本轮是否按下过鼠标 = false;
+                        输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
                     }
-                    
+                    for (int i = 0; i < 纠正结果数组.Length; i++)
+                    {
+                        输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
+                    }
+                    LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                    OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+
+                    #endregion                        
+                    // 更新高亮显示
+                    Rectangle[] cardRectangles = CalculateCardRectangles();
+                    CardHighlightOverlayForm.Instance.UpdateHighlight(当前目标数组, cardRectangles);
                 }
                 catch (OperationCanceledException)
                 {
@@ -353,11 +298,110 @@ namespace JinChanChanTool.Services
                 catch (Exception ex)
                 {
                     //跳出循环
-                    break;                    
+                    break;
                 }
             }
-            StopLoop();           
-            AutoRefreshOff();                                  
+            Debug.WriteLine($"高亮loop：{!token.IsCancellationRequested},{isHighLight}");
+            StopHighLight();            
+        }
+
+        /// <summary>
+        /// OCR处理主循环
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private async Task ProcessLoop_GetCard(CancellationToken token)
+        {
+            int 循环计数 = 0;            
+            循环前的标志重置();
+            while (isGetCard && !token.IsCancellationRequested)
+            {
+                try
+                {
+                    循环计数++;
+                    LogTool.Log($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
+                    Debug.WriteLine($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
+                    OutputForm.Instance.WriteLineOutputMessage($"轮次:{循环计数}     未刷新累积次数：{未刷新累积次数}     未拿牌累积次数：{未拿牌累积次数}");
+                    if (!自动停止拿牌()) return;
+                    自动停止刷新商店();
+
+
+                    Bitmap[] bitmaps = CaptureAndSplit();
+
+
+
+                    原始结果数组 = await RecognizeImages(bitmaps);
+
+
+
+                    更新纠正结果数组(bitmaps);
+
+
+                    // 释放图像资源
+                    foreach (Bitmap image in bitmaps)
+                    {
+                        image.Dispose();
+                    }
+                    当前目标数组 = CompareResults(纠正结果数组);
+                    #region 结果输出、日志
+                    string[] 输出结果数组1 = new string[5] { "", "", "", "", "" };
+                    string[] 输出结果数组2 = new string[5] { "", "", "", "", "" };
+                    for (int i = 0; i < 原始结果数组.Length; i++)
+                    {
+                        输出结果数组1[i] = "“" + Regex.Replace(原始结果数组[i], @"[^\u4e00-\u9fa5a-zA-Z0-9]", "") + "”";
+                    }
+                    for (int i = 0; i < 纠正结果数组.Length; i++)
+                    {
+                        输出结果数组2[i] = "“" + 纠正结果数组[i] + "”";
+                    }
+                    LogTool.Log($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    Debug.WriteLine($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    OutputForm.Instance.WriteLineOutputMessage($"原始结果 1:{输出结果数组1[0],-8}({当前目标数组[0],-6})2:{输出结果数组1[1],-8}({当前目标数组[1],-6})3:{输出结果数组1[2],-8}({当前目标数组[2],-6})4:{输出结果数组1[3],-8}({当前目标数组[3],-6})5:{输出结果数组1[4],-8}({当前目标数组[4],-6})");
+                    LogTool.Log($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                    Debug.WriteLine($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+                    OutputForm.Instance.WriteLineOutputMessage($"纠正结果 1:{输出结果数组2[0],-8}({当前目标数组[0],-6})2:{输出结果数组2[1],-8}({当前目标数组[1],-6})3:{输出结果数组2[2],-8}({当前目标数组[2],-6})4:{输出结果数组2[3],-8}({当前目标数组[3],-6})5:{输出结果数组2[4],-8}({当前目标数组[4],-6})");
+
+                    #endregion
+
+                    await GetCard(当前目标数组);
+
+                    判断未拿牌并处理();
+                    判断未刷新并处理();
+                    更新上一轮结果数组与目标数组();
+
+                    if (await 判断是否需要刷新商店并处理())
+                    {
+
+                        if (_iappConfigService.CurrentConfig.IsUseCPUForInference)
+                        {
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
+                        }
+                        else if (_iappConfigService.CurrentConfig.IsUseGPUForInference)
+                        {
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU);
+                        }
+                        else
+                        {
+                            await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU);
+                        }
+
+                    }
+                    本轮是否按下过鼠标 = false;
+                }
+                catch (OperationCanceledException)
+                {
+                    // 正常取消
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    //跳出循环
+                    break;
+                }
+            }
+            Debug.WriteLine($"拿牌loop：{!token.IsCancellationRequested},{isGetCard}");
+            StopLoop();
+            AutoRefreshOff();
         }
 
         private bool 本轮与上轮商店状态是否相同()
@@ -430,48 +474,48 @@ namespace JinChanChanTool.Services
         }
 
         private void 循环前的标志重置()
-        {            
+        {
             未刷新累积次数 = 0;
             未拿牌累积次数 = 0;
             原始结果数组 = ["", "", "", "", ""];
             纠正结果数组 = ["", "", "", "", ""];
-            上一轮结果数组 = ["", "", "", "", ""];           
+            上一轮结果数组 = ["", "", "", "", ""];
             最近一次刷新轮商店状态 = ["", "", "", "", ""];
             上一轮目标数组 = [false, false, false, false, false];
             当前目标数组 = [false, false, false, false, false];
             当前商店刷新状态 = 刷新状态.未开始;
             从上次尝试刷新到目前为止经过的轮次 = 0;
             计时器.Restart();
-                                  
+
         }
 
         private void 更新纠正结果数组(Bitmap[] bitmaps)
         {
             // 定义ErrorImage文件夹路径
-            string errorImagePath = Path.Combine(Application.StartupPath,"Logs","ErrorImages");
+            string errorImagePath = Path.Combine(Application.StartupPath, "Logs", "ErrorImages");
             for (int i = 0; i < 原始结果数组.Length; i++)
             {
-                纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);                    
-                
+                纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);
+
                 if (!isError)
                 {
                     try
                     {
-                        if(_iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters)
+                        if (_iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters)
                         {
                             LogTool.Log("由于识别错误关闭自动刷新！");
                             Debug.WriteLine("由于识别错误关闭自动刷新！");
                             OutputForm.Instance.WriteLineOutputMessage($"由于识别错误关闭自动刷新！" + "\r\n");
-                            停止刷新商店();                                                 
+                            停止刷新商店();
                         }
                         // 更新UI
-                        OutputForm.Instance.WriteLineErrorMessage(errorMessage + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");                                          
+                        OutputForm.Instance.WriteLineErrorMessage(errorMessage + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");
                         // 动态计算文本区域宽度（每个字符约20像素，加上边距）
-                        int estimatedCharWidth = 20;                        
-                        int textAreaWidth = (errorMessage.Length-2) * estimatedCharWidth+20;                    
+                        int estimatedCharWidth = 20;
+                        int textAreaWidth = (errorMessage.Length - 2) * estimatedCharWidth + 20;
                         // 创建扩展后的位图（原图宽度 + 动态文本区域宽度）
-                        int newWidth = bitmaps[i].Width +Math.Max(textAreaWidth, 1);
-                        int newHeight =Math.Max(bitmaps[i].Height,19);
+                        int newWidth = bitmaps[i].Width + Math.Max(textAreaWidth, 1);
+                        int newHeight = Math.Max(bitmaps[i].Height, 19);
                         // 创建字体和画刷
                         using (Font font = new Font("SimSun-ExtB", 14, FontStyle.Bold))
                         using (Brush brush = new SolidBrush(Color.Red))
@@ -505,11 +549,11 @@ namespace JinChanChanTool.Services
                             string filePath = Path.Combine(errorImagePath, $"{DateTime.Now:MM月dd日HH时mm分ss秒.fff毫秒}_{i + 1}号卡_{errorMessage}.png");
                             extendedBitmap.Save(filePath, ImageFormat.Png);
                         }
-                       
+
                     }
                     catch (Exception ex)
                     {
-                        
+
                     }
                 }
                 //else
@@ -523,7 +567,7 @@ namespace JinChanChanTool.Services
                 //    string filePath = Path.Combine(imagePath, $"{DateTime.Now:MM月dd日HH时mm分ss秒.fff毫秒}_{i + 1}号卡_{纠正结果数组[i]}.png");
                 //    bitmaps[i].Save(filePath, ImageFormat.Png);
                 //}
-            }           
+            }
         }
 
         private void 更新上一轮结果数组与目标数组()
@@ -541,13 +585,13 @@ namespace JinChanChanTool.Services
             {
                 最近一次刷新轮商店状态[i] = 纠正结果数组[i];
             }
-        }       
+        }
         private bool 自动停止拿牌()
-        {           
+        {
             if (未拿牌累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase && _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
             {
                 LogTool.Log("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
-                Debug.WriteLine("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");              
+                Debug.WriteLine("存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
                 OutputForm.Instance.WriteLineOutputMessage($"存在目标卡的情况下，连续数次商店状态和要拿的牌的位置也无变化，可能是金币不足或者备战席已满，将关闭自动拿牌功能！");
                 StopLoop();
                 return false;
@@ -555,29 +599,29 @@ namespace JinChanChanTool.Services
             return true;
         }
 
-        
+
         private void 自动停止刷新商店()
-        {           
-            if (未刷新累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore && _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore&&isRefreshStore)
+        {
+            if (未刷新累积次数 >= _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore && _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore && isRefreshStore)
             {
                 LogTool.Log("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
-                Debug.WriteLine("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");                
-                OutputForm.Instance.WriteLineOutputMessage($"自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");                
+                Debug.WriteLine("自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
+                OutputForm.Instance.WriteLineOutputMessage($"自动刷新商店功能开启的情况下，连续数次商店状态无变化，可能金币数量不足，无法进行刷新，将关闭自动刷新功能！");
                 停止刷新商店();
             }
         }
         private void 停止刷新商店()
         {
-            AutoRefreshOff();                      
+            AutoRefreshOff();
         }
-        private void  判断未拿牌并处理()
+        private void 判断未拿牌并处理()
         {
-            if(!本轮是否按下过鼠标 && !鼠标左键是否按下)
+            if (!本轮是否按下过鼠标 && !鼠标左键是否按下)
             {
-                if(本轮是否存在目标卡()&& 本轮与上轮拿牌状态是否相同() &&本轮与上轮商店状态是否相同())
+                if (本轮是否存在目标卡() && 本轮与上轮拿牌状态是否相同() && 本轮与上轮商店状态是否相同())
                 {
                     未拿牌累积次数++;
-                }    
+                }
                 else
                 {
                     未拿牌累积次数 = 0;
@@ -586,42 +630,42 @@ namespace JinChanChanTool.Services
             else
             {
                 未拿牌累积次数 = 0;
-            }            
+            }
         }
-       
+
         private void 判断未刷新并处理()
         {
             if (!本轮是否按下过鼠标 && !鼠标左键是否按下)
             {
-                if(当前商店刷新状态 == 刷新状态.刷新中)
+                if (当前商店刷新状态 == 刷新状态.刷新中)
                 {
-                    if(本轮与最近一次刷新轮商店状态是否相同())
+                    if (本轮与最近一次刷新轮商店状态是否相同())
                     {
                         从上次尝试刷新到目前为止经过的轮次++;
                         LogTool.Log($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");
-                        Debug.WriteLine($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");                        
-                        OutputForm.Instance.WriteLineOutputMessage($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");                       
+                        Debug.WriteLine($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");
+                        OutputForm.Instance.WriteLineOutputMessage($"发现商店有空或商店状态未变化，从上次尝试刷新到目前为止经过的轮次:{从上次尝试刷新到目前为止经过的轮次}");
                         if (从上次尝试刷新到目前为止经过的轮次 >= 未刷新最大回合数 || 计时器.Elapsed.TotalSeconds >= 未刷新最大时间秒数)
                         {
                             LogTool.Log($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");
                             Debug.WriteLine($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");
-                            OutputForm.Instance.WriteLineOutputMessage($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");                          
+                            OutputForm.Instance.WriteLineOutputMessage($"轮次达到上限或者时间超时 - 轮次：{从上次尝试刷新到目前为止经过的轮次} - 上次时间:{计时器.Elapsed.TotalSeconds}");
                             从上次尝试刷新到目前为止经过的轮次 = 0;
                             当前商店刷新状态 = 刷新状态.未开始;
                             未刷新累积次数++;
                         }
                     }
-                    else if(本轮是否为空())//上次刷新命令后本轮商店反而为空,可能是用户操作导致商店临时消失，不刷新，不处理。
+                    else if (本轮是否为空())//上次刷新命令后本轮商店反而为空,可能是用户操作导致商店临时消失，不刷新，不处理。
                     {
                         LogTool.Log($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");
-                        Debug.WriteLine($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");                        
-                        OutputForm.Instance.WriteLineOutputMessage($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");                        
+                        Debug.WriteLine($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");
+                        OutputForm.Instance.WriteLineOutputMessage($"最近一次刷新商店轮数商店不为空的情况下，本轮商店状态为空。");
                     }
                     else
                     {
                         从上次尝试刷新到目前为止经过的轮次 = 0;
                         未刷新累积次数 = 0;
-                        当前商店刷新状态 = 刷新状态.已结束;                        
+                        当前商店刷新状态 = 刷新状态.已结束;
                     }
                 }
             }
@@ -691,7 +735,7 @@ namespace JinChanChanTool.Services
 
         private async Task 刷新商店()
         {
-           
+
             if (_iappConfigService.CurrentConfig.IsMouseRefreshStore)
             {
                 int X = 0;
@@ -704,11 +748,11 @@ namespace JinChanChanTool.Services
                         _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iAutoConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height * 4 / 5);
                 }
                 else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
-                {                    
-                    X = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.X+_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width/5,
+                {
+                    X = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.X + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width / 5,
                         _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.X + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Width * 4 / 5);
-                    Y = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y+_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height/5,
-                        _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height *4 / 5);
+                    Y = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height / 5,
+                        _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height * 4 / 5);
                 }
                 else
                 {
@@ -719,13 +763,13 @@ namespace JinChanChanTool.Services
                 }
 
                 MouseControlTool.SetMousePosition(X, Y);
-                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);                              
+                await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
                 await ClickOneTime();
-              
+
             }
             else if (_iappConfigService.CurrentConfig.IsKeyboardRefreshStore)
-            {                
-                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);               
+            {
+                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);
             }
         }
 
@@ -737,7 +781,7 @@ namespace JinChanChanTool.Services
         {
             try
             {
-                if(_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
+                if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                 {
                     Rectangle[] rects = new Rectangle[]
                       {
@@ -799,7 +843,7 @@ namespace JinChanChanTool.Services
                     using (Bitmap bigImage = ImageProcessingTool.AreaScreenshots(boundingBox))
                     {
                         Bitmap[] bitmaps = new Bitmap[5];
-                        
+
                         for (int i = 0; i < 5; i++)
                         {
                             // 计算每个矩形相对于大图左上角的偏移量
@@ -818,7 +862,7 @@ namespace JinChanChanTool.Services
                         return bitmaps;
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -847,10 +891,10 @@ namespace JinChanChanTool.Services
                 tasks[i] = _ocrService.RecognizeTextAsync(bitmaps[i]);
             }
             // 等待所有任务完成
-            string[] results = await Task.WhenAll(tasks);          
+            string[] results = await Task.WhenAll(tasks);
             return results;
         }
-       
+
         /// <summary>
         /// 将纠正后的OCR识别结果与阵容对象内勾选的英雄名作比较，返回含有5个元素的bool数组。
         /// </summary>
@@ -864,11 +908,11 @@ namespace JinChanChanTool.Services
                 string name = unit.HeroName;
                 selectedHeros.Add(name);
             }
-           
-            bool[] 本轮牌库状态 = new bool[5] { false,false,false,false,false};
-            for(int i =0;i<results.Length;i++)
-            {                  
-                foreach(string j in selectedHeros)
+
+            bool[] 本轮牌库状态 = new bool[5] { false, false, false, false, false };
+            for (int i = 0; i < results.Length; i++)
+            {
+                foreach (string j in selectedHeros)
                 {
                     // 空字符串不允许匹配，使用包含匹配以容忍OCR识别结果带有多余字符的情况
                     if (!string.IsNullOrEmpty(results[i]) && !string.IsNullOrEmpty(j) && results[i].Contains(j))
@@ -876,7 +920,7 @@ namespace JinChanChanTool.Services
                         本轮牌库状态[i] = true;
                         break;
                     }
-                }                                                   
+                }
             }
             return 本轮牌库状态;
         }
@@ -943,8 +987,8 @@ namespace JinChanChanTool.Services
                         }
                         else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                         {
-                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width/5, rects[i].Left + rects[i].Width *4 / 5);
-                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height/5, rects[i].Top + rects[i].Height *4 / 5);
+                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width / 5, rects[i].Left + rects[i].Width * 4 / 5);
+                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height / 5, rects[i].Top + rects[i].Height * 4 / 5);
                         }
                         else
                         {
@@ -966,7 +1010,7 @@ namespace JinChanChanTool.Services
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
 
                     }
-                }                
+                }
             }
         }
 
@@ -1003,18 +1047,18 @@ namespace JinChanChanTool.Services
                          _iAutoConfigService.CurrentConfig.HighLightRectangle_3,
                          _iAutoConfigService.CurrentConfig.HighLightRectangle_4,
                          _iAutoConfigService.CurrentConfig.HighLightRectangle_5
-                   };               
+                   };
             }
             else
-            {              
-                    rectangles = new Rectangle[]
-                     {
+            {
+                rectangles = new Rectangle[]
+                 {
                          _iappConfigService.CurrentConfig.HighLightRectangle_1,
                          _iappConfigService.CurrentConfig.HighLightRectangle_2,
                          _iappConfigService.CurrentConfig.HighLightRectangle_3,
                          _iappConfigService.CurrentConfig.HighLightRectangle_4,
                          _iappConfigService.CurrentConfig.HighLightRectangle_5
-                    };               
+                };
             }
 
             return rectangles;

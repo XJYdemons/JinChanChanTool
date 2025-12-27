@@ -1,12 +1,7 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq; 
 using System.Text;
 using System.Text.Json;
 

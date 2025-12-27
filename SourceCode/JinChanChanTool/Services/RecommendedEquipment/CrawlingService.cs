@@ -1,17 +1,10 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
+using JinChanChanTool.Services.Network;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
-using JinChanChanTool.Services.Network; // 引入全局网络管理
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace JinChanChanTool.Services.RecommendedEquipment
 {
@@ -101,7 +94,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// </summary>
         private async Task<HeroEquipment> FetchAndProcessHeroDataAsync(string heroKey, Dictionary<string, string> heroTranslations, Dictionary<string, string> itemTranslations)
         {
-            string apiUrl = $"https://api-hc.metatft.com/tft-stat-api/unit_detail?queue=1100&patch=current&days=1&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true&unit={heroKey}";
+            string apiUrl = $"https://api-hc.metatft.com/tft-stat-api/unit_detail?queue=1100&patch=current&days=3&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true&unit={heroKey}";
 
             const int MaxRetries = 2; // 总计最多尝试 3 次
             int retryCount = 0;
@@ -123,8 +116,29 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                         var unitDetail = JsonSerializer.Deserialize<UnitDetailResponse>(jsonResponse);
                         if (unitDetail?.Builds == null || unitDetail.Builds.Count == 0) return null;
 
-                        // 后续解析逻辑 (ExtractBestBuild 是类内部的辅助方法)
-                        Build bestBuild = ExtractBestBuild(unitDetail.Builds);
+                        // 计算英雄数据的逻辑（虽然 ExtractBestBuild 里已经不再强依赖这两个参数，但保留着也没问题，以防万一后续用得到）
+                        long heroTotalGames = 0;
+                        double unitWeightedSum = 0;
+
+                        // 注意：当 days=3 时，Dates 数组会有多天数据。
+                        // 但这里主要用 Builds 列表（API已经聚合好了3天的 Build 数据），
+                        // 所以 Dates 这里的平均值计算即使只取 Dates[0]（最近一天）作为参考也无伤大雅，
+                        // 因为核心算法 ExtractBestBuild 已经进化为自适应比较了。
+                        if (unitDetail.Dates != null && unitDetail.Dates.Any())
+                        {
+                            var p = unitDetail.Dates[0].Places;
+                            for (int i = 0; i < p.Count; i++)
+                            {
+                                heroTotalGames += p[i];
+                                unitWeightedSum += p[i] * (i + 1);
+                            }
+                        }
+
+                        if (heroTotalGames <= 0) heroTotalGames = 100000;
+                        double unitGlobalAvgRank = unitWeightedSum > 0 ? unitWeightedSum / (double)heroTotalGames : 4.0;
+
+                        // 调用公差带算法
+                        Build bestBuild = ExtractBestBuild(unitDetail.Builds, heroTotalGames, unitGlobalAvgRank);
                         if (bestBuild == null) return null;
 
                         var equipmentKeys = bestBuild.BuildNames.Split('|');
@@ -162,46 +176,108 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             }
         }
 
-        /// <summary>
-        /// 内部优化：从所有出装中提取最优解
-        /// </summary>
-        private Build ExtractBestBuild(List<Build> builds)
+        private Build ExtractBestBuild(List<Build> builds, long heroTotalGames, double unitAvg)
         {
-            Build bestBuild_HighQuality = null;
-            double maxScore_HighQuality = -1.0;
+            // 1. 数据清洗 (Artifacts/Radiant Filter)
+            var rawList = builds
+                .Where(b => !string.IsNullOrEmpty(b.BuildNames))
+                .Where(b =>
+                {
+                    var items = b.BuildNames.Split('|');
+                    if (items.Length != 3) return false;
+                    foreach (var item in items)
+                    {
+                        if (item.Contains("Artifact", StringComparison.OrdinalIgnoreCase) ||
+                            item.Contains("Radiant", StringComparison.OrdinalIgnoreCase))
+                            return false;
+                    }
+                    return true;
+                })
+                .Where(b => b.Places != null && b.Places.Count == 8)
+                .Select(b =>
+                {
+                    double weightedSum = 0;
+                    for (int i = 0; i < b.Places.Count; i++) weightedSum += b.Places[i] * (i + 1);
+                    double avgRank = b.Total > 0 ? weightedSum / b.Total : 8.0;
+                    return new { Origin = b, AvgRank = avgRank, Total = b.Total };
+                })
+                .ToList();
 
-            Build bestBuild_Any = null;
-            double maxScore_Any = -1.0;
+            if (!rawList.Any()) return null;
 
-            foreach (var build in builds)
+            long maxSampleInList = rawList.Max(x => x.Total);
+            bool isWeakHero = unitAvg > 3.5;
+
+            // 分支一：小样本模式 (Max < 2000)
+            // 适用：路边工具人、非主c，主坦但需要携带装备等英雄
+            if (maxSampleInList < 2000)
             {
-                if (string.IsNullOrEmpty(build.BuildNames) || build.BuildNames.Split('|').Length != 3) continue;
-                if (build.Places == null || build.Places.Count != 8 || build.Total == 0) continue;
+                var candidates = rawList.Where(x => x.Total >= 100).ToList();
+                if (!candidates.Any()) candidates = rawList;
 
-                // 计算加权平均排名评分
-                double weightedSum = 0;
-                for (int i = 0; i < build.Places.Count; i++)
-                {
-                    weightedSum += build.Places[i] * (i + 1);
-                }
-                double avgPlacement = weightedSum / build.Total;
-                double score = (double)build.Total / avgPlacement;
+                double bestRank = candidates.Min(x => x.AvgRank);
+                double tolerance = (bestRank < 3.5) ? 0.35 : 0.15;
+                double threshold = bestRank + tolerance;
 
-                if (score > maxScore_Any)
-                {
-                    maxScore_Any = score;
-                    bestBuild_Any = build;
-                }
+                var finalCandidates = candidates.Where(x => x.AvgRank <= threshold).ToList();
 
-                // 高质量标准：场次 >= 100
-                if (build.Total >= 100 && score > maxScore_HighQuality)
+                if (finalCandidates.Any())
                 {
-                    maxScore_HighQuality = score;
-                    bestBuild_HighQuality = build;
+                    return finalCandidates.OrderByDescending(x => x.Total).First().Origin;
                 }
+                return candidates.OrderByDescending(x => x.Total).First().Origin;
             }
 
-            return bestBuild_HighQuality ?? bestBuild_Any;
+            // 分支二：大样本模式 (Max >= 2000)
+            // 适用：主c、主坦等核心英雄
+            else
+            {
+                // 1. 基础筛选
+                var candidates = rawList.Where(x =>
+                {
+                    if (x.Total < 200) return false;
+                    if (x.Total > 2000) return true;
+
+                    // Rank <= 3.75 视为不错，门槛放宽到 10%
+                    double requiredRatio = (x.AvgRank <= 3.75) ? 0.10 : 0.34;
+                    return ((double)x.Total / maxSampleInList) >= requiredRatio;
+                }).ToList();
+
+                if (!candidates.Any())
+                {
+                    candidates = rawList.Where(x => x.Total >= 200).ToList();
+                    if (!candidates.Any()) candidates = rawList;
+                }
+
+                // 2. 弱势英雄的大样本安全锁
+                bool hasMegaSamples = candidates.Any(x => x.Total > 2000);
+                if (isWeakHero && hasMegaSamples)
+                {
+                    var safeBuilds = candidates.Where(x =>
+                        x.Total > 2000 ||
+                        (x.Total > 1000 && x.AvgRank <= 3.75)
+                    ).ToList();
+
+                    if (safeBuilds.Any()) candidates = safeBuilds;
+                }
+
+                // 3. 评分决策
+                var bestBuild = candidates
+                    .Select(x =>
+                    {
+                        double cap = isWeakHero ? 200000 : 5000;
+                        double weight = isWeakHero ? 0.15 : 0.40;
+
+                        double cappedTotal = Math.Min(x.Total, cap);
+                        double score = x.AvgRank - (Math.Log10(cappedTotal) * weight);
+
+                        return new { Origin = x.Origin, Score = score };
+                    })
+                    .OrderBy(x => x.Score)
+                    .First();
+
+                return bestBuild.Origin;
+            }
         }
 
         private void LogAndReportError(string message, IProgress<Tuple<int, string>> progress)

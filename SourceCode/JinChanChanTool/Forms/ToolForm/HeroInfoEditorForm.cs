@@ -1,9 +1,11 @@
-﻿using Microsoft.VisualBasic;
-using System.ComponentModel;
-using System.Diagnostics;
-using JinChanChanTool.DataClass;
+﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Tools;
+using Microsoft.VisualBasic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace JinChanChanTool.Forms
 {
@@ -30,9 +32,8 @@ namespace JinChanChanTool.Forms
         public HeroInfoEditorForm()
         {
             InitializeComponent();
-            // 添加自定义标题栏
-            CustomTitleBar titleBar = new CustomTitleBar(this,32, null, "英雄配置文件编辑器", CustomTitleBar.ButtonOptions.None);
-            this.Controls.Add(titleBar);
+            DragHelper.EnableDragForChildren(panel3);
+
             isChanged = false;
             _iheroDataService = new HeroDataService();
 
@@ -625,5 +626,69 @@ namespace JinChanChanTool.Forms
         {
 
         }
+        #region 圆角实现
+        // GDI32 API - 用于创建圆角效果
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
+        // 圆角半径
+        private const int CORNER_RADIUS = 16;
+
+        /// <summary>
+        /// 在窗口句柄创建后应用圆角效果
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
+            ApplyRoundedCorners();
+        }
+
+        /// <summary>
+        /// 应用 GDI Region 圆角效果
+        /// </summary>
+        private void ApplyRoundedCorners()
+        {
+            try
+            {
+                // 创建圆角矩形区域
+                IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
+
+                if (region != IntPtr.Zero)
+                {
+                    SetWindowRgn(Handle, region, true);
+                    // 注意：SetWindowRgn 会接管 region 的所有权，不需要手动删除
+
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 窗口大小改变时重新应用圆角
+        /// </summary>
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            // 调整大小时重新创建圆角区域
+            if (Handle != IntPtr.Zero)
+            {
+                ApplyRoundedCorners();
+            }
+        }
+        #endregion
     }
 }

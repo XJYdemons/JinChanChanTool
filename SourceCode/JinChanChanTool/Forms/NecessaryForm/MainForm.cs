@@ -13,8 +13,10 @@ using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.LineUpCodeTools;
 using JinChanChanTool.Tools.MouseTools;
+using JinChanChanTool.Tools;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static JinChanChanTool.DataClass.LineUp;
 namespace JinChanChanTool
 {
@@ -89,11 +91,9 @@ namespace JinChanChanTool
         public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService)
         {
             InitializeComponent();
-            #region 自定义标题栏
-            // 自定义标题栏,带图标、带标题、最小化与关闭按钮。
-            CustomTitleBar titleBar = new CustomTitleBar(this, this.LogicalToDeviceUnits(32), Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "icon.ico")), "JinChanChanTool", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
-            this.Controls.Add(titleBar);
-            #endregion
+            //添加拖动
+            DragHelper.EnableDragForChildren(panel3);
+
 
             #region 用户应用设置服务实例化并绑定事件
             _iManualSettingsService = iManualSettingsService;
@@ -205,7 +205,7 @@ namespace JinChanChanTool
             _cardService = new CardService(_iManualSettingsService, _iAutomaticSettingsService, _iCorrectionService, _iheroDataService, _iLineUpService);
             _cardService.isHighLightStatusChanged += OnIsHighLightChanged;
             _cardService.isGetCardStatusChanged += OnIsGetCardChanged;
-            _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;           
+            _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;
             #endregion
 
             #region 初始化状态显示窗口
@@ -292,7 +292,8 @@ namespace JinChanChanTool
             if (e.ChangedFields.Contains("HotKey1") ||
                 e.ChangedFields.Contains("HotKey2") ||
                 e.ChangedFields.Contains("HotKey3") ||
-                e.ChangedFields.Contains("HotKey4"))
+                e.ChangedFields.Contains("HotKey4") ||
+                e.ChangedFields.Contains("HotKey5"))
             {
                 RegisterHotKeys();
                 UpdateOverlayStatus();
@@ -400,6 +401,11 @@ namespace JinChanChanTool
             string hotKey2 = _iManualSettingsService.CurrentConfig.HotKey2;
             string hotKey3 = _iManualSettingsService.CurrentConfig.HotKey3;
             string hotKey4 = _iManualSettingsService.CurrentConfig.HotKey4;
+            string hotKey5 = _iManualSettingsService.CurrentConfig.HotKey5;
+            if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey5)))
+            {
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey5), () => capsuleSwitch1.IsOn = !capsuleSwitch1.IsOn);
+            }
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1)))
             {
                 GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey1), () => capsuleSwitch2.IsOn = !capsuleSwitch2.IsOn);
@@ -703,7 +709,13 @@ namespace JinChanChanTool
         /// </summary>
         public void UpdateOverlayStatus()
         {
-            StatusOverlayForm.Instance.UpdateStatus(_iManualSettingsService.CurrentConfig.HotKey1, _iManualSettingsService.CurrentConfig.HotKey2, _iManualSettingsService.CurrentConfig.HotKey3, _iManualSettingsService.CurrentConfig.HotKey4);
+            StatusOverlayForm.Instance.UpdateStatus(
+                _iManualSettingsService.CurrentConfig.HotKey1,
+                _iManualSettingsService.CurrentConfig.HotKey2,
+                _iManualSettingsService.CurrentConfig.HotKey3,
+                _iManualSettingsService.CurrentConfig.HotKey4,
+                _iManualSettingsService.CurrentConfig.HotKey5
+            );
         }
 
         #endregion
@@ -714,7 +726,7 @@ namespace JinChanChanTool
         private bool _isSyncingGetCard = false;
         private bool _isSyncingRefreshStore = false;
 
-       
+
         private void capsuleSwitch1_IsOnChanged(object sender, EventArgs e)
         {
             if (_isSyncingHighLight) return;
@@ -735,7 +747,7 @@ namespace JinChanChanTool
 
         private void OnIsHighLightChanged(bool isRunning)
         {
-            if(this.InvokeRequired)
+            if (this.InvokeRequired)
             {
                 this.Invoke(new Action<bool>(OnIsHighLightChanged), isRunning);
                 return;
@@ -743,7 +755,7 @@ namespace JinChanChanTool
             _isSyncingHighLight = true;
             capsuleSwitch1.IsOn = isRunning;
             _isSyncingHighLight = false;
-            
+
             comboBox_Season.Enabled = !_cardService.isHighLight && !_cardService.isGetCard;
         }
 
@@ -761,7 +773,7 @@ namespace JinChanChanTool
             }
             _isSyncingGetCard = true;
             capsuleSwitch2.IsOn = isRunning;
-            _isSyncingGetCard = false;         
+            _isSyncingGetCard = false;
             comboBox_Season.Enabled = !_cardService.isGetCard && !_cardService.isHighLight;
         }
 
@@ -1651,6 +1663,18 @@ namespace JinChanChanTool
             button_变阵2.BackColor = selectedIndex == 1 ? selectedColor : normalColor;
             button_变阵3.BackColor = selectedIndex == 2 ? selectedColor : normalColor;
 
+            if(selectedIndex==0)
+            {
+                button_变阵1.Focus();
+            }
+            else if (selectedIndex == 1)
+            {
+                button_变阵2.Focus();
+            }
+            else if (selectedIndex == 2)
+            {
+                button_变阵3.Focus();
+            }
             button_变阵1.Text = currentLineUp.SubLineUps[0].SubLineUpName;
             button_变阵2.Text = currentLineUp.SubLineUps[1].SubLineUpName;
             button_变阵3.Text = currentLineUp.SubLineUps[2].SubLineUpName;
@@ -2125,10 +2149,91 @@ namespace JinChanChanTool
 
         #endregion
 
+        #region 赛季信息编辑UI
+        private void roundedButton7_Click(object sender, EventArgs e)
+        {
+            var form = new HeroInfoEditorForm();
+            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
+            form.TopMost = true;// 确保窗口在最前面
+            form.Show();// 显示窗口
+        }
+        #endregion
 
+        #region 圆角实现
+        // GDI32 API - 用于创建圆角效果
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
+        [DllImport("user32.dll")]
+        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
 
+        // 圆角半径
+        private const int CORNER_RADIUS = 8;
 
-        
+        /// <summary>
+        /// 在窗口句柄创建后应用圆角效果
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
+            ApplyRoundedCorners();
+        }
+
+        /// <summary>
+        /// 应用 GDI Region 圆角效果
+        /// </summary>
+        private void ApplyRoundedCorners()
+        {
+            try
+            {
+                // 创建圆角矩形区域
+                IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
+
+                if (region != IntPtr.Zero)
+                {
+                    SetWindowRgn(Handle, region, true);
+                    // 注意：SetWindowRgn 会接管 region 的所有权，不需要手动删除
+
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 窗口大小改变时重新应用圆角
+        /// </summary>
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            // 调整大小时重新创建圆角区域
+            if (Handle != IntPtr.Zero)
+            {
+                ApplyRoundedCorners();
+            }
+        }
+        #endregion
+
+        #region 标题栏按钮事件
+        private void button_最小化_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button_关闭_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
     }
 }

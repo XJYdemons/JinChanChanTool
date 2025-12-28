@@ -30,6 +30,11 @@
         public string HotKey4 { get; set; }
 
         /// <summary>
+        /// 快捷键5-高亮功能
+        /// </summary>
+        public string HotKey5 { get; set; }
+
+        /// <summary>
         /// 商店售卖的第一张英雄的名称截图数据矩形
         /// </summary>
         public Rectangle HeroNameScreenshotRectangle_1 { get; set; }
@@ -269,7 +274,8 @@
             HotKey1 = "F7";
             HotKey2 = "F8";
             HotKey3 = "Home";
-            HotKey4 = "F9";                        
+            HotKey4 = "F9";
+            HotKey5 = "F6";
             SelectedScreenIndex = 0;
             HeroNameScreenshotRectangle_1 = new Rectangle(0, 0, 10, 10);
             HeroNameScreenshotRectangle_2 = new Rectangle(0, 0, 10, 10);
@@ -332,46 +338,47 @@
                 HotKey2 = this.HotKey2,
                 HotKey3 = this.HotKey3,
                 HotKey4 = this.HotKey4,
+                HotKey5 = this.HotKey5,
                 SelectedScreenIndex = this.SelectedScreenIndex,
                 HeroNameScreenshotRectangle_1 = this.HeroNameScreenshotRectangle_1,
                 HeroNameScreenshotRectangle_2 = this.HeroNameScreenshotRectangle_2,
                 HeroNameScreenshotRectangle_3 = this.HeroNameScreenshotRectangle_3,
                 HeroNameScreenshotRectangle_4 = this.HeroNameScreenshotRectangle_4,
-                HeroNameScreenshotRectangle_5 = this.HeroNameScreenshotRectangle_5,             
+                HeroNameScreenshotRectangle_5 = this.HeroNameScreenshotRectangle_5,
                 RefreshStoreButtonRectangle = this.RefreshStoreButtonRectangle,
                 HighLightRectangle_1 = this.HighLightRectangle_1,
                 HighLightRectangle_2 = this.HighLightRectangle_2,
                 HighLightRectangle_3 = this.HighLightRectangle_3,
                 HighLightRectangle_4 = this.HighLightRectangle_4,
                 HighLightRectangle_5 = this.HighLightRectangle_5,
-                IsUseHightLightPrompt = this.IsUseHightLightPrompt,             
+                IsUseHightLightPrompt = this.IsUseHightLightPrompt,
                 IsHighUserPriority = this.IsHighUserPriority,
                 IsAutomaticStopHeroPurchase = this.IsAutomaticStopHeroPurchase,
                 IsAutomaticStopRefreshStore = this.IsAutomaticStopRefreshStore,
                 IsMouseHeroPurchase = this.IsMouseHeroPurchase,
-                IsKeyboardHeroPurchase =this.IsKeyboardHeroPurchase,
-                HeroPurchaseKey1 =this.HeroPurchaseKey1,
-                HeroPurchaseKey2 =this.HeroPurchaseKey2,
-                HeroPurchaseKey3 =this.HeroPurchaseKey3,
-                HeroPurchaseKey4 =this.HeroPurchaseKey4,
-                HeroPurchaseKey5 =this.HeroPurchaseKey5,
-                IsMouseRefreshStore =this.IsMouseRefreshStore,
-                IsKeyboardRefreshStore =this.IsKeyboardRefreshStore,
-                RefreshStoreKey =this.RefreshStoreKey,
+                IsKeyboardHeroPurchase = this.IsKeyboardHeroPurchase,
+                HeroPurchaseKey1 = this.HeroPurchaseKey1,
+                HeroPurchaseKey2 = this.HeroPurchaseKey2,
+                HeroPurchaseKey3 = this.HeroPurchaseKey3,
+                HeroPurchaseKey4 = this.HeroPurchaseKey4,
+                HeroPurchaseKey5 = this.HeroPurchaseKey5,
+                IsMouseRefreshStore = this.IsMouseRefreshStore,
+                IsKeyboardRefreshStore = this.IsKeyboardRefreshStore,
+                RefreshStoreKey = this.RefreshStoreKey,
                 IsUseCPUForInference = this.IsUseCPUForInference,
                 IsUseGPUForInference = this.IsUseGPUForInference,
                 IsUseFixedCoordinates = this.IsUseFixedCoordinates,
-                IsUseDynamicCoordinates =this.IsUseDynamicCoordinates,               
+                IsUseDynamicCoordinates = this.IsUseDynamicCoordinates,
                 MaxTimesWithoutHeroPurchase = this.MaxTimesWithoutHeroPurchase,
                 MaxTimesWithoutRefreshStore = this.MaxTimesWithoutRefreshStore,
                 DelayAfterOperation = this.DelayAfterOperation,
                 DelayAfterRefreshStore_CPU = this.DelayAfterRefreshStore_CPU,
-                DelayAfterRefreshStore_GPU = this.DelayAfterRefreshStore_GPU,               
+                DelayAfterRefreshStore_GPU = this.DelayAfterRefreshStore_GPU,
                 IsUseSelectForm = this.IsUseSelectForm,
                 IsUseLineUpForm = this.IsUseLineUpForm,
                 IsUseStatusOverlayForm = this.IsUseStatusOverlayForm,
                 IsUseOutputForm = this.IsUseOutputForm,
-                IsStopRefreshStoreWhenErrorCharacters =this.IsStopRefreshStoreWhenErrorCharacters,               
+                IsStopRefreshStoreWhenErrorCharacters = this.IsStopRefreshStoreWhenErrorCharacters,
                 UpdateEquipmentInterval = this.UpdateEquipmentInterval,
                 IsAutomaticUpdateEquipment = this.IsAutomaticUpdateEquipment,
                 TargetProcessName = this.TargetProcessName,
@@ -379,7 +386,7 @@
                 TransparentHeroPictureBoxSize = this.TransparentHeroPictureBoxSize,
                 TransparentHeroPictureBoxHorizontalSpacing = this.TransparentHeroPictureBoxHorizontalSpacing,
                 TransparentHeroPanelsVerticalSpacing = this.TransparentHeroPanelsVerticalSpacing,
-                
+
             };
         }
 
@@ -397,6 +404,7 @@
                    HotKey2 == other.HotKey2 &&
                    HotKey3 == other.HotKey3 &&
                    HotKey4 == other.HotKey4 &&
+                   HotKey5 == other.HotKey5 &&
                    SelectedScreenIndex == other.SelectedScreenIndex &&
                    HeroNameScreenshotRectangle_1 == other.HeroNameScreenshotRectangle_1 &&
                    HeroNameScreenshotRectangle_2 == other.HeroNameScreenshotRectangle_2 &&

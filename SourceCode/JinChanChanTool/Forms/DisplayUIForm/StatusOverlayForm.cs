@@ -1,6 +1,9 @@
-﻿using JinChanChanTool.Services;
+﻿using JinChanChanTool.DIYComponents;
+using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Tools;
 using System;
+using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 
 namespace JinChanChanTool.Forms
@@ -23,331 +26,123 @@ namespace JinChanChanTool.Forms
                 return _instance;
             }
         }
-
-        // 状态标签
-        private Label lblStatus1;
-        private Label lblStatus2;      
-        private Label lblStatus3;
-        private Label lblStatus4;
-
-        private Button autoGetCardButton;
-        private Button refreshStoreButton;
-
-        // 拖动相关变量
-        private Point _dragStartPoint;
-        private bool _dragging;
+       
+        private StatusOverlayForm()
+        {
+            InitializeComponent();
+            DragHelper.EnableDragForChildren(panel2);
+        }
 
         public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
                                                              //
         private CardService _cardService; //自动拿牌服务
-        private StatusOverlayForm()
+        // 同步标志，防止循环调用
+        private bool _isSyncingHighlight = false;
+        private bool _isSyncingGetCard = false;
+        private bool _isSyncingRefresh = false;
+
+        /// <summary>
+        /// 高亮显示胶囊开关状态变更事件
+        /// </summary>
+        private void HighlightCapsuleSwitch_IsOnChanged(object sender, EventArgs e)
         {
-            InitializeComponent();
-            InitializeComponents();
+            if (_isSyncingHighlight) return;
+            _cardService.ToggleHighLight();
         }
 
         /// <summary>
-        /// 初始化自定义组件
+        /// 自动拿牌胶囊开关状态变更事件
         /// </summary>
-        private void InitializeComponents()
+        private void AutoGetCardCapsuleSwitch_IsOnChanged(object sender, EventArgs e)
         {
-            // 窗体设置
-            this.FormBorderStyle = FormBorderStyle.None;//无边框
-            this.TopMost = true;//始终置顶
-            this.ShowInTaskbar = false;//不在任务栏显示
-            this.StartPosition = FormStartPosition.Manual;//手动设置位置
-            this.DoubleBuffered = true;//启用双缓冲减少闪烁
-            this.AutoScaleMode = AutoScaleMode.Dpi;            
-            this.AutoSize = true;
-            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            this.Padding = new Padding(0);
-
-            // 使用一个容器布局（FlowLayoutPanel）让Label自动排列
-            FlowLayoutPanel panel = new FlowLayoutPanel
-            {
-                FlowDirection = FlowDirection.TopDown,
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                Dock = DockStyle.Fill,
-                Padding = new Padding(0),
-                Margin = new Padding(0),
-                BackColor = Color.Transparent
-            };
-
-            lblStatus1 = new Label
-            {
-                Text = "开关1: 关闭",
-                ForeColor = Color.White,
-                Font = new Font("微软雅黑", 10, FontStyle.Bold),
-                AutoSize = true,
-                Margin = new Padding(2),
-                TextAlign = ContentAlignment.MiddleLeft,
-                BackColor = Color.Transparent
-            };
-
-            lblStatus2 = new Label
-            {
-                Text = "开关2: 关闭",
-                ForeColor = Color.White,
-                Font = new Font("微软雅黑", 10, FontStyle.Bold),
-                AutoSize = true,
-                Margin = new Padding(2),
-                TextAlign = ContentAlignment.MiddleLeft,
-                BackColor = Color.Transparent
-            };
-
-            lblStatus3 = new Label
-            {
-                Text = "",
-                ForeColor = Color.White,
-                Font = new Font("微软雅黑", 10, FontStyle.Bold),
-                AutoSize = true,
-                Margin = new Padding(2),
-                TextAlign = ContentAlignment.MiddleLeft,
-                BackColor = Color.Transparent
-            };
-
-            lblStatus4 = new Label
-            {
-                Text = "",
-                ForeColor = Color.White,
-                Font = new Font("微软雅黑", 10, FontStyle.Bold),
-                AutoSize = true,
-                Margin = new Padding(2),
-                TextAlign = ContentAlignment.MiddleLeft,
-                BackColor = Color.Transparent
-            };
-
-            // 创建按钮容器面板 - 使用FlowLayoutPanel实现自动布局
-            FlowLayoutPanel buttonPanel = new FlowLayoutPanel
-            {
-                FlowDirection = FlowDirection.LeftToRight,
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                Padding = new Padding(0),
-                Margin = new Padding(2),
-                BackColor = Color.Transparent,
-                WrapContents = false
-            };
-
-            // 使用LogicalToDeviceUnits进行DPI缩放
-            Size buttonSize = new Size(this.LogicalToDeviceUnits(80), this.LogicalToDeviceUnits(25));
-
-            // 创建左侧按钮
-            autoGetCardButton = new Button
-            {
-                Text = "自动拿牌",
-                Font = new Font("微软雅黑", 9, FontStyle.Regular),
-                Size = buttonSize,
-                BackColor = Color.FromArgb(80, 80, 80),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false,
-                Margin = new Padding(2, 0, 2, 0)
-            };
-            autoGetCardButton.FlatAppearance.BorderColor = Color.Gray;           
-
-            // 创建右侧按钮
-            refreshStoreButton = new Button
-            {
-                Text = "自动刷新",
-                Font = new Font("微软雅黑", 9, FontStyle.Regular),
-                Size = buttonSize,
-                BackColor = Color.FromArgb(80, 80, 80),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                UseVisualStyleBackColor = false,
-                Margin = new Padding(2, 0, 2, 0)
-            };
-            refreshStoreButton.FlatAppearance.BorderColor = Color.Gray;
-            
-            // 添加按钮到按钮面板
-            buttonPanel.Controls.Add(autoGetCardButton);
-            buttonPanel.Controls.Add(refreshStoreButton);
-            
-            panel.Controls.Add(lblStatus1);
-            panel.Controls.Add(lblStatus2);
-            panel.Controls.Add(lblStatus3);
-            panel.Controls.Add(lblStatus4);
-            panel.Controls.Add(buttonPanel);
-            this.Controls.Add(panel);
-          
-            // 鼠标事件处理
-            this.MouseDown += StatusOverlayForm_MouseDown;
-            this.MouseMove += StatusOverlayForm_MouseMove;
-            this.MouseUp += StatusOverlayForm_MouseUp;
-            panel.MouseDown += StatusOverlayForm_MouseDown;
-            panel.MouseMove += StatusOverlayForm_MouseMove;
-            panel.MouseUp += StatusOverlayForm_MouseUp;
-
-            lblStatus1.MouseDown += StatusOverlayForm_MouseDown;
-            lblStatus1.MouseMove += StatusOverlayForm_MouseMove;
-            lblStatus1.MouseUp += StatusOverlayForm_MouseUp;
-
-            lblStatus2.MouseDown += StatusOverlayForm_MouseDown;
-            lblStatus2.MouseMove += StatusOverlayForm_MouseMove;
-            lblStatus2.MouseUp += StatusOverlayForm_MouseUp;
-
-            lblStatus3.MouseDown += StatusOverlayForm_MouseDown;
-            lblStatus3.MouseMove += StatusOverlayForm_MouseMove;
-            lblStatus3.MouseUp += StatusOverlayForm_MouseUp;
-
-            lblStatus4.MouseDown += StatusOverlayForm_MouseDown;
-            lblStatus4.MouseMove += StatusOverlayForm_MouseMove;
-            lblStatus4.MouseUp += StatusOverlayForm_MouseUp;
-
-            // 按钮点击事件（示例）
-            autoGetCardButton.Click += autoGetCardButton_Click;
-            autoGetCardButton.MouseEnter += Button_MouseEnter;
-            autoGetCardButton.MouseLeave += Button_MouseLeave;
-            refreshStoreButton.Click += refreshStoreButton_Click;
-            refreshStoreButton.MouseEnter += Button_MouseEnter;
-            refreshStoreButton.MouseLeave += Button_MouseLeave;
-        }
-
-        private void Button_MouseEnter(object? sender, EventArgs e)
-        {
-            Button bt = sender as Button;
-            bt.FlatAppearance.BorderColor = Color.Yellow;
-        }
-        private void Button_MouseLeave(object? sender, EventArgs e)
-        {
-            Button bt = sender as Button;
-            bt.FlatAppearance.BorderColor = Color.Gray;
-        }
-
-
-        /// <summary>
-        /// 按钮点击事件
-        /// </summary>
-        private void autoGetCardButton_Click(object sender, EventArgs e)
-        {
+            if (_isSyncingGetCard) return;
             _cardService.ToggleLoop();
         }
 
         /// <summary>
-        /// 按钮点击事件
+        /// 自动刷新商店胶囊开关状态变更事件
         /// </summary>
-        private void refreshStoreButton_Click(object sender, EventArgs e)
+        private void AutoRefreshCapsuleSwitch_IsOnChanged(object sender, EventArgs e)
         {
+            if (_isSyncingRefresh) return;
             _cardService.ToggleRefreshStore();
         }
 
-        string _hotkey1 = "";
-        string _hotkey2 = "";
-        string _hotkey3 = "";   
-        string _hotkey4 = "";
-        bool _status1 = false;
-        bool _status2 = false;
-        // 更新状态显示
-        public void UpdateStatus(string hotkey1,string hotkey2,string hotkey3,string hotkey4)
-        {          
-            _hotkey1 = hotkey1;
-            _hotkey2 = hotkey2;
-            _hotkey3 = hotkey3;
-            _hotkey4 = hotkey4;
-            UpdateUI();
-        }
-        private void OnStartLoop(bool isRunning)
-        {
-            _status1 = isRunning;
-            if(isRunning)
+        /// <summary>
+        /// 更新状态显示
+        /// </summary>
+        public void UpdateStatus(string hotkey1, string hotkey2, string hotkey3, string hotkey4, string hotkey5)
+        {           
+            if (label_HotKey1.InvokeRequired)
             {
-                autoGetCardButton.BackColor = Color.Green;
-            }
-            else
-            {
-
-                autoGetCardButton.BackColor = Color.FromArgb(80, 80, 80);
-            }
-
-            UpdateUI();
-        }
-
-        private void OnAutoRefreshStatusChanged(bool isRunning)
-        {
-            _status2 = isRunning;
-            if (isRunning)
-            {
-                refreshStoreButton.BackColor = Color.Green;
-            }
-            else
-            {
-
-                refreshStoreButton.BackColor = Color.FromArgb(80, 80, 80);
-            }
-            UpdateUI();
-        }
-
-        private void UpdateUI()
-        {
-            if (lblStatus1.InvokeRequired)
-            {
-                lblStatus1.Invoke(new Action(() => UpdateUI()));
+                label_HotKey1.Invoke(new Action(() => UpdateStatus(hotkey1,hotkey2,hotkey3,hotkey4,hotkey5)));
                 return;
             }
-            lblStatus1.Text = $"{_hotkey1} - 自动拿牌: [{(_status1 ? "开" : "关")}]";
-            lblStatus1.ForeColor = _status1 ? Color.LimeGreen : Color.White;
-            lblStatus2.Text = $"{_hotkey2} - 自动刷新商店: [{(_status2 ? "开" : "关")}]";
-            lblStatus2.ForeColor = _status2 ? Color.LimeGreen : Color.White;
-            lblStatus3.Text = $"{_hotkey3} - 隐藏/召出主窗口";
-            lblStatus4.Text = $"{_hotkey4} - 自动D牌";
+            label_HotKey1.Text = hotkey1;
+            label_HotKey2.Text = hotkey2;
+            label_HotKey3.Text = hotkey3;
+            label_HotKey4.Text = hotkey4;
+            label_HotKey5.Text = hotkey5;
         }
-        #region 拖动窗体功能
+
         /// <summary>
-        /// 鼠标按下事件 - 开始拖动
+        /// 自动拿牌状态变更回调
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void StatusOverlayForm_MouseDown(object sender, MouseEventArgs e)
+        private void OnStartLoop(bool isRunning)
         {
-            if (e.Button == MouseButtons.Left)
+            if (capsuleSwitch_GetCard.InvokeRequired)
             {
-                _dragging = true;
-                _dragStartPoint = new Point(e.X, e.Y);
-                Cursor = Cursors.SizeAll;
+                capsuleSwitch_GetCard.Invoke(new Action<bool>(OnStartLoop), isRunning);
+                return;
             }
+            _isSyncingGetCard = true;
+            capsuleSwitch_GetCard.IsOn = isRunning;
+            _isSyncingGetCard = false;
         }
 
         /// <summary>
-        /// 鼠标移动事件 - 处理拖动
+        /// 自动刷新商店状态变更回调
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void StatusOverlayForm_MouseMove(object sender, MouseEventArgs e)
+        private void OnAutoRefreshStatusChanged(bool isRunning)
         {
-            if (_dragging)
+            if (capsuleSwitch_RefreshStore.InvokeRequired)
             {
-                Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
-                newLocation.Offset(-_dragStartPoint.X, -_dragStartPoint.Y);
-                this.Location = newLocation;
+                capsuleSwitch_RefreshStore.Invoke(new Action<bool>(OnAutoRefreshStatusChanged), isRunning);
+                return;
             }
+            _isSyncingRefresh = true;
+            capsuleSwitch_RefreshStore.IsOn = isRunning;
+            _isSyncingRefresh = false;
         }
 
         /// <summary>
-        /// 鼠标释放事件 - 结束拖动
+        /// 高亮显示状态变更回调
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void StatusOverlayForm_MouseUp(object sender, MouseEventArgs e)
+        private void OnHighlightStatusChanged(bool isRunning)
         {
-            _dragging = false;
-            Cursor = Cursors.Arrow;
-            SaveFormLocation();
+            if (capsuleSwitch_HighLight.InvokeRequired)
+            {
+                capsuleSwitch_HighLight.Invoke(new Action<bool>(OnHighlightStatusChanged), isRunning);
+                return;
+            }
+            _isSyncingHighlight = true;
+            capsuleSwitch_HighLight.IsOn = isRunning;
+            _isSyncingHighlight = false;
         }
 
-        #endregion
-
+       
         /// <summary>
         /// 初始化配置服务
         /// </summary>
-        /// <param name="iAutoConfigService"></param>
-        public void InitializeObject(IAutomaticSettingsService iAutoConfigService,CardService cardService)
+        /// <param name="iAutoConfigService">自动配置服务</param>
+        /// <param name="cardService">卡牌服务</param>
+        public void InitializeObject(IAutomaticSettingsService iAutoConfigService, CardService cardService)
         {
-            _iAutoConfigService = iAutoConfigService;      
+            _iAutoConfigService = iAutoConfigService;
             _cardService = cardService;
             _cardService.isGetCardStatusChanged += OnStartLoop;
             _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;
+            _cardService.isHighLightStatusChanged += OnHighlightStatusChanged;
         }
 
         
@@ -395,74 +190,6 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        /// <summary>
-        /// 重写创建控件时的行为，使窗口支持半透明
-        /// </summary>
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x00080000; // WS_EX_LAYERED
-                return cp;
-            }
-        }
-
-        /// <summary>
-        /// 设置窗口透明度
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            // 设置整个窗口的透明度（255为不透明，0为完全透明）
-            SetWindowOpacity(168); // 提高透明度减少残影
-        }
-
-        /// <summary>
-        /// 设置窗口透明度
-        /// </summary>
-        /// <param name="opacity"></param>
-        private void SetWindowOpacity(byte opacity)
-        {
-            // 使用User32.dll中的SetLayeredWindowAttributes函数
-            if (this.IsHandleCreated)
-            {
-                SetLayeredWindowAttributes(this.Handle, 0, opacity, LayeredWindowFlags.LWA_ALPHA);
-            }
-        }
-
-        /// <summary>
-        /// 绘制背景为纯色
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            // 使用一个不透明的画刷填充背景
-            using (SolidBrush brush = new SolidBrush(Color.FromArgb(64, 64, 64)))
-            {
-                e.Graphics.FillRectangle(brush, this.ClientRectangle);
-            }
-        }
-
-        #region Win32 API
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, LayeredWindowFlags dwFlags);
-
-        private void StatusOverlayForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        [Flags]
-        enum LayeredWindowFlags : uint
-        {
-            LWA_COLORKEY = 0x00000001,
-            LWA_ALPHA = 0x00000002
-        }
-        #endregion
         #region 位置保存与读取
         
         /// <summary>
@@ -484,6 +211,71 @@ namespace JinChanChanTool.Forms
             }
         }
 
+        #endregion
+
+        #region 圆角实现
+        // GDI32 API - 用于创建圆角效果
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
+        // 圆角半径
+        private const int CORNER_RADIUS = 16;
+
+        /// <summary>
+        /// 在窗口句柄创建后应用圆角效果
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
+            ApplyRoundedCorners();
+        }
+
+        /// <summary>
+        /// 应用 GDI Region 圆角效果
+        /// </summary>
+        private void ApplyRoundedCorners()
+        {
+            try
+            {
+                // 创建圆角矩形区域
+                IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
+
+                if (region != IntPtr.Zero)
+                {
+                    SetWindowRgn(Handle, region, true);
+                    // 注意：SetWindowRgn 会接管 region 的所有权，不需要手动删除
+
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 窗口大小改变时重新应用圆角
+        /// </summary>
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            // 调整大小时重新创建圆角区域
+            if (Handle != IntPtr.Zero)
+            {
+                ApplyRoundedCorners();
+            }
+        }
         #endregion
     }
 }

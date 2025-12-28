@@ -31,6 +31,7 @@ namespace JinChanChanTool
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel_SubLineUpParent = new Panel();
             button_变阵3 = new Button();
             button_变阵2 = new Button();
@@ -64,9 +65,20 @@ namespace JinChanChanTool
             capsuleSwitch1 = new CapsuleSwitch();
             toolTipTimer = new System.Windows.Forms.Timer(components);
             timer_UpdateCoordinates = new System.Windows.Forms.Timer(components);
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            label5 = new Label();
+            pictureBox1 = new PictureBox();
+            button2 = new Button();
+            button1 = new Button();
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel_SubLineUpParent
@@ -86,11 +98,14 @@ namespace JinChanChanTool
             // 
             // button_变阵3
             // 
+            button_变阵3.FlatAppearance.BorderColor = Color.White;
+            button_变阵3.FlatAppearance.BorderSize = 0;
             button_变阵3.FlatStyle = FlatStyle.Flat;
-            button_变阵3.Location = new Point(153, 2);
+            button_变阵3.Location = new Point(157, 2);
             button_变阵3.Name = "button_变阵3";
             button_变阵3.Size = new Size(75, 25);
             button_变阵3.TabIndex = 3;
+            button_变阵3.TabStop = false;
             button_变阵3.Text = "后期";
             button_变阵3.UseVisualStyleBackColor = true;
             button_变阵3.Click += button_变阵3_Click;
@@ -98,11 +113,14 @@ namespace JinChanChanTool
             // 
             // button_变阵2
             // 
+            button_变阵2.FlatAppearance.BorderColor = Color.White;
+            button_变阵2.FlatAppearance.BorderSize = 0;
             button_变阵2.FlatStyle = FlatStyle.Flat;
-            button_变阵2.Location = new Point(79, 2);
+            button_变阵2.Location = new Point(81, 2);
             button_变阵2.Name = "button_变阵2";
             button_变阵2.Size = new Size(75, 25);
             button_变阵2.TabIndex = 2;
+            button_变阵2.TabStop = false;
             button_变阵2.Text = "中期";
             button_变阵2.UseVisualStyleBackColor = true;
             button_变阵2.Click += button_变阵2_Click;
@@ -110,11 +128,14 @@ namespace JinChanChanTool
             // 
             // button_变阵1
             // 
+            button_变阵1.FlatAppearance.BorderColor = Color.White;
+            button_变阵1.FlatAppearance.BorderSize = 0;
             button_变阵1.FlatStyle = FlatStyle.Flat;
             button_变阵1.Location = new Point(5, 2);
             button_变阵1.Name = "button_变阵1";
             button_变阵1.Size = new Size(75, 25);
             button_变阵1.TabIndex = 1;
+            button_变阵1.TabStop = false;
             button_变阵1.Text = "前期";
             button_变阵1.UseVisualStyleBackColor = true;
             button_变阵1.Click += button_变阵1_Click;
@@ -141,7 +162,7 @@ namespace JinChanChanTool
             // textBox_LineUpCode
             // 
             textBox_LineUpCode.Font = new Font("Microsoft YaHei UI", 9F);
-            textBox_LineUpCode.Location = new Point(11, 116);
+            textBox_LineUpCode.Location = new Point(7, 116);
             textBox_LineUpCode.Margin = new Padding(5);
             textBox_LineUpCode.Multiline = true;
             textBox_LineUpCode.Name = "textBox_LineUpCode";
@@ -156,7 +177,7 @@ namespace JinChanChanTool
             comboBox_SelectedLineUp.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_SelectedLineUp.FormattingEnabled = true;
             comboBox_SelectedLineUp.Items.AddRange(new object[] { "阵容1", "阵容2", "阵容3", "阵容4", "阵容5", "阵容6", "阵容7", "阵容8", "阵容9", "阵容10" });
-            comboBox_SelectedLineUp.Location = new Point(76, 86);
+            comboBox_SelectedLineUp.Location = new Point(72, 86);
             comboBox_SelectedLineUp.Margin = new Padding(2, 5, 2, 5);
             comboBox_SelectedLineUp.Name = "comboBox_SelectedLineUp";
             comboBox_SelectedLineUp.Size = new Size(149, 25);
@@ -172,7 +193,7 @@ namespace JinChanChanTool
             comboBox_Season.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             comboBox_Season.FormattingEnabled = true;
             comboBox_Season.Items.AddRange(new object[] { "巨龙之牙", "符文之地" });
-            comboBox_Season.Location = new Point(76, 56);
+            comboBox_Season.Location = new Point(72, 56);
             comboBox_Season.Margin = new Padding(2, 5, 2, 5);
             comboBox_Season.Name = "comboBox_Season";
             comboBox_Season.Size = new Size(149, 25);
@@ -183,9 +204,10 @@ namespace JinChanChanTool
             menuStrip_Main.BackColor = Color.White;
             menuStrip_Main.ImageScalingSize = new Size(24, 24);
             menuStrip_Main.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_设置, toolStripMenuItem_帮助, toolStripMenuItem_关于 });
-            menuStrip_Main.Location = new Point(3, 2);
+            menuStrip_Main.Location = new Point(0, 0);
             menuStrip_Main.Name = "menuStrip_Main";
-            menuStrip_Main.Size = new Size(398, 25);
+            menuStrip_Main.Padding = new Padding(0, 2, 0, 2);
+            menuStrip_Main.Size = new Size(404, 25);
             menuStrip_Main.TabIndex = 5;
             menuStrip_Main.Text = "菜单栏1";
             // 
@@ -219,7 +241,6 @@ namespace JinChanChanTool
             // 
             // panel_BackGround
             // 
-            panel_BackGround.AutoSize = true;
             panel_BackGround.BackColor = Color.White;
             panel_BackGround.Controls.Add(roundedButton8);
             panel_BackGround.Controls.Add(roundedButton7);
@@ -243,11 +264,9 @@ namespace JinChanChanTool
             panel_BackGround.Controls.Add(panel_SubLineUpParent);
             panel_BackGround.Controls.Add(tabControl_HeroSelector);
             panel_BackGround.Controls.Add(menuStrip_Main);
-            panel_BackGround.Dock = DockStyle.Fill;
-            panel_BackGround.Location = new Point(0, 0);
+            panel_BackGround.Location = new Point(0, 25);
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
-            panel_BackGround.Padding = new Padding(3, 2, 3, 5);
             panel_BackGround.Size = new Size(404, 629);
             panel_BackGround.TabIndex = 5;
             // 
@@ -282,6 +301,7 @@ namespace JinChanChanTool
             roundedButton7.Text = "编辑赛季英雄";
             roundedButton7.TextColor = Color.White;
             roundedButton7.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton7.Click += roundedButton7_Click;
             // 
             // roundedButton6
             // 
@@ -387,7 +407,7 @@ namespace JinChanChanTool
             // 
             // label4
             // 
-            label4.Location = new Point(11, 86);
+            label4.Location = new Point(7, 86);
             label4.Margin = new Padding(2, 5, 0, 5);
             label4.Name = "label4";
             label4.Size = new Size(58, 25);
@@ -397,7 +417,7 @@ namespace JinChanChanTool
             // 
             // label3
             // 
-            label3.Location = new Point(259, 31);
+            label3.Location = new Point(264, 31);
             label3.Margin = new Padding(2, 5, 0, 5);
             label3.Name = "label3";
             label3.Size = new Size(84, 20);
@@ -407,7 +427,7 @@ namespace JinChanChanTool
             // 
             // label_赛季
             // 
-            label_赛季.Location = new Point(11, 56);
+            label_赛季.Location = new Point(7, 56);
             label_赛季.Margin = new Padding(2, 5, 0, 5);
             label_赛季.Name = "label_赛季";
             label_赛季.Size = new Size(58, 25);
@@ -417,12 +437,12 @@ namespace JinChanChanTool
             // 
             // capsuleSwitch3
             // 
-            capsuleSwitch3.Location = new Point(344, 31);
+            capsuleSwitch3.Location = new Point(349, 31);
             capsuleSwitch3.Name = "capsuleSwitch3";
             capsuleSwitch3.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch3.OnColor = Color.FromArgb(76, 175, 80);
             capsuleSwitch3.ShowText = false;
-            capsuleSwitch3.Size = new Size(55, 20);
+            capsuleSwitch3.Size = new Size(50, 20);
             capsuleSwitch3.TabIndex = 15;
             capsuleSwitch3.Text = "capsuleSwitch3";
             capsuleSwitch3.TextColor = Color.DimGray;
@@ -431,7 +451,7 @@ namespace JinChanChanTool
             // 
             // label2
             // 
-            label2.Location = new Point(133, 31);
+            label2.Location = new Point(138, 31);
             label2.Margin = new Padding(2, 5, 0, 5);
             label2.Name = "label2";
             label2.Size = new Size(62, 20);
@@ -441,12 +461,12 @@ namespace JinChanChanTool
             // 
             // capsuleSwitch2
             // 
-            capsuleSwitch2.Location = new Point(196, 31);
+            capsuleSwitch2.Location = new Point(201, 31);
             capsuleSwitch2.Name = "capsuleSwitch2";
             capsuleSwitch2.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch2.OnColor = Color.FromArgb(76, 175, 80);
             capsuleSwitch2.ShowText = false;
-            capsuleSwitch2.Size = new Size(55, 20);
+            capsuleSwitch2.Size = new Size(50, 20);
             capsuleSwitch2.TabIndex = 13;
             capsuleSwitch2.Text = "capsuleSwitch2";
             capsuleSwitch2.TextColor = Color.DimGray;
@@ -455,7 +475,7 @@ namespace JinChanChanTool
             // 
             // label1
             // 
-            label1.Location = new Point(5, 31);
+            label1.Location = new Point(7, 31);
             label1.Margin = new Padding(2, 5, 0, 5);
             label1.Name = "label1";
             label1.Size = new Size(62, 20);
@@ -465,12 +485,12 @@ namespace JinChanChanTool
             // 
             // capsuleSwitch1
             // 
-            capsuleSwitch1.Location = new Point(68, 31);
+            capsuleSwitch1.Location = new Point(70, 31);
             capsuleSwitch1.Name = "capsuleSwitch1";
             capsuleSwitch1.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch1.OnColor = Color.FromArgb(76, 175, 80);
             capsuleSwitch1.ShowText = false;
-            capsuleSwitch1.Size = new Size(55, 20);
+            capsuleSwitch1.Size = new Size(50, 20);
             capsuleSwitch1.TabIndex = 0;
             capsuleSwitch1.Text = "capsuleSwitch1";
             capsuleSwitch1.TextColor = Color.DimGray;
@@ -488,14 +508,97 @@ namespace JinChanChanTool
             timer_UpdateCoordinates.Interval = 1000;
             timer_UpdateCoordinates.Tick += timer_UpdateCoordinates_Tick;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(250, 250, 250);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(3, 3, 4, 4);
+            panel1.Size = new Size(410, 662);
+            panel1.TabIndex = 6;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.White;
+            panel2.Controls.Add(panel3);
+            panel2.Controls.Add(panel_BackGround);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(3, 3);
+            panel2.Margin = new Padding(0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(403, 655);
+            panel2.TabIndex = 6;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(label5);
+            panel3.Controls.Add(pictureBox1);
+            panel3.Controls.Add(button2);
+            panel3.Controls.Add(button1);
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(404, 25);
+            panel3.TabIndex = 6;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(24, 1);
+            label5.MinimumSize = new Size(80, 23);
+            label5.Name = "label5";
+            label5.Size = new Size(107, 23);
+            label5.TabIndex = 10;
+            label5.Text = "JinChanChanTool";
+            label5.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(5, 5);
+            pictureBox1.Margin = new Padding(0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(15, 15);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
+            // 
+            // button2
+            // 
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(354, 1);
+            button2.Margin = new Padding(0);
+            button2.Name = "button2";
+            button2.Size = new Size(23, 23);
+            button2.TabIndex = 8;
+            button2.Text = "—";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button_最小化_Click;
+            // 
+            // button1
+            // 
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(379, 1);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(23, 23);
+            button1.TabIndex = 7;
+            button1.Text = "X";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button_关闭_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(404, 629);
-            Controls.Add(panel_BackGround);
+            ClientSize = new Size(410, 662);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip_Main;
             Name = "MainForm";
             Text = " JinChanChanTool";
@@ -506,8 +609,12 @@ namespace JinChanChanTool
             menuStrip_Main.PerformLayout();
             panel_BackGround.ResumeLayout(false);
             panel_BackGround.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -545,5 +652,12 @@ namespace JinChanChanTool
         private RoundedButton roundedButton2;
         private RoundedButton roundedButton8;
         private RoundedButton roundedButton7;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Button button1;
+        private Label label5;
+        private PictureBox pictureBox1;
+        private Button button2;
     }
 }

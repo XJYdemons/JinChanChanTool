@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingForm));
             panel_快捷键 = new Panel();
+            label28 = new Label();
+            textBox_高亮提示 = new TextBox();
             label_长按自动D牌 = new Label();
             textBox_长按自动D牌快捷键 = new TextBox();
             label_召出隐藏窗口 = new Label();
@@ -41,8 +44,6 @@
             label_选择显示器 = new Label();
             button_快速设置商店刷新按钮坐标 = new Button();
             button_快速设置奕子截图坐标与大小 = new Button();
-            button_默认设置 = new Button();
-            button_保存设置 = new Button();
             tabControl_设置 = new TabControl();
             tabPage_快捷键 = new TabPage();
             tabPage_功能 = new TabPage();
@@ -146,7 +147,14 @@
             textBox_更新推荐装备间隔 = new TextBox();
             checkBox_定时更新推荐装备 = new CheckBox();
             panel_BackGround = new Panel();
+            panel3 = new Panel();
+            label29 = new Label();
+            button2 = new Button();
+            button3 = new Button();
             panel_Buttons = new Panel();
+            roundedButton_默认设置 = new JinChanChanTool.DIYComponents.RoundedButton();
+            roundedButton_保存设置 = new JinChanChanTool.DIYComponents.RoundedButton();
+            panel4 = new Panel();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
             tabPage_快捷键.SuspendLayout();
@@ -169,13 +177,17 @@
             tabPage_大数据推荐.SuspendLayout();
             panel_大数据推荐.SuspendLayout();
             panel_BackGround.SuspendLayout();
+            panel3.SuspendLayout();
             panel_Buttons.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // panel_快捷键
             // 
             panel_快捷键.AutoScroll = true;
             panel_快捷键.BackColor = Color.White;
+            panel_快捷键.Controls.Add(label28);
+            panel_快捷键.Controls.Add(textBox_高亮提示);
             panel_快捷键.Controls.Add(label_长按自动D牌);
             panel_快捷键.Controls.Add(textBox_长按自动D牌快捷键);
             panel_快捷键.Controls.Add(label_召出隐藏窗口);
@@ -187,13 +199,32 @@
             panel_快捷键.Dock = DockStyle.Fill;
             panel_快捷键.Location = new Point(3, 3);
             panel_快捷键.Name = "panel_快捷键";
-            panel_快捷键.Size = new Size(459, 325);
+            panel_快捷键.Size = new Size(455, 325);
             panel_快捷键.TabIndex = 208;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(5, 34);
+            label28.MinimumSize = new Size(56, 23);
+            label28.Name = "label28";
+            label28.Size = new Size(56, 23);
+            label28.TabIndex = 20;
+            label28.Text = "高亮提示";
+            label28.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_高亮提示
+            // 
+            textBox_高亮提示.Location = new Point(373, 34);
+            textBox_高亮提示.Name = "textBox_高亮提示";
+            textBox_高亮提示.Size = new Size(79, 23);
+            textBox_高亮提示.TabIndex = 19;
+            textBox_高亮提示.TabStop = false;
             // 
             // label_长按自动D牌
             // 
             label_长按自动D牌.AutoSize = true;
-            label_长按自动D牌.Location = new Point(5, 91);
+            label_长按自动D牌.Location = new Point(5, 121);
             label_长按自动D牌.MinimumSize = new Size(87, 23);
             label_长按自动D牌.Name = "label_长按自动D牌";
             label_长按自动D牌.Size = new Size(87, 23);
@@ -203,7 +234,7 @@
             // 
             // textBox_长按自动D牌快捷键
             // 
-            textBox_长按自动D牌快捷键.Location = new Point(373, 89);
+            textBox_长按自动D牌快捷键.Location = new Point(373, 119);
             textBox_长按自动D牌快捷键.Name = "textBox_长按自动D牌快捷键";
             textBox_长按自动D牌快捷键.Size = new Size(79, 23);
             textBox_长按自动D牌快捷键.TabIndex = 17;
@@ -231,7 +262,7 @@
             // label_自动刷新商店
             // 
             label_自动刷新商店.AutoSize = true;
-            label_自动刷新商店.Location = new Point(5, 61);
+            label_自动刷新商店.Location = new Point(5, 91);
             label_自动刷新商店.MinimumSize = new Size(87, 23);
             label_自动刷新商店.Name = "label_自动刷新商店";
             label_自动刷新商店.Size = new Size(87, 23);
@@ -242,7 +273,7 @@
             // label_自动拿牌
             // 
             label_自动拿牌.AutoSize = true;
-            label_自动拿牌.Location = new Point(5, 33);
+            label_自动拿牌.Location = new Point(5, 63);
             label_自动拿牌.MinimumSize = new Size(56, 23);
             label_自动拿牌.Name = "label_自动拿牌";
             label_自动拿牌.Size = new Size(56, 23);
@@ -252,7 +283,7 @@
             // 
             // textBox_自动刷新商店快捷键
             // 
-            textBox_自动刷新商店快捷键.Location = new Point(373, 61);
+            textBox_自动刷新商店快捷键.Location = new Point(373, 91);
             textBox_自动刷新商店快捷键.Name = "textBox_自动刷新商店快捷键";
             textBox_自动刷新商店快捷键.Size = new Size(79, 23);
             textBox_自动刷新商店快捷键.TabIndex = 5;
@@ -260,7 +291,7 @@
             // 
             // textBox_自动拿牌快捷键
             // 
-            textBox_自动拿牌快捷键.Location = new Point(373, 33);
+            textBox_自动拿牌快捷键.Location = new Point(373, 63);
             textBox_自动拿牌快捷键.Name = "textBox_自动拿牌快捷键";
             textBox_自动拿牌快捷键.Size = new Size(79, 23);
             textBox_自动拿牌快捷键.TabIndex = 1;
@@ -313,33 +344,6 @@
             button_快速设置奕子截图坐标与大小.UseVisualStyleBackColor = true;
             button_快速设置奕子截图坐标与大小.Click += button_快速设置奕子截图坐标与大小_Click;
             // 
-            // button_默认设置
-            // 
-            button_默认设置.FlatAppearance.BorderColor = Color.DarkGray;
-            button_默认设置.FlatStyle = FlatStyle.Flat;
-            button_默认设置.Location = new Point(80, 5);
-            button_默认设置.Name = "button_默认设置";
-            button_默认设置.Size = new Size(70, 26);
-            button_默认设置.TabIndex = 25;
-            button_默认设置.TabStop = false;
-            button_默认设置.Text = "默认设置";
-            button_默认设置.UseVisualStyleBackColor = true;
-            button_默认设置.Click += button6_Click;
-            // 
-            // button_保存设置
-            // 
-            button_保存设置.FlatAppearance.BorderColor = Color.DarkGray;
-            button_保存设置.FlatStyle = FlatStyle.Flat;
-            button_保存设置.Location = new Point(5, 5);
-            button_保存设置.Margin = new Padding(0);
-            button_保存设置.Name = "button_保存设置";
-            button_保存设置.Size = new Size(70, 26);
-            button_保存设置.TabIndex = 24;
-            button_保存设置.TabStop = false;
-            button_保存设置.Text = "保存设置";
-            button_保存设置.UseVisualStyleBackColor = true;
-            button_保存设置.Click += button1_Click;
-            // 
             // tabControl_设置
             // 
             tabControl_设置.Controls.Add(tabPage_快捷键);
@@ -349,10 +353,10 @@
             tabControl_设置.Controls.Add(tabPage_OCR相关);
             tabControl_设置.Controls.Add(tabPage_窗口);
             tabControl_设置.Controls.Add(tabPage_大数据推荐);
-            tabControl_设置.Location = new Point(5, 45);
+            tabControl_设置.Location = new Point(5, 63);
             tabControl_设置.Name = "tabControl_设置";
             tabControl_设置.SelectedIndex = 0;
-            tabControl_设置.Size = new Size(473, 361);
+            tabControl_设置.Size = new Size(469, 361);
             tabControl_设置.TabIndex = 209;
             tabControl_设置.TabStop = false;
             // 
@@ -362,7 +366,7 @@
             tabPage_快捷键.Location = new Point(4, 26);
             tabPage_快捷键.Name = "tabPage_快捷键";
             tabPage_快捷键.Padding = new Padding(3);
-            tabPage_快捷键.Size = new Size(465, 331);
+            tabPage_快捷键.Size = new Size(461, 331);
             tabPage_快捷键.TabIndex = 0;
             tabPage_快捷键.Text = "快捷键";
             tabPage_快捷键.UseVisualStyleBackColor = true;
@@ -374,7 +378,7 @@
             tabPage_功能.Location = new Point(4, 26);
             tabPage_功能.Name = "tabPage_功能";
             tabPage_功能.Padding = new Padding(3);
-            tabPage_功能.Size = new Size(465, 331);
+            tabPage_功能.Size = new Size(461, 331);
             tabPage_功能.TabIndex = 10;
             tabPage_功能.Text = "功能";
             // 
@@ -751,10 +755,10 @@
             // 
             label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label13.ForeColor = Color.Silver;
-            label13.Location = new Point(5, 919);
+            label13.Location = new Point(5, 1326);
             label13.Margin = new Padding(0);
             label13.Name = "label13";
-            label13.Size = new Size(127, 10);
+            label13.Size = new Size(0, 10);
             label13.TabIndex = 234;
             label13.Text = "———————————————————————————————————\r\n";
             label13.TextAlign = ContentAlignment.MiddleLeft;
@@ -763,10 +767,10 @@
             // 
             label11.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label11.ForeColor = Color.Silver;
-            label11.Location = new Point(1, 800);
+            label11.Location = new Point(1, 1207);
             label11.Margin = new Padding(0);
             label11.Name = "label11";
-            label11.Size = new Size(127, 10);
+            label11.Size = new Size(0, 10);
             label11.TabIndex = 233;
             label11.Text = "———————————————————————————————————\r\n";
             label11.TextAlign = ContentAlignment.MiddleLeft;
@@ -944,7 +948,7 @@
             tabPage_截图.Location = new Point(4, 26);
             tabPage_截图.Name = "tabPage_截图";
             tabPage_截图.Padding = new Padding(3);
-            tabPage_截图.Size = new Size(465, 331);
+            tabPage_截图.Size = new Size(461, 331);
             tabPage_截图.TabIndex = 2;
             tabPage_截图.Text = "坐标设置";
             tabPage_截图.UseVisualStyleBackColor = true;
@@ -967,7 +971,7 @@
             panel_截图.Dock = DockStyle.Fill;
             panel_截图.Location = new Point(3, 3);
             panel_截图.Name = "panel_截图";
-            panel_截图.Size = new Size(459, 325);
+            panel_截图.Size = new Size(455, 325);
             panel_截图.TabIndex = 0;
             // 
             // radioButton_手动设置坐标
@@ -1059,7 +1063,7 @@
             tabPage_阵容相关.Location = new Point(4, 26);
             tabPage_阵容相关.Name = "tabPage_阵容相关";
             tabPage_阵容相关.Padding = new Padding(3);
-            tabPage_阵容相关.Size = new Size(465, 331);
+            tabPage_阵容相关.Size = new Size(461, 331);
             tabPage_阵容相关.TabIndex = 3;
             tabPage_阵容相关.Text = "赛季相关";
             tabPage_阵容相关.UseVisualStyleBackColor = true;
@@ -1072,7 +1076,7 @@
             panel_阵容相关.Dock = DockStyle.Fill;
             panel_阵容相关.Location = new Point(3, 3);
             panel_阵容相关.Name = "panel_阵容相关";
-            panel_阵容相关.Size = new Size(459, 325);
+            panel_阵容相关.Size = new Size(455, 325);
             panel_阵容相关.TabIndex = 18;
             // 
             // button_英雄配置文件编辑器
@@ -1081,7 +1085,7 @@
             button_英雄配置文件编辑器.FlatStyle = FlatStyle.Flat;
             button_英雄配置文件编辑器.Location = new Point(5, 5);
             button_英雄配置文件编辑器.Name = "button_英雄配置文件编辑器";
-            button_英雄配置文件编辑器.Size = new Size(451, 33);
+            button_英雄配置文件编辑器.Size = new Size(447, 33);
             button_英雄配置文件编辑器.TabIndex = 17;
             button_英雄配置文件编辑器.TabStop = false;
             button_英雄配置文件编辑器.Text = "英雄配置文件编辑器";
@@ -1094,7 +1098,7 @@
             tabPage_OCR相关.Location = new Point(4, 26);
             tabPage_OCR相关.Name = "tabPage_OCR相关";
             tabPage_OCR相关.Padding = new Padding(3);
-            tabPage_OCR相关.Size = new Size(465, 331);
+            tabPage_OCR相关.Size = new Size(461, 331);
             tabPage_OCR相关.TabIndex = 6;
             tabPage_OCR相关.Text = "OCR相关";
             tabPage_OCR相关.UseVisualStyleBackColor = true;
@@ -1109,7 +1113,7 @@
             panel_OCR相关.Dock = DockStyle.Fill;
             panel_OCR相关.Location = new Point(3, 3);
             panel_OCR相关.Name = "panel_OCR相关";
-            panel_OCR相关.Size = new Size(459, 325);
+            panel_OCR相关.Size = new Size(455, 325);
             panel_OCR相关.TabIndex = 24;
             // 
             // button_OCR结果纠正列表编辑器
@@ -1118,7 +1122,7 @@
             button_OCR结果纠正列表编辑器.FlatStyle = FlatStyle.Flat;
             button_OCR结果纠正列表编辑器.Location = new Point(5, 5);
             button_OCR结果纠正列表编辑器.Name = "button_OCR结果纠正列表编辑器";
-            button_OCR结果纠正列表编辑器.Size = new Size(451, 33);
+            button_OCR结果纠正列表编辑器.Size = new Size(447, 33);
             button_OCR结果纠正列表编辑器.TabIndex = 0;
             button_OCR结果纠正列表编辑器.TabStop = false;
             button_OCR结果纠正列表编辑器.Text = "OCR结果纠正列表编辑器";
@@ -1154,7 +1158,7 @@
             tabPage_窗口.Location = new Point(4, 26);
             tabPage_窗口.Name = "tabPage_窗口";
             tabPage_窗口.Padding = new Padding(3);
-            tabPage_窗口.Size = new Size(465, 331);
+            tabPage_窗口.Size = new Size(461, 331);
             tabPage_窗口.TabIndex = 7;
             tabPage_窗口.Text = "窗口";
             // 
@@ -1182,7 +1186,7 @@
             panel_窗口.Dock = DockStyle.Fill;
             panel_窗口.Location = new Point(3, 3);
             panel_窗口.Name = "panel_窗口";
-            panel_窗口.Size = new Size(459, 325);
+            panel_窗口.Size = new Size(455, 325);
             panel_窗口.TabIndex = 0;
             // 
             // label24
@@ -1373,7 +1377,7 @@
             tabPage_大数据推荐.Location = new Point(4, 26);
             tabPage_大数据推荐.Name = "tabPage_大数据推荐";
             tabPage_大数据推荐.Padding = new Padding(3);
-            tabPage_大数据推荐.Size = new Size(465, 331);
+            tabPage_大数据推荐.Size = new Size(461, 331);
             tabPage_大数据推荐.TabIndex = 8;
             tabPage_大数据推荐.Text = "大数据推荐";
             tabPage_大数据推荐.UseVisualStyleBackColor = true;
@@ -1394,7 +1398,7 @@
             panel_大数据推荐.Dock = DockStyle.Fill;
             panel_大数据推荐.Location = new Point(3, 3);
             panel_大数据推荐.Name = "panel_大数据推荐";
-            panel_大数据推荐.Size = new Size(459, 325);
+            panel_大数据推荐.Size = new Size(455, 325);
             panel_大数据推荐.TabIndex = 1;
             // 
             // button1
@@ -1494,39 +1498,131 @@
             // 
             // panel_BackGround
             // 
-            panel_BackGround.AutoScroll = true;
-            panel_BackGround.AutoSize = true;
             panel_BackGround.BackColor = Color.White;
+            panel_BackGround.Controls.Add(panel3);
             panel_BackGround.Controls.Add(tabControl_设置);
             panel_BackGround.Controls.Add(panel_Buttons);
             panel_BackGround.Dock = DockStyle.Fill;
-            panel_BackGround.Location = new Point(0, 0);
+            panel_BackGround.Location = new Point(3, 3);
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
-            panel_BackGround.Padding = new Padding(5);
-            panel_BackGround.Size = new Size(480, 409);
+            panel_BackGround.Size = new Size(474, 426);
             panel_BackGround.TabIndex = 210;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.Controls.Add(label29);
+            panel3.Controls.Add(button2);
+            panel3.Controls.Add(button3);
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(473, 25);
+            panel3.TabIndex = 211;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(4, 1);
+            label29.MinimumSize = new Size(80, 23);
+            label29.Name = "label29";
+            label29.Size = new Size(80, 23);
+            label29.TabIndex = 10;
+            label29.Text = "设置";
+            label29.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // button2
+            // 
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(424, 1);
+            button2.Margin = new Padding(0);
+            button2.Name = "button2";
+            button2.Size = new Size(23, 23);
+            button2.TabIndex = 8;
+            button2.Text = "—";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button_最小化_Click;
+            // 
+            // button3
+            // 
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Location = new Point(448, 1);
+            button3.Margin = new Padding(0);
+            button3.Name = "button3";
+            button3.Size = new Size(23, 23);
+            button3.TabIndex = 7;
+            button3.Text = "X";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button_关闭_Click;
             // 
             // panel_Buttons
             // 
             panel_Buttons.AutoScroll = true;
             panel_Buttons.BackColor = Color.White;
-            panel_Buttons.Controls.Add(button_默认设置);
-            panel_Buttons.Controls.Add(button_保存设置);
-            panel_Buttons.Location = new Point(5, 5);
+            panel_Buttons.Controls.Add(roundedButton_默认设置);
+            panel_Buttons.Controls.Add(roundedButton_保存设置);
+            panel_Buttons.Location = new Point(0, 26);
             panel_Buttons.Margin = new Padding(0);
             panel_Buttons.Name = "panel_Buttons";
             panel_Buttons.Size = new Size(473, 36);
             panel_Buttons.TabIndex = 210;
             // 
+            // roundedButton_默认设置
+            // 
+            roundedButton_默认设置.BorderColor = Color.Transparent;
+            roundedButton_默认设置.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton_默认设置.CornerRadius = 5;
+            roundedButton_默认设置.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_默认设置.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton_默认设置.Location = new Point(93, 5);
+            roundedButton_默认设置.Name = "roundedButton_默认设置";
+            roundedButton_默认设置.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton_默认设置.Size = new Size(83, 25);
+            roundedButton_默认设置.TabIndex = 27;
+            roundedButton_默认设置.Text = "默认设置";
+            roundedButton_默认设置.TextColor = Color.White;
+            roundedButton_默认设置.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_默认设置.Click += button6_Click;
+            // 
+            // roundedButton_保存设置
+            // 
+            roundedButton_保存设置.BorderColor = Color.Transparent;
+            roundedButton_保存设置.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton_保存设置.CornerRadius = 5;
+            roundedButton_保存设置.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_保存设置.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton_保存设置.Location = new Point(5, 5);
+            roundedButton_保存设置.Name = "roundedButton_保存设置";
+            roundedButton_保存设置.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton_保存设置.Size = new Size(83, 25);
+            roundedButton_保存设置.TabIndex = 26;
+            roundedButton_保存设置.Text = "保存设置";
+            roundedButton_保存设置.TextColor = Color.White;
+            roundedButton_保存设置.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_保存设置.Click += button1_Click;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.FromArgb(250, 250, 250);
+            panel4.Controls.Add(panel_BackGround);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 0);
+            panel4.Margin = new Padding(0);
+            panel4.Name = "panel4";
+            panel4.Padding = new Padding(3, 3, 4, 4);
+            panel4.Size = new Size(481, 433);
+            panel4.TabIndex = 211;
+            // 
             // SettingForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(480, 409);
-            Controls.Add(panel_BackGround);
+            ClientSize = new Size(481, 433);
+            Controls.Add(panel4);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "SettingForm";
             Text = "设置";
@@ -1562,13 +1658,14 @@
             panel_大数据推荐.ResumeLayout(false);
             panel_大数据推荐.PerformLayout();
             panel_BackGround.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             panel_Buttons.ResumeLayout(false);
+            panel4.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        public Button button_默认设置;
         public Panel panel_快捷键;
         public Label label_召出隐藏窗口;
         public TextBox textBox_召出隐藏窗口快捷键;
@@ -1580,7 +1677,6 @@
         public Label label_选择显示器;
         public Button button_快速设置商店刷新按钮坐标;
         public Button button_快速设置奕子截图坐标与大小;
-        public Button button_保存设置;
         private TabControl tabControl_设置;
         private TabPage tabPage_快捷键;
         private TabPage tabPage_截图;
@@ -1688,5 +1784,14 @@
         public Button button1;
         private Label label26;
         private Label label27;
+        public Label label28;
+        public TextBox textBox_高亮提示;
+        private Panel panel3;
+        private Label label29;
+        private Button button2;
+        private Button button3;
+        private Panel panel4;
+        private DIYComponents.RoundedButton roundedButton_保存设置;
+        private DIYComponents.RoundedButton roundedButton_默认设置;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace JinChanChanTool.Forms
+﻿using JinChanChanTool.Tools;
+
+namespace JinChanChanTool.Forms
 {
     /// <summary>
     /// 用于显示进度的窗体
@@ -8,9 +10,7 @@
         public ProgressForm()
         {
             InitializeComponent();
-            // 添加自定义标题栏
-            CustomTitleBar titleBar = new CustomTitleBar(this, 32, null, "正在更新当前赛季英雄推荐装备数据", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
-            this.Controls.Add(titleBar);
+            DragHelper.EnableDragForChildren(panel3);
         }
 
         /// <summary>
@@ -43,5 +43,17 @@
             // 强制UI立即重绘，以确保用户能看到最新的状态
             this.Update();
         }
+
+        #region 标题栏按钮事件
+        private void button_最小化_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button_关闭_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
     }
 }

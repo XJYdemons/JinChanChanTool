@@ -9,9 +9,11 @@ using JinChanChanTool.Services.LineupCrawling.Interface;
 using JinChanChanTool.Services.ManuallySetCoordinates;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
+using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 namespace JinChanChanTool
 {
     public partial class SettingForm : Form
@@ -32,12 +34,10 @@ namespace JinChanChanTool
         public SettingForm(IManualSettingsService iAppConfigService,IRecommendedLineUpService iRecommendedLineUpService)
         {
             InitializeComponent();
-            // 添加自定义标题栏
+            DragHelper.EnableDragForChildren(panel3);
 
-            CustomTitleBar titleBar = new CustomTitleBar(this, 32, null, "设置", CustomTitleBar.ButtonOptions.Close | CustomTitleBar.ButtonOptions.Minimize);
-            this.Controls.Add(titleBar);
-            //隐藏图标
-            this.ShowIcon = false;
+            ////隐藏图标
+            //this.ShowIcon = false;
 
             // 获取所有连接的显示器  
             screens = Screen.AllScreens;
@@ -134,6 +134,7 @@ namespace JinChanChanTool
             textBox_自动拿牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey1;
             textBox_自动刷新商店快捷键.Text = _iappConfigService.CurrentConfig.HotKey2;
             textBox_长按自动D牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey4;
+            textBox_高亮提示.Text = _iappConfigService.CurrentConfig.HotKey5;
             radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseFixedCoordinates;
             radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;
             checkBox_避免程序与用户争夺光标控制权.Checked = _iappConfigService.CurrentConfig.IsHighUserPriority;
@@ -189,6 +190,11 @@ namespace JinChanChanTool
             textBox_长按自动D牌快捷键.KeyDown += textBox_长按自动D牌快捷键_KeyDown;
             textBox_长按自动D牌快捷键.Enter += TextBox_Enter;
             textBox_长按自动D牌快捷键.Leave += TextBox_Leave;
+
+            textBox_高亮提示.KeyDown += textBox_高亮提示_KeyDown;
+            textBox_高亮提示.Enter += TextBox_Enter;
+            textBox_高亮提示.Leave += TextBox_Leave;
+
 
             radioButton_手动设置坐标.CheckedChanged += radioButton_手动设置坐标_CheckedChanged;
 
@@ -345,7 +351,8 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey2) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey4))
+                
+                if (key.ToString() !=_iappConfigService.CurrentConfig.HotKey1&& key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
                 {
                     _iappConfigService.CurrentConfig.HotKey3 = key.ToString();
                     Update_AllComponents();
@@ -378,7 +385,7 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey2) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey3) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey4))
+                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
                 {
                     _iappConfigService.CurrentConfig.HotKey1 = key.ToString();
                     Update_AllComponents();
@@ -411,7 +418,7 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey3) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey4))
+                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
                 {
                     _iappConfigService.CurrentConfig.HotKey2 = key.ToString();
                     Update_AllComponents();
@@ -443,7 +450,7 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if ((key.ToString() != _iappConfigService.CurrentConfig.HotKey1) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey3) && (key.ToString() != _iappConfigService.CurrentConfig.HotKey2))
+                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
                 {
                     _iappConfigService.CurrentConfig.HotKey4 = key.ToString();
                     Update_AllComponents();
@@ -456,6 +463,36 @@ namespace JinChanChanTool
         }
         #endregion
 
+        #region 修改-长按高亮提示快捷键-逻辑
+
+        #endregion
+        /// <summary>
+        /// 当textBox_高亮提示为焦点的情况下有按键按下 ——> 若用户键入回车，则使该组件失焦；若用户输入合法键值，则判断是否和已有快捷键重复，若否则更新数据类相关数据并更新显示UI。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_高亮提示_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 捕获用户按下的键，并更新 TextBox
+            var key = e.KeyCode; // 获取按键代码
+            if (key == Keys.Enter)
+            {
+                this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
+                return;
+            }
+            if (GlobalHotkeyTool.IsRightKey(key))
+            {
+                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4)
+                {
+                    _iappConfigService.CurrentConfig.HotKey5 = key.ToString();
+                    Update_AllComponents();
+                }
+
+                e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
+            }
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+        }
         #endregion
 
         #region 截图设置                      
@@ -1379,6 +1416,7 @@ namespace JinChanChanTool
 
         }
 
+        #region 更新阵容推荐
         private async void button1_Click_1(object sender, EventArgs e)
         {
             try
@@ -1463,5 +1501,83 @@ namespace JinChanChanTool
                               "严重错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
+
+        #region 圆角实现
+        // GDI32 API - 用于创建圆角效果
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
+        // 圆角半径
+        private const int CORNER_RADIUS = 16;
+
+        /// <summary>
+        /// 在窗口句柄创建后应用圆角效果
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
+            ApplyRoundedCorners();
+        }
+
+        /// <summary>
+        /// 应用 GDI Region 圆角效果
+        /// </summary>
+        private void ApplyRoundedCorners()
+        {
+            try
+            {
+                // 创建圆角矩形区域
+                IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
+
+                if (region != IntPtr.Zero)
+                {
+                    SetWindowRgn(Handle, region, true);
+                    // 注意：SetWindowRgn 会接管 region 的所有权，不需要手动删除
+
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 窗口大小改变时重新应用圆角
+        /// </summary>
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            // 调整大小时重新创建圆角区域
+            if (Handle != IntPtr.Zero)
+            {
+                ApplyRoundedCorners();
+            }
+        }
+        #endregion
+
+        #region 标题栏按钮事件
+        private void button_最小化_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button_关闭_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
     }
 }

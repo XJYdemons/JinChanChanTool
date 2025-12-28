@@ -1,12 +1,13 @@
-﻿namespace JinChanChanTool
+﻿using System.Runtime.InteropServices;
+
+namespace JinChanChanTool
 {
     /// <summary>
     /// 自定义标题栏控件
     /// </summary>
     public class CustomTitleBar : Panel
     {
-        private readonly Form _form;// 所属窗体
-        private Point _dragStartPoint;// 拖动起始点
+        private readonly Form _form;// 所属窗体       
         private PictureBox _iconPictureBox;// 图标控件
         private Label _titleLabel;// 标题标签
         private Button _minButton;// 最小化按钮
@@ -34,10 +35,10 @@
         /// <param name="icon">标题栏的图标（默认为空）</param>
         /// <param name="title">标题栏标题（默认为空）</param>
         /// <param name="buttons">标题栏按钮（默认包括最小化、最大化、关闭）</param>
-        public CustomTitleBar(Form form,int height, Image icon = null, string title = null,ButtonOptions buttons = ButtonOptions.All)
+        public CustomTitleBar(Form form, int height, Image icon = null, string title = null, ButtonOptions buttons = ButtonOptions.All)
         {
             _form = form;
-            InitializeComponents(icon,height, title ?? "", buttons);            
+            InitializeComponents(icon, height, title ?? "", buttons);
         }
 
         /// <summary>
@@ -47,14 +48,14 @@
         /// <param name="height"></param>
         /// <param name="title"></param>
         /// <param name="buttons"></param>
-        private void InitializeComponents(Image icon,int height, string title, ButtonOptions buttons)
-        {           
+        private void InitializeComponents(Image icon, int height, string title, ButtonOptions buttons)
+        {
             Height = height;//控件高度
             MinimumSize = new Size(1, height);//控件最小尺寸
             AutoSize = true;//自动调整大小
             Dock = DockStyle.Top;//停靠在顶部
             BackColor = Color.White;//背景颜色
-            Padding = new Padding(5,0,0,0);//内边距
+            Padding = new Padding(5, 0, 0, 0);//内边距
 
             // 创建图标控件
             if (icon != null)
@@ -71,6 +72,7 @@
                 // 添加拖动事件
                 _iconPictureBox.MouseDown += TitleBar_MouseDown;
                 _iconPictureBox.MouseMove += TitleBar_MouseMove;
+                _iconPictureBox.MouseMove += TitleBar_MouseUp;
             }
 
             // 创建标题标签
@@ -80,7 +82,7 @@
                 ForeColor = Color.Black,// 字体颜色
                 Dock = DockStyle.Fill,// 填充剩余空间
                 Height = height,// 高度
-                MinimumSize =new Size(1, height),// 最小尺寸
+                MinimumSize = new Size(1, height),// 最小尺寸
                 BackColor = Color.Transparent,//背景透明                
                 TextAlign = ContentAlignment.MiddleLeft,// 文本对齐方式水平靠左垂直居中
                 Padding = new Padding(icon != null ? 3 : 0) // 内边距，图标存在时左侧留出间距
@@ -89,32 +91,34 @@
             // 最小化、最大化、关闭按钮
             if (buttons.HasFlag(ButtonOptions.Minimize))
             {
-                _minButton = CreateButton("─", ButtonOptions.Minimize, height);               
+                _minButton = CreateButton("─", ButtonOptions.Minimize, height);
                 _minButton.Click += MinButton_Click;
             }
 
             if (buttons.HasFlag(ButtonOptions.Maximize))
             {
-                _maxButton = CreateButton("□", ButtonOptions.Maximize, height);               
+                _maxButton = CreateButton("□", ButtonOptions.Maximize, height);
                 _maxButton.Click += MaxButton_Click;
             }
 
             if (buttons.HasFlag(ButtonOptions.Close))
             {
-                _closeButton = CreateButton("×", ButtonOptions.Close, height);               
+                _closeButton = CreateButton("×", ButtonOptions.Close, height);
                 _closeButton.Click += CloseButton_Click;
             }
-        
+
             if (_minButton != null) Controls.Add(_minButton);
-            if (_maxButton != null) Controls.Add(_maxButton);           
-            if (_closeButton != null) Controls.Add(_closeButton);           
+            if (_maxButton != null) Controls.Add(_maxButton);
+            if (_closeButton != null) Controls.Add(_closeButton);
             Controls.Add(_titleLabel);
             if (_iconPictureBox != null) Controls.Add(_iconPictureBox);
 
             MouseDown += TitleBar_MouseDown;
             MouseMove += TitleBar_MouseMove;
+            MouseMove += TitleBar_MouseUp;
             _titleLabel.MouseDown += TitleBar_MouseDown;
             _titleLabel.MouseMove += TitleBar_MouseMove;
+            _titleLabel.MouseMove += TitleBar_MouseUp;
         }
 
         /// <summary>
@@ -124,7 +128,7 @@
         /// <param name="option"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        private Button CreateButton(string text, ButtonOptions option,int height)
+        private Button CreateButton(string text, ButtonOptions option, int height)
         {
             var button = new Button
             {
@@ -151,7 +155,7 @@
         /// <param name="e"></param>
         private void MinButton_Click(object sender, EventArgs e)
         {
-            _form.WindowState = FormWindowState.Minimized;           
+            _form.WindowState = FormWindowState.Minimized;
         }
 
         /// <summary>
@@ -173,6 +177,18 @@
             }
         }
 
+        [DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        private static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+
+        private const int WM_SYSCOMMAND = 0x0112;
+        private const int SC_MOVE = 0xF012;
+        private const int HTCAPTION = 0x0002;
+        bool isDragging = false;
+        Point dragStartPoint = Point.Empty;
+        const int dragThreshold = 2; // 拖动阈值，防止误触发
         /// <summary>
         /// 关闭按钮点击事件处理事件
         /// </summary>
@@ -192,7 +208,8 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                _dragStartPoint = new Point(e.X, e.Y);
+                isDragging = false;
+                dragStartPoint = e.Location;
             }
         }
 
@@ -203,14 +220,37 @@
         /// <param name="e"></param>
         private void TitleBar_MouseMove(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left && !isDragging)
+            {
+                // 计算移动距离
+                int deltaX = Math.Abs(e.X - dragStartPoint.X);
+                int deltaY = Math.Abs(e.Y - dragStartPoint.Y);
+
+                // 超过阈值才开始拖动
+                if (deltaX > dragThreshold || deltaY > dragThreshold)
+                {
+
+                    if (_form != null)
+                    {
+                        isDragging = true;
+                        ReleaseCapture();
+                        SendMessage(_form.Handle, WM_SYSCOMMAND, SC_MOVE | HTCAPTION, 0);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TitleBar_MouseUp(object sender, MouseEventArgs e)
+        {
             if (e.Button == MouseButtons.Left)
             {
-                Point diff = new Point(e.X - _dragStartPoint.X, e.Y - _dragStartPoint.Y);
-                _form.Location = new Point(
-                    _form.Location.X + diff.X,
-                    _form.Location.Y + diff.Y
-                );
+                isDragging = false;
             }
-        }      
+        }
     }
 }

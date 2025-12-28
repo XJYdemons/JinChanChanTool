@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CorrectionEditorForm));
             dataGridView_结果纠正列表编辑器 = new DataGridView();
             button_添加 = new Button();
             button_删除 = new Button();
@@ -37,10 +36,15 @@
             panel_DataGridView = new Panel();
             panel_Buttons = new Panel();
             panel_BackGround = new Panel();
+            panel3 = new Panel();
+            label5 = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView_结果纠正列表编辑器).BeginInit();
             panel_DataGridView.SuspendLayout();
             panel_Buttons.SuspendLayout();
             panel_BackGround.SuspendLayout();
+            panel3.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView_结果纠正列表编辑器
@@ -106,10 +110,9 @@
             // 
             // panel_DataGridView
             // 
-            panel_DataGridView.AutoScroll = true;
             panel_DataGridView.BackColor = Color.White;
             panel_DataGridView.Controls.Add(dataGridView_结果纠正列表编辑器);
-            panel_DataGridView.Location = new Point(5, 5);
+            panel_DataGridView.Location = new Point(0, 26);
             panel_DataGridView.Margin = new Padding(0);
             panel_DataGridView.Name = "panel_DataGridView";
             panel_DataGridView.Padding = new Padding(5);
@@ -118,13 +121,12 @@
             // 
             // panel_Buttons
             // 
-            panel_Buttons.AutoScroll = true;
             panel_Buttons.BackColor = Color.White;
             panel_Buttons.Controls.Add(button_取消);
             panel_Buttons.Controls.Add(button_保存);
             panel_Buttons.Controls.Add(button_添加);
             panel_Buttons.Controls.Add(button_删除);
-            panel_Buttons.Location = new Point(394, 5);
+            panel_Buttons.Location = new Point(386, 26);
             panel_Buttons.Margin = new Padding(0);
             panel_Buttons.Name = "panel_Buttons";
             panel_Buttons.Padding = new Padding(5);
@@ -133,28 +135,56 @@
             // 
             // panel_BackGround
             // 
-            panel_BackGround.AutoScroll = true;
-            panel_BackGround.AutoSize = true;
             panel_BackGround.BackColor = Color.White;
+            panel_BackGround.Controls.Add(panel3);
             panel_BackGround.Controls.Add(panel_DataGridView);
             panel_BackGround.Controls.Add(panel_Buttons);
             panel_BackGround.Dock = DockStyle.Fill;
-            panel_BackGround.Location = new Point(0, 0);
+            panel_BackGround.Location = new Point(3, 3);
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.MinimumSize = new Size(484, 553);
             panel_BackGround.Name = "panel_BackGround";
-            panel_BackGround.Size = new Size(484, 553);
+            panel_BackGround.Size = new Size(484, 572);
             panel_BackGround.TabIndex = 9;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(label5);
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(471, 25);
+            panel3.TabIndex = 16;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(4, 1);
+            label5.MinimumSize = new Size(80, 23);
+            label5.Name = "label5";
+            label5.Size = new Size(118, 23);
+            label5.TabIndex = 10;
+            label5.Text = "OCR纠正列表编辑器";
+            label5.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(250, 250, 250);
+            panel1.Controls.Add(panel_BackGround);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(3, 3, 4, 4);
+            panel1.Size = new Size(490, 579);
+            panel1.TabIndex = 10;
             // 
             // CorrectionEditorForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
-            ClientSize = new Size(484, 553);
-            Controls.Add(panel_BackGround);
+            ClientSize = new Size(490, 579);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(484, 553);
             Name = "CorrectionEditorForm";
             ShowIcon = false;
@@ -164,8 +194,10 @@
             panel_DataGridView.ResumeLayout(false);
             panel_Buttons.ResumeLayout(false);
             panel_BackGround.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -178,5 +210,8 @@
         private Panel panel_DataGridView;
         private Panel panel_Buttons;
         private Panel panel_BackGround;
+        private Panel panel3;
+        private Label label5;
+        private Panel panel1;
     }
 }

@@ -303,7 +303,18 @@ namespace JinChanChanTool.Forms
             button__变阵1.BackColor = selectedIndex == 0 ? selectedColor : normalColor;
             button__变阵2.BackColor = selectedIndex == 1 ? selectedColor : normalColor;
             button__变阵3.BackColor = selectedIndex == 2 ? selectedColor : normalColor;
-
+            if (selectedIndex == 0)
+            {
+                button__变阵1.Focus();
+            }
+            else if (selectedIndex == 1)
+            {
+                button__变阵2.Focus();
+            }
+            else if (selectedIndex == 2)
+            {
+                button__变阵3.Focus();
+            }
             button__变阵1.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[0].SubLineUpName;
             button__变阵2.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[1].SubLineUpName;
             button__变阵3.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[2].SubLineUpName;

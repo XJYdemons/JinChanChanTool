@@ -1,6 +1,8 @@
 using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Tools;
+using System.Runtime.InteropServices;
 
 namespace JinChanChanTool.Forms.DisplayUIForm
 {
@@ -42,11 +44,6 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         private EquipmentInformationToolTip _toolTip;
 
         /// <summary>
-        /// 标题栏高度
-        /// </summary>
-        private const int TitleBarHeight = 32;
-
-        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="equipmentService">装备数据服务</param>
@@ -60,10 +57,11 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             _equipmentIndex = equipmentIndex;
             SelectedEquipmentName = string.Empty;
 
-            // 添加自定义标题栏
-            string title = $"为 {heroName} 选择装备 (槽位 {equipmentIndex + 1})";
-            CustomTitleBar titleBar = new CustomTitleBar(this, Dpi(TitleBarHeight), null, title, CustomTitleBar.ButtonOptions.Close);
-            this.Controls.Add(titleBar);
+            // 设置标题文本
+            label_Title.Text = $"为 {heroName} 选择装备（槽位 {equipmentIndex + 1}）";
+
+            // 启用标题栏拖动功能
+            DragHelper.EnableDragForChildren(panel_TitleBar);
 
             // 隐藏图标
             this.ShowIcon = false;
@@ -79,6 +77,66 @@ namespace JinChanChanTool.Forms.DisplayUIForm
 
             BuildEquipmentUI();
         }
+
+        #region 圆角实现
+        // GDI32 API - 用于创建圆角效果
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
+        // 圆角半径
+        private const int CORNER_RADIUS = 16;
+
+        /// <summary>
+        /// 在窗口句柄创建后应用圆角效果
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
+            ApplyRoundedCorners();
+        }
+
+        /// <summary>
+        /// 应用 GDI Region 圆角效果
+        /// </summary>
+        private void ApplyRoundedCorners()
+        {
+            try
+            {
+                // 创建圆角矩形区域
+                IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
+
+                if (region != IntPtr.Zero)
+                {
+                    SetWindowRgn(Handle, region, true);
+                    // 注意：SetWindowRgn 会接管 region 的所有权，不需要手动删除
+                }
+            }
+            catch (Exception ex)
+            {
+                // 圆角应用失败时静默处理，不影响功能
+            }
+        }
+
+        /// <summary>
+        /// 窗口大小改变时重新应用圆角
+        /// </summary>
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            // 调整大小时重新创建圆角区域
+            if (Handle != IntPtr.Zero)
+            {
+                ApplyRoundedCorners();
+            }
+        }
+        #endregion
 
         /// <summary>
         /// DPI缩放转换
@@ -195,7 +253,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             Panel separator = new Panel
             {
                 BackColor = Color.LightGray,
-                Size = new Size(panelMain.Width - Dpi(20), 1),
+                Size = new Size(panelMain.ClientSize.Width - Dpi(40), 1),
                 Location = new Point(Dpi(10), startY + titleLabel.Height + Dpi(2))
             };
             panelMain.Controls.Add(separator);
@@ -326,6 +384,24 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        /// <summary>
+        /// 关闭按钮点击事件
+        /// </summary>
+        private void Button_Close_Click(object? sender, EventArgs e)
+        {
+            SelectedEquipmentName = string.Empty;
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        /// <summary>
+        /// 最小化按钮点击事件
+        /// </summary>
+        private void Button_Minimize_Click(object? sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

@@ -103,7 +103,8 @@ namespace JinChanChanTool.Services.LineupCrawling
                 _clusterHeroKeysMap[kvp.Key] = unitKeys;
                 foreach (var uKey in unitKeys)
                 {
-                    string heroName = _gameDataService.HeroTranslations.GetValueOrDefault(uKey, uKey);
+                    string rawName = _gameDataService.HeroTranslations.GetValueOrDefault(uKey, uKey);
+                    string heroName = rawName.Replace("·", "").Trim();
 
                     // 匹配该棋子的推荐装备
                     var build = detail.Builds?.FirstOrDefault(b => b.Unit == uKey);
@@ -137,7 +138,8 @@ namespace JinChanChanTool.Services.LineupCrawling
                 return item.Name; // 兜底返回原名
             });
 
-            return string.Join(" ", nameParts);
+            string rawName = string.Join(" ", nameParts);
+            return rawName.Replace("·", "").Replace("  ", " ").Trim();
         }
         #endregion
 
@@ -195,7 +197,7 @@ namespace JinChanChanTool.Services.LineupCrawling
 
         private LineUpTier CalculateTier(double score)
         {
-            if (score < 3.85) return LineUpTier.S;
+            if (score < 3.75) return LineUpTier.S;
             if (score < 4.15) return LineUpTier.A;
             if (score < 4.45) return LineUpTier.B;
             if (score < 5.00) return LineUpTier.C;

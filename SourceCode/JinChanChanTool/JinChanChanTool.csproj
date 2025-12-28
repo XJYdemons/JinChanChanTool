@@ -1567,6 +1567,9 @@
     <None Update="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\黑曜石切割者.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\HeroDatas\英雄联盟传奇\images\奥瑞利安索尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

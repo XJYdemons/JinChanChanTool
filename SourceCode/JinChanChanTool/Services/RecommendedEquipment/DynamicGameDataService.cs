@@ -1,15 +1,10 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
-using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Services.Network;
-using System;
-using System.Collections.Generic;
+using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace JinChanChanTool.Services.RecommendedEquipment
 {

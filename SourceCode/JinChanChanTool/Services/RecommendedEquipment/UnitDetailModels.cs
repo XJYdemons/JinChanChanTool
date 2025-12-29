@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace JinChanChanTool.Services.RecommendedEquipment
 {
@@ -18,6 +17,21 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// </summary>
         [JsonPropertyName("builds")]
         public List<Build> Builds { get; set; }
+
+        /// <summary>
+        /// 用于计算英雄总场次的节点
+        /// </summary>
+        [JsonPropertyName("dates")]
+        public List<DateEntry> Dates { get; set; }
+    }
+
+    public class DateEntry
+    {
+        /// <summary>
+        /// 该英雄在特定日期的名次分布
+        /// </summary>
+        [JsonPropertyName("places")]
+        public List<int> Places { get; set; }
     }
 
     /// <summary>

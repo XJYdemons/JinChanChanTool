@@ -146,9 +146,12 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                             .Select(key => itemTranslations.GetValueOrDefault(key, $"【翻译失败:{key}】"))
                             .ToList();
 
+                        string rawName = heroTranslations.GetValueOrDefault(heroKey, heroKey);
+                        string cleanName = rawName.Replace("·", "").Trim();
+
                         return new HeroEquipment
                         {
-                            HeroName = heroTranslations.GetValueOrDefault(heroKey, heroKey),
+                            HeroName = cleanName,
                             Equipments = equipmentNames
                         };
                     }

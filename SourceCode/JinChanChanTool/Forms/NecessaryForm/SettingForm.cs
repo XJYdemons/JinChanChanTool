@@ -1,4 +1,5 @@
 ﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services;
 using JinChanChanTool.Services.AutoSetCoordinates;
@@ -22,7 +23,7 @@ namespace JinChanChanTool
         /// 应用设置服务类实例，用于加载和保存应用设置。
         /// </summary>
         private readonly IManualSettingsService _iappConfigService;
-     
+
         /// <summary>
         /// 推荐阵容数据服务实例
         /// </summary>
@@ -31,7 +32,7 @@ namespace JinChanChanTool
         private Screen targetScreen;//目标显示器
         private Screen[] screens;//显示器数组
 
-        public SettingForm(IManualSettingsService iAppConfigService,IRecommendedLineUpService iRecommendedLineUpService)
+        public SettingForm(IManualSettingsService iAppConfigService, IRecommendedLineUpService iRecommendedLineUpService)
         {
             InitializeComponent();
             DragHelper.EnableDragForChildren(panel3);
@@ -46,7 +47,7 @@ namespace JinChanChanTool
 
             //初始化应用设置服务类实例
             _iappConfigService = iAppConfigService;
-            
+
             _iRecommendedLineUpService = iRecommendedLineUpService;
             //为组件绑定事件
             Initialize_AllComponents();
@@ -137,16 +138,27 @@ namespace JinChanChanTool
             textBox_高亮提示.Text = _iappConfigService.CurrentConfig.HotKey5;
             radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseFixedCoordinates;
             radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;
-            checkBox_避免程序与用户争夺光标控制权.Checked = _iappConfigService.CurrentConfig.IsHighUserPriority;
-            checkBox_备战席满或金币不足时自动停止拿牌.Checked = _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase;
-            checkBox_自动停止刷新商店.Checked = _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore;
-            checkBox_StopRefreshWhenErrorCharacters.Checked = _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters;
-            radioButton_鼠标模拟拿牌.Checked = _iappConfigService.CurrentConfig.IsMouseHeroPurchase;
-            radioButton_按键模拟拿牌.Checked = _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase;
-            radioButton_鼠标模拟刷新商店.Checked = _iappConfigService.CurrentConfig.IsMouseRefreshStore;
-            radioButton_按键模拟刷新商店.Checked = _iappConfigService.CurrentConfig.IsKeyboardRefreshStore;
-            radioButton_CPU推理.Checked = _iappConfigService.CurrentConfig.IsUseCPUForInference;
-            radioButton__CPU推理.Checked = _iappConfigService.CurrentConfig.IsUseGPUForInference;
+
+            capsuleSwitch1.IsOn = _iappConfigService.CurrentConfig.IsHighUserPriority;
+
+            capsuleSwitch4.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase;
+            capsuleSwitch7.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore;
+            capsuleSwitch8.IsOn = _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters;
+
+
+            capsuleSwitch2.IsOn = _iappConfigService.CurrentConfig.IsMouseHeroPurchase;
+
+
+
+            capsuleSwitch3.IsOn = _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase;
+
+
+            capsuleSwitch6.IsOn = _iappConfigService.CurrentConfig.IsMouseRefreshStore;
+            capsuleSwitch5.IsOn = _iappConfigService.CurrentConfig.IsKeyboardRefreshStore;
+
+            capsuleSwitch10.IsOn = _iappConfigService.CurrentConfig.IsUseCPUForInference;
+            capsuleSwitch9.IsOn = _iappConfigService.CurrentConfig.IsUseGPUForInference;
+
             textBox_拿牌按键1.Text = _iappConfigService.CurrentConfig.HeroPurchaseKey1;
             textBox_拿牌按键2.Text = _iappConfigService.CurrentConfig.HeroPurchaseKey2;
             textBox_拿牌按键3.Text = _iappConfigService.CurrentConfig.HeroPurchaseKey3;
@@ -158,16 +170,16 @@ namespace JinChanChanTool
             textBox_DelayAfterMouseOperation.Text = _iappConfigService.CurrentConfig.DelayAfterOperation.ToString();
             textBox_CPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU.ToString();
             textBox_GPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU.ToString();
-            checkBox_UseSelectorForm.Checked = _iappConfigService.CurrentConfig.IsUseSelectForm;
-            checkBox_UseLineUpFormLocation.Checked = _iappConfigService.CurrentConfig.IsUseLineUpForm;
-            checkBox_UseStatusOverlayForm.Checked = _iappConfigService.CurrentConfig.IsUseStatusOverlayForm;
-            checkBox_UseErrorShowForm.Checked = _iappConfigService.CurrentConfig.IsUseOutputForm;
-            checkBox_定时更新推荐装备.Checked = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
+            capsuleSwitch11.IsOn = _iappConfigService.CurrentConfig.IsUseSelectForm;
+            capsuleSwitch12.IsOn = _iappConfigService.CurrentConfig.IsUseLineUpForm;
+            capsuleSwitch13.IsOn = _iappConfigService.CurrentConfig.IsUseStatusOverlayForm;
+            capsuleSwitch14.IsOn = _iappConfigService.CurrentConfig.IsUseOutputForm;
+            capsuleSwitch15.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
             textBox_更新推荐装备间隔.Text = _iappConfigService.CurrentConfig.UpdateEquipmentInterval.ToString();
             textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxSize.ToString();
             textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing.ToString();
             textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPanelsVerticalSpacing.ToString();
-           
+
         }
 
         /// <summary>
@@ -200,16 +212,7 @@ namespace JinChanChanTool
 
             radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
 
-            checkBox_避免程序与用户争夺光标控制权.CheckedChanged += checkBox_避免程序与用户争夺光标控制权_CheckedChanged;
-            checkBox_备战席满或金币不足时自动停止拿牌.CheckedChanged += checkBox_备战席满或金币不足时自动停止拿牌_CheckedChanged;
-            checkBox_自动停止刷新商店.CheckedChanged += checkBox_自动停止刷新商店_CheckedChanged;
-            checkBox_StopRefreshWhenErrorCharacters.CheckedChanged += checkBox_StopRefreshWhenErrorCharacters_CheckedChanged;
-            radioButton_鼠标模拟拿牌.CheckedChanged += radioButton_鼠标模拟拿牌_CheckedChanged;
-            radioButton_按键模拟拿牌.CheckedChanged += radioButton_按键模拟拿牌_CheckedChanged;
-            radioButton_按键模拟刷新商店.CheckedChanged += radioButton_按键模拟刷新商店_CheckedChanged;
-            radioButton_鼠标模拟刷新商店.CheckedChanged += radioButton_鼠标模拟刷新商店_CheckedChanged;
-            radioButton__CPU推理.CheckedChanged += radioButton__GPU推理_CheckedChanged;
-            radioButton_CPU推理.CheckedChanged += radioButton__CPU推理_CheckedChanged;
+
             textBox_拿牌按键1.KeyDown += TextBox6_KeyDown;
             textBox_拿牌按键1.Enter += TextBox_Enter;
             textBox_拿牌按键1.Leave += TextBox_Leave;
@@ -254,16 +257,11 @@ namespace JinChanChanTool
             textBox_GPUDelayAfterRefreshStore.Enter += TextBox_Enter;
             textBox_GPUDelayAfterRefreshStore.Leave += textBox_GPUDelayAfterRefreshStore_Leave;
 
-            checkBox_UseSelectorForm.CheckedChanged += checkBox_UseSelectorForm_CheckedChanged;
-            checkBox_UseLineUpFormLocation.CheckedChanged += checkBox_UseLineUpFormLocation_CheckedChanged;
-            checkBox_UseStatusOverlayForm.CheckedChanged += checkBox_UseStatusOverlayForm_CheckedChanged;
-            checkBox_UseErrorShowForm.CheckedChanged += checkBox_UseErrorShowForm_CheckedChanged;
 
             textBox_更新推荐装备间隔.KeyDown += TextBox_KeyDown;
             textBox_更新推荐装备间隔.Enter += TextBox_Enter;
             textBox_更新推荐装备间隔.Leave += TextBox_更新推荐装备间隔_Leave;
-
-            checkBox_定时更新推荐装备.CheckedChanged += checkBox_定时更新推荐装备_CheckedChanged;
+           
 
             textBox_英雄头像框边长.KeyDown += TextBox_KeyDown;
             textBox_英雄头像框边长.Enter += TextBox_Enter;
@@ -277,7 +275,7 @@ namespace JinChanChanTool
             textBox_英雄头像框垂直间隔.Enter += TextBox_Enter;
             textBox_英雄头像框垂直间隔.Leave += textBox_英雄头像框垂直间隔_Leave;
 
-           
+
         }
 
 
@@ -351,8 +349,8 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                
-                if (key.ToString() !=_iappConfigService.CurrentConfig.HotKey1&& key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
+
+                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
                 {
                     _iappConfigService.CurrentConfig.HotKey3 = key.ToString();
                     Update_AllComponents();
@@ -506,11 +504,11 @@ namespace JinChanChanTool
         {
             if (radioButton_手动设置坐标.Checked)
             {
-                button_选择进程.Enabled = false;
+                roundedButton4.Enabled = false;
                 comboBox_选择显示器.Enabled = true;
-                button_快速设置奕子截图坐标与大小.Enabled = true;
-                button_快速设置商店刷新按钮坐标.Enabled = true;
-                button_设置高亮提示框坐标.Enabled = true;
+                roundedButton1.Enabled = true;
+                roundedButton2.Enabled = true;
+                roundedButton3.Enabled = true;
             }
             _iappConfigService.CurrentConfig.IsUseFixedCoordinates = radioButton_手动设置坐标.Checked;
         }
@@ -524,24 +522,24 @@ namespace JinChanChanTool
         {
             if (radioButton_自动设置坐标.Checked)
             {
-                button_选择进程.Enabled = true;
+                roundedButton4.Enabled = true;
                 comboBox_选择显示器.Enabled = false;
-                button_快速设置奕子截图坐标与大小.Enabled = false;
-                button_快速设置商店刷新按钮坐标.Enabled = false;
-                button_设置高亮提示框坐标.Enabled = false;
+                roundedButton1.Enabled = false;
+                roundedButton2.Enabled = false;
+                roundedButton3.Enabled = false;
             }
             _iappConfigService.CurrentConfig.IsUseDynamicCoordinates = radioButton_自动设置坐标.Checked;
         }
 
         #endregion
 
-        #region 快速设置坐标      
+        #region 快速设置坐标                    
         /// <summary>
         /// 快速设置奕子截图坐标与大小按钮_被单击
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void button_快速设置奕子截图坐标与大小_Click(object sender, EventArgs e)
+        private async void roundedButton1_Click(object sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen))
             {
@@ -580,14 +578,12 @@ namespace JinChanChanTool
             Update_AllComponents();
         }
 
-
-
         /// <summary>
         /// 快速设置商店刷新按钮坐标按钮_被单击
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void button_快速设置商店刷新按钮坐标_Click(object sender, EventArgs e)
+        private async void roundedButton2_Click(object sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen))
             {
@@ -603,13 +599,12 @@ namespace JinChanChanTool
             }
             Update_AllComponents();
         }
-
         /// <summary>
         /// 设置高亮提示框坐标按钮_被单击
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void button_设置高亮提示框坐标_Click(object sender, EventArgs e)
+        private async void roundedButton3_Click(object sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen))
             {
@@ -649,13 +644,13 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 选择进程
+        #region 选择进程             
         /// <summary>
         /// 选择进程按钮被单击时触发的事件处理程序。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_选择进程_Click(object sender, EventArgs e)
+        private void roundedButton4_Click(object sender, EventArgs e)
         {
             // 1. 实时创建进程发现服务
             var discoveryService = new ProcessDiscoveryService();
@@ -681,46 +676,28 @@ namespace JinChanChanTool
         #endregion
         #endregion
 
-        #region 阵容相关设置               
-        #region 打开英雄英雄配置文件编辑器
-        /// <summary>
-        /// 描述：打开英雄配置文件编辑器按钮被单击时触发的事件处理程序。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button_英雄配置文件编辑器_Click(object sender, EventArgs e)
-        {
-            var form = new HeroInfoEditorForm();
-            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
-            form.TopMost = true;// 确保窗口在最前面
-            form.Show();// 显示窗口
-        }
-        #endregion
-        #endregion
+
 
         #region 拿牌相关设置
-        #region 避免程序与用户争夺光标控制权
+        #region 避免程序与用户争夺光标控制权            
+
+
         /// <summary>
         /// 当“避免程序与用户争夺光标控制权”复选框状态改变时触发的事件处理程序。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBox_避免程序与用户争夺光标控制权_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch1_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsHighUserPriority = checkBox_避免程序与用户争夺光标控制权.Checked;
-        }
 
+            _iappConfigService.CurrentConfig.IsHighUserPriority = capsuleSwitch1.IsOn;
+        }
         #endregion
 
         #region 自动停止拿牌
-        /// <summary>
-        /// 当“备战席满或金币不足时自动停止拿牌”复选框状态改变时触发的事件处理程序。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBox_备战席满或金币不足时自动停止拿牌_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch4_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase = checkBox_备战席满或金币不足时自动停止拿牌.Checked;
+            _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase = capsuleSwitch4.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
             {
                 textBox_MaxTimesWithoutGetCard.Enabled = true;
@@ -759,15 +736,15 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 自动停止刷新商店
+        #region 自动停止刷新商店      
         /// <summary>
         /// 当“自动停止刷新商店”复选框状态改变时触发的事件处理程序。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBox_自动停止刷新商店_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch7_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore = checkBox_自动停止刷新商店.Checked;
+            _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore = capsuleSwitch7.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore)
             {
                 textBox_MaxTimesWithoutRefresh.Enabled = true;
@@ -806,15 +783,15 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 当识别到错误字符时停止刷新商店
+        #region 当识别到错误字符时停止刷新商店               
         /// <summary>
         /// 当“当识别到错误字符时停止刷新商店”复选框状态改变时触发的事件处理程序。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBox_StopRefreshWhenErrorCharacters_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch8_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters = checkBox_StopRefreshWhenErrorCharacters.Checked;
+            _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters = capsuleSwitch8.IsOn;
         }
         #endregion
 
@@ -910,23 +887,20 @@ namespace JinChanChanTool
 
         #endregion
 
-        #region 拿牌方式
+        #region 拿牌方式       
+        private bool isUpdatingSwitch_鼠标模拟拿牌 = false;
+        private bool isUpdatingSwitch_按键模拟拿牌 = false;
+
         /// <summary>
         /// 当“鼠标模拟拿牌”单选框状态改变时触发的事件处理程序。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton_鼠标模拟拿牌_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch2_IsOnChanged(object sender, EventArgs e)
         {
-            if (radioButton_鼠标模拟拿牌.Checked)
-            {
-                textBox_拿牌按键1.Enabled = false;
-                textBox_拿牌按键2.Enabled = false;
-                textBox_拿牌按键3.Enabled = false;
-                textBox_拿牌按键4.Enabled = false;
-                textBox_拿牌按键5.Enabled = false;
-            }
-            _iappConfigService.CurrentConfig.IsMouseHeroPurchase = radioButton_鼠标模拟拿牌.Checked;
+            _iappConfigService.CurrentConfig.IsMouseHeroPurchase = capsuleSwitch2.IsOn;
+            if (isUpdatingSwitch_鼠标模拟拿牌) return;
+            拿牌方式变更_鼠标拿牌();
         }
 
         /// <summary>
@@ -934,17 +908,64 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton_按键模拟拿牌_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch3_IsOnChanged(object sender, EventArgs e)
         {
-            if (radioButton_按键模拟拿牌.Checked)
+            _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase = capsuleSwitch3.IsOn;
+            if (isUpdatingSwitch_按键模拟拿牌) return;
+            拿牌方式变更_按键拿牌();
+        }
+
+        private void 拿牌方式变更_鼠标拿牌()
+        {
+            if (_iappConfigService.CurrentConfig.IsMouseHeroPurchase)
+            {
+                textBox_拿牌按键1.Enabled = false;
+                textBox_拿牌按键2.Enabled = false;
+                textBox_拿牌按键3.Enabled = false;
+                textBox_拿牌按键4.Enabled = false;
+                textBox_拿牌按键5.Enabled = false;
+                isUpdatingSwitch_按键模拟拿牌 = true;
+                capsuleSwitch3.IsOn = false;
+                isUpdatingSwitch_按键模拟拿牌 = false;
+            }
+            else
             {
                 textBox_拿牌按键1.Enabled = true;
                 textBox_拿牌按键2.Enabled = true;
                 textBox_拿牌按键3.Enabled = true;
                 textBox_拿牌按键4.Enabled = true;
                 textBox_拿牌按键5.Enabled = true;
+                isUpdatingSwitch_按键模拟拿牌 = true;
+                capsuleSwitch3.IsOn = true;
+                isUpdatingSwitch_按键模拟拿牌 = false;
             }
-            _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase = radioButton_按键模拟拿牌.Checked;
+        }
+
+        private void 拿牌方式变更_按键拿牌()
+        {
+            if (_iappConfigService.CurrentConfig.IsKeyboardHeroPurchase)
+            {
+                textBox_拿牌按键1.Enabled = true;
+                textBox_拿牌按键2.Enabled = true;
+                textBox_拿牌按键3.Enabled = true;
+                textBox_拿牌按键4.Enabled = true;
+                textBox_拿牌按键5.Enabled = true;
+
+                isUpdatingSwitch_鼠标模拟拿牌 = true;
+                capsuleSwitch2.IsOn = false;
+                isUpdatingSwitch_鼠标模拟拿牌 = false;
+            }
+            else
+            {
+                textBox_拿牌按键1.Enabled = false;
+                textBox_拿牌按键2.Enabled = false;
+                textBox_拿牌按键3.Enabled = false;
+                textBox_拿牌按键4.Enabled = false;
+                textBox_拿牌按键5.Enabled = false;
+                isUpdatingSwitch_鼠标模拟拿牌 = true;
+                capsuleSwitch2.IsOn = true;
+                isUpdatingSwitch_鼠标模拟拿牌 = false;
+            }
         }
         #region 修改-按键模拟拿牌-按键1-逻辑
 
@@ -1088,18 +1109,19 @@ namespace JinChanChanTool
         #endregion
 
         #region 刷新方式
+        private bool isUpdatingSwitch_鼠标模拟刷新商店 = false;
+        private bool isUpdatingSwitch_按键模拟刷新商店 = false;
+
         /// <summary>
         /// 选择鼠标模拟刷新商店时触发
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton_鼠标模拟刷新商店_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch6_IsOnChanged(object sender, EventArgs e)
         {
-            if (radioButton_鼠标模拟刷新商店.Checked)
-            {
-                textBox_刷新商店按键.Enabled = false;
-            }
-            _iappConfigService.CurrentConfig.IsMouseRefreshStore = radioButton_鼠标模拟刷新商店.Checked;
+            _iappConfigService.CurrentConfig.IsMouseRefreshStore = capsuleSwitch6.IsOn;
+            if (isUpdatingSwitch_鼠标模拟刷新商店) return;
+            刷新方式变更_鼠标刷新();
         }
 
         /// <summary>
@@ -1107,15 +1129,48 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton_按键模拟刷新商店_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch5_IsOnChanged(object sender, EventArgs e)
         {
-            if (radioButton_按键模拟刷新商店.Checked)
-            {
-                textBox_刷新商店按键.Enabled = true;
-            }
-            _iappConfigService.CurrentConfig.IsKeyboardRefreshStore = radioButton_按键模拟刷新商店.Checked;
+            _iappConfigService.CurrentConfig.IsKeyboardRefreshStore = capsuleSwitch5.IsOn;
+            if (isUpdatingSwitch_按键模拟刷新商店) return;
+            刷新方式变更_按键刷新();
         }
 
+        private void 刷新方式变更_鼠标刷新()
+        {
+            if (_iappConfigService.CurrentConfig.IsMouseRefreshStore)
+            {
+                textBox_刷新商店按键.Enabled = false;
+                isUpdatingSwitch_按键模拟刷新商店 = true;
+                capsuleSwitch5.IsOn = false;
+                isUpdatingSwitch_按键模拟刷新商店 = false;
+            }
+            else
+            {
+                textBox_刷新商店按键.Enabled = true;
+                isUpdatingSwitch_按键模拟刷新商店 = true;
+                capsuleSwitch5.IsOn = true;
+                isUpdatingSwitch_按键模拟刷新商店 = false;
+            }
+        }
+
+        private void 刷新方式变更_按键刷新()
+        {
+            if (_iappConfigService.CurrentConfig.IsKeyboardRefreshStore)
+            {
+                textBox_刷新商店按键.Enabled = true;
+                isUpdatingSwitch_鼠标模拟刷新商店 = true;
+                capsuleSwitch6.IsOn = false;
+                isUpdatingSwitch_鼠标模拟刷新商店 = false;
+            }
+            else
+            {
+                textBox_刷新商店按键.Enabled = false;
+                isUpdatingSwitch_鼠标模拟刷新商店 = true;
+                capsuleSwitch6.IsOn = true;
+                isUpdatingSwitch_鼠标模拟刷新商店 = false;
+            }
+        }
         #region 修改-按键刷新商店按键-逻辑
 
         /// <summary>
@@ -1147,13 +1202,13 @@ namespace JinChanChanTool
         #endregion
 
         #region OCR相关设置
-        #region 打开OCR纠正列表编辑器
+        #region 打开OCR纠正列表编辑器             
         /// <summary>
         /// OCR结果纠正列表编辑器按钮_被单击
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_OCR结果纠正列表编辑器_Click(object sender, EventArgs e)
+        private void roundedButton5_Click(object sender, EventArgs e)
         {
             var form = new CorrectionEditorForm();
             form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
@@ -1163,14 +1218,18 @@ namespace JinChanChanTool
         #endregion
 
         #region 推理单选框改变
+        private bool isUpdatingSwitch_CPU推理 = false;
+        private bool isUpdatingSwitch_GPU推理 = false;
         /// <summary>
         /// 选择CPU推理时触发
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton__CPU推理_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch10_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseCPUForInference = radioButton_CPU推理.Checked;
+            _iappConfigService.CurrentConfig.IsUseCPUForInference = capsuleSwitch10.IsOn;
+            if (isUpdatingSwitch_CPU推理) return;
+            推理方式变更_CPU();
         }
 
         /// <summary>
@@ -1178,55 +1237,88 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton__GPU推理_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch9_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseGPUForInference = radioButton__CPU推理.Checked;
+            _iappConfigService.CurrentConfig.IsUseGPUForInference = capsuleSwitch9.IsOn;
+            if (isUpdatingSwitch_GPU推理) return;
+            推理方式变更_GPU();
         }
 
+        private void 推理方式变更_CPU()
+        {
+            if (_iappConfigService.CurrentConfig.IsUseCPUForInference)
+            {
+                isUpdatingSwitch_GPU推理 = true;
+                capsuleSwitch9.IsOn = false;
+                isUpdatingSwitch_GPU推理 = false;
+            }
+            else
+            {
+                isUpdatingSwitch_GPU推理 = true;
+                capsuleSwitch9.IsOn = true;
+                isUpdatingSwitch_GPU推理 = false;
+            }
+        }
+
+        private void 推理方式变更_GPU()
+        {
+            if (_iappConfigService.CurrentConfig.IsUseGPUForInference)
+            {
+                isUpdatingSwitch_CPU推理 = true;
+                capsuleSwitch10.IsOn = false;
+                isUpdatingSwitch_CPU推理 = false;
+            }
+            else
+            {
+                isUpdatingSwitch_CPU推理 = true;
+                capsuleSwitch10.IsOn = true;
+                isUpdatingSwitch_CPU推理 = false;
+            }
+        }
         #endregion
         #endregion
 
         #region 窗口设置
         /// <summary>
-        /// 勾选或取消勾选“使用选择阵容窗口位置”复选框时触发
+        /// 勾选或取消勾选“使用选择窗口位置”复选框时触发
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBox_UseSelectorForm_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e"></param>      
+        private void capsuleSwitch11_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseSelectForm = checkBox_UseSelectorForm.Checked;
+            Debug.WriteLine(capsuleSwitch11.IsOn);
+            _iappConfigService.CurrentConfig.IsUseSelectForm = capsuleSwitch11.IsOn;
         }
-
         /// <summary>
         /// 勾选或取消勾选“使用阵容窗口位置”复选框时触发
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBox_UseLineUpFormLocation_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch12_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseLineUpForm = checkBox_UseLineUpFormLocation.Checked;
+            _iappConfigService.CurrentConfig.IsUseLineUpForm = capsuleSwitch12.IsOn;
         }
+
+
 
         /// <summary>
         /// 勾选或取消勾选“使用状态覆盖窗口位置”复选框时触发
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBox_UseStatusOverlayForm_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e"></param>      
+        private void capsuleSwitch13_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseStatusOverlayForm = checkBox_UseStatusOverlayForm.Checked;
+            _iappConfigService.CurrentConfig.IsUseStatusOverlayForm = capsuleSwitch13.IsOn;
         }
-
         /// <summary>
         /// 勾选或取消勾选“使用错误输出窗口位置”复选框时触发
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBox_UseErrorShowForm_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e"></param>      
+        private void capsuleSwitch14_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseOutputForm = checkBox_UseErrorShowForm.Checked;
+            _iappConfigService.CurrentConfig.IsUseOutputForm = capsuleSwitch14.IsOn;
         }
-
         #region 英雄选择面板UI设置
         /// <summary>
         /// 离开textBox_英雄头像框边长时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
@@ -1332,9 +1424,9 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBox_定时更新推荐装备_CheckedChanged(object sender, EventArgs e)
+        private void capsuleSwitch15_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment = checkBox_定时更新推荐装备.Checked;
+            _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment = capsuleSwitch15.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment)
             {
                 textBox_更新推荐装备间隔.Enabled = true;
@@ -1344,9 +1436,8 @@ namespace JinChanChanTool
             {
                 textBox_更新推荐装备间隔.Enabled = false;
             }
-
         }
-
+      
         /// <summary>
         /// 离开textBox_更新推荐装备间隔时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
         /// </summary>
@@ -1381,7 +1472,7 @@ namespace JinChanChanTool
         }
         #endregion
         #endregion
-       
+
         #region 设置存取相关
 
         /// <summary>
@@ -1417,12 +1508,12 @@ namespace JinChanChanTool
         }
 
         #region 更新阵容推荐
-        private async void button1_Click_1(object sender, EventArgs e)
+        private async void roundedButton6_Click(object sender, EventArgs e)
         {
             try
             {
                 // 暂时禁用菜单项，防止用户重复点击
-                button1.Enabled = false;
+                roundedButton6.Enabled = false;
 
                 // 调用异步更新逻辑
                 await UpdateRecommendedLineUpsAsync();
@@ -1430,15 +1521,16 @@ namespace JinChanChanTool
             finally
             {
                 // 恢复菜单项可用状态
-                button1.Enabled = true;
+                roundedButton6.Enabled = true;
             }
         }
+
         /// <summary>
         /// 业务逻辑：从网络获取最新阵容数据并保存，完成后直接刷新不重启
         /// </summary>
         private async Task UpdateRecommendedLineUpsAsync()
         {
-            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();           
+            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
             ILineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
             // 1. 询问用户是否进行更新
             var r = MessageBox.Show(
@@ -1579,5 +1671,17 @@ namespace JinChanChanTool
             this.Close();
         }
         #endregion
+
+
+
+
+
+
+        private void panel_拿牌相关_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+      
     }
 }

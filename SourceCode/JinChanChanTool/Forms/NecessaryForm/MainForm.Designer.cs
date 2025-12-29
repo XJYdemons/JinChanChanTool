@@ -144,7 +144,7 @@ namespace JinChanChanTool
             // flowLayoutPanel_SubLineUp
             // 
             flowLayoutPanel_SubLineUp.BackColor = Color.Transparent;
-            flowLayoutPanel_SubLineUp.Location = new Point(5, 27);
+            flowLayoutPanel_SubLineUp.Location = new Point(5, 28);
             flowLayoutPanel_SubLineUp.Margin = new Padding(3, 3, 3, 7);
             flowLayoutPanel_SubLineUp.Name = "flowLayoutPanel_SubLineUp";
             flowLayoutPanel_SubLineUp.Size = new Size(384, 146);
@@ -272,136 +272,145 @@ namespace JinChanChanTool
             // 
             // roundedButton8
             // 
-            roundedButton8.BorderColor = Color.Transparent;
-            roundedButton8.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton8.BorderColor = SystemColors.ScrollBar;
+            roundedButton8.BorderWidth = 1;
+            roundedButton8.ButtonColor = Color.White;
             roundedButton8.CornerRadius = 3;
             roundedButton8.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton8.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton8.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton8.Location = new Point(316, 56);
             roundedButton8.Name = "roundedButton8";
-            roundedButton8.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton8.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton8.Size = new Size(83, 25);
             roundedButton8.TabIndex = 29;
             roundedButton8.Text = "编辑赛季装备";
-            roundedButton8.TextColor = Color.White;
+            roundedButton8.TextColor = Color.Black;
             roundedButton8.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton8.Click += roundedButton8_Click;
             // 
             // roundedButton7
             // 
-            roundedButton7.BorderColor = Color.Transparent;
-            roundedButton7.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton7.BorderColor = SystemColors.ScrollBar;
+            roundedButton7.BorderWidth = 1;
+            roundedButton7.ButtonColor = Color.White;
             roundedButton7.CornerRadius = 3;
             roundedButton7.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton7.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton7.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton7.Location = new Point(230, 56);
             roundedButton7.Name = "roundedButton7";
-            roundedButton7.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton7.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton7.Size = new Size(83, 25);
             roundedButton7.TabIndex = 28;
             roundedButton7.Text = "编辑赛季英雄";
-            roundedButton7.TextColor = Color.White;
+            roundedButton7.TextColor = Color.Black;
             roundedButton7.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton7.Click += roundedButton7_Click;
             // 
             // roundedButton6
             // 
-            roundedButton6.BorderColor = Color.Transparent;
-            roundedButton6.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton6.BorderColor = SystemColors.ScrollBar;
+            roundedButton6.BorderWidth = 1;
+            roundedButton6.ButtonColor = Color.White;
             roundedButton6.CornerRadius = 3;
             roundedButton6.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton6.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton6.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton6.Location = new Point(359, 86);
             roundedButton6.Name = "roundedButton6";
-            roundedButton6.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton6.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton6.Size = new Size(40, 25);
             roundedButton6.TabIndex = 27;
             roundedButton6.Text = "删除";
-            roundedButton6.TextColor = Color.White;
+            roundedButton6.TextColor = Color.Black;
             roundedButton6.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton6.Click += roundedButton6_Click;
             // 
             // roundedButton2
             // 
-            roundedButton2.BorderColor = Color.Transparent;
-            roundedButton2.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton2.BorderColor = SystemColors.ScrollBar;
+            roundedButton2.BorderWidth = 1;
+            roundedButton2.ButtonColor = Color.White;
             roundedButton2.CornerRadius = 3;
             roundedButton2.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton2.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton2.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton2.Location = new Point(316, 86);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton2.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton2.Size = new Size(40, 25);
             roundedButton2.TabIndex = 26;
             roundedButton2.Text = "添加";
-            roundedButton2.TextColor = Color.White;
+            roundedButton2.TextColor = Color.Black;
             roundedButton2.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton2.Click += roundedButton2_Click;
             // 
             // roundedButton5
             // 
-            roundedButton5.BorderColor = Color.Transparent;
-            roundedButton5.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton5.BorderColor = SystemColors.ScrollBar;
+            roundedButton5.BorderWidth = 1;
+            roundedButton5.ButtonColor = Color.White;
             roundedButton5.CornerRadius = 3;
             roundedButton5.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton5.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton5.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton5.Location = new Point(273, 86);
             roundedButton5.Name = "roundedButton5";
-            roundedButton5.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton5.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton5.Size = new Size(40, 25);
             roundedButton5.TabIndex = 25;
             roundedButton5.Text = "清空";
-            roundedButton5.TextColor = Color.White;
+            roundedButton5.TextColor = Color.Black;
             roundedButton5.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton5.Click += roundedButton5_Click;
             // 
             // roundedButton4
             // 
-            roundedButton4.BorderColor = Color.Transparent;
-            roundedButton4.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton4.BorderColor = SystemColors.ScrollBar;
+            roundedButton4.BorderWidth = 1;
+            roundedButton4.ButtonColor = Color.White;
             roundedButton4.CornerRadius = 3;
             roundedButton4.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton4.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton4.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton4.Location = new Point(230, 86);
             roundedButton4.Name = "roundedButton4";
-            roundedButton4.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton4.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton4.Size = new Size(40, 25);
             roundedButton4.TabIndex = 24;
             roundedButton4.Text = "保存";
-            roundedButton4.TextColor = Color.White;
+            roundedButton4.TextColor = Color.Black;
             roundedButton4.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton4.Click += roundedButton4_Click;
             // 
             // roundedButton3
             // 
-            roundedButton3.BorderColor = Color.Transparent;
-            roundedButton3.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton3.BorderColor = SystemColors.ScrollBar;
+            roundedButton3.BorderWidth = 1;
+            roundedButton3.ButtonColor = Color.White;
             roundedButton3.CornerRadius = 3;
             roundedButton3.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton3.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton3.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton3.Location = new Point(230, 116);
             roundedButton3.Name = "roundedButton3";
-            roundedButton3.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton3.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton3.Size = new Size(83, 25);
             roundedButton3.TabIndex = 23;
             roundedButton3.Text = "解析阵容码";
-            roundedButton3.TextColor = Color.White;
+            roundedButton3.TextColor = Color.Black;
             roundedButton3.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton3.Click += roundedButton3_Click;
             // 
             // roundedButton1
             // 
-            roundedButton1.BorderColor = Color.Transparent;
-            roundedButton1.ButtonColor = Color.FromArgb(0, 153, 255);
+            roundedButton1.BorderColor = SystemColors.ScrollBar;
+            roundedButton1.BorderWidth = 1;
+            roundedButton1.ButtonColor = Color.White;
             roundedButton1.CornerRadius = 3;
             roundedButton1.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton1.HoverColor = Color.FromArgb(0, 141, 235);
+            roundedButton1.HoverColor = Color.FromArgb(232, 232, 232);
             roundedButton1.Location = new Point(316, 116);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.PressedColor = Color.FromArgb(0, 128, 214);
+            roundedButton1.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton1.Size = new Size(83, 25);
             roundedButton1.TabIndex = 21;
             roundedButton1.Text = "导出阵容码";
-            roundedButton1.TextColor = Color.White;
+            roundedButton1.TextColor = Color.Black;
             roundedButton1.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton1.Click += roundedButton1_Click;
             // 

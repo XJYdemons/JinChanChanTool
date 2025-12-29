@@ -1502,42 +1502,230 @@ namespace JinChanChanTool
 
         /// <summary>
         /// 生成对话框窗口，提供变阵重命名的UI。
+        /// 使用圆角效果和自定义标题栏。
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
+        /// <param name="title">对话框标题</param>
+        /// <param name="defaultValue">输入框默认值</param>
+        /// <returns>用户输入的文本，如果取消则返回null</returns>
         private string? PromptForSubLineUpName(string title, string defaultValue)
         {
-            using Form prompt = new Form();
-            prompt.TopMost = true;
-            prompt.Text = title;
+            using RenameDialogForm prompt = new RenameDialogForm();
             prompt.StartPosition = FormStartPosition.CenterParent;
-            prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
-            prompt.MinimizeBox = false;
-            prompt.MaximizeBox = false;
-            prompt.ClientSize = new Size(prompt.LogicalToDeviceUnits(280), prompt.LogicalToDeviceUnits(120));
-            prompt.FormBorderStyle = FormBorderStyle.None;
-            prompt.AutoSize = true;
-            prompt.AutoScaleMode = AutoScaleMode.Dpi;
-            prompt.BackColor = Color.White;
-            // 自定义标题栏,带图标、带标题、最小化与关闭按钮。
-            CustomTitleBar titleBar = new CustomTitleBar(prompt, prompt.LogicalToDeviceUnits(32), null, title, CustomTitleBar.ButtonOptions.Close);
-            prompt.Controls.Add(titleBar);
+            prompt.InputText = defaultValue;
 
-            Label textLabel = new Label() { Left = prompt.LogicalToDeviceUnits(10), Top = prompt.LogicalToDeviceUnits(42), Text = "变阵名称：", AutoSize = true };
-            TextBox inputBox = new TextBox() { Left = prompt.LogicalToDeviceUnits(10), Top = prompt.LogicalToDeviceUnits(67), Width = prompt.LogicalToDeviceUnits(260), Text = defaultValue };
-            Button confirmation = new Button() { Text = "确定", Left = prompt.LogicalToDeviceUnits(110), Width = prompt.LogicalToDeviceUnits(75), Height = prompt.LogicalToDeviceUnits(25), Top = prompt.LogicalToDeviceUnits(102), DialogResult = DialogResult.OK, FlatStyle = FlatStyle.Flat };
-            confirmation.FlatAppearance.BorderColor = Color.Gray;
-            Button cancel = new Button() { Text = "取消", Left = prompt.LogicalToDeviceUnits(195), Width = prompt.LogicalToDeviceUnits(75), Height = prompt.LogicalToDeviceUnits(25), Top = prompt.LogicalToDeviceUnits(102), DialogResult = DialogResult.Cancel, FlatStyle = FlatStyle.Flat };
-            cancel.FlatAppearance.BorderColor = Color.Gray;
-            prompt.Controls.Add(textLabel);
-            prompt.Controls.Add(inputBox);
-            prompt.Controls.Add(confirmation);
-            prompt.Controls.Add(cancel);
-            prompt.AcceptButton = confirmation;
-            prompt.CancelButton = cancel;
+            return prompt.ShowDialog(this) == DialogResult.OK ? prompt.InputText : null;
+        }
 
-            return prompt.ShowDialog(this) == DialogResult.OK ? inputBox.Text : null;
+        /// <summary>
+        /// 带圆角效果和自定义标题栏的重命名对话框
+        /// </summary>
+        private class RenameDialogForm : Form
+        {
+            // GDI32 API - 用于创建圆角效果
+            [DllImport("gdi32.dll")]
+            private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+            [DllImport("user32.dll")]
+            private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
+            // 圆角半径
+            private const int CORNER_RADIUS = 16;
+
+            // 边框颜色
+            private static readonly Color BORDER_COLOR = Color.FromArgb(250, 250, 250);
+
+            // 输入框控件引用
+            private TextBox inputBox;
+
+            /// <summary>
+            /// 获取或设置输入框的文本
+            /// </summary>
+            public string InputText
+            {
+                get => inputBox.Text;
+                set => inputBox.Text = value;
+            }
+
+            public RenameDialogForm()
+            {
+                InitializeComponents();
+
+            }
+
+            /// <summary>
+            /// 初始化对话框组件
+            /// </summary>
+            private void InitializeComponents()
+            {
+                // 窗体基本设置
+                TopMost = true;
+                FormBorderStyle = FormBorderStyle.None;
+                MinimizeBox = false;
+                MaximizeBox = false;
+                AutoScaleMode = AutoScaleMode.Dpi;
+                BackColor = BORDER_COLOR;
+                ClientSize = new Size(LogicalToDeviceUnits(280), LogicalToDeviceUnits(140));
+
+                // 边框面板（最外层，通过Padding模拟边框）
+                Panel borderPanel = new Panel
+                {
+                    BackColor = BORDER_COLOR,
+                    Dock = DockStyle.Fill,
+                    Padding = new Padding(
+                        LogicalToDeviceUnits(3),
+                        LogicalToDeviceUnits(3),
+                        LogicalToDeviceUnits(4),
+                        LogicalToDeviceUnits(4)
+                    )
+                };
+
+                // 客户区面板（白色背景）
+                Panel clientPanel = new Panel
+                {
+                    BackColor = Color.White,
+                    Dock = DockStyle.Fill
+                };
+
+                // 标题栏面板
+                int titleBarHeight = LogicalToDeviceUnits(28);
+                Panel titleBarPanel = new Panel
+                {
+                    BackColor = Color.White,
+                    Dock = DockStyle.Top,
+                    Height = titleBarHeight
+                };
+                // 标题标签
+                Label titleLabel = new Label
+                {
+                    Text = "重命名",
+                    AutoSize = false,
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Location = new Point(LogicalToDeviceUnits(8), 0),
+                    Size = new Size(LogicalToDeviceUnits(100), titleBarHeight),
+                    Font = new Font(Font.FontFamily, 9F, FontStyle.Regular, GraphicsUnit.Point)
+                };
+
+                // 关闭按钮
+                Button closeButton = new Button
+                {
+                    Text = "X",
+                    FlatStyle = FlatStyle.Flat,
+                    Size = new Size(LogicalToDeviceUnits(25), LogicalToDeviceUnits(25)),
+                    Location = new Point(LogicalToDeviceUnits(245), LogicalToDeviceUnits(1)),
+                    TabStop = false
+                };
+                closeButton.FlatAppearance.BorderSize = 0;
+                closeButton.Click += (s, e) =>
+                {
+                    DialogResult = DialogResult.Cancel;
+                    Close();
+                };
+
+                titleBarPanel.Controls.Add(titleLabel);
+                titleBarPanel.Controls.Add(closeButton);
+
+                // 内容面板
+                Panel contentPanel = new Panel
+                {
+                    BackColor = Color.White,
+                    Dock = DockStyle.Fill
+                };
+
+                // 变阵名称标签
+                Label textLabel = new Label
+                {
+                    Text = "变阵名称：",
+                    AutoSize = true,
+                    Location = new Point(LogicalToDeviceUnits(10), LogicalToDeviceUnits(10))
+                };
+
+                // 输入框
+                inputBox = new TextBox
+                {
+                    Location = new Point(LogicalToDeviceUnits(10), LogicalToDeviceUnits(35)),
+                    Width = LogicalToDeviceUnits(253)
+                };
+
+                // 确定按钮
+                Button confirmButton = new Button
+                {
+                    Text = "确定",
+                    FlatStyle = FlatStyle.Flat,
+                    Size = new Size(LogicalToDeviceUnits(75), LogicalToDeviceUnits(28)),
+                    Location = new Point(LogicalToDeviceUnits(100), LogicalToDeviceUnits(70)),
+                    DialogResult = DialogResult.OK
+                };
+                confirmButton.FlatAppearance.BorderColor = Color.Gray;
+
+                // 取消按钮
+                Button cancelButton = new Button
+                {
+                    Text = "取消",
+                    FlatStyle = FlatStyle.Flat,
+                    Size = new Size(LogicalToDeviceUnits(75), LogicalToDeviceUnits(28)),
+                    Location = new Point(LogicalToDeviceUnits(188), LogicalToDeviceUnits(70)),
+                    DialogResult = DialogResult.Cancel
+                };
+                cancelButton.FlatAppearance.BorderColor = Color.Gray;
+
+                contentPanel.Controls.Add(textLabel);
+                contentPanel.Controls.Add(inputBox);
+                contentPanel.Controls.Add(confirmButton);
+                contentPanel.Controls.Add(cancelButton);
+
+                // 组装控件层次结构
+                clientPanel.Controls.Add(contentPanel);
+                clientPanel.Controls.Add(titleBarPanel);
+                borderPanel.Controls.Add(clientPanel);
+                Controls.Add(borderPanel);
+
+                // 设置默认按钮
+                AcceptButton = confirmButton;
+                CancelButton = cancelButton;
+                DragHelper.EnableDragForChildren(titleBarPanel);
+            }
+
+
+
+            /// <summary>
+            /// 在窗口句柄创建后应用圆角效果
+            /// </summary>
+            protected override void OnHandleCreated(EventArgs e)
+            {
+                base.OnHandleCreated(e);
+                ApplyRoundedCorners();
+            }
+
+            /// <summary>
+            /// 窗口大小改变时重新应用圆角
+            /// </summary>
+            protected override void OnResize(EventArgs e)
+            {
+                base.OnResize(e);
+                if (Handle != IntPtr.Zero)
+                {
+                    ApplyRoundedCorners();
+                }
+            }
+
+            /// <summary>
+            /// 应用GDI Region圆角效果
+            /// </summary>
+            private void ApplyRoundedCorners()
+            {
+                try
+                {
+                    IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
+                    if (region != IntPtr.Zero)
+                    {
+                        SetWindowRgn(Handle, region, true);
+                    }
+                }
+                catch
+                {
+                    // 圆角应用失败时静默处理，不影响功能使用
+                }
+            }
         }
         #endregion
 
@@ -1663,7 +1851,7 @@ namespace JinChanChanTool
             button_变阵2.BackColor = selectedIndex == 1 ? selectedColor : normalColor;
             button_变阵3.BackColor = selectedIndex == 2 ? selectedColor : normalColor;
 
-            if(selectedIndex==0)
+            if (selectedIndex == 0)
             {
                 button_变阵1.Focus();
             }
@@ -2157,6 +2345,14 @@ namespace JinChanChanTool
             form.TopMost = true;// 确保窗口在最前面
             form.Show();// 显示窗口
         }
+
+        private void roundedButton8_Click(object sender, EventArgs e)
+        {
+            var form = new EquipmentDataEditorForm();
+            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
+            form.TopMost = true;// 确保窗口在最前面
+            form.Show();// 显示窗口
+        }
         #endregion
 
         #region 圆角实现
@@ -2168,7 +2364,7 @@ namespace JinChanChanTool
         private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
 
         // 圆角半径
-        private const int CORNER_RADIUS = 8;
+        private const int CORNER_RADIUS = 16;
 
         /// <summary>
         /// 在窗口句柄创建后应用圆角效果
@@ -2235,5 +2431,7 @@ namespace JinChanChanTool
             this.Close();
         }
         #endregion
+
+       
     }
 }

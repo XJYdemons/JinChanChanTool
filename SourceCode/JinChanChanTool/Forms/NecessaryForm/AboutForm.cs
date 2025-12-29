@@ -128,7 +128,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void linkLabel3_Click(object sender, EventArgs e)
         {
-        
+
             Process.Start(new ProcessStartInfo
             {
                 FileName = "https://github.com/baolibaobao", //需要打开的URL
@@ -212,5 +212,10 @@ namespace JinChanChanTool
             this.Close();
         }
         #endregion
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

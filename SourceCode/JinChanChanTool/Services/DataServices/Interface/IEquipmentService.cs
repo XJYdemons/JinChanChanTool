@@ -30,6 +30,33 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
+        bool SetFilePathsIndex(int index);
+
+        /// <summary>
+        /// 根据索引删除英雄
+        /// </summary>
+        /// <param name="index"></param>
+        bool DeletEquipmentAtIndex(int index);
+
+        /// <summary>
+        /// 获取装备数量
+        /// </summary>
+        /// <returns></returns>
+        public int GetEquipmentCount();
+        
+
+        /// <summary>
+        /// 添加装备
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="image"></param>
+        bool AddEquipment(Equipment equipment, Image image);
+
+        /// <summary>
+        /// 设置文件路径索引
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         bool SetFilePathsIndex(string Season);
 
         /// <summary>
@@ -37,6 +64,12 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// </summary>
         /// <returns></returns>
         int GetFilePathsIndex();
+
+        /// <summary>
+        /// 获取默认图片文件路径
+        /// </summary>
+        /// <returns></returns>
+        string GetDefaultImagePath();
 
         /// <summary>
         /// 获取装备数据对象列表

@@ -18,14 +18,14 @@ namespace JinChanChanTool.DIYComponents
 
         // 私有字段
         private ButtonState currentState = ButtonState.Normal;
-        private int cornerRadius = 10;
-        private Color buttonColor = Color.FromArgb(64, 158, 255); // 默认蓝色
-        private Color hoverColor = Color.FromArgb(102, 177, 255); // 悬停时亮蓝色
-        private Color pressedColor = Color.FromArgb(51, 127, 204); // 按下时深蓝色
+        private int cornerRadius = 5;
+        private Color buttonColor = Color.FromArgb(255, 255, 255); // 默认蓝色
+        private Color hoverColor = Color.FromArgb(232, 232, 232); // 悬停时亮蓝色
+        private Color pressedColor = Color.FromArgb(222, 222, 222); // 按下时深蓝色
         private Color disabledColor = Color.FromArgb(160, 160, 160); // 禁用时灰色
-        private Color textColor = Color.White;
-        private Color borderColor = Color.Transparent;
-        private int borderWidth = 0;
+        private Color textColor = Color.Black;
+        private Color borderColor = Color.FromArgb(200, 200, 200);
+        private int borderWidth = 1;
         private Font textFont;
 
         /// <summary>
@@ -255,21 +255,13 @@ namespace JinChanChanTool.DIYComponents
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             graphics.PixelOffsetMode = PixelOffsetMode.HighQuality; // 高质量像素偏移
 
-            // 确定当前背景颜色
-            Color backgroundColor;
-            if (!Enabled)
+            // 确定当前背景颜色（禁用时也保持正常背景色）
+            Color backgroundColor = currentState switch
             {
-                backgroundColor = disabledColor;
-            }
-            else
-            {
-                backgroundColor = currentState switch
-                {
-                    ButtonState.Pressed => pressedColor,
-                    ButtonState.Hovered => hoverColor,
-                    _ => buttonColor
-                };
-            }
+                ButtonState.Pressed when Enabled => pressedColor,
+                ButtonState.Hovered when Enabled => hoverColor,
+                _ => buttonColor
+            };
 
             // 计算绘制区域
             // 使用 ClientRectangle 减1确保不超出边界，再减去边框占用空间
@@ -312,7 +304,10 @@ namespace JinChanChanTool.DIYComponents
             // 绘制文本（居中对齐）
             if (!string.IsNullOrEmpty(Text))
             {
-                using (SolidBrush textBrush = new SolidBrush(textColor))
+                // 确定文本颜色（禁用时使用灰色）
+                Color currentTextColor = Enabled ? textColor : Color.FromArgb(200, 200, 200);
+
+                using (SolidBrush textBrush = new SolidBrush(currentTextColor))
                 {
                     using (StringFormat stringFormat = new StringFormat())
                     {

@@ -22,6 +22,11 @@ namespace JinChanChanTool.Services.DataServices
         private int pathIndex;
 
         /// <summary>
+        /// 默认图片路径
+        /// </summary>
+        private string defaultImagePath;
+
+        /// <summary>
         /// 装备数据对象列表
         /// </summary>
         public List<Equipment> Equipments;
@@ -57,7 +62,8 @@ namespace JinChanChanTool.Services.DataServices
             {
                 subDirs[i] = Path.Combine(parentPath, subDirs[i]);
             }
-            paths = subDirs;            
+            paths = subDirs;
+            defaultImagePath = Path.Combine(Application.StartupPath, "Resources", "defaultHeroIcon.png");
         }
         #endregion
 
@@ -113,6 +119,15 @@ namespace JinChanChanTool.Services.DataServices
         }
 
         /// <summary>
+        /// 获取默认图片文件路径
+        /// </summary>
+        /// <returns></returns>
+        public string GetDefaultImagePath()
+        {
+            return defaultImagePath;
+        }
+
+        /// <summary>
         /// 重新加载
         /// </summary>
         public void ReLoad()
@@ -149,6 +164,21 @@ namespace JinChanChanTool.Services.DataServices
         public string[] GetFilePaths()
         {
             return paths;
+        }
+
+        /// <summary>
+        /// 设置文件路径索引
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool SetFilePathsIndex(int index)
+        {
+            if (index >= 0 && index < paths.Length)
+            {
+                pathIndex = index;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -200,7 +230,53 @@ namespace JinChanChanTool.Services.DataServices
             return Equipments;
         }
 
-       
+        /// <summary>
+        /// 添加装备
+        /// </summary>
+        /// <param name="hero"></param>
+        /// <param name="image"></param>
+        public bool AddEquipment(Equipment equipment, Image image)
+        {
+            if (equipment == null || image == null) return false;
+            Equipments.Add(equipment);
+            //heroDataToImageMap[hero] = image;
+            //imageToHeroDataMap[image] = hero;
+            nameToEquipmentMap[equipment.Name] = equipment;
+            return true;
+        }
+
+        /// <summary>
+        /// 根据索引删除英雄
+        /// </summary>
+        /// <param name="index"></param>
+        public bool DeletEquipmentAtIndex(int index)
+        {
+            if (index < Equipments.Count && index >= 0)
+            {
+                Equipment equipment = Equipments[index];
+               
+                if (nameToEquipmentMap.ContainsKey(equipment.Name))
+                {
+                    nameToEquipmentMap.Remove(equipment.Name);
+                }
+                else
+                {
+                    return true;
+                }
+                Equipments.RemoveAt(index);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 获取英雄数量
+        /// </summary>
+        /// <returns></returns>
+        public int GetEquipmentCount()
+        {
+            return Equipments.Count;
+        }
         #endregion
 
         #region 私有方法

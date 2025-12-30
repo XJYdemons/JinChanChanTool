@@ -2432,6 +2432,19 @@ namespace JinChanChanTool
         }
         #endregion
 
-       
+
+        private void roundedButton9_Click(object sender, EventArgs e)
+        {
+            // 从剪切板获取阵容码
+            string lineupCode = Clipboard.GetText().Trim();
+
+            if (string.IsNullOrEmpty(lineupCode))
+            {
+                MessageBox.Show("剪切板中没有内容！请先复制阵容码到剪切板。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            textBox_LineUpCode.Text = lineupCode;
+            roundedButton3_Click(sender, e);
+        }
     }
 }

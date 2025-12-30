@@ -72,6 +72,7 @@ namespace JinChanChanTool
             pictureBox1 = new PictureBox();
             button2 = new Button();
             button1 = new Button();
+            roundedButton9 = new RoundedButton();
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
@@ -242,6 +243,7 @@ namespace JinChanChanTool
             // panel_BackGround
             // 
             panel_BackGround.BackColor = Color.White;
+            panel_BackGround.Controls.Add(roundedButton9);
             panel_BackGround.Controls.Add(roundedButton8);
             panel_BackGround.Controls.Add(roundedButton7);
             panel_BackGround.Controls.Add(roundedButton6);
@@ -407,9 +409,9 @@ namespace JinChanChanTool
             roundedButton1.Location = new Point(316, 116);
             roundedButton1.Name = "roundedButton1";
             roundedButton1.PressedColor = Color.FromArgb(222, 222, 222);
-            roundedButton1.Size = new Size(83, 25);
+            roundedButton1.Size = new Size(40, 25);
             roundedButton1.TabIndex = 21;
-            roundedButton1.Text = "导出阵容码";
+            roundedButton1.Text = "导出";
             roundedButton1.TextColor = Color.Black;
             roundedButton1.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             roundedButton1.Click += roundedButton1_Click;
@@ -600,6 +602,24 @@ namespace JinChanChanTool
             button1.UseVisualStyleBackColor = true;
             button1.Click += button_关闭_Click;
             // 
+            // roundedButton9
+            // 
+            roundedButton9.BorderColor = SystemColors.ScrollBar;
+            roundedButton9.BorderWidth = 1;
+            roundedButton9.ButtonColor = Color.White;
+            roundedButton9.CornerRadius = 3;
+            roundedButton9.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton9.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton9.Location = new Point(359, 116);
+            roundedButton9.Name = "roundedButton9";
+            roundedButton9.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton9.Size = new Size(40, 25);
+            roundedButton9.TabIndex = 30;
+            roundedButton9.Text = "导入";
+            roundedButton9.TextColor = Color.Black;
+            roundedButton9.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton9.Click += roundedButton9_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -668,5 +688,6 @@ namespace JinChanChanTool
         private Label label5;
         private PictureBox pictureBox1;
         private Button button2;
+        private RoundedButton roundedButton9;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace JinChanChanTool.Tools.LineUpCodeTools
@@ -58,9 +59,8 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
             {
                 return codeToNameMap[hexStr];
             }
-
-            // 如果字典里找不到对应的代码，就抛出一个异常
-            throw new ArgumentException($"代码 '{hexStr}' 无法识别，不是有效的英雄代码。");
+            Debug.WriteLine($"代码 '{hexStr}' 无法识别，不是有效的英雄代码。");
+            return "";
         }
 
         /// <summary>
@@ -94,7 +94,8 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
             // 目前只处理以 TFTSet16 结尾的代码
             if (!tftHexStr.EndsWith("TFTSet16"))
             {
-                throw new ArgumentException("当前只支持S16赛季的阵容代码 (以 TFTSet16 结尾)");
+                Debug.WriteLine("解析失败，阵容码不正确！");
+                return new List<string>();
             }
 
             // 提取核心的16进制字符串 (去除前2位和后8位)
@@ -111,12 +112,15 @@ namespace JinChanChanTool.Tools.LineUpCodeTools
                     try
                     {
                         string heroName = HexDecrypt(chunk);
-                        heroes.Add(heroName);
+                        if(heroName!="")
+                        {
+                            heroes.Add(heroName);
+                        }                        
                     }
                     catch (Exception ex)
                     {
                         // 打印错误信息到控制台，方便调试，然后继续解析下一个
-                        Console.WriteLine($"解析块 '{chunk}' 时出错: {ex.Message}");
+                        Debug.WriteLine($"解析块 '{chunk}' 时出错: {ex.Message}");
                     }
                 }
             }

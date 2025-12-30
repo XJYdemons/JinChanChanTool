@@ -3,6 +3,7 @@ using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Tools;
 using System;
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 
@@ -191,23 +192,50 @@ namespace JinChanChanTool.Forms
         }
 
         #region 位置保存与读取
-        
+
+        /// <summary>
+        /// Windows消息常量 - 窗口移动或大小调整结束
+        /// </summary>
+        private const int WM_EXITSIZEMOVE = 0x0232;
+
+        /// <summary>
+        /// 重写窗口过程以监听拖动结束消息
+        /// </summary>
+        /// <param name="m">Windows消息</param>
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            // 监听窗口移动结束消息
+            if (m.Msg == WM_EXITSIZEMOVE)
+            {
+                // 拖动结束,保存位置
+                SaveFormLocation();
+            }
+        }
+
         /// <summary>
         /// 拖动结束时保存窗口位置到配置服务
         /// </summary>
         private void SaveFormLocation()
         {
+            Debug.WriteLine($"StatusOverlayForm - 保存位置: {this.Location}");
             try
             {
                 if (_iAutoConfigService != null)
                 {
                     _iAutoConfigService.CurrentConfig.StatusOverlayFormLocation = this.Location;
                     _iAutoConfigService.Save();
+                   
+                }
+                else
+                {
+                   
                 }
             }
             catch (Exception ex)
             {
-
+              
             }
         }
 

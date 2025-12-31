@@ -2012,6 +2012,20 @@ namespace JinChanChanTool
                 textBox_LineUpCode.Text = "请在此处粘贴阵容代码";
             }
         }
+
+        private void roundedButton9_Click(object sender, EventArgs e)
+        {
+            // 从剪切板获取阵容码
+            string lineupCode = Clipboard.GetText().Trim();
+
+            if (string.IsNullOrEmpty(lineupCode))
+            {
+                MessageBox.Show("剪切板中没有内容！请先复制阵容码到剪切板。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            textBox_LineUpCode.Text = lineupCode;
+            roundedButton3_Click(sender, e);
+        }
         #endregion
 
         #region 更新装备数据       
@@ -2432,19 +2446,96 @@ namespace JinChanChanTool
         }
         #endregion
 
+        #region 位置保存与读取
 
-        private void roundedButton9_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Windows消息常量 - 窗口移动或大小调整结束
+        /// </summary>
+        private const int WM_EXITSIZEMOVE = 0x0232;
+
+        /// <summary>
+        /// 重写窗口过程以监听拖动结束消息
+        /// </summary>
+        /// <param name="m">Windows消息</param>
+        protected override void WndProc(ref Message m)
         {
-            // 从剪切板获取阵容码
-            string lineupCode = Clipboard.GetText().Trim();
+            base.WndProc(ref m);
 
-            if (string.IsNullOrEmpty(lineupCode))
+            // 监听窗口移动结束消息
+            if (m.Msg == WM_EXITSIZEMOVE)
             {
-                MessageBox.Show("剪切板中没有内容！请先复制阵容码到剪切板。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                // 拖动结束,保存位置
+                SaveFormLocation();
             }
-            textBox_LineUpCode.Text = lineupCode;
-            roundedButton3_Click(sender, e);
         }
+
+        /// <summary>
+        /// 拖动结束时保存窗口位置到配置服务
+        /// </summary>
+        private void SaveFormLocation()
+        {
+            //Debug.WriteLine($"StatusOverlayForm - 保存位置: {this.Location}");
+            try
+            {
+                if (_iAutomaticSettingsService != null)
+                {
+                     _iAutomaticSettingsService.CurrentConfig.MainFormLocation = this.Location;
+                    _iAutomaticSettingsService.Save();
+
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        /// <summary>
+        /// 显示窗体时应用保存的位置
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            try
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                if (_iAutomaticSettingsService.CurrentConfig.MainFormLocation.X == -1 && _iAutomaticSettingsService.CurrentConfig.MainFormLocation.Y == -1)
+                {
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Left+ screen.Width/2 - this.Width/2 /*- 10*/,
+                        screen.Top+screen.Height/2-this.Height/2 /*+ 10*/
+                    );
+                    return;
+                }
+                // 确保坐标在屏幕范围内
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutomaticSettingsService.CurrentConfig.MainFormLocation)))
+                {
+                    this.Location = _iAutomaticSettingsService.CurrentConfig.MainFormLocation;
+                }
+                else
+                {
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
+                        screen.Top + screen.Height / 2 - this.Height /*+ 10*/
+                    );
+                }
+            }
+            catch
+            {
+                var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Left+ screen.Width/2 - this.Width/2 /*- 10*/,
+                        screen.Top+screen.Height/2-this.Height /*+ 10*/
+                    );
+            }
+        }
+        #endregion
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using JinChanChanTool.Tools;
+﻿using JinChanChanTool.Services;
+using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,6 +47,16 @@ namespace JinChanChanTool.Forms
             panel_Dragging.MouseUp += Panel_Dragging_MouseUp;
             panel_Dragging.MouseLeave += Panel_Dragging_MouseLeave;
          
+        }
+        public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
+        /// <summary>
+        /// 初始化配置服务
+        /// </summary>
+        /// <param name="iAutoConfigService">自动配置服务</param>
+        /// <param name="cardService">卡牌服务</param>
+        public void InitializeObject(IAutomaticSettingsService iAutoConfigService)
+        {
+            _iAutoConfigService = iAutoConfigService;            
         }
 
         /// <summary>
@@ -239,7 +251,99 @@ namespace JinChanChanTool.Forms
         private void button_最小化_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
-        }     
+        }
+        #endregion
+
+        #region 位置保存与读取
+
+        /// <summary>
+        /// Windows消息常量 - 窗口移动或大小调整结束
+        /// </summary>
+        private const int WM_EXITSIZEMOVE = 0x0232;
+
+        /// <summary>
+        /// 重写窗口过程以监听拖动结束消息
+        /// </summary>
+        /// <param name="m">Windows消息</param>
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            // 监听窗口移动结束消息
+            if (m.Msg == WM_EXITSIZEMOVE)
+            {
+                // 拖动结束,保存位置
+                SaveFormLocation();
+            }
+        }
+
+        /// <summary>
+        /// 拖动结束时保存窗口位置到配置服务
+        /// </summary>
+        private void SaveFormLocation()
+        {
+            //Debug.WriteLine($"StatusOverlayForm - 保存位置: {this.Location}");
+            try
+            {
+                if (_iAutoConfigService != null)
+                {
+                    _iAutoConfigService.CurrentConfig.OutputFormLocation = this.Location;
+                    _iAutoConfigService.Save();
+
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 显示窗体时应用保存的位置
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            try
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                if (_iAutoConfigService.CurrentConfig.OutputFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.OutputFormLocation.Y == -1)
+                {
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
+                        screen.Top  /*+ 10*/
+                    );
+                    return;
+                }
+                // 确保坐标在屏幕范围内
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.OutputFormLocation)))
+                {
+                    this.Location = _iAutoConfigService.CurrentConfig.OutputFormLocation;
+                }
+                else
+                {
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
+                        screen.Top  /*+ 10*/
+                    );
+                }
+            }
+            catch
+            {
+                var screen = Screen.PrimaryScreen.Bounds;
+                this.Location = new Point(
+                    screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
+                    screen.Top  /*+ 10*/
+                );
+            }
+        }
         #endregion
     }
 }

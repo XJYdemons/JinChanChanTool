@@ -64,6 +64,16 @@ namespace JinChanChanTool.DataClass
         public Rectangle HighLightRectangle_5 { get; set; }
 
         /// <summary>
+        /// 主窗口位置
+        /// </summary>
+        public Point MainFormLocation { get; set; }
+
+        /// <summary>
+        /// 输出窗口位置
+        /// </summary>
+        public Point OutputFormLocation { get; set; }
+
+        /// <summary>
         /// 英雄选择面板位置
         /// </summary>
         public Point SelectFormLocation { get; set; }
@@ -109,6 +119,8 @@ namespace JinChanChanTool.DataClass
             HighLightRectangle_3 = new Rectangle(0, 0, 10, 10);
             HighLightRectangle_4 = new Rectangle(0, 0, 10, 10);
             HighLightRectangle_5 = new Rectangle(0, 0, 10, 10);
+            MainFormLocation = new Point(-1, -1);
+            OutputFormLocation = new Point(-1, -1);
             SelectFormLocation = new Point(-1, -1);
             LineUpFormLocation = new Point(-1, -1);
             StatusOverlayFormLocation = new Point(-1, -1);
@@ -136,6 +148,8 @@ namespace JinChanChanTool.DataClass
                 HighLightRectangle_3 = this.HighLightRectangle_3,
                 HighLightRectangle_4 = this.HighLightRectangle_4,
                 HighLightRectangle_5 = this.HighLightRectangle_5,
+                MainFormLocation = this.MainFormLocation,
+                OutputFormLocation = this.OutputFormLocation,
                 SelectFormLocation = this.SelectFormLocation,
                 LineUpFormLocation = this.LineUpFormLocation,
                 StatusOverlayFormLocation = this.StatusOverlayFormLocation,
@@ -166,6 +180,8 @@ namespace JinChanChanTool.DataClass
                    HighLightRectangle_3 == other.HighLightRectangle_3 &&
                    HighLightRectangle_4 == other.HighLightRectangle_4 &&
                    HighLightRectangle_5 == other.HighLightRectangle_5 &&
+                    MainFormLocation == other.MainFormLocation&&
+                    OutputFormLocation == other.OutputFormLocation &&
                    SelectFormLocation == other.SelectFormLocation &&
                    LineUpFormLocation == other.LineUpFormLocation &&
                    StatusOverlayFormLocation == other.StatusOverlayFormLocation &&

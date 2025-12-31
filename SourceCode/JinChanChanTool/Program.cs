@@ -24,16 +24,19 @@ namespace JinChanChanTool
             IManualSettingsService _iManualSettingsService = new ManualSettingsService();
             _iManualSettingsService.Load();
 
+            //创建并加载自动应用设置服务
+            IAutomaticSettingsService _iAutomaticSettingsService = new AutomaticSettingsService();
+            _iAutomaticSettingsService.Load();
+
             // 展示输出窗口          
+            OutputForm.Instance.InitializeObject(_iAutomaticSettingsService);
             OutputForm.Instance.Show();
             if (!_iManualSettingsService.CurrentConfig.IsUseOutputForm)
             {
                 OutputForm.Instance.Visible = false;
             }
 
-            //创建并加载自动应用设置服务
-            IAutomaticSettingsService _iAutomaticSettingsService = new AutomaticSettingsService();
-            _iAutomaticSettingsService.Load();
+           
 
             //创建并加载英雄数据服务
             IHeroDataService _iheroDataService = new HeroDataService();

@@ -556,17 +556,17 @@ namespace JinChanChanTool.Services
 
                     }
                 }
-                //else
-                //{
-                //    string imagePath = Path.Combine(Application.StartupPath, "Logs", "Images");
-                //    if (!Directory.Exists(imagePath))
-                //    {
-                //        Directory.CreateDirectory(imagePath);
-                //    }
-                //    // 保存为PNG到ErrorImage文件夹                           
-                //    string filePath = Path.Combine(imagePath, $"{DateTime.Now:MM月dd日HH时mm分ss秒.fff毫秒}_{i + 1}号卡_{纠正结果数组[i]}.png");
-                //    bitmaps[i].Save(filePath, ImageFormat.Png);
-                //}
+                else if(_iappConfigService.CurrentConfig.IsSaveCapturedImages)
+                {
+                    string imagePath = Path.Combine(Application.StartupPath, "Logs", "Images");
+                    if (!Directory.Exists(imagePath))
+                    {
+                        Directory.CreateDirectory(imagePath);
+                    }
+                    // 保存为PNG到ErrorImage文件夹                           
+                    string filePath = Path.Combine(imagePath, $"{DateTime.Now:MM月dd日HH时mm分ss秒.fff毫秒}_{i + 1}号卡_{纠正结果数组[i]}.png");
+                    bitmaps[i].Save(filePath, ImageFormat.Png);
+                }
             }
         }
 

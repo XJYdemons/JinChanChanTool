@@ -181,6 +181,7 @@ namespace JinChanChanTool
             textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.SelectFormHeroPanelsVerticalSpacing.ToString();
             capsuleSwitch16.IsOn = _iappConfigService.CurrentConfig.IsFilterLetters;
             capsuleSwitch17.IsOn = _iappConfigService.CurrentConfig.IsFilterNumbers;
+            capsuleSwitch18.IsOn = _iappConfigService.CurrentConfig.IsSaveCapturedImages;
         }
 
         /// <summary>
@@ -1298,7 +1299,7 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>      
         private void capsuleSwitch11_IsOnChanged(object sender, EventArgs e)
-        {           
+        {
             _iappConfigService.CurrentConfig.IsUseSelectForm = capsuleSwitch11.IsOn;
         }
         /// <summary>
@@ -1685,8 +1686,17 @@ namespace JinChanChanTool
         #endregion
 
 
-
-
+        #region 开发者选项
+        /// <summary>
+        /// 是否保存截图开关状态改变时触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void capsuleSwitch18_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsSaveCapturedImages = capsuleSwitch18.IsOn;
+        }
+        #endregion
 
 
         private void panel_拿牌相关_Paint(object sender, PaintEventArgs e)
@@ -1694,6 +1704,6 @@ namespace JinChanChanTool
 
         }
 
-       
+        
     }
 }

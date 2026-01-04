@@ -276,6 +276,11 @@
         public bool IsFilterNumbers { get; set; }
 
         /// <summary>
+        /// 是否保存捕获的截图图像
+        /// </summary>
+        public bool IsSaveCapturedImages { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public ManualSettings()
@@ -334,7 +339,7 @@
             SelectFormHeroPanelsVerticalSpacing = 0;
             IsFilterLetters = true;
             IsFilterNumbers = true;
-
+            IsSaveCapturedImages = false;
 
         }
 
@@ -400,6 +405,7 @@
                 SelectFormHeroPanelsVerticalSpacing = this.SelectFormHeroPanelsVerticalSpacing,
                 IsFilterLetters = this.IsFilterLetters,
                 IsFilterNumbers = this.IsFilterNumbers,
+                IsSaveCapturedImages=this.IsSaveCapturedImages,
             };
         }
 
@@ -466,7 +472,8 @@
                    SelectFormHeroPictureBoxHorizontalSpacing == other.SelectFormHeroPictureBoxHorizontalSpacing &&
                    SelectFormHeroPanelsVerticalSpacing == other.SelectFormHeroPanelsVerticalSpacing &&
                    IsFilterLetters == other.IsFilterLetters &&
-                   IsFilterNumbers == other.IsFilterNumbers;
+                   IsFilterNumbers == other.IsFilterNumbers&&
+                   IsSaveCapturedImages == other.IsSaveCapturedImages;
         }
 
         

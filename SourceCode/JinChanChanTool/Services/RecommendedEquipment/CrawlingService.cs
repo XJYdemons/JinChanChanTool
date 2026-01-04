@@ -151,7 +151,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
                         return new DataClass.RecommendedEquipment
                         {
-                            HeroName = cleanName,
+                            HeroName = cleanName, 
                             Equipments = equipmentNames
                         };
                     }
@@ -181,7 +181,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
         private Build ExtractBestBuild(List<Build> builds, long heroTotalGames, double unitAvg)
         {
-            // 1. 数据清洗 (Artifacts/Radiant Filter)
+            //数据清洗
             var rawList = builds
                 .Where(b => !string.IsNullOrEmpty(b.BuildNames))
                 .Where(b =>
@@ -191,8 +191,12 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                     foreach (var item in items)
                     {
                         if (item.Contains("Artifact", StringComparison.OrdinalIgnoreCase) ||
-                            item.Contains("Radiant", StringComparison.OrdinalIgnoreCase))
+                            item.Contains("Radiant", StringComparison.OrdinalIgnoreCase) ||
+                            item.Contains("OrnnTheCollector", StringComparison.OrdinalIgnoreCase) ||
+                            item.Contains("CrownOfDemacia", StringComparison.OrdinalIgnoreCase))
+                        {
                             return false;
+                        }
                     }
                     return true;
                 })
@@ -211,8 +215,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             long maxSampleInList = rawList.Max(x => x.Total);
             bool isWeakHero = unitAvg > 3.5;
 
-            // 分支一：小样本模式 (Max < 2000)
-            // 适用：路边工具人、非主c，主坦但需要携带装备等英雄
             if (maxSampleInList < 2000)
             {
                 var candidates = rawList.Where(x => x.Total >= 100).ToList();
@@ -231,17 +233,13 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 return candidates.OrderByDescending(x => x.Total).First().Origin;
             }
 
-            // 分支二：大样本模式 (Max >= 2000)
-            // 适用：主c、主坦等核心英雄
             else
             {
-                // 1. 基础筛选
                 var candidates = rawList.Where(x =>
                 {
                     if (x.Total < 200) return false;
                     if (x.Total > 2000) return true;
 
-                    // Rank <= 3.75 视为不错，门槛放宽到 10%
                     double requiredRatio = (x.AvgRank <= 3.75) ? 0.10 : 0.34;
                     return ((double)x.Total / maxSampleInList) >= requiredRatio;
                 }).ToList();
@@ -252,7 +250,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                     if (!candidates.Any()) candidates = rawList;
                 }
 
-                // 2. 弱势英雄的大样本安全锁
                 bool hasMegaSamples = candidates.Any(x => x.Total > 2000);
                 if (isWeakHero && hasMegaSamples)
                 {
@@ -260,16 +257,45 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                         x.Total > 2000 ||
                         (x.Total > 1000 && x.AvgRank <= 3.75)
                     ).ToList();
-
                     if (safeBuilds.Any()) candidates = safeBuilds;
                 }
 
-                // 3. 评分决策
+                bool hasGodTier = candidates.Any(x => x.Total > 500 && x.AvgRank <= 2.8);
+
+                if (hasGodTier)
+                {
+                    var gods = candidates.Where(x => x.AvgRank <= 2.8).ToList();
+                    if (gods.Any()) candidates = gods;
+                }
+                else
+                {
+                    bool hasSuperElite = candidates.Any(x => x.Total > 2000 && x.AvgRank <= 3.75);
+                    if (hasSuperElite)
+                    {
+                        var elites = candidates.Where(x => x.AvgRank <= 3.75).ToList();
+                        if (elites.Any()) candidates = elites;
+                    }
+                }
+
                 var bestBuild = candidates
                     .Select(x =>
                     {
-                        double cap = isWeakHero ? 200000 : 5000;
-                        double weight = isWeakHero ? 0.15 : 0.40;
+                        double cap;
+                        double weight;
+
+                        if (x.AvgRank <= 3.75)
+                        {
+                            cap = 50000;
+                            weight = (x.AvgRank <= 2.8) ? 0.25 : 0.40;
+                        }
+                        else
+                        {
+                            cap = isWeakHero ? 200000 : 5000;
+                            if (isWeakHero)
+                                weight = (x.AvgRank <= 4.0) ? 0.60 : ((x.Total >= 20000) ? 0.40 : 0.15);
+                            else
+                                weight = 0.40;
+                        }
 
                         double cappedTotal = Math.Min(x.Total, cap);
                         double score = x.AvgRank - (Math.Log10(cappedTotal) * weight);

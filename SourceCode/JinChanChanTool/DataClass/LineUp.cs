@@ -90,6 +90,7 @@
             LineUpUnits.Add(newUnit);
             return true;
         }
+
         /// <summary>
         /// 根据传入的英雄名在最小阵容单位集合中添加英雄（默认无装备）
         /// </summary>

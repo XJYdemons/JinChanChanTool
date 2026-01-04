@@ -9,6 +9,7 @@
         /// 选择的屏幕索引
         /// </summary>
         public int SelectedScreenIndex { get; set; }
+
         /// <summary>
         /// 快捷键1-自动拿牌功能
         /// </summary>
@@ -252,19 +253,27 @@
         /// <summary>
         /// 半透明英雄面板英雄头像框的边长大小，单位：像素
         /// </summary>
-        public int TransparentHeroPictureBoxSize { get; set; }
+        public int SelectFormHeroPictureBoxSize { get; set; }
 
         /// <summary>
         /// 半透明英雄面板英雄头像框的水平间距，单位：像素
         /// </summary>
-        public int TransparentHeroPictureBoxHorizontalSpacing { get; set; }
+        public int SelectFormHeroPictureBoxHorizontalSpacing { get; set; }
 
         /// <summary>
         /// 半透明英雄面板英雄头像框的垂直平间距，单位：像素
         /// </summary>
-        public int TransparentHeroPanelsVerticalSpacing { get; set; }
+        public int SelectFormHeroPanelsVerticalSpacing { get; set; }
 
-        
+        /// <summary>
+        /// 是否在OCR识别时过滤掉字母字符
+        /// </summary>
+        public bool IsFilterLetters { get; set; }
+
+        /// <summary>
+        /// 是否在OCR识别时过滤掉数字字符
+        /// </summary>
+        public bool IsFilterNumbers { get; set; }
 
         /// <summary>
         /// 创建默认设置的构造函数
@@ -320,10 +329,13 @@
             IsAutomaticUpdateEquipment = true;
             TargetProcessName = "";
             TargetProcessId = 0;
-            TransparentHeroPictureBoxSize = 36;
-            TransparentHeroPictureBoxHorizontalSpacing = 0;
-            TransparentHeroPanelsVerticalSpacing = 0;
-            
+            SelectFormHeroPictureBoxSize = 36;
+            SelectFormHeroPictureBoxHorizontalSpacing = 0;
+            SelectFormHeroPanelsVerticalSpacing = 0;
+            IsFilterLetters = true;
+            IsFilterNumbers = true;
+
+
         }
 
         /// <summary>
@@ -383,10 +395,11 @@
                 IsAutomaticUpdateEquipment = this.IsAutomaticUpdateEquipment,
                 TargetProcessName = this.TargetProcessName,
                 TargetProcessId = this.TargetProcessId,
-                TransparentHeroPictureBoxSize = this.TransparentHeroPictureBoxSize,
-                TransparentHeroPictureBoxHorizontalSpacing = this.TransparentHeroPictureBoxHorizontalSpacing,
-                TransparentHeroPanelsVerticalSpacing = this.TransparentHeroPanelsVerticalSpacing,
-
+                SelectFormHeroPictureBoxSize = this.SelectFormHeroPictureBoxSize,
+                SelectFormHeroPictureBoxHorizontalSpacing = this.SelectFormHeroPictureBoxHorizontalSpacing,
+                SelectFormHeroPanelsVerticalSpacing = this.SelectFormHeroPanelsVerticalSpacing,
+                IsFilterLetters = this.IsFilterLetters,
+                IsFilterNumbers = this.IsFilterNumbers,
             };
         }
 
@@ -410,14 +423,14 @@
                    HeroNameScreenshotRectangle_2 == other.HeroNameScreenshotRectangle_2 &&
                    HeroNameScreenshotRectangle_3 == other.HeroNameScreenshotRectangle_3 &&
                    HeroNameScreenshotRectangle_4 == other.HeroNameScreenshotRectangle_4 &&
-                   HeroNameScreenshotRectangle_5 == other.HeroNameScreenshotRectangle_5 &&                  
-                   RefreshStoreButtonRectangle == other.RefreshStoreButtonRectangle &&      
+                   HeroNameScreenshotRectangle_5 == other.HeroNameScreenshotRectangle_5 &&
+                   RefreshStoreButtonRectangle == other.RefreshStoreButtonRectangle &&
                    HighLightRectangle_1 == other.HighLightRectangle_1 &&
                    HighLightRectangle_2 == other.HighLightRectangle_2 &&
                    HighLightRectangle_3 == other.HighLightRectangle_3 &&
                    HighLightRectangle_4 == other.HighLightRectangle_4 &&
                    HighLightRectangle_5 == other.HighLightRectangle_5 &&
-                   IsUseHightLightPrompt == other.IsUseHightLightPrompt &&               
+                   IsUseHightLightPrompt == other.IsUseHightLightPrompt &&
                    IsHighUserPriority == other.IsHighUserPriority &&
                    IsAutomaticStopHeroPurchase == other.IsAutomaticStopHeroPurchase &&
                    IsAutomaticStopRefreshStore == other.IsAutomaticStopRefreshStore &&
@@ -449,9 +462,11 @@
                    IsAutomaticUpdateEquipment == other.IsAutomaticUpdateEquipment &&
                    TargetProcessName == other.TargetProcessName &&
                    TargetProcessId == other.TargetProcessId &&
-                   TransparentHeroPictureBoxSize == other.TransparentHeroPictureBoxSize &&
-                   TransparentHeroPictureBoxHorizontalSpacing == other.TransparentHeroPictureBoxHorizontalSpacing &&
-                   TransparentHeroPanelsVerticalSpacing == other.TransparentHeroPanelsVerticalSpacing;
+                   SelectFormHeroPictureBoxSize == other.SelectFormHeroPictureBoxSize &&
+                   SelectFormHeroPictureBoxHorizontalSpacing == other.SelectFormHeroPictureBoxHorizontalSpacing &&
+                   SelectFormHeroPanelsVerticalSpacing == other.SelectFormHeroPanelsVerticalSpacing &&
+                   IsFilterLetters == other.IsFilterLetters &&
+                   IsFilterNumbers == other.IsFilterNumbers;
         }
 
         

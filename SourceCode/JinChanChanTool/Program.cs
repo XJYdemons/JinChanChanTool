@@ -2,7 +2,7 @@ using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.LineupCrawling;
-using JinChanChanTool.Services.LineupCrawling.Interface;
+
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System.Diagnostics;
@@ -49,7 +49,7 @@ namespace JinChanChanTool
             _iEquipmentService.Load();
 
             //创建OCR结果纠正服务
-            ICorrectionService _iCorrectionService = new CorrectionService();
+            ICorrectionService _iCorrectionService = new CorrectionService(_iManualSettingsService);
             _iCorrectionService.Load();
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
 

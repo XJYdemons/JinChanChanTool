@@ -22,12 +22,12 @@ namespace JinChanChanTool
         /// </summary>
         private bool isChanged;
 
-        public CorrectionEditorForm()
+        public CorrectionEditorForm(IManualSettingsService iManualSettingsService)
         {
             InitializeComponent();
             DragHelper.EnableDragForChildren(panel3);
             //实例化OCR结果纠正列表服务对象
-            _iCorrectionService = new CorrectionService();
+            _iCorrectionService = new CorrectionService(iManualSettingsService);
             _iCorrectionService.Load();
             isChanged = false;
             InitializeDataGrid();

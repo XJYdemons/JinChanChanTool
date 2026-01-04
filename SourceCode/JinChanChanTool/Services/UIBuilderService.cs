@@ -541,10 +541,10 @@ namespace JinChanChanTool.Services
             }
 
             // 使用Dpi()方法进行DPI缩放转换
-            int pictureBoxSize = Dpi_S(_iManualSettingsService.CurrentConfig.TransparentHeroPictureBoxSize);
+            int pictureBoxSize = Dpi_S(_iManualSettingsService.CurrentConfig.SelectFormHeroPictureBoxSize);
             SelectForm_HeroPictureBoxSize = new Size(pictureBoxSize, pictureBoxSize);
-            SelectForm_HeroPictureBoxHorizontalSpacing = Dpi_S(_iManualSettingsService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing);
-            SelectForm_HeroPanelsVerticalSpacing = Dpi_S(_iManualSettingsService.CurrentConfig.TransparentHeroPanelsVerticalSpacing);
+            SelectForm_HeroPictureBoxHorizontalSpacing = Dpi_S(_iManualSettingsService.CurrentConfig.SelectFormHeroPictureBoxHorizontalSpacing);
+            SelectForm_HeroPanelsVerticalSpacing = Dpi_S(_iManualSettingsService.CurrentConfig.SelectFormHeroPanelsVerticalSpacing);
            
 
             // 对常量padding值也进行DPI转换

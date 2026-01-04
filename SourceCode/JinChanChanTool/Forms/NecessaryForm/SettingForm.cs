@@ -6,7 +6,7 @@ using JinChanChanTool.Services.AutoSetCoordinates;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.LineupCrawling;
-using JinChanChanTool.Services.LineupCrawling.Interface;
+
 using JinChanChanTool.Services.ManuallySetCoordinates;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
@@ -176,10 +176,11 @@ namespace JinChanChanTool
             capsuleSwitch14.IsOn = _iappConfigService.CurrentConfig.IsUseOutputForm;
             capsuleSwitch15.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
             textBox_更新推荐装备间隔.Text = _iappConfigService.CurrentConfig.UpdateEquipmentInterval.ToString();
-            textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxSize.ToString();
-            textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing.ToString();
-            textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.TransparentHeroPanelsVerticalSpacing.ToString();
-
+            textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxSize.ToString();
+            textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxHorizontalSpacing.ToString();
+            textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.SelectFormHeroPanelsVerticalSpacing.ToString();
+            capsuleSwitch16.IsOn = _iappConfigService.CurrentConfig.IsFilterLetters;
+            capsuleSwitch17.IsOn = _iappConfigService.CurrentConfig.IsFilterNumbers;
         }
 
         /// <summary>
@@ -261,7 +262,7 @@ namespace JinChanChanTool
             textBox_更新推荐装备间隔.KeyDown += TextBox_KeyDown;
             textBox_更新推荐装备间隔.Enter += TextBox_Enter;
             textBox_更新推荐装备间隔.Leave += TextBox_更新推荐装备间隔_Leave;
-           
+
 
             textBox_英雄头像框边长.KeyDown += TextBox_KeyDown;
             textBox_英雄头像框边长.Enter += TextBox_Enter;
@@ -1210,7 +1211,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void roundedButton5_Click(object sender, EventArgs e)
         {
-            var form = new CorrectionEditorForm();
+            var form = new CorrectionEditorForm(_iappConfigService);
             form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
             form.TopMost = true;// 确保窗口在最前面
             form.Show();// 显示窗口
@@ -1276,6 +1277,18 @@ namespace JinChanChanTool
             }
         }
         #endregion
+
+        #region 过滤字符
+        private void capsuleSwitch16_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsFilterLetters = capsuleSwitch16.IsOn;
+        }
+
+        private void capsuleSwitch17_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsFilterNumbers = capsuleSwitch17.IsOn;
+        }
+        #endregion
         #endregion
 
         #region 窗口设置
@@ -1285,8 +1298,7 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>      
         private void capsuleSwitch11_IsOnChanged(object sender, EventArgs e)
-        {
-            Debug.WriteLine(capsuleSwitch11.IsOn);
+        {           
             _iappConfigService.CurrentConfig.IsUseSelectForm = capsuleSwitch11.IsOn;
         }
         /// <summary>
@@ -1340,7 +1352,7 @@ namespace JinChanChanTool
                     int result = int.Parse(textBox_英雄头像框边长.Text);
                     if (result > 0)
                     {
-                        _iappConfigService.CurrentConfig.TransparentHeroPictureBoxSize = result;
+                        _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxSize = result;
                     }
                     Update_AllComponents();
                 }
@@ -1371,7 +1383,7 @@ namespace JinChanChanTool
                     int result = int.Parse(textBox_英雄头像框水平间隔.Text);
                     if (result >= 0)
                     {
-                        _iappConfigService.CurrentConfig.TransparentHeroPictureBoxHorizontalSpacing = result;
+                        _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxHorizontalSpacing = result;
                     }
                     Update_AllComponents();
                 }
@@ -1402,7 +1414,7 @@ namespace JinChanChanTool
                     int result = int.Parse(textBox_英雄头像框垂直间隔.Text);
                     if (result >= 0)
                     {
-                        _iappConfigService.CurrentConfig.TransparentHeroPanelsVerticalSpacing = result;
+                        _iappConfigService.CurrentConfig.SelectFormHeroPanelsVerticalSpacing = result;
                     }
                     Update_AllComponents();
                 }
@@ -1437,7 +1449,7 @@ namespace JinChanChanTool
                 textBox_更新推荐装备间隔.Enabled = false;
             }
         }
-      
+
         /// <summary>
         /// 离开textBox_更新推荐装备间隔时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
         /// </summary>
@@ -1530,8 +1542,8 @@ namespace JinChanChanTool
         /// </summary>
         private async Task UpdateRecommendedLineUpsAsync()
         {
-            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
-            ILineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
+            DynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
+            LineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
             // 1. 询问用户是否进行更新
             var r = MessageBox.Show(
                 "是否要从网络获取最新的推荐阵容数据？\n\n注意：更新期间程序将处于静默运行状态，完成后会自动提示。",
@@ -1682,6 +1694,6 @@ namespace JinChanChanTool
 
         }
 
-      
+       
     }
 }

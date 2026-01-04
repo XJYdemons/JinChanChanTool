@@ -152,7 +152,7 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         {
             switch (element)
             {
-                case UiElement.ExpButton: return TftCoordinateTemplates.ExpButton;
+                case UiElement.ExpButton: return TftCoordinateTemplates.ExperienceButton;
                 case UiElement.RefreshButton: return TftCoordinateTemplates.RefreshButton;
                 case UiElement.CardSlot1_Name: return TftCoordinateTemplates.CardSlot1_Name;
                 case UiElement.CardSlot2_Name: return TftCoordinateTemplates.CardSlot2_Name;
@@ -184,7 +184,7 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         {
             switch (element)
             {
-                case UiElement.ExpButton: return JccCoordinateTemplates.ExpButton;
+                case UiElement.ExpButton: return JccCoordinateTemplates.ExperienceButton;
                 case UiElement.RefreshButton: return JccCoordinateTemplates.RefreshButton;
                 case UiElement.CardSlot1_Name: return JccCoordinateTemplates.CardSlot1_Name;
                 case UiElement.CardSlot2_Name: return JccCoordinateTemplates.CardSlot2_Name;

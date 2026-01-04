@@ -14,6 +14,7 @@
         /// 属于该特质的英雄数据对象列表
         /// </summary>
         public List<Hero> Heros { get; set; }
+
         public Peculiarity()
         {
             Title = "";

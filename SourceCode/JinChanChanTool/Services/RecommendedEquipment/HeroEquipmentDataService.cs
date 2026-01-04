@@ -18,9 +18,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         private readonly string _targetSeasonFolderName = "英雄联盟传奇";
 
         public string[] Paths { get; set; }
-        public List<HeroEquipment> HeroEquipments { get; private set; }
-        public Dictionary<HeroEquipment, List<Image>> EquipmentImageMap { get; private set; }
-        private Dictionary<string, HeroEquipment> nameToHeroEquipmentMap { get; set; }
+        public List<DataClass.RecommendedEquipment> HeroEquipments { get; private set; }
+        public Dictionary<DataClass.RecommendedEquipment, List<Image>> EquipmentImageMap { get; private set; }
+        private Dictionary<string, DataClass.RecommendedEquipment> nameToHeroEquipmentMap { get; set; }
 
         /// <summary>
         /// 构造函数，初始化属性并扫描所有可用的赛季路径。
@@ -28,9 +28,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         public HeroEquipmentDataService()
         {
             InitializePaths();
-            HeroEquipments = new List<HeroEquipment>();
-            EquipmentImageMap = new Dictionary<HeroEquipment, List<Image>>();
-            nameToHeroEquipmentMap = new Dictionary<string, HeroEquipment>();
+            HeroEquipments = new List<DataClass.RecommendedEquipment>();
+            EquipmentImageMap = new Dictionary<DataClass.RecommendedEquipment, List<Image>>();
+            nameToHeroEquipmentMap = new Dictionary<string, DataClass.RecommendedEquipment>();
         }
 
         /// <summary>
@@ -76,12 +76,12 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             return null;
         }
 
-        public HeroEquipment GetHeroEquipmentFromName(string name)
+        public DataClass.RecommendedEquipment GetHeroEquipmentFromName(string name)
         {
             return nameToHeroEquipmentMap.TryGetValue(name, out var hero) ? hero : null;
         }
 
-        public List<Image> GetImagesFromHeroEquipment(HeroEquipment heroEquipment)
+        public List<Image> GetImagesFromHeroEquipment(DataClass.RecommendedEquipment heroEquipment)
         {
             return EquipmentImageMap.TryGetValue(heroEquipment, out var images) ? images : null;
         }
@@ -89,7 +89,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         private void BuildMap()
         {
             nameToHeroEquipmentMap.Clear();
-            foreach (HeroEquipment heroEquipment in HeroEquipments)
+            foreach (DataClass.RecommendedEquipment heroEquipment in HeroEquipments)
             {
                 nameToHeroEquipmentMap[heroEquipment.HeroName] = heroEquipment;
             }
@@ -153,7 +153,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             Load();
         }
 
-        public void UpdateDataFromCrawling(List<HeroEquipment> crawledData)
+        public void UpdateDataFromCrawling(List<DataClass.RecommendedEquipment> crawledData)
         {
             if (crawledData == null)
             {
@@ -165,7 +165,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             Debug.WriteLine($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
             LogTool.Log($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
             OutputForm.Instance.WriteLineOutputMessage($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
-            HeroEquipments = new List<HeroEquipment>(crawledData);
+            HeroEquipments = new List<DataClass.RecommendedEquipment>(crawledData);
             Debug.WriteLine("正在将新数据保存到本地文件...");
             LogTool.Log("正在将新数据保存到本地文件...");
             OutputForm.Instance.WriteLineOutputMessage("正在将新数据保存到本地文件...");
@@ -210,7 +210,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 if (dataDict != null)
                 {
                     HeroEquipments = dataDict
-                        .Select(kvp => new HeroEquipment { HeroName = kvp.Key, Equipments = kvp.Value })
+                        .Select(kvp => new RecommendedEquipment { HeroName = kvp.Key, Equipments = kvp.Value })
                         .ToList();
                     Debug.WriteLine($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");
                     LogTool.Log($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");

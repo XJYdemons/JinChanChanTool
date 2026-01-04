@@ -34,13 +34,16 @@ namespace JinChanChanTool.Services.DataServices
         /// OCR结果纠正列表文件路径
         /// </summary>
         private string filePath;
-       
-        public CorrectionService()
+
+        private readonly IManualSettingsService _iManualSettingsService;
+
+        public CorrectionService(IManualSettingsService iManualSettingsService)
         {          
             ResultMappings = new List<ResultMapping>();
             _charDictionary = new HashSet<char>();
             ResultDictionary = new Dictionary<string, string>();
             Errorresult =new HashSet<string>();
+            _iManualSettingsService = iManualSettingsService;
             InitializePaths();                     
         }
 
@@ -188,8 +191,28 @@ namespace JinChanChanTool.Services.DataServices
             isError = true;
             errorMessage = null;
             string result;
-            // 使用正则表达式只保留中文
-            result = Regex.Replace(Result, @"[^\u4e00-\u9fa5]", "");
+            if(!_iManualSettingsService.CurrentConfig.IsFilterLetters&&!_iManualSettingsService.CurrentConfig.IsFilterNumbers)
+            {
+                // 使用正则表达式保留中文、字母和数字
+                result = Regex.Replace(Result, @"[^\u4e00-\u9fa5a-zA-Z0-9]", "");
+                           
+            }
+            else if(!_iManualSettingsService.CurrentConfig.IsFilterNumbers)
+            {
+                // 使用正则表达式只保留中文和数字
+                result = Regex.Replace(Result, @"[^\u4e00-\u9fa50-9]", "");               
+            }
+            else if(!_iManualSettingsService.CurrentConfig.IsFilterLetters)
+            {
+                // 使用正则表达式只保留中文和字母
+                result = Regex.Replace(Result, @"[^\u4e00-\u9fa5a-zA-Z]", "");               
+            }
+            else
+            {
+                // 使用正则表达式只保留中文
+                result = Regex.Replace(Result, @"[^\u4e00-\u9fa5]", "");
+            }          
+            
             // 查找映射
             if (ResultDictionary.TryGetValue(result, out var correctValue))
             {

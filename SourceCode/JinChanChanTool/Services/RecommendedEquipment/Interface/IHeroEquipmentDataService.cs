@@ -18,13 +18,13 @@ namespace JinChanChanTool.Services.RecommendedEquipment.Interface
         /// 获取当前加载的英雄装备推荐数据列表。
         /// 主要用于遍历和展示所有英雄。
         /// </summary>
-        List<HeroEquipment> HeroEquipments { get; }
+        List<DataClass.RecommendedEquipment> HeroEquipments { get; }
 
         /// <summary>
         /// 获取一个从英雄装备对象到其对应装备图片列表的映射。
         /// 主要用于UI层根据一个具体的HeroEquipment对象，快速查找并展示其装备图片。
         /// </summary>
-        Dictionary<HeroEquipment, List<Image>> EquipmentImageMap { get; }
+        Dictionary<DataClass.RecommendedEquipment, List<Image>> EquipmentImageMap { get; }
 
         /// <summary>
         /// 从当前PathIndex指定的本地路径，加载所有数据（JSON和图片）。
@@ -45,10 +45,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment.Interface
         /// 接收从网络爬取到的新数据，更新内存中的状态，并将其持久化保存。
         /// </summary>
         /// <param name="crawledData">由 ICrawlingService 获取到的最新英雄装备数据列表。</param>
-        void UpdateDataFromCrawling(List<HeroEquipment> crawledData);
+        void UpdateDataFromCrawling(List<DataClass.RecommendedEquipment> crawledData);
 
-        HeroEquipment GetHeroEquipmentFromName(string name);
+        DataClass.RecommendedEquipment GetHeroEquipmentFromName(string name);
 
-        List<Image> GetImagesFromHeroEquipment(HeroEquipment heroEquipment);
+        List<Image> GetImagesFromHeroEquipment(DataClass.RecommendedEquipment heroEquipment);
     }
 }

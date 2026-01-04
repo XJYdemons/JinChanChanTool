@@ -10,7 +10,7 @@ namespace JinChanChanTool.DataClass
     /// <summary>
     /// 英雄装备数据对象
     /// </summary>
-    public class HeroEquipment
+    public class RecommendedEquipment
     {
         /// <summary>
         /// 英雄的中文名

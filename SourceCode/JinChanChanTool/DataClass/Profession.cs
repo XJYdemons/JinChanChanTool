@@ -14,6 +14,7 @@
         /// 属于该职业的英雄数据对象列表
         /// </summary>
         public List<Hero> Heros { get; set; }
+
         public Profession()
         {
             Title = "";

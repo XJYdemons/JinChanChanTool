@@ -18,7 +18,7 @@ namespace JinChanChanTool.DataClass.StaticData
         /// <summary>
         /// 商店购买经验值按钮
         /// </summary>
-        public static readonly AnchorProfile ExpButton = new(-595, -120, 170, 50);
+        public static readonly AnchorProfile ExperienceButton = new(-595, -120, 170, 50);
 
         /// <summary>
         /// 商店刷新按钮

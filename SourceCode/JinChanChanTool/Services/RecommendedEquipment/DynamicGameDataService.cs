@@ -12,7 +12,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
     /// 实现了 IDynamicGameDataService 接口。
     /// 改为使用全局 HttpProvider 管理的 HttpClient。
     /// </summary>
-    public class DynamicGameDataService : IDynamicGameDataService
+    public class DynamicGameDataService
     {
         private const string TranslationsUrl = "https://data.metatft.com/lookups/TFTSet16_pbe_zh_cn.json";
         private const string UnitListUrl = "https://api-hc.metatft.com/tft-comps-api/unit_items_processed";

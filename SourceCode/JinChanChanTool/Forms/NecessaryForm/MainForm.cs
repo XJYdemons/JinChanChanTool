@@ -7,7 +7,7 @@ using JinChanChanTool.Services.AutoSetCoordinates;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.LineupCrawling;
-using JinChanChanTool.Services.LineupCrawling.Interface;
+
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Tools.KeyBoardTools;
@@ -358,9 +358,9 @@ namespace JinChanChanTool
             }
             #endregion
 
-            if (e.ChangedFields.Contains("TransparentHeroPictureBoxSize") ||
-               e.ChangedFields.Contains("TransparentHeroPictureBoxHorizontalSpacing") ||
-               e.ChangedFields.Contains("TransparentHeroPanelsVerticalSpacing"))
+            if (e.ChangedFields.Contains("SelectFormHeroPictureBoxSize") ||
+               e.ChangedFields.Contains("SelectFormHeroPictureBoxHorizontalSpacing") ||
+               e.ChangedFields.Contains("SelectFormHeroPanelsVerticalSpacing"))
             {
                 _uiBuilderService.ReBuild();
                 UIReBinding();
@@ -2031,8 +2031,8 @@ namespace JinChanChanTool
         #region 更新装备数据       
         private async Task UpdateEquipmentsAsync()
         {
-            IDynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
-            ICrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);
+            DynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
+            CrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);
 
             TimeSpan timeDifference = DateTime.Now - _iAutomaticSettingsService.CurrentConfig.EquipmentLastUpdateTime;
             // 如果上次更新距离现在的时间小于配置的间隔时间，则跳过更新
@@ -2074,7 +2074,7 @@ namespace JinChanChanTool
                 progress.Report(Tuple.Create(5, "基础数据获取成功！"));
 
                 // 开始后台网络爬取（使用注入的爬虫服务，内部接入 HttpProvider 全局连接池）
-                List<HeroEquipment> crawledData = await _iCrawlingService.GetEquipmentsAsync(progress);
+                List<RecommendedEquipment> crawledData = await _iCrawlingService.GetEquipmentsAsync(progress);
 
                 bool updateSuccess = false;
                 if (crawledData != null && crawledData.Any())
@@ -2168,7 +2168,7 @@ namespace JinChanChanTool
                     }
 
                     // 使用英雄名称去查找对应的 HeroEquipment 对象
-                    HeroEquipment currentHeroEquipment = _iHeroEquipmentDataService.GetHeroEquipmentFromName(name);
+                    RecommendedEquipment currentHeroEquipment = _iHeroEquipmentDataService.GetHeroEquipmentFromName(name);
 
                     if (currentHeroEquipment != null)
                     {
@@ -2413,7 +2413,7 @@ namespace JinChanChanTool
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
 
             }

@@ -1,6 +1,6 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
-using JinChanChanTool.Services.LineupCrawling.Interface;
+
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Services.Network;
 using System;
@@ -21,9 +21,9 @@ namespace JinChanChanTool.Services.LineupCrawling
     /// 核心阵容爬取服务。
     /// 包含爬取流、Tier评分算法、标签清洗以及站位坐标转换。
     /// </summary>
-    public class LineupCrawlingService : ILineupCrawlingService
+    public class LineupCrawlingService
     {
-        private readonly IDynamicGameDataService _gameDataService;
+        private readonly RecommendedEquipment.DynamicGameDataService _gameDataService;
 
         /// <summary>
         /// 临时存储阵容ID与英雄API Key列表的映射，用于站位精准匹配
@@ -35,7 +35,7 @@ namespace JinChanChanTool.Services.LineupCrawling
         private const string StatsUrl = "https://api-hc.metatft.com/tft-comps-api/comps_stats?queue=1100&patch=current&days=1&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true";
         private const string DetailUrlBase = "https://api-hc.metatft.com/tft-comps-api/comp_details?comp={0}&cluster_id={1}";
 
-        public LineupCrawlingService(IDynamicGameDataService gameDataService)
+        public LineupCrawlingService(RecommendedEquipment.DynamicGameDataService gameDataService)
         {
             _gameDataService = gameDataService;
         }

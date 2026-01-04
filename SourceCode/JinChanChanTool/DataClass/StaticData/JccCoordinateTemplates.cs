@@ -18,7 +18,7 @@ namespace JinChanChanTool.DataClass.StaticData
         /// <summary>
         /// 商店购买经验值按钮
         /// </summary>
-        public static readonly AnchorProfile ExpButton = new(-436.5, -118, 125, 50);
+        public static readonly AnchorProfile ExperienceButton = new(-436.5, -118, 125, 50);
 
         /// <summary>
         /// 商店刷新按钮
@@ -27,8 +27,7 @@ namespace JinChanChanTool.DataClass.StaticData
 
         /// <summary>
         /// 第一个英雄名字区域
-        /// </summary>
-        //public static readonly AnchorProfile CardSlot1_Name = new(-284, -28, 120, 30);
+        /// </summary>       
         public static readonly AnchorProfile CardSlot1_Name = new(-300, -29, 91, 26);
 
         /// <summary>

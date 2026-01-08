@@ -10,7 +10,7 @@ namespace JinChanChanTool.DIYComponents
     public class BenchPanel : Panel
     {
         // 备战席常量
-        private const int MAX_BENCH_SIZE = 10;
+        private const int MaxHeroCount = 10;
 
         // 备战席格子数组
         private BenchSlot[] _slots;
@@ -24,17 +24,13 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 英雄从备战席拖出事件
         /// </summary>
-        public event EventHandler<BenchHeroDraggedEventArgs> HeroDragged;
+        public event EventHandler<BenchHeroDraggedOutEventArgs> HeroDraggedOut;
 
         /// <summary>
         /// 英雄位置变更事件（从棋盘拖到备战席时触发）
         /// </summary>
-        public event EventHandler<BenchHeroPositionChangedEventArgs> HeroPositionChanged;
+        public event EventHandler<BenchHeroDroppedInEventArgs> HeroDroppedIn;
 
-        /// <summary>
-        /// 刷新请求事件（通知外部刷新棋盘）
-        /// </summary>
-        public event EventHandler RefreshRequested;
 
         public BenchPanel()
         {
@@ -50,7 +46,7 @@ namespace JinChanChanTool.DIYComponents
             AllowDrop = true;
 
             // 初始化格子数组
-            _slots = new BenchSlot[MAX_BENCH_SIZE];
+            _slots = new BenchSlot[MaxHeroCount];
 
             // 创建所有格子
             CreateSlots();
@@ -85,7 +81,7 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         private void CreateSlots()
         {
-            for (int i = 0; i < MAX_BENCH_SIZE; i++)
+            for (int i = 0; i < MaxHeroCount; i++)
             {
                 BenchSlot slot = new BenchSlot(i);
 
@@ -109,23 +105,23 @@ namespace JinChanChanTool.DIYComponents
 
             // 计算格子大小（正方形）
             int availableWidth = Width - padding * 2;
-            int slotSize = (availableWidth - spacing * (MAX_BENCH_SIZE - 1)) / MAX_BENCH_SIZE;
+            int maxSlotWidth = (availableWidth - spacing * (MaxHeroCount - 1)) / MaxHeroCount;
 
             // 确保格子不超过高度
-            int maxSlotSize = Height - padding * 2;
-            slotSize = Math.Min(slotSize, maxSlotSize);
+            int maxSlotHeight = Height - padding * 2;
+            maxSlotWidth = Math.Min(maxSlotWidth, maxSlotHeight);
 
             // 计算起始位置（居中）
-            int totalWidth = slotSize * MAX_BENCH_SIZE + spacing * (MAX_BENCH_SIZE - 1);
+            int totalWidth = maxSlotWidth * MaxHeroCount + spacing * (MaxHeroCount - 1);
             int startX = padding + (availableWidth - totalWidth) / 2;
-            int startY = (Height - slotSize) / 2;
+            int startY = (Height - maxSlotWidth) / 2;
 
             // 布局每个格子
-            for (int i = 0; i < MAX_BENCH_SIZE; i++)
+            for (int i = 0; i < MaxHeroCount; i++)
             {
-                int x = startX + i * (slotSize + spacing);
+                int x = startX + i * (maxSlotWidth + spacing);
                 _slots[i].Location = new Point(x, startY);
-                _slots[i].Size = new Size(slotSize, slotSize);
+                _slots[i].Size = new Size(maxSlotWidth, maxSlotWidth);
             }
         }
 
@@ -167,7 +163,7 @@ namespace JinChanChanTool.DIYComponents
                 if (unit.Position.Item1 != 0 || unit.Position.Item2 != 0) continue;
 
                 // 备战席已满
-                if (slotIndex >= MAX_BENCH_SIZE) break;
+                if (slotIndex >= MaxHeroCount) break;
 
                 // 获取英雄数据
                 Hero hero = _heroDataService?.GetHeroFromName(unit.HeroName);
@@ -187,7 +183,7 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public void ClearAllSlots()
         {
-            for (int i = 0; i < MAX_BENCH_SIZE; i++)
+            for (int i = 0; i < MaxHeroCount; i++)
             {
                 _slots[i].Clear();
             }
@@ -198,7 +194,7 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         private void Slot_HeroDragStarted(object sender, BenchSlotDragEventArgs e)
         {
-            HeroDragged?.Invoke(this, new BenchHeroDraggedEventArgs(e.DraggedUnit, e.SlotIndex));
+            HeroDraggedOut?.Invoke(this, new BenchHeroDraggedOutEventArgs(e.DraggedUnit, e.SlotIndex));
         }
 
         /// <summary>
@@ -223,7 +219,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 备战席是否已满
         /// </summary>
-        public bool IsFull => GetBenchHeroCount() >= MAX_BENCH_SIZE;
+        public bool IsFull => GetBenchHeroCount() >= MaxHeroCount;
 
         /// <summary>
         /// 拖放进入事件
@@ -254,20 +250,12 @@ namespace JinChanChanTool.DIYComponents
             if (e.Data?.GetData(typeof(HexagonCell)) is HexagonCell sourceCell && sourceCell.HasHero)
             {
                 // 触发位置变更事件
-                HeroPositionChanged?.Invoke(this, new BenchHeroPositionChangedEventArgs(
+                HeroDroppedIn?.Invoke(this, new BenchHeroDroppedInEventArgs(
                     sourceCell.Row, sourceCell.Column,
                     sourceCell.LineUpUnit
                 ));
             }
-        }
-
-        /// <summary>
-        /// 请求刷新（供外部调用）
-        /// </summary>
-        public void RequestRefresh()
-        {
-            RefreshRequested?.Invoke(this, EventArgs.Empty);
-        }
+        }      
     }
 
     /// <summary>
@@ -275,19 +263,19 @@ namespace JinChanChanTool.DIYComponents
     /// </summary>
     public class BenchSlot : Control
     {
-        private int _slotIndex;
-        private LineUpUnit _lineUpUnit;
-        private Image _heroImage;
-        private Color _borderColor = Color.FromArgb(60, 70, 80);
+        private int slotIndex;// 格子索引
+        private LineUpUnit _lineUpUnit;// 绑定的阵容单位
+        private Image _heroImage;// 英雄图片
+        private Color _borderColor = Color.FromArgb(60, 70, 80);// 边框颜色
 
-        private bool _isHovering;
-        private Color _emptyColor = Color.FromArgb(45, 50, 60);
-        private Color _hoverColor = Color.FromArgb(60, 70, 85);
+        private bool _isHovering;// 是否悬停
+        private Color _emptyColor = Color.FromArgb(45, 50, 60);// 空格子背景色
+        private Color _hoverColor = Color.FromArgb(60, 70, 85);// 鼠标悬停背景色
 
         /// <summary>
         /// 格子索引
         /// </summary>
-        public int SlotIndex => _slotIndex;
+        public int SlotIndex => slotIndex;
 
         /// <summary>
         /// 绑定的阵容单位
@@ -306,7 +294,7 @@ namespace JinChanChanTool.DIYComponents
 
         public BenchSlot(int index)
         {
-            _slotIndex = index;
+            slotIndex = index;
 
             // 启用双缓冲
             SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -318,10 +306,10 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 设置英雄
         /// </summary>
-        public void SetHero(LineUpUnit unit, Image image, Color borderColor)
+        public void SetHero(LineUpUnit lineUpUnit, Image heroImage, Color borderColor)
         {
-            _lineUpUnit = unit;
-            _heroImage = image;
+            _lineUpUnit = lineUpUnit;
+            _heroImage = heroImage;
             _borderColor = borderColor;
             Invalidate();
         }
@@ -399,7 +387,7 @@ namespace JinChanChanTool.DIYComponents
             if (e.Button == MouseButtons.Left && HasHero)
             {
                 // 触发拖拽事件
-                HeroDragStarted?.Invoke(this, new BenchSlotDragEventArgs(_lineUpUnit, _slotIndex));
+                HeroDragStarted?.Invoke(this, new BenchSlotDragEventArgs(_lineUpUnit, slotIndex));
 
                 // 开始拖放
                 DoDragDrop(this, DragDropEffects.Move);
@@ -437,12 +425,12 @@ namespace JinChanChanTool.DIYComponents
     /// <summary>
     /// 备战席英雄拖出事件参数
     /// </summary>
-    public class BenchHeroDraggedEventArgs : EventArgs
+    public class BenchHeroDraggedOutEventArgs : EventArgs
     {
         public LineUpUnit DraggedUnit { get; }
         public int SourceSlotIndex { get; }
 
-        public BenchHeroDraggedEventArgs(LineUpUnit unit, int slotIndex)
+        public BenchHeroDraggedOutEventArgs(LineUpUnit unit, int slotIndex)
         {
             DraggedUnit = unit;
             SourceSlotIndex = slotIndex;
@@ -452,7 +440,7 @@ namespace JinChanChanTool.DIYComponents
     /// <summary>
     /// 备战席英雄位置变更事件参数（从棋盘拖到备战席时使用）
     /// </summary>
-    public class BenchHeroPositionChangedEventArgs : EventArgs
+    public class BenchHeroDroppedInEventArgs : EventArgs
     {
         /// <summary>
         /// 源位置行（棋盘坐标）
@@ -468,8 +456,8 @@ namespace JinChanChanTool.DIYComponents
         /// 从棋盘拖来的英雄
         /// </summary>
         public LineUpUnit MovedUnit { get; }
-
-        public BenchHeroPositionChangedEventArgs(int sourceRow, int sourceColumn, LineUpUnit movedUnit)
+       
+        public BenchHeroDroppedInEventArgs(int sourceRow, int sourceColumn, LineUpUnit movedUnit)
         {
             SourceRow = sourceRow;
             SourceColumn = sourceColumn;

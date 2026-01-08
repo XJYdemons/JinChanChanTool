@@ -90,7 +90,7 @@ namespace JinChanChanTool.Forms
             benchPanel.InitializeServices(_heroDataService);
 
             // 绑定备战席事件
-            benchPanel.HeroPositionChanged += BenchPanel_HeroPositionChanged;
+            benchPanel.HeroDroppedIn += BenchPanel_HeroPositionChanged;
 
             ApplySavedLocation();
         }
@@ -116,7 +116,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 备战席英雄位置变更事件处理（从棋盘拖到备战席）
         /// </summary>
-        private void BenchPanel_HeroPositionChanged(object sender, BenchHeroPositionChangedEventArgs e)
+        private void BenchPanel_HeroPositionChanged(object sender, BenchHeroDroppedInEventArgs e)
         {
             // 将从棋盘拖来的英雄移到备战席（位置设为0,0）
             if (e.MovedUnit != null)

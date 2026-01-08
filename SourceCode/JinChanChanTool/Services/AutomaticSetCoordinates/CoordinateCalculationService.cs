@@ -63,8 +63,8 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                 dpiScale = windowDpi / (double)USER_DEFAULT_SCREEN_DPI;
             }
 
-            double physicalClientWidth = _windowInteractionService.ClientWidth * dpiScale;
-            double physicalClientHeight = _windowInteractionService.ClientHeight * dpiScale;
+            double physicalClientWidth = _windowInteractionService.ClientWidth;
+            double physicalClientHeight = _windowInteractionService.ClientHeight;
 
             double scale = physicalClientHeight / baseResolution.Height;
             double scaledWidth = profile.BaseWidth * scale;

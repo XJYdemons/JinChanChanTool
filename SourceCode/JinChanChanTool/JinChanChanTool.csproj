@@ -82,6 +82,7 @@
     <None Remove="Resources\HeroDatas\强音对决\images\阿狸.png" />
     <None Remove="Resources\HeroDatas\强音对决\images\阿萝拉.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\Equipment.json" />
+    <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentData.json" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\三相之力.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\中娅悖论.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\主宰纹章.png" />
@@ -553,6 +554,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\英雄联盟传奇\Equipment.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\英雄联盟传奇\EquipmentData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\三相之力.png">

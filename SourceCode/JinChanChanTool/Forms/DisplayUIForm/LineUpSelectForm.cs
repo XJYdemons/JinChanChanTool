@@ -237,30 +237,75 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 }
             }
 
-            // 应用搜索关键字筛选
+            // 应用搜索关键字筛选（带优先级排序）
             string searchKeyword = textBox_Search.Text.Trim();
             if (!string.IsNullOrEmpty(searchKeyword))
             {
-                _filteredLineUps = _filteredLineUps.Where(l =>
-                    l.LineUpName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase) ||
-                    l.Tags.Any(tag => tag.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase)) ||
-                    l.Description.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase) ||
-                    l.LineUpUnits.Any(unit => unit.HeroName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase))
-                ).ToList();
+                // 为每个阵容计算搜索匹配优先级
+                List<(RecommendedLineUp lineup, int priority)> lineUpsWithPriority = _filteredLineUps
+                    .Select(lineup => (lineup, priority: GetSearchPriority(lineup, searchKeyword)))
+                    .Where(item => item.priority >= 0)  // 过滤不匹配的阵容
+                    .ToList();
+
+                // 根据选择的排序方式获取排序函数
+                string sortBy = comboBox_SortBy.SelectedItem?.ToString() ?? "评级优先";
+                IOrderedEnumerable<(RecommendedLineUp lineup, int priority)> sortedLineUps = sortBy switch
+                {
+                    "胜率" => lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.WinRate),
+                    "前四率" => lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.TopFourRate),
+                    "选取率" => lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.PickRate),
+                    "平均名次" => lineUpsWithPriority.OrderBy(item => item.priority).ThenBy(item => item.lineup.AverageRank),  // 名次越低越好
+                    _ => lineUpsWithPriority.OrderBy(item => item.priority).ThenBy(item => item.lineup.Tier).ThenByDescending(item => item.lineup.WinRate)  // 评级优先
+                };
+
+                _filteredLineUps = sortedLineUps.Select(item => item.lineup).ToList();
+            }
+            else
+            {
+                // 没有搜索关键词时，按原有逻辑排序
+                string sortBy = comboBox_SortBy.SelectedItem?.ToString() ?? "评级优先";
+                _filteredLineUps = sortBy switch
+                {
+                    "胜率" => _filteredLineUps.OrderByDescending(l => l.WinRate).ToList(),
+                    "前四率" => _filteredLineUps.OrderByDescending(l => l.TopFourRate).ToList(),
+                    "选取率" => _filteredLineUps.OrderByDescending(l => l.PickRate).ToList(),
+                    "平均名次" => _filteredLineUps.OrderBy(l => l.AverageRank).ToList(),  // 名次越低越好
+                    _ => _filteredLineUps.OrderBy(l => l.Tier).ThenByDescending(l => l.WinRate).ToList()  // 评级优先
+                };
             }
 
-            // 根据选择的排序方式排序
-            string sortBy = comboBox_SortBy.SelectedItem?.ToString() ?? "评级优先";
-            _filteredLineUps = sortBy switch
-            {
-                "胜率" => _filteredLineUps.OrderByDescending(l => l.WinRate).ToList(),
-                "前四率" => _filteredLineUps.OrderByDescending(l => l.TopFourRate).ToList(),
-                "选取率" => _filteredLineUps.OrderByDescending(l => l.PickRate).ToList(),
-                "平均名次" => _filteredLineUps.OrderBy(l => l.AverageRank).ToList(),  // 名次越低越好
-                _ => _filteredLineUps.OrderBy(l => l.Tier).ThenByDescending(l => l.WinRate).ToList()  // 评级优先
-            };
-
             RefreshCards();
+        }
+
+        /// <summary>
+        /// 计算阵容在搜索关键词下的匹配优先级
+        /// </summary>
+        /// <param name="lineup">推荐阵容对象</param>
+        /// <param name="keyword">搜索关键词</param>
+        /// <returns>
+        /// 优先级值：
+        /// 0 = 阵容名匹配（最高优先级）
+        /// 1 = 标签/描述/英雄名匹配
+        /// -1 = 不匹配（将被过滤）
+        /// </returns>
+        private int GetSearchPriority(RecommendedLineUp lineup, string keyword)
+        {
+            // 优先级0: 阵容名包含关键词
+            if (lineup.LineUpName.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            {
+                return 0;
+            }
+
+            // 优先级1: 标签、描述或英雄名包含关键词
+            if (lineup.Tags.Any(tag => tag.Contains(keyword, StringComparison.OrdinalIgnoreCase)) ||
+                lineup.Description.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                lineup.LineUpUnits.Any(unit => unit.HeroName.Contains(keyword, StringComparison.OrdinalIgnoreCase)))
+            {
+                return 1;
+            }
+
+            // 不匹配
+            return -1;
         }
 
         /// <summary>

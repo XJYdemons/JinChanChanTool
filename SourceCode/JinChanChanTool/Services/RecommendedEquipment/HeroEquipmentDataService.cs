@@ -210,7 +210,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 if (dataDict != null)
                 {
                     HeroEquipments = dataDict
-                        .Select(kvp => new RecommendedEquipment { HeroName = kvp.Key, Equipments = kvp.Value })
+                        .Select(kvp => new DataClass.RecommendedEquipment { HeroName = kvp.Key, Equipments = kvp.Value })
                         .ToList();
                     Debug.WriteLine($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");
                     LogTool.Log($"成功从 {filePath} 加载了 {HeroEquipments.Count} 位英雄的装备数据。");

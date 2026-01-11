@@ -31,9 +31,16 @@ namespace JinChanChanTool.Services.LineupCrawling
         private readonly ConcurrentDictionary<string, List<string>> _clusterHeroKeysMap = new();
 
         // API 路由常量
-        private const string MetadataUrl = "https://api-hc.metatft.com/tft-comps-api/comps_data?queue=1100";
-        private const string StatsUrl = "https://api-hc.metatft.com/tft-comps-api/comps_stats?queue=1100&patch=current&days=1&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true";
-        private const string DetailUrlBase = "https://api-hc.metatft.com/tft-comps-api/comp_details?comp={0}&cluster_id={1}";
+        //private const string MetadataUrl = "https://api-hc.metatft.com/tft-comps-api/comps_data?queue=1100";
+        //private const string StatsUrl = "https://api-hc.metatft.com/tft-comps-api/comps_stats?queue=1100&patch=current&days=1&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true";
+        //private const string DetailUrlBase = "https://api-hc.metatft.com/tft-comps-api/comp_details?comp={0}&cluster_id={1}";
+        // API 路由常量
+        // Cloudflare Worker 加速地址
+        private const string ProxyHost = "https://api.xiaoyumetatft.xyz";
+
+        private const string MetadataUrl = ProxyHost + "/tft-comps-api/comps_data?queue=1100";
+        private const string StatsUrl = ProxyHost + "/tft-comps-api/comps_stats?queue=1100&patch=current&days=1&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true";
+        private const string DetailUrlBase = ProxyHost + "/tft-comps-api/comp_details?comp={0}&cluster_id={1}";
 
         public LineupCrawlingService(RecommendedEquipment.DynamicGameDataService gameDataService)
         {

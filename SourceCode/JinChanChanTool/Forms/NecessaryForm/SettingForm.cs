@@ -614,27 +614,27 @@ namespace JinChanChanTool
                 {
                     // 第一张卡片
                     var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的所有部分部分（包括英雄图片、名称）");
+                        "请框选商店从左到右数第1张奕子卡片的所有部分（包括英雄图片、名称）");
                     _iappConfigService.CurrentConfig.HighLightRectangle_1 = rect1;
 
                     // 第二张卡片
                     var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的所有部分部分（包括英雄图片、名称）");
+                        "请框选商店从左到右数第2张奕子卡片的所有部分（包括英雄图片、名称）");
                     _iappConfigService.CurrentConfig.HighLightRectangle_2 = rect2;
 
                     // 第三张卡片
                     var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的所有部分部分（包括英雄图片、名称）");
+                        "请框选商店从左到右数第3张奕子卡片的所有部分（包括英雄图片、名称）");
                     _iappConfigService.CurrentConfig.HighLightRectangle_3 = rect3;
 
                     // 第四张卡片
                     var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的所有部分部分（包括英雄图片、名称）");
+                        "请框选商店从左到右数第4张奕子卡片的所有部分（包括英雄图片、名称）");
                     _iappConfigService.CurrentConfig.HighLightRectangle_4 = rect4;
 
                     // 第五张卡片
                     var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的所有部分部分（包括英雄图片、名称）");
+                        "请框选商店从左到右数第5张奕子卡片的所有部分（包括英雄图片、名称）");
                     _iappConfigService.CurrentConfig.HighLightRectangle_5 = rect5;
                 }
                 catch (Exception ex)

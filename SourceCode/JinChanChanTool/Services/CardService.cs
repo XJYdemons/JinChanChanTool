@@ -934,19 +934,19 @@ namespace JinChanChanTool.Services
         {
             Rectangle[] rects = new Rectangle[]
                      {
-                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_1,
-                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_2,
-                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_3,
-                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_4,
-                         _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_5
+                         _iappConfigService.CurrentConfig.HighLightRectangle_1,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_2,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_3,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_4,
+                         _iappConfigService.CurrentConfig.HighLightRectangle_5
                     };
             Rectangle[] rects_Auto = new Rectangle[]
             {
-                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_1,
-                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_2,
-                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_3,
-                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_4,
-                _iAutoConfigService.CurrentConfig.HeroNameScreenshotRectangle_5
+                _iAutoConfigService.CurrentConfig.HighLightRectangle_1,
+                _iAutoConfigService.CurrentConfig.HighLightRectangle_2,
+                _iAutoConfigService.CurrentConfig.HighLightRectangle_3,
+                _iAutoConfigService.CurrentConfig.HighLightRectangle_4,
+                _iAutoConfigService.CurrentConfig.HighLightRectangle_5
             };
             for (int i = 0; i < isGetArray.Length; i++)
             {
@@ -982,18 +982,18 @@ namespace JinChanChanTool.Services
                         int randomX, randomY;
                         if (_iappConfigService.CurrentConfig.IsUseDynamicCoordinates)
                         {
-                            randomX = Random.Shared.Next(rects_Auto[i].Left + rects_Auto[i].Width / 5, rects_Auto[i].Left + rects_Auto[i].Width * 4 / 5);
-                            randomY = Random.Shared.Next(rects_Auto[i].Top + rects_Auto[i].Height / 5, rects_Auto[i].Top + rects_Auto[i].Height * 4 / 5);
+                            randomX = Random.Shared.Next(rects_Auto[i].Left + rects_Auto[i].Width / 3, rects_Auto[i].Left + rects_Auto[i].Width * 2 / 3);
+                            randomY = Random.Shared.Next(rects_Auto[i].Top + rects_Auto[i].Height / 3, rects_Auto[i].Top + rects_Auto[i].Height * 2 / 3);
                         }
                         else if (_iappConfigService.CurrentConfig.IsUseFixedCoordinates)
                         {
-                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width / 5, rects[i].Left + rects[i].Width * 4 / 5);
-                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height / 5, rects[i].Top + rects[i].Height * 4 / 5);
+                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width / 3, rects[i].Left + rects[i].Width * 2 / 3);
+                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height / 3, rects[i].Top + rects[i].Height * 2 / 3);
                         }
                         else
                         {
-                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width / 5, rects[i].Left + rects[i].Width * 4 / 5);
-                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height / 5, rects[i].Top + rects[i].Height * 4 / 5);
+                            randomX = Random.Shared.Next(rects[i].Left + rects[i].Width / 3, rects[i].Left + rects[i].Width * 2 / 3);
+                            randomY = Random.Shared.Next(rects[i].Top + rects[i].Height / 3, rects[i].Top + rects[i].Height * 2 / 3);
                         }
 
 

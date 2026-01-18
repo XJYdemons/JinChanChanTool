@@ -19,14 +19,14 @@ namespace JinChanChanTool.DIYComponents
         // 私有字段
         private ButtonState currentState = ButtonState.Normal;
         private int cornerRadius = 5;
-        private Color buttonColor = Color.FromArgb(255, 255, 255); // 默认蓝色
-        private Color hoverColor = Color.FromArgb(232, 232, 232); // 悬停时亮蓝色
-        private Color pressedColor = Color.FromArgb(222, 222, 222); // 按下时深蓝色
-        private Color disabledColor = Color.FromArgb(160, 160, 160); // 禁用时灰色
-        private Color textColor = Color.Black;
-        private Color borderColor = Color.FromArgb(200, 200, 200);
-        private int borderWidth = 1;
-        private Font textFont;
+        private Color buttonColor = Color.FromArgb(255, 255, 255); // 默认白色背景
+        private Color hoverColor = Color.FromArgb(232, 232, 232); // 悬停时灰色
+        private Color pressedColor = Color.FromArgb(222, 222, 222); // 按下时深灰色
+        private Color disabledColor = Color.FromArgb(160, 160, 160); // 禁用时全灰色
+        private Color textColor = Color.Black;// 字体颜色
+        private Color borderColor = Color.FromArgb(200, 200, 200);// 边框颜色
+        private int borderWidth = 1;// 边框宽度
+        private Font textFont; //字体
 
         /// <summary>
         /// 圆角半径（像素）

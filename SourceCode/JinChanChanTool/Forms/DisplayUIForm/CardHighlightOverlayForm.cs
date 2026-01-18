@@ -46,7 +46,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 边框宽度（像素）
         /// </summary>
-        private const int BORDER_WIDTH = 1;
+        private const int BORDER_WIDTH = 3;
 
         /// <summary>
         /// 渐变流动速度
@@ -226,44 +226,24 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <param name="rect">矩形区域</param>
         private void DrawGlowingBorder(Graphics g, Rectangle rect)
         {
-            // 计算动态颜色（基于偏移量创建流动效果）
+            // 金色渐变
             float phase = gradientOffset * 2 * (float)Math.PI;
-            // 使用 Math.Clamp 确保颜色值在 0-255 范围内
-            int r = Math.Clamp((int)(127 + 127 * Math.Sin(phase)), 0, 255);
-            int gVal = Math.Clamp((int)(128 + 127 * Math.Cos(phase)), 0, 255);
-            int b = 255;
+            int r = 255;  // 红色固定高
+            int gVal = Math.Clamp((int)(190 + 40 * Math.Sin(phase)), 150, 230);  // 绿色在150-230波动
+            int b = Math.Clamp((int)(20 + 20 * Math.Cos(phase)), 0, 40);  // 蓝色保持低值
             Color dynamicColor1 = Color.FromArgb(r, gVal, b);
 
             float phase2 = phase + (float)Math.PI;
-            int r2 = Math.Clamp((int)(127 + 127 * Math.Sin(phase2)), 0, 255);
-            int g2 = Math.Clamp((int)(128 + 127 * Math.Cos(phase2)), 0, 255);
-            Color dynamicColor2 = Color.FromArgb(r2, g2, b);
+            int gVal2 = Math.Clamp((int)(190 + 40 * Math.Sin(phase2)), 150, 230);
+            int b2 = Math.Clamp((int)(20 + 20 * Math.Cos(phase2)), 0, 40);
+            Color dynamicColor2 = Color.FromArgb(255, gVal2, b2);
 
-            // 主边框宽度（直接使用 BORDER_WIDTH）
+            // 主边框宽度
             int penWidth = Math.Max(BORDER_WIDTH, 1);
             // 计算偏移量（使边框完全在矩形外部）
             int offset = (penWidth + 1) / 2;
 
-            // 绘制外发光效果（在主边框外围，半透明）
-            for (int layer = 2; layer >= 1; layer--)
-            {
-                int alpha = 40 + (2 - layer) * 30;
-                int glowOffset = offset + layer;
-
-                using (Pen glowPen = new Pen(Color.FromArgb(alpha, dynamicColor1), 1))
-                {
-                    glowPen.LineJoin = LineJoin.Round;
-                    Rectangle glowRect = new Rectangle(
-                        rect.X - glowOffset,
-                        rect.Y - glowOffset,
-                        rect.Width + glowOffset * 2,
-                        rect.Height + glowOffset * 2
-                    );
-                    g.DrawRectangle(glowPen, glowRect);
-                }
-            }
-
-            // 绘制主边框（使用线性渐变，完全在矩形外部）
+            // 绘制渐变流动边框
             try
             {
                 // 创建渐变画刷用于绘制四条边
@@ -278,7 +258,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                     {
                         using (Pen borderPen = new Pen(brush, penWidth))
                         {
-                            borderPen.LineJoin = LineJoin.Round;
+                            borderPen.LineJoin = LineJoin.Miter;
                             // 向外偏移，使边框完全在矩形外部
                             Rectangle outerRect = new Rectangle(
                                 rect.X - offset,
@@ -296,7 +276,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 // 如果渐变创建失败，使用纯色边框
                 using (Pen fallbackPen = new Pen(dynamicColor1, penWidth))
                 {
-                    fallbackPen.LineJoin = LineJoin.Round;
+                    fallbackPen.LineJoin = LineJoin.Miter;
                     Rectangle outerRect = new Rectangle(
                         rect.X - offset,
                         rect.Y - offset,

@@ -32,11 +32,7 @@ namespace JinChanChanTool.DIYComponents
         /// 英雄被清除事件
         /// </summary>
         public event EventHandler<BoardHeroClearedEventArgs> HeroCleared;
-
-        /// <summary>
-        /// 获取所有格子
-        /// </summary>
-        public HexagonCell[,] Cells => _cells;
+       
 
         public HexagonBoard()
         {

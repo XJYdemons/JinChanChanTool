@@ -47,6 +47,7 @@ namespace JinChanChanTool
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             panel_BackGround = new Panel();
+            roundedButton9 = new RoundedButton();
             roundedButton8 = new RoundedButton();
             roundedButton7 = new RoundedButton();
             roundedButton6 = new RoundedButton();
@@ -72,7 +73,6 @@ namespace JinChanChanTool
             pictureBox1 = new PictureBox();
             button2 = new Button();
             button1 = new Button();
-            roundedButton9 = new RoundedButton();
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
@@ -271,6 +271,24 @@ namespace JinChanChanTool
             panel_BackGround.Name = "panel_BackGround";
             panel_BackGround.Size = new Size(404, 629);
             panel_BackGround.TabIndex = 5;
+            // 
+            // roundedButton9
+            // 
+            roundedButton9.BorderColor = SystemColors.ScrollBar;
+            roundedButton9.BorderWidth = 1;
+            roundedButton9.ButtonColor = Color.White;
+            roundedButton9.CornerRadius = 3;
+            roundedButton9.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton9.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton9.Location = new Point(359, 116);
+            roundedButton9.Name = "roundedButton9";
+            roundedButton9.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton9.Size = new Size(40, 25);
+            roundedButton9.TabIndex = 30;
+            roundedButton9.Text = "导入";
+            roundedButton9.TextColor = Color.Black;
+            roundedButton9.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            roundedButton9.Click += roundedButton9_Click;
             // 
             // roundedButton8
             // 
@@ -601,24 +619,6 @@ namespace JinChanChanTool
             button1.Text = "X";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button_关闭_Click;
-            // 
-            // roundedButton9
-            // 
-            roundedButton9.BorderColor = SystemColors.ScrollBar;
-            roundedButton9.BorderWidth = 1;
-            roundedButton9.ButtonColor = Color.White;
-            roundedButton9.CornerRadius = 3;
-            roundedButton9.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton9.HoverColor = Color.FromArgb(232, 232, 232);
-            roundedButton9.Location = new Point(359, 116);
-            roundedButton9.Name = "roundedButton9";
-            roundedButton9.PressedColor = Color.FromArgb(222, 222, 222);
-            roundedButton9.Size = new Size(40, 25);
-            roundedButton9.TabIndex = 30;
-            roundedButton9.Text = "导入";
-            roundedButton9.TextColor = Color.Black;
-            roundedButton9.TextFont = new Font("微软雅黑", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            roundedButton9.Click += roundedButton9_Click;
             // 
             // MainForm
             // 

@@ -98,7 +98,7 @@
             label_版本号.Name = "label_版本号";
             label_版本号.Size = new Size(174, 17);
             label_版本号.TabIndex = 3;
-            label_版本号.Text = "版本  v7.3.0beta(2026.01.09)";
+            label_版本号.Text = "版本  v7.3.1beta(2026.01.17)";
             label_版本号.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label_版权所有

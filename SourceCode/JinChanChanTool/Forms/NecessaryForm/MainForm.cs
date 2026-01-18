@@ -2522,7 +2522,7 @@ namespace JinChanChanTool
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
                         screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
-                        screen.Top + screen.Height / 2 - this.Height /*+ 10*/
+                        screen.Top + screen.Height / 2 - this.Height/2 /*+ 10*/
                     );
                 }
             }
@@ -2531,7 +2531,7 @@ namespace JinChanChanTool
                 var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
                         screen.Left+ screen.Width/2 - this.Width/2 /*- 10*/,
-                        screen.Top+screen.Height/2-this.Height /*+ 10*/
+                        screen.Top+screen.Height/2-this.Height/2 /*+ 10*/
                     );
             }
         }

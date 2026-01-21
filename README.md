@@ -7,7 +7,7 @@
 
 **一款专为《云顶之弈》和《金铲铲之战》设计的智能辅助工具**
 
-[使用文档](#使用文档)
+[使用文档](#使用文档) • [更新记录](./Documents/更新记录.md) • [许可证](LICENSE) 
 
 ---
 
@@ -98,17 +98,42 @@ JinChanChanTool是一款基于图像识别技术的游戏辅助工具，通过OC
 
 ### 下载安装
 
-#### 方式1：从GitHub下载（推荐）
+#### 下载安装包
 
-1. 访问 [Release 页面](https://github.com/XJYdemons/JinChanChanTool/releases)
-2. 下载最新版本的 `JinChanChanTool_vx.x.x_Windows_x64.zip`
-3. 解压到任意目录（建议避免中文路径）
-4. 以管理员权限运行 `JinChanChanTool.exe`
+**方式1：从GitHub下载（推荐）**
 
-#### 方式2：备用下载链接
+1. 访问项目的 [Release 页面](https://github.com/XJYdemons/JinChanChanTool/releases)
+2. 找到最新版本（如 `v7.0.0`）
+3. 下载 `JinChanChanTool_vx.x.x_Windows_x64.zip` 文件
 
-- **百度网盘**：https://pan.baidu.com/s/1fn-D8b7r7aC8Hb0Ka7wpaQ?pwd=k7mk
-- **QQ群文件**：加入QQ群 954285837 获取
+**方式2：从备用链接下载**
+
+如果GitHub访问困难，可以使用备用下载链接：
+
+- 百度网盘：https://pan.baidu.com/s/1fn-D8b7r7aC8Hb0Ka7wpaQ?pwd=k7mk
+
+> **注意**：请从官方渠道下载，避免使用来源不明的安装包。
+
+**方式3：通过QQ群文件下载**
+
+通过添加QQ群954285837，获取群文件下载。
+
+#### 解压与安装
+
+JCCT是绿色软件，无需安装，解压即可使用。
+
+**步骤**：
+
+1. **选择安装位置**
+   - 将下载的ZIP文件解压到您希望安装的目录
+   - 推荐路径：`C:\Program Files\JinChanChanTool` 或 `D:\Games\JinChanChanTool`
+   - 避免使用包含中文或特殊字符的路径
+
+2. **解压文件**
+   - 右键ZIP文件，选择"解压到当前文件夹"或"解压到指定文件夹"
+   - 确保所有文件都被正确解压
+
+> **提示**：如果您之前安装过旧版本，建议解压到新文件夹，避免文件冲突。
 
 ### 首次使用
 
@@ -137,6 +162,7 @@ JinChanChanTool是一款基于图像识别技术的游戏辅助工具，通过OC
 ## 界面预览
 
 ### 主窗口
+
 ![主窗口](./Documents/DocumentImages/image-20260121215709161.png)
 
 ### 配置向导
@@ -169,6 +195,16 @@ A: 请参阅 [第4章 自定义赛季信息](./Documents/第4章%20自定义赛�
 
 ---
 
+## 问题提交&联系方式
+
+> 日志文件：`根目录/Logs`（提交问题时请附上日志）
+
+如果您发现了Bug或有功能建议，请通过以下方式反馈：
+
+- [提交Issue](https://github.com/XJYdemons/JinChanChanTool/issues)
+- QQ交流群：954285837
+
+---
 ## 技术栈
 
 - **开发语言**：C# (.NET Framework)
@@ -176,48 +212,6 @@ A: 请参阅 [第4章 自定义赛季信息](./Documents/第4章%20自定义赛�
 - **图像处理**：OpenCV
 - **UI框架**：Windows Forms
 - **推理设备**：支持CPU和GPU（CUDA）
-
----
-
-## 参与贡献
-
-欢迎提交Issue和Pull Request！
-
-### 贡献方式
-
-1. Fork 本仓库
-2. 创建您的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交您的更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启一个Pull Request
-
-### 报告问题
-
-如果您发现了Bug或有功能建议，请通过以下方式反馈：
-
-- [提交Issue](https://github.com/XJYdemons/JinChanChanTool/issues)
-- 加入QQ群：954285837
-- 查看日志文件：`根目录/Logs`（提交问题时请附上日志）
-
----
-
-## 更新日志
-
-查看完整更新记录：[更新记录.md](./Documents/更新记录.md)
-
----
-
-## 许可证
-
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
-
----
-
-## 联系方式
-
-- **项目主页**：https://github.com/XJYdemons/JinChanChanTool
-- **QQ交流群**：954285837
-- **Issue反馈**：https://github.com/XJYdemons/JinChanChanTool/issues
 
 ---
 

@@ -149,4 +149,4 @@ nvcc -V
 
 打开程序，菜单栏-设置-OCR相关-GUI推理（勾选），保存设置即可。
 
-![image-20251103014129378](./DocumentImages/usegpu19.png)
+![image-20260122025610911](./DocumentImages/image-20260122025610911.png)

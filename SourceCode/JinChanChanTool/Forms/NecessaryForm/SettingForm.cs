@@ -182,7 +182,13 @@ namespace JinChanChanTool
             capsuleSwitch16.IsOn = _iappConfigService.CurrentConfig.IsFilterLetters;
             capsuleSwitch17.IsOn = _iappConfigService.CurrentConfig.IsFilterNumbers;
             capsuleSwitch18.IsOn = _iappConfigService.CurrentConfig.IsSaveCapturedImages;
+            capsuleSwitch19.IsOn = _iappConfigService.CurrentConfig.IsStrictMatching;
+            textBox1.Text = _iappConfigService.CurrentConfig.HighlightBorderWidth.ToString();
+            textBox2.Text = _iappConfigService.CurrentConfig.HighlightGradientSpeed.ToString();
+            button1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
+            button4.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
         }
+
 
         /// <summary>
         /// 为所有文本框组件绑定事件
@@ -277,9 +283,16 @@ namespace JinChanChanTool
             textBox_英雄头像框垂直间隔.Enter += TextBox_Enter;
             textBox_英雄头像框垂直间隔.Leave += textBox_英雄头像框垂直间隔_Leave;
 
+            textBox1.KeyDown += TextBox_KeyDown;
+            textBox1.Enter += TextBox_Enter;
+            textBox1.Leave += TextBox_HighlightBorderWidth_Leave;
 
+            textBox2.KeyDown += TextBox_KeyDown;
+            textBox2.Enter += TextBox_Enter;
+            textBox2.Leave += TextBox_HighlightGradientSpeed_Leave;
         }
 
+        
 
 
         /// <summary>
@@ -365,6 +378,36 @@ namespace JinChanChanTool
             GlobalHotkeyTool.Enabled = true;
         }
 
+        #endregion
+
+        #region 修改-长按高亮提示快捷键-逻辑
+        /// <summary>
+        /// 当textBox_高亮提示为焦点的情况下有按键按下 ——> 若用户键入回车，则使该组件失焦；若用户输入合法键值，则判断是否和已有快捷键重复，若否则更新数据类相关数据并更新显示UI。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_高亮提示_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 捕获用户按下的键，并更新 TextBox
+            var key = e.KeyCode; // 获取按键代码
+            if (key == Keys.Enter)
+            {
+                this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
+                return;
+            }
+            if (GlobalHotkeyTool.IsRightKey(key))
+            {
+                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4)
+                {
+                    _iappConfigService.CurrentConfig.HotKey5 = key.ToString();
+                    Update_AllComponents();
+                }
+
+                e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
+            }
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+        }
         #endregion
 
         #region 修改-自动拿牌快捷键-逻辑      
@@ -463,224 +506,10 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 修改-长按高亮提示快捷键-逻辑
-
-        #endregion
-        /// <summary>
-        /// 当textBox_高亮提示为焦点的情况下有按键按下 ——> 若用户键入回车，则使该组件失焦；若用户输入合法键值，则判断是否和已有快捷键重复，若否则更新数据类相关数据并更新显示UI。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_高亮提示_KeyDown(object sender, KeyEventArgs e)
-        {
-            // 捕获用户按下的键，并更新 TextBox
-            var key = e.KeyCode; // 获取按键代码
-            if (key == Keys.Enter)
-            {
-                this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
-                return;
-            }
-            if (GlobalHotkeyTool.IsRightKey(key))
-            {
-                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4)
-                {
-                    _iappConfigService.CurrentConfig.HotKey5 = key.ToString();
-                    Update_AllComponents();
-                }
-
-                e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
-            }
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-        }
         #endregion
 
-        #region 截图设置                      
-        #region 坐标设置方式单选框改变
-        /// <summary>
-        /// 手动设置坐标单选框状态改变事件 ——> 若被选中则启用手动设置坐标相关组件并禁用自动设置坐标相关组件，同时更新数据类相关数据。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void radioButton_手动设置坐标_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_手动设置坐标.Checked)
-            {
-                roundedButton4.Enabled = false;
-                comboBox_选择显示器.Enabled = true;
-                roundedButton1.Enabled = true;
-                roundedButton2.Enabled = true;
-                roundedButton3.Enabled = true;
-            }
-            _iappConfigService.CurrentConfig.IsUseFixedCoordinates = radioButton_手动设置坐标.Checked;
-        }
-
-        /// <summary>
-        /// 自动设置坐标单选框状态改变事件 ——> 若被选中则启用自动设置坐标相关组件并禁用手动设置坐标相关组件，同时更新数据类相关数据。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void radioButton_自动设置坐标_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_自动设置坐标.Checked)
-            {
-                roundedButton4.Enabled = true;
-                comboBox_选择显示器.Enabled = false;
-                roundedButton1.Enabled = false;
-                roundedButton2.Enabled = false;
-                roundedButton3.Enabled = false;
-            }
-            _iappConfigService.CurrentConfig.IsUseDynamicCoordinates = radioButton_自动设置坐标.Checked;
-        }
-
-        #endregion
-
-        #region 快速设置坐标                    
-        /// <summary>
-        /// 快速设置奕子截图坐标与大小按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void roundedButton1_Click(object sender, EventArgs e)
-        {
-            using (var setter = new FastSettingPositionService(targetScreen))
-            {
-                try
-                {
-                    // 第一张卡片
-                    var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_1 = rect1;
-
-                    // 第二张卡片
-                    var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_2 = rect2;
-
-                    // 第三张卡片
-                    var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_3 = rect3;
-
-                    // 第四张卡片
-                    var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_4 = rect4;
-
-                    // 第五张卡片
-                    var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的英雄名称部分（不包括金币图标）");
-                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_5 = rect5;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"出现错误: {ex.Message}");
-                }
-            }
-            Update_AllComponents();
-        }
-
-        /// <summary>
-        /// 快速设置商店刷新按钮坐标按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void roundedButton2_Click(object sender, EventArgs e)
-        {
-            using (var setter = new FastSettingPositionService(targetScreen))
-            {
-                try
-                {
-                    Rectangle rectangle = await setter.WaitForDrawAsync("请框选商店刷新按钮");
-                    _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle = rectangle;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"出现错误: {ex.Message}");
-                }
-            }
-            Update_AllComponents();
-        }
-        /// <summary>
-        /// 设置高亮提示框坐标按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void roundedButton3_Click(object sender, EventArgs e)
-        {
-            using (var setter = new FastSettingPositionService(targetScreen))
-            {
-                try
-                {
-                    // 第一张卡片
-                    var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的所有部分（包括英雄图片、名称）");
-                    _iappConfigService.CurrentConfig.HighLightRectangle_1 = rect1;
-
-                    // 第二张卡片
-                    var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的所有部分（包括英雄图片、名称）");
-                    _iappConfigService.CurrentConfig.HighLightRectangle_2 = rect2;
-
-                    // 第三张卡片
-                    var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的所有部分（包括英雄图片、名称）");
-                    _iappConfigService.CurrentConfig.HighLightRectangle_3 = rect3;
-
-                    // 第四张卡片
-                    var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的所有部分（包括英雄图片、名称）");
-                    _iappConfigService.CurrentConfig.HighLightRectangle_4 = rect4;
-
-                    // 第五张卡片
-                    var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的所有部分（包括英雄图片、名称）");
-                    _iappConfigService.CurrentConfig.HighLightRectangle_5 = rect5;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"出现错误: {ex.Message}");
-                }
-            }
-            Update_AllComponents();
-        }
-        #endregion
-
-        #region 选择进程             
-        /// <summary>
-        /// 选择进程按钮被单击时触发的事件处理程序。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void roundedButton4_Click(object sender, EventArgs e)
-        {
-            // 1. 实时创建进程发现服务
-            var discoveryService = new ProcessDiscoveryService();
-
-            // 2. 创建并显示进程选择窗体
-            using (var processForm = new ProcessSelectorForm(discoveryService))
-            {
-                if (processForm.ShowDialog(this) == DialogResult.OK)
-                {
-                    var selectedProcess = processForm.SelectedProcess;
-                    if (selectedProcess != null)
-                    {
-                        // 同时保存 Name 和 ID
-                        _iappConfigService.CurrentConfig.TargetProcessName = selectedProcess.ProcessName;
-                        _iappConfigService.CurrentConfig.TargetProcessId = selectedProcess.Id;
-                        // 给用户反馈
-                        string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
-                        MessageBox.Show($"已选择进程：{displayName}\n请点击“保存设置”来保存此选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-        }
-        #endregion
-        #endregion
-
-
-
-        #region 拿牌相关设置
+        #region 功能
+        #region 常规
         #region 避免程序与用户争夺光标控制权            
 
 
@@ -693,107 +522,6 @@ namespace JinChanChanTool
         {
 
             _iappConfigService.CurrentConfig.IsHighUserPriority = capsuleSwitch1.IsOn;
-        }
-        #endregion
-
-        #region 自动停止拿牌
-        private void capsuleSwitch4_IsOnChanged(object sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase = capsuleSwitch4.IsOn;
-            if (_iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
-            {
-                textBox_MaxTimesWithoutGetCard.Enabled = true;
-            }
-            else
-            {
-                textBox_MaxTimesWithoutGetCard.Enabled = false;
-            }
-        }
-
-        /// <summary>
-        /// 离开textBox_MaxTimesWithoutGetCard时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_MaxTimesWithoutGetCard_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutGetCard.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase = int.Parse(textBox_MaxTimesWithoutGetCard.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-        #endregion
-
-        #region 自动停止刷新商店      
-        /// <summary>
-        /// 当“自动停止刷新商店”复选框状态改变时触发的事件处理程序。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void capsuleSwitch7_IsOnChanged(object sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore = capsuleSwitch7.IsOn;
-            if (_iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore)
-            {
-                textBox_MaxTimesWithoutRefresh.Enabled = true;
-            }
-            else
-            {
-                textBox_MaxTimesWithoutRefresh.Enabled = false;
-            }
-        }
-
-        /// <summary>
-        /// 离开textBox_MaxTimesWithoutRefresh时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_MaxTimesWithoutRefresh_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutRefresh.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore = int.Parse(textBox_MaxTimesWithoutRefresh.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-        #endregion
-
-        #region 当识别到错误字符时停止刷新商店               
-        /// <summary>
-        /// 当“当识别到错误字符时停止刷新商店”复选框状态改变时触发的事件处理程序。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void capsuleSwitch8_IsOnChanged(object sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters = capsuleSwitch8.IsOn;
         }
         #endregion
 
@@ -826,69 +554,9 @@ namespace JinChanChanTool
         }
 
         #endregion
-
-        #region 修改-CPU推理模式下刷新商店后等待时间-逻辑
-        /// <summary>
-        /// 离开textBox_CPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_CPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_CPUDelayAfterRefreshStore.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU = int.Parse(textBox_CPUDelayAfterRefreshStore.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-
-
         #endregion
 
-        #region 修改-GPU推理模式下刷新商店后等待时间-逻辑
-        /// <summary>
-        /// 离开textBox_GPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_GPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
-        {
-            //启用全局热键
-            GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_GPUDelayAfterRefreshStore.Text))
-            {
-                Update_AllComponents();
-            }
-            else
-            {
-                try
-                {
-                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU = int.Parse(textBox_GPUDelayAfterRefreshStore.Text);
-                    Update_AllComponents();
-                }
-                catch
-                {
-                    Update_AllComponents();
-                }
-            }
-        }
-
-
-        #endregion
-
+        #region 自动拿牌
         #region 拿牌方式       
         private bool isUpdatingSwitch_鼠标模拟拿牌 = false;
         private bool isUpdatingSwitch_按键模拟拿牌 = false;
@@ -1110,6 +778,50 @@ namespace JinChanChanTool
         #endregion
         #endregion
 
+        #region 自动停止拿牌
+        private void capsuleSwitch4_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase = capsuleSwitch4.IsOn;
+            if (_iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
+            {
+                textBox_MaxTimesWithoutGetCard.Enabled = true;
+            }
+            else
+            {
+                textBox_MaxTimesWithoutGetCard.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// 离开textBox_MaxTimesWithoutGetCard时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_MaxTimesWithoutGetCard_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutGetCard.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase = int.Parse(textBox_MaxTimesWithoutGetCard.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 自动刷新商店
         #region 刷新方式
         private bool isUpdatingSwitch_鼠标模拟刷新商店 = false;
         private bool isUpdatingSwitch_按键模拟刷新商店 = false;
@@ -1201,6 +913,390 @@ namespace JinChanChanTool
 
         #endregion
         #endregion
+
+        #region 自动停止刷新商店      
+        /// <summary>
+        /// 当“自动停止刷新商店”复选框状态改变时触发的事件处理程序。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void capsuleSwitch7_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore = capsuleSwitch7.IsOn;
+            if (_iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore)
+            {
+                textBox_MaxTimesWithoutRefresh.Enabled = true;
+            }
+            else
+            {
+                textBox_MaxTimesWithoutRefresh.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// 离开textBox_MaxTimesWithoutRefresh时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_MaxTimesWithoutRefresh_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutRefresh.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore = int.Parse(textBox_MaxTimesWithoutRefresh.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+
+        #region 当识别到错误字符时停止刷新商店               
+        /// <summary>
+        /// 当“当识别到错误字符时停止刷新商店”复选框状态改变时触发的事件处理程序。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void capsuleSwitch8_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters = capsuleSwitch8.IsOn;
+        }
+        #endregion
+
+        #region 修改-CPU推理模式下刷新商店后等待时间-逻辑
+        /// <summary>
+        /// 离开textBox_CPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_CPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_CPUDelayAfterRefreshStore.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU = int.Parse(textBox_CPUDelayAfterRefreshStore.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region 修改-GPU推理模式下刷新商店后等待时间-逻辑
+        /// <summary>
+        /// 离开textBox_GPUDelayAfterRefreshStore时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_GPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox_GPUDelayAfterRefreshStore.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU = int.Parse(textBox_GPUDelayAfterRefreshStore.Text);
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+
+        #endregion
+        #endregion
+
+        #region 高亮提示
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            colorDialog1.Color = _iappConfigService.CurrentConfig.HighlightColor1;
+
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                _iappConfigService.CurrentConfig.HighlightColor1 = colorDialog1.Color;
+                button1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
+                Update_AllComponents();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            colorDialog2.Color = _iappConfigService.CurrentConfig.HighlightColor2;
+
+            if (colorDialog2.ShowDialog() == DialogResult.OK)
+            {
+                _iappConfigService.CurrentConfig.HighlightColor2 = colorDialog2.Color;
+                button4.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
+                Update_AllComponents();
+            }
+        }
+        private void TextBox_HighlightBorderWidth_Leave(object? sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    int result = int.Parse(textBox1.Text);
+                    if (result > 0)
+                    {
+                        _iappConfigService.CurrentConfig.HighlightBorderWidth = result;
+                    }
+
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+
+        private void TextBox_HighlightGradientSpeed_Leave(object? sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+            if (string.IsNullOrWhiteSpace(textBox2.Text))
+            {
+                Update_AllComponents();
+            }
+            else
+            {
+                try
+                {
+                    float result = float.Parse(textBox2.Text);
+                    if (result > 0f && result <= 0.2f)
+                    {
+                        _iappConfigService.CurrentConfig.HighlightGradientSpeed = result;
+                    }
+
+                    Update_AllComponents();
+                }
+                catch
+                {
+                    Update_AllComponents();
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 坐标设置                      
+        #region 坐标设置方式单选框改变
+        /// <summary>
+        /// 手动设置坐标单选框状态改变事件 ——> 若被选中则启用手动设置坐标相关组件并禁用自动设置坐标相关组件，同时更新数据类相关数据。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButton_手动设置坐标_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_手动设置坐标.Checked)
+            {
+                roundedButton4.Enabled = false;
+                comboBox_选择显示器.Enabled = true;
+                roundedButton1.Enabled = true;
+                roundedButton2.Enabled = true;
+                roundedButton3.Enabled = true;
+            }
+            _iappConfigService.CurrentConfig.IsUseFixedCoordinates = radioButton_手动设置坐标.Checked;
+        }
+
+        /// <summary>
+        /// 自动设置坐标单选框状态改变事件 ——> 若被选中则启用自动设置坐标相关组件并禁用手动设置坐标相关组件，同时更新数据类相关数据。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButton_自动设置坐标_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_自动设置坐标.Checked)
+            {
+                roundedButton4.Enabled = true;
+                comboBox_选择显示器.Enabled = false;
+                roundedButton1.Enabled = false;
+                roundedButton2.Enabled = false;
+                roundedButton3.Enabled = false;
+            }
+            _iappConfigService.CurrentConfig.IsUseDynamicCoordinates = radioButton_自动设置坐标.Checked;
+        }
+
+        #endregion
+
+        #region 快速设置坐标                    
+        /// <summary>
+        /// 快速设置奕子截图坐标与大小按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void roundedButton1_Click(object sender, EventArgs e)
+        {
+            using (var setter = new FastSettingPositionService(targetScreen))
+            {
+                try
+                {
+                    // 第一张卡片
+                    var rect1 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第1张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_1 = rect1;
+
+                    // 第二张卡片
+                    var rect2 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第2张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_2 = rect2;
+
+                    // 第三张卡片
+                    var rect3 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第3张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_3 = rect3;
+
+                    // 第四张卡片
+                    var rect4 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第4张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_4 = rect4;
+
+                    // 第五张卡片
+                    var rect5 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第5张奕子卡片的英雄名称部分（不包括金币图标）");
+                    _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_5 = rect5;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"出现错误: {ex.Message}");
+                }
+            }
+            Update_AllComponents();
+        }
+
+        /// <summary>
+        /// 快速设置商店刷新按钮坐标按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void roundedButton2_Click(object sender, EventArgs e)
+        {
+            using (var setter = new FastSettingPositionService(targetScreen))
+            {
+                try
+                {
+                    Rectangle rectangle = await setter.WaitForDrawAsync("请框选商店刷新按钮");
+                    _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle = rectangle;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"出现错误: {ex.Message}");
+                }
+            }
+            Update_AllComponents();
+        }
+        /// <summary>
+        /// 设置高亮提示框坐标按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void roundedButton3_Click(object sender, EventArgs e)
+        {
+            using (var setter = new FastSettingPositionService(targetScreen))
+            {
+                try
+                {
+                    // 第一张卡片
+                    var rect1 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第1张奕子卡片的所有部分（包括英雄图片、名称）");
+                    _iappConfigService.CurrentConfig.HighLightRectangle_1 = rect1;
+
+                    // 第二张卡片
+                    var rect2 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第2张奕子卡片的所有部分（包括英雄图片、名称）");
+                    _iappConfigService.CurrentConfig.HighLightRectangle_2 = rect2;
+
+                    // 第三张卡片
+                    var rect3 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第3张奕子卡片的所有部分（包括英雄图片、名称）");
+                    _iappConfigService.CurrentConfig.HighLightRectangle_3 = rect3;
+
+                    // 第四张卡片
+                    var rect4 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第4张奕子卡片的所有部分（包括英雄图片、名称）");
+                    _iappConfigService.CurrentConfig.HighLightRectangle_4 = rect4;
+
+                    // 第五张卡片
+                    var rect5 = await setter.WaitForDrawAsync(
+                        "请框选商店从左到右数第5张奕子卡片的所有部分（包括英雄图片、名称）");
+                    _iappConfigService.CurrentConfig.HighLightRectangle_5 = rect5;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"出现错误: {ex.Message}");
+                }
+            }
+            Update_AllComponents();
+        }
+        #endregion
+
+        #region 选择进程             
+        /// <summary>
+        /// 选择进程按钮被单击时触发的事件处理程序。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void roundedButton4_Click(object sender, EventArgs e)
+        {
+            // 1. 实时创建进程发现服务
+            var discoveryService = new ProcessDiscoveryService();
+
+            // 2. 创建并显示进程选择窗体
+            using (var processForm = new ProcessSelectorForm(discoveryService))
+            {
+                if (processForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    var selectedProcess = processForm.SelectedProcess;
+                    if (selectedProcess != null)
+                    {
+                        // 同时保存 Name 和 ID
+                        _iappConfigService.CurrentConfig.TargetProcessName = selectedProcess.ProcessName;
+                        _iappConfigService.CurrentConfig.TargetProcessId = selectedProcess.Id;
+                        // 给用户反馈
+                        string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
+                        MessageBox.Show($"已选择进程：{displayName}\n请点击“保存设置”来保存此选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #region OCR相关设置
@@ -1219,7 +1315,7 @@ namespace JinChanChanTool
         }
         #endregion
 
-        #region 推理单选框改变
+        #region 推理设备单选框改变
         private bool isUpdatingSwitch_CPU推理 = false;
         private bool isUpdatingSwitch_GPU推理 = false;
         /// <summary>
@@ -1290,9 +1386,17 @@ namespace JinChanChanTool
             _iappConfigService.CurrentConfig.IsFilterNumbers = capsuleSwitch17.IsOn;
         }
         #endregion
+
+        #region 严格匹配模式
+        private void capsuleSwitch19_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsStrictMatching = capsuleSwitch19.IsOn;
+        }
+        #endregion
         #endregion
 
         #region 窗口设置
+        #region 英雄选择窗口
         /// <summary>
         /// 勾选或取消勾选“使用选择窗口位置”复选框时触发
         /// </summary>
@@ -1302,37 +1406,7 @@ namespace JinChanChanTool
         {
             _iappConfigService.CurrentConfig.IsUseSelectForm = capsuleSwitch11.IsOn;
         }
-        /// <summary>
-        /// 勾选或取消勾选“使用阵容窗口位置”复选框时触发
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void capsuleSwitch12_IsOnChanged(object sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsUseLineUpForm = capsuleSwitch12.IsOn;
-        }
 
-
-
-        /// <summary>
-        /// 勾选或取消勾选“使用状态覆盖窗口位置”复选框时触发
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>      
-        private void capsuleSwitch13_IsOnChanged(object sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsUseStatusOverlayForm = capsuleSwitch13.IsOn;
-        }
-        /// <summary>
-        /// 勾选或取消勾选“使用错误输出窗口位置”复选框时触发
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>      
-        private void capsuleSwitch14_IsOnChanged(object sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsUseOutputForm = capsuleSwitch14.IsOn;
-        }
-        #region 英雄选择面板UI设置
         /// <summary>
         /// 离开textBox_英雄头像框边长时触发，若用户输入为空，则显示文本从数据类读取；若用户输入合法，则更新数据类数据并更新显示文本。
         /// </summary>
@@ -1428,9 +1502,40 @@ namespace JinChanChanTool
 
 
         #endregion
+
+        /// <summary>
+        /// 勾选或取消勾选“使用阵容窗口位置”复选框时触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void capsuleSwitch12_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsUseLineUpForm = capsuleSwitch12.IsOn;
+        }
+
+        /// <summary>
+        /// 勾选或取消勾选“使用状态覆盖窗口位置”复选框时触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>      
+        private void capsuleSwitch13_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsUseStatusOverlayForm = capsuleSwitch13.IsOn;
+        }
+
+        /// <summary>
+        /// 勾选或取消勾选“使用错误输出窗口位置”复选框时触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>      
+        private void capsuleSwitch14_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsUseOutputForm = capsuleSwitch14.IsOn;
+        }
+
         #endregion
 
-        #region 其他设置
+        #region 大数据推荐
         #region 自动更新推荐装备设置
         /// <summary>
         /// 勾选或取消勾选“定时更新推荐装备”复选框时触发
@@ -1484,43 +1589,8 @@ namespace JinChanChanTool
             }
         }
         #endregion
-        #endregion
 
-        #region 设置存取相关
-
-        /// <summary>
-        /// /保存设置按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            _iappConfigService.Save(true);
-        }
-
-        /// <summary>
-        /// 还原默认设置按钮_被单击
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button6_Click(object sender, EventArgs e)
-        {
-            var confirmResult = MessageBox.Show("确定要恢复默认设置吗？", "确认恢复默认设置", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirmResult != DialogResult.Yes)
-            {
-                return; // 用户取消操作
-            }
-            _iappConfigService.SetDefaultConfig();
-            Update_AllComponents();
-        }
-        #endregion
-
-        private void SettingForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        #region 更新阵容推荐
+        #region 阵容推荐
         private async void roundedButton6_Click(object sender, EventArgs e)
         {
             try
@@ -1607,6 +1677,53 @@ namespace JinChanChanTool
             }
         }
         #endregion
+        #endregion
+
+        #region 开发者选项
+        /// <summary>
+        /// 是否保存截图开关状态改变时触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void capsuleSwitch18_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsSaveCapturedImages = capsuleSwitch18.IsOn;
+        }
+        #endregion
+
+        private void SettingForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        #region 设置存取相关
+
+        /// <summary>
+        /// /保存设置按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _iappConfigService.Save(true);
+        }
+
+        /// <summary>
+        /// 还原默认设置按钮_被单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var confirmResult = MessageBox.Show("确定要恢复默认设置吗？", "确认恢复默认设置", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.Yes)
+            {
+                return; // 用户取消操作
+            }
+            _iappConfigService.SetDefaultConfig();
+            Update_AllComponents();
+        }
+        #endregion
 
         #region 圆角实现
         // GDI32 API - 用于创建圆角效果
@@ -1684,25 +1801,6 @@ namespace JinChanChanTool
             this.Close();
         }
         #endregion
-
-
-        #region 开发者选项
-        /// <summary>
-        /// 是否保存截图开关状态改变时触发
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void capsuleSwitch18_IsOnChanged(object sender, EventArgs e)
-        {
-            _iappConfigService.CurrentConfig.IsSaveCapturedImages = capsuleSwitch18.IsOn;
-        }
-        #endregion
-
-
-        private void panel_拿牌相关_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         
     }

@@ -14,8 +14,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\Help\**" />
+    <EmbeddedResource Remove="Resources\Help\**" />
+    <None Remove="Resources\Help\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\CorrectionsList.json" />
     <None Remove="Resources\defaultHeroIcon.png" />
+    <None Remove="Resources\DownloadSources.json" />
     <None Remove="Resources\HeroDatas\强音对决\HeroData.json" />
     <None Remove="Resources\HeroDatas\强音对决\images\亚索.png" />
     <None Remove="Resources\HeroDatas\强音对决\images\伊泽瑞尔.png" />
@@ -356,6 +363,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\defaultHeroIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\DownloadSources.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\强音对决\HeroData.json">
@@ -1370,6 +1380,7 @@
     <PackageReference Include="Sdcb.PaddleInference.runtime.win64.cu129_cudnn910_sm89" Version="3.1.0.54" />
     <PackageReference Include="Sdcb.PaddleOCR" Version="3.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.9" />
+    <PackageReference Include="System.Management" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

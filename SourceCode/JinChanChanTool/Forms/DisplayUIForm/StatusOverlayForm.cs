@@ -162,8 +162,8 @@ namespace JinChanChanTool.Forms
                 {
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
-                        screen.Right - this.Width /*- 10*/,
-                        screen.Top /*+ 10*/
+                        0 /*- 10*/,
+                        screen.Bottom-this.Height /*+ 10*/
                     );
                     return;
                 }
@@ -176,8 +176,8 @@ namespace JinChanChanTool.Forms
                 {
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
-                        screen.Right - this.Width /*- 10*/,
-                        screen.Top /*+ 10*/
+                        0 /*- 10*/,
+                        screen.Bottom - this.Height /*+ 10*/
                     );
                 }
             }
@@ -185,9 +185,9 @@ namespace JinChanChanTool.Forms
             {
                 var screen = Screen.PrimaryScreen.Bounds;
                 this.Location = new Point(
-                    screen.Right - this.Width /*- 10*/,
-                    screen.Top /*+ 10*/
-                );
+                        0 /*- 10*/,
+                        screen.Bottom - this.Height /*+ 10*/
+                    );
             }
         }
 

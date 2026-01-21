@@ -2,6 +2,7 @@ using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms.DisplayUIForm;
 using JinChanChanTool.Services;
+using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Tools;
 using System.Runtime.InteropServices;
@@ -43,8 +44,8 @@ namespace JinChanChanTool.Forms
 
         // 窗体高度常量（逻辑像素）
         private const int COLLAPSED_HEIGHT = 95;
-        private const int BOARD_HEIGHT = 200;
-        private const int BENCH_HEIGHT = 50;
+        private const int BOARD_HEIGHT = 150;
+        private const int BENCH_HEIGHT = 35;
 
         private ILineUpService _ilineUpService; // 阵容数据服务对象
         public IAutomaticSettingsService _iAutoConfigService; // 自动设置数据服务对象
@@ -55,7 +56,12 @@ namespace JinChanChanTool.Forms
         private LineUpForm()
         {
             InitializeComponent();
-            _isBoardExpanded = false;
+            _isBoardExpanded = false;            
+            DragHelper.EnableDrag(button_保存);
+            DragHelper.EnableDrag(button_清空);
+            DragHelper.EnableDrag(button_阵容推荐);
+            DragHelper.EnableDrag(button_展开收起);
+            
         }
 
         private void LineUpForm_Load(object sender, EventArgs e)
@@ -91,84 +97,9 @@ namespace JinChanChanTool.Forms
 
             // 绑定备战席事件
             benchPanel.HeroDroppedIn += BenchPanel_HeroPositionChanged;
-
-            ApplySavedLocation();
+           
         }
-
-        /// <summary>
-        /// 棋盘英雄位置变更事件处理
-        /// </summary>
-        private void HexagonBoard_HeroPositionChanged(object sender, BoardHeroPositionChangedEventArgs e)
-        {
-            // 刷新备战席显示（因为可能有英雄从备战席拖到棋盘，或从棋盘交换到备战席）
-            benchPanel.RefreshBench();
-        }
-
-        /// <summary>
-        /// 棋盘英雄清除事件处理
-        /// </summary>
-        private void HexagonBoard_HeroCleared(object sender, BoardHeroClearedEventArgs e)
-        {
-            // 英雄被清除到备战席，刷新备战席显示
-            benchPanel.RefreshBench();
-        }
-
-        /// <summary>
-        /// 备战席英雄位置变更事件处理（从棋盘拖到备战席）
-        /// </summary>
-        private void BenchPanel_HeroPositionChanged(object sender, BenchHeroDroppedInEventArgs e)
-        {
-            // 将从棋盘拖来的英雄移到备战席（位置设为0,0）
-            if (e.MovedUnit != null)
-            {
-                e.MovedUnit.Position = (0, 0);
-            }
-
-            // 刷新棋盘和备战席显示
-            RefreshHexagonBoard();
-        }
-
-        /// <summary>
-        /// 从配置中读取并应用窗口位置
-        /// </summary>
-        private void ApplySavedLocation()
-        {
-            try
-            {
-                this.StartPosition = FormStartPosition.Manual;
-                if (_iAutoConfigService.CurrentConfig.LineUpFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.LineUpFormLocation.Y == -1)
-                {
-                    var screen = Screen.PrimaryScreen.Bounds;
-                    this.Location = new Point(
-                        screen.Right - this.Width,
-                        screen.Bottom - this.Height
-                    );
-                    return;
-                }
-                // 确保坐标在屏幕范围内
-                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.LineUpFormLocation)))
-                {
-                    this.Location = _iAutoConfigService.CurrentConfig.LineUpFormLocation;
-                }
-                else
-                {
-                    var screen = Screen.PrimaryScreen.Bounds;
-                    this.Location = new Point(
-                        screen.Right - this.Width,
-                        screen.Bottom - this.Height
-                    );
-                }
-            }
-            catch
-            {
-                var screen = Screen.PrimaryScreen.Bounds;
-                this.Location = new Point(
-                    screen.Right - this.Width,
-                    screen.Bottom - this.Height
-                );
-            }
-        }
-
+      
         #region 拖动窗体功能        
         /// <summary>
         /// 鼠标按下事件 - 开始拖动
@@ -245,7 +176,432 @@ namespace JinChanChanTool.Forms
             要拖动的控件.MouseMove += panel_MouseMove;
             要拖动的控件.MouseUp += panel_MouseUp;
         }
+
+        
         #endregion
+
+        #region 棋盘UI相关
+        /// <summary>
+        /// 棋盘英雄位置变更事件处理
+        /// </summary>
+        private void HexagonBoard_HeroPositionChanged(object sender, BoardHeroPositionChangedEventArgs e)
+        {
+            // 刷新备战席显示（因为可能有英雄从备战席拖到棋盘，或从棋盘交换到备战席）
+            benchPanel.RefreshBench();
+        }
+
+        /// <summary>
+        /// 棋盘英雄清除事件处理
+        /// </summary>
+        private void HexagonBoard_HeroCleared(object sender, BoardHeroClearedEventArgs e)
+        {
+            // 英雄被清除到备战席，刷新备战席显示
+            benchPanel.RefreshBench();
+        }
+
+        /// <summary>
+        /// 备战席英雄位置变更事件处理（从棋盘拖到备战席）
+        /// </summary>
+        private void BenchPanel_HeroPositionChanged(object sender, BenchHeroDroppedInEventArgs e)
+        {
+            // 将从棋盘拖来的英雄移到备战席（位置设为0,0）
+            if (e.MovedUnit != null)
+            {
+                e.MovedUnit.Position = (0, 0);
+            }
+
+            // 刷新棋盘和备战席显示
+            RefreshHexagonBoard();
+        }
+
+        /// <summary>
+        /// 刷新蜂巢棋盘和备战席显示
+        /// </summary>
+        public void RefreshHexagonBoard()
+        {
+            if (_ilineUpService == null) return;
+
+            SubLineUp currentSubLineUp = _ilineUpService.GetCurrentSubLineUp();
+            hexagonBoard.BindSubLineUp(currentSubLineUp);
+            benchPanel.BindSubLineUp(currentSubLineUp);
+
+            // 同步刷新散件面板
+            if (_isBoardExpanded && componentPanel != null && componentPanel.Visible)
+            {
+                RefreshComponentPanel();
+            }
+        }
+
+        /// <summary>
+        /// 展开/收起按钮点击事件 - 切换棋盘显示状态
+        /// </summary>
+        private void button_展开收起_Click(object sender, EventArgs e)
+        {
+            ToggleBoardExpanded();
+        }
+
+        /// <summary>
+        /// 切换棋盘展开/收起状态
+        /// </summary>
+        private void ToggleBoardExpanded()
+        {
+            _isBoardExpanded = !_isBoardExpanded;
+
+            if (_isBoardExpanded)
+            {
+                hexagonBoard.BackColor = Color.FromArgb(1, 1, 1);
+                benchPanel.BackColor = Color.FromArgb(1, 1, 1);
+                componentPanel.BackColor = Color.FromArgb(1, 1, 1);
+                //hexagonBoard.BackColor = Color.FromArgb(30,35, 45);
+                //benchPanel.BackColor = Color.FromArgb(30, 35, 45);
+                //componentPanel.BackColor = Color.FromArgb(30, 35, 45);
+                // 展开棋盘和备战席
+                int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
+                int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+
+                // 棋盘紧贴 flowLayoutPanel1 底部
+                int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                // 备战席紧贴棋盘底部
+                int benchY = boardY + boardHeight;
+                // 窗体总高度
+                int expandedHeight = benchY + benchHeight;
+
+                // 计算棋盘和备战席的宽度（面板宽度的3/4）
+                int boardWidth = flowLayoutPanel1.Width * 3 / 4;
+
+                // 设置棋盘位置和大小
+                hexagonBoard.Location = new Point(flowLayoutPanel1.Location.X, boardY);
+                hexagonBoard.Size = new Size(boardWidth, boardHeight);
+                hexagonBoard.Visible = true;
+
+                // 设置备战席位置和大小
+                benchPanel.Location = new Point(flowLayoutPanel1.Location.X, benchY);
+                benchPanel.Size = new Size(boardWidth, benchHeight);
+                benchPanel.Visible = true;
+
+                // 设置散件面板位置和大小（右侧1/4宽度区域）
+                int componentPanelX = flowLayoutPanel1.Location.X + boardWidth;
+                int componentPanelWidth = flowLayoutPanel1.Width - boardWidth;
+                int componentPanelHeight = boardHeight + benchHeight;
+                componentPanel.Location = new Point(componentPanelX, boardY);
+                componentPanel.Size = new Size(componentPanelWidth, componentPanelHeight);
+                componentPanel.Visible = true;
+
+                this.ClientSize = new Size(LogicalToDeviceUnits(632), expandedHeight);
+
+                button_展开收起.BackColor = Color.FromArgb(130, 189, 39);
+
+                // 刷新棋盘和备战席数据
+                RefreshHexagonBoard();
+
+                // 刷新散件面板数据
+                RefreshComponentPanel();
+            }
+            else
+            {
+                // 收起棋盘和备战席
+                hexagonBoard.Visible = false;
+                benchPanel.Visible = false;
+                componentPanel.Visible = false;
+                this.ClientSize = new Size(LogicalToDeviceUnits(632), LogicalToDeviceUnits(COLLAPSED_HEIGHT));
+
+                button_展开收起.BackColor = Color.FromArgb(45, 45, 48);
+            }
+        }
+
+        /// <summary>
+        /// 更新变阵按钮的选中状态和名称
+        /// </summary>
+        public void 更新棋盘显示(int selectedIndex)
+        {
+            // 刷新棋盘显示
+            RefreshHexagonBoard();
+        }
+        #endregion
+
+        #region 散件需求面板相关
+        /// <summary>
+        /// 计算当前阵容所需的散件及数量
+        /// </summary>
+        /// <returns>散件名称与数量的字典，按数量降序排序</returns>
+        private Dictionary<string, int> CalculateRequiredComponents()
+        {
+            Dictionary<string, int> componentCounts = new Dictionary<string, int>();
+
+            if (_ilineUpService == null || _equipmentService == null)
+            {
+                return componentCounts;
+            }
+
+            try
+            {
+                SubLineUp currentSubLineUp = _ilineUpService.GetCurrentSubLineUp();
+                if (currentSubLineUp == null || currentSubLineUp.LineUpUnits == null)
+                {
+                    return componentCounts;
+                }
+
+                // 遍历当前阵容中的每个英雄单位
+                foreach (LineUpUnit unit in currentSubLineUp.LineUpUnits)
+                {
+                    if (unit.EquipmentNames == null)
+                    {
+                        continue;
+                    }
+
+                    // 遍历英雄的3个装备槽位
+                    foreach (string equipmentName in unit.EquipmentNames)
+                    {
+                        // 跳过空装备
+                        if (string.IsNullOrEmpty(equipmentName))
+                        {
+                            continue;
+                        }
+
+                        // 获取装备对象
+                        Equipment equipment = _equipmentService.GetEquipmentFromName(equipmentName);
+                        if (equipment == null)
+                        {
+                            continue;
+                        }
+
+                        // 判断是否有合成路径
+                        if (equipment.SyntheticPathway != null && equipment.SyntheticPathway.Length >= 2)
+                        {
+                            // 有合成路径，拆分为两个散件
+                            foreach (string componentName in equipment.SyntheticPathway)
+                            {
+                                if (!string.IsNullOrEmpty(componentName))
+                                {
+                                    if (componentCounts.ContainsKey(componentName))
+                                    {
+                                        componentCounts[componentName]++;
+                                    }
+                                    else
+                                    {
+                                        componentCounts[componentName] = 1;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            
+                            if (equipment.EquipmentType == "散件")
+                            {
+                                if (componentCounts.ContainsKey(equipmentName))
+                                {
+                                    componentCounts[equipmentName]++;
+                                }
+                                else
+                                {
+                                    componentCounts[equipmentName] = 1;
+                                }
+                            }                                                        
+                        }
+                    }
+                }
+
+                // 按数量降序排序并返回
+                return componentCounts.OrderByDescending(kvp => kvp.Value)
+                                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            }
+            catch (Exception)
+            {
+                // 异常处理：记录日志或静默失败
+                return componentCounts;
+            }
+        }
+
+        /// <summary>
+        /// 刷新散件需求面板的显示
+        /// </summary>
+        private void RefreshComponentPanel()
+        {
+            if (componentPanel == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // 暂停布局更新
+                componentPanel.SuspendLayout();
+
+                // 清空现有控件
+                componentPanel.Controls.Clear();
+
+                // 如果面板不可见，直接返回
+                if (!componentPanel.Visible)
+                {
+                    componentPanel.ResumeLayout(false);
+                    return;
+                }
+
+                // 获取面板实际客户区宽度（ClientSize会自动考虑滚动条是否存在）
+                int availableWidth = componentPanel.ClientSize.Width;
+                if (availableWidth <= 0)
+                {
+                    componentPanel.ResumeLayout(false);
+                    return;
+                }
+
+                // 计算布局参数（优化为紧凑布局，确保一行能放两个）
+                int itemGap = LogicalToDeviceUnits(3); // 两个散件项之间的间距
+                int sidePadding = LogicalToDeviceUnits(3); // 左右边距
+
+                // 强制一行显示两个散件项，紧凑布局
+                int itemWidth = (availableWidth - sidePadding * 2 - itemGap) / 2;
+
+                // 根据实际itemWidth自适应调整图片大小
+                int componentImageSize = LogicalToDeviceUnits(18); // 散件图片大小（紧凑）
+                int innerPadding = LogicalToDeviceUnits(2); // 散件项内部边距
+
+                // 设置Padding
+                componentPanel.Padding = new Padding(sidePadding, 0, 0, 0);
+
+                // 创建标题标签
+                Label titleLabel = new Label
+                {
+                    Text = "散件数量",
+                    ForeColor = Color.White,
+                    Font = new Font("微软雅黑", 10, FontStyle.Bold),
+                    Width = availableWidth,
+                    Height = LogicalToDeviceUnits(24),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    BackColor = Color.Transparent,
+                    Margin = new Padding(0, LogicalToDeviceUnits(5), 0, LogicalToDeviceUnits(5))
+                };
+                componentPanel.Controls.Add(titleLabel);
+
+                // 计算所需散件
+                Dictionary<string, int> requiredComponents = CalculateRequiredComponents();
+
+                // 如果没有散件需求，只显示标题
+                if (requiredComponents.Count == 0)
+                {
+                    componentPanel.ResumeLayout(false);
+                    return;
+                }
+
+                // 计算散件项高度（componentImageSize和innerPadding已在前面定义）
+                int itemHeight = componentImageSize + LogicalToDeviceUnits(6); // 散件项高度（紧凑）
+
+                // 为每个散件创建显示项
+                int itemIndex = 0;
+                foreach (KeyValuePair<string, int> kvp in requiredComponents)
+                {
+                    string componentName = kvp.Key;
+                    int count = kvp.Value;
+
+                    // 获取散件装备对象
+                    Equipment component = _equipmentService.GetEquipmentFromName(componentName);
+                    if (component == null)
+                    {
+                        continue;
+                    }
+
+                    // 计算边距（第一列右边有gap，第二列右边无gap）
+                    bool isFirstColumn = (itemIndex % 2 == 0);
+                    int rightMargin = isFirstColumn ? itemGap : 0;
+
+                    // 创建散件项容器Panel
+                    Panel itemPanel = new Panel
+                    {
+                        Width = itemWidth,
+                        Height = itemHeight,
+                        Margin = new Padding(0, LogicalToDeviceUnits(2), rightMargin, 0),
+                        BackColor = Color.Transparent
+                    };
+
+                    // 创建散件图片框
+                    PictureBox componentPictureBox = new PictureBox
+                    {
+                        Width = componentImageSize,
+                        Height = componentImageSize,
+                        Left = innerPadding,
+                        Top = (itemHeight - componentImageSize) / 2,
+                        Image = component.Image,
+                        Tag = component,
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        BackColor = Color.Transparent
+                    };
+
+                    // 创建数量标签（使用AutoSize确保文字完整显示，缩小字号适应紧凑布局）
+                    Label countLabel = new Label
+                    {
+                        Text = $"x{count}",
+                        ForeColor = Color.White,
+                        Font = new Font("微软雅黑", 9, FontStyle.Bold),
+                        AutoSize = true,
+                        BackColor = Color.Transparent
+                    };
+
+                    // 先添加标签以计算实际大小
+                    itemPanel.Controls.Add(countLabel);
+
+                    // 设置标签位置（在图片右侧，垂直居中）
+                    countLabel.Left = innerPadding + componentImageSize + innerPadding;
+                    countLabel.Top = (itemHeight - countLabel.Height) / 2;
+
+                   
+
+                    // 添加图片框
+                    itemPanel.Controls.Add(componentPictureBox);
+
+                    // 将散件项添加到主面板
+                    componentPanel.Controls.Add(itemPanel);
+
+                    itemIndex++;
+                }
+
+                // 恢复布局更新
+                componentPanel.ResumeLayout(true);
+            }
+            catch (Exception)
+            {
+                // 异常处理：确保恢复布局
+                componentPanel.ResumeLayout(false);
+            }
+        }
+        #endregion
+
+        #region 按钮交互
+        /// <summary>
+        /// 阵容推荐按钮点击事件 - 打开推荐阵容选择窗口
+        /// </summary>
+        private void button_阵容推荐_Click(object sender, EventArgs e)
+        {
+            if (_iRecommendedLineUpService == null || _heroDataService == null || _equipmentService == null)
+            {
+                MessageBox.Show("相关服务未初始化！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // 检查是否有推荐阵容数据
+            if (_iRecommendedLineUpService.GetCount() == 0)
+            {
+                MessageBox.Show("暂无推荐阵容数据。\n\n请先通过数据爬取工具获取推荐阵容数据后再试。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // 打开推荐阵容选择窗口
+            using (var selectForm = new LineUpSelectForm(_iRecommendedLineUpService, _heroDataService, _equipmentService))
+            {
+                selectForm.TopMost = true;
+                if (selectForm.ShowDialog(this) == DialogResult.OK && selectForm.SelectedLineUp != null)
+                {
+                    // 用户选择了阵容，替换当前子阵容
+                    var selectedLineUp = selectForm.SelectedLineUp;
+
+                    // 将推荐阵容的英雄列表导入到当前子阵容
+                    if (!_ilineUpService.ReplaceCurrentSubLineUp(selectedLineUp.LineUpUnits))
+                    {
+                        MessageBox.Show("应用阵容失败，请稍后重试。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// 保存当前阵容按钮点击事件
@@ -270,6 +626,35 @@ namespace JinChanChanTool.Forms
             _ilineUpService.ClearCurrentSubLineUp();
         }
 
+        public ComboBox GetLineUpSelectedComboBox()
+        {
+            return comboBox_LineUpSelected;
+        }
+        #endregion
+
+        #region 位置保存与读取
+
+        /// <summary>
+        /// Windows消息常量 - 窗口移动或大小调整结束
+        /// </summary>
+        private const int WM_EXITSIZEMOVE = 0x0232;
+
+        /// <summary>
+        /// 重写窗口过程以监听拖动结束消息
+        /// </summary>
+        /// <param name="m">Windows消息</param>
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            // 监听窗口移动结束消息
+            if (m.Msg == WM_EXITSIZEMOVE)
+            {
+                // 拖动结束,保存位置
+                SaveFormLocation();
+            }
+        }
+
         /// <summary>
         /// 拖动结束时保存窗口位置到配置服务
         /// </summary>
@@ -288,492 +673,73 @@ namespace JinChanChanTool.Forms
 
             }
         }
-
-        public ComboBox GetLineUpSelectedComboBox()
-        {
-            return comboBox_LineUpSelected;
-        }
-
+      
         /// <summary>
-        /// 更新变阵按钮的选中状态和名称
+        /// 显示窗体时应用保存的位置
         /// </summary>
-        public void UpdateSubLineUpButtons(int selectedIndex)
+        /// <param name="e"></param>
+        protected override void OnShown(EventArgs e)
         {
-            Color selectedColor = Color.FromArgb(130, 189, 39);
-            Color normalColor = Color.FromArgb(45, 45, 48);
-
-            button__变阵1.BackColor = selectedIndex == 0 ? selectedColor : normalColor;
-            button__变阵2.BackColor = selectedIndex == 1 ? selectedColor : normalColor;
-            button__变阵3.BackColor = selectedIndex == 2 ? selectedColor : normalColor;
-            if (selectedIndex == 0)
+            base.OnShown(e);
+            try
             {
-                button__变阵1.Focus();
+                this.StartPosition = FormStartPosition.Manual;
+                if (_iAutoConfigService.CurrentConfig.LineUpFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.LineUpFormLocation.Y == -1)
+                {
+                    // 计算完全展开状态的窗体高度（包括棋盘和备战席）
+                    int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
+                    int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+                    int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                    int benchY = boardY + boardHeight;
+                    int expandedHeight = benchY + benchHeight;
+
+                    // 使用完全展开的高度来定位窗体
+                    Rectangle screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Right - this.Width,
+                        screen.Bottom - expandedHeight
+                    );
+                    return;
+                }
+                // 确保坐标在屏幕范围内
+                if (Screen.AllScreens.Any(s => s.Bounds.Contains(_iAutoConfigService.CurrentConfig.LineUpFormLocation)))
+                {
+                    this.Location = _iAutoConfigService.CurrentConfig.LineUpFormLocation;
+                }
+                else
+                {
+                    // 计算完全展开状态的窗体高度（包括棋盘和备战席）
+                    int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
+                    int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+                    int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                    int benchY = boardY + boardHeight;
+                    int expandedHeight = benchY + benchHeight;
+
+                    // 使用完全展开的高度来定位窗体
+                    Rectangle screen = Screen.PrimaryScreen.Bounds;
+                    this.Location = new Point(
+                        screen.Right - this.Width,
+                        screen.Bottom - expandedHeight
+                    );
+                }
             }
-            else if (selectedIndex == 1)
+            catch
             {
-                button__变阵2.Focus();
-            }
-            else if (selectedIndex == 2)
-            {
-                button__变阵3.Focus();
-            }
-            button__变阵1.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[0].SubLineUpName;
-            button__变阵2.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[1].SubLineUpName;
-            button__变阵3.Text = _ilineUpService.GetCurrentLineUp().SubLineUps[2].SubLineUpName;
-
-            // 刷新棋盘显示
-            RefreshHexagonBoard();
-        }
-
-        /// <summary>
-        /// 刷新蜂巢棋盘和备战席显示
-        /// </summary>
-        public void RefreshHexagonBoard()
-        {
-            if (_ilineUpService == null) return;
-
-            SubLineUp currentSubLineUp = _ilineUpService.GetCurrentSubLineUp();
-            hexagonBoard.BindSubLineUp(currentSubLineUp);
-            benchPanel.BindSubLineUp(currentSubLineUp);
-        }
-
-        /// <summary>
-        /// 展开/收起按钮点击事件 - 切换棋盘显示状态
-        /// </summary>
-        private void button_展开收起_Click(object sender, EventArgs e)
-        {
-            ToggleBoardExpanded();
-        }
-
-        /// <summary>
-        /// 切换棋盘展开/收起状态
-        /// </summary>
-        private void ToggleBoardExpanded()
-        {
-            _isBoardExpanded = !_isBoardExpanded;
-
-            if (_isBoardExpanded)
-            {
-                // 展开棋盘和备战席
-                int expandedHeight = LogicalToDeviceUnits(COLLAPSED_HEIGHT + BOARD_HEIGHT + BENCH_HEIGHT);
-                int boardY = LogicalToDeviceUnits(COLLAPSED_HEIGHT - 2);
+                // 计算完全展开状态的窗体高度（包括棋盘和备战席）
                 int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
-                int benchY = LogicalToDeviceUnits(COLLAPSED_HEIGHT - 2 + BOARD_HEIGHT);
                 int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+                int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                int benchY = boardY + boardHeight;
+                int expandedHeight = benchY + benchHeight;
 
-                // 设置棋盘位置和大小
-                hexagonBoard.Location = new Point(LogicalToDeviceUnits(2), boardY);
-                hexagonBoard.Size = new Size(LogicalToDeviceUnits(628), boardHeight);
-                hexagonBoard.Visible = true;
-
-                // 设置备战席位置和大小
-                benchPanel.Location = new Point(LogicalToDeviceUnits(2), benchY);
-                benchPanel.Size = new Size(LogicalToDeviceUnits(628), benchHeight);
-                benchPanel.Visible = true;
-
-                this.ClientSize = new Size(LogicalToDeviceUnits(632), expandedHeight);
-
-                button_展开收起.BackColor = Color.FromArgb(130, 189, 39);
-
-                // 刷新棋盘和备战席数据
-                RefreshHexagonBoard();
-            }
-            else
-            {
-                // 收起棋盘和备战席
-                hexagonBoard.Visible = false;
-                benchPanel.Visible = false;
-                this.ClientSize = new Size(LogicalToDeviceUnits(632), LogicalToDeviceUnits(COLLAPSED_HEIGHT));
-
-                button_展开收起.BackColor = Color.FromArgb(45, 45, 48);
+                // 使用完全展开的高度来定位窗体
+                Rectangle screen = Screen.PrimaryScreen.Bounds;
+                this.Location = new Point(
+                    screen.Right - this.Width,
+                    screen.Bottom - expandedHeight
+                );
             }
         }
-
-
-        private void button__变阵1_Click(object sender, EventArgs e)
-        {
-            _ilineUpService.SetSubLineUpIndex(0);
-
-        }
-
-        private void button__变阵1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                RenameSubLineUp(0);
-            }
-        }
-
-
-        private void button__变阵2_Click(object sender, EventArgs e)
-        {
-            _ilineUpService.SetSubLineUpIndex(1);
-        }
-
-        private void button__变阵2_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                RenameSubLineUp(1);
-            }
-
-        }
-
-
-        private void button__变阵3_Click(object sender, EventArgs e)
-        {
-            _ilineUpService.SetSubLineUpIndex(2);
-        }
-
-        private void button__变阵3_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                RenameSubLineUp(2);
-            }
-
-        }
-
-        /// <summary>
-        /// 重命名当前阵容变阵名
-        /// </summary>
-        /// <param name="index"></param>
-        private void RenameSubLineUp(int index)
-        {
-            LineUp currentLineUp = _ilineUpService.GetCurrentLineUp();
-            if (index < 0 || index >= currentLineUp.SubLineUps.Length)
-            {
-                return;
-            }
-
-            string? newName = PromptForSubLineUpName("修改变阵名称", currentLineUp.SubLineUps[index].SubLineUpName);
-            if (string.IsNullOrWhiteSpace(newName))
-            {
-                return;
-            }
-            if (newName.Length > 4)
-            {
-                MessageBox.Show("变阵名称不能超过4个字符!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            _ilineUpService.SetSubLineUpName(index, newName.Trim());
-        }
-
-        /// <summary>
-        /// 生成对话框窗口，提供变阵重命名的UI。
-        /// 使用圆角效果和自定义标题栏。
-        /// </summary>
-        /// <param name="title">对话框标题</param>
-        /// <param name="defaultValue">输入框默认值</param>
-        /// <returns>用户输入的文本，如果取消则返回null</returns>
-        private string? PromptForSubLineUpName(string title, string defaultValue)
-        {
-            using RenameDialogForm prompt = new RenameDialogForm();
-            prompt.StartPosition = FormStartPosition.CenterParent;
-            prompt.InputText = defaultValue;
-
-            return prompt.ShowDialog(this) == DialogResult.OK ? prompt.InputText : null;
-        }
-
-        /// <summary>
-        /// 带圆角效果和自定义标题栏的重命名对话框
-        /// </summary>
-        private class RenameDialogForm : Form
-        {
-            // GDI32 API - 用于创建圆角效果
-            [DllImport("gdi32.dll")]
-            private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
-            [DllImport("user32.dll")]
-            private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
-
-            // 圆角半径
-            private const int CORNER_RADIUS = 16;
-
-            // 边框颜色
-            private static readonly Color BORDER_COLOR = Color.FromArgb(250, 250, 250);
-
-            // 输入框控件引用
-            private TextBox inputBox;
-
-            /// <summary>
-            /// 获取或设置输入框的文本
-            /// </summary>
-            public string InputText
-            {
-                get => inputBox.Text;
-                set => inputBox.Text = value;
-            }
-
-            public RenameDialogForm()
-            {
-                InitializeComponents();
-            }
-
-            /// <summary>
-            /// 初始化对话框组件
-            /// </summary>
-            private void InitializeComponents()
-            {
-                // 窗体基本设置
-                TopMost = true;
-                FormBorderStyle = FormBorderStyle.None;
-                MinimizeBox = false;
-                MaximizeBox = false;
-                AutoScaleMode = AutoScaleMode.Dpi;
-                BackColor = BORDER_COLOR;
-                ClientSize = new Size(LogicalToDeviceUnits(280), LogicalToDeviceUnits(140));
-
-                // 边框面板（最外层，通过Padding模拟边框）
-                Panel borderPanel = new Panel
-                {
-                    BackColor = BORDER_COLOR,
-                    Dock = DockStyle.Fill,
-                    Padding = new Padding(
-                        LogicalToDeviceUnits(3),
-                        LogicalToDeviceUnits(3),
-                        LogicalToDeviceUnits(4),
-                        LogicalToDeviceUnits(4)
-                    )
-                };
-
-                // 客户区面板（白色背景）
-                Panel clientPanel = new Panel
-                {
-                    BackColor = Color.White,
-                    Dock = DockStyle.Fill
-                };
-
-                // 标题栏面板
-                int titleBarHeight = LogicalToDeviceUnits(28);
-                Panel titleBarPanel = new Panel
-                {
-                    BackColor = Color.White,
-                    Dock = DockStyle.Top,
-                    Height = titleBarHeight
-                };
-
-              
-
-                // 标题标签
-                Label titleLabel = new Label
-                {
-                    Text = "重命名",
-                    AutoSize = false,
-                    TextAlign = ContentAlignment.MiddleLeft,
-                    Location = new Point(LogicalToDeviceUnits(8), 0),
-                    Size = new Size(LogicalToDeviceUnits(100), titleBarHeight),
-                    Font = new Font(Font.FontFamily, 9F, FontStyle.Regular, GraphicsUnit.Point)
-                };
-
-                // 关闭按钮
-                Button closeButton = new Button
-                {
-                    Text = "X",
-                    FlatStyle = FlatStyle.Flat,
-                    Size = new Size(LogicalToDeviceUnits(25), LogicalToDeviceUnits(25)),
-                    Location = new Point(LogicalToDeviceUnits(245), LogicalToDeviceUnits(1)),
-                    TabStop = false
-                };
-                closeButton.FlatAppearance.BorderSize = 0;
-                closeButton.Click += (s, e) =>
-                {
-                    DialogResult = DialogResult.Cancel;
-                    Close();
-                };
-
-                titleBarPanel.Controls.Add(titleLabel);
-                titleBarPanel.Controls.Add(closeButton);
-
-                // 内容面板
-                Panel contentPanel = new Panel
-                {
-                    BackColor = Color.White,
-                    Dock = DockStyle.Fill
-                };
-
-                // 变阵名称标签
-                Label textLabel = new Label
-                {
-                    Text = "变阵名称：",
-                    AutoSize = true,
-                    Location = new Point(LogicalToDeviceUnits(10), LogicalToDeviceUnits(10))
-                };
-
-                // 输入框
-                inputBox = new TextBox
-                {
-                    Location = new Point(LogicalToDeviceUnits(10), LogicalToDeviceUnits(35)),
-                    Width = LogicalToDeviceUnits(253)
-                };
-
-                // 确定按钮
-                Button confirmButton = new Button
-                {
-                    Text = "确定",
-                    FlatStyle = FlatStyle.Flat,
-                    Size = new Size(LogicalToDeviceUnits(75), LogicalToDeviceUnits(28)),
-                    Location = new Point(LogicalToDeviceUnits(100), LogicalToDeviceUnits(70)),
-                    DialogResult = DialogResult.OK
-                };
-                confirmButton.FlatAppearance.BorderColor = Color.Gray;
-
-                // 取消按钮
-                Button cancelButton = new Button
-                {
-                    Text = "取消",
-                    FlatStyle = FlatStyle.Flat,
-                    Size = new Size(LogicalToDeviceUnits(75), LogicalToDeviceUnits(28)),
-                    Location = new Point(LogicalToDeviceUnits(188), LogicalToDeviceUnits(70)),
-                    DialogResult = DialogResult.Cancel
-                };
-                cancelButton.FlatAppearance.BorderColor = Color.Gray;
-
-                contentPanel.Controls.Add(textLabel);
-                contentPanel.Controls.Add(inputBox);
-                contentPanel.Controls.Add(confirmButton);
-                contentPanel.Controls.Add(cancelButton);
-
-                // 组装控件层次结构
-                clientPanel.Controls.Add(contentPanel);
-                clientPanel.Controls.Add(titleBarPanel);
-                borderPanel.Controls.Add(clientPanel);
-                Controls.Add(borderPanel);
-
-                // 设置默认按钮
-                AcceptButton = confirmButton;
-                CancelButton = cancelButton;
-                DragHelper.EnableDragForChildren(titleBarPanel);
-            }           
-
-            /// <summary>
-            /// 在窗口句柄创建后应用圆角效果
-            /// </summary>
-            protected override void OnHandleCreated(EventArgs e)
-            {
-                base.OnHandleCreated(e);
-                ApplyRoundedCorners();
-            }
-
-            /// <summary>
-            /// 窗口大小改变时重新应用圆角
-            /// </summary>
-            protected override void OnResize(EventArgs e)
-            {
-                base.OnResize(e);
-                if (Handle != IntPtr.Zero)
-                {
-                    ApplyRoundedCorners();
-                }
-            }
-
-            /// <summary>
-            /// 应用GDI Region圆角效果
-            /// </summary>
-            private void ApplyRoundedCorners()
-            {
-                try
-                {
-                    IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
-                    if (region != IntPtr.Zero)
-                    {
-                        SetWindowRgn(Handle, region, true);
-                    }
-                }
-                catch
-                {
-                    // 圆角应用失败时静默处理，不影响功能使用
-                }
-            }
-        }
-
-        /// <summary>
-        /// 阵容推荐按钮点击事件 - 打开推荐阵容选择窗口
-        /// </summary>
-        private void button_阵容推荐_Click(object sender, EventArgs e)
-        {
-            if (_iRecommendedLineUpService == null || _heroDataService == null || _equipmentService == null)
-            {
-                MessageBox.Show("相关服务未初始化！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            //Random random = new Random();
-            //float min = 0.0f;
-            //float max = 100.0f;
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    int r = random.Next(0, 4);
-            //    LineUpTier l;
-            //    switch (r)
-            //    {
-            //        case 0:
-            //            l = LineUpTier.S;
-            //            break;
-            //        case 1:
-            //            l = LineUpTier.A;
-            //            break;
-            //        case 2:
-            //            l = LineUpTier.B;
-            //            break;
-            //        case 3:
-            //            l = LineUpTier.C;
-            //            break;
-            //        case 4:
-            //            l = LineUpTier.D;
-            //            break;
-            //        default:
-            //            l = LineUpTier.D;
-            //            break;
-            //    }
-            //    SubLineUp sb = new SubLineUp("前期");
-            //    for (int j = 0; j < 10; j++)
-            //    {
-            //        int index = random.Next(0, _heroDataService.GetHeroCount() - 1);
-            //        int index2 = random.Next(0, _equipmentService.GetEquipmentDatas().Count - 1);
-            //        int index3 = random.Next(0, _equipmentService.GetEquipmentDatas().Count - 1);
-            //        int index4 = random.Next(0, _equipmentService.GetEquipmentDatas().Count - 1);
-            //        sb.Add(_heroDataService.GetHeroDatas()[index].HeroName, [$"{_equipmentService.GetEquipmentDatas()[index2].Name}", $"{_equipmentService.GetEquipmentDatas()[index3].Name}", $"{_equipmentService.GetEquipmentDatas()[index4].Name}"]);
-            //    }
-            //    RecommendedLineUp re = new RecommendedLineUp
-            //    {
-            //        LineUpName = $"阵容{i}",
-            //        Tier = l,
-            //        WinRate = (float)(random.NextDouble() * (max - min) + min),
-            //        AverageRank = (float)(random.NextDouble() * (0 - 8) + 0),
-            //        PickRate = (float)(random.NextDouble() * (max - min) + min),
-            //        TopFourRate = (float)(random.NextDouble() * (max - min) + min),
-            //        Tags = ["简单", "速9"],
-            //        LineUpUnits = sb.LineUpUnits,
-            //        Description = "描述"
-            //    };
-            //    _iRecommendedLineUpService.AddRecommendedLineUp(re);
-            //}
-            //_iRecommendedLineUpService.Save();
-
-            // 检查是否有推荐阵容数据
-            if (_iRecommendedLineUpService.GetCount() == 0)
-            {
-                MessageBox.Show("暂无推荐阵容数据。\n\n请先通过数据爬取工具获取推荐阵容数据后再试。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // 打开推荐阵容选择窗口
-            using (var selectForm = new LineUpSelectForm(_iRecommendedLineUpService, _heroDataService, _equipmentService))
-            {
-                selectForm.TopMost = true;
-                if (selectForm.ShowDialog(this) == DialogResult.OK && selectForm.SelectedLineUp != null)
-                {
-                    // 用户选择了阵容，替换当前子阵容
-                    var selectedLineUp = selectForm.SelectedLineUp;
-
-                    // 将推荐阵容的英雄列表导入到当前子阵容
-                    if (!_ilineUpService.ReplaceCurrentSubLineUp(selectedLineUp.LineUpUnits))
-                    {
-                        MessageBox.Show("应用阵容失败，请稍后重试。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }                 
-                }
-            }
-        }
+        #endregion
     }
 }

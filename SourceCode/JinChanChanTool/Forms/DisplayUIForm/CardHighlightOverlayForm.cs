@@ -49,9 +49,29 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         private const int BORDER_WIDTH = 3;
 
         /// <summary>
-        /// 渐变流动速度
+        /// 渐变流动速度（默认值）
         /// </summary>
         private const float GRADIENT_SPEED = 0.05f;
+
+        /// <summary>
+        /// 自定义高亮颜色1（渐变起始颜色）
+        /// </summary>
+        private Color customColor1 = Color.FromArgb(255, 190, 20);
+
+        /// <summary>
+        /// 自���义高亮颜色2（渐变结束颜色）
+        /// </summary>
+        private Color customColor2 = Color.FromArgb(255, 190, 20);
+
+        /// <summary>
+        /// 自定义边框宽度
+        /// </summary>
+        private int customBorderWidth = BORDER_WIDTH;
+
+        /// <summary>
+        /// 自定义渐变流动速度
+        /// </summary>
+        private float customGradientSpeed = GRADIENT_SPEED;
 
         /// <summary>
         /// 私有构造函数（单例模式）
@@ -184,12 +204,39 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         }
 
         /// <summary>
+        /// 更新高亮颜色设置
+        /// </summary>
+        /// <param name="color1">渐变起始颜色</param>
+        /// <param name="color2">渐变结束颜色</param>
+        /// <param name="borderWidth">边框宽度</param>
+        /// <param name="gradientSpeed">渐变流动速度</param>
+        public void UpdateColorSettings(Color color1, Color color2, int borderWidth, float gradientSpeed)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => UpdateColorSettings(color1, color2, borderWidth, gradientSpeed)));
+                return;
+            }
+
+            customColor1 = color1;
+            customColor2 = color2;
+            customBorderWidth = Math.Max(borderWidth, 1);
+            customGradientSpeed = Math.Clamp(gradientSpeed, 0.01f, 0.2f);
+
+            // 如果当前有高亮显示，立即重绘以应用新颜色
+            if (this.Visible)
+            {
+                this.Invalidate();
+            }
+        }
+
+        /// <summary>
         /// 动画定时器事件处理
         /// </summary>
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
-            // 更新渐变偏移量实现流动效果
-            gradientOffset += GRADIENT_SPEED;
+            // 更新渐变偏移量实现流动效果，使用自定义速度
+            gradientOffset += customGradientSpeed;
             if (gradientOffset >= 1.0f)
             {
                 gradientOffset = 0f;
@@ -207,7 +254,10 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             base.OnPaint(e);
 
             Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
+            // 对于矩形边框，不使用抗锯齿以避免偶数宽度时出现品红色描边
+            g.SmoothingMode = SmoothingMode.None;
+            // 使用 Half 像素偏移模式确保边框在整数像素位置上
+            g.PixelOffsetMode = PixelOffsetMode.Half;
 
             // 遍历5个卡槽，绘制目标卡的高亮边框
             for (int i = 0; i < 5; i++)
@@ -226,21 +276,36 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <param name="rect">矩形区域</param>
         private void DrawGlowingBorder(Graphics g, Rectangle rect)
         {
-            // 金色渐变
+            // 使用自定义颜色创建动态渐变效果
             float phase = gradientOffset * 2 * (float)Math.PI;
-            int r = 255;  // 红色固定高
-            int gVal = Math.Clamp((int)(190 + 40 * Math.Sin(phase)), 150, 230);  // 绿色在150-230波动
-            int b = Math.Clamp((int)(20 + 20 * Math.Cos(phase)), 0, 40);  // 蓝色保持低值
-            Color dynamicColor1 = Color.FromArgb(r, gVal, b);
 
+            // 从自定义颜色1提取RGB分量并应用动态波动
+            int r1 = customColor1.R;
+            int g1 = customColor1.G;
+            int b1 = customColor1.B;
+
+            // 应用正弦波动（±10%范围）
+            int dynamicR1 = Math.Clamp((int)(r1 + r1 * 0.1 * Math.Sin(phase)), 0, 255);
+            int dynamicG1 = Math.Clamp((int)(g1 + g1 * 0.1 * Math.Sin(phase)), 0, 255);
+            int dynamicB1 = Math.Clamp((int)(b1 + b1 * 0.1 * Math.Cos(phase)), 0, 255);
+            Color dynamicColor1 = Color.FromArgb(dynamicR1, dynamicG1, dynamicB1);
+
+            // 从自定义颜色2提取RGB分量并应用动态波动（相位相反）
             float phase2 = phase + (float)Math.PI;
-            int gVal2 = Math.Clamp((int)(190 + 40 * Math.Sin(phase2)), 150, 230);
-            int b2 = Math.Clamp((int)(20 + 20 * Math.Cos(phase2)), 0, 40);
-            Color dynamicColor2 = Color.FromArgb(255, gVal2, b2);
+            int r2 = customColor2.R;
+            int g2 = customColor2.G;
+            int b2 = customColor2.B;
 
-            // 主边框宽度
-            int penWidth = Math.Max(BORDER_WIDTH, 1);
+            int dynamicR2 = Math.Clamp((int)(r2 + r2 * 0.1 * Math.Sin(phase2)), 0, 255);
+            int dynamicG2 = Math.Clamp((int)(g2 + g2 * 0.1 * Math.Sin(phase2)), 0, 255);
+            int dynamicB2 = Math.Clamp((int)(b2 + b2 * 0.1 * Math.Cos(phase2)), 0, 255);
+            Color dynamicColor2 = Color.FromArgb(dynamicR2, dynamicG2, dynamicB2);
+
+            // 使用自定义边框宽度
+            int penWidth = Math.Max(customBorderWidth, 1);
             // 计算偏移量（使边框完全在矩形外部）
+            // DrawRectangle 的边框以矩形边界为中心线，向内外各扩展 penWidth/2
+            // 要让边框的内侧正好在原矩形边界上，offset = penWidth/2（向上取整）
             int offset = (penWidth + 1) / 2;
 
             // 绘制渐变流动边框

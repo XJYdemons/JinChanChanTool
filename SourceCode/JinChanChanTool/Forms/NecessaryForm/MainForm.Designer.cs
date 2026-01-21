@@ -45,6 +45,7 @@ namespace JinChanChanTool
             toolStripMenuItem_设置 = new ToolStripMenuItem();
             toolStripMenuItem_帮助 = new ToolStripMenuItem();
             toolStripMenuItem_运行日志 = new ToolStripMenuItem();
+            用户手册ToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
             panel_BackGround = new Panel();
             roundedButton9 = new RoundedButton();
@@ -73,6 +74,7 @@ namespace JinChanChanTool
             pictureBox1 = new PictureBox();
             button2 = new Button();
             button1 = new Button();
+            配置向导ToolStripMenuItem = new ToolStripMenuItem();
             panel_SubLineUpParent.SuspendLayout();
             menuStrip_Main.SuspendLayout();
             panel_BackGround.SuspendLayout();
@@ -94,7 +96,7 @@ namespace JinChanChanTool
             panel_SubLineUpParent.Margin = new Padding(0);
             panel_SubLineUpParent.Name = "panel_SubLineUpParent";
             panel_SubLineUpParent.Padding = new Padding(3);
-            panel_SubLineUpParent.Size = new Size(394, 177);
+            panel_SubLineUpParent.Size = new Size(394, 185);
             panel_SubLineUpParent.TabIndex = 10;
             // 
             // button_变阵3
@@ -148,7 +150,7 @@ namespace JinChanChanTool
             flowLayoutPanel_SubLineUp.Location = new Point(5, 28);
             flowLayoutPanel_SubLineUp.Margin = new Padding(3, 3, 3, 7);
             flowLayoutPanel_SubLineUp.Name = "flowLayoutPanel_SubLineUp";
-            flowLayoutPanel_SubLineUp.Size = new Size(384, 146);
+            flowLayoutPanel_SubLineUp.Size = new Size(384, 152);
             flowLayoutPanel_SubLineUp.TabIndex = 0;
             // 
             // tabControl_HeroSelector
@@ -221,7 +223,7 @@ namespace JinChanChanTool
             // 
             // toolStripMenuItem_帮助
             // 
-            toolStripMenuItem_帮助.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem_运行日志 });
+            toolStripMenuItem_帮助.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem_运行日志, 用户手册ToolStripMenuItem, 配置向导ToolStripMenuItem });
             toolStripMenuItem_帮助.Name = "toolStripMenuItem_帮助";
             toolStripMenuItem_帮助.Size = new Size(44, 21);
             toolStripMenuItem_帮助.Text = "帮助";
@@ -229,9 +231,16 @@ namespace JinChanChanTool
             // toolStripMenuItem_运行日志
             // 
             toolStripMenuItem_运行日志.Name = "toolStripMenuItem_运行日志";
-            toolStripMenuItem_运行日志.Size = new Size(124, 22);
+            toolStripMenuItem_运行日志.Size = new Size(180, 22);
             toolStripMenuItem_运行日志.Text = "运行日志";
             toolStripMenuItem_运行日志.Click += 运行日志ToolStripMenuItem_Click;
+            // 
+            // 用户手册ToolStripMenuItem
+            // 
+            用户手册ToolStripMenuItem.Name = "用户手册ToolStripMenuItem";
+            用户手册ToolStripMenuItem.Size = new Size(180, 22);
+            用户手册ToolStripMenuItem.Text = "用户手册";
+            用户手册ToolStripMenuItem.Click += 用户手册ToolStripMenuItem_Click;
             // 
             // toolStripMenuItem_关于
             // 
@@ -269,7 +278,7 @@ namespace JinChanChanTool
             panel_BackGround.Location = new Point(0, 25);
             panel_BackGround.Margin = new Padding(0);
             panel_BackGround.Name = "panel_BackGround";
-            panel_BackGround.Size = new Size(404, 629);
+            panel_BackGround.Size = new Size(404, 633);
             panel_BackGround.TabIndex = 5;
             // 
             // roundedButton9
@@ -546,7 +555,7 @@ namespace JinChanChanTool
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(3, 3, 4, 4);
-            panel1.Size = new Size(410, 662);
+            panel1.Size = new Size(410, 670);
             panel1.TabIndex = 6;
             // 
             // panel2
@@ -558,7 +567,7 @@ namespace JinChanChanTool
             panel2.Location = new Point(3, 3);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(403, 655);
+            panel2.Size = new Size(403, 663);
             panel2.TabIndex = 6;
             // 
             // panel3
@@ -620,11 +629,18 @@ namespace JinChanChanTool
             button1.UseVisualStyleBackColor = true;
             button1.Click += button_关闭_Click;
             // 
+            // 配置向导ToolStripMenuItem
+            // 
+            配置向导ToolStripMenuItem.Name = "配置向导ToolStripMenuItem";
+            配置向导ToolStripMenuItem.Size = new Size(180, 22);
+            配置向导ToolStripMenuItem.Text = "配置向导";
+            配置向导ToolStripMenuItem.Click += 配置向导ToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(410, 662);
+            ClientSize = new Size(410, 670);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -689,5 +705,7 @@ namespace JinChanChanTool
         private PictureBox pictureBox1;
         private Button button2;
         private RoundedButton roundedButton9;
+        private ToolStripMenuItem 用户手册ToolStripMenuItem;
+        private ToolStripMenuItem 配置向导ToolStripMenuItem;
     }
 }

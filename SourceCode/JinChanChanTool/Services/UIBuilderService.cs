@@ -495,8 +495,9 @@ namespace JinChanChanTool.Services
         private HeroAndEquipmentPictureBox CreatHeroAndEquipmentPicturebox(Panel parentPanel)
         {
             HeroAndEquipmentPictureBox heroAndEquipmentPictureBox = new HeroAndEquipmentPictureBox();
-            heroAndEquipmentPictureBox.Size = new(Dpi_M(62), Dpi_M(62));
-            heroAndEquipmentPictureBox.Margin = new Padding(7); // 设置间距
+            heroAndEquipmentPictureBox.Size = new(Dpi_M(48), Dpi_M(67));
+            heroAndEquipmentPictureBox.Margin = new Padding(Dpi_M(14), Dpi_M(2), Dpi_M(14), Dpi_M(2));
+            heroAndEquipmentPictureBox.Padding = new Padding(Dpi_M(2));
             parentPanel.Controls.Add(heroAndEquipmentPictureBox);
             return heroAndEquipmentPictureBox;
         }
@@ -651,8 +652,9 @@ namespace JinChanChanTool.Services
         private HeroAndEquipmentPictureBox CreatLineUpFormHeroAndEquipmentPicturebox(CustomFlowLayoutPanel parentPanel)
         {
             HeroAndEquipmentPictureBox heroAndEquipmentPictureBox = new HeroAndEquipmentPictureBox();
-            heroAndEquipmentPictureBox.Size = new(Dpi_L(62), Dpi_L(62));
-            heroAndEquipmentPictureBox.Margin = new Padding(0);
+            heroAndEquipmentPictureBox.Size = new(Dpi_L(38), Dpi_L(53));
+            heroAndEquipmentPictureBox.Margin = new Padding(Dpi_L(2));
+            heroAndEquipmentPictureBox.Padding = new Padding(Dpi_L(2));
             parentPanel.Controls.Add(heroAndEquipmentPictureBox);
             return heroAndEquipmentPictureBox;
         }

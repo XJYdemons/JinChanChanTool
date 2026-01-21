@@ -281,6 +281,31 @@
         public bool IsSaveCapturedImages { get; set; }
 
         /// <summary>
+        /// 是否严格匹配识别结果（未开启时只要识别结果中包含目标即算作识别到了目标）
+        /// </summary>
+        public bool IsStrictMatching { get; set; }
+
+        /// <summary>
+        /// 高亮边框颜色1（渐变起始颜色）
+        /// </summary>
+        public Color HighlightColor1 { get; set; }
+
+        /// <summary>
+        /// 高亮边框颜色2（渐变结束颜色）
+        /// </summary>
+        public Color HighlightColor2 { get; set; }
+
+        /// <summary>
+        /// 高亮边框宽度（像素）
+        /// </summary>
+        public int HighlightBorderWidth { get; set; }
+
+        /// <summary>
+        /// 高亮渐变流动速度（0.01-0.2，默认0.05）
+        /// </summary>
+        public float HighlightGradientSpeed { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public ManualSettings()
@@ -340,6 +365,11 @@
             IsFilterLetters = true;
             IsFilterNumbers = true;
             IsSaveCapturedImages = false;
+            IsStrictMatching = false;
+            HighlightColor1 = Color.FromArgb(255, 190, 20);
+            HighlightColor2 = Color.FromArgb(255, 236, 187);
+            HighlightBorderWidth = 3;
+            HighlightGradientSpeed = 0.05f;
 
         }
 
@@ -406,6 +436,11 @@
                 IsFilterLetters = this.IsFilterLetters,
                 IsFilterNumbers = this.IsFilterNumbers,
                 IsSaveCapturedImages=this.IsSaveCapturedImages,
+                IsStrictMatching =this.IsStrictMatching,
+                HighlightColor1 = this.HighlightColor1,
+                HighlightColor2 = this.HighlightColor2,
+                HighlightBorderWidth = this.HighlightBorderWidth,
+                HighlightGradientSpeed = this.HighlightGradientSpeed,
             };
         }
 
@@ -472,8 +507,13 @@
                    SelectFormHeroPictureBoxHorizontalSpacing == other.SelectFormHeroPictureBoxHorizontalSpacing &&
                    SelectFormHeroPanelsVerticalSpacing == other.SelectFormHeroPanelsVerticalSpacing &&
                    IsFilterLetters == other.IsFilterLetters &&
-                   IsFilterNumbers == other.IsFilterNumbers&&
-                   IsSaveCapturedImages == other.IsSaveCapturedImages;
+                   IsFilterNumbers == other.IsFilterNumbers &&
+                   IsSaveCapturedImages == other.IsSaveCapturedImages &&
+                   IsStrictMatching == other.IsStrictMatching &&
+                   HighlightColor1 == other.HighlightColor1 &&
+                   HighlightColor2 == other.HighlightColor2 &&
+                   HighlightBorderWidth == other.HighlightBorderWidth &&
+                   HighlightGradientSpeed == other.HighlightGradientSpeed;
         }
 
         

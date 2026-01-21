@@ -90,73 +90,45 @@ namespace JinChanChanTool.DIYComponents
 
             if (width <= 0 || height <= 0) return;
 
-            // 设计比例常量
-            // 装备大小：17/52 ≈ 0.33，装备区超出英雄区约 15%~20% 的装备宽度
-            const float EQUIP_TO_HERO_RATIO = 20f / 52f;    // 装备大小相对于英雄头像的比例
-            const float MARGIN_TO_HERO_RATIO = 2f / 52f;    // 边距相对于英雄头像的比例
-            const float GAP_TO_EQUIP_RATIO = 2f / 20f;      // 装备间距相对于装备大小的比例
+            // 设计比例常量（基于组件宽度）
+            const float EQUIP_TO_HERO_RATIO = 16f / 52f;    // 装备高度相对于组件宽度的比例
+            const float MARGIN_TO_HERO_RATIO = 2f / 52f;    // 边距相对于组件宽度的比例
 
-            // 计算英雄头像可用的最大尺寸
-            // 高度方向：margin + heroSize + margin + equipSize + margin = height
-            float heightRatio = 3 * MARGIN_TO_HERO_RATIO + 1 + EQUIP_TO_HERO_RATIO;
-            int heroSizeFromHeight = (int)(height / heightRatio);
+            // 使用组件宽度作为内容宽度（填满整个宽度，无左右空白）
+            int contentWidth = width;
 
-            // 宽度方向：装备区可能比英雄区宽，需要考虑装备区的宽度
-            // 装备区宽度 = 3 * equipSize + 2 * equipGap = heroSize * (3 * EQUIP_TO_HERO_RATIO + 2 * EQUIP_TO_HERO_RATIO * GAP_TO_EQUIP_RATIO)
-            float equipAreaWidthRatio = 3 * EQUIP_TO_HERO_RATIO + 2 * EQUIP_TO_HERO_RATIO * GAP_TO_EQUIP_RATIO;
-            // 取装备区和英雄区中较宽的作为约束
-            float maxWidthRatio = Math.Max(1f, equipAreaWidthRatio);
-            int heroSizeFromWidth = (int)(width / maxWidthRatio);
+            // 英雄头像使用组件宽度，并保持正方形
+            int heroSize = contentWidth;
 
-            // 取较小值确保不超出边界
-            int heroSize = Math.Min(heroSizeFromHeight, heroSizeFromWidth);
+            // 根据组件宽度计算其他尺寸
+            int margin = Math.Max((int)Math.Round(contentWidth * MARGIN_TO_HERO_RATIO), 1);
+            int equipHeight = Math.Max((int)Math.Round(contentWidth * EQUIP_TO_HERO_RATIO), 1);
 
-            // 确保英雄头像至少有 1 像素
-            heroSize = Math.Max(heroSize, 1);
-
-            // 根据英雄头像计算其他尺寸
-            int margin = Math.Max((int)(heroSize * MARGIN_TO_HERO_RATIO), 1);
-            int equipSize = Math.Max((int)(heroSize * EQUIP_TO_HERO_RATIO), 1);
-            int equipGap = Math.Max((int)(equipSize * GAP_TO_EQUIP_RATIO), 1);
-
-            // 3个装备 + 2个间距的总宽度
-            int totalEquipWidth = 3 * equipSize + 2 * equipGap;
-
-            // 确保装备区与英雄区的差值为偶数，使左右超出对称
-            // 如果差值是奇数，减小 totalEquipWidth 1像素（通过减小最后一个间距实现）
-            int overflow = totalEquipWidth - heroSize;
-            bool adjustLastGap = (overflow % 2 != 0);
-            if (adjustLastGap)
-            {
-                totalEquipWidth -= 1;
-            }
-
-            // 计算内容总高度（用于垂直居中）
-            int totalContentHeight = margin + heroSize + margin + equipSize + margin;
-            int topOffset = Math.Max(0, (height - totalContentHeight) / 2);
-
-            /* ---------- Hero 区（水平居中，垂直居中）---------- */
-            int heroX = (width - heroSize) / 2;
-            int heroY = topOffset + margin;
-
-            panelHero.Bounds = new Rectangle(heroX, heroY, heroSize, heroSize);
+            /* ---------- Hero 区（左上角对齐，宽度填满，高度等于宽度形成正方形）---------- */
+            panelHero.Bounds = new Rectangle(0, margin, heroSize, heroSize);
             heroPictureBox.Bounds = new Rectangle(0, 0, heroSize, heroSize);
 
-            /* ---------- Equip 区（居中于英雄区，确保左右超出对称）---------- */
-            int equipY = heroY + heroSize + margin;
-            int equipStartX = heroX + (heroSize - totalEquipWidth) / 2;
+            /* ---------- Equip 区（在英雄下方，宽度填满）---------- */
+            int equipY = margin + heroSize + margin;
+            panelEquip.Bounds = new Rectangle(0, equipY, contentWidth, equipHeight);
 
-            panelEquip.Bounds = new Rectangle(equipStartX, equipY, totalEquipWidth, equipSize);
+            // 装备尺寸（正方形，使用装备区高度）
+            int equipSize = equipHeight;
 
-            // 第1号装备
+            // 计算三个装备之间的总间隙并均分
+            int totalGap = contentWidth - 3 * equipSize;
+            int gap1 = totalGap / 2;  // 向下取整，左侧间隙
+
+            // 第1号装备：左对齐
             equipmentPictureBox1.Bounds = new Rectangle(0, 0, equipSize, equipSize);
 
-            // 第2号装备（居中于整个结构）
-            equipmentPictureBox2.Bounds = new Rectangle(equipSize + equipGap, 0, equipSize, equipSize);
+            // 第2号装备：居中
+            int equip2X = equipSize + gap1;
+            equipmentPictureBox2.Bounds = new Rectangle(equip2X, 0, equipSize, equipSize);
 
-            // 第3号装备（如果调整过，最后一个间距减1像素）
-            int lastGap = adjustLastGap ? equipGap - 1 : equipGap;
-            equipmentPictureBox3.Bounds = new Rectangle(equipSize + equipGap + equipSize + lastGap, 0, equipSize, equipSize);
+            // 第3号装备：右对齐
+            int equip3X = contentWidth - equipSize;
+            equipmentPictureBox3.Bounds = new Rectangle(equip3X, 0, equipSize, equipSize);
         }
 
 

@@ -104,6 +104,11 @@ namespace JinChanChanTool.DataClass
         public int SelectedLineUpIndex { get; set; }
 
         /// <summary>
+        /// 是否是首次启动程序
+        /// </summary>
+        public bool IsFirstStart { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public AutomaticSettings()
@@ -127,6 +132,7 @@ namespace JinChanChanTool.DataClass
             EquipmentLastUpdateTime = new DateTime(2025, 11, 1, 2, 44, 0);
             SelectedSeason = "英雄联盟传奇";
             SelectedLineUpIndex = 0;
+            IsFirstStart = true;
         }
 
         /// <summary>
@@ -155,7 +161,8 @@ namespace JinChanChanTool.DataClass
                 StatusOverlayFormLocation = this.StatusOverlayFormLocation,
                 EquipmentLastUpdateTime = this.EquipmentLastUpdateTime,
                 SelectedSeason = this.SelectedSeason,
-                SelectedLineUpIndex = this.SelectedLineUpIndex
+                SelectedLineUpIndex = this.SelectedLineUpIndex,
+                IsFirstStart = this.IsFirstStart
             };
         }
 
@@ -187,7 +194,8 @@ namespace JinChanChanTool.DataClass
                    StatusOverlayFormLocation == other.StatusOverlayFormLocation &&
                    EquipmentLastUpdateTime == other.EquipmentLastUpdateTime&&
                    SelectedSeason == other.SelectedSeason&&
-                   SelectedLineUpIndex == other.SelectedLineUpIndex;
-        }                
+                   SelectedLineUpIndex == other.SelectedLineUpIndex&&
+                   IsFirstStart == other.IsFirstStart;
+        }
     }
 }

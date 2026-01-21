@@ -41,13 +41,42 @@ namespace JinChanChanTool.DIYComponents
             this.SetToolTip(control, " ");
         }
 
+        /// <summary>
+        /// 刷新控件的ToolTip状态：有装备时设置ToolTip，无装备时移除ToolTip
+        /// 用于在装备数据更新后调用，避免空装备槽在高DPI环境下的卡顿问题
+        /// </summary>
+        public void RefreshEquipmentToolTip(Control control)
+        {
+            if (control == null) return;
+
+            if (control.Tag is Equipment)
+            {
+                // 有装备时设置ToolTip占位符
+                this.SetToolTip(control, " ");
+            }
+            else
+            {
+                // 无装备时移除ToolTip，完全避免触发弹出事件
+                this.SetToolTip(control, null);
+            }
+        }
+
         private void OnPopup(object? sender, PopupEventArgs e)
-        {           
+        {
+            // 尽早检查关联控件是否有效
+            if (e.AssociatedControl == null)
+            {
+                e.Cancel = true;
+                return;
+            }
+
             // 从关联控件的Tag获取当前装备
-            Equipment equipment = e.AssociatedControl?.Tag as Equipment;
+            Equipment equipment = e.AssociatedControl.Tag as Equipment;
             if (equipment == null)
             {
                 e.Cancel = true;
+                // 关键修复：主动隐藏ToolTip，避免在高DPI环境下可能的重复触发循环
+                this.Hide(e.AssociatedControl);
                 return;
             }
 

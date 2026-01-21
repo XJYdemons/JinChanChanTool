@@ -129,6 +129,15 @@ namespace JinChanChanTool.Services
             isHighLight = true;
             ctsHighLight = new CancellationTokenSource();
             isHighLightStatusChanged?.Invoke(true);
+
+            // 从配置中读取高亮颜色设置并应用到高亮窗体
+            CardHighlightOverlayForm.Instance.UpdateColorSettings(
+                _iappConfigService.CurrentConfig.HighlightColor1,
+                _iappConfigService.CurrentConfig.HighlightColor2,
+                _iappConfigService.CurrentConfig.HighlightBorderWidth,
+                _iappConfigService.CurrentConfig.HighlightGradientSpeed
+            );
+
             // 显示高亮覆盖层窗体
             CardHighlightOverlayForm.Instance.ShowOverlay();
             // 启动循环任务
@@ -915,10 +924,20 @@ namespace JinChanChanTool.Services
                 foreach (string j in selectedHeros)
                 {
                     // 空字符串不允许匹配，使用包含匹配以容忍OCR识别结果带有多余字符的情况
-                    if (!string.IsNullOrEmpty(results[i]) && !string.IsNullOrEmpty(j) && results[i].Contains(j))
+                    if (!string.IsNullOrEmpty(results[i]) && !string.IsNullOrEmpty(j))
                     {
-                        本轮牌库状态[i] = true;
-                        break;
+                        if (results[i]==j)
+                        {
+                            本轮牌库状态[i] = true;
+                            
+                            break;
+                        }
+                        else if(!_iappConfigService.CurrentConfig.IsStrictMatching&&results[i].Contains(j))
+                        {
+                            本轮牌库状态[i] = true;
+                            纠正结果数组[i] = j;
+                            break;
+                        }                        
                     }
                 }
             }

@@ -163,6 +163,12 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void BindDataGridView()
         {
+            // 清除当前单元格选择，避免在重新绑定时触发格式化事件的索引问题
+            if (dataGridView_英雄数据编辑器.CurrentCell != null)
+            {
+                dataGridView_英雄数据编辑器.CurrentCell = null;
+            }
+
             // 绑定数据
             dataGridView_英雄数据编辑器.DataSource = null;
             dataGridView_英雄数据编辑器.DataSource = new BindingList<Hero>(_iheroDataService.GetHeroDatas());
@@ -175,7 +181,8 @@ namespace JinChanChanTool.Forms
         /// <param name="e"></param>
         private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            // 检查行索引是否在有效范围内，避免数据重新绑定时的索引越界
+            if (e.RowIndex < 0 || e.RowIndex >= dataGridView_英雄数据编辑器.Rows.Count) return;
 
             string columnName = dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name;
 
@@ -388,12 +395,18 @@ namespace JinChanChanTool.Forms
             // 计算新的焦点行索引为删除的首行的上一行
             int focusIndex = selectedIndices[selectedIndices.Count - 1] - 1;
 
-            // 当焦点行索引有效时，设置当前单元格为该行的第一列
-            if (focusIndex >= 0)
+            // 确保焦点索引在有效范围内（RowCount - 1 是新行，需要减2才是最后一个数据行）
+            if (focusIndex >= dataGridView_英雄数据编辑器.RowCount - 1)
+            {
+                focusIndex = dataGridView_英雄数据编辑器.RowCount - 2;
+            }
+
+            // 当焦点行索引有效时且存在数据行，设置当前单元格为该行的第一列
+            if (focusIndex >= 0 && dataGridView_英雄数据编辑器.RowCount > 0)
             {
                 dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[focusIndex].Cells[0];
             }
-            else
+            else if (dataGridView_英雄数据编辑器.RowCount > 0)
             {
                 // 否则设置为第一行的第一列（如果存在）
                 dataGridView_英雄数据编辑器.CurrentCell = dataGridView_英雄数据编辑器.Rows[0].Cells[0];

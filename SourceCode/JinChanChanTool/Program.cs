@@ -2,7 +2,6 @@ using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.LineupCrawling;
-
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System.Diagnostics;
@@ -17,6 +16,7 @@ namespace JinChanChanTool
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             ApplicationConfiguration.Initialize();
 
+            
             // 最大选择英雄数量
             const int MaxCountOfHero = 10;
 
@@ -28,7 +28,35 @@ namespace JinChanChanTool
             IAutomaticSettingsService _iAutomaticSettingsService = new AutomaticSettingsService();
             _iAutomaticSettingsService.Load();
 
-            // 展示输出窗口          
+            // 检查是否是首次启动
+            if (_iAutomaticSettingsService.CurrentConfig.IsFirstStart)
+            {
+                // 显示配置向导
+                using (SetupWizardForm testForm = new SetupWizardForm(_iManualSettingsService))
+                {
+                    DialogResult result = testForm.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        // 用户完成了配置向导，标记为非首次启动
+                        _iAutomaticSettingsService.CurrentConfig.IsFirstStart = false;
+                        _iAutomaticSettingsService.Save();
+
+                        // 重启应用程序以使配置生效
+                        Application.Restart();
+                        Environment.Exit(0);
+                        return; // 确保不继续执行后续代码
+                    }
+                    else
+                    {
+                        // 用户跳过了向导，仍然标记为非首次启动（使用默认配置）
+                        _iAutomaticSettingsService.CurrentConfig.IsFirstStart = false;
+                        _iAutomaticSettingsService.Save();
+                    }
+                }
+            }
+
+            // 展示输出窗口
             OutputForm.Instance.InitializeObject(_iAutomaticSettingsService);
             OutputForm.Instance.Show();
             if (!_iManualSettingsService.CurrentConfig.IsUseOutputForm)

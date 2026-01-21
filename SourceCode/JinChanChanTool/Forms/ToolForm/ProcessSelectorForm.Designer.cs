@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessSelectorForm));
-            listBox_Processes = new ListBox();
+            listView_Processes = new ListView();
+            imageList_ProcessIcons = new ImageList(components);
             button_Select = new Button();
             button_Refresh = new Button();
             panel_BackGround = new Panel();
@@ -43,16 +45,26 @@
             panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // listBox_Processes
+            // listView_Processes
             // 
-            listBox_Processes.BorderStyle = BorderStyle.FixedSingle;
-            listBox_Processes.FormattingEnabled = true;
-            listBox_Processes.ItemHeight = 17;
-            listBox_Processes.Location = new Point(5, 26);
-            listBox_Processes.Margin = new Padding(0);
-            listBox_Processes.Name = "listBox_Processes";
-            listBox_Processes.Size = new Size(718, 274);
-            listBox_Processes.TabIndex = 0;
+            listView_Processes.BorderStyle = BorderStyle.FixedSingle;
+            listView_Processes.FullRowSelect = true;
+            listView_Processes.HeaderStyle = ColumnHeaderStyle.None;
+            listView_Processes.Location = new Point(5, 26);
+            listView_Processes.Margin = new Padding(0);
+            listView_Processes.MultiSelect = false;
+            listView_Processes.Name = "listView_Processes";
+            listView_Processes.Size = new Size(718, 274);
+            listView_Processes.SmallImageList = imageList_ProcessIcons;
+            listView_Processes.TabIndex = 0;
+            listView_Processes.UseCompatibleStateImageBehavior = false;
+            listView_Processes.View = View.Details;
+            // 
+            // imageList_ProcessIcons
+            // 
+            imageList_ProcessIcons.ColorDepth = ColorDepth.Depth32Bit;
+            imageList_ProcessIcons.ImageSize = new Size(16, 16);
+            imageList_ProcessIcons.TransparentColor = Color.Transparent;
             // 
             // button_Select
             // 
@@ -81,7 +93,7 @@
             panel_BackGround.BackColor = Color.White;
             panel_BackGround.Controls.Add(panel3);
             panel_BackGround.Controls.Add(button_Select);
-            panel_BackGround.Controls.Add(listBox_Processes);
+            panel_BackGround.Controls.Add(listView_Processes);
             panel_BackGround.Controls.Add(button_Refresh);
             panel_BackGround.Dock = DockStyle.Fill;
             panel_BackGround.Location = new Point(3, 3);
@@ -107,9 +119,9 @@
             label29.Location = new Point(4, 1);
             label29.MinimumSize = new Size(80, 23);
             label29.Name = "label29";
-            label29.Size = new Size(80, 23);
+            label29.Size = new Size(104, 23);
             label29.TabIndex = 10;
-            label29.Text = "设置";
+            label29.Text = "选择游戏窗口进程";
             label29.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // button2
@@ -170,7 +182,8 @@
 
         #endregion
 
-        private ListBox listBox_Processes;
+        private ListView listView_Processes;
+        private ImageList imageList_ProcessIcons;
         private Button button_Select;
         private Button button_Refresh;
         private Panel panel_BackGround;

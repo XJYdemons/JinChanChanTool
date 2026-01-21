@@ -1824,8 +1824,28 @@ namespace JinChanChanTool
                         data.Hero, _uiBuilderService, data.Equipment0, data.Equipment1, data.Equipment2);
                     _uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[i].SetHero(
                         data.Hero, _uiBuilderService, data.Equipment0, data.Equipment1, data.Equipment2);
+
+                    // 刷新装备槽的ToolTip状态，避免空装备槽在高DPI环境下的卡顿问题
+                    RefreshEquipmentToolTips(i);
                 }
             }
+        }
+
+        /// <summary>
+        /// 刷新指定索引的英雄装备槽ToolTip状态
+        /// </summary>
+        /// <param name="index">英雄槽位索引</param>
+        private void RefreshEquipmentToolTips(int index)
+        {
+            // 刷新主窗口装备槽ToolTip
+            _equipmentToolTip.RefreshEquipmentToolTip(_uiBuilderService.MainForm_HeroAndEquipmentPictureBoxes[index].equipmentPictureBox1);
+            _equipmentToolTip.RefreshEquipmentToolTip(_uiBuilderService.MainForm_HeroAndEquipmentPictureBoxes[index].equipmentPictureBox2);
+            _equipmentToolTip.RefreshEquipmentToolTip(_uiBuilderService.MainForm_HeroAndEquipmentPictureBoxes[index].equipmentPictureBox3);
+
+            // 刷新阵容窗口装备槽ToolTip
+            _lineUpFormEquipmentToolTip.RefreshEquipmentToolTip(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[index].equipmentPictureBox1);
+            _lineUpFormEquipmentToolTip.RefreshEquipmentToolTip(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[index].equipmentPictureBox2);
+            _lineUpFormEquipmentToolTip.RefreshEquipmentToolTip(_uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes[index].equipmentPictureBox3);
         }
 
         /// <summary>
@@ -1867,7 +1887,7 @@ namespace JinChanChanTool
             button_变阵2.Text = currentLineUp.SubLineUps[1].SubLineUpName;
             button_变阵3.Text = currentLineUp.SubLineUps[2].SubLineUpName;
 
-            LineUpForm.Instance.UpdateSubLineUpButtons(selectedIndex);
+            LineUpForm.Instance.更新棋盘显示(selectedIndex);
         }
 
         #endregion
@@ -2479,7 +2499,7 @@ namespace JinChanChanTool
             {
                 if (_iAutomaticSettingsService != null)
                 {
-                     _iAutomaticSettingsService.CurrentConfig.MainFormLocation = this.Location;
+                    _iAutomaticSettingsService.CurrentConfig.MainFormLocation = this.Location;
                     _iAutomaticSettingsService.Save();
 
                 }
@@ -2507,8 +2527,8 @@ namespace JinChanChanTool
                 {
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
-                        screen.Left+ screen.Width/2 - this.Width/2 /*- 10*/,
-                        screen.Top+screen.Height/2-this.Height/2 /*+ 10*/
+                        screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
+                        screen.Top + screen.Height / 2 - this.Height / 2 /*+ 10*/
                     );
                     return;
                 }
@@ -2522,20 +2542,59 @@ namespace JinChanChanTool
                     var screen = Screen.PrimaryScreen.Bounds;
                     this.Location = new Point(
                         screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
-                        screen.Top + screen.Height / 2 - this.Height/2 /*+ 10*/
+                        screen.Top + screen.Height / 2 - this.Height / 2 /*+ 10*/
                     );
                 }
             }
             catch
             {
                 var screen = Screen.PrimaryScreen.Bounds;
-                    this.Location = new Point(
-                        screen.Left+ screen.Width/2 - this.Width/2 /*- 10*/,
-                        screen.Top+screen.Height/2-this.Height/2 /*+ 10*/
-                    );
+                this.Location = new Point(
+                    screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
+                    screen.Top + screen.Height / 2 - this.Height / 2 /*+ 10*/
+                );
             }
         }
         #endregion
 
+        /// <summary>
+        /// 帮助-用户手册
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void 用户手册ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 获取 CHM 文件路径（相对于应用程序目录）
+                string helpFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Help", "Help.chm");
+
+                // 检查文件是否存在
+                if (!File.Exists(helpFilePath))
+                {
+                    MessageBox.Show("帮助文件不存在，请确认 Help.chm 已正确部署！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // 使用 Windows Forms 原生 API 打开 CHM 文件
+                Help.ShowHelp(this, helpFilePath);
+
+                // 如果需要打开特定章节，可以使用：
+                // Help.ShowHelp(this, helpFilePath, HelpNavigator.Topic, "introduction.html");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"无法打开帮助文件：{ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogTool.Log($"打开帮助文件失败: {ex.Message}");
+            }
+        }
+
+        private void 配置向导ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SetupWizardForm setupWizardForm = new SetupWizardForm(_iManualSettingsService))
+            {
+                setupWizardForm.ShowDialog(this);
+            }
+        }
     }
 }

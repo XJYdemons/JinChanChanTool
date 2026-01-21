@@ -123,6 +123,23 @@
             label69 = new Label();
             textBox_CPUDelayAfterRefreshStore = new TextBox();
             label72 = new Label();
+            tabPage18 = new TabPage();
+            button4 = new Button();
+            button1 = new Button();
+            panel75 = new Panel();
+            label16 = new Label();
+            label17 = new Label();
+            panel74 = new Panel();
+            label14 = new Label();
+            label15 = new Label();
+            panel73 = new Panel();
+            label12 = new Label();
+            label13 = new Label();
+            textBox2 = new TextBox();
+            panel72 = new Panel();
+            label10 = new Label();
+            label11 = new Label();
+            textBox1 = new TextBox();
             tabPage_截图 = new TabPage();
             panel_截图 = new Panel();
             panel29 = new Panel();
@@ -171,6 +188,11 @@
             capsuleSwitch9 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
             tabPage10 = new TabPage();
             panel36 = new Panel();
+            panel70 = new Panel();
+            panel71 = new Panel();
+            label8 = new Label();
+            label9 = new Label();
+            capsuleSwitch19 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
             panel65 = new Panel();
             panel66 = new Panel();
             label4 = new Label();
@@ -250,6 +272,13 @@
             panel62 = new Panel();
             label111 = new Label();
             label112 = new Label();
+            tabPage17 = new TabPage();
+            panel67 = new Panel();
+            panel68 = new Panel();
+            panel69 = new Panel();
+            label6 = new Label();
+            label7 = new Label();
+            capsuleSwitch18 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
             panel_BackGround = new Panel();
             panel3 = new Panel();
             label29 = new Label();
@@ -259,13 +288,8 @@
             roundedButton_默认设置 = new JinChanChanTool.DIYComponents.RoundedButton();
             roundedButton_保存设置 = new JinChanChanTool.DIYComponents.RoundedButton();
             panel4 = new Panel();
-            tabPage17 = new TabPage();
-            panel67 = new Panel();
-            panel68 = new Panel();
-            panel69 = new Panel();
-            label6 = new Label();
-            label7 = new Label();
-            capsuleSwitch18 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
+            colorDialog1 = new ColorDialog();
+            colorDialog2 = new ColorDialog();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
             tabPage_快捷键.SuspendLayout();
@@ -287,6 +311,7 @@
             panel17.SuspendLayout();
             tabPage8.SuspendLayout();
             panel18.SuspendLayout();
+            tabPage18.SuspendLayout();
             tabPage_截图.SuspendLayout();
             panel_截图.SuspendLayout();
             panel29.SuspendLayout();
@@ -303,6 +328,7 @@
             panel32.SuspendLayout();
             tabPage10.SuspendLayout();
             panel36.SuspendLayout();
+            panel70.SuspendLayout();
             panel65.SuspendLayout();
             panel63.SuspendLayout();
             panel37.SuspendLayout();
@@ -331,13 +357,13 @@
             tabPage16.SuspendLayout();
             panel58.SuspendLayout();
             panel61.SuspendLayout();
+            tabPage17.SuspendLayout();
+            panel67.SuspendLayout();
+            panel68.SuspendLayout();
             panel_BackGround.SuspendLayout();
             panel3.SuspendLayout();
             panel_Buttons.SuspendLayout();
             panel4.SuspendLayout();
-            tabPage17.SuspendLayout();
-            panel67.SuspendLayout();
-            panel68.SuspendLayout();
             SuspendLayout();
             // 
             // panel_快捷键
@@ -508,6 +534,7 @@
             tabControl1.Controls.Add(tabPage5);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
+            tabControl1.Controls.Add(tabPage18);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(3, 3);
             tabControl1.Name = "tabControl1";
@@ -685,7 +712,6 @@
             panel_拿牌相关.Name = "panel_拿牌相关";
             panel_拿牌相关.Size = new Size(426, 298);
             panel_拿牌相关.TabIndex = 24;
-            panel_拿牌相关.Paint += panel_拿牌相关_Paint;
             // 
             // panel11
             // 
@@ -1388,6 +1414,190 @@
             label72.TabIndex = 270;
             label72.Text = "刷新商店间隔-GPU模式";
             // 
+            // tabPage18
+            // 
+            tabPage18.BackColor = Color.White;
+            tabPage18.Controls.Add(button4);
+            tabPage18.Controls.Add(button1);
+            tabPage18.Controls.Add(panel75);
+            tabPage18.Controls.Add(label16);
+            tabPage18.Controls.Add(label17);
+            tabPage18.Controls.Add(panel74);
+            tabPage18.Controls.Add(label14);
+            tabPage18.Controls.Add(label15);
+            tabPage18.Controls.Add(panel73);
+            tabPage18.Controls.Add(label12);
+            tabPage18.Controls.Add(label13);
+            tabPage18.Controls.Add(textBox2);
+            tabPage18.Controls.Add(panel72);
+            tabPage18.Controls.Add(label10);
+            tabPage18.Controls.Add(label11);
+            tabPage18.Controls.Add(textBox1);
+            tabPage18.Location = new Point(4, 26);
+            tabPage18.Name = "tabPage18";
+            tabPage18.Padding = new Padding(3);
+            tabPage18.Size = new Size(446, 340);
+            tabPage18.TabIndex = 3;
+            tabPage18.Text = "高亮提示";
+            // 
+            // button4
+            // 
+            button4.BackColor = SystemColors.Window;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Location = new Point(361, 61);
+            button4.Name = "button4";
+            button4.Size = new Size(25, 25);
+            button4.TabIndex = 271;
+            button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.Window;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(361, 10);
+            button1.Name = "button1";
+            button1.Size = new Size(25, 25);
+            button1.TabIndex = 270;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click_1;
+            // 
+            // panel75
+            // 
+            panel75.BackColor = Color.Silver;
+            panel75.Location = new Point(5, 102);
+            panel75.Margin = new Padding(0);
+            panel75.Name = "panel75";
+            panel75.Size = new Size(430, 1);
+            panel75.TabIndex = 269;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label16.ForeColor = Color.FromArgb(133, 133, 133);
+            label16.Location = new Point(6, 78);
+            label16.Name = "label16";
+            label16.Size = new Size(164, 17);
+            label16.TabIndex = 268;
+            label16.Text = "决定高亮提示边框的渐变颜色";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label17.Location = new Point(6, 56);
+            label17.Name = "label17";
+            label17.Size = new Size(99, 17);
+            label17.TabIndex = 267;
+            label17.Text = "高亮边框渐变色2";
+            // 
+            // panel74
+            // 
+            panel74.BackColor = Color.Silver;
+            panel74.Location = new Point(5, 49);
+            panel74.Margin = new Padding(0);
+            panel74.Name = "panel74";
+            panel74.Size = new Size(430, 1);
+            panel74.TabIndex = 266;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label14.ForeColor = Color.FromArgb(133, 133, 133);
+            label14.Location = new Point(6, 25);
+            label14.Name = "label14";
+            label14.Size = new Size(164, 17);
+            label14.TabIndex = 265;
+            label14.Text = "决定高亮提示边框的渐变颜色";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label15.Location = new Point(6, 3);
+            label15.Name = "label15";
+            label15.Size = new Size(99, 17);
+            label15.TabIndex = 264;
+            label15.Text = "高亮边框渐变色1";
+            // 
+            // panel73
+            // 
+            panel73.BackColor = Color.Silver;
+            panel73.Location = new Point(5, 207);
+            panel73.Margin = new Padding(0);
+            panel73.Name = "panel73";
+            panel73.Size = new Size(430, 1);
+            panel73.TabIndex = 263;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label12.ForeColor = Color.FromArgb(133, 133, 133);
+            label12.Location = new Point(6, 183);
+            label12.Name = "label12";
+            label12.Size = new Size(188, 17);
+            label12.TabIndex = 262;
+            label12.Text = "决定高亮提示边框渐变色流动速度";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label13.Location = new Point(6, 161);
+            label13.Name = "label13";
+            label13.Size = new Size(80, 17);
+            label13.TabIndex = 261;
+            label13.Text = "渐变流动速度";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(339, 171);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(70, 23);
+            textBox2.TabIndex = 260;
+            textBox2.TabStop = false;
+            // 
+            // panel72
+            // 
+            panel72.BackColor = Color.Silver;
+            panel72.Location = new Point(5, 154);
+            panel72.Margin = new Padding(0);
+            panel72.Name = "panel72";
+            panel72.Size = new Size(430, 1);
+            panel72.TabIndex = 259;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label10.ForeColor = Color.FromArgb(133, 133, 133);
+            label10.Location = new Point(6, 130);
+            label10.Name = "label10";
+            label10.Size = new Size(172, 17);
+            label10.TabIndex = 258;
+            label10.Text = "决定高亮提示边框的宽度(像素)";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label11.Location = new Point(6, 108);
+            label11.Name = "label11";
+            label11.Size = new Size(80, 17);
+            label11.TabIndex = 257;
+            label11.Text = "高亮边框粗细";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(339, 118);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(70, 23);
+            textBox1.TabIndex = 256;
+            textBox1.TabStop = false;
+            // 
             // tabPage_截图
             // 
             tabPage_截图.Controls.Add(panel_截图);
@@ -1939,6 +2149,10 @@
             // panel36
             // 
             panel36.AutoScroll = true;
+            panel36.Controls.Add(panel70);
+            panel36.Controls.Add(label8);
+            panel36.Controls.Add(label9);
+            panel36.Controls.Add(capsuleSwitch19);
             panel36.Controls.Add(panel65);
             panel36.Controls.Add(label4);
             panel36.Controls.Add(label5);
@@ -1956,6 +2170,60 @@
             panel36.Name = "panel36";
             panel36.Size = new Size(440, 334);
             panel36.TabIndex = 0;
+            // 
+            // panel70
+            // 
+            panel70.BackColor = Color.Silver;
+            panel70.Controls.Add(panel71);
+            panel70.Location = new Point(5, 205);
+            panel70.Margin = new Padding(0);
+            panel70.Name = "panel70";
+            panel70.Size = new Size(430, 1);
+            panel70.TabIndex = 280;
+            // 
+            // panel71
+            // 
+            panel71.BackColor = Color.Silver;
+            panel71.Location = new Point(0, 55);
+            panel71.Margin = new Padding(0);
+            panel71.Name = "panel71";
+            panel71.Size = new Size(444, 1);
+            panel71.TabIndex = 261;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label8.Location = new Point(5, 159);
+            label8.Name = "label8";
+            label8.Size = new Size(80, 17);
+            label8.TabIndex = 277;
+            label8.Text = "严格匹配模式";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label9.ForeColor = Color.FromArgb(133, 133, 133);
+            label9.Location = new Point(5, 181);
+            label9.Name = "label9";
+            label9.Size = new Size(332, 17);
+            label9.TabIndex = 278;
+            label9.Text = "未开启时，当识别结果中包含目标字符串即算作识别到了目标";
+            // 
+            // capsuleSwitch19
+            // 
+            capsuleSwitch19.Location = new Point(367, 168);
+            capsuleSwitch19.Name = "capsuleSwitch19";
+            capsuleSwitch19.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch19.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch19.ShowText = false;
+            capsuleSwitch19.Size = new Size(50, 20);
+            capsuleSwitch19.TabIndex = 279;
+            capsuleSwitch19.Text = "capsuleSwitch19";
+            capsuleSwitch19.TextColor = Color.White;
+            capsuleSwitch19.ThumbColor = Color.White;
+            capsuleSwitch19.IsOnChanged += capsuleSwitch19_IsOnChanged;
             // 
             // panel65
             // 
@@ -2826,6 +3094,83 @@
             label112.TabIndex = 268;
             label112.Text = "更新推荐阵容";
             // 
+            // tabPage17
+            // 
+            tabPage17.BackColor = Color.White;
+            tabPage17.Controls.Add(panel67);
+            tabPage17.Location = new Point(4, 26);
+            tabPage17.Name = "tabPage17";
+            tabPage17.Padding = new Padding(3);
+            tabPage17.Size = new Size(460, 376);
+            tabPage17.TabIndex = 11;
+            tabPage17.Text = "开发者选项";
+            // 
+            // panel67
+            // 
+            panel67.Controls.Add(panel68);
+            panel67.Controls.Add(label6);
+            panel67.Controls.Add(label7);
+            panel67.Controls.Add(capsuleSwitch18);
+            panel67.Dock = DockStyle.Fill;
+            panel67.Location = new Point(3, 3);
+            panel67.Name = "panel67";
+            panel67.Size = new Size(454, 370);
+            panel67.TabIndex = 0;
+            // 
+            // panel68
+            // 
+            panel68.BackColor = Color.Silver;
+            panel68.Controls.Add(panel69);
+            panel68.Location = new Point(5, 49);
+            panel68.Margin = new Padding(0);
+            panel68.Name = "panel68";
+            panel68.Size = new Size(444, 1);
+            panel68.TabIndex = 277;
+            // 
+            // panel69
+            // 
+            panel69.BackColor = Color.Silver;
+            panel69.Location = new Point(0, 55);
+            panel69.Margin = new Padding(0);
+            panel69.Name = "panel69";
+            panel69.Size = new Size(444, 1);
+            panel69.TabIndex = 261;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label6.Location = new Point(5, 5);
+            label6.Name = "label6";
+            label6.Size = new Size(56, 17);
+            label6.TabIndex = 274;
+            label6.Text = "保存截图";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label7.ForeColor = Color.FromArgb(133, 133, 133);
+            label7.Location = new Point(5, 27);
+            label7.Name = "label7";
+            label7.Size = new Size(228, 17);
+            label7.TabIndex = 275;
+            label7.Text = "保存每次识别的截图到Logs/Images目录";
+            // 
+            // capsuleSwitch18
+            // 
+            capsuleSwitch18.Location = new Point(365, 17);
+            capsuleSwitch18.Name = "capsuleSwitch18";
+            capsuleSwitch18.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch18.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch18.ShowText = false;
+            capsuleSwitch18.Size = new Size(50, 20);
+            capsuleSwitch18.TabIndex = 276;
+            capsuleSwitch18.Text = "capsuleSwitch18";
+            capsuleSwitch18.TextColor = Color.White;
+            capsuleSwitch18.ThumbColor = Color.White;
+            capsuleSwitch18.IsOnChanged += capsuleSwitch18_IsOnChanged;
+            // 
             // panel_BackGround
             // 
             panel_BackGround.BackColor = Color.White;
@@ -2947,82 +3292,17 @@
             panel4.Size = new Size(481, 476);
             panel4.TabIndex = 211;
             // 
-            // tabPage17
+            // colorDialog1
             // 
-            tabPage17.BackColor = Color.White;
-            tabPage17.Controls.Add(panel67);
-            tabPage17.Location = new Point(4, 26);
-            tabPage17.Name = "tabPage17";
-            tabPage17.Padding = new Padding(3);
-            tabPage17.Size = new Size(460, 376);
-            tabPage17.TabIndex = 11;
-            tabPage17.Text = "开发者选项";
+            colorDialog1.AnyColor = true;
+            colorDialog1.FullOpen = true;
+            colorDialog1.ShowHelp = true;
             // 
-            // panel67
+            // colorDialog2
             // 
-            panel67.Controls.Add(panel68);
-            panel67.Controls.Add(label6);
-            panel67.Controls.Add(label7);
-            panel67.Controls.Add(capsuleSwitch18);
-            panel67.Dock = DockStyle.Fill;
-            panel67.Location = new Point(3, 3);
-            panel67.Name = "panel67";
-            panel67.Size = new Size(454, 370);
-            panel67.TabIndex = 0;
-            // 
-            // panel68
-            // 
-            panel68.BackColor = Color.Silver;
-            panel68.Controls.Add(panel69);
-            panel68.Location = new Point(5, 49);
-            panel68.Margin = new Padding(0);
-            panel68.Name = "panel68";
-            panel68.Size = new Size(444, 1);
-            panel68.TabIndex = 277;
-            // 
-            // panel69
-            // 
-            panel69.BackColor = Color.Silver;
-            panel69.Location = new Point(0, 55);
-            panel69.Margin = new Padding(0);
-            panel69.Name = "panel69";
-            panel69.Size = new Size(444, 1);
-            panel69.TabIndex = 261;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label6.Location = new Point(5, 5);
-            label6.Name = "label6";
-            label6.Size = new Size(56, 17);
-            label6.TabIndex = 274;
-            label6.Text = "保存截图";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label7.ForeColor = Color.FromArgb(133, 133, 133);
-            label7.Location = new Point(5, 27);
-            label7.Name = "label7";
-            label7.Size = new Size(228, 17);
-            label7.TabIndex = 275;
-            label7.Text = "保存每次识别的截图到Logs/Images目录";
-            // 
-            // capsuleSwitch18
-            // 
-            capsuleSwitch18.Location = new Point(365, 17);
-            capsuleSwitch18.Name = "capsuleSwitch18";
-            capsuleSwitch18.OffColor = Color.FromArgb(189, 189, 189);
-            capsuleSwitch18.OnColor = Color.FromArgb(24, 96, 251);
-            capsuleSwitch18.ShowText = false;
-            capsuleSwitch18.Size = new Size(50, 20);
-            capsuleSwitch18.TabIndex = 276;
-            capsuleSwitch18.Text = "capsuleSwitch18";
-            capsuleSwitch18.TextColor = Color.White;
-            capsuleSwitch18.ThumbColor = Color.White;
-            capsuleSwitch18.IsOnChanged += capsuleSwitch18_IsOnChanged;
+            colorDialog2.AnyColor = true;
+            colorDialog2.FullOpen = true;
+            colorDialog2.ShowHelp = true;
             // 
             // SettingForm
             // 
@@ -3065,6 +3345,8 @@
             tabPage8.ResumeLayout(false);
             panel18.ResumeLayout(false);
             panel18.PerformLayout();
+            tabPage18.ResumeLayout(false);
+            tabPage18.PerformLayout();
             tabPage_截图.ResumeLayout(false);
             panel_截图.ResumeLayout(false);
             panel_截图.PerformLayout();
@@ -3084,6 +3366,7 @@
             tabPage10.ResumeLayout(false);
             panel36.ResumeLayout(false);
             panel36.PerformLayout();
+            panel70.ResumeLayout(false);
             panel65.ResumeLayout(false);
             panel63.ResumeLayout(false);
             panel37.ResumeLayout(false);
@@ -3118,15 +3401,15 @@
             panel58.ResumeLayout(false);
             panel58.PerformLayout();
             panel61.ResumeLayout(false);
+            tabPage17.ResumeLayout(false);
+            panel67.ResumeLayout(false);
+            panel67.PerformLayout();
+            panel68.ResumeLayout(false);
             panel_BackGround.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel_Buttons.ResumeLayout(false);
             panel4.ResumeLayout(false);
-            tabPage17.ResumeLayout(false);
-            panel67.ResumeLayout(false);
-            panel67.PerformLayout();
-            panel68.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -3369,5 +3652,29 @@
         private Label label6;
         private Label label7;
         private DIYComponents.CapsuleSwitch capsuleSwitch18;
+        private Panel panel70;
+        private Panel panel71;
+        private Label label8;
+        private Label label9;
+        private DIYComponents.CapsuleSwitch capsuleSwitch19;
+        private TabPage tabPage18;
+        private Panel panel73;
+        private Label label12;
+        private Label label13;
+        public TextBox textBox2;
+        private Panel panel72;
+        private Label label10;
+        private Label label11;
+        public TextBox textBox1;
+        private Button button1;
+        private Panel panel75;
+        private Label label16;
+        private Label label17;
+        private Panel panel74;
+        private Label label14;
+        private Label label15;
+        private Button button4;
+        private ColorDialog colorDialog1;
+        private ColorDialog colorDialog2;
     }
 }

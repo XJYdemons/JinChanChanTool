@@ -40,6 +40,7 @@ namespace JinChanChanTool.Tools
             Point dragStartPoint = Point.Empty;
             const int dragThreshold = 2; // 拖动阈值，防止误触发
 
+           
             control.MouseDown += (sender, e) =>
             {
                 if (e.Button == mouseButton)
@@ -48,7 +49,7 @@ namespace JinChanChanTool.Tools
                     dragStartPoint = e.Location;
                 }
             };
-
+           
             control.MouseMove += (sender, e) =>
             {
                 if (e.Button == mouseButton && !isDragging)
@@ -70,7 +71,7 @@ namespace JinChanChanTool.Tools
                     }
                 }
             };
-
+          
             control.MouseUp += (sender, e) =>
             {
                 if (e.Button == mouseButton)

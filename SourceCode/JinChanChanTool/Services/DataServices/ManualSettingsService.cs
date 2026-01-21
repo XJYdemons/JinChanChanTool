@@ -2,6 +2,7 @@
 using System.Text.Json;
 using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Tools;
 
 namespace JinChanChanTool.Services.DataServices
 {   
@@ -22,11 +23,24 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         private string filePath;
 
+        /// <summary>
+        /// JSON序列化选项（包含Color转换器）
+        /// </summary>
+        private readonly JsonSerializerOptions jsonOptions;
+
         #region 初始化
         public ManualSettingsService()
         {
             CurrentConfig = new ManualSettings();
             InitializePaths();
+
+            // 初始化JSON序列化选项，添加Color转换器
+            jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                Converters = { new ColorJsonConverter() }
+            };
         }
 
         /// <summary>
@@ -70,7 +84,7 @@ namespace JinChanChanTool.Services.DataServices
                         string oldJson = File.ReadAllText(filePath);
                         if (!string.IsNullOrEmpty(oldJson))
                         {
-                            oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson);
+                            oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson, jsonOptions);
                         }
                     }
                     catch
@@ -110,7 +124,7 @@ namespace JinChanChanTool.Services.DataServices
                         string oldJson = File.ReadAllText(filePath);
                         if (!string.IsNullOrEmpty(oldJson))
                         {
-                            oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson);
+                            oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson, jsonOptions);
                         }
                     }
                     catch
@@ -119,12 +133,7 @@ namespace JinChanChanTool.Services.DataServices
                     }
                 }
                 // 设置 JsonSerializerOptions 以保持中文字符的可读性
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-                };
-                string json = JsonSerializer.Serialize(CurrentConfig, options);
+                string json = JsonSerializer.Serialize(CurrentConfig, jsonOptions);
                 File.WriteAllText(filePath, json);
                 // 计算差异字段
                 var changedFields = GetChangedFields(oldConfig, CurrentConfig);
@@ -193,7 +202,7 @@ namespace JinChanChanTool.Services.DataServices
                     Save(false);
                     return;
                 }
-                CurrentConfig = JsonSerializer.Deserialize<ManualSettings>(json);                
+                CurrentConfig = JsonSerializer.Deserialize<ManualSettings>(json, jsonOptions);                
             }
             catch
             {

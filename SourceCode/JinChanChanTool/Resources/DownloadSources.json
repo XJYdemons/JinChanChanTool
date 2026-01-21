@@ -1,0 +1,66 @@
+{
+  "RuntimeSources": {
+    "Description": "PaddleInference运行时DLL下载源",
+    "BaseUrls": [
+      "https://github.com/XJYdemons/JinChanChanTool/releases/download/v4.5.3/",
+      "https://ghfast.top/https://github.com/XJYdemons/JinChanChanTool/releases/download/v4.5.3/",
+      "https://gh.ddlc.top/https://github.com/XJYdemons/JinChanChanTool/releases/download/v4.5.3/",
+      "https://github.moeyy.xyz/https://github.com/XJYdemons/JinChanChanTool/releases/download/v4.5.3/",
+      "https://ghproxy.net/https://github.com/XJYdemons/JinChanChanTool/releases/download/v4.5.3/",
+      "https://mirror.ghproxy.com/https://github.com/XJYdemons/JinChanChanTool/releases/download/v4.5.3/",
+      "https://gh-proxy.com/https://github.com/XJYdemons/JinChanChanTool/releases/download/v4.5.3/"
+    ]
+  },
+  "CudaSources": {
+    "Description": "CUDA Toolkit下载源",
+    "Versions": {
+      "cu118": {
+        "FileName": "cuda_11.8.0_522.06_windows.exe",
+        "Urls": [
+          "https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_522.06_windows.exe"
+        ],
+        "FileSizeMB": 2600
+      },
+      "cu126": {
+        "FileName": "cuda_12.6.0_560.76_windows.exe",
+        "Urls": [
+          "https://developer.download.nvidia.com/compute/cuda/12.6.0/local_installers/cuda_12.6.0_560.76_windows.exe"
+        ],
+        "FileSizeMB": 3100
+      },
+      "cu129": {
+        "FileName": "cuda_12.9.0_576.02_windows.exe",
+        "Urls": [
+          "https://developer.download.nvidia.com/compute/cuda/12.9.0/local_installers/cuda_12.9.0_576.02_windows.exe"
+        ],
+        "FileSizeMB": 3200
+      }
+    }
+  },
+  "CudnnSources": {
+    "Description": "cuDNN下载源",
+    "Versions": {
+      "cudnn89": {
+        "FileName": "cudnn-windows-x86_64-8.9.7.29_cuda11-archive.zip",
+        "Urls": [
+          "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-8.9.7.29_cuda11-archive.zip"
+        ],
+        "FileSizeMB": 720
+      },
+      "cudnn95": {
+        "FileName": "cudnn-windows-x86_64-9.5.0.50_cuda12-archive.zip",
+        "Urls": [
+          "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-9.5.0.50_cuda12-archive.zip"
+        ],
+        "FileSizeMB": 780
+      },
+      "cudnn910": {
+        "FileName": "cudnn-windows-x86_64-9.10.0.56_cuda12-archive.zip",
+        "Urls": [
+          "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-9.10.0.56_cuda12-archive.zip"
+        ],
+        "FileSizeMB": 800
+      }
+    }
+  }
+}

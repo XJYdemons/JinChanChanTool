@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.Services.AutoSetCoordinates;
 using JinChanChanTool.Tools;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace JinChanChanTool.Forms
@@ -32,7 +33,10 @@ namespace JinChanChanTool.Forms
             DragHelper.EnableDragForChildren(panel3);
             _processDiscoveryService = processDiscoveryService;
 
-            listBox_Processes.DisplayMember = "DisplayName";
+            // 添加一个列用于显示进程信息（隐藏列头）
+            listView_Processes.Columns.Add("进程", listView_Processes.Width - 25, HorizontalAlignment.Left);
+            // 双击选择进程
+            listView_Processes.DoubleClick += (s, e) => Button_Select_Click(s, e);
 
             button_Refresh.Click += (s, e) => LoadProcesses();
             button_Select.Click += Button_Select_Click;
@@ -45,12 +49,61 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void LoadProcesses()
         {
-            listBox_Processes.Items.Clear();
-            var processes = _processDiscoveryService.GetPotentiallyVisibleProcesses();
-            foreach (var process in processes)
+            listView_Processes.Items.Clear();
+            imageList_ProcessIcons.Images.Clear();
+
+            List<Process> processes = _processDiscoveryService.GetPotentiallyVisibleProcesses();
+            int imageIndex = 0;
+
+            foreach (Process process in processes)
             {
-                listBox_Processes.Items.Add(new ProcessDisplayItem(process));
+                // 尝试获取进程图标
+                Icon? processIcon = GetProcessIcon(process);
+                if (processIcon != null)
+                {
+                    imageList_ProcessIcons.Images.Add(processIcon);
+                }
+                else
+                {
+                    // 使用默认应用程序图标
+                    imageList_ProcessIcons.Images.Add(SystemIcons.Application);
+                }
+
+                // 创建 ListView 项，显示格式保持原样
+                ProcessDisplayItem displayItem = new ProcessDisplayItem(process);
+                ListViewItem listViewItem = new ListViewItem(displayItem.DisplayName)
+                {
+                    ImageIndex = imageIndex,
+                    Tag = process // 将进程对象存储在 Tag 中以便后续获取
+                };
+
+                listView_Processes.Items.Add(listViewItem);
+                imageIndex++;
             }
+        }
+
+        /// <summary>
+        /// 获取进程的图标
+        /// </summary>
+        /// <param name="process">目标进程</param>
+        /// <returns>进程图标，获取失败返回 null</returns>
+        private Icon? GetProcessIcon(Process process)
+        {
+            try
+            {
+                // 尝试获取进程的主模块文件路径
+                string? filePath = process.MainModule?.FileName;
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    // 从可执行文件提取关联图标
+                    return Icon.ExtractAssociatedIcon(filePath);
+                }
+            }
+            catch (Exception)
+            {
+                // 权限不足或其他原因无法获取，忽略异常
+            }
+            return null;
         }
 
         /// <summary>
@@ -58,11 +111,12 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Select_Click(object sender, EventArgs e)
+        private void Button_Select_Click(object? sender, EventArgs e)
         {
-            if (listBox_Processes.SelectedItem is ProcessDisplayItem selectedItem)
+            if (listView_Processes.SelectedItems.Count > 0 &&
+                listView_Processes.SelectedItems[0].Tag is Process selectedProcess)
             {
-                SelectedProcess = selectedItem.Process;
+                SelectedProcess = selectedProcess;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

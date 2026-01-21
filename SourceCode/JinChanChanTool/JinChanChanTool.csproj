@@ -14,15 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\Help\**" />
-    <EmbeddedResource Remove="Resources\Help\**" />
-    <None Remove="Resources\Help\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Resources\CorrectionsList.json" />
     <None Remove="Resources\defaultHeroIcon.png" />
     <None Remove="Resources\DownloadSources.json" />
+    <None Remove="Resources\Help\用户手册.pdf" />
     <None Remove="Resources\HeroDatas\强音对决\HeroData.json" />
     <None Remove="Resources\HeroDatas\强音对决\images\亚索.png" />
     <None Remove="Resources\HeroDatas\强音对决\images\伊泽瑞尔.png" />
@@ -366,6 +361,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\DownloadSources.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Help\用户手册.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\强音对决\HeroData.json">

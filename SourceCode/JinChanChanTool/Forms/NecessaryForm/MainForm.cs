@@ -2566,26 +2566,24 @@ namespace JinChanChanTool
         {
             try
             {
-                // 获取 CHM 文件路径（相对于应用程序目录）
-                string helpFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Help", "Help.chm");
+                string pdfPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Help", "用户手册.pdf");
 
-                // 检查文件是否存在
-                if (!File.Exists(helpFilePath))
+                if (File.Exists(pdfPath))
                 {
-                    MessageBox.Show("帮助文件不存在，请确认 Help.chm 已正确部署！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = pdfPath,
+                        UseShellExecute = true
+                    });
                 }
-
-                // 使用 Windows Forms 原生 API 打开 CHM 文件
-                Help.ShowHelp(this, helpFilePath);
-
-                // 如果需要打开特定章节，可以使用：
-                // Help.ShowHelp(this, helpFilePath, HelpNavigator.Topic, "introduction.html");
+                else
+                {
+                    MessageBox.Show("用户手册文件不存在！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"无法打开帮助文件：{ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LogTool.Log($"打开帮助文件失败: {ex.Message}");
+                MessageBox.Show($"打开用户手册失败：{ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

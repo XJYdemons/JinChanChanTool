@@ -141,15 +141,7 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// <param name="name"></param>
         /// <returns></returns>
         bool SetLineUpName(string name);
-
-        /// <summary>
-        /// 设置当前阵容下指定下标变阵名称
-        /// </summary>
-        /// <param name="index">变阵下标</param>
-        /// <param name="name">新名称</param>
-        /// <returns></returns>
-        bool SetSubLineUpName(int index, string name);
-
+       
         /// <summary>
         /// 获取最大选择数量
         /// </summary>

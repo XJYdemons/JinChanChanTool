@@ -29,139 +29,139 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputForm));
-            textBox_ErrorMessage = new TextBox();
-            panel_Background = new Panel();
-            panel3 = new Panel();
-            label29 = new Label();
-            button2 = new Button();
-            panel_Dragging = new Panel();
-            textBox_OutPut = new TextBox();
-            panel1 = new Panel();
-            panel_Background.SuspendLayout();
-            panel3.SuspendLayout();
-            panel1.SuspendLayout();
+            textBox_错误信息 = new TextBox();
+            panel_副背景 = new Panel();
+            panel_标题栏 = new Panel();
+            label_标题 = new Label();
+            button_最小化 = new Button();
+            panel_分割滑块 = new Panel();
+            textBox_输出信息 = new TextBox();
+            panel_主背景 = new Panel();
+            panel_副背景.SuspendLayout();
+            panel_标题栏.SuspendLayout();
+            panel_主背景.SuspendLayout();
             SuspendLayout();
             // 
             // textBox_ErrorMessage
             // 
-            textBox_ErrorMessage.Location = new Point(3, 28);
-            textBox_ErrorMessage.Multiline = true;
-            textBox_ErrorMessage.Name = "textBox_ErrorMessage";
-            textBox_ErrorMessage.ScrollBars = ScrollBars.Vertical;
-            textBox_ErrorMessage.Size = new Size(299, 120);
-            textBox_ErrorMessage.TabIndex = 0;
-            textBox_ErrorMessage.Text = "识别错误的字：\r\n";
+            textBox_错误信息.Location = new Point(3, 28);
+            textBox_错误信息.Multiline = true;
+            textBox_错误信息.Name = "textBox_ErrorMessage";
+            textBox_错误信息.ScrollBars = ScrollBars.Vertical;
+            textBox_错误信息.Size = new Size(299, 120);
+            textBox_错误信息.TabIndex = 0;
+            textBox_错误信息.Text = "";
             // 
             // panel_Background
             // 
-            panel_Background.BackColor = Color.White;
-            panel_Background.Controls.Add(panel3);
-            panel_Background.Controls.Add(panel_Dragging);
-            panel_Background.Controls.Add(textBox_OutPut);
-            panel_Background.Controls.Add(textBox_ErrorMessage);
-            panel_Background.Dock = DockStyle.Fill;
-            panel_Background.Location = new Point(3, 3);
-            panel_Background.Margin = new Padding(0);
-            panel_Background.Name = "panel_Background";
-            panel_Background.Size = new Size(999, 153);
-            panel_Background.TabIndex = 1;
+            panel_副背景.BackColor = Color.White;
+            panel_副背景.Controls.Add(panel_标题栏);
+            panel_副背景.Controls.Add(panel_分割滑块);
+            panel_副背景.Controls.Add(textBox_输出信息);
+            panel_副背景.Controls.Add(textBox_错误信息);
+            panel_副背景.Dock = DockStyle.Fill;
+            panel_副背景.Location = new Point(3, 3);
+            panel_副背景.Margin = new Padding(0);
+            panel_副背景.Name = "panel_Background";
+            panel_副背景.Size = new Size(999, 153);
+            panel_副背景.TabIndex = 1;
             // 
             // panel3
             // 
-            panel3.BackColor = Color.White;
-            panel3.Controls.Add(label29);
-            panel3.Controls.Add(button2);
-            panel3.Location = new Point(0, 0);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(994, 25);
-            panel3.TabIndex = 212;
+            panel_标题栏.BackColor = Color.White;
+            panel_标题栏.Controls.Add(label_标题);
+            panel_标题栏.Controls.Add(button_最小化);
+            panel_标题栏.Location = new Point(0, 0);
+            panel_标题栏.Name = "panel3";
+            panel_标题栏.Size = new Size(994, 25);
+            panel_标题栏.TabIndex = 212;
             // 
             // label29
             // 
-            label29.AutoSize = true;
-            label29.Location = new Point(4, 1);
-            label29.MinimumSize = new Size(80, 23);
-            label29.Name = "label29";
-            label29.Size = new Size(80, 23);
-            label29.TabIndex = 10;
-            label29.Text = "输出窗口";
-            label29.TextAlign = ContentAlignment.MiddleLeft;
+            label_标题.AutoSize = true;
+            label_标题.Location = new Point(4, 1);
+            label_标题.MinimumSize = new Size(80, 23);
+            label_标题.Name = "label29";
+            label_标题.Size = new Size(80, 23);
+            label_标题.TabIndex = 10;
+            label_标题.Text = "输出窗口";
+            label_标题.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // button2
             // 
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(969, 1);
-            button2.Margin = new Padding(0);
-            button2.Name = "button2";
-            button2.Size = new Size(23, 23);
-            button2.TabIndex = 8;
-            button2.Text = "—";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button_最小化_Click;
+            button_最小化.FlatAppearance.BorderSize = 0;
+            button_最小化.FlatStyle = FlatStyle.Flat;
+            button_最小化.Location = new Point(969, 1);
+            button_最小化.Margin = new Padding(0);
+            button_最小化.Name = "button2";
+            button_最小化.Size = new Size(23, 23);
+            button_最小化.TabIndex = 8;
+            button_最小化.Text = "—";
+            button_最小化.UseVisualStyleBackColor = true;
+            button_最小化.Click += button_最小化_Click;
             // 
             // panel_Dragging
             // 
-            panel_Dragging.BackColor = Color.LightGray;
-            panel_Dragging.Cursor = Cursors.SizeWE;
-            panel_Dragging.ForeColor = Color.LightGray;
-            panel_Dragging.Location = new Point(305, 28);
-            panel_Dragging.Name = "panel_Dragging";
-            panel_Dragging.Size = new Size(4, 120);
-            panel_Dragging.TabIndex = 2;
+            panel_分割滑块.BackColor = Color.LightGray;
+            panel_分割滑块.Cursor = Cursors.SizeWE;
+            panel_分割滑块.ForeColor = Color.LightGray;
+            panel_分割滑块.Location = new Point(305, 28);
+            panel_分割滑块.Name = "panel_Dragging";
+            panel_分割滑块.Size = new Size(4, 120);
+            panel_分割滑块.TabIndex = 2;
             // 
             // textBox_OutPut
             // 
-            textBox_OutPut.Location = new Point(312, 28);
-            textBox_OutPut.Multiline = true;
-            textBox_OutPut.Name = "textBox_OutPut";
-            textBox_OutPut.ScrollBars = ScrollBars.Vertical;
-            textBox_OutPut.Size = new Size(679, 120);
-            textBox_OutPut.TabIndex = 1;
-            textBox_OutPut.Text = "输出：\r\n";
+            textBox_输出信息.Location = new Point(312, 28);
+            textBox_输出信息.Multiline = true;
+            textBox_输出信息.Name = "textBox_OutPut";
+            textBox_输出信息.ScrollBars = ScrollBars.Vertical;
+            textBox_输出信息.Size = new Size(679, 120);
+            textBox_输出信息.TabIndex = 1;
+            textBox_输出信息.Text = "";
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(250, 250, 250);
-            panel1.Controls.Add(panel_Background);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(0);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(3, 3, 4, 4);
-            panel1.Size = new Size(1006, 160);
-            panel1.TabIndex = 2;
+            panel_主背景.BackColor = Color.FromArgb(250, 250, 250);
+            panel_主背景.Controls.Add(panel_副背景);
+            panel_主背景.Dock = DockStyle.Fill;
+            panel_主背景.Location = new Point(0, 0);
+            panel_主背景.Margin = new Padding(0);
+            panel_主背景.Name = "panel1";
+            panel_主背景.Padding = new Padding(3, 3, 4, 4);
+            panel_主背景.Size = new Size(1006, 160);
+            panel_主背景.TabIndex = 2;
             // 
             // OutputForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1006, 160);
-            Controls.Add(panel1);
+            Controls.Add(panel_主背景);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "OutputForm";
             ShowInTaskbar = false;
             Text = "ErrorForm";
             TopMost = true;
-            panel_Background.ResumeLayout(false);
-            panel_Background.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            panel1.ResumeLayout(false);
+            panel_副背景.ResumeLayout(false);
+            panel_副背景.PerformLayout();
+            panel_标题栏.ResumeLayout(false);
+            panel_标题栏.PerformLayout();
+            panel_主背景.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
 
-        private TextBox textBox_ErrorMessage;
-        private Panel panel_Background;
-        private TextBox textBox_OutPut;
-        private Panel panel_Dragging;
-        private Panel panel3;
-        private Label label29;
-        private Button button2;
-        private Panel panel1;
+        private TextBox textBox_错误信息;
+        private Panel panel_副背景;
+        private TextBox textBox_输出信息;
+        private Panel panel_分割滑块;
+        private Panel panel_标题栏;
+        private Label label_标题;
+        private Button button_最小化;
+        private Panel panel_主背景;
     }
 }

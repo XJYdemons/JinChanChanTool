@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System;
 using System.Diagnostics;
@@ -27,16 +28,17 @@ namespace JinChanChanTool.Forms
                 return _instance;
             }
         }
-       
+
         private StatusOverlayForm()
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel2);
+            DragHelper.EnableDragForChildren(panel_副背景);
         }
 
         public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
                                                              //
         private CardService _cardService; //自动拿牌服务
+        private ILocalizationService _iLocalizationService;
         // 同步标志，防止循环调用
         private bool _isSyncingHighlight = false;
         private bool _isSyncingGetCard = false;
@@ -91,13 +93,13 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void OnStartLoop(bool isRunning)
         {
-            if (capsuleSwitch_GetCard.InvokeRequired)
+            if (capsuleSwitch_自动拿牌.InvokeRequired)
             {
-                capsuleSwitch_GetCard.Invoke(new Action<bool>(OnStartLoop), isRunning);
+                capsuleSwitch_自动拿牌.Invoke(new Action<bool>(OnStartLoop), isRunning);
                 return;
             }
             _isSyncingGetCard = true;
-            capsuleSwitch_GetCard.IsOn = isRunning;
+            capsuleSwitch_自动拿牌.IsOn = isRunning;
             _isSyncingGetCard = false;
         }
 
@@ -106,13 +108,13 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void OnAutoRefreshStatusChanged(bool isRunning)
         {
-            if (capsuleSwitch_RefreshStore.InvokeRequired)
+            if (capsuleSwitch_自动刷新商店.InvokeRequired)
             {
-                capsuleSwitch_RefreshStore.Invoke(new Action<bool>(OnAutoRefreshStatusChanged), isRunning);
+                capsuleSwitch_自动刷新商店.Invoke(new Action<bool>(OnAutoRefreshStatusChanged), isRunning);
                 return;
             }
             _isSyncingRefresh = true;
-            capsuleSwitch_RefreshStore.IsOn = isRunning;
+            capsuleSwitch_自动刷新商店.IsOn = isRunning;
             _isSyncingRefresh = false;
         }
 
@@ -121,17 +123,39 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void OnHighlightStatusChanged(bool isRunning)
         {
-            if (capsuleSwitch_HighLight.InvokeRequired)
+            if (capsuleSwitch_高亮提示.InvokeRequired)
             {
-                capsuleSwitch_HighLight.Invoke(new Action<bool>(OnHighlightStatusChanged), isRunning);
+                capsuleSwitch_高亮提示.Invoke(new Action<bool>(OnHighlightStatusChanged), isRunning);
                 return;
             }
             _isSyncingHighlight = true;
-            capsuleSwitch_HighLight.IsOn = isRunning;
+            capsuleSwitch_高亮提示.IsOn = isRunning;
             _isSyncingHighlight = false;
         }
 
        
+        /// <summary>
+        /// 初始化本地化服务
+        /// </summary>
+        /// <param name="iLocalizationService">本地化服务</param>
+        public void InitializeLocalization(ILocalizationService iLocalizationService)
+        {
+            _iLocalizationService = iLocalizationService;
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            label_高亮提示.Text = _iLocalizationService.Get("StatusOverlay.Label.高亮提示");
+            label_自动拿牌.Text = _iLocalizationService.Get("StatusOverlay.Label.自动拿牌");
+            label_自动刷新商店.Text = _iLocalizationService.Get("StatusOverlay.Label.自动刷新商店");
+            label_自动D牌.Text = _iLocalizationService.Get("StatusOverlay.Label.自动D牌");
+            label_隐藏召出主窗口.Text = _iLocalizationService.Get("StatusOverlay.Label.隐藏召出主窗口");
+        }
+
         /// <summary>
         /// 初始化配置服务
         /// </summary>

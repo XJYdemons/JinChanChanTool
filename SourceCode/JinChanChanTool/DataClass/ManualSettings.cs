@@ -306,6 +306,11 @@
         public float HighlightGradientSpeed { get; set; }
 
         /// <summary>
+        /// 用户选择的界面语言代码（如 "zh-CN"、"en-US"）
+        /// </summary>
+        public string Language { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public ManualSettings()
@@ -370,6 +375,7 @@
             HighlightColor2 = Color.FromArgb(255, 236, 187);
             HighlightBorderWidth = 3;
             HighlightGradientSpeed = 0.05f;
+            Language = "zh-CN";
 
         }
 
@@ -441,6 +447,7 @@
                 HighlightColor2 = this.HighlightColor2,
                 HighlightBorderWidth = this.HighlightBorderWidth,
                 HighlightGradientSpeed = this.HighlightGradientSpeed,
+                Language = this.Language,
             };
         }
 
@@ -513,7 +520,8 @@
                    HighlightColor1 == other.HighlightColor1 &&
                    HighlightColor2 == other.HighlightColor2 &&
                    HighlightBorderWidth == other.HighlightBorderWidth &&
-                   HighlightGradientSpeed == other.HighlightGradientSpeed;
+                   HighlightGradientSpeed == other.HighlightGradientSpeed &&
+                   Language == other.Language;
         }
 
         

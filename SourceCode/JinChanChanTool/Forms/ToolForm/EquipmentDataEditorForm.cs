@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using Microsoft.VisualBasic;
 using System.ComponentModel;
@@ -20,6 +21,11 @@ namespace JinChanChanTool.Forms
         private IEquipmentService _iEquipmentService;
 
         /// <summary>
+        /// 本地化服务实例
+        /// </summary>
+        private readonly ILocalizationService _iLocalizationService;
+
+        /// <summary>
         /// 默认图片
         /// </summary>
         private Image defaultImage;
@@ -29,11 +35,12 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private bool isChanged;
 
-        public EquipmentDataEditorForm()
+        public EquipmentDataEditorForm(ILocalizationService iLocalizationService)
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
 
+            _iLocalizationService = iLocalizationService;
             isChanged = false;
             _iEquipmentService = new EquipmentService();
 
@@ -54,6 +61,27 @@ namespace JinChanChanTool.Forms
 
             InitializeDataGridViewColumns(); // 只初始化列一次
             BindDataGridView(); // 绑定数据
+
+            // 应用本地化
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            if (_iLocalizationService == null) return;
+
+            this.Text = _iLocalizationService.Get("EquipmentDataEditorForm.标题");
+            label_标题.Text = _iLocalizationService.Get("EquipmentDataEditorForm.标题");
+            button_打开目录.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.打开目录");
+            button_保存.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.保存");
+            button_添加.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.添加");
+            button_删除.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.删除");
+            button_上移.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.上移");
+            button_下移.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.下移");           
+            button_退出.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.退出");            
         }
 
         private void EquipmentDataEditorForm_Load(object sender, EventArgs e)
@@ -79,8 +107,8 @@ namespace JinChanChanTool.Forms
                 }
                 else
                 {
-                    MessageBox.Show($"找不到默认装备图片\"defaultHeroIcon.png\"\n路径：\n{_iEquipmentService.GetDefaultImagePath()}",
-                                   "默认装备图片缺失",
+                    MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.默认图片缺失", _iEquipmentService.GetDefaultImagePath()),
+                                   _iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.默认图片缺失"),
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
                                    );
@@ -89,8 +117,8 @@ namespace JinChanChanTool.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"默认装备图片\"defaultHeroIcon.png\"加载失败\n路径：\n{_iEquipmentService.GetDefaultImagePath()}",
-                                    "加载默认图片失败",
+                MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.默认图片加载失败", _iEquipmentService.GetDefaultImagePath()),
+                                    _iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.默认图片加载失败"),
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error
                                     );
@@ -111,7 +139,7 @@ namespace JinChanChanTool.Forms
 
             // 添加图片列
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
-            imageColumn.HeaderText = "图片";
+            imageColumn.HeaderText = _iLocalizationService.Get("EquipmentDataEditorForm.Label.图片");
             imageColumn.Name = "Image";
             imageColumn.Width = 32;
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -120,7 +148,7 @@ namespace JinChanChanTool.Forms
 
             // 添加装备名称列
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = "装备名称";
+            nameColumn.HeaderText = _iLocalizationService.Get("EquipmentDataEditorForm.Label.装备名称");
             nameColumn.Name = "Name";
             nameColumn.DataPropertyName = "Name";
             nameColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
@@ -128,7 +156,7 @@ namespace JinChanChanTool.Forms
 
             // 添加装备类型列
             DataGridViewTextBoxColumn equipmentTypeColumn = new DataGridViewTextBoxColumn();
-            equipmentTypeColumn.HeaderText = "装备类型";
+            equipmentTypeColumn.HeaderText = _iLocalizationService.Get("EquipmentDataEditorForm.Label.装备类型");
             equipmentTypeColumn.Name = "EquipmentType";
             equipmentTypeColumn.DataPropertyName = "EquipmentType";
             equipmentTypeColumn.Width = 150;
@@ -137,7 +165,7 @@ namespace JinChanChanTool.Forms
 
             // 添加合成路径列（不绑定 DataPropertyName，因为是 string[] 类型）
             DataGridViewTextBoxColumn syntheticPathwayColumn = new DataGridViewTextBoxColumn();
-            syntheticPathwayColumn.HeaderText = "合成路径";
+            syntheticPathwayColumn.HeaderText = _iLocalizationService.Get("EquipmentDataEditorForm.Label.合成路径");
             syntheticPathwayColumn.Name = "SyntheticPathway";
             syntheticPathwayColumn.Width = 250;
             syntheticPathwayColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
@@ -275,7 +303,7 @@ namespace JinChanChanTool.Forms
         private void DataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             // 处理数据错误
-            MessageBox.Show("数据输入错误，请检查格式！");
+            MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.数据输入错误"));
             e.ThrowException = false;
         }
 
@@ -342,7 +370,7 @@ namespace JinChanChanTool.Forms
 
             if (selectedRows.Count == 0)
             {
-                MessageBox.Show("请先选择要删除的行！");
+                MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.请选择要删除的行"));
                 return;
             }
 
@@ -422,7 +450,7 @@ namespace JinChanChanTool.Forms
         {
             if (isChanged)
             {
-                DialogResult result = MessageBox.Show("存在未保存的更改，是否保存？", "未保存的更改", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.未保存的更改"), _iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.未保存的更改标题"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     Save();
@@ -450,7 +478,7 @@ namespace JinChanChanTool.Forms
             // 检查是否有当前单元格
             if (dataGridView_装备数据编辑器.CurrentCell == null)
             {
-                MessageBox.Show("请先选择要移动的行！");
+                MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.请选择要移动的行"));
                 return;
             }
             // 获取当前行索引
@@ -458,7 +486,7 @@ namespace JinChanChanTool.Forms
             // 检查是否可以上移（不是第一行）
             if (currentIndex <= 0)
             {
-                MessageBox.Show("已经是第一行，无法上移！");
+                MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.已经是第一行"));
                 return;
             }
             // 记录滚动位置
@@ -492,7 +520,7 @@ namespace JinChanChanTool.Forms
             // 检查是否有当前单元格
             if (dataGridView_装备数据编辑器.CurrentCell == null)
             {
-                MessageBox.Show("请先选择要移动的行！");
+                MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.请选择要移动的行"));
                 return;
             }
 
@@ -502,7 +530,7 @@ namespace JinChanChanTool.Forms
             // 检查是否可以下移（不是最后一行）
             if (currentIndex >= _iEquipmentService.GetEquipmentCount() - 1)
             {
-                MessageBox.Show("已经是最后一行，无法下移！");
+                MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.已经是最后一行"));
                 return;
             }
 
@@ -537,7 +565,7 @@ namespace JinChanChanTool.Forms
         {
             if (isChanged)
             {
-                DialogResult result = MessageBox.Show("存在未保存的更改，是否保存？", "未保存的更改", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.未保存的更改"), _iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.未保存的更改标题"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     Save();
@@ -570,7 +598,7 @@ namespace JinChanChanTool.Forms
         {
             Save();
             isChanged = false;
-            MessageBox.Show("保存成功！重启应用后生效。", "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.保存成功需重启"), _iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.保存成功标题"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -600,12 +628,12 @@ namespace JinChanChanTool.Forms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"打开目录失败：{ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.打开目录失败", ex.Message), _iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.错误"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("没有可用的数据集目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.无数据集目录"), _iLocalizationService.Get("EquipmentDataEditorForm.MsgTitle.提示"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

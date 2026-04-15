@@ -4,6 +4,7 @@ using JinChanChanTool.Forms.DisplayUIForm;
 using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System.Runtime.InteropServices;
 
@@ -52,6 +53,8 @@ namespace JinChanChanTool.Forms
         private IRecommendedLineUpService _iRecommendedLineUpService; // 推荐阵容数据服务对象
         private IHeroDataService _heroDataService; // 英雄数据服务对象
         private IEquipmentService _equipmentService; // 装备数据服务对象
+        private BoardDragManager _boardDragManager; // 棋盘拖拽管理器（替代 OLE DoDragDrop）
+        private ILocalizationService _iLocalizationService; // 本地化服务对象
 
         private LineUpForm()
         {
@@ -97,7 +100,34 @@ namespace JinChanChanTool.Forms
 
             // 绑定备战席事件
             benchPanel.HeroDroppedIn += BenchPanel_HeroPositionChanged;
-           
+
+            // 初始化拖拽管理器（手动拖拽替代 OLE DoDragDrop，避免 TransparencyKey 导致的 COMException）
+            _boardDragManager = new BoardDragManager();
+            _boardDragManager.Initialize(this, hexagonBoard, benchPanel);
+
+        }
+
+        /// <summary>
+        /// 初始化本地化服务
+        /// </summary>
+        /// <param name="iLocalizationService">本地化服务对象</param>
+        public void InitializeLocalization(ILocalizationService iLocalizationService)
+        {
+            _iLocalizationService = iLocalizationService;
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            if (_iLocalizationService == null) return;
+
+            button_保存.Text = _iLocalizationService.Get("LineUpForm.Button.保存");
+            button_清空.Text = _iLocalizationService.Get("LineUpForm.Button.清空");
+            button_阵容推荐.Text = _iLocalizationService.Get("LineUpForm.Button.阵容推荐");            
+            button_展开收起.Text = _iLocalizationService.Get("LineUpForm.Button.站位");
         }
       
         #region 拖动窗体功能        
@@ -134,7 +164,7 @@ namespace JinChanChanTool.Forms
                 if (distance > DRAG_THRESHOLD)
                 {
                     _isDragged = true;
-                    flowLayoutPanel1.BorderColor = Color.FromArgb(96, 223, 84);
+                    flowLayoutPanel_阵容展示.BorderColor = Color.FromArgb(96, 223, 84);
                     Cursor = Cursors.SizeAll;
 
                     Point newLocation = this.PointToScreen(new Point(e.X, e.Y));
@@ -153,7 +183,7 @@ namespace JinChanChanTool.Forms
         {
             if (_dragging)
             {
-                flowLayoutPanel1.BorderColor = Color.Gray;
+                flowLayoutPanel_阵容展示.BorderColor = Color.Gray;
                 _dragging = false;
                 Cursor = Cursors.Arrow;
 
@@ -226,7 +256,7 @@ namespace JinChanChanTool.Forms
             benchPanel.BindSubLineUp(currentSubLineUp);
 
             // 同步刷新散件面板
-            if (_isBoardExpanded && componentPanel != null && componentPanel.Visible)
+            if (_isBoardExpanded && flowLayoutPanel_装备散件展示 != null && flowLayoutPanel_装备散件展示.Visible)
             {
                 RefreshComponentPanel();
             }
@@ -251,7 +281,7 @@ namespace JinChanChanTool.Forms
             {
                 hexagonBoard.BackColor = Color.FromArgb(1, 1, 1);
                 benchPanel.BackColor = Color.FromArgb(1, 1, 1);
-                componentPanel.BackColor = Color.FromArgb(1, 1, 1);
+                flowLayoutPanel_装备散件展示.BackColor = Color.FromArgb(1, 1, 1);
                 //hexagonBoard.BackColor = Color.FromArgb(30,35, 45);
                 //benchPanel.BackColor = Color.FromArgb(30, 35, 45);
                 //componentPanel.BackColor = Color.FromArgb(30, 35, 45);
@@ -260,32 +290,32 @@ namespace JinChanChanTool.Forms
                 int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
 
                 // 棋盘紧贴 flowLayoutPanel1 底部
-                int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
                 // 备战席紧贴棋盘底部
                 int benchY = boardY + boardHeight;
                 // 窗体总高度
                 int expandedHeight = benchY + benchHeight;
 
                 // 计算棋盘和备战席的宽度（面板宽度的3/4）
-                int boardWidth = flowLayoutPanel1.Width * 3 / 4;
+                int boardWidth = flowLayoutPanel_阵容展示.Width * 3 / 4;
 
                 // 设置棋盘位置和大小
-                hexagonBoard.Location = new Point(flowLayoutPanel1.Location.X, boardY);
+                hexagonBoard.Location = new Point(flowLayoutPanel_阵容展示.Location.X, boardY);
                 hexagonBoard.Size = new Size(boardWidth, boardHeight);
                 hexagonBoard.Visible = true;
 
                 // 设置备战席位置和大小
-                benchPanel.Location = new Point(flowLayoutPanel1.Location.X, benchY);
+                benchPanel.Location = new Point(flowLayoutPanel_阵容展示.Location.X, benchY);
                 benchPanel.Size = new Size(boardWidth, benchHeight);
                 benchPanel.Visible = true;
 
                 // 设置散件面板位置和大小（右侧1/4宽度区域）
-                int componentPanelX = flowLayoutPanel1.Location.X + boardWidth;
-                int componentPanelWidth = flowLayoutPanel1.Width - boardWidth;
+                int componentPanelX = flowLayoutPanel_阵容展示.Location.X + boardWidth;
+                int componentPanelWidth = flowLayoutPanel_阵容展示.Width - boardWidth;
                 int componentPanelHeight = boardHeight + benchHeight;
-                componentPanel.Location = new Point(componentPanelX, boardY);
-                componentPanel.Size = new Size(componentPanelWidth, componentPanelHeight);
-                componentPanel.Visible = true;
+                flowLayoutPanel_装备散件展示.Location = new Point(componentPanelX, boardY);
+                flowLayoutPanel_装备散件展示.Size = new Size(componentPanelWidth, componentPanelHeight);
+                flowLayoutPanel_装备散件展示.Visible = true;
 
                 this.ClientSize = new Size(LogicalToDeviceUnits(632), expandedHeight);
 
@@ -302,7 +332,7 @@ namespace JinChanChanTool.Forms
                 // 收起棋盘和备战席
                 hexagonBoard.Visible = false;
                 benchPanel.Visible = false;
-                componentPanel.Visible = false;
+                flowLayoutPanel_装备散件展示.Visible = false;
                 this.ClientSize = new Size(LogicalToDeviceUnits(632), LogicalToDeviceUnits(COLLAPSED_HEIGHT));
 
                 button_展开收起.BackColor = Color.FromArgb(45, 45, 48);
@@ -418,7 +448,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void RefreshComponentPanel()
         {
-            if (componentPanel == null)
+            if (flowLayoutPanel_装备散件展示 == null)
             {
                 return;
             }
@@ -426,23 +456,23 @@ namespace JinChanChanTool.Forms
             try
             {
                 // 暂停布局更新
-                componentPanel.SuspendLayout();
+                flowLayoutPanel_装备散件展示.SuspendLayout();
 
                 // 清空现有控件
-                componentPanel.Controls.Clear();
+                flowLayoutPanel_装备散件展示.Controls.Clear();
 
                 // 如果面板不可见，直接返回
-                if (!componentPanel.Visible)
+                if (!flowLayoutPanel_装备散件展示.Visible)
                 {
-                    componentPanel.ResumeLayout(false);
+                    flowLayoutPanel_装备散件展示.ResumeLayout(false);
                     return;
                 }
 
                 // 获取面板实际客户区宽度（ClientSize会自动考虑滚动条是否存在）
-                int availableWidth = componentPanel.ClientSize.Width;
+                int availableWidth = flowLayoutPanel_装备散件展示.ClientSize.Width;
                 if (availableWidth <= 0)
                 {
-                    componentPanel.ResumeLayout(false);
+                    flowLayoutPanel_装备散件展示.ResumeLayout(false);
                     return;
                 }
 
@@ -458,12 +488,12 @@ namespace JinChanChanTool.Forms
                 int innerPadding = LogicalToDeviceUnits(2); // 散件项内部边距
 
                 // 设置Padding
-                componentPanel.Padding = new Padding(sidePadding, 0, 0, 0);
+                flowLayoutPanel_装备散件展示.Padding = new Padding(sidePadding, 0, 0, 0);
 
                 // 创建标题标签
                 Label titleLabel = new Label
                 {
-                    Text = "散件数量",
+                    Text = _iLocalizationService?.Get("LineUpForm.Label.散件数量") ?? "散件数量",
                     ForeColor = Color.White,
                     Font = new Font("微软雅黑", 10, FontStyle.Bold),
                     Width = availableWidth,
@@ -472,7 +502,7 @@ namespace JinChanChanTool.Forms
                     BackColor = Color.Transparent,
                     Margin = new Padding(0, LogicalToDeviceUnits(5), 0, LogicalToDeviceUnits(5))
                 };
-                componentPanel.Controls.Add(titleLabel);
+                flowLayoutPanel_装备散件展示.Controls.Add(titleLabel);
 
                 // 计算所需散件
                 Dictionary<string, int> requiredComponents = CalculateRequiredComponents();
@@ -480,7 +510,7 @@ namespace JinChanChanTool.Forms
                 // 如果没有散件需求，只显示标题
                 if (requiredComponents.Count == 0)
                 {
-                    componentPanel.ResumeLayout(false);
+                    flowLayoutPanel_装备散件展示.ResumeLayout(false);
                     return;
                 }
 
@@ -550,18 +580,18 @@ namespace JinChanChanTool.Forms
                     itemPanel.Controls.Add(componentPictureBox);
 
                     // 将散件项添加到主面板
-                    componentPanel.Controls.Add(itemPanel);
+                    flowLayoutPanel_装备散件展示.Controls.Add(itemPanel);
 
                     itemIndex++;
                 }
 
                 // 恢复布局更新
-                componentPanel.ResumeLayout(true);
+                flowLayoutPanel_装备散件展示.ResumeLayout(true);
             }
             catch (Exception)
             {
                 // 异常处理：确保恢复布局
-                componentPanel.ResumeLayout(false);
+                flowLayoutPanel_装备散件展示.ResumeLayout(false);
             }
         }
         #endregion
@@ -574,19 +604,19 @@ namespace JinChanChanTool.Forms
         {
             if (_iRecommendedLineUpService == null || _heroDataService == null || _equipmentService == null)
             {
-                MessageBox.Show("相关服务未初始化！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(_iLocalizationService.Get("LineUpForm.Msg.服务未初始化"), _iLocalizationService.Get("LineUpForm.MsgTitle.错误"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // 检查是否有推荐阵容数据
             if (_iRecommendedLineUpService.GetCount() == 0)
             {
-                MessageBox.Show("暂无推荐阵容数据。\n\n请先通过数据爬取工具获取推荐阵容数据后再试。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(_iLocalizationService.Get("LineUpForm.Msg.无推荐数据"), _iLocalizationService.Get("LineUpForm.MsgTitle.提示"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             // 打开推荐阵容选择窗口
-            using (var selectForm = new LineUpSelectForm(_iRecommendedLineUpService, _heroDataService, _equipmentService))
+            using (var selectForm = new LineUpSelectForm(_iRecommendedLineUpService, _heroDataService, _equipmentService, _iLocalizationService))
             {
                 selectForm.TopMost = true;
                 if (selectForm.ShowDialog(this) == DialogResult.OK && selectForm.SelectedLineUp != null)
@@ -597,7 +627,7 @@ namespace JinChanChanTool.Forms
                     // 将推荐阵容的英雄列表导入到当前子阵容
                     if (!_ilineUpService.ReplaceCurrentSubLineUp(selectedLineUp.LineUpUnits))
                     {
-                        MessageBox.Show("应用阵容失败，请稍后重试。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(_iLocalizationService.Get("LineUpForm.Msg.应用失败"), _iLocalizationService.Get("LineUpForm.MsgTitle.错误"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -612,7 +642,7 @@ namespace JinChanChanTool.Forms
         {
             if (_ilineUpService.Save())
             {
-                MessageBox.Show("阵容已保存", "阵容已保存", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(_iLocalizationService.Get("LineUpForm.Msg.阵容已保存"), _iLocalizationService.Get("LineUpForm.Msg.阵容已保存"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -628,7 +658,7 @@ namespace JinChanChanTool.Forms
 
         public ComboBox GetLineUpSelectedComboBox()
         {
-            return comboBox_LineUpSelected;
+            return comboBox_阵容选择;
         }
         #endregion
 
@@ -689,7 +719,7 @@ namespace JinChanChanTool.Forms
                     // 计算完全展开状态的窗体高度（包括棋盘和备战席）
                     int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
                     int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
-                    int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                    int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
                     int benchY = boardY + boardHeight;
                     int expandedHeight = benchY + benchHeight;
 
@@ -711,7 +741,7 @@ namespace JinChanChanTool.Forms
                     // 计算完全展开状态的窗体高度（包括棋盘和备战席）
                     int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
                     int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
-                    int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                    int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
                     int benchY = boardY + boardHeight;
                     int expandedHeight = benchY + benchHeight;
 
@@ -728,7 +758,7 @@ namespace JinChanChanTool.Forms
                 // 计算完全展开状态的窗体高度（包括棋盘和备战席）
                 int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
                 int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
-                int boardY = flowLayoutPanel1.Location.Y + flowLayoutPanel1.Height;
+                int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
                 int benchY = boardY + boardHeight;
                 int expandedHeight = benchY + benchHeight;
 

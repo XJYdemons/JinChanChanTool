@@ -2,6 +2,7 @@ using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System.Runtime.InteropServices;
 
@@ -15,6 +16,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         private readonly IRecommendedLineUpService _recommendedLineUpService;
         private readonly IHeroDataService _heroDataService;
         private readonly IEquipmentService _equipmentService;
+        private readonly ILocalizationService _iLocalizationService;
         private List<RecommendedLineUp> _allLineUps;
         private List<RecommendedLineUp> _filteredLineUps;
         private Panel? _selectedCard;
@@ -51,7 +53,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         public RecommendedLineUp? SelectedLineUp { get; private set; }
 
-        public LineUpSelectForm(IRecommendedLineUpService recommendedLineUpService, IHeroDataService heroDataService, IEquipmentService equipmentService)
+        public LineUpSelectForm(IRecommendedLineUpService recommendedLineUpService, IHeroDataService heroDataService, IEquipmentService equipmentService, ILocalizationService iLocalizationService)
         {
             InitializeComponent();
 
@@ -62,6 +64,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             _recommendedLineUpService = recommendedLineUpService;
             _heroDataService = heroDataService;
             _equipmentService = equipmentService;
+            _iLocalizationService = iLocalizationService;
             _allLineUps = new List<RecommendedLineUp>();
             _filteredLineUps = new List<RecommendedLineUp>();
 
@@ -74,14 +77,85 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             _searchDebounceTimer.Tick += SearchDebounceTimer_Tick;
 
             // 启用标题栏拖动功能
-            DragHelper.EnableDragForChildren(panel_TitleBar);
+            DragHelper.EnableDragForChildren(panel_标题栏);
 
             // 初始化筛选下拉框
-            comboBox_TierFilter.SelectedIndex = 0;
-            comboBox_SortBy.SelectedIndex = 0;
+            comboBox_评级筛选.SelectedIndex = 0;
+            comboBox_排序方式.SelectedIndex = 0;
 
             // 加载数据
             LoadLineUpData();
+
+            // 应用本地化
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            if (_iLocalizationService == null) return;
+
+            this.Text = _iLocalizationService.Get("LineUpSelectForm.标题");
+            label_标题.Text = _iLocalizationService.Get("LineUpSelectForm.标题");
+            label_评级筛选.Text = _iLocalizationService.Get("LineUpSelectForm.Label.评级筛选");
+            label_排序方式.Text = _iLocalizationService.Get("LineUpSelectForm.Label.排序方式");
+            label_搜索.Text = _iLocalizationService.Get("LineUpSelectForm.Label.搜索");
+            textBox_搜索.PlaceholderText = _iLocalizationService.Get("LineUpSelectForm.TextBox.搜索占位符");
+            button_应用.Text = _iLocalizationService.Get("LineUpSelectForm.Button.应用");
+            button_取消.Text = _iLocalizationService.Get("LineUpSelectForm.Button.取消");
+
+            // 更新下拉框选项
+            comboBox_评级筛选.Items.Clear();
+            comboBox_评级筛选.Items.AddRange(new object[]
+            {
+                _iLocalizationService.Get("LineUpSelectForm.ComboBox.全部评级"),
+                "S", "A", "B", "C", "D"
+            });
+            comboBox_评级筛选.SelectedIndex = 0;
+
+            comboBox_排序方式.Items.Clear();
+            comboBox_排序方式.Items.AddRange(new object[]
+            {
+                _iLocalizationService.Get("LineUpSelectForm.ComboBox.按评级排序"),
+                _iLocalizationService.Get("LineUpSelectForm.ComboBox.按胜率排序"),
+                _iLocalizationService.Get("LineUpSelectForm.ComboBox.按前四率排序"),
+                _iLocalizationService.Get("LineUpSelectForm.ComboBox.按选取率排序"),
+                _iLocalizationService.Get("LineUpSelectForm.ComboBox.按平均名次排序")
+            });
+            comboBox_排序方式.SelectedIndex = 0;
+
+            // 根据标签实际渲染宽度动态调整筛选栏控件位置，确保中英文都有合适间距
+            RelayoutFilterBar();
+        }
+
+        /// <summary>
+        /// 根据标签实际宽度重新排列筛选栏控件位置
+        /// </summary>
+        private void RelayoutFilterBar()
+        {
+            int gap = Dpi(8); // 标签与控件之间的间距
+            int groupGap = Dpi(15); // 分组之间的间距
+            int startX = Dpi(15); // 起始X坐标
+            int controlY = label_评级筛选.Location.Y; // 保持Y坐标不变
+
+            // 第1组：评级筛选标签 + 下拉框
+            label_评级筛选.Location = new Point(startX, controlY);
+            int tierComboX = label_评级筛选.Right + gap;
+            comboBox_评级筛选.Location = new Point(tierComboX, comboBox_评级筛选.Location.Y);
+
+            // 第2组：排序方式标签 + 下拉框
+            int sortLabelX = comboBox_评级筛选.Right + groupGap;
+            label_排序方式.Location = new Point(sortLabelX, controlY);
+            int sortComboX = label_排序方式.Right + gap;
+            comboBox_排序方式.Location = new Point(sortComboX, comboBox_排序方式.Location.Y);
+
+            // 第3组：搜索标签 + 搜索框
+            int searchLabelX = comboBox_排序方式.Right + groupGap;
+            label_搜索.Location = new Point(searchLabelX, controlY);
+            int searchBoxX = label_搜索.Right + gap;
+            textBox_搜索.Location = new Point(searchBoxX, textBox_搜索.Location.Y);
         }
 
         #region 圆角实现
@@ -156,7 +230,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             _nameWidth = Dpi(NAME_WIDTH_BASE);
             _statsWidth = Dpi(STATS_WIDTH_BASE);
             _descWidth = Dpi(DESC_WIDTH_BASE);
-            _cardWidth = flowLayoutPanel_LineUps.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - Dpi(10);
+            _cardWidth = flowLayoutPanel_阵容.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - Dpi(10);
         }
 
         /// <summary>
@@ -175,11 +249,11 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             var lastUpdateTime = _recommendedLineUpService.GetLastUpdateTime();
             if (lastUpdateTime != DateTime.MinValue)
             {
-                label_UpdateTime.Text = $"更新时间: {lastUpdateTime:yyyy-MM-dd HH:mm}";
+                label_更新时间.Text = _iLocalizationService.Get("LineUpSelectForm.Label.更新时间数据", lastUpdateTime.ToString("yyyy-MM-dd HH:mm"));
             }
             else
             {
-                label_UpdateTime.Text = "更新时间: 暂无数据";
+                label_更新时间.Text = _iLocalizationService.Get("LineUpSelectForm.Label.更新时间");
             }
 
             // 应用筛选并刷新列表
@@ -208,9 +282,10 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         private void ApplyFilterInternal()
         {
-            string selectedTier = comboBox_TierFilter.SelectedItem?.ToString() ?? "全部";
+            string selectedTier = comboBox_评级筛选.SelectedItem?.ToString() ?? _iLocalizationService.Get("LineUpSelectForm.ComboBox.全部评级");
+            string tierAll = _iLocalizationService.Get("LineUpSelectForm.ComboBox.全部评级");
 
-            if (selectedTier == "全部")
+            if (selectedTier == tierAll)
             {
                 _filteredLineUps = _allLineUps.ToList();
             }
@@ -238,7 +313,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             }
 
             // 应用搜索关键字筛选（带优先级排序）
-            string searchKeyword = textBox_Search.Text.Trim();
+            string searchKeyword = textBox_搜索.Text.Trim();
             if (!string.IsNullOrEmpty(searchKeyword))
             {
                 // 为每个阵容计算搜索匹配优先级
@@ -248,30 +323,65 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                     .ToList();
 
                 // 根据选择的排序方式获取排序函数
-                string sortBy = comboBox_SortBy.SelectedItem?.ToString() ?? "评级优先";
-                IOrderedEnumerable<(RecommendedLineUp lineup, int priority)> sortedLineUps = sortBy switch
+                string sortBy = comboBox_排序方式.SelectedItem?.ToString() ?? _iLocalizationService.Get("LineUpSelectForm.ComboBox.按评级排序");
+                string sortByWinRate = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按胜率排序");
+                string sortByTopFour = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按前四率排序");
+                string sortByPickRate = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按选取率排序");
+                string sortByAvgRank = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按平均名次排序");
+
+                IOrderedEnumerable<(RecommendedLineUp lineup, int priority)> sortedLineUps;
+                if (sortBy == sortByWinRate)
                 {
-                    "胜率" => lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.WinRate),
-                    "前四率" => lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.TopFourRate),
-                    "选取率" => lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.PickRate),
-                    "平均名次" => lineUpsWithPriority.OrderBy(item => item.priority).ThenBy(item => item.lineup.AverageRank),  // 名次越低越好
-                    _ => lineUpsWithPriority.OrderBy(item => item.priority).ThenBy(item => item.lineup.Tier).ThenByDescending(item => item.lineup.WinRate)  // 评级优先
-                };
+                    sortedLineUps = lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.WinRate);
+                }
+                else if (sortBy == sortByTopFour)
+                {
+                    sortedLineUps = lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.TopFourRate);
+                }
+                else if (sortBy == sortByPickRate)
+                {
+                    sortedLineUps = lineUpsWithPriority.OrderBy(item => item.priority).ThenByDescending(item => item.lineup.PickRate);
+                }
+                else if (sortBy == sortByAvgRank)
+                {
+                    sortedLineUps = lineUpsWithPriority.OrderBy(item => item.priority).ThenBy(item => item.lineup.AverageRank);
+                }
+                else
+                {
+                    sortedLineUps = lineUpsWithPriority.OrderBy(item => item.priority).ThenBy(item => item.lineup.Tier).ThenByDescending(item => item.lineup.WinRate);
+                }
 
                 _filteredLineUps = sortedLineUps.Select(item => item.lineup).ToList();
             }
             else
             {
                 // 没有搜索关键词时，按原有逻辑排序
-                string sortBy = comboBox_SortBy.SelectedItem?.ToString() ?? "评级优先";
-                _filteredLineUps = sortBy switch
+                string sortBy = comboBox_排序方式.SelectedItem?.ToString() ?? _iLocalizationService.Get("LineUpSelectForm.ComboBox.按评级排序");
+                string sortByWinRate = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按胜率排序");
+                string sortByTopFour = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按前四率排序");
+                string sortByPickRate = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按选取率排序");
+                string sortByAvgRank = _iLocalizationService.Get("LineUpSelectForm.ComboBox.按平均名次排序");
+
+                if (sortBy == sortByWinRate)
                 {
-                    "胜率" => _filteredLineUps.OrderByDescending(l => l.WinRate).ToList(),
-                    "前四率" => _filteredLineUps.OrderByDescending(l => l.TopFourRate).ToList(),
-                    "选取率" => _filteredLineUps.OrderByDescending(l => l.PickRate).ToList(),
-                    "平均名次" => _filteredLineUps.OrderBy(l => l.AverageRank).ToList(),  // 名次越低越好
-                    _ => _filteredLineUps.OrderBy(l => l.Tier).ThenByDescending(l => l.WinRate).ToList()  // 评级优先
-                };
+                    _filteredLineUps = _filteredLineUps.OrderByDescending(l => l.WinRate).ToList();
+                }
+                else if (sortBy == sortByTopFour)
+                {
+                    _filteredLineUps = _filteredLineUps.OrderByDescending(l => l.TopFourRate).ToList();
+                }
+                else if (sortBy == sortByPickRate)
+                {
+                    _filteredLineUps = _filteredLineUps.OrderByDescending(l => l.PickRate).ToList();
+                }
+                else if (sortBy == sortByAvgRank)
+                {
+                    _filteredLineUps = _filteredLineUps.OrderBy(l => l.AverageRank).ToList();
+                }
+                else
+                {
+                    _filteredLineUps = _filteredLineUps.OrderBy(l => l.Tier).ThenByDescending(l => l.WinRate).ToList();
+                }
             }
 
             RefreshCards();
@@ -322,7 +432,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         private void RefreshCards()
         {
-            flowLayoutPanel_LineUps.SuspendLayout();
+            flowLayoutPanel_阵容.SuspendLayout();
 
             int requiredCount = _filteredLineUps.Count;
 
@@ -343,9 +453,9 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 UpdateCardContent(card, lineUp);
 
                 // 如果卡片不在容器中，添加它
-                if (!flowLayoutPanel_LineUps.Controls.Contains(card))
+                if (!flowLayoutPanel_阵容.Controls.Contains(card))
                 {
-                    flowLayoutPanel_LineUps.Controls.Add(card);
+                    flowLayoutPanel_阵容.Controls.Add(card);
                 }
 
                 card.Visible = true;
@@ -354,7 +464,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             // 隐藏多余的卡片（而不是销毁）
             for (int i = requiredCount; i < _cardPool.Count; i++)
             {
-                if (flowLayoutPanel_LineUps.Controls.Contains(_cardPool[i]))
+                if (flowLayoutPanel_阵容.Controls.Contains(_cardPool[i]))
                 {
                     _cardPool[i].Visible = false;
                 }
@@ -363,27 +473,27 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             // 重新排序控件以匹配筛选结果
             for (int i = 0; i < requiredCount; i++)
             {
-                flowLayoutPanel_LineUps.Controls.SetChildIndex(_cardPool[i], i);
+                flowLayoutPanel_阵容.Controls.SetChildIndex(_cardPool[i], i);
             }
 
             _activeCardCount = requiredCount;
-            flowLayoutPanel_LineUps.ResumeLayout();
+            flowLayoutPanel_阵容.ResumeLayout();
 
             // 更新信息标签
             if (_filteredLineUps.Count == 0)
             {
-                label_Info.Text = "暂无推荐阵容数据";
+                label_阵容信息.Text = _iLocalizationService.Get("LineUpSelectForm.Label.暂无数据");
             }
             else
             {
-                label_Info.Text = $"共 {_filteredLineUps.Count} 套阵容，点击选择一个导入到当前变阵";
+                label_阵容信息.Text = _iLocalizationService.Get("LineUpSelectForm.Label.阵容数量", _filteredLineUps.Count.ToString());
             }
 
             // 清空选择
             _selectedCard = null;
             SelectedLineUp = null;
-            button_Confirm.BackColor = Color.FromArgb(60, 60, 63);
-            button_Confirm.Enabled = false;
+            button_应用.BackColor = Color.FromArgb(60, 60, 63);
+            button_应用.Enabled = false;
         }
 
         /// <summary>
@@ -615,16 +725,16 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             if (statsPanel != null)
             {
                 var lblWinRate = statsPanel.Controls.Find("lblWinRate", false).FirstOrDefault() as Label;
-                if (lblWinRate != null) lblWinRate.Text = $"胜率\n{lineUp.WinRate:F1}%";
+                if (lblWinRate != null) lblWinRate.Text = $"{_iLocalizationService.Get("LineUpSelectForm.Label.胜率")}\n{lineUp.WinRate:F1}%";
 
                 var lblTopFour = statsPanel.Controls.Find("lblTopFour", false).FirstOrDefault() as Label;
-                if (lblTopFour != null) lblTopFour.Text = $"前四率\n{lineUp.TopFourRate:F1}%";
+                if (lblTopFour != null) lblTopFour.Text = $"{_iLocalizationService.Get("LineUpSelectForm.Label.前四率")}\n{lineUp.TopFourRate:F1}%";
 
                 var lblPickRate = statsPanel.Controls.Find("lblPickRate", false).FirstOrDefault() as Label;
-                if (lblPickRate != null) lblPickRate.Text = $"选取率\n{lineUp.PickRate:F1}%";
+                if (lblPickRate != null) lblPickRate.Text = $"{_iLocalizationService.Get("LineUpSelectForm.Label.选取率")}\n{lineUp.PickRate:F1}%";
 
                 var lblRank = statsPanel.Controls.Find("lblRank", false).FirstOrDefault() as Label;
-                if (lblRank != null) lblRank.Text = $"平均名次\n{lineUp.AverageRank:F2}";
+                if (lblRank != null) lblRank.Text = $"{_iLocalizationService.Get("LineUpSelectForm.Label.平均名次")}\n{lineUp.AverageRank:F2}";
             }
 
             // 更新英雄展示区域
@@ -869,12 +979,12 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             _selectedCard = clickedCard;
             _selectedCard.BackColor = Color.FromArgb(104, 142, 45);
             SelectedLineUp = clickedCard.Tag as RecommendedLineUp;
-            button_Confirm.BackColor = Color.FromArgb(130, 189, 39);
-            button_Confirm.Enabled = true;
+            button_应用.BackColor = Color.FromArgb(130, 189, 39);
+            button_应用.Enabled = true;
             // 更新信息标签
             if (SelectedLineUp != null)
             {
-                label_Info.Text = $"已选择: {SelectedLineUp.LineUpName} ({SelectedLineUp.LineUpUnits.Count}人口)";
+                label_阵容信息.Text = _iLocalizationService.Get("LineUpSelectForm.Label.已选择", SelectedLineUp.LineUpName, SelectedLineUp.LineUpUnits.Count.ToString());
             }
         }
 

@@ -6,7 +6,7 @@ using JinChanChanTool.Services.AutoSetCoordinates;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.LineupCrawling;
-
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Services.ManuallySetCoordinates;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
@@ -29,18 +29,23 @@ namespace JinChanChanTool
         /// </summary>
         private readonly IRecommendedLineUpService _iRecommendedLineUpService;
 
+        /// <summary>
+        /// 本地化服务实例
+        /// </summary>
+        private readonly ILocalizationService _iLocalizationService;
+
         private Screen targetScreen;//目标显示器
         private Screen[] screens;//显示器数组
 
-        public SettingForm(IManualSettingsService iAppConfigService, IRecommendedLineUpService iRecommendedLineUpService)
+        public SettingForm(IManualSettingsService iAppConfigService, IRecommendedLineUpService iRecommendedLineUpService, ILocalizationService iLocalizationService)
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
 
             ////隐藏图标
             //this.ShowIcon = false;
 
-            // 获取所有连接的显示器  
+            // 获取所有连接的显示器
             screens = Screen.AllScreens;
             //加载显示器到下拉框并按用户设置文件选中对应显示器
             LoadDisplays();
@@ -49,11 +54,21 @@ namespace JinChanChanTool
             _iappConfigService = iAppConfigService;
 
             _iRecommendedLineUpService = iRecommendedLineUpService;
+
+            //初始化本地化服务实例
+            _iLocalizationService = iLocalizationService;
+
             //为组件绑定事件
             Initialize_AllComponents();
 
             //初始化显示文本
             Update_AllComponents();
+
+            //初始化语言选择下拉框
+            InitializeLanguageSelector();
+
+            //应用本地化
+            ApplyLocalization();
         }
 
         /// <summary>
@@ -66,8 +81,8 @@ namespace JinChanChanTool
             if (_iappConfigService.IsChanged())
             {
                 var result = MessageBox.Show(
-                    "您有未保存的设置，是否要保存？",
-                    "未保存的设置",
+                    _iLocalizationService.Get("SettingForm.Msg.未保存设置"),
+                    _iLocalizationService.Get("SettingForm.MsgTitle.未保存设置"),
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question
                 );
@@ -139,25 +154,25 @@ namespace JinChanChanTool
             radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseFixedCoordinates;
             radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;
 
-            capsuleSwitch1.IsOn = _iappConfigService.CurrentConfig.IsHighUserPriority;
+            capsuleSwitch_避免程序与用户争夺光标控制权.IsOn = _iappConfigService.CurrentConfig.IsHighUserPriority;
 
-            capsuleSwitch4.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase;
-            capsuleSwitch7.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore;
-            capsuleSwitch8.IsOn = _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters;
-
-
-            capsuleSwitch2.IsOn = _iappConfigService.CurrentConfig.IsMouseHeroPurchase;
+            capsuleSwitch_自动停止拿牌.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase;
+            capsuleSwitch_刷新失败时自动停止刷新商店.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore;
+            capsuleSwitch_识别错误时自动停止刷新商店.IsOn = _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters;
 
 
+            capsuleSwitch_模拟鼠标拿牌.IsOn = _iappConfigService.CurrentConfig.IsMouseHeroPurchase;
 
-            capsuleSwitch3.IsOn = _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase;
 
 
-            capsuleSwitch6.IsOn = _iappConfigService.CurrentConfig.IsMouseRefreshStore;
-            capsuleSwitch5.IsOn = _iappConfigService.CurrentConfig.IsKeyboardRefreshStore;
+            capsuleSwitch_按键模拟拿牌.IsOn = _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase;
 
-            capsuleSwitch10.IsOn = _iappConfigService.CurrentConfig.IsUseCPUForInference;
-            capsuleSwitch9.IsOn = _iappConfigService.CurrentConfig.IsUseGPUForInference;
+
+            capsuleSwitch_模拟鼠标刷新商店.IsOn = _iappConfigService.CurrentConfig.IsMouseRefreshStore;
+            capsuleSwitch_模拟按键刷新商店.IsOn = _iappConfigService.CurrentConfig.IsKeyboardRefreshStore;
+
+            capsuleSwitch_CPU.IsOn = _iappConfigService.CurrentConfig.IsUseCPUForInference;
+            capsuleSwitch_GPU.IsOn = _iappConfigService.CurrentConfig.IsUseGPUForInference;
 
             textBox_拿牌按键1.Text = _iappConfigService.CurrentConfig.HeroPurchaseKey1;
             textBox_拿牌按键2.Text = _iappConfigService.CurrentConfig.HeroPurchaseKey2;
@@ -165,28 +180,28 @@ namespace JinChanChanTool
             textBox_拿牌按键4.Text = _iappConfigService.CurrentConfig.HeroPurchaseKey4;
             textBox_拿牌按键5.Text = _iappConfigService.CurrentConfig.HeroPurchaseKey5;
             textBox_刷新商店按键.Text = _iappConfigService.CurrentConfig.RefreshStoreKey;
-            textBox_MaxTimesWithoutGetCard.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase.ToString();
-            textBox_MaxTimesWithoutRefresh.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore.ToString();
-            textBox_DelayAfterMouseOperation.Text = _iappConfigService.CurrentConfig.DelayAfterOperation.ToString();
-            textBox_CPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU.ToString();
-            textBox_GPUDelayAfterRefreshStore.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU.ToString();
-            capsuleSwitch11.IsOn = _iappConfigService.CurrentConfig.IsUseSelectForm;
-            capsuleSwitch12.IsOn = _iappConfigService.CurrentConfig.IsUseLineUpForm;
-            capsuleSwitch13.IsOn = _iappConfigService.CurrentConfig.IsUseStatusOverlayForm;
-            capsuleSwitch14.IsOn = _iappConfigService.CurrentConfig.IsUseOutputForm;
-            capsuleSwitch15.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
+            textBox_自动停止拿牌次数阈值.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase.ToString();
+            textBox_自动停止刷新商店次数阈值.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore.ToString();
+            textBox_模拟操作间隔.Text = _iappConfigService.CurrentConfig.DelayAfterOperation.ToString();
+            textBox_刷新商店间隔_CPU.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU.ToString();
+            textBox_刷新商店间隔_GPU.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU.ToString();
+            capsuleSwitch_启用英雄选择面板.IsOn = _iappConfigService.CurrentConfig.IsUseSelectForm;
+            capsuleSwitch_启用阵容面板.IsOn = _iappConfigService.CurrentConfig.IsUseLineUpForm;
+            capsuleSwitch_启用状态面板.IsOn = _iappConfigService.CurrentConfig.IsUseStatusOverlayForm;
+            capsuleSwitch_启用输出面板.IsOn = _iappConfigService.CurrentConfig.IsUseOutputForm;
+            capsuleSwitch_程序启动时更新推荐装备.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
             textBox_更新推荐装备间隔.Text = _iappConfigService.CurrentConfig.UpdateEquipmentInterval.ToString();
             textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxSize.ToString();
             textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxHorizontalSpacing.ToString();
             textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.SelectFormHeroPanelsVerticalSpacing.ToString();
-            capsuleSwitch16.IsOn = _iappConfigService.CurrentConfig.IsFilterLetters;
-            capsuleSwitch17.IsOn = _iappConfigService.CurrentConfig.IsFilterNumbers;
-            capsuleSwitch18.IsOn = _iappConfigService.CurrentConfig.IsSaveCapturedImages;
-            capsuleSwitch19.IsOn = _iappConfigService.CurrentConfig.IsStrictMatching;
-            textBox1.Text = _iappConfigService.CurrentConfig.HighlightBorderWidth.ToString();
-            textBox2.Text = _iappConfigService.CurrentConfig.HighlightGradientSpeed.ToString();
-            button1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
-            button4.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
+            capsuleSwitch_排除字母.IsOn = _iappConfigService.CurrentConfig.IsFilterLetters;
+            capsuleSwitch_排除数字.IsOn = _iappConfigService.CurrentConfig.IsFilterNumbers;
+            capsuleSwitch_保存截图.IsOn = _iappConfigService.CurrentConfig.IsSaveCapturedImages;
+            capsuleSwitch_严格匹配模式.IsOn = _iappConfigService.CurrentConfig.IsStrictMatching;
+            textBox_高亮边框粗细.Text = _iappConfigService.CurrentConfig.HighlightBorderWidth.ToString();
+            textBox_渐变流动速度.Text = _iappConfigService.CurrentConfig.HighlightGradientSpeed.ToString();
+            button_高亮渐变色1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
+            button_高亮渐变色2.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
         }
 
 
@@ -245,25 +260,25 @@ namespace JinChanChanTool
             textBox_刷新商店按键.Enter += TextBox_Enter;
             textBox_刷新商店按键.Leave += TextBox_Leave;
 
-            textBox_MaxTimesWithoutGetCard.KeyDown += TextBox_KeyDown;
-            textBox_MaxTimesWithoutGetCard.Enter += TextBox_Enter;
-            textBox_MaxTimesWithoutGetCard.Leave += textBox_MaxTimesWithoutGetCard_Leave;
+            textBox_自动停止拿牌次数阈值.KeyDown += TextBox_KeyDown;
+            textBox_自动停止拿牌次数阈值.Enter += TextBox_Enter;
+            textBox_自动停止拿牌次数阈值.Leave += textBox_MaxTimesWithoutGetCard_Leave;
 
-            textBox_MaxTimesWithoutRefresh.KeyDown += TextBox_KeyDown;
-            textBox_MaxTimesWithoutRefresh.Enter += TextBox_Enter;
-            textBox_MaxTimesWithoutRefresh.Leave += textBox_MaxTimesWithoutRefresh_Leave;
+            textBox_自动停止刷新商店次数阈值.KeyDown += TextBox_KeyDown;
+            textBox_自动停止刷新商店次数阈值.Enter += TextBox_Enter;
+            textBox_自动停止刷新商店次数阈值.Leave += textBox_MaxTimesWithoutRefresh_Leave;
 
-            textBox_DelayAfterMouseOperation.KeyDown += TextBox_KeyDown;
-            textBox_DelayAfterMouseOperation.Enter += TextBox_Enter;
-            textBox_DelayAfterMouseOperation.Leave += textBox_DelayAfterMouseOperation_Leave;
+            textBox_模拟操作间隔.KeyDown += TextBox_KeyDown;
+            textBox_模拟操作间隔.Enter += TextBox_Enter;
+            textBox_模拟操作间隔.Leave += textBox_DelayAfterMouseOperation_Leave;
 
-            textBox_CPUDelayAfterRefreshStore.KeyDown += TextBox_KeyDown;
-            textBox_CPUDelayAfterRefreshStore.Enter += TextBox_Enter;
-            textBox_CPUDelayAfterRefreshStore.Leave += textBox_CPUDelayAfterRefreshStore_Leave;
+            textBox_刷新商店间隔_CPU.KeyDown += TextBox_KeyDown;
+            textBox_刷新商店间隔_CPU.Enter += TextBox_Enter;
+            textBox_刷新商店间隔_CPU.Leave += textBox_CPUDelayAfterRefreshStore_Leave;
 
-            textBox_GPUDelayAfterRefreshStore.KeyDown += TextBox_KeyDown;
-            textBox_GPUDelayAfterRefreshStore.Enter += TextBox_Enter;
-            textBox_GPUDelayAfterRefreshStore.Leave += textBox_GPUDelayAfterRefreshStore_Leave;
+            textBox_刷新商店间隔_GPU.KeyDown += TextBox_KeyDown;
+            textBox_刷新商店间隔_GPU.Enter += TextBox_Enter;
+            textBox_刷新商店间隔_GPU.Leave += textBox_GPUDelayAfterRefreshStore_Leave;
 
 
             textBox_更新推荐装备间隔.KeyDown += TextBox_KeyDown;
@@ -283,16 +298,16 @@ namespace JinChanChanTool
             textBox_英雄头像框垂直间隔.Enter += TextBox_Enter;
             textBox_英雄头像框垂直间隔.Leave += textBox_英雄头像框垂直间隔_Leave;
 
-            textBox1.KeyDown += TextBox_KeyDown;
-            textBox1.Enter += TextBox_Enter;
-            textBox1.Leave += TextBox_HighlightBorderWidth_Leave;
+            textBox_高亮边框粗细.KeyDown += TextBox_KeyDown;
+            textBox_高亮边框粗细.Enter += TextBox_Enter;
+            textBox_高亮边框粗细.Leave += TextBox_HighlightBorderWidth_Leave;
 
-            textBox2.KeyDown += TextBox_KeyDown;
-            textBox2.Enter += TextBox_Enter;
-            textBox2.Leave += TextBox_HighlightGradientSpeed_Leave;
+            textBox_渐变流动速度.KeyDown += TextBox_KeyDown;
+            textBox_渐变流动速度.Enter += TextBox_Enter;
+            textBox_渐变流动速度.Leave += TextBox_HighlightGradientSpeed_Leave;
         }
 
-        
+
 
 
         /// <summary>
@@ -521,7 +536,7 @@ namespace JinChanChanTool
         private void capsuleSwitch1_IsOnChanged(object sender, EventArgs e)
         {
 
-            _iappConfigService.CurrentConfig.IsHighUserPriority = capsuleSwitch1.IsOn;
+            _iappConfigService.CurrentConfig.IsHighUserPriority = capsuleSwitch_避免程序与用户争夺光标控制权.IsOn;
         }
         #endregion
 
@@ -535,7 +550,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_DelayAfterMouseOperation.Text))
+            if (string.IsNullOrWhiteSpace(textBox_模拟操作间隔.Text))
             {
                 Update_AllComponents();
             }
@@ -543,7 +558,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.DelayAfterOperation = int.Parse(textBox_DelayAfterMouseOperation.Text);
+                    _iappConfigService.CurrentConfig.DelayAfterOperation = int.Parse(textBox_模拟操作间隔.Text);
                     Update_AllComponents();
                 }
                 catch
@@ -568,7 +583,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch2_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsMouseHeroPurchase = capsuleSwitch2.IsOn;
+            _iappConfigService.CurrentConfig.IsMouseHeroPurchase = capsuleSwitch_模拟鼠标拿牌.IsOn;
             if (isUpdatingSwitch_鼠标模拟拿牌) return;
             拿牌方式变更_鼠标拿牌();
         }
@@ -580,7 +595,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch3_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase = capsuleSwitch3.IsOn;
+            _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase = capsuleSwitch_按键模拟拿牌.IsOn;
             if (isUpdatingSwitch_按键模拟拿牌) return;
             拿牌方式变更_按键拿牌();
         }
@@ -595,7 +610,7 @@ namespace JinChanChanTool
                 textBox_拿牌按键4.Enabled = false;
                 textBox_拿牌按键5.Enabled = false;
                 isUpdatingSwitch_按键模拟拿牌 = true;
-                capsuleSwitch3.IsOn = false;
+                capsuleSwitch_按键模拟拿牌.IsOn = false;
                 isUpdatingSwitch_按键模拟拿牌 = false;
             }
             else
@@ -606,7 +621,7 @@ namespace JinChanChanTool
                 textBox_拿牌按键4.Enabled = true;
                 textBox_拿牌按键5.Enabled = true;
                 isUpdatingSwitch_按键模拟拿牌 = true;
-                capsuleSwitch3.IsOn = true;
+                capsuleSwitch_按键模拟拿牌.IsOn = true;
                 isUpdatingSwitch_按键模拟拿牌 = false;
             }
         }
@@ -622,7 +637,7 @@ namespace JinChanChanTool
                 textBox_拿牌按键5.Enabled = true;
 
                 isUpdatingSwitch_鼠标模拟拿牌 = true;
-                capsuleSwitch2.IsOn = false;
+                capsuleSwitch_模拟鼠标拿牌.IsOn = false;
                 isUpdatingSwitch_鼠标模拟拿牌 = false;
             }
             else
@@ -633,7 +648,7 @@ namespace JinChanChanTool
                 textBox_拿牌按键4.Enabled = false;
                 textBox_拿牌按键5.Enabled = false;
                 isUpdatingSwitch_鼠标模拟拿牌 = true;
-                capsuleSwitch2.IsOn = true;
+                capsuleSwitch_模拟鼠标拿牌.IsOn = true;
                 isUpdatingSwitch_鼠标模拟拿牌 = false;
             }
         }
@@ -781,14 +796,14 @@ namespace JinChanChanTool
         #region 自动停止拿牌
         private void capsuleSwitch4_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase = capsuleSwitch4.IsOn;
+            _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase = capsuleSwitch_自动停止拿牌.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
             {
-                textBox_MaxTimesWithoutGetCard.Enabled = true;
+                textBox_自动停止拿牌次数阈值.Enabled = true;
             }
             else
             {
-                textBox_MaxTimesWithoutGetCard.Enabled = false;
+                textBox_自动停止拿牌次数阈值.Enabled = false;
             }
         }
 
@@ -801,7 +816,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutGetCard.Text))
+            if (string.IsNullOrWhiteSpace(textBox_自动停止拿牌次数阈值.Text))
             {
                 Update_AllComponents();
             }
@@ -809,7 +824,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase = int.Parse(textBox_MaxTimesWithoutGetCard.Text);
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase = int.Parse(textBox_自动停止拿牌次数阈值.Text);
                     Update_AllComponents();
                 }
                 catch
@@ -833,7 +848,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch6_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsMouseRefreshStore = capsuleSwitch6.IsOn;
+            _iappConfigService.CurrentConfig.IsMouseRefreshStore = capsuleSwitch_模拟鼠标刷新商店.IsOn;
             if (isUpdatingSwitch_鼠标模拟刷新商店) return;
             刷新方式变更_鼠标刷新();
         }
@@ -845,7 +860,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch5_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsKeyboardRefreshStore = capsuleSwitch5.IsOn;
+            _iappConfigService.CurrentConfig.IsKeyboardRefreshStore = capsuleSwitch_模拟按键刷新商店.IsOn;
             if (isUpdatingSwitch_按键模拟刷新商店) return;
             刷新方式变更_按键刷新();
         }
@@ -856,14 +871,14 @@ namespace JinChanChanTool
             {
                 textBox_刷新商店按键.Enabled = false;
                 isUpdatingSwitch_按键模拟刷新商店 = true;
-                capsuleSwitch5.IsOn = false;
+                capsuleSwitch_模拟按键刷新商店.IsOn = false;
                 isUpdatingSwitch_按键模拟刷新商店 = false;
             }
             else
             {
                 textBox_刷新商店按键.Enabled = true;
                 isUpdatingSwitch_按键模拟刷新商店 = true;
-                capsuleSwitch5.IsOn = true;
+                capsuleSwitch_模拟按键刷新商店.IsOn = true;
                 isUpdatingSwitch_按键模拟刷新商店 = false;
             }
         }
@@ -874,14 +889,14 @@ namespace JinChanChanTool
             {
                 textBox_刷新商店按键.Enabled = true;
                 isUpdatingSwitch_鼠标模拟刷新商店 = true;
-                capsuleSwitch6.IsOn = false;
+                capsuleSwitch_模拟鼠标刷新商店.IsOn = false;
                 isUpdatingSwitch_鼠标模拟刷新商店 = false;
             }
             else
             {
                 textBox_刷新商店按键.Enabled = false;
                 isUpdatingSwitch_鼠标模拟刷新商店 = true;
-                capsuleSwitch6.IsOn = true;
+                capsuleSwitch_模拟鼠标刷新商店.IsOn = true;
                 isUpdatingSwitch_鼠标模拟刷新商店 = false;
             }
         }
@@ -922,14 +937,14 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch7_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore = capsuleSwitch7.IsOn;
+            _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore = capsuleSwitch_刷新失败时自动停止刷新商店.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore)
             {
-                textBox_MaxTimesWithoutRefresh.Enabled = true;
+                textBox_自动停止刷新商店次数阈值.Enabled = true;
             }
             else
             {
-                textBox_MaxTimesWithoutRefresh.Enabled = false;
+                textBox_自动停止刷新商店次数阈值.Enabled = false;
             }
         }
 
@@ -942,7 +957,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_MaxTimesWithoutRefresh.Text))
+            if (string.IsNullOrWhiteSpace(textBox_自动停止刷新商店次数阈值.Text))
             {
                 Update_AllComponents();
             }
@@ -950,7 +965,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore = int.Parse(textBox_MaxTimesWithoutRefresh.Text);
+                    _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore = int.Parse(textBox_自动停止刷新商店次数阈值.Text);
                     Update_AllComponents();
                 }
                 catch
@@ -969,7 +984,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch8_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters = capsuleSwitch8.IsOn;
+            _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters = capsuleSwitch_识别错误时自动停止刷新商店.IsOn;
         }
         #endregion
 
@@ -983,7 +998,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_CPUDelayAfterRefreshStore.Text))
+            if (string.IsNullOrWhiteSpace(textBox_刷新商店间隔_CPU.Text))
             {
                 Update_AllComponents();
             }
@@ -991,7 +1006,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU = int.Parse(textBox_CPUDelayAfterRefreshStore.Text);
+                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU = int.Parse(textBox_刷新商店间隔_CPU.Text);
                     Update_AllComponents();
                 }
                 catch
@@ -1014,7 +1029,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox_GPUDelayAfterRefreshStore.Text))
+            if (string.IsNullOrWhiteSpace(textBox_刷新商店间隔_GPU.Text))
             {
                 Update_AllComponents();
             }
@@ -1022,7 +1037,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU = int.Parse(textBox_GPUDelayAfterRefreshStore.Text);
+                    _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU = int.Parse(textBox_刷新商店间隔_GPU.Text);
                     Update_AllComponents();
                 }
                 catch
@@ -1039,24 +1054,24 @@ namespace JinChanChanTool
         #region 高亮提示
         private void button1_Click_1(object sender, EventArgs e)
         {
-            colorDialog1.Color = _iappConfigService.CurrentConfig.HighlightColor1;
+            colorDialog_高亮边框渐变色1.Color = _iappConfigService.CurrentConfig.HighlightColor1;
 
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            if (colorDialog_高亮边框渐变色1.ShowDialog() == DialogResult.OK)
             {
-                _iappConfigService.CurrentConfig.HighlightColor1 = colorDialog1.Color;
-                button1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
+                _iappConfigService.CurrentConfig.HighlightColor1 = colorDialog_高亮边框渐变色1.Color;
+                button_高亮渐变色1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
                 Update_AllComponents();
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            colorDialog2.Color = _iappConfigService.CurrentConfig.HighlightColor2;
+            colorDialog_高亮边框渐变色2.Color = _iappConfigService.CurrentConfig.HighlightColor2;
 
-            if (colorDialog2.ShowDialog() == DialogResult.OK)
+            if (colorDialog_高亮边框渐变色2.ShowDialog() == DialogResult.OK)
             {
-                _iappConfigService.CurrentConfig.HighlightColor2 = colorDialog2.Color;
-                button4.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
+                _iappConfigService.CurrentConfig.HighlightColor2 = colorDialog_高亮边框渐变色2.Color;
+                button_高亮渐变色2.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
                 Update_AllComponents();
             }
         }
@@ -1064,7 +1079,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            if (string.IsNullOrWhiteSpace(textBox_高亮边框粗细.Text))
             {
                 Update_AllComponents();
             }
@@ -1072,7 +1087,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    int result = int.Parse(textBox1.Text);
+                    int result = int.Parse(textBox_高亮边框粗细.Text);
                     if (result > 0)
                     {
                         _iappConfigService.CurrentConfig.HighlightBorderWidth = result;
@@ -1091,7 +1106,7 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            if (string.IsNullOrWhiteSpace(textBox2.Text))
+            if (string.IsNullOrWhiteSpace(textBox_渐变流动速度.Text))
             {
                 Update_AllComponents();
             }
@@ -1099,7 +1114,7 @@ namespace JinChanChanTool
             {
                 try
                 {
-                    float result = float.Parse(textBox2.Text);
+                    float result = float.Parse(textBox_渐变流动速度.Text);
                     if (result > 0f && result <= 0.2f)
                     {
                         _iappConfigService.CurrentConfig.HighlightGradientSpeed = result;
@@ -1127,11 +1142,11 @@ namespace JinChanChanTool
         {
             if (radioButton_手动设置坐标.Checked)
             {
-                roundedButton4.Enabled = false;
+                roundedButton_游戏进程窗口.Enabled = false;
                 comboBox_选择显示器.Enabled = true;
-                roundedButton1.Enabled = true;
-                roundedButton2.Enabled = true;
-                roundedButton3.Enabled = true;
+                roundedButton_弈子截图坐标与大小.Enabled = true;
+                roundedButton_商店刷新按钮坐标与大小.Enabled = true;
+                roundedButton_高亮提示框坐标与大小.Enabled = true;
             }
             _iappConfigService.CurrentConfig.IsUseFixedCoordinates = radioButton_手动设置坐标.Checked;
         }
@@ -1145,18 +1160,19 @@ namespace JinChanChanTool
         {
             if (radioButton_自动设置坐标.Checked)
             {
-                roundedButton4.Enabled = true;
+                roundedButton_游戏进程窗口.Enabled = true;
                 comboBox_选择显示器.Enabled = false;
-                roundedButton1.Enabled = false;
-                roundedButton2.Enabled = false;
-                roundedButton3.Enabled = false;
+                roundedButton_弈子截图坐标与大小.Enabled = false;
+                roundedButton_商店刷新按钮坐标与大小.Enabled = false;
+                roundedButton_高亮提示框坐标与大小.Enabled = false;
             }
             _iappConfigService.CurrentConfig.IsUseDynamicCoordinates = radioButton_自动设置坐标.Checked;
         }
 
         #endregion
 
-        #region 快速设置坐标                    
+        #region 快速设置坐标    
+
         /// <summary>
         /// 快速设置奕子截图坐标与大小按钮_被单击
         /// </summary>
@@ -1164,38 +1180,38 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private async void roundedButton1_Click(object sender, EventArgs e)
         {
-            using (var setter = new FastSettingPositionService(targetScreen))
+            using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService))
             {
                 try
                 {
                     // 第一张卡片
                     var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SettingForm.弈子坐标设置提示词1"));
                     _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_1 = rect1;
 
                     // 第二张卡片
                     var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SettingForm.弈子坐标设置提示词2"));
                     _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_2 = rect2;
 
                     // 第三张卡片
                     var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SettingForm.弈子坐标设置提示词3"));
                     _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_3 = rect3;
 
                     // 第四张卡片
                     var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SettingForm.弈子坐标设置提示词4"));
                     _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_4 = rect4;
 
                     // 第五张卡片
                     var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SettingForm.弈子坐标设置提示词5"));
                     _iappConfigService.CurrentConfig.HeroNameScreenshotRectangle_5 = rect5;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"出现错误: {ex.Message}");
+                    MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.错误", ex.Message));
                 }
             }
             Update_AllComponents();
@@ -1208,16 +1224,16 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private async void roundedButton2_Click(object sender, EventArgs e)
         {
-            using (var setter = new FastSettingPositionService(targetScreen))
+            using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService))
             {
                 try
                 {
-                    Rectangle rectangle = await setter.WaitForDrawAsync("请框选商店刷新按钮");
+                    Rectangle rectangle = await setter.WaitForDrawAsync(_iLocalizationService.Get("SettingForm.商店刷新按钮坐标设置提示词"));
                     _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle = rectangle;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"出现错误: {ex.Message}");
+                    MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.错误", ex.Message));
                 }
             }
             Update_AllComponents();
@@ -1229,38 +1245,38 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private async void roundedButton3_Click(object sender, EventArgs e)
         {
-            using (var setter = new FastSettingPositionService(targetScreen))
+            using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService))
             {
                 try
                 {
                     // 第一张卡片
                     var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SettingForm.高亮提示框坐标设置提示词1"));
                     _iappConfigService.CurrentConfig.HighLightRectangle_1 = rect1;
 
                     // 第二张卡片
                     var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SettingForm.高亮提示框坐标设置提示词2"));
                     _iappConfigService.CurrentConfig.HighLightRectangle_2 = rect2;
 
                     // 第三张卡片
                     var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SettingForm.高亮提示框坐标设置提示词3"));
                     _iappConfigService.CurrentConfig.HighLightRectangle_3 = rect3;
 
                     // 第四张卡片
                     var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SettingForm.高亮提示框坐标设置提示词4"));
                     _iappConfigService.CurrentConfig.HighLightRectangle_4 = rect4;
 
                     // 第五张卡片
                     var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SettingForm.高亮提示框坐标设置提示词5"));
                     _iappConfigService.CurrentConfig.HighLightRectangle_5 = rect5;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"出现错误: {ex.Message}");
+                    MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.错误", ex.Message));
                 }
             }
             Update_AllComponents();
@@ -1279,7 +1295,7 @@ namespace JinChanChanTool
             var discoveryService = new ProcessDiscoveryService();
 
             // 2. 创建并显示进程选择窗体
-            using (var processForm = new ProcessSelectorForm(discoveryService))
+            using (var processForm = new ProcessSelectorForm(discoveryService, _iLocalizationService))
             {
                 if (processForm.ShowDialog(this) == DialogResult.OK)
                 {
@@ -1291,7 +1307,7 @@ namespace JinChanChanTool
                         _iappConfigService.CurrentConfig.TargetProcessId = selectedProcess.Id;
                         // 给用户反馈
                         string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
-                        MessageBox.Show($"已选择进程：{displayName}\n请点击“保存设置”来保存此选择。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.进程已选择", displayName), _iLocalizationService.Get("SettingForm.MsgTitle.提示"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -1308,8 +1324,8 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void roundedButton5_Click(object sender, EventArgs e)
         {
-            var form = new CorrectionEditorForm(_iappConfigService);
-            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口                  
+            var form = new CorrectionEditorForm(_iappConfigService, _iLocalizationService);
+            form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口
             form.TopMost = true;// 确保窗口在最前面
             form.Show();// 显示窗口
         }
@@ -1325,7 +1341,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch10_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseCPUForInference = capsuleSwitch10.IsOn;
+            _iappConfigService.CurrentConfig.IsUseCPUForInference = capsuleSwitch_CPU.IsOn;
             if (isUpdatingSwitch_CPU推理) return;
             推理方式变更_CPU();
         }
@@ -1337,7 +1353,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch9_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseGPUForInference = capsuleSwitch9.IsOn;
+            _iappConfigService.CurrentConfig.IsUseGPUForInference = capsuleSwitch_GPU.IsOn;
             if (isUpdatingSwitch_GPU推理) return;
             推理方式变更_GPU();
         }
@@ -1347,13 +1363,13 @@ namespace JinChanChanTool
             if (_iappConfigService.CurrentConfig.IsUseCPUForInference)
             {
                 isUpdatingSwitch_GPU推理 = true;
-                capsuleSwitch9.IsOn = false;
+                capsuleSwitch_GPU.IsOn = false;
                 isUpdatingSwitch_GPU推理 = false;
             }
             else
             {
                 isUpdatingSwitch_GPU推理 = true;
-                capsuleSwitch9.IsOn = true;
+                capsuleSwitch_GPU.IsOn = true;
                 isUpdatingSwitch_GPU推理 = false;
             }
         }
@@ -1363,13 +1379,13 @@ namespace JinChanChanTool
             if (_iappConfigService.CurrentConfig.IsUseGPUForInference)
             {
                 isUpdatingSwitch_CPU推理 = true;
-                capsuleSwitch10.IsOn = false;
+                capsuleSwitch_CPU.IsOn = false;
                 isUpdatingSwitch_CPU推理 = false;
             }
             else
             {
                 isUpdatingSwitch_CPU推理 = true;
-                capsuleSwitch10.IsOn = true;
+                capsuleSwitch_CPU.IsOn = true;
                 isUpdatingSwitch_CPU推理 = false;
             }
         }
@@ -1378,19 +1394,19 @@ namespace JinChanChanTool
         #region 过滤字符
         private void capsuleSwitch16_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsFilterLetters = capsuleSwitch16.IsOn;
+            _iappConfigService.CurrentConfig.IsFilterLetters = capsuleSwitch_排除字母.IsOn;
         }
 
         private void capsuleSwitch17_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsFilterNumbers = capsuleSwitch17.IsOn;
+            _iappConfigService.CurrentConfig.IsFilterNumbers = capsuleSwitch_排除数字.IsOn;
         }
         #endregion
 
         #region 严格匹配模式
         private void capsuleSwitch19_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsStrictMatching = capsuleSwitch19.IsOn;
+            _iappConfigService.CurrentConfig.IsStrictMatching = capsuleSwitch_严格匹配模式.IsOn;
         }
         #endregion
         #endregion
@@ -1404,7 +1420,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>      
         private void capsuleSwitch11_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseSelectForm = capsuleSwitch11.IsOn;
+            _iappConfigService.CurrentConfig.IsUseSelectForm = capsuleSwitch_启用英雄选择面板.IsOn;
         }
 
         /// <summary>
@@ -1510,7 +1526,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch12_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseLineUpForm = capsuleSwitch12.IsOn;
+            _iappConfigService.CurrentConfig.IsUseLineUpForm = capsuleSwitch_启用阵容面板.IsOn;
         }
 
         /// <summary>
@@ -1520,7 +1536,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>      
         private void capsuleSwitch13_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseStatusOverlayForm = capsuleSwitch13.IsOn;
+            _iappConfigService.CurrentConfig.IsUseStatusOverlayForm = capsuleSwitch_启用状态面板.IsOn;
         }
 
         /// <summary>
@@ -1530,7 +1546,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>      
         private void capsuleSwitch14_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsUseOutputForm = capsuleSwitch14.IsOn;
+            _iappConfigService.CurrentConfig.IsUseOutputForm = capsuleSwitch_启用输出面板.IsOn;
         }
 
         #endregion
@@ -1544,7 +1560,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch15_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment = capsuleSwitch15.IsOn;
+            _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment = capsuleSwitch_程序启动时更新推荐装备.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment)
             {
                 textBox_更新推荐装备间隔.Enabled = true;
@@ -1596,7 +1612,7 @@ namespace JinChanChanTool
             try
             {
                 // 暂时禁用菜单项，防止用户重复点击
-                roundedButton6.Enabled = false;
+                roundedButton_更新推荐阵容.Enabled = false;
 
                 // 调用异步更新逻辑
                 await UpdateRecommendedLineUpsAsync();
@@ -1604,7 +1620,7 @@ namespace JinChanChanTool
             finally
             {
                 // 恢复菜单项可用状态
-                roundedButton6.Enabled = true;
+                roundedButton_更新推荐阵容.Enabled = true;
             }
         }
 
@@ -1617,8 +1633,8 @@ namespace JinChanChanTool
             LineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
             // 1. 询问用户是否进行更新
             var r = MessageBox.Show(
-                "是否要从网络获取最新的推荐阵容数据？\n\n注意：更新期间程序将处于静默运行状态，完成后会自动提示。",
-                "确认获取最新阵容",
+                _iLocalizationService.Get("SettingForm.Msg.确认更新阵容"),
+                _iLocalizationService.Get("SettingForm.MsgTitle.确认更新阵容"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
@@ -1657,23 +1673,23 @@ namespace JinChanChanTool
 
                         // 静默运行结束后的唯一提示
                         MessageBox.Show(this,
-                            $"推荐阵容数据更新成功！\n\n共成功抓取并加载了 {addedCount} 套阵容数据。\n数据已实时生效，无需重启程序。",
-                            "更新完成",
+                            _iLocalizationService.Get("SettingForm.Msg.更新阵容成功", addedCount),
+                            _iLocalizationService.Get("SettingForm.MsgTitle.更新阵容成功"),
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("未能抓取到有效的阵容数据，请检查网络连接或稍后再试。",
-                                  "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.更新阵容失败"),
+                                  _iLocalizationService.Get("SettingForm.MsgTitle.更新阵容失败"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
                 // 仅在发生严重错误时进行弹窗提示
-                MessageBox.Show($"更新推荐阵容时发生未知错误:\n{ex.Message}",
-                              "严重错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.更新阵容错误", ex.Message),
+                              _iLocalizationService.Get("SettingForm.MsgTitle.更新阵容错误"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
@@ -1687,7 +1703,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void capsuleSwitch18_IsOnChanged(object sender, EventArgs e)
         {
-            _iappConfigService.CurrentConfig.IsSaveCapturedImages = capsuleSwitch18.IsOn;
+            _iappConfigService.CurrentConfig.IsSaveCapturedImages = capsuleSwitch_保存截图.IsOn;
         }
         #endregion
 
@@ -1705,6 +1721,12 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            // 保存语言设置
+            if (comboBox_语言选择.SelectedItem is LanguageInfo selectedLanguage)
+            {
+                _iappConfigService.CurrentConfig.Language = selectedLanguage.LanguageCode;
+            }
+
             _iappConfigService.Save(true);
         }
 
@@ -1715,7 +1737,7 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void button6_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show("确定要恢复默认设置吗？", "确认恢复默认设置", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirmResult = MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.确认恢复默认设置"), _iLocalizationService.Get("SettingForm.MsgTitle.确认恢复默认设置"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmResult != DialogResult.Yes)
             {
                 return; // 用户取消操作
@@ -1801,6 +1823,200 @@ namespace JinChanChanTool
             this.Close();
         }
         #endregion
+
+        #region 语言选择
+        /// <summary>
+        /// 初始化语言选择下拉框
+        /// </summary>
+        private void InitializeLanguageSelector()
+        {
+            // 填充可用语言列表
+            comboBox_语言选择.Items.Clear();
+            foreach (var lang in _iLocalizationService.AvailableLanguages)
+            {
+                comboBox_语言选择.Items.Add(lang);
+            }
+
+            // 设置DisplayMember
+            comboBox_语言选择.DisplayMember = "NativeName";
+
+            // 选中当前语言
+            string currentLanguage = _iappConfigService.CurrentConfig.Language;
+            var selectedLang = _iLocalizationService.AvailableLanguages
+                .FirstOrDefault(l => l.LanguageCode == currentLanguage);
+
+            if (selectedLang != null)
+            {
+                comboBox_语言选择.SelectedItem = selectedLang;
+            }
+        }
+
+        /// <summary>
+        /// 应用本地化到所有控件
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            // 标题栏
+            label_标题.Text = _iLocalizationService.Get("SettingForm.标题");
+
+            // 按钮
+            roundedButton_保存设置.Text = _iLocalizationService.Get("SettingForm.Button.保存设置");
+            roundedButton_默认设置.Text = _iLocalizationService.Get("SettingForm.Button.默认设置");
+
+            // 选项卡
+            tabPage_常规.Text = _iLocalizationService.Get("SettingForm.Tab.常规");
+            tabPage_快捷键.Text = _iLocalizationService.Get("SettingForm.Tab.快捷键");
+            tabPage_功能.Text = _iLocalizationService.Get("SettingForm.Tab.功能");
+            tabPage_坐标设置.Text = _iLocalizationService.Get("SettingForm.Tab.坐标设置");
+            tabPage_OCR相关.Text = _iLocalizationService.Get("SettingForm.Tab.OCR相关");
+            tabPage_窗口.Text = _iLocalizationService.Get("SettingForm.Tab.窗口");
+            tabPage_大数据推荐.Text = _iLocalizationService.Get("SettingForm.Tab.大数据推荐");
+            tabPage_开发者选项.Text = _iLocalizationService.Get("SettingForm.Tab.开发者选项");
+            tabPage_功能_常规.Text = _iLocalizationService.Get("SettingForm.Tab.功能.常规");
+            tabPage_功能_自动拿牌.Text = _iLocalizationService.Get("SettingForm.Tab.功能.自动拿牌");
+            tabPage_功能_自动刷新商店.Text = _iLocalizationService.Get("SettingForm.Tab.功能.自动刷新商店");
+            tabPage_功能_高亮提示.Text = _iLocalizationService.Get("SettingForm.Tab.功能.高亮提示");
+            tabPage_OCR相关_OCR设置.Text = _iLocalizationService.Get("SettingForm.Tab.OCR相关.OCR设置");
+            tabPage_OCR相关_OCR设备.Text = _iLocalizationService.Get("SettingForm.Tab.OCR相关.OCR设备");
+            tabPage_窗口_英雄选择窗口.Text = _iLocalizationService.Get("SettingForm.Tab.窗口.英雄选择窗口");
+            tabPage_窗口_阵容窗口.Text = _iLocalizationService.Get("SettingForm.Tab.窗口.阵容窗口");
+            tabPage_窗口_状态窗口.Text = _iLocalizationService.Get("SettingForm.Tab.窗口.状态窗口");
+            tabPage_窗口_输出窗口.Text = _iLocalizationService.Get("SettingForm.Tab.窗口.输出窗口");
+            tabPage_大数据推荐_装备推荐.Text = _iLocalizationService.Get("SettingForm.Tab.大数据推荐.装备推荐");
+            tabPage_大数据推荐_阵容推荐.Text = _iLocalizationService.Get("SettingForm.Tab.大数据推荐.阵容推荐");
+            tabPage_功能_自动拿牌_拿牌方式.Text = _iLocalizationService.Get("SettingForm.Tab.功能.自动拿牌.拿牌方式");
+            tabPage_功能_自动拿牌_异常处理.Text = _iLocalizationService.Get("SettingForm.Tab.功能.自动拿牌.异常处理");
+            tabPage_功能_自动刷新商店_刷新方式.Text = _iLocalizationService.Get("SettingForm.Tab.功能.自动刷新商店.刷新方式");
+            tabPage_功能_自动刷新商店_异常处理.Text = _iLocalizationService.Get("SettingForm.Tab.功能.自动刷新商店.异常处理");
+            tabPage_功能_自动刷新商店_延迟.Text = _iLocalizationService.Get("SettingForm.Tab.功能.自动刷新商店.延迟");
+
+            // 常规选项卡
+            label_界面语言.Text = _iLocalizationService.Get("SettingForm.Label.界面语言");
+            label_界面语言描述.Text = _iLocalizationService.Get("SettingForm.Label.界面语言描述");
+
+            // 快捷键标签
+            label_召出隐藏窗口_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.召出隐藏窗口");
+            label_高亮提示_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.高亮提示");
+            label_自动拿牌_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.自动拿牌");
+            label_自动刷新商店_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.自动刷新商店");
+            label_长按自动D牌_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.长按自动D牌");
+
+            // 功能选项卡-常规
+            label_避免程序与用户争夺光标控制权.Text = _iLocalizationService.Get("SettingForm.Label.避免光标冲突");
+            label_避免程序与用户争夺光标控制权描述.Text = _iLocalizationService.Get("SettingForm.Label.避免光标冲突描述");
+            label_模拟操作间隔.Text = _iLocalizationService.Get("SettingForm.Label.模拟操作间隔");
+            label_模拟操作间隔描述.Text = _iLocalizationService.Get("SettingForm.Label.模拟操作间隔描述");
+
+            // 功能选项卡-自动拿牌
+            label_模拟鼠标拿牌.Text = _iLocalizationService.Get("SettingForm.Label.模拟鼠标拿牌");
+            label_模拟鼠标拿牌描述.Text = _iLocalizationService.Get("SettingForm.Label.模拟鼠标拿牌描述");
+            label_模拟按键拿牌.Text = _iLocalizationService.Get("SettingForm.Label.模拟按键拿牌");
+            label_模拟按键拿牌描述.Text = _iLocalizationService.Get("SettingForm.Label.模拟按键拿牌描述");
+            label_拿牌按键1.Text = _iLocalizationService.Get("SettingForm.Label.拿牌按键1");
+            label_拿牌按键2.Text = _iLocalizationService.Get("SettingForm.Label.拿牌按键2");
+            label_拿牌按键3.Text = _iLocalizationService.Get("SettingForm.Label.拿牌按键3");
+            label_拿牌按键4.Text = _iLocalizationService.Get("SettingForm.Label.拿牌按键4");
+            label_拿牌按键5.Text = _iLocalizationService.Get("SettingForm.Label.拿牌按键5");            
+            label_自动停止拿牌.Text = _iLocalizationService.Get("SettingForm.Label.自动停止拿牌");
+            label_自动停止拿牌描述1.Text = _iLocalizationService.Get("SettingForm.Label.自动停止拿牌描述1");
+            label_自动停止拿牌描述2.Text = _iLocalizationService.Get("SettingForm.Label.自动停止拿牌描述2");
+            label_自动停止拿牌描述3.Text = _iLocalizationService.Get("SettingForm.Label.自动停止拿牌描述3");
+
+            // 功能选项卡-自动刷新商店                      
+            label_模拟鼠标刷新商店.Text = _iLocalizationService.Get("SettingForm.Label.模拟鼠标刷新商店");
+            label_模拟鼠标刷新商店描述.Text = _iLocalizationService.Get("SettingForm.Label.模拟鼠标刷新商店描述");
+            label_模拟按键刷新商店.Text = _iLocalizationService.Get("SettingForm.Label.模拟按键刷新商店");
+            label_模拟按键刷新商店描述.Text = _iLocalizationService.Get("SettingForm.Label.模拟按键刷新商店描述");
+            label_刷新商店按键.Text = _iLocalizationService.Get("SettingForm.Label.刷新商店按键");            
+            label_刷新失败时自动停止刷新商店.Text = _iLocalizationService.Get("SettingForm.Label.刷新失败时自动停止");
+            label_刷新失败时自动停止刷新商店描述1.Text = _iLocalizationService.Get("SettingForm.Label.刷新失败时自动停止描述1");
+            label_刷新失败时自动停止刷新商店描述2.Text = _iLocalizationService.Get("SettingForm.Label.刷新失败时自动停止描述2");
+            label_刷新失败时自动停止刷新商店描述3.Text = _iLocalizationService.Get("SettingForm.Label.刷新失败时自动停止描述3");
+            label_识别错误时自动停止刷新商店.Text = _iLocalizationService.Get("SettingForm.Label.识别错误时自动停止");
+            label_识别错误时自动停止刷新商店描述.Text = _iLocalizationService.Get("SettingForm.Label.识别错误时自动停止描述");            
+            label_刷新商店间隔_CPU.Text = _iLocalizationService.Get("SettingForm.Label.刷新商店间隔CPU");
+            label_刷新商店间隔_CPU_描述.Text = _iLocalizationService.Get("SettingForm.Label.刷新商店间隔CPU描述");
+            label_刷新商店间隔_GPU.Text = _iLocalizationService.Get("SettingForm.Label.刷新商店间隔GPU");
+            label_刷新商店间隔_GPU_描述.Text = _iLocalizationService.Get("SettingForm.Label.刷新商店间隔GPU描述");
+
+            // 功能选项卡-高亮提示
+            label_高亮边框渐变色1.Text = _iLocalizationService.Get("SettingForm.Label.高亮边框渐变色1");
+            label_高亮边框渐变色1描述.Text = _iLocalizationService.Get("SettingForm.Label.高亮边框渐变色1描述");
+            label_高亮边框渐变色2.Text = _iLocalizationService.Get("SettingForm.Label.高亮边框渐变色2");
+            label_高亮边框渐变色2描述.Text = _iLocalizationService.Get("SettingForm.Label.高亮边框渐变色2描述");
+            label_高亮边框粗细.Text = _iLocalizationService.Get("SettingForm.Label.高亮边框粗细");
+            label_高亮边框粗细描述.Text = _iLocalizationService.Get("SettingForm.Label.高亮边框粗细描述");
+            label_渐变流动速度.Text = _iLocalizationService.Get("SettingForm.Label.渐变流动速度");
+            label_渐变流动速度描述.Text = _iLocalizationService.Get("SettingForm.Label.渐变流动速度描述");
+            
+            // 坐标设置
+            radioButton_自动设置坐标.Text = _iLocalizationService.Get("SettingForm.Label.自动设置坐标");
+            radioButton_手动设置坐标.Text = _iLocalizationService.Get("SettingForm.Label.手动设置坐标");
+            label_自动设置坐标提示.Text = _iLocalizationService.Get("SettingForm.Label.自动设置坐标提示");
+            label_目标显示器.Text = _iLocalizationService.Get("SettingForm.Label.目标显示器");
+            label_目标显示器描述.Text = _iLocalizationService.Get("SettingForm.Label.目标显示器描述");
+            label_弈子截图坐标与大小.Text = _iLocalizationService.Get("SettingForm.Label.弈子截图坐标与大小");
+            label_弈子截图坐标与大小描述.Text = _iLocalizationService.Get("SettingForm.Label.弈子截图坐标与大小描述");
+            roundedButton_弈子截图坐标与大小.Text = _iLocalizationService.Get("SettingForm.Button.弈子截图坐标与大小设置");
+            label_商店刷新按钮坐标与大小.Text = _iLocalizationService.Get("SettingForm.Label.商店刷新按钮坐标与大小");
+            label_商店刷新按钮坐标与大小描述.Text = _iLocalizationService.Get("SettingForm.Label.商店刷新按钮坐标与大小描述");
+            roundedButton_商店刷新按钮坐标与大小.Text = _iLocalizationService.Get("SettingForm.Button.商店刷新按钮坐标与大小");
+            label_高亮提示框坐标与大小.Text = _iLocalizationService.Get("SettingForm.Label.高亮提示框坐标与大小");
+            label_高亮提示框坐标与大小描述.Text = _iLocalizationService.Get("SettingForm.Label.高亮提示框坐标与大小描述");
+            roundedButton_高亮提示框坐标与大小.Text = _iLocalizationService.Get("SettingForm.Button.高亮提示框坐标与大小设置");
+            label_游戏进程窗口.Text = _iLocalizationService.Get("SettingForm.Label.游戏进程窗口");
+            label_游戏进程窗口描述.Text = _iLocalizationService.Get("SettingForm.Label.游戏进程窗口描述");
+            roundedButton_游戏进程窗口.Text = _iLocalizationService.Get("SettingForm.Button.游戏进程窗口选择");
+
+            // OCR相关
+            label_CPU.Text = _iLocalizationService.Get("SettingForm.Label.CPU");
+            label_CPU描述.Text = _iLocalizationService.Get("SettingForm.Label.CPU描述");
+            label_GPU.Text = _iLocalizationService.Get("SettingForm.Label.GPU");
+            label_GPU描述1.Text = _iLocalizationService.Get("SettingForm.Label.GPU描述1");
+            label_GPU描述2.Text = _iLocalizationService.Get("SettingForm.Label.GPU描述2");
+            label_OCR结果纠正列表.Text = _iLocalizationService.Get("SettingForm.Label.OCR结果纠正列表");
+            label_OCR结果纠正列表描述.Text = _iLocalizationService.Get("SettingForm.Label.OCR结果纠正列表描述");
+            roundedButton_OCR结果纠正列表.Text = _iLocalizationService.Get("SettingForm.Button.编辑纠正列表");                       
+            label_排除字母.Text = _iLocalizationService.Get("SettingForm.Label.排除字母");
+            label_排除字母描述.Text = _iLocalizationService.Get("SettingForm.Label.排除字母描述");
+            label_排除数字.Text = _iLocalizationService.Get("SettingForm.Label.排除数字");
+            label_排除数字描述.Text = _iLocalizationService.Get("SettingForm.Label.排除数字描述");
+            label_严格匹配模式.Text = _iLocalizationService.Get("SettingForm.Label.严格匹配模式");
+            label_严格匹配模式描述.Text = _iLocalizationService.Get("SettingForm.Label.严格匹配模式描述");
+            
+            // 窗口设置            
+            label_启用英雄选择面板.Text = _iLocalizationService.Get("SettingForm.Label.启用英雄选择面板");
+            label_启用英雄选择面板描述.Text = _iLocalizationService.Get("SettingForm.Label.启用英雄选择面板描述");
+            label_英雄头像框边长.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框边长");
+            label_英雄头像框边框描述.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框边长描述");
+            label_英雄头像框水平间隔.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框水平间隔");
+            label_英雄头像框水平间隔描述.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框水平间隔描述");
+            label_英雄头像框垂直间隔.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框垂直间隔");
+            label_英雄头像框垂直间隔描述.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框垂直间隔描述");            
+            label_启用阵容面板.Text = _iLocalizationService.Get("SettingForm.Label.启用阵容面板");
+            label_启用阵容面板描述.Text = _iLocalizationService.Get("SettingForm.Label.启用阵容面板描述");            
+            label_启用状态面板.Text = _iLocalizationService.Get("SettingForm.Label.启用状态面板");
+            label_启用状态面板描述.Text = _iLocalizationService.Get("SettingForm.Label.启用状态面板描述");            
+            label_启用输出面板.Text = _iLocalizationService.Get("SettingForm.Label.启用输出面板");
+            label_启用输出面板描述.Text = _iLocalizationService.Get("SettingForm.Label.启用输出面板描述");
+
+            // 大数据推荐            
+            label_程序启动时更新推荐装备.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐装备");
+            label_程序启动时更新推荐装备描述1.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐装备描述1");
+            label_程序启动时更新推荐装备描述2.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐装备描述2");
+            label_程序启东时更新推荐装备描述3.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐装备描述3");            
+            label_更新推荐阵容.Text = _iLocalizationService.Get("SettingForm.Label.更新推荐阵容");
+            label_更新推荐阵容描述.Text = _iLocalizationService.Get("SettingForm.Label.更新推荐阵容描述");
+            roundedButton_更新推荐阵容.Text = _iLocalizationService.Get("SettingForm.Button.获取阵容");
+
+            // 开发者选项
+            label_保存截图.Text = _iLocalizationService.Get("SettingForm.Label.保存截图");
+            label_保存截图描述.Text = _iLocalizationService.Get("SettingForm.Label.保存截图描述");
+        }
+        #endregion
+
+
+
 
         
     }

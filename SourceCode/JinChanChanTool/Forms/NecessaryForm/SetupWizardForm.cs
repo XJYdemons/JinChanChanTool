@@ -9,6 +9,7 @@ using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.GPUEnvironments;
 using JinChanChanTool.Services.LineupCrawling;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Services.ManuallySetCoordinates;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
@@ -30,6 +31,7 @@ namespace JinChanChanTool
         #region 初始化相关
 
         private readonly IManualSettingsService _manualSettingsService;
+        private readonly ILocalizationService _iLocalizationService;
 
         // GPU环境配置相关服务
         private readonly GpuDetectionService _gpuDetectionService;
@@ -46,12 +48,15 @@ namespace JinChanChanTool
         private CancellationTokenSource? _gpuConfigCancellationTokenSource;
         private bool _isGpuConfiguring;
 
-        public SetupWizardForm(IManualSettingsService manualSettingsService)
+        public SetupWizardForm(IManualSettingsService manualSettingsService, ILocalizationService iLocalizationService)
         {
             InitializeComponent();
             _manualSettingsService = manualSettingsService;
+            _iLocalizationService = iLocalizationService;
             //添加拖动
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
+            //应用本地化
+            ApplyLocalization();
             updateUI();
             Pages = new List<Panel>()
             {
@@ -197,7 +202,7 @@ namespace JinChanChanTool
                     button_完成.Visible = true;
 
                     // 在最后一页显示配置摘要
-                    richTextBox1.Text = GenerateConfigSummary();
+                    richTextBox_配置概览.Text = GenerateConfigSummary();
                 }
                 else
                 {
@@ -232,6 +237,97 @@ namespace JinChanChanTool
             radioButton_自动设置坐标.Checked = IsUseDynamicCoordinates;
         }
 
+        #region 本地化
+        /// <summary>
+        /// 应用本地化文本到所有控件
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            // 标题栏
+            label_标题.Text = _iLocalizationService.Get("SetupWizard.标题");
+
+            // 按钮区
+            button_下一步.Text = _iLocalizationService.Get("SetupWizard.Button.下一步");
+            button_上一步.Text = _iLocalizationService.Get("SetupWizard.Button.上一步");
+            button_跳过向导.Text = _iLocalizationService.Get("SetupWizard.Button.跳过向导");
+            button_完成.Text = _iLocalizationService.Get("SetupWizard.Button.完成");
+
+            // 页1：欢迎页
+            label_欢迎使用.Text = _iLocalizationService.Get("SetupWizard.Page1.欢迎使用");
+            label_配置向导描述.Text = _iLocalizationService.Get("SetupWizard.Page1.配置向导描述");
+            label_配置向导页描述.Text = _iLocalizationService.Get("SetupWizard.Page1.配置向导页描述");
+            label_点击下一步继续.Text = _iLocalizationService.Get("SetupWizard.Page1.点击下一步继续");
+
+            // 页2：坐标设置模式
+            label_选择坐标设置模式.Text = _iLocalizationService.Get("SetupWizard.Page2.选择坐标设置模式");
+            label_坐标描述.Text = _iLocalizationService.Get("SetupWizard.Page2.坐标描述");
+            radioButton_自动设置坐标.Text = _iLocalizationService.Get("SetupWizard.Page2.自动设置坐标");
+            label_自动坐标模式描述.Text = _iLocalizationService.Get("SetupWizard.Page2.自动坐标模式描述");
+            radioButton_手动设置坐标.Text = _iLocalizationService.Get("SetupWizard.Page2.手动设置坐标");
+            label_手动坐标模式描述.Text = _iLocalizationService.Get("SetupWizard.Page2.手动坐标模式描述");
+
+            // 页3：自动设置坐标
+            label_自动设置坐标.Text = _iLocalizationService.Get("SetupWizard.Page3.自动设置坐标");
+            label_自动设置坐标提示.Text = _iLocalizationService.Get("SetupWizard.Page3.自动设置坐标提示");
+            label_选择游戏进程.Text = _iLocalizationService.Get("SetupWizard.Page3.选择游戏进程");
+            选择游戏窗口进程.Text = _iLocalizationService.Get("SetupWizard.Page3.选择游戏窗口进程");
+            label_进程状态.Text = _iLocalizationService.Get("SetupWizard.Page3.未选择进程");
+
+            // 页4：手动设置坐标
+            label_手动设置坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.手动设置坐标");
+            label_手动设置坐标提示.Text = _iLocalizationService.Get("SetupWizard.Page4.手动设置坐标提示");
+            label_选择显示器.Text = _iLocalizationService.Get("SetupWizard.Page4.选择显示器");
+            roundedButton_设置英雄名称坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.设置英雄名称坐标");
+            roundedButton_设置刷新按钮坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.设置刷新按钮坐标");
+            roundedButton_设置高亮提示坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.设置高亮提示坐标");
+            label_设置英雄名称坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.未设置");
+            label_设置刷新按钮坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.未设置");
+            label_设置高亮提示坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.未设置");
+
+            // 页5：选择拿牌方式
+            label_选择拿牌方式.Text = _iLocalizationService.Get("SetupWizard.Page5.选择拿牌方式");
+            label_购买英雄按键描述.Text = _iLocalizationService.Get("SetupWizard.Page5.购买英雄按键描述");
+            label_鼠标拿牌.Text = _iLocalizationService.Get("SetupWizard.Page5.模拟鼠标拿牌");
+            label_按键拿牌.Text = _iLocalizationService.Get("SetupWizard.Page5.模拟按键拿牌");
+            label_拿牌按键1.Text = _iLocalizationService.Get("SetupWizard.Page5.拿牌按键", 1);
+            label_拿牌按键2.Text = _iLocalizationService.Get("SetupWizard.Page5.拿牌按键", 2);
+            label_拿牌按键3.Text = _iLocalizationService.Get("SetupWizard.Page5.拿牌按键", 3);
+            label_拿牌按键4.Text = _iLocalizationService.Get("SetupWizard.Page5.拿牌按键", 4);
+            label_拿牌按键5.Text = _iLocalizationService.Get("SetupWizard.Page5.拿牌按键", 5);
+
+            // 页6：选择刷新商店方式
+            label_选择刷新商店方式.Text = _iLocalizationService.Get("SetupWizard.Page6.选择刷新商店方式");
+            label_选择刷新商店方式描述.Text = _iLocalizationService.Get("SetupWizard.Page6.选择刷新商店方式描述");
+            label_鼠标刷新.Text = _iLocalizationService.Get("SetupWizard.Page6.鼠标模拟刷新商店");
+            label_按键刷新.Text = _iLocalizationService.Get("SetupWizard.Page6.按键模拟刷新商店");
+            label_刷新按键.Text = _iLocalizationService.Get("SetupWizard.Page6.刷新商店按键");
+
+            // 页7：选择OCR推理设备
+            label_选择OCR推理设备.Text = _iLocalizationService.Get("SetupWizard.Page7.选择OCR推理设备");
+            label_OCR设备描述.Text = _iLocalizationService.Get("SetupWizard.Page7.OCR设备描述");
+            label_CPU推理.Text = _iLocalizationService.Get("SetupWizard.Page7.CPU推理");
+            label_CPU说明.Text = _iLocalizationService.Get("SetupWizard.Page7.CPU说明");
+            label_GPU推理.Text = _iLocalizationService.Get("SetupWizard.Page7.GPU推理");
+            label_GPU说明.Text = _iLocalizationService.Get("SetupWizard.Page7.GPU说明");
+
+            // 页8：GPU环境配置
+            label_GPU环境配置.Text = _iLocalizationService.Get("SetupWizard.Page8.GPU环境配置");
+            label_GPU环境配置页描述.Text = _iLocalizationService.Get("SetupWizard.Page8.GPU环境配置页描述");
+            groupBox_环境检测.Text = _iLocalizationService.Get("SetupWizard.Page8.环境检测");
+            groupBox_安装配置.Text = _iLocalizationService.Get("SetupWizard.Page8.安装配置");
+            label_GPU状态.Text = _iLocalizationService.Get("SetupWizard.Page8.显卡未检测");
+            label_CUDA状态.Text = _iLocalizationService.Get("SetupWizard.Page8.CUDA未检测");
+            label_cuDNN状态.Text = _iLocalizationService.Get("SetupWizard.Page8.cuDNN未检测");
+            button_检测GPU环境.Text = _iLocalizationService.Get("SetupWizard.Page8.检测GPU环境");
+            button_一键配置.Text = _iLocalizationService.Get("SetupWizard.Page8.一键配置");
+            label_CUDA版本.Text = _iLocalizationService.Get("SetupWizard.Page8.CUDA版本");
+
+            // 页9：配置完成
+            label_配置完成.Text = _iLocalizationService.Get("SetupWizard.Page9.配置完成");
+            label_完成说明.Text = _iLocalizationService.Get("SetupWizard.Page9.完成说明");
+        }
+        #endregion
+
         #region 页2-选择坐标设置模式        
         private bool IsUseFixedCoordinates = false;
         private bool IsUseDynamicCoordinates = true;
@@ -258,7 +354,7 @@ namespace JinChanChanTool
             var discoveryService = new ProcessDiscoveryService();
 
             // 2. 创建并显示进程选择窗体
-            using (var processForm = new ProcessSelectorForm(discoveryService))
+            using (var processForm = new ProcessSelectorForm(discoveryService, _iLocalizationService))
             {
                 if (processForm.ShowDialog(this) == DialogResult.OK)
                 {
@@ -271,7 +367,7 @@ namespace JinChanChanTool
                         // 给用户反馈
                         string displayName = $"{selectedProcess.ProcessName} (ID: {selectedProcess.Id})";
 
-                        label_进程状态.Text = $"已选择: {displayName}";
+                        label_进程状态.Text = _iLocalizationService.Get("SetupWizard.Page3.已选择进程", displayName);
                         label_进程状态.ForeColor = Color.FromArgb(0, 150, 0);
                     }
                 }
@@ -315,98 +411,99 @@ namespace JinChanChanTool
 
         private async void roundedButton_设置英雄名称坐标_Click(object sender, EventArgs e)
         {
-            using (var setter = new FastSettingPositionService(targetScreen))
+            using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService))
             {
                 try
                 {
                     // 第一张卡片
                     var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SetupWizard.Page4.弈子坐标设置提示词1"));
                     HeroNameScreenshotRectangle_1 = rect1;
 
                     // 第二张卡片
                     var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SetupWizard.Page4.弈子坐标设置提示词2"));
                     HeroNameScreenshotRectangle_2 = rect2;
 
                     // 第三张卡片
                     var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SetupWizard.Page4.弈子坐标设置提示词3"));
                     HeroNameScreenshotRectangle_3 = rect3;
 
                     // 第四张卡片
                     var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SetupWizard.Page4.弈子坐标设置提示词4"));
                     HeroNameScreenshotRectangle_4 = rect4;
 
                     // 第五张卡片
                     var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的英雄名称部分（不包括金币图标）");
+                        _iLocalizationService.Get("SetupWizard.Page4.弈子坐标设置提示词5"));
                     HeroNameScreenshotRectangle_5 = rect5;
-                    label_设置英雄名称坐标.Text = "已设置完成";
+                    label_设置英雄名称坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.已设置完成");
                     label_设置英雄名称坐标.ForeColor = Color.Green;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"出现错误: {ex.Message}");
+                    MessageBox.Show(_iLocalizationService.Get("SetupWizard.Msg.出现错误", ex.Message));
                 }
             }
         }
 
         private async void roundedButton_设置刷新按钮坐标_Click(object sender, EventArgs e)
         {
-            using (var setter = new FastSettingPositionService(targetScreen))
+            using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService))
             {
                 try
                 {
-                    Rectangle rectangle = await setter.WaitForDrawAsync("请框选商店刷新按钮");
+                    Rectangle rectangle = await setter.WaitForDrawAsync(
+                        _iLocalizationService.Get("SetupWizard.Page4.商店刷新按钮坐标设置提示词"));
                     RefreshStoreButtonRectangle = rectangle;
-                    label_设置刷新按钮坐标.Text = "已设置完成";
+                    label_设置刷新按钮坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.已设置完成");
                     label_设置刷新按钮坐标.ForeColor = Color.Green;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"出现错误: {ex.Message}");
+                    MessageBox.Show(_iLocalizationService.Get("SetupWizard.Msg.出现错误", ex.Message));
                 }
             }
         }
 
         private async void roundedButton_设置高亮提示坐标_Click(object sender, EventArgs e)
         {
-            using (var setter = new FastSettingPositionService(targetScreen))
+            using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService))
             {
                 try
                 {
                     // 第一张卡片
                     var rect1 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第1张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SetupWizard.Page4.高亮提示框坐标设置提示词1"));
                     HighLightRectangle_1 = rect1;
 
                     // 第二张卡片
                     var rect2 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第2张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SetupWizard.Page4.高亮提示框坐标设置提示词2"));
                     HighLightRectangle_2 = rect2;
 
                     // 第三张卡片
                     var rect3 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第3张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SetupWizard.Page4.高亮提示框坐标设置提示词3"));
                     HighLightRectangle_3 = rect3;
 
                     // 第四张卡片
                     var rect4 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第4张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SetupWizard.Page4.高亮提示框坐标设置提示词4"));
                     HighLightRectangle_4 = rect4;
 
                     // 第五张卡片
                     var rect5 = await setter.WaitForDrawAsync(
-                        "请框选商店从左到右数第5张奕子卡片的所有部分（包括英雄图片、名称）");
+                        _iLocalizationService.Get("SetupWizard.Page4.高亮提示框坐标设置提示词5"));
                     HighLightRectangle_5 = rect5;
-                    label_设置高亮提示坐标.Text = "已设置完成";
+                    label_设置高亮提示坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.已设置完成");
                     label_设置高亮提示坐标.ForeColor = Color.Green;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"出现错误: {ex.Message}");
+                    MessageBox.Show(_iLocalizationService.Get("SetupWizard.Msg.出现错误", ex.Message));
                 }
             }
         }
@@ -876,9 +973,9 @@ namespace JinChanChanTool
         /// <summary>
         /// GPU环境检测状态
         /// </summary>
-        private string gpuStatusText = "未检测";
-        private string cudaStatusText = "未检测";
-        private string cudnnStatusText = "未检测";
+        private string gpuStatusText = "";
+        private string cudaStatusText = "";
+        private string cudnnStatusText = "";
 
         /// <summary>
         /// 检测GPU环境按钮点击事件
@@ -897,9 +994,9 @@ namespace JinChanChanTool
            
             button_一键配置.Enabled = false;
 
-            label_GPU状态.Text = "显卡: 检测中...";
-            label_CUDA状态.Text = "CUDA: 检测中...";
-            label_cuDNN状态.Text = "cuDNN: 检测中...";
+            label_GPU状态.Text = _iLocalizationService.Get("SetupWizard.Page8.显卡检测中");
+            label_CUDA状态.Text = _iLocalizationService.Get("SetupWizard.Page8.CUDA检测中");
+            label_cuDNN状态.Text = _iLocalizationService.Get("SetupWizard.Page8.cuDNN检测中");
 
             await Task.Run(() =>
             {
@@ -929,57 +1026,60 @@ namespace JinChanChanTool
             // 更新GPU状态
             if (_gpuInfo == null || !_gpuInfo.IsNvidiaGpuDetected)
             {
-                gpuStatusText = "未检测到NVIDIA显卡";
-                label_GPU状态.Text = $"显卡: {gpuStatusText}";
+                gpuStatusText = _iLocalizationService.Get("SetupWizard.Page8.未检测到NVIDIA显卡");
+                label_GPU状态.Text = _iLocalizationService.Get("SetupWizard.Page8.显卡状态", gpuStatusText);
                 label_GPU状态.ForeColor = Color.Red;
             }
             else if (!_gpuInfo.IsSupportedForInference)
             {
-                gpuStatusText = $"{_gpuInfo.GpuName} (不支持GPU推理)";
-                label_GPU状态.Text = $"显卡: {gpuStatusText}";
+                gpuStatusText = _iLocalizationService.Get("SetupWizard.Page8.GPU不支持推理", _gpuInfo.GpuName);
+                label_GPU状态.Text = _iLocalizationService.Get("SetupWizard.Page8.显卡状态", gpuStatusText);
                 label_GPU状态.ForeColor = Color.Orange;
             }
             else
             {
                 // 显示支持的最高CUDA版本
                 string maxCuda = _gpuInfo.MaxSupportedCudaVersion;
-                string cudaInfo = !string.IsNullOrEmpty(maxCuda) ? $", 最高支持CUDA {maxCuda}" : "";
-                gpuStatusText = $"{_gpuInfo.GpuName} ({_gpuInfo.SmVersionString}{cudaInfo})";
-                label_GPU状态.Text = $"显卡: {gpuStatusText}";
+                string cudaInfo = !string.IsNullOrEmpty(maxCuda)
+                    ? _iLocalizationService.Get("SetupWizard.Page8.最高支持CUDA", maxCuda)
+                    : "";
+                gpuStatusText = _iLocalizationService.Get("SetupWizard.Page8.GPU支持信息",
+                    _gpuInfo.GpuName, _gpuInfo.SmVersionString, cudaInfo);
+                label_GPU状态.Text = _iLocalizationService.Get("SetupWizard.Page8.显卡状态", gpuStatusText);
                 label_GPU状态.ForeColor = Color.Green;
             }
 
             // 更新CUDA状态
             if (_cudaInfo == null || !_cudaInfo.IsCudaInstalled)
             {
-                cudaStatusText = "未安装";
-                label_CUDA状态.Text = $"CUDA: {cudaStatusText}";
+                cudaStatusText = _iLocalizationService.Get("SetupWizard.Page8.CUDA未安装");
+                label_CUDA状态.Text = _iLocalizationService.Get("SetupWizard.Page8.CUDA状态", cudaStatusText);
                 label_CUDA状态.ForeColor = Color.Orange;
             }
             else if (!_cudaInfo.IsSupportedCudaVersion)
             {
-                cudaStatusText = $"{_cudaInfo.CudaVersion} (版本不兼容，需要11.8/12.6/12.9)";
-                label_CUDA状态.Text = $"CUDA: {cudaStatusText}";
+                cudaStatusText = _iLocalizationService.Get("SetupWizard.Page8.CUDA版本不兼容", _cudaInfo.CudaVersion);
+                label_CUDA状态.Text = _iLocalizationService.Get("SetupWizard.Page8.CUDA状态", cudaStatusText);
                 label_CUDA状态.ForeColor = Color.Orange;
             }
             else
             {
                 cudaStatusText = $"{_cudaInfo.CudaVersion}";
-                label_CUDA状态.Text = $"CUDA: {cudaStatusText}";
+                label_CUDA状态.Text = _iLocalizationService.Get("SetupWizard.Page8.CUDA状态", cudaStatusText);
                 label_CUDA状态.ForeColor = Color.Green;
             }
 
             // 更新cuDNN状态
             if (_cudaInfo == null || !_cudaInfo.IsCudnnInstalled)
             {
-                cudnnStatusText = "未安装";
-                label_cuDNN状态.Text = $"cuDNN: {cudnnStatusText}";
+                cudnnStatusText = _iLocalizationService.Get("SetupWizard.Page8.cuDNN未安装");
+                label_cuDNN状态.Text = _iLocalizationService.Get("SetupWizard.Page8.cuDNN状态", cudnnStatusText);
                 label_cuDNN状态.ForeColor = Color.Orange;
             }
             else
             {
                 cudnnStatusText = $"{_cudaInfo.CudnnVersion}";
-                label_cuDNN状态.Text = $"cuDNN: {cudnnStatusText}";
+                label_cuDNN状态.Text = _iLocalizationService.Get("SetupWizard.Page8.cuDNN状态", cudnnStatusText);
                 label_cuDNN状态.ForeColor = Color.Green;
             }
         }
@@ -989,7 +1089,7 @@ namespace JinChanChanTool
         /// </summary>
         private void UpdateCudaVersionOptions()
         {
-            comboBoxCudaVersion.Items.Clear();
+            comboBox_选择CUDA版本.Items.Clear();
 
             if (_gpuInfo == null || !_gpuInfo.IsSupportedForInference)
             {
@@ -1000,13 +1100,13 @@ namespace JinChanChanTool
 
             foreach (CudaVersionOption option in options)
             {
-                comboBoxCudaVersion.Items.Add(option);
+                comboBox_选择CUDA版本.Items.Add(option);
             }
 
             // 默认选择推荐版本
-            if (comboBoxCudaVersion.Items.Count > 0)
+            if (comboBox_选择CUDA版本.Items.Count > 0)
             {
-                comboBoxCudaVersion.SelectedIndex = 0;
+                comboBox_选择CUDA版本.SelectedIndex = 0;
             }
         }
 
@@ -1024,9 +1124,12 @@ namespace JinChanChanTool
         private async void button_一键配置_Click(object sender, EventArgs e)
         {
             // 验证输入
-            if (comboBoxCudaVersion.SelectedItem == null)
+            if (comboBox_选择CUDA版本.SelectedItem == null)
             {
-                MessageBox.Show("请先检测GPU环境并选择CUDA版本", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    _iLocalizationService.Get("SetupWizard.Page8.Msg.请先检测GPU"),
+                    _iLocalizationService.Get("SetupWizard.MsgTitle.提示"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -1034,22 +1137,17 @@ namespace JinChanChanTool
             string targetDir = AppDomain.CurrentDomain.BaseDirectory;
 
             // 获取选择的CUDA版本
-            CudaVersionOption selectedVersion = (CudaVersionOption)comboBoxCudaVersion.SelectedItem;
+            CudaVersionOption selectedVersion = (CudaVersionOption)comboBox_选择CUDA版本.SelectedItem;
 
             // 检查驱动兼容性
             if (!selectedVersion.IsSupported)
             {
-                string maxCuda = _gpuInfo?.MaxSupportedCudaVersion ?? "未知";
+                string maxCuda = _gpuInfo?.MaxSupportedCudaVersion ?? "N/A";
 
                 DialogResult driverWarning = MessageBox.Show(
-                    $"警告：您的显卡驱动最高支持 CUDA {maxCuda}，\n" +
-                    $"但您选择安装的是 {selectedVersion.DisplayName}。\n\n" +
-                    $"这可能导致CUDA无法正常工作！\n\n" +
-                    $"建议：\n" +
-                    $"1. 更新显卡驱动到最新版本后再安装\n" +
-                    $"2. 或选择驱动支持的CUDA版本\n\n" +
-                    $"是否仍要继续安装？",
-                    "驱动兼容性警告",
+                    _iLocalizationService.Get("SetupWizard.Page8.Msg.驱动兼容性警告",
+                        maxCuda, selectedVersion.DisplayName),
+                    _iLocalizationService.Get("SetupWizard.Page8.MsgTitle.驱动兼容性警告"),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
 
@@ -1062,7 +1160,7 @@ namespace JinChanChanTool
             string cudaTag = selectedVersion.CudaTag;
 
             // 确认安装
-            string confirmMessage = $"即将进行以下操作:\n\n";
+            string confirmMessage = _iLocalizationService.Get("SetupWizard.Page8.Msg.确认安装");
 
             // 检查是否需要安装CUDA
             bool needInstallCuda = !_cudaInfo?.IsCudaInstalled == true ||
@@ -1073,20 +1171,22 @@ namespace JinChanChanTool
 
             if (needInstallCuda)
             {
-                confirmMessage += $"1. 安装 {selectedVersion.DisplayName}\n";
-                confirmMessage += $"   (文件较大，约3GB，请耐心等待)\n\n";
+                confirmMessage += _iLocalizationService.Get("SetupWizard.Page8.Msg.安装CUDA",
+                    selectedVersion.DisplayName);
             }
 
             if (needInstallCudnn)
             {
                 RuntimeConfig config = RuntimeConfig.CreateFromGpuInfo(_gpuInfo!, cudaTag);
-                confirmMessage += $"2. 安装 {config.CudnnDisplayName}\n\n";
+                confirmMessage += _iLocalizationService.Get("SetupWizard.Page8.Msg.安装cuDNN",
+                    config.CudnnDisplayName);
             }
 
-            confirmMessage += $"3. 部署GPU运行时到: {targetDir}\n\n";
-            confirmMessage += "是否继续?";
+            confirmMessage += _iLocalizationService.Get("SetupWizard.Page8.Msg.部署运行时", targetDir);
+            confirmMessage += _iLocalizationService.Get("SetupWizard.Page8.Msg.是否继续");
 
-            DialogResult result = MessageBox.Show(confirmMessage, "确认安装",
+            DialogResult result = MessageBox.Show(confirmMessage,
+                _iLocalizationService.Get("SetupWizard.Page8.MsgTitle.确认安装"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result != DialogResult.Yes)
@@ -1109,7 +1209,7 @@ namespace JinChanChanTool
 
             // 禁用界面
             SetGpuConfigUIEnabled(false);
-            richTextBoxLog.Clear();
+            richTextBox_GPU环境配置输出.Clear();
 
             try
             {
@@ -1118,31 +1218,33 @@ namespace JinChanChanTool
                 // 步骤1: 安装CUDA
                 if (needInstallCuda)
                 {
-                    AppendGpuLog($"[步骤 1/3] 开始安装CUDA {config.CudaDisplayName}...", Color.Cyan);
+                    AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.开始安装CUDA",
+                        config.CudaDisplayName), Color.Cyan);
 
                     bool cudaSuccess = await _cudaInstallerService.InstallCudaAsync(
                         cudaTag, _gpuConfigCancellationTokenSource.Token);
 
                     if (!cudaSuccess)
                     {
-                        AppendGpuLog("CUDA安装失败!", Color.Red);
+                        AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.CUDA安装失败"), Color.Red);
                         return;
                     }
 
-                    AppendGpuLog("CUDA安装完成!", Color.Green);
+                    AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.CUDA安装完成"), Color.Green);
 
                     // 重新检测CUDA环境
                     _cudaInfo = _cudaDetectionService.DetectCudaEnvironment();
                 }
                 else
                 {
-                    AppendGpuLog("[步骤 1/3] CUDA已安装，跳过", Color.Gray);
+                    AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.CUDA已安装跳过"), Color.Gray);
                 }
 
                 // 步骤2: 安装cuDNN
                 if (needInstallCudnn)
                 {
-                    AppendGpuLog($"[步骤 2/3] 开始安装 {config.CudnnDisplayName}...", Color.Cyan);
+                    AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.开始安装cuDNN",
+                        config.CudnnDisplayName), Color.Cyan);
 
                     string cudaPath = _cudaInfo?.CudaPath ?? string.Empty;
                     if (string.IsNullOrEmpty(cudaPath))
@@ -1160,7 +1262,7 @@ namespace JinChanChanTool
 
                     if (string.IsNullOrEmpty(cudaPath))
                     {
-                        AppendGpuLog("无法找到CUDA安装路径!", Color.Red);
+                        AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.无法找到CUDA路径"), Color.Red);
                         return;
                     }
 
@@ -1169,53 +1271,51 @@ namespace JinChanChanTool
 
                     if (!cudnnSuccess)
                     {
-                        AppendGpuLog("cuDNN安装失败!", Color.Red);
+                        AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.cuDNN安装失败"), Color.Red);
                         return;
                     }
 
-                    AppendGpuLog("cuDNN安装完成!", Color.Green);
+                    AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.cuDNN安装完成"), Color.Green);
                 }
                 else
                 {
-                    AppendGpuLog("[步骤 2/3] cuDNN已安装，跳过", Color.Gray);
+                    AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.cuDNN已安装跳过"), Color.Gray);
                 }
 
                 // 步骤3: 部署运行时
-                AppendGpuLog("[步骤 3/3] 开始部署GPU运行时...", Color.Cyan);
+                AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.开始部署运行时"), Color.Cyan);
 
                 bool runtimeSuccess = await _runtimeDeployService.DeployRuntimeAsync(
                     config, targetDir, _gpuConfigCancellationTokenSource.Token);
 
                 if (!runtimeSuccess)
                 {
-                    AppendGpuLog("运行时部署失败!", Color.Red);
+                    AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.运行时部署失败"), Color.Red);
                     return;
                 }
 
-                AppendGpuLog("运行时部署完成!", Color.Green);
+                AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.运行时部署完成"), Color.Green);
 
                 // 全部完成
                 AppendGpuLog("\n========================================", Color.Yellow);
-                AppendGpuLog("GPU环境配置完成!", Color.Yellow);
-                AppendGpuLog("请在设置中开启GPU推理。", Color.Yellow);
+                AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.GPU环境配置完成"), Color.Yellow);
+                AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.请在设置中开启GPU推理"), Color.Yellow);
                 AppendGpuLog("", Color.Yellow);
-                AppendGpuLog("提示: 如需在命令行使用nvcc命令，请重新打开命令行窗口。", Color.Cyan);
+                AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.nvcc提示"), Color.Cyan);
                 AppendGpuLog("========================================", Color.Yellow);
 
                 MessageBox.Show(
-                    "GPU环境配置完成!\n\n" +
-                    "请在设置中开启GPU推理。\n\n" +
-                    "提示：环境变量已配置，如需在命令行中使用nvcc等CUDA命令，\n" +
-                    "请关闭并重新打开命令行窗口（或注销重新登录）。",
-                    "配置完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _iLocalizationService.Get("SetupWizard.Page8.Msg.GPU配置完成"),
+                    _iLocalizationService.Get("SetupWizard.Page8.MsgTitle.配置完成"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (OperationCanceledException)
             {
-                AppendGpuLog("配置已取消", Color.Orange);
+                AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.配置已取消"), Color.Orange);
             }
             catch (Exception ex)
             {
-                AppendGpuLog($"配置出错: {ex.Message}", Color.Red);
+                AppendGpuLog(_iLocalizationService.Get("SetupWizard.Page8.Log.配置出错", ex.Message), Color.Red);
             }
             finally
             {
@@ -1276,7 +1376,7 @@ namespace JinChanChanTool
                 return;
             }
 
-            LogGpuProgressIfNeeded(e.Message, e.ProgressPercentage, "运行时");
+            LogGpuProgressIfNeeded(e.Message, e.ProgressPercentage, "Runtime");
         }
 
         /// <summary>
@@ -1329,11 +1429,11 @@ namespace JinChanChanTool
                 return;
             }
 
-            richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
-            richTextBoxLog.SelectionLength = 0;
-            richTextBoxLog.SelectionColor = color;
-            richTextBoxLog.AppendText($"[{DateTime.Now:HH:mm:ss}] {message}\n");
-            richTextBoxLog.ScrollToCaret();
+            richTextBox_GPU环境配置输出.SelectionStart = richTextBox_GPU环境配置输出.TextLength;
+            richTextBox_GPU环境配置输出.SelectionLength = 0;
+            richTextBox_GPU环境配置输出.SelectionColor = color;
+            richTextBox_GPU环境配置输出.AppendText($"[{DateTime.Now:HH:mm:ss}] {message}\n");
+            richTextBox_GPU环境配置输出.ScrollToCaret();
         }
 
         /// <summary>
@@ -1344,7 +1444,7 @@ namespace JinChanChanTool
             button_一键配置.Enabled = enabled && _gpuInfo?.IsSupportedForInference == true;
             button_检测GPU环境.Enabled = enabled;
             
-            comboBoxCudaVersion.Enabled = enabled;
+            comboBox_选择CUDA版本.Enabled = enabled;
         }
 
         #endregion
@@ -1357,87 +1457,91 @@ namespace JinChanChanTool
         private string GenerateConfigSummary()
         {
             System.Text.StringBuilder summary = new System.Text.StringBuilder();
-            summary.AppendLine("配置摘要：\n");
+            summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.配置摘要"));
 
             // 坐标设置模式
-            summary.AppendLine("【坐标设置】");
+            summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.坐标设置"));
             if (IsUseDynamicCoordinates)
             {
-                summary.AppendLine($"  模式：自动设置坐标");
-                summary.AppendLine($"  目标进程：{TargetProcessName} (ID: {TargetProcessId})");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.模式自动"));
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.目标进程",
+                    TargetProcessName, TargetProcessId));
             }
             else if (IsUseFixedCoordinates)
             {
-                summary.AppendLine($"  模式：手动设置坐标");
-                summary.AppendLine($"  显示器：{comboBox_选择显示器.SelectedIndex + 1}");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.模式手动"));
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.显示器",
+                    comboBox_选择显示器.SelectedIndex + 1));
             }
             summary.AppendLine();
 
             // 拿牌方式
-            summary.AppendLine("【拿牌方式】");
+            summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.拿牌方式"));
             if (isMouseHeroPurchase)
             {
-                summary.AppendLine("  模拟鼠标拿牌");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.模拟鼠标拿牌"));
             }
             else if (isKeyboardHeroPurchase)
             {
-                summary.AppendLine("  模拟按键拿牌");
-                summary.AppendLine($"  按键：{HeroPurchaseKey1}, {HeroPurchaseKey2}, {HeroPurchaseKey3}, {HeroPurchaseKey4}, {HeroPurchaseKey5}");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.模拟按键拿牌"));
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.按键列表",
+                    HeroPurchaseKey1, HeroPurchaseKey2, HeroPurchaseKey3, HeroPurchaseKey4, HeroPurchaseKey5));
             }
             summary.AppendLine();
 
             // 刷新方式
-            summary.AppendLine("【刷新商店方式】");
+            summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.刷新商店方式"));
             if (isMouseRefreshStore)
             {
-                summary.AppendLine("  鼠标模拟刷新");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.鼠标模拟刷新"));
             }
             else if (isKeyboardRefreshStore)
             {
-                summary.AppendLine("  按键模拟刷新");
-                summary.AppendLine($"  按键：{RefreshStoreKey}");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.按键模拟刷新"));
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.刷新按键", RefreshStoreKey));
             }
             summary.AppendLine();
 
             // OCR推理设备
-            summary.AppendLine("【OCR推理设备】");
+            summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.OCR推理设备"));
             if (isUseCPUForInference)
             {
-                summary.AppendLine("  CPU 推理");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.CPU推理"));
             }
             else if (isUseGPUForInference)
             {
-                summary.AppendLine("  GPU 推理");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.GPU推理"));
             }
             summary.AppendLine();
 
             // GPU环境配置
-            summary.AppendLine("【GPU环境配置】");
-            if (!string.IsNullOrEmpty(gpuStatusText) && gpuStatusText != "未检测")
+            string notDetected = _iLocalizationService.Get("SetupWizard.Summary.未检测");
+            summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.GPU环境配置"));
+            if (!string.IsNullOrEmpty(gpuStatusText) && gpuStatusText != notDetected)
             {
                 summary.AppendLine($"  {gpuStatusText}");
             }
             else
             {
-                summary.AppendLine("  显卡: 未检测");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Page8.显卡未检测"));
             }
 
-            if (!string.IsNullOrEmpty(cudaStatusText) && cudaStatusText != "未检测")
+            if (!string.IsNullOrEmpty(cudaStatusText) && cudaStatusText != notDetected)
             {
                 summary.AppendLine($"  {cudaStatusText}");
             }
             else
             {
-                summary.AppendLine("  CUDA: 未检测");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Page8.CUDA未检测"));
             }
 
-            if (!string.IsNullOrEmpty(cudnnStatusText) && cudnnStatusText != "未检测")
+            if (!string.IsNullOrEmpty(cudnnStatusText) && cudnnStatusText != notDetected)
             {
                 summary.AppendLine($"  {cudnnStatusText}");
             }
             else
             {
-                summary.AppendLine("  cuDNN: 未检测");
+                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Page8.cuDNN未检测"));
             }
 
             return summary.ToString();
@@ -1559,8 +1663,8 @@ namespace JinChanChanTool
         private void button_跳过向导_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
-                "跳过向导将使用默认配置。\n\n您可以稍后在设置中修改这些配置。\n\n确定要跳过向导吗？",
-                "跳过向导",
+                _iLocalizationService.Get("SetupWizard.Msg.跳过向导"),
+                _iLocalizationService.Get("SetupWizard.MsgTitle.跳过向导"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -1581,8 +1685,8 @@ namespace JinChanChanTool
 
             // 显示完成消息
             MessageBox.Show(
-                "配置已完成！\n\n应用程序将自动重启以使配置生效。",
-                "配置完成",
+                _iLocalizationService.Get("SetupWizard.Msg.配置已完成"),
+                _iLocalizationService.Get("SetupWizard.MsgTitle.配置完成"),
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
@@ -1602,8 +1706,8 @@ namespace JinChanChanTool
                 if (string.IsNullOrEmpty(TargetProcessName) || TargetProcessId == 0)
                 {
                     MessageBox.Show(
-                        "请先选择游戏窗口进程。",
-                        "提示",
+                        _iLocalizationService.Get("SetupWizard.Msg.请先选择进程"),
+                        _iLocalizationService.Get("SetupWizard.MsgTitle.提示"),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return false;
@@ -1618,8 +1722,8 @@ namespace JinChanChanTool
                     HighLightRectangle_1.Width <= 10)
                 {
                     MessageBox.Show(
-                        "请完成所有坐标设置。\n\n需要设置：\n1. 英雄名称坐标\n2. 刷新按钮坐标\n3. 高亮提示坐标",
-                        "提示",
+                        _iLocalizationService.Get("SetupWizard.Msg.请完成坐标设置"),
+                        _iLocalizationService.Get("SetupWizard.MsgTitle.提示"),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return false;

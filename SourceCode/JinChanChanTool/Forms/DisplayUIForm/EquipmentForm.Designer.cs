@@ -28,100 +28,100 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         private void InitializeComponent()
         {
-            panel_Border = new Panel();
-            panel_Client = new Panel();
-            panelMain = new Panel();
-            panel_TitleBar = new Panel();
-            label_Title = new Label();
-            button_Minimize = new Button();
-            button_Close = new Button();
-            panel_Border.SuspendLayout();
-            panel_Client.SuspendLayout();
-            panel_TitleBar.SuspendLayout();
+            panel_主背景 = new Panel();
+            panel_副背景 = new Panel();
+            panel客户区 = new Panel();
+            panel_标题栏 = new Panel();
+            label_标题 = new Label();
+            button_最小化 = new Button();
+            button_关闭 = new Button();
+            panel_主背景.SuspendLayout();
+            panel_副背景.SuspendLayout();
+            panel_标题栏.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Border
             // 
-            panel_Border.BackColor = Color.FromArgb(250, 250, 250);
-            panel_Border.Controls.Add(panel_Client);
-            panel_Border.Dock = DockStyle.Fill;
-            panel_Border.Location = new Point(0, 0);
-            panel_Border.Margin = new Padding(0);
-            panel_Border.Name = "panel_Border";
-            panel_Border.Padding = new Padding(3, 3, 4, 4);
-            panel_Border.Size = new Size(600, 500);
-            panel_Border.TabIndex = 0;
+            panel_主背景.BackColor = Color.FromArgb(250, 250, 250);
+            panel_主背景.Controls.Add(panel_副背景);
+            panel_主背景.Dock = DockStyle.Fill;
+            panel_主背景.Location = new Point(0, 0);
+            panel_主背景.Margin = new Padding(0);
+            panel_主背景.Name = "panel_Border";
+            panel_主背景.Padding = new Padding(3, 3, 4, 4);
+            panel_主背景.Size = new Size(600, 500);
+            panel_主背景.TabIndex = 0;
             // 
             // panel_Client
             // 
-            panel_Client.BackColor = Color.White;
-            panel_Client.Controls.Add(panelMain);
-            panel_Client.Controls.Add(panel_TitleBar);
-            panel_Client.Dock = DockStyle.Fill;
-            panel_Client.Location = new Point(3, 3);
-            panel_Client.Margin = new Padding(0);
-            panel_Client.Name = "panel_Client";
-            panel_Client.Size = new Size(593, 493);
-            panel_Client.TabIndex = 0;
+            panel_副背景.BackColor = Color.White;
+            panel_副背景.Controls.Add(panel客户区);
+            panel_副背景.Controls.Add(panel_标题栏);
+            panel_副背景.Dock = DockStyle.Fill;
+            panel_副背景.Location = new Point(3, 3);
+            panel_副背景.Margin = new Padding(0);
+            panel_副背景.Name = "panel_Client";
+            panel_副背景.Size = new Size(593, 493);
+            panel_副背景.TabIndex = 0;
             // 
             // panelMain
             // 
-            panelMain.AutoScroll = true;
-            panelMain.BackColor = Color.White;
-            panelMain.Location = new Point(0, 27);
-            panelMain.Name = "panelMain";
-            panelMain.Size = new Size(593, 463);
-            panelMain.TabIndex = 0;
+            panel客户区.AutoScroll = true;
+            panel客户区.BackColor = Color.White;
+            panel客户区.Location = new Point(0, 27);
+            panel客户区.Name = "panelMain";
+            panel客户区.Size = new Size(593, 463);
+            panel客户区.TabIndex = 0;
             // 
             // panel_TitleBar
             // 
-            panel_TitleBar.BackColor = Color.White;
-            panel_TitleBar.Controls.Add(label_Title);
-            panel_TitleBar.Controls.Add(button_Minimize);
-            panel_TitleBar.Controls.Add(button_Close);
-            panel_TitleBar.Location = new Point(0, 0);
-            panel_TitleBar.Name = "panel_TitleBar";
-            panel_TitleBar.Size = new Size(593, 25);
-            panel_TitleBar.TabIndex = 1;
+            panel_标题栏.BackColor = Color.White;
+            panel_标题栏.Controls.Add(label_标题);
+            panel_标题栏.Controls.Add(button_最小化);
+            panel_标题栏.Controls.Add(button_关闭);
+            panel_标题栏.Location = new Point(0, 0);
+            panel_标题栏.Name = "panel_TitleBar";
+            panel_标题栏.Size = new Size(593, 25);
+            panel_标题栏.TabIndex = 1;
             // 
             // label_Title
             // 
-            label_Title.AutoSize = true;
-            label_Title.Location = new Point(4, 1);
-            label_Title.MinimumSize = new Size(80, 23);
-            label_Title.Name = "label_Title";
-            label_Title.Size = new Size(80, 23);
-            label_Title.TabIndex = 10;
-            label_Title.Text = "选择装备";
-            label_Title.TextAlign = ContentAlignment.MiddleLeft;
+            label_标题.AutoSize = true;
+            label_标题.Location = new Point(4, 1);
+            label_标题.MinimumSize = new Size(80, 23);
+            label_标题.Name = "label_Title";
+            label_标题.Size = new Size(80, 23);
+            label_标题.TabIndex = 10;
+            label_标题.Text = "选择装备";
+            label_标题.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // button_Minimize
             // 
-            button_Minimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_Minimize.FlatAppearance.BorderSize = 0;
-            button_Minimize.FlatStyle = FlatStyle.Flat;
-            button_Minimize.Location = new Point(546, 1);
-            button_Minimize.Margin = new Padding(0);
-            button_Minimize.Name = "button_Minimize";
-            button_Minimize.Size = new Size(23, 23);
-            button_Minimize.TabIndex = 8;
-            button_Minimize.Text = "—";
-            button_Minimize.UseVisualStyleBackColor = true;
-            button_Minimize.Click += Button_Minimize_Click;
+            button_最小化.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_最小化.FlatAppearance.BorderSize = 0;
+            button_最小化.FlatStyle = FlatStyle.Flat;
+            button_最小化.Location = new Point(546, 1);
+            button_最小化.Margin = new Padding(0);
+            button_最小化.Name = "button_Minimize";
+            button_最小化.Size = new Size(23, 23);
+            button_最小化.TabIndex = 8;
+            button_最小化.Text = "—";
+            button_最小化.UseVisualStyleBackColor = true;
+            button_最小化.Click += Button_Minimize_Click;
             // 
             // button_Close
             // 
-            button_Close.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_Close.FlatAppearance.BorderSize = 0;
-            button_Close.FlatStyle = FlatStyle.Flat;
-            button_Close.Location = new Point(570, 1);
-            button_Close.Margin = new Padding(0);
-            button_Close.Name = "button_Close";
-            button_Close.Size = new Size(23, 23);
-            button_Close.TabIndex = 7;
-            button_Close.Text = "X";
-            button_Close.UseVisualStyleBackColor = true;
-            button_Close.Click += Button_Close_Click;
+            button_关闭.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_关闭.FlatAppearance.BorderSize = 0;
+            button_关闭.FlatStyle = FlatStyle.Flat;
+            button_关闭.Location = new Point(570, 1);
+            button_关闭.Margin = new Padding(0);
+            button_关闭.Name = "button_Close";
+            button_关闭.Size = new Size(23, 23);
+            button_关闭.TabIndex = 7;
+            button_关闭.Text = "X";
+            button_关闭.UseVisualStyleBackColor = true;
+            button_关闭.Click += Button_Close_Click;
             // 
             // EquipmentForm
             // 
@@ -129,28 +129,28 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.White;
             ClientSize = new Size(600, 500);
-            Controls.Add(panel_Border);
+            Controls.Add(panel_主背景);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "EquipmentForm";
             StartPosition = FormStartPosition.CenterParent;
             TopMost = true;
-            panel_Border.ResumeLayout(false);
-            panel_Client.ResumeLayout(false);
-            panel_TitleBar.ResumeLayout(false);
-            panel_TitleBar.PerformLayout();
+            panel_主背景.ResumeLayout(false);
+            panel_副背景.ResumeLayout(false);
+            panel_标题栏.ResumeLayout(false);
+            panel_标题栏.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel_Border;
-        private Panel panel_Client;
-        private Panel panelMain;
-        private Panel panel_TitleBar;
-        private Label label_Title;
-        private Button button_Minimize;
-        private Button button_Close;
+        private Panel panel_主背景;
+        private Panel panel_副背景;
+        private Panel panel客户区;
+        private Panel panel_标题栏;
+        private Label label_标题;
+        private Button button_最小化;
+        private Button button_关闭;
     }
 }

@@ -15,7 +15,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
     {
         // 修改：硬编码目标赛季文件夹名 
         // 以后赛季更新时，只需要修改下面这一行字符串即可。
-        private readonly string _targetSeasonFolderName = "英雄联盟传奇";
+        private readonly string _targetSeasonFolderName = "S17";
 
         public string[] Paths { get; set; }
         public List<DataClass.RecommendedEquipment> HeroEquipments { get; private set; }

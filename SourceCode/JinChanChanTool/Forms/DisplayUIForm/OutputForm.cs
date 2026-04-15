@@ -1,5 +1,6 @@
 ﻿using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace JinChanChanTool.Forms
     {
         // 单例模式
         private static OutputForm _instance;
-        
+
         public static OutputForm Instance
         {
             get
@@ -29,7 +30,7 @@ namespace JinChanChanTool.Forms
                 }
                 return _instance;
             }
-            
+
         }
 
         // 拖动相关的变量
@@ -39,16 +40,37 @@ namespace JinChanChanTool.Forms
         private OutputForm()
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
 
-            //绑定拖动事件            
-            panel_Dragging.MouseDown += Panel_Dragging_MouseDown;
-            panel_Dragging.MouseMove += Panel_Dragging_MouseMove;
-            panel_Dragging.MouseUp += Panel_Dragging_MouseUp;
-            panel_Dragging.MouseLeave += Panel_Dragging_MouseLeave;
-         
+            //绑定拖动事件
+            panel_分割滑块.MouseDown += Panel_Dragging_MouseDown;
+            panel_分割滑块.MouseMove += Panel_Dragging_MouseMove;
+            panel_分割滑块.MouseUp += Panel_Dragging_MouseUp;
+            panel_分割滑块.MouseLeave += Panel_Dragging_MouseLeave;
+
         }
         public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
+        private ILocalizationService _iLocalizationService;
+        /// <summary>
+        /// 初始化本地化服务
+        /// </summary>
+        /// <param name="iLocalizationService">本地化服务</param>
+        public void InitializeLocalization(ILocalizationService iLocalizationService)
+        {
+            _iLocalizationService = iLocalizationService;
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            label_标题.Text = _iLocalizationService.Get("OutputForm.标题");
+            textBox_错误信息.Text = _iLocalizationService.Get("OutputForm.错误信息前缀");
+            textBox_输出信息.Text = _iLocalizationService.Get("OutputForm.输出信息前缀");
+        }
+
         /// <summary>
         /// 初始化配置服务
         /// </summary>
@@ -56,7 +78,7 @@ namespace JinChanChanTool.Forms
         /// <param name="cardService">卡牌服务</param>
         public void InitializeObject(IAutomaticSettingsService iAutoConfigService)
         {
-            _iAutoConfigService = iAutoConfigService;            
+            _iAutoConfigService = iAutoConfigService;
         }
 
         /// <summary>
@@ -65,9 +87,9 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteErrorMessage(string message)
         {
-            textBox_ErrorMessage.Invoke((MethodInvoker)delegate
+            textBox_错误信息.Invoke((MethodInvoker)delegate
             {
-                textBox_ErrorMessage.AppendText(message);
+                textBox_错误信息.AppendText(message);
             });
         }
 
@@ -77,9 +99,9 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteLineErrorMessage(string message)
         {
-            textBox_ErrorMessage.Invoke((MethodInvoker)delegate
+            textBox_错误信息.Invoke((MethodInvoker)delegate
             {
-                textBox_ErrorMessage.AppendText(message+"\r\n");
+                textBox_错误信息.AppendText(message+"\r\n");
             });
         }
 
@@ -89,9 +111,9 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteOutputMessage(string message)
         {
-            textBox_OutPut.Invoke((MethodInvoker)delegate
+            textBox_输出信息.Invoke((MethodInvoker)delegate
             {
-                textBox_OutPut.AppendText(message);
+                textBox_输出信息.AppendText(message);
             });
         }
 
@@ -101,9 +123,9 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteLineOutputMessage(string message)
         {
-            textBox_OutPut.Invoke((MethodInvoker)delegate
+            textBox_输出信息.Invoke((MethodInvoker)delegate
             {
-                textBox_OutPut.AppendText(message + "\r\n");
+                textBox_输出信息.AppendText(message + "\r\n");
             });
         }
 
@@ -117,7 +139,7 @@ namespace JinChanChanTool.Forms
             if (e.Button == MouseButtons.Left)
             {
                 IsDragging = true;                     
-                panel_Dragging.Capture = true;
+                panel_分割滑块.Capture = true;
             }
         }
 
@@ -131,26 +153,26 @@ namespace JinChanChanTool.Forms
             if (IsDragging)
             {
                 int OffsetX = e.X;
-                int NewDraggingBarLeft = panel_Dragging.Left + OffsetX;
-                int NewErrorMessageTextBoxWidth = textBox_ErrorMessage.Width + OffsetX;
-                int NewOutputTextBoxWidth = textBox_OutPut.Width - OffsetX;
-                int NewOutputTextBoxLeft = textBox_OutPut.Left + OffsetX;
+                int NewDraggingBarLeft = panel_分割滑块.Left + OffsetX;
+                int NewErrorMessageTextBoxWidth = textBox_错误信息.Width + OffsetX;
+                int NewOutputTextBoxWidth = textBox_输出信息.Width - OffsetX;
+                int NewOutputTextBoxLeft = textBox_输出信息.Left + OffsetX;
                 if (NewErrorMessageTextBoxWidth < MinWidth || NewOutputTextBoxWidth < MinWidth)
                 {
                     // 达到最小宽度，停止调整
                     return;
                 }
-                panel_Dragging.Left = NewDraggingBarLeft;
-                textBox_ErrorMessage.Width = NewErrorMessageTextBoxWidth;
+                panel_分割滑块.Left = NewDraggingBarLeft;
+                textBox_错误信息.Width = NewErrorMessageTextBoxWidth;
                 if (OffsetX >= 0)
                 {
-                    textBox_OutPut.Width = NewOutputTextBoxWidth;
-                    textBox_OutPut.Left = NewOutputTextBoxLeft;
+                    textBox_输出信息.Width = NewOutputTextBoxWidth;
+                    textBox_输出信息.Left = NewOutputTextBoxLeft;
                 }
                 else
                 {
-                    textBox_OutPut.Left = NewOutputTextBoxLeft;
-                    textBox_OutPut.Width = NewOutputTextBoxWidth;
+                    textBox_输出信息.Left = NewOutputTextBoxLeft;
+                    textBox_输出信息.Width = NewOutputTextBoxWidth;
                 }
                 
             }
@@ -164,7 +186,7 @@ namespace JinChanChanTool.Forms
         private void Panel_Dragging_MouseUp(object sender, MouseEventArgs e)
         {
             IsDragging = false;
-            panel_Dragging.Capture = false;
+            panel_分割滑块.Capture = false;
         }
 
         /// <summary>
@@ -178,7 +200,7 @@ namespace JinChanChanTool.Forms
             if (IsDragging)
             {
                 IsDragging = false;
-                panel_Dragging.Capture = false;
+                panel_分割滑块.Capture = false;
             }
         }
 

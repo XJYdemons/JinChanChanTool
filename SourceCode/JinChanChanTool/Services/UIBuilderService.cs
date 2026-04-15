@@ -3,6 +3,7 @@ using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using System.Diagnostics;
 using Windows.AI.MachineLearning;
 using YamlDotNet.Core.Tokens;
@@ -148,7 +149,12 @@ namespace JinChanChanTool.Services
         /// </summary>
         private readonly IManualSettingsService _iManualSettingsService;
 
-        public UIBuilderService(IHeroDataService iHeroDataService, IManualSettingsService iManualSettingsService, MainForm mainForm,TabControl tabControl_HeroSelector, CustomFlowLayoutPanel subLineUpPanel1,CustomFlowLayoutPanel LineUpPanel1,int maxHeroCount)
+        /// <summary>
+        /// 本地化服务实例
+        /// </summary>
+        private readonly ILocalizationService _iLocalizationService;
+
+        public UIBuilderService(IHeroDataService iHeroDataService, IManualSettingsService iManualSettingsService, ILocalizationService iLocalizationService, MainForm mainForm,TabControl tabControl_HeroSelector, CustomFlowLayoutPanel subLineUpPanel1,CustomFlowLayoutPanel LineUpPanel1,int maxHeroCount)
         {            
             MainForm_HeroPictureBoxes = new List<HeroPictureBox>();
             MainForm_CheckBoxes = new List<CheckBox>();
@@ -170,6 +176,7 @@ namespace JinChanChanTool.Services
             _mainForm = mainForm;
             _iHeroDataService = iHeroDataService;
             _iManualSettingsService = iManualSettingsService;
+            _iLocalizationService = iLocalizationService;
         }
 
         /// <summary>
@@ -235,7 +242,7 @@ namespace JinChanChanTool.Services
                 tabPage.Name = $"tabPage_{costTypeList[i]}Cost";
                 tabPage.Padding = new Padding(3);
                 tabPage.Margin = new Padding(3);
-                tabPage.Text = $"{costTypeList[i]}费";
+                tabPage.Text = _iLocalizationService.Get("UIBuilder.费用分页", costTypeList[i]);
                 tabPage.Tag = costTypeList[i];
                 _tabControl_HeroSelector.TabPages.Add(tabPage);
                 tabPage.ResumeLayout(false);
@@ -246,7 +253,7 @@ namespace JinChanChanTool.Services
             label_职业.Location = new Point(0, 0);
             label_职业.Name = "label_职业";
             label_职业.Size = new Size(Dpi_M(184), Dpi_M(21));
-            label_职业.Text = "--------- 职业 ---------";
+            label_职业.Text = _iLocalizationService.Get("UIBuilder.职业标题");
             label_职业.TextAlign = ContentAlignment.MiddleCenter;
 
             Panel panel_SelectByProfession = new Panel();
@@ -265,7 +272,7 @@ namespace JinChanChanTool.Services
             label_特质.Location = new Point(0, 0);
             label_特质.Name = "label_特质";
             label_特质.Size = new Size(Dpi_M(184), Dpi_M(21));
-            label_特质.Text = "--------- 特质 ---------";
+            label_特质.Text = _iLocalizationService.Get("UIBuilder.特质标题");
             label_特质.TextAlign = ContentAlignment.MiddleCenter;
 
             Panel panel_SelectByPeculiarity = new Panel();
@@ -287,7 +294,7 @@ namespace JinChanChanTool.Services
             tabPage_SelectByProfessionAndPeculiarity.Name = "tabPage_SelectByProfessionAndPeculiarity";
             tabPage_SelectByProfessionAndPeculiarity.Padding = new Padding(3);
             tabPage_SelectByProfessionAndPeculiarity.Margin = new Padding(3);
-            tabPage_SelectByProfessionAndPeculiarity.Text = "按职业和特质选择";
+            tabPage_SelectByProfessionAndPeculiarity.Text = _iLocalizationService.Get("UIBuilder.按职业与特质选择");
             tabPage_SelectByProfessionAndPeculiarity.Tag = 10000;
             _tabControl_HeroSelector.TabPages.Add(tabPage_SelectByProfessionAndPeculiarity);
             tabPage_SelectByProfessionAndPeculiarity.ResumeLayout(false);

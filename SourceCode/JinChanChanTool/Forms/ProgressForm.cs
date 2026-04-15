@@ -1,4 +1,5 @@
-﻿using JinChanChanTool.Tools;
+﻿using JinChanChanTool.Services.Localization;
+using JinChanChanTool.Tools;
 
 namespace JinChanChanTool.Forms
 {
@@ -7,10 +8,21 @@ namespace JinChanChanTool.Forms
     /// </summary>
     public partial class ProgressForm : Form
     {
-        public ProgressForm()
+        public ProgressForm(ILocalizationService iLocalizationService)
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
+            ApplyLocalization(iLocalizationService);
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        /// <param name="iLocalizationService">本地化服务对象</param>
+        private void ApplyLocalization(ILocalizationService iLocalizationService)
+        {
+            label_标题.Text = iLocalizationService.Get("ProgressForm.标题");
+            this.Text = iLocalizationService.Get("ProgressForm.窗口标题");
         }
 
         /// <summary>
@@ -21,7 +33,7 @@ namespace JinChanChanTool.Forms
         public void UpdateProgress(int percentage, string statusText)
         {
             // 检查调用是否在UI线程上，如果不是，则通过Invoke使其在UI线程上执行
-            if (progressBar1.InvokeRequired)
+            if (progressBar.InvokeRequired)
             {
                 // 创建一个委托，并异步调用此方法本身
                 this.Invoke(new Action(() => UpdateProgress(percentage, statusText)));
@@ -35,10 +47,9 @@ namespace JinChanChanTool.Forms
             if (percentage > 100) percentage = 100;
 
             // 更新 ProgressBar 的值
-            progressBar1.Value = percentage;
+            progressBar.Value = percentage;
 
-            // 更新 Label 的文本
-            lblStatus.Text = statusText;
+                       
 
             // 强制UI立即重绘，以确保用户能看到最新的状态
             this.Update();

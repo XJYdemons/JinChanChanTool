@@ -2,6 +2,7 @@ using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.LineupCrawling;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System.Diagnostics;
@@ -28,11 +29,15 @@ namespace JinChanChanTool
             IAutomaticSettingsService _iAutomaticSettingsService = new AutomaticSettingsService();
             _iAutomaticSettingsService.Load();
 
+            //创建并加载本地化服务
+            ILocalizationService _iLocalizationService = new LocalizationService();
+            _iLocalizationService.Load(_iManualSettingsService.CurrentConfig.Language);
+
             // 检查是否是首次启动
             if (_iAutomaticSettingsService.CurrentConfig.IsFirstStart)
             {
                 // 显示配置向导
-                using (SetupWizardForm testForm = new SetupWizardForm(_iManualSettingsService))
+                using (SetupWizardForm testForm = new SetupWizardForm(_iManualSettingsService, _iLocalizationService))
                 {
                     DialogResult result = testForm.ShowDialog();
 
@@ -57,6 +62,7 @@ namespace JinChanChanTool
             }
 
             // 展示输出窗口
+            OutputForm.Instance.InitializeLocalization(_iLocalizationService);
             OutputForm.Instance.InitializeObject(_iAutomaticSettingsService);
             OutputForm.Instance.Show();
             if (!_iManualSettingsService.CurrentConfig.IsUseOutputForm)
@@ -96,7 +102,7 @@ namespace JinChanChanTool
             _iRecommendedLineUpService.Load();
             
             // 运行主窗体并传入应用设置服务
-            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService));
+            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iLocalizationService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService));
         }
     }
 }

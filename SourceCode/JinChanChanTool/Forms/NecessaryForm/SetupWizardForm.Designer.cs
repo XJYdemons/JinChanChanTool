@@ -31,26 +31,26 @@ namespace JinChanChanTool
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupWizardForm));
-            panel1 = new Panel();
-            panel2 = new Panel();
-            panel5 = new Panel();
+            panel_主背景 = new Panel();
+            panel_副背景 = new Panel();
+            panel_分页区 = new Panel();
             panel_8GPU环境配置 = new Panel();
-            groupBoxEnvironment = new GroupBox();
+            groupBox_环境检测 = new GroupBox();
             label_GPU状态 = new Label();
             label_cuDNN状态 = new Label();
             label_CUDA状态 = new Label();
             button_检测GPU环境 = new RoundedButton();
-            groupBoxConfig = new GroupBox();
-            labelCudaVersion = new Label();
-            comboBoxCudaVersion = new ComboBox();
+            groupBox_安装配置 = new GroupBox();
+            label_CUDA版本 = new Label();
+            comboBox_选择CUDA版本 = new ComboBox();
             button_一键配置 = new RoundedButton();
-            richTextBoxLog = new RichTextBox();
-            label24 = new Label();
-            label27 = new Label();
+            richTextBox_GPU环境配置输出 = new RichTextBox();
+            label_GPU环境配置页描述 = new Label();
+            label_GPU环境配置 = new Label();
             panel_9配置完成 = new Panel();
-            richTextBox1 = new RichTextBox();
+            richTextBox_配置概览 = new RichTextBox();
             label_完成说明 = new Label();
-            label17 = new Label();
+            label_配置完成 = new Label();
             panel_7选择OCR推理设备 = new Panel();
             label_CPU推理 = new Label();
             capsuleSwitch_CPU推理 = new CapsuleSwitch();
@@ -58,8 +58,8 @@ namespace JinChanChanTool
             label_GPU推理 = new Label();
             capsuleSwitch_GPU推理 = new CapsuleSwitch();
             label_GPU说明 = new Label();
-            label19 = new Label();
-            label22 = new Label();
+            label_OCR设备描述 = new Label();
+            label_选择OCR推理设备 = new Label();
             panel_6选择刷新商店方式 = new Panel();
             label_鼠标刷新 = new Label();
             capsuleSwitch_鼠标刷新 = new CapsuleSwitch();
@@ -67,8 +67,8 @@ namespace JinChanChanTool
             capsuleSwitch_按键刷新 = new CapsuleSwitch();
             label_刷新按键 = new Label();
             textBox_刷新按键 = new TextBox();
-            label25 = new Label();
-            label26 = new Label();
+            label_选择刷新商店方式描述 = new Label();
+            label_选择刷新商店方式 = new Label();
             Panel_5选择拿牌方式 = new Panel();
             label_鼠标拿牌 = new Label();
             capsuleSwitch_鼠标拿牌 = new CapsuleSwitch();
@@ -84,51 +84,51 @@ namespace JinChanChanTool
             textBox_拿牌按键4 = new TextBox();
             label_拿牌按键5 = new Label();
             textBox_拿牌按键5 = new TextBox();
-            label20 = new Label();
-            label21 = new Label();
+            label_购买英雄按键描述 = new Label();
+            label_选择拿牌方式 = new Label();
             panel_4手动设置坐标 = new Panel();
             label_设置高亮提示坐标 = new Label();
             roundedButton_设置高亮提示坐标 = new RoundedButton();
             label_设置刷新按钮坐标 = new Label();
             roundedButton_设置刷新按钮坐标 = new RoundedButton();
             comboBox_选择显示器 = new ComboBox();
-            label15 = new Label();
+            label_选择显示器 = new Label();
             label_设置英雄名称坐标 = new Label();
-            label14 = new Label();
+            label_手动设置坐标提示 = new Label();
             roundedButton_设置英雄名称坐标 = new RoundedButton();
-            label16 = new Label();
+            label_手动设置坐标 = new Label();
             panel_3自动设置坐标 = new Panel();
             label_进程状态 = new Label();
-            label10 = new Label();
+            label_选择游戏进程 = new Label();
             选择游戏窗口进程 = new RoundedButton();
-            label12 = new Label();
-            label13 = new Label();
+            label_自动设置坐标提示 = new Label();
+            label_自动设置坐标 = new Label();
             panel_2坐标设置模式 = new Panel();
-            label7 = new Label();
+            label_手动坐标模式描述 = new Label();
             radioButton_手动设置坐标 = new RadioButton();
-            label6 = new Label();
+            label_自动坐标模式描述 = new Label();
             radioButton_自动设置坐标 = new RadioButton();
-            label8 = new Label();
-            label9 = new Label();
+            label_坐标描述 = new Label();
+            label_选择坐标设置模式 = new Label();
             panel_1欢迎页 = new Panel();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            panel4 = new Panel();
+            label_点击下一步继续 = new Label();
+            label_配置向导页描述 = new Label();
+            label_配置向导描述 = new Label();
+            label_欢迎使用 = new Label();
+            panel_按钮区 = new Panel();
             button_下一步 = new RoundedButton();
             button_上一步 = new RoundedButton();
             button_跳过向导 = new RoundedButton();
             button_完成 = new RoundedButton();
-            panel3 = new Panel();
-            label5 = new Label();
-            pictureBox1 = new PictureBox();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            panel5.SuspendLayout();
+            panel_标题栏 = new Panel();
+            label_标题 = new Label();
+            pictureBox_图标 = new PictureBox();
+            panel_主背景.SuspendLayout();
+            panel_副背景.SuspendLayout();
+            panel_分页区.SuspendLayout();
             panel_8GPU环境配置.SuspendLayout();
-            groupBoxEnvironment.SuspendLayout();
-            groupBoxConfig.SuspendLayout();
+            groupBox_环境检测.SuspendLayout();
+            groupBox_安装配置.SuspendLayout();
             panel_9配置完成.SuspendLayout();
             panel_7选择OCR推理设备.SuspendLayout();
             panel_6选择刷新商店方式.SuspendLayout();
@@ -137,78 +137,78 @@ namespace JinChanChanTool
             panel_3自动设置坐标.SuspendLayout();
             panel_2坐标设置模式.SuspendLayout();
             panel_1欢迎页.SuspendLayout();
-            panel4.SuspendLayout();
-            panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel_按钮区.SuspendLayout();
+            panel_标题栏.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox_图标).BeginInit();
             SuspendLayout();
             // 
-            // panel1
+            // panel_主背景
             // 
-            panel1.BackColor = Color.FromArgb(250, 250, 250);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(0);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(3, 3, 4, 4);
-            panel1.Size = new Size(751, 573);
-            panel1.TabIndex = 6;
+            panel_主背景.BackColor = Color.FromArgb(250, 250, 250);
+            panel_主背景.Controls.Add(panel_副背景);
+            panel_主背景.Dock = DockStyle.Fill;
+            panel_主背景.Location = new Point(0, 0);
+            panel_主背景.Margin = new Padding(0);
+            panel_主背景.Name = "panel_主背景";
+            panel_主背景.Padding = new Padding(3, 3, 4, 4);
+            panel_主背景.Size = new Size(751, 573);
+            panel_主背景.TabIndex = 6;
             // 
-            // panel2
+            // panel_副背景
             // 
-            panel2.BackColor = Color.White;
-            panel2.Controls.Add(panel5);
-            panel2.Controls.Add(panel4);
-            panel2.Controls.Add(panel3);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(3, 3);
-            panel2.Margin = new Padding(0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(744, 566);
-            panel2.TabIndex = 6;
+            panel_副背景.BackColor = Color.White;
+            panel_副背景.Controls.Add(panel_分页区);
+            panel_副背景.Controls.Add(panel_按钮区);
+            panel_副背景.Controls.Add(panel_标题栏);
+            panel_副背景.Dock = DockStyle.Fill;
+            panel_副背景.Location = new Point(3, 3);
+            panel_副背景.Margin = new Padding(0);
+            panel_副背景.Name = "panel_副背景";
+            panel_副背景.Size = new Size(744, 566);
+            panel_副背景.TabIndex = 6;
             // 
-            // panel5
+            // panel_分页区
             // 
-            panel5.Controls.Add(panel_8GPU环境配置);
-            panel5.Controls.Add(panel_9配置完成);
-            panel5.Controls.Add(panel_7选择OCR推理设备);
-            panel5.Controls.Add(panel_6选择刷新商店方式);
-            panel5.Controls.Add(Panel_5选择拿牌方式);
-            panel5.Controls.Add(panel_4手动设置坐标);
-            panel5.Controls.Add(panel_3自动设置坐标);
-            panel5.Controls.Add(panel_2坐标设置模式);
-            panel5.Controls.Add(panel_1欢迎页);
-            panel5.Location = new Point(3, 32);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(738, 460);
-            panel5.TabIndex = 8;
+            panel_分页区.Controls.Add(panel_8GPU环境配置);
+            panel_分页区.Controls.Add(panel_9配置完成);
+            panel_分页区.Controls.Add(panel_7选择OCR推理设备);
+            panel_分页区.Controls.Add(panel_6选择刷新商店方式);
+            panel_分页区.Controls.Add(Panel_5选择拿牌方式);
+            panel_分页区.Controls.Add(panel_4手动设置坐标);
+            panel_分页区.Controls.Add(panel_3自动设置坐标);
+            panel_分页区.Controls.Add(panel_2坐标设置模式);
+            panel_分页区.Controls.Add(panel_1欢迎页);
+            panel_分页区.Location = new Point(3, 32);
+            panel_分页区.Name = "panel_分页区";
+            panel_分页区.Size = new Size(738, 460);
+            panel_分页区.TabIndex = 8;
             // 
             // panel_8GPU环境配置
             // 
-            panel_8GPU环境配置.Controls.Add(groupBoxEnvironment);
-            panel_8GPU环境配置.Controls.Add(groupBoxConfig);
-            panel_8GPU环境配置.Controls.Add(richTextBoxLog);
-            panel_8GPU环境配置.Controls.Add(label24);
-            panel_8GPU环境配置.Controls.Add(label27);
+            panel_8GPU环境配置.Controls.Add(groupBox_环境检测);
+            panel_8GPU环境配置.Controls.Add(groupBox_安装配置);
+            panel_8GPU环境配置.Controls.Add(richTextBox_GPU环境配置输出);
+            panel_8GPU环境配置.Controls.Add(label_GPU环境配置页描述);
+            panel_8GPU环境配置.Controls.Add(label_GPU环境配置);
             panel_8GPU环境配置.Dock = DockStyle.Fill;
             panel_8GPU环境配置.Location = new Point(0, 0);
             panel_8GPU环境配置.Name = "panel_8GPU环境配置";
             panel_8GPU环境配置.Size = new Size(738, 460);
             panel_8GPU环境配置.TabIndex = 32;
             // 
-            // groupBoxEnvironment
+            // groupBox_环境检测
             // 
-            groupBoxEnvironment.Controls.Add(label_GPU状态);
-            groupBoxEnvironment.Controls.Add(label_cuDNN状态);
-            groupBoxEnvironment.Controls.Add(label_CUDA状态);
-            groupBoxEnvironment.Controls.Add(button_检测GPU环境);
-            groupBoxEnvironment.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
-            groupBoxEnvironment.Location = new Point(13, 65);
-            groupBoxEnvironment.Name = "groupBoxEnvironment";
-            groupBoxEnvironment.Size = new Size(720, 110);
-            groupBoxEnvironment.TabIndex = 12;
-            groupBoxEnvironment.TabStop = false;
-            groupBoxEnvironment.Text = "环境检测";
+            groupBox_环境检测.Controls.Add(label_GPU状态);
+            groupBox_环境检测.Controls.Add(label_cuDNN状态);
+            groupBox_环境检测.Controls.Add(label_CUDA状态);
+            groupBox_环境检测.Controls.Add(button_检测GPU环境);
+            groupBox_环境检测.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            groupBox_环境检测.Location = new Point(13, 76);
+            groupBox_环境检测.Name = "groupBox_环境检测";
+            groupBox_环境检测.Size = new Size(720, 110);
+            groupBox_环境检测.TabIndex = 12;
+            groupBox_环境检测.TabStop = false;
+            groupBox_环境检测.Text = "环境检测";
             // 
             // label_GPU状态
             // 
@@ -258,38 +258,38 @@ namespace JinChanChanTool
             button_检测GPU环境.TextFont = new Font("微软雅黑", 10F);
             button_检测GPU环境.Click += button_检测GPU环境_Click;
             // 
-            // groupBoxConfig
+            // groupBox_安装配置
             // 
-            groupBoxConfig.Controls.Add(labelCudaVersion);
-            groupBoxConfig.Controls.Add(comboBoxCudaVersion);
-            groupBoxConfig.Controls.Add(button_一键配置);
-            groupBoxConfig.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
-            groupBoxConfig.Location = new Point(13, 181);
-            groupBoxConfig.Name = "groupBoxConfig";
-            groupBoxConfig.Size = new Size(720, 64);
-            groupBoxConfig.TabIndex = 13;
-            groupBoxConfig.TabStop = false;
-            groupBoxConfig.Text = "安装配置";
+            groupBox_安装配置.Controls.Add(label_CUDA版本);
+            groupBox_安装配置.Controls.Add(comboBox_选择CUDA版本);
+            groupBox_安装配置.Controls.Add(button_一键配置);
+            groupBox_安装配置.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            groupBox_安装配置.Location = new Point(13, 192);
+            groupBox_安装配置.Name = "groupBox_安装配置";
+            groupBox_安装配置.Size = new Size(720, 64);
+            groupBox_安装配置.TabIndex = 13;
+            groupBox_安装配置.TabStop = false;
+            groupBox_安装配置.Text = "安装配置";
             // 
-            // labelCudaVersion
+            // label_CUDA版本
             // 
-            labelCudaVersion.AutoSize = true;
-            labelCudaVersion.Font = new Font("Microsoft YaHei UI", 9F);
-            labelCudaVersion.Location = new Point(15, 30);
-            labelCudaVersion.Name = "labelCudaVersion";
-            labelCudaVersion.Size = new Size(69, 17);
-            labelCudaVersion.TabIndex = 0;
-            labelCudaVersion.Text = "CUDA版本:";
+            label_CUDA版本.AutoSize = true;
+            label_CUDA版本.Font = new Font("Microsoft YaHei UI", 9F);
+            label_CUDA版本.Location = new Point(15, 30);
+            label_CUDA版本.Name = "label_CUDA版本";
+            label_CUDA版本.Size = new Size(69, 17);
+            label_CUDA版本.TabIndex = 0;
+            label_CUDA版本.Text = "CUDA版本:";
             // 
-            // comboBoxCudaVersion
+            // comboBox_选择CUDA版本
             // 
-            comboBoxCudaVersion.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxCudaVersion.Font = new Font("Microsoft YaHei UI", 9F);
-            comboBoxCudaVersion.FormattingEnabled = true;
-            comboBoxCudaVersion.Location = new Point(100, 27);
-            comboBoxCudaVersion.Name = "comboBoxCudaVersion";
-            comboBoxCudaVersion.Size = new Size(200, 25);
-            comboBoxCudaVersion.TabIndex = 1;
+            comboBox_选择CUDA版本.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_选择CUDA版本.Font = new Font("Microsoft YaHei UI", 9F);
+            comboBox_选择CUDA版本.FormattingEnabled = true;
+            comboBox_选择CUDA版本.Location = new Point(119, 27);
+            comboBox_选择CUDA版本.Name = "comboBox_选择CUDA版本";
+            comboBox_选择CUDA版本.Size = new Size(200, 25);
+            comboBox_选择CUDA版本.TabIndex = 1;
             // 
             // button_一键配置
             // 
@@ -309,82 +309,86 @@ namespace JinChanChanTool
             button_一键配置.TextFont = new Font("微软雅黑", 10F);
             button_一键配置.Click += button_一键配置_Click;
             // 
-            // richTextBoxLog
+            // richTextBox_GPU环境配置输出
             // 
-            richTextBoxLog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            richTextBoxLog.BackColor = Color.FromArgb(30, 30, 30);
-            richTextBoxLog.Font = new Font("Consolas", 9F);
-            richTextBoxLog.ForeColor = Color.LightGray;
-            richTextBoxLog.Location = new Point(13, 251);
-            richTextBoxLog.Name = "richTextBoxLog";
-            richTextBoxLog.ReadOnly = true;
-            richTextBoxLog.Size = new Size(720, 206);
-            richTextBoxLog.TabIndex = 2;
-            richTextBoxLog.Text = "";
+            richTextBox_GPU环境配置输出.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            richTextBox_GPU环境配置输出.BackColor = Color.FromArgb(30, 30, 30);
+            richTextBox_GPU环境配置输出.Font = new Font("Consolas", 9F);
+            richTextBox_GPU环境配置输出.ForeColor = Color.LightGray;
+            richTextBox_GPU环境配置输出.Location = new Point(13, 262);
+            richTextBox_GPU环境配置输出.Name = "richTextBox_GPU环境配置输出";
+            richTextBox_GPU环境配置输出.ReadOnly = true;
+            richTextBox_GPU环境配置输出.Size = new Size(720, 195);
+            richTextBox_GPU环境配置输出.TabIndex = 2;
+            richTextBox_GPU环境配置输出.Text = "";
             // 
-            // label24
+            // label_GPU环境配置页描述
             // 
-            label24.AutoSize = true;
-            label24.ForeColor = Color.Gray;
-            label24.Location = new Point(13, 41);
-            label24.Name = "label24";
-            label24.Size = new Size(301, 17);
-            label24.TabIndex = 3;
-            label24.Text = "一键配置CUDA、cuDNN和运行时环境，启用GPU加速";
-            label24.TextAlign = ContentAlignment.MiddleLeft;
+            label_GPU环境配置页描述.AutoSize = true;
+            label_GPU环境配置页描述.ForeColor = Color.Gray;
+            label_GPU环境配置页描述.Location = new Point(13, 41);
+            label_GPU环境配置页描述.MaximumSize = new Size(720, 34);
+            label_GPU环境配置页描述.MinimumSize = new Size(301, 17);
+            label_GPU环境配置页描述.Name = "label_GPU环境配置页描述";
+            label_GPU环境配置页描述.Size = new Size(301, 17);
+            label_GPU环境配置页描述.TabIndex = 3;
+            label_GPU环境配置页描述.Text = "一键配置CUDA、cuDNN和运行时环境，启用GPU加速";
+            label_GPU环境配置页描述.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label27
+            // label_GPU环境配置
             // 
-            label27.AutoSize = true;
-            label27.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label27.Location = new Point(10, 10);
-            label27.Name = "label27";
-            label27.Size = new Size(142, 28);
-            label27.TabIndex = 0;
-            label27.Text = "GPU环境配置";
-            label27.TextAlign = ContentAlignment.MiddleLeft;
+            label_GPU环境配置.AutoSize = true;
+            label_GPU环境配置.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_GPU环境配置.Location = new Point(10, 10);
+            label_GPU环境配置.Name = "label_GPU环境配置";
+            label_GPU环境配置.Size = new Size(142, 28);
+            label_GPU环境配置.TabIndex = 0;
+            label_GPU环境配置.Text = "GPU环境配置";
+            label_GPU环境配置.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel_9配置完成
             // 
-            panel_9配置完成.Controls.Add(richTextBox1);
+            panel_9配置完成.Controls.Add(richTextBox_配置概览);
             panel_9配置完成.Controls.Add(label_完成说明);
-            panel_9配置完成.Controls.Add(label17);
+            panel_9配置完成.Controls.Add(label_配置完成);
             panel_9配置完成.Dock = DockStyle.Fill;
             panel_9配置完成.Location = new Point(0, 0);
             panel_9配置完成.Name = "panel_9配置完成";
             panel_9配置完成.Size = new Size(738, 460);
             panel_9配置完成.TabIndex = 33;
             // 
-            // richTextBox1
+            // richTextBox_配置概览
             // 
-            richTextBox1.BackColor = Color.Black;
-            richTextBox1.ForeColor = Color.White;
-            richTextBox1.Location = new Point(16, 81);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(717, 376);
-            richTextBox1.TabIndex = 5;
-            richTextBox1.Text = "";
+            richTextBox_配置概览.BackColor = Color.Black;
+            richTextBox_配置概览.ForeColor = Color.White;
+            richTextBox_配置概览.Location = new Point(16, 81);
+            richTextBox_配置概览.Name = "richTextBox_配置概览";
+            richTextBox_配置概览.Size = new Size(717, 376);
+            richTextBox_配置概览.TabIndex = 5;
+            richTextBox_配置概览.Text = "";
             // 
             // label_完成说明
             // 
+            label_完成说明.AutoSize = true;
             label_完成说明.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_完成说明.Location = new Point(13, 48);
+            label_完成说明.Location = new Point(13, 39);
+            label_完成说明.MaximumSize = new Size(720, 40);
+            label_完成说明.MinimumSize = new Size(427, 20);
             label_完成说明.Name = "label_完成说明";
-            label_完成说明.Size = new Size(580, 30);
+            label_完成说明.Size = new Size(427, 20);
             label_完成说明.TabIndex = 3;
             label_完成说明.Text = "恭喜!您已完成所有配置,点击\"完成\"按钮开始使用JinChanChanTool";
-            label_完成说明.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label17
+            // label_配置完成
             // 
-            label17.AutoSize = true;
-            label17.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label17.Location = new Point(10, 10);
-            label17.Name = "label17";
-            label17.Size = new Size(96, 28);
-            label17.TabIndex = 0;
-            label17.Text = "配置完成";
-            label17.TextAlign = ContentAlignment.MiddleLeft;
+            label_配置完成.AutoSize = true;
+            label_配置完成.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_配置完成.Location = new Point(10, 10);
+            label_配置完成.Name = "label_配置完成";
+            label_配置完成.Size = new Size(96, 28);
+            label_配置完成.TabIndex = 0;
+            label_配置完成.Text = "配置完成";
+            label_配置完成.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel_7选择OCR推理设备
             // 
@@ -394,8 +398,8 @@ namespace JinChanChanTool
             panel_7选择OCR推理设备.Controls.Add(label_GPU推理);
             panel_7选择OCR推理设备.Controls.Add(capsuleSwitch_GPU推理);
             panel_7选择OCR推理设备.Controls.Add(label_GPU说明);
-            panel_7选择OCR推理设备.Controls.Add(label19);
-            panel_7选择OCR推理设备.Controls.Add(label22);
+            panel_7选择OCR推理设备.Controls.Add(label_OCR设备描述);
+            panel_7选择OCR推理设备.Controls.Add(label_选择OCR推理设备);
             panel_7选择OCR推理设备.Dock = DockStyle.Fill;
             panel_7选择OCR推理设备.Location = new Point(0, 0);
             panel_7选择OCR推理设备.Name = "panel_7选择OCR推理设备";
@@ -405,7 +409,7 @@ namespace JinChanChanTool
             // label_CPU推理
             // 
             label_CPU推理.Font = new Font("Microsoft YaHei UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_CPU推理.Location = new Point(16, 74);
+            label_CPU推理.Location = new Point(16, 76);
             label_CPU推理.Name = "label_CPU推理";
             label_CPU推理.Size = new Size(100, 25);
             label_CPU推理.TabIndex = 8;
@@ -414,7 +418,7 @@ namespace JinChanChanTool
             // 
             // capsuleSwitch_CPU推理
             // 
-            capsuleSwitch_CPU推理.Location = new Point(126, 76);
+            capsuleSwitch_CPU推理.Location = new Point(126, 78);
             capsuleSwitch_CPU推理.Name = "capsuleSwitch_CPU推理";
             capsuleSwitch_CPU推理.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch_CPU推理.OnColor = Color.FromArgb(24, 96, 251);
@@ -430,7 +434,7 @@ namespace JinChanChanTool
             // 
             label_CPU说明.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label_CPU说明.ForeColor = Color.FromArgb(100, 100, 100);
-            label_CPU说明.Location = new Point(36, 104);
+            label_CPU说明.Location = new Point(36, 106);
             label_CPU说明.Name = "label_CPU说明";
             label_CPU说明.Size = new Size(540, 40);
             label_CPU说明.TabIndex = 10;
@@ -439,7 +443,7 @@ namespace JinChanChanTool
             // label_GPU推理
             // 
             label_GPU推理.Font = new Font("Microsoft YaHei UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_GPU推理.Location = new Point(16, 164);
+            label_GPU推理.Location = new Point(16, 166);
             label_GPU推理.Name = "label_GPU推理";
             label_GPU推理.Size = new Size(100, 25);
             label_GPU推理.TabIndex = 11;
@@ -448,7 +452,7 @@ namespace JinChanChanTool
             // 
             // capsuleSwitch_GPU推理
             // 
-            capsuleSwitch_GPU推理.Location = new Point(126, 166);
+            capsuleSwitch_GPU推理.Location = new Point(126, 168);
             capsuleSwitch_GPU推理.Name = "capsuleSwitch_GPU推理";
             capsuleSwitch_GPU推理.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch_GPU推理.OnColor = Color.FromArgb(24, 96, 251);
@@ -464,33 +468,35 @@ namespace JinChanChanTool
             // 
             label_GPU说明.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label_GPU说明.ForeColor = Color.FromArgb(100, 100, 100);
-            label_GPU说明.Location = new Point(36, 194);
+            label_GPU说明.Location = new Point(36, 196);
             label_GPU说明.Name = "label_GPU说明";
             label_GPU说明.Size = new Size(540, 40);
             label_GPU说明.TabIndex = 13;
             label_GPU说明.Text = "使用GPU进行OCR识别,速度极快但需要NVIDIA显卡支持,高级用户可选择";
             // 
-            // label19
+            // label_OCR设备描述
             // 
-            label19.AutoSize = true;
-            label19.ForeColor = Color.Gray;
-            label19.Location = new Point(13, 41);
-            label19.Name = "label19";
-            label19.Size = new Size(190, 17);
-            label19.TabIndex = 3;
-            label19.Text = "选择用于OCR字符识别的计算设备";
-            label19.TextAlign = ContentAlignment.MiddleLeft;
+            label_OCR设备描述.AutoSize = true;
+            label_OCR设备描述.ForeColor = Color.Gray;
+            label_OCR设备描述.Location = new Point(13, 41);
+            label_OCR设备描述.MaximumSize = new Size(720, 34);
+            label_OCR设备描述.MinimumSize = new Size(190, 17);
+            label_OCR设备描述.Name = "label_OCR设备描述";
+            label_OCR设备描述.Size = new Size(190, 17);
+            label_OCR设备描述.TabIndex = 3;
+            label_OCR设备描述.Text = "选择用于OCR字符识别的计算设备";
+            label_OCR设备描述.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label22
+            // label_选择OCR推理设备
             // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label22.Location = new Point(10, 10);
-            label22.Name = "label22";
-            label22.Size = new Size(184, 28);
-            label22.TabIndex = 0;
-            label22.Text = "选择OCR推理设备";
-            label22.TextAlign = ContentAlignment.MiddleLeft;
+            label_选择OCR推理设备.AutoSize = true;
+            label_选择OCR推理设备.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_选择OCR推理设备.Location = new Point(10, 10);
+            label_选择OCR推理设备.Name = "label_选择OCR推理设备";
+            label_选择OCR推理设备.Size = new Size(184, 28);
+            label_选择OCR推理设备.TabIndex = 0;
+            label_选择OCR推理设备.Text = "选择OCR推理设备";
+            label_选择OCR推理设备.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel_6选择刷新商店方式
             // 
@@ -500,8 +506,8 @@ namespace JinChanChanTool
             panel_6选择刷新商店方式.Controls.Add(capsuleSwitch_按键刷新);
             panel_6选择刷新商店方式.Controls.Add(label_刷新按键);
             panel_6选择刷新商店方式.Controls.Add(textBox_刷新按键);
-            panel_6选择刷新商店方式.Controls.Add(label25);
-            panel_6选择刷新商店方式.Controls.Add(label26);
+            panel_6选择刷新商店方式.Controls.Add(label_选择刷新商店方式描述);
+            panel_6选择刷新商店方式.Controls.Add(label_选择刷新商店方式);
             panel_6选择刷新商店方式.Dock = DockStyle.Fill;
             panel_6选择刷新商店方式.Location = new Point(0, 0);
             panel_6选择刷新商店方式.Name = "panel_6选择刷新商店方式";
@@ -511,7 +517,7 @@ namespace JinChanChanTool
             // label_鼠标刷新
             // 
             label_鼠标刷新.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_鼠标刷新.Location = new Point(16, 71);
+            label_鼠标刷新.Location = new Point(16, 76);
             label_鼠标刷新.Name = "label_鼠标刷新";
             label_鼠标刷新.Size = new Size(134, 25);
             label_鼠标刷新.TabIndex = 8;
@@ -520,7 +526,7 @@ namespace JinChanChanTool
             // 
             // capsuleSwitch_鼠标刷新
             // 
-            capsuleSwitch_鼠标刷新.Location = new Point(156, 73);
+            capsuleSwitch_鼠标刷新.Location = new Point(156, 78);
             capsuleSwitch_鼠标刷新.Name = "capsuleSwitch_鼠标刷新";
             capsuleSwitch_鼠标刷新.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch_鼠标刷新.OnColor = Color.FromArgb(24, 96, 251);
@@ -535,7 +541,7 @@ namespace JinChanChanTool
             // label_按键刷新
             // 
             label_按键刷新.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_按键刷新.Location = new Point(16, 116);
+            label_按键刷新.Location = new Point(16, 121);
             label_按键刷新.Name = "label_按键刷新";
             label_按键刷新.Size = new Size(134, 25);
             label_按键刷新.TabIndex = 10;
@@ -544,7 +550,7 @@ namespace JinChanChanTool
             // 
             // capsuleSwitch_按键刷新
             // 
-            capsuleSwitch_按键刷新.Location = new Point(156, 118);
+            capsuleSwitch_按键刷新.Location = new Point(156, 123);
             capsuleSwitch_按键刷新.Name = "capsuleSwitch_按键刷新";
             capsuleSwitch_按键刷新.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch_按键刷新.OnColor = Color.FromArgb(24, 96, 251);
@@ -559,7 +565,7 @@ namespace JinChanChanTool
             // label_刷新按键
             // 
             label_刷新按键.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_刷新按键.Location = new Point(23, 147);
+            label_刷新按键.Location = new Point(23, 152);
             label_刷新按键.Name = "label_刷新按键";
             label_刷新按键.Size = new Size(80, 25);
             label_刷新按键.TabIndex = 12;
@@ -569,7 +575,7 @@ namespace JinChanChanTool
             // textBox_刷新按键
             // 
             textBox_刷新按键.Enabled = false;
-            textBox_刷新按键.Location = new Point(23, 172);
+            textBox_刷新按键.Location = new Point(23, 177);
             textBox_刷新按键.Name = "textBox_刷新按键";
             textBox_刷新按键.Size = new Size(80, 23);
             textBox_刷新按键.TabIndex = 13;
@@ -578,27 +584,29 @@ namespace JinChanChanTool
             textBox_刷新按键.KeyDown += textBox_刷新按键_KeyDown;
             textBox_刷新按键.Leave += TextBox_Leave;
             // 
-            // label25
+            // label_选择刷新商店方式描述
             // 
-            label25.AutoSize = true;
-            label25.ForeColor = Color.Gray;
-            label25.Location = new Point(13, 41);
-            label25.Name = "label25";
-            label25.Size = new Size(260, 17);
-            label25.TabIndex = 3;
-            label25.Text = "选择使用模拟鼠标还是模拟键盘按键来刷新商店";
-            label25.TextAlign = ContentAlignment.MiddleLeft;
+            label_选择刷新商店方式描述.AutoSize = true;
+            label_选择刷新商店方式描述.ForeColor = Color.Gray;
+            label_选择刷新商店方式描述.Location = new Point(13, 41);
+            label_选择刷新商店方式描述.MaximumSize = new Size(720, 34);
+            label_选择刷新商店方式描述.MinimumSize = new Size(260, 17);
+            label_选择刷新商店方式描述.Name = "label_选择刷新商店方式描述";
+            label_选择刷新商店方式描述.Size = new Size(260, 17);
+            label_选择刷新商店方式描述.TabIndex = 3;
+            label_选择刷新商店方式描述.Text = "选择使用模拟鼠标还是模拟键盘按键来刷新商店";
+            label_选择刷新商店方式描述.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label26
+            // label_选择刷新商店方式
             // 
-            label26.AutoSize = true;
-            label26.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label26.Location = new Point(10, 10);
-            label26.Name = "label26";
-            label26.Size = new Size(180, 28);
-            label26.TabIndex = 0;
-            label26.Text = "选择刷新商店方式";
-            label26.TextAlign = ContentAlignment.MiddleLeft;
+            label_选择刷新商店方式.AutoSize = true;
+            label_选择刷新商店方式.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_选择刷新商店方式.Location = new Point(10, 10);
+            label_选择刷新商店方式.Name = "label_选择刷新商店方式";
+            label_选择刷新商店方式.Size = new Size(180, 28);
+            label_选择刷新商店方式.TabIndex = 0;
+            label_选择刷新商店方式.Text = "选择刷新商店方式";
+            label_选择刷新商店方式.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Panel_5选择拿牌方式
             // 
@@ -616,8 +624,8 @@ namespace JinChanChanTool
             Panel_5选择拿牌方式.Controls.Add(textBox_拿牌按键4);
             Panel_5选择拿牌方式.Controls.Add(label_拿牌按键5);
             Panel_5选择拿牌方式.Controls.Add(textBox_拿牌按键5);
-            Panel_5选择拿牌方式.Controls.Add(label20);
-            Panel_5选择拿牌方式.Controls.Add(label21);
+            Panel_5选择拿牌方式.Controls.Add(label_购买英雄按键描述);
+            Panel_5选择拿牌方式.Controls.Add(label_选择拿牌方式);
             Panel_5选择拿牌方式.Dock = DockStyle.Fill;
             Panel_5选择拿牌方式.Location = new Point(0, 0);
             Panel_5选择拿牌方式.Name = "Panel_5选择拿牌方式";
@@ -627,16 +635,16 @@ namespace JinChanChanTool
             // label_鼠标拿牌
             // 
             label_鼠标拿牌.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_鼠标拿牌.Location = new Point(13, 99);
+            label_鼠标拿牌.Location = new Point(13, 139);
             label_鼠标拿牌.Name = "label_鼠标拿牌";
-            label_鼠标拿牌.Size = new Size(100, 25);
+            label_鼠标拿牌.Size = new Size(147, 25);
             label_鼠标拿牌.TabIndex = 16;
             label_鼠标拿牌.Text = "模拟鼠标拿牌";
             label_鼠标拿牌.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // capsuleSwitch_鼠标拿牌
             // 
-            capsuleSwitch_鼠标拿牌.Location = new Point(123, 101);
+            capsuleSwitch_鼠标拿牌.Location = new Point(166, 141);
             capsuleSwitch_鼠标拿牌.Name = "capsuleSwitch_鼠标拿牌";
             capsuleSwitch_鼠标拿牌.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch_鼠标拿牌.OnColor = Color.FromArgb(24, 96, 251);
@@ -651,16 +659,16 @@ namespace JinChanChanTool
             // label_按键拿牌
             // 
             label_按键拿牌.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_按键拿牌.Location = new Point(13, 129);
+            label_按键拿牌.Location = new Point(13, 169);
             label_按键拿牌.Name = "label_按键拿牌";
-            label_按键拿牌.Size = new Size(100, 25);
+            label_按键拿牌.Size = new Size(147, 25);
             label_按键拿牌.TabIndex = 18;
             label_按键拿牌.Text = "模拟按键拿牌";
             label_按键拿牌.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // capsuleSwitch_按键拿牌
             // 
-            capsuleSwitch_按键拿牌.Location = new Point(123, 131);
+            capsuleSwitch_按键拿牌.Location = new Point(166, 171);
             capsuleSwitch_按键拿牌.Name = "capsuleSwitch_按键拿牌";
             capsuleSwitch_按键拿牌.OffColor = Color.FromArgb(189, 189, 189);
             capsuleSwitch_按键拿牌.OnColor = Color.FromArgb(24, 96, 251);
@@ -675,7 +683,7 @@ namespace JinChanChanTool
             // label_拿牌按键1
             // 
             label_拿牌按键1.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_拿牌按键1.Location = new Point(16, 159);
+            label_拿牌按键1.Location = new Point(16, 199);
             label_拿牌按键1.Name = "label_拿牌按键1";
             label_拿牌按键1.Size = new Size(80, 25);
             label_拿牌按键1.TabIndex = 20;
@@ -685,7 +693,7 @@ namespace JinChanChanTool
             // textBox_拿牌按键1
             // 
             textBox_拿牌按键1.Enabled = false;
-            textBox_拿牌按键1.Location = new Point(16, 185);
+            textBox_拿牌按键1.Location = new Point(16, 225);
             textBox_拿牌按键1.Name = "textBox_拿牌按键1";
             textBox_拿牌按键1.Size = new Size(60, 23);
             textBox_拿牌按键1.TabIndex = 21;
@@ -697,7 +705,7 @@ namespace JinChanChanTool
             // label_拿牌按键2
             // 
             label_拿牌按键2.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_拿牌按键2.Location = new Point(114, 159);
+            label_拿牌按键2.Location = new Point(114, 199);
             label_拿牌按键2.Name = "label_拿牌按键2";
             label_拿牌按键2.Size = new Size(80, 25);
             label_拿牌按键2.TabIndex = 22;
@@ -707,7 +715,7 @@ namespace JinChanChanTool
             // textBox_拿牌按键2
             // 
             textBox_拿牌按键2.Enabled = false;
-            textBox_拿牌按键2.Location = new Point(114, 185);
+            textBox_拿牌按键2.Location = new Point(114, 225);
             textBox_拿牌按键2.Name = "textBox_拿牌按键2";
             textBox_拿牌按键2.Size = new Size(60, 23);
             textBox_拿牌按键2.TabIndex = 23;
@@ -719,7 +727,7 @@ namespace JinChanChanTool
             // label_拿牌按键3
             // 
             label_拿牌按键3.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_拿牌按键3.Location = new Point(216, 159);
+            label_拿牌按键3.Location = new Point(216, 199);
             label_拿牌按键3.Name = "label_拿牌按键3";
             label_拿牌按键3.Size = new Size(80, 25);
             label_拿牌按键3.TabIndex = 24;
@@ -729,7 +737,7 @@ namespace JinChanChanTool
             // textBox_拿牌按键3
             // 
             textBox_拿牌按键3.Enabled = false;
-            textBox_拿牌按键3.Location = new Point(216, 185);
+            textBox_拿牌按键3.Location = new Point(216, 225);
             textBox_拿牌按键3.Name = "textBox_拿牌按键3";
             textBox_拿牌按键3.Size = new Size(60, 23);
             textBox_拿牌按键3.TabIndex = 25;
@@ -741,7 +749,7 @@ namespace JinChanChanTool
             // label_拿牌按键4
             // 
             label_拿牌按键4.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_拿牌按键4.Location = new Point(320, 159);
+            label_拿牌按键4.Location = new Point(320, 199);
             label_拿牌按键4.Name = "label_拿牌按键4";
             label_拿牌按键4.Size = new Size(80, 25);
             label_拿牌按键4.TabIndex = 26;
@@ -751,7 +759,7 @@ namespace JinChanChanTool
             // textBox_拿牌按键4
             // 
             textBox_拿牌按键4.Enabled = false;
-            textBox_拿牌按键4.Location = new Point(320, 185);
+            textBox_拿牌按键4.Location = new Point(320, 225);
             textBox_拿牌按键4.Name = "textBox_拿牌按键4";
             textBox_拿牌按键4.Size = new Size(60, 23);
             textBox_拿牌按键4.TabIndex = 27;
@@ -763,7 +771,7 @@ namespace JinChanChanTool
             // label_拿牌按键5
             // 
             label_拿牌按键5.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_拿牌按键5.Location = new Point(421, 159);
+            label_拿牌按键5.Location = new Point(421, 199);
             label_拿牌按键5.Name = "label_拿牌按键5";
             label_拿牌按键5.Size = new Size(80, 25);
             label_拿牌按键5.TabIndex = 28;
@@ -773,7 +781,7 @@ namespace JinChanChanTool
             // textBox_拿牌按键5
             // 
             textBox_拿牌按键5.Enabled = false;
-            textBox_拿牌按键5.Location = new Point(421, 185);
+            textBox_拿牌按键5.Location = new Point(421, 225);
             textBox_拿牌按键5.Name = "textBox_拿牌按键5";
             textBox_拿牌按键5.Size = new Size(60, 23);
             textBox_拿牌按键5.TabIndex = 29;
@@ -782,27 +790,28 @@ namespace JinChanChanTool
             textBox_拿牌按键5.KeyDown += textBox_拿牌按键5_KeyDown;
             textBox_拿牌按键5.Leave += TextBox_Leave;
             // 
-            // label20
+            // label_购买英雄按键描述
             // 
-            label20.AutoSize = true;
-            label20.ForeColor = Color.Gray;
-            label20.Location = new Point(13, 41);
-            label20.Name = "label20";
-            label20.Size = new Size(248, 51);
-            label20.TabIndex = 3;
-            label20.Text = "选择使用模拟鼠标还是模拟键盘按键购买英雄\r\n云顶之弈只能使用鼠标购买英雄\r\n金铲铲模拟器支持鼠标或键盘按钮购买英雄";
-            label20.TextAlign = ContentAlignment.MiddleLeft;
+            label_购买英雄按键描述.AutoSize = true;
+            label_购买英雄按键描述.ForeColor = Color.Gray;
+            label_购买英雄按键描述.Location = new Point(13, 41);
+            label_购买英雄按键描述.MaximumSize = new Size(714, 97);
+            label_购买英雄按键描述.MinimumSize = new Size(248, 51);
+            label_购买英雄按键描述.Name = "label_购买英雄按键描述";
+            label_购买英雄按键描述.Size = new Size(248, 51);
+            label_购买英雄按键描述.TabIndex = 3;
+            label_购买英雄按键描述.Text = "选择使用模拟鼠标还是模拟键盘按键购买英雄\r\n云顶之弈只能使用鼠标购买英雄\r\n金铲铲模拟器支持鼠标或键盘按钮购买英雄";
             // 
-            // label21
+            // label_选择拿牌方式
             // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label21.Location = new Point(10, 10);
-            label21.Name = "label21";
-            label21.Size = new Size(138, 28);
-            label21.TabIndex = 0;
-            label21.Text = "选择拿牌方式";
-            label21.TextAlign = ContentAlignment.MiddleLeft;
+            label_选择拿牌方式.AutoSize = true;
+            label_选择拿牌方式.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_选择拿牌方式.Location = new Point(10, 10);
+            label_选择拿牌方式.Name = "label_选择拿牌方式";
+            label_选择拿牌方式.Size = new Size(138, 28);
+            label_选择拿牌方式.TabIndex = 0;
+            label_选择拿牌方式.Text = "选择拿牌方式";
+            label_选择拿牌方式.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel_4手动设置坐标
             // 
@@ -811,11 +820,11 @@ namespace JinChanChanTool
             panel_4手动设置坐标.Controls.Add(label_设置刷新按钮坐标);
             panel_4手动设置坐标.Controls.Add(roundedButton_设置刷新按钮坐标);
             panel_4手动设置坐标.Controls.Add(comboBox_选择显示器);
-            panel_4手动设置坐标.Controls.Add(label15);
+            panel_4手动设置坐标.Controls.Add(label_选择显示器);
             panel_4手动设置坐标.Controls.Add(label_设置英雄名称坐标);
-            panel_4手动设置坐标.Controls.Add(label14);
+            panel_4手动设置坐标.Controls.Add(label_手动设置坐标提示);
             panel_4手动设置坐标.Controls.Add(roundedButton_设置英雄名称坐标);
-            panel_4手动设置坐标.Controls.Add(label16);
+            panel_4手动设置坐标.Controls.Add(label_手动设置坐标);
             panel_4手动设置坐标.Dock = DockStyle.Fill;
             panel_4手动设置坐标.Location = new Point(0, 0);
             panel_4手动设置坐标.Name = "panel_4手动设置坐标";
@@ -824,10 +833,11 @@ namespace JinChanChanTool
             // 
             // label_设置高亮提示坐标
             // 
+            label_设置高亮提示坐标.AutoSize = true;
             label_设置高亮提示坐标.ForeColor = Color.Red;
-            label_设置高亮提示坐标.Location = new Point(149, 200);
+            label_设置高亮提示坐标.Location = new Point(207, 213);
             label_设置高亮提示坐标.Name = "label_设置高亮提示坐标";
-            label_设置高亮提示坐标.Size = new Size(68, 28);
+            label_设置高亮提示坐标.Size = new Size(44, 17);
             label_设置高亮提示坐标.TabIndex = 10;
             label_设置高亮提示坐标.Text = "未设置";
             label_设置高亮提示坐标.TextAlign = ContentAlignment.MiddleLeft;
@@ -840,10 +850,10 @@ namespace JinChanChanTool
             roundedButton_设置高亮提示坐标.CornerRadius = 3;
             roundedButton_设置高亮提示坐标.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton_设置高亮提示坐标.HoverColor = Color.FromArgb(232, 232, 232);
-            roundedButton_设置高亮提示坐标.Location = new Point(16, 200);
+            roundedButton_设置高亮提示坐标.Location = new Point(16, 208);
             roundedButton_设置高亮提示坐标.Name = "roundedButton_设置高亮提示坐标";
             roundedButton_设置高亮提示坐标.PressedColor = Color.FromArgb(222, 222, 222);
-            roundedButton_设置高亮提示坐标.Size = new Size(127, 28);
+            roundedButton_设置高亮提示坐标.Size = new Size(187, 28);
             roundedButton_设置高亮提示坐标.TabIndex = 9;
             roundedButton_设置高亮提示坐标.Text = "设置高亮提示坐标";
             roundedButton_设置高亮提示坐标.TextColor = Color.Black;
@@ -852,10 +862,11 @@ namespace JinChanChanTool
             // 
             // label_设置刷新按钮坐标
             // 
+            label_设置刷新按钮坐标.AutoSize = true;
             label_设置刷新按钮坐标.ForeColor = Color.Red;
-            label_设置刷新按钮坐标.Location = new Point(149, 157);
+            label_设置刷新按钮坐标.Location = new Point(207, 170);
             label_设置刷新按钮坐标.Name = "label_设置刷新按钮坐标";
-            label_设置刷新按钮坐标.Size = new Size(68, 28);
+            label_设置刷新按钮坐标.Size = new Size(44, 17);
             label_设置刷新按钮坐标.TabIndex = 8;
             label_设置刷新按钮坐标.Text = "未设置";
             label_设置刷新按钮坐标.TextAlign = ContentAlignment.MiddleLeft;
@@ -868,10 +879,10 @@ namespace JinChanChanTool
             roundedButton_设置刷新按钮坐标.CornerRadius = 3;
             roundedButton_设置刷新按钮坐标.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton_设置刷新按钮坐标.HoverColor = Color.FromArgb(232, 232, 232);
-            roundedButton_设置刷新按钮坐标.Location = new Point(16, 157);
+            roundedButton_设置刷新按钮坐标.Location = new Point(16, 165);
             roundedButton_设置刷新按钮坐标.Name = "roundedButton_设置刷新按钮坐标";
             roundedButton_设置刷新按钮坐标.PressedColor = Color.FromArgb(222, 222, 222);
-            roundedButton_设置刷新按钮坐标.Size = new Size(127, 28);
+            roundedButton_设置刷新按钮坐标.Size = new Size(187, 28);
             roundedButton_设置刷新按钮坐标.TabIndex = 7;
             roundedButton_设置刷新按钮坐标.Text = "设置刷新按钮坐标";
             roundedButton_设置刷新按钮坐标.TextColor = Color.Black;
@@ -882,42 +893,45 @@ namespace JinChanChanTool
             // 
             comboBox_选择显示器.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_选择显示器.FormattingEnabled = true;
-            comboBox_选择显示器.Location = new Point(112, 71);
+            comboBox_选择显示器.Location = new Point(158, 79);
             comboBox_选择显示器.Name = "comboBox_选择显示器";
             comboBox_选择显示器.Size = new Size(149, 25);
             comboBox_选择显示器.TabIndex = 6;
             comboBox_选择显示器.SelectedIndexChanged += comboBox_选择显示器_SelectedIndexChanged;
             // 
-            // label15
+            // label_选择显示器
             // 
-            label15.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label15.Location = new Point(16, 71);
-            label15.Name = "label15";
-            label15.Size = new Size(90, 25);
-            label15.TabIndex = 5;
-            label15.Text = "选择显示器";
-            label15.TextAlign = ContentAlignment.MiddleLeft;
+            label_选择显示器.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_选择显示器.Location = new Point(16, 79);
+            label_选择显示器.Name = "label_选择显示器";
+            label_选择显示器.Size = new Size(136, 25);
+            label_选择显示器.TabIndex = 5;
+            label_选择显示器.Text = "选择显示器";
+            label_选择显示器.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label_设置英雄名称坐标
             // 
+            label_设置英雄名称坐标.AutoSize = true;
             label_设置英雄名称坐标.ForeColor = Color.Red;
-            label_设置英雄名称坐标.Location = new Point(149, 116);
+            label_设置英雄名称坐标.Location = new Point(207, 129);
             label_设置英雄名称坐标.Name = "label_设置英雄名称坐标";
-            label_设置英雄名称坐标.Size = new Size(68, 28);
+            label_设置英雄名称坐标.Size = new Size(44, 17);
             label_设置英雄名称坐标.TabIndex = 4;
             label_设置英雄名称坐标.Text = "未设置";
             label_设置英雄名称坐标.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label14
+            // label_手动设置坐标提示
             // 
-            label14.AutoSize = true;
-            label14.ForeColor = Color.Gray;
-            label14.Location = new Point(13, 45);
-            label14.Name = "label14";
-            label14.Size = new Size(248, 17);
-            label14.TabIndex = 3;
-            label14.Text = "请依次点击下方按钮，按照提示框选相应区域";
-            label14.TextAlign = ContentAlignment.MiddleLeft;
+            label_手动设置坐标提示.AutoSize = true;
+            label_手动设置坐标提示.ForeColor = Color.Gray;
+            label_手动设置坐标提示.Location = new Point(13, 45);
+            label_手动设置坐标提示.MaximumSize = new Size(720, 34);
+            label_手动设置坐标提示.MinimumSize = new Size(248, 17);
+            label_手动设置坐标提示.Name = "label_手动设置坐标提示";
+            label_手动设置坐标提示.Size = new Size(248, 17);
+            label_手动设置坐标提示.TabIndex = 3;
+            label_手动设置坐标提示.Text = "请依次点击下方按钮，按照提示框选相应区域";
+            label_手动设置坐标提示.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // roundedButton_设置英雄名称坐标
             // 
@@ -927,34 +941,34 @@ namespace JinChanChanTool
             roundedButton_设置英雄名称坐标.CornerRadius = 3;
             roundedButton_设置英雄名称坐标.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton_设置英雄名称坐标.HoverColor = Color.FromArgb(232, 232, 232);
-            roundedButton_设置英雄名称坐标.Location = new Point(16, 116);
+            roundedButton_设置英雄名称坐标.Location = new Point(16, 124);
             roundedButton_设置英雄名称坐标.Name = "roundedButton_设置英雄名称坐标";
             roundedButton_设置英雄名称坐标.PressedColor = Color.FromArgb(222, 222, 222);
-            roundedButton_设置英雄名称坐标.Size = new Size(127, 28);
+            roundedButton_设置英雄名称坐标.Size = new Size(187, 28);
             roundedButton_设置英雄名称坐标.TabIndex = 2;
             roundedButton_设置英雄名称坐标.Text = "设置英雄名称坐标";
             roundedButton_设置英雄名称坐标.TextColor = Color.Black;
             roundedButton_设置英雄名称坐标.TextFont = new Font("微软雅黑", 10F);
             roundedButton_设置英雄名称坐标.Click += roundedButton_设置英雄名称坐标_Click;
             // 
-            // label16
+            // label_手动设置坐标
             // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label16.Location = new Point(10, 10);
-            label16.Name = "label16";
-            label16.Size = new Size(138, 28);
-            label16.TabIndex = 0;
-            label16.Text = "手动设置坐标";
-            label16.TextAlign = ContentAlignment.MiddleLeft;
+            label_手动设置坐标.AutoSize = true;
+            label_手动设置坐标.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_手动设置坐标.Location = new Point(10, 10);
+            label_手动设置坐标.Name = "label_手动设置坐标";
+            label_手动设置坐标.Size = new Size(138, 28);
+            label_手动设置坐标.TabIndex = 0;
+            label_手动设置坐标.Text = "手动设置坐标";
+            label_手动设置坐标.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel_3自动设置坐标
             // 
             panel_3自动设置坐标.Controls.Add(label_进程状态);
-            panel_3自动设置坐标.Controls.Add(label10);
+            panel_3自动设置坐标.Controls.Add(label_选择游戏进程);
             panel_3自动设置坐标.Controls.Add(选择游戏窗口进程);
-            panel_3自动设置坐标.Controls.Add(label12);
-            panel_3自动设置坐标.Controls.Add(label13);
+            panel_3自动设置坐标.Controls.Add(label_自动设置坐标提示);
+            panel_3自动设置坐标.Controls.Add(label_自动设置坐标);
             panel_3自动设置坐标.Dock = DockStyle.Fill;
             panel_3自动设置坐标.Location = new Point(0, 0);
             panel_3自动设置坐标.Name = "panel_3自动设置坐标";
@@ -965,23 +979,24 @@ namespace JinChanChanTool
             // 
             label_进程状态.AutoSize = true;
             label_进程状态.ForeColor = Color.Red;
-            label_进程状态.Location = new Point(16, 157);
+            label_进程状态.Location = new Point(16, 190);
             label_进程状态.Name = "label_进程状态";
             label_进程状态.Size = new Size(68, 17);
             label_进程状态.TabIndex = 4;
             label_进程状态.Text = "未选择进程";
             label_进程状态.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label10
+            // label_选择游戏进程
             // 
-            label10.AutoSize = true;
-            label10.ForeColor = Color.Gray;
-            label10.Location = new Point(13, 72);
-            label10.Name = "label10";
-            label10.Size = new Size(272, 34);
-            label10.TabIndex = 3;
-            label10.Text = "请点击下方按钮，从列表中选择您的游戏进程窗口\r\n程序将自动计算并设置所有必要的坐标";
-            label10.TextAlign = ContentAlignment.MiddleLeft;
+            label_选择游戏进程.AutoSize = true;
+            label_选择游戏进程.ForeColor = Color.Gray;
+            label_选择游戏进程.Location = new Point(13, 80);
+            label_选择游戏进程.MaximumSize = new Size(714, 68);
+            label_选择游戏进程.MinimumSize = new Size(272, 34);
+            label_选择游戏进程.Name = "label_选择游戏进程";
+            label_选择游戏进程.Size = new Size(272, 34);
+            label_选择游戏进程.TabIndex = 3;
+            label_选择游戏进程.Text = "请点击下方按钮，从列表中选择您的游戏进程窗口\r\n程序将自动计算并设置所有必要的坐标";
             // 
             // 选择游戏窗口进程
             // 
@@ -991,68 +1006,71 @@ namespace JinChanChanTool
             选择游戏窗口进程.CornerRadius = 3;
             选择游戏窗口进程.DisabledColor = Color.FromArgb(160, 160, 160);
             选择游戏窗口进程.HoverColor = Color.FromArgb(232, 232, 232);
-            选择游戏窗口进程.Location = new Point(16, 116);
+            选择游戏窗口进程.Location = new Point(16, 149);
             选择游戏窗口进程.Name = "选择游戏窗口进程";
             选择游戏窗口进程.PressedColor = Color.FromArgb(222, 222, 222);
-            选择游戏窗口进程.Size = new Size(127, 35);
+            选择游戏窗口进程.Size = new Size(217, 35);
             选择游戏窗口进程.TabIndex = 2;
             选择游戏窗口进程.Text = "选择游戏窗口进程";
             选择游戏窗口进程.TextColor = Color.Black;
             选择游戏窗口进程.TextFont = new Font("微软雅黑", 10F);
             选择游戏窗口进程.Click += 选择游戏窗口进程_Click;
             // 
-            // label12
+            // label_自动设置坐标提示
             // 
-            label12.AutoSize = true;
-            label12.ForeColor = Color.Red;
-            label12.Location = new Point(13, 45);
-            label12.Name = "label12";
-            label12.Size = new Size(596, 17);
-            label12.TabIndex = 1;
-            label12.Text = "注：自动设置坐标仅适用于任意分辨率下的端游英雄联盟与特定分辨率下运行于mumu模拟器上的金铲铲之战。";
-            label12.TextAlign = ContentAlignment.MiddleLeft;
+            label_自动设置坐标提示.AutoSize = true;
+            label_自动设置坐标提示.ForeColor = Color.Red;
+            label_自动设置坐标提示.Location = new Point(13, 45);
+            label_自动设置坐标提示.MaximumSize = new Size(720, 34);
+            label_自动设置坐标提示.MinimumSize = new Size(596, 17);
+            label_自动设置坐标提示.Name = "label_自动设置坐标提示";
+            label_自动设置坐标提示.Size = new Size(596, 17);
+            label_自动设置坐标提示.TabIndex = 1;
+            label_自动设置坐标提示.Text = "注：自动设置坐标仅适用于任意分辨率下的端游英雄联盟与特定分辨率下运行于mumu模拟器上的金铲铲之战。";
             // 
-            // label13
+            // label_自动设置坐标
             // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label13.Location = new Point(10, 10);
-            label13.Name = "label13";
-            label13.Size = new Size(138, 28);
-            label13.TabIndex = 0;
-            label13.Text = "自动设置坐标";
-            label13.TextAlign = ContentAlignment.MiddleLeft;
+            label_自动设置坐标.AutoSize = true;
+            label_自动设置坐标.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_自动设置坐标.Location = new Point(10, 10);
+            label_自动设置坐标.Name = "label_自动设置坐标";
+            label_自动设置坐标.Size = new Size(138, 28);
+            label_自动设置坐标.TabIndex = 0;
+            label_自动设置坐标.Text = "自动设置坐标";
+            label_自动设置坐标.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel_2坐标设置模式
             // 
-            panel_2坐标设置模式.Controls.Add(label7);
+            panel_2坐标设置模式.Controls.Add(label_手动坐标模式描述);
             panel_2坐标设置模式.Controls.Add(radioButton_手动设置坐标);
-            panel_2坐标设置模式.Controls.Add(label6);
+            panel_2坐标设置模式.Controls.Add(label_自动坐标模式描述);
             panel_2坐标设置模式.Controls.Add(radioButton_自动设置坐标);
-            panel_2坐标设置模式.Controls.Add(label8);
-            panel_2坐标设置模式.Controls.Add(label9);
+            panel_2坐标设置模式.Controls.Add(label_坐标描述);
+            panel_2坐标设置模式.Controls.Add(label_选择坐标设置模式);
             panel_2坐标设置模式.Dock = DockStyle.Fill;
             panel_2坐标设置模式.Location = new Point(0, 0);
             panel_2坐标设置模式.Name = "panel_2坐标设置模式";
             panel_2坐标设置模式.Size = new Size(738, 460);
             panel_2坐标设置模式.TabIndex = 10;
             // 
-            // label7
+            // label_手动坐标模式描述
             // 
-            label7.AutoSize = true;
-            label7.ForeColor = Color.Gray;
-            label7.Location = new Point(42, 211);
-            label7.Name = "label7";
-            label7.Size = new Size(368, 34);
-            label7.TabIndex = 5;
-            label7.Text = "通过手动框选屏幕区域来设置坐标。\r\n适用于无法自动设置坐标的场景，或需要精确控制坐标的高级用户。";
-            label7.TextAlign = ContentAlignment.MiddleLeft;
+            label_手动坐标模式描述.AutoSize = true;
+            label_手动坐标模式描述.ForeColor = Color.Gray;
+            label_手动坐标模式描述.Location = new Point(42, 228);
+            label_手动坐标模式描述.MaximumSize = new Size(685, 68);
+            label_手动坐标模式描述.MinimumSize = new Size(368, 34);
+            label_手动坐标模式描述.Name = "label_手动坐标模式描述";
+            label_手动坐标模式描述.Size = new Size(368, 34);
+            label_手动坐标模式描述.TabIndex = 5;
+            label_手动坐标模式描述.Text = "通过手动框选屏幕区域来设置坐标。\r\n适用于无法自动设置坐标的场景，或需要精确控制坐标的高级用户。";
+            label_手动坐标模式描述.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // radioButton_手动设置坐标
             // 
             radioButton_手动设置坐标.AutoSize = true;
             radioButton_手动设置坐标.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            radioButton_手动设置坐标.Location = new Point(23, 179);
+            radioButton_手动设置坐标.Location = new Point(23, 196);
             radioButton_手动设置坐标.Name = "radioButton_手动设置坐标";
             radioButton_手动设置坐标.Size = new Size(124, 25);
             radioButton_手动设置坐标.TabIndex = 4;
@@ -1060,22 +1078,23 @@ namespace JinChanChanTool
             radioButton_手动设置坐标.UseVisualStyleBackColor = true;
             radioButton_手动设置坐标.CheckedChanged += radioButton_手动设置坐标_CheckedChanged;
             // 
-            // label6
+            // label_自动坐标模式描述
             // 
-            label6.AutoSize = true;
-            label6.ForeColor = Color.Gray;
-            label6.Location = new Point(42, 121);
-            label6.Name = "label6";
-            label6.Size = new Size(452, 34);
-            label6.TabIndex = 3;
-            label6.Text = "通过选择游戏进程窗口，程序将自动计算并设置所有必要的坐标。\r\n适用于英雄联盟、mumu模拟器下运行的金铲铲之战，推荐首次使用者选择此模式。";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
+            label_自动坐标模式描述.AutoSize = true;
+            label_自动坐标模式描述.ForeColor = Color.Gray;
+            label_自动坐标模式描述.Location = new Point(42, 127);
+            label_自动坐标模式描述.MaximumSize = new Size(685, 68);
+            label_自动坐标模式描述.MinimumSize = new Size(452, 34);
+            label_自动坐标模式描述.Name = "label_自动坐标模式描述";
+            label_自动坐标模式描述.Size = new Size(452, 34);
+            label_自动坐标模式描述.TabIndex = 3;
+            label_自动坐标模式描述.Text = "通过选择游戏进程窗口，程序将自动计算并设置所有必要的坐标。\r\n适用于英雄联盟、mumu模拟器下运行的金铲铲之战，推荐首次使用者选择此模式。";
             // 
             // radioButton_自动设置坐标
             // 
             radioButton_自动设置坐标.AutoSize = true;
             radioButton_自动设置坐标.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            radioButton_自动设置坐标.Location = new Point(23, 89);
+            radioButton_自动设置坐标.Location = new Point(23, 95);
             radioButton_自动设置坐标.Name = "radioButton_自动设置坐标";
             radioButton_自动设置坐标.Size = new Size(188, 25);
             radioButton_自动设置坐标.TabIndex = 2;
@@ -1083,92 +1102,95 @@ namespace JinChanChanTool
             radioButton_自动设置坐标.UseVisualStyleBackColor = true;
             radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
             // 
-            // label8
+            // label_坐标描述
             // 
-            label8.AutoSize = true;
-            label8.ForeColor = Color.Gray;
-            label8.Location = new Point(13, 56);
-            label8.Name = "label8";
-            label8.Size = new Size(241, 17);
-            label8.TabIndex = 1;
-            label8.Text = "坐标包括OCR截图/点击/高亮/刷新商店坐标";
-            label8.TextAlign = ContentAlignment.MiddleLeft;
+            label_坐标描述.AutoSize = true;
+            label_坐标描述.ForeColor = Color.Gray;
+            label_坐标描述.Location = new Point(13, 56);
+            label_坐标描述.MaximumSize = new Size(714, 34);
+            label_坐标描述.MinimumSize = new Size(241, 17);
+            label_坐标描述.Name = "label_坐标描述";
+            label_坐标描述.Size = new Size(241, 17);
+            label_坐标描述.TabIndex = 1;
+            label_坐标描述.Text = "坐标包括OCR截图/点击/高亮/刷新商店坐标";
             // 
-            // label9
+            // label_选择坐标设置模式
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label9.Location = new Point(10, 10);
-            label9.Name = "label9";
-            label9.Size = new Size(180, 28);
-            label9.TabIndex = 0;
-            label9.Text = "选择坐标设置模式";
-            label9.TextAlign = ContentAlignment.MiddleLeft;
+            label_选择坐标设置模式.AutoSize = true;
+            label_选择坐标设置模式.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_选择坐标设置模式.Location = new Point(10, 10);
+            label_选择坐标设置模式.Name = "label_选择坐标设置模式";
+            label_选择坐标设置模式.Size = new Size(180, 28);
+            label_选择坐标设置模式.TabIndex = 0;
+            label_选择坐标设置模式.Text = "选择坐标设置模式";
             // 
             // panel_1欢迎页
             // 
-            panel_1欢迎页.Controls.Add(label4);
-            panel_1欢迎页.Controls.Add(label3);
-            panel_1欢迎页.Controls.Add(label2);
-            panel_1欢迎页.Controls.Add(label1);
+            panel_1欢迎页.Controls.Add(label_点击下一步继续);
+            panel_1欢迎页.Controls.Add(label_配置向导页描述);
+            panel_1欢迎页.Controls.Add(label_配置向导描述);
+            panel_1欢迎页.Controls.Add(label_欢迎使用);
             panel_1欢迎页.Dock = DockStyle.Fill;
             panel_1欢迎页.Location = new Point(0, 0);
             panel_1欢迎页.Name = "panel_1欢迎页";
             panel_1欢迎页.Size = new Size(738, 460);
             panel_1欢迎页.TabIndex = 9;
             // 
-            // label4
+            // label_点击下一步继续
             // 
-            label4.AutoSize = true;
-            label4.ForeColor = Color.Gray;
-            label4.Location = new Point(13, 121);
-            label4.Name = "label4";
-            label4.Size = new Size(316, 17);
-            label4.TabIndex = 3;
-            label4.Text = "您可以随时在“设置”中修改这些配置。点击“下一步”继续。";
-            label4.TextAlign = ContentAlignment.MiddleLeft;
+            label_点击下一步继续.AutoSize = true;
+            label_点击下一步继续.ForeColor = Color.Gray;
+            label_点击下一步继续.Location = new Point(13, 126);
+            label_点击下一步继续.MaximumSize = new Size(714, 34);
+            label_点击下一步继续.MinimumSize = new Size(316, 17);
+            label_点击下一步继续.Name = "label_点击下一步继续";
+            label_点击下一步继续.Size = new Size(316, 17);
+            label_点击下一步继续.TabIndex = 3;
+            label_点击下一步继续.Text = "您可以随时在“设置”中修改这些配置。点击“下一步”继续。";
             // 
-            // label3
+            // label_配置向导页描述
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(13, 89);
-            label3.Name = "label3";
-            label3.Size = new Size(500, 17);
-            label3.TabIndex = 2;
-            label3.Text = "配置内容包括：OCR截图/点击/高亮/刷新商店坐标设置、拿牌/刷新方式、OCR推理设备等。";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
+            label_配置向导页描述.AutoSize = true;
+            label_配置向导页描述.Location = new Point(13, 91);
+            label_配置向导页描述.MaximumSize = new Size(714, 34);
+            label_配置向导页描述.MinimumSize = new Size(500, 17);
+            label_配置向导页描述.Name = "label_配置向导页描述";
+            label_配置向导页描述.Size = new Size(500, 17);
+            label_配置向导页描述.TabIndex = 2;
+            label_配置向导页描述.Text = "配置内容包括：OCR截图/点击/高亮/刷新商店坐标设置、拿牌/刷新方式、OCR推理设备等。";
             // 
-            // label2
+            // label_配置向导描述
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(13, 56);
-            label2.Name = "label2";
-            label2.Size = new Size(236, 17);
-            label2.TabIndex = 1;
-            label2.Text = "本向导将帮助您快速完成程序的初始配置。";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            label_配置向导描述.AutoSize = true;
+            label_配置向导描述.Location = new Point(13, 56);
+            label_配置向导描述.MaximumSize = new Size(714, 34);
+            label_配置向导描述.MinimumSize = new Size(236, 17);
+            label_配置向导描述.Name = "label_配置向导描述";
+            label_配置向导描述.Size = new Size(236, 17);
+            label_配置向导描述.TabIndex = 1;
+            label_配置向导描述.Text = "本向导将帮助您快速完成程序的初始配置。";
             // 
-            // label1
+            // label_欢迎使用
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label1.Location = new Point(10, 10);
-            label1.Name = "label1";
-            label1.Size = new Size(407, 28);
-            label1.TabIndex = 0;
-            label1.Text = "欢迎使用 JinJinChanChanTool 配置向导";
-            label1.TextAlign = ContentAlignment.MiddleLeft;
+            label_欢迎使用.AutoSize = true;
+            label_欢迎使用.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_欢迎使用.Location = new Point(10, 10);
+            label_欢迎使用.Name = "label_欢迎使用";
+            label_欢迎使用.Size = new Size(407, 28);
+            label_欢迎使用.TabIndex = 0;
+            label_欢迎使用.Text = "欢迎使用 JinJinChanChanTool 配置向导";
+            label_欢迎使用.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // panel4
+            // panel_按钮区
             // 
-            panel4.Controls.Add(button_下一步);
-            panel4.Controls.Add(button_上一步);
-            panel4.Controls.Add(button_跳过向导);
-            panel4.Controls.Add(button_完成);
-            panel4.Location = new Point(0, 498);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(744, 65);
-            panel4.TabIndex = 7;
+            panel_按钮区.Controls.Add(button_下一步);
+            panel_按钮区.Controls.Add(button_上一步);
+            panel_按钮区.Controls.Add(button_跳过向导);
+            panel_按钮区.Controls.Add(button_完成);
+            panel_按钮区.Location = new Point(0, 498);
+            panel_按钮区.Name = "panel_按钮区";
+            panel_按钮区.Size = new Size(744, 65);
+            panel_按钮区.TabIndex = 7;
             // 
             // button_下一步
             // 
@@ -1242,59 +1264,59 @@ namespace JinChanChanTool
             button_完成.TextFont = new Font("微软雅黑", 10F);
             button_完成.Click += button_完成_Click;
             // 
-            // panel3
+            // panel_标题栏
             // 
-            panel3.Controls.Add(label5);
-            panel3.Controls.Add(pictureBox1);
-            panel3.Location = new Point(0, 0);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(744, 30);
-            panel3.TabIndex = 6;
+            panel_标题栏.Controls.Add(label_标题);
+            panel_标题栏.Controls.Add(pictureBox_图标);
+            panel_标题栏.Location = new Point(0, 0);
+            panel_标题栏.Name = "panel_标题栏";
+            panel_标题栏.Size = new Size(744, 30);
+            panel_标题栏.TabIndex = 6;
             // 
-            // label5
+            // label_标题
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(26, 1);
-            label5.MaximumSize = new Size(80, 28);
-            label5.MinimumSize = new Size(80, 28);
-            label5.Name = "label5";
-            label5.Size = new Size(80, 28);
-            label5.TabIndex = 10;
-            label5.Text = "配置向导";
-            label5.TextAlign = ContentAlignment.MiddleLeft;
+            label_标题.AutoSize = true;
+            label_标题.Location = new Point(26, 1);
+            label_标题.MaximumSize = new Size(80, 28);
+            label_标题.MinimumSize = new Size(80, 28);
+            label_标题.Name = "label_标题";
+            label_标题.Size = new Size(80, 28);
+            label_标题.TabIndex = 10;
+            label_标题.Text = "配置向导";
+            label_标题.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // pictureBox1
+            // pictureBox_图标
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(5, 5);
-            pictureBox1.Margin = new Padding(0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(18, 18);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 9;
-            pictureBox1.TabStop = false;
+            pictureBox_图标.Image = (Image)resources.GetObject("pictureBox_图标.Image");
+            pictureBox_图标.Location = new Point(5, 5);
+            pictureBox_图标.Margin = new Padding(0);
+            pictureBox_图标.Name = "pictureBox_图标";
+            pictureBox_图标.Size = new Size(18, 18);
+            pictureBox_图标.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox_图标.TabIndex = 9;
+            pictureBox_图标.TabStop = false;
             // 
             // SetupWizardForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(751, 573);
-            Controls.Add(panel1);
+            Controls.Add(panel_主背景);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SetupWizardForm";
             Text = " JinChanChanTool";
             TopMost = true;
             Load += Form1_Load;
-            panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel5.ResumeLayout(false);
+            panel_主背景.ResumeLayout(false);
+            panel_副背景.ResumeLayout(false);
+            panel_分页区.ResumeLayout(false);
             panel_8GPU环境配置.ResumeLayout(false);
             panel_8GPU环境配置.PerformLayout();
-            groupBoxEnvironment.ResumeLayout(false);
-            groupBoxEnvironment.PerformLayout();
-            groupBoxConfig.ResumeLayout(false);
-            groupBoxConfig.PerformLayout();
+            groupBox_环境检测.ResumeLayout(false);
+            groupBox_环境检测.PerformLayout();
+            groupBox_安装配置.ResumeLayout(false);
+            groupBox_安装配置.PerformLayout();
             panel_9配置完成.ResumeLayout(false);
             panel_9配置完成.PerformLayout();
             panel_7选择OCR推理设备.ResumeLayout(false);
@@ -1311,57 +1333,57 @@ namespace JinChanChanTool
             panel_2坐标设置模式.PerformLayout();
             panel_1欢迎页.ResumeLayout(false);
             panel_1欢迎页.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel_按钮区.ResumeLayout(false);
+            panel_标题栏.ResumeLayout(false);
+            panel_标题栏.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox_图标).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel panel1;
-        private Panel panel2;
-        private Panel panel3;
-        private Label label5;
-        private PictureBox pictureBox1;
-        private Panel panel4;
+        private Panel panel_主背景;
+        private Panel panel_副背景;
+        private Panel panel_标题栏;
+        private Label label_标题;
+        private PictureBox pictureBox_图标;
+        private Panel panel_按钮区;
         private RoundedButton button_下一步;
         private RoundedButton button_上一步;
         private RoundedButton button_跳过向导;
-        private Panel panel5;
+        private Panel panel_分页区;
         private Panel panel_1欢迎页;
-        private Label label1;
-        private Label label2;
-        private Label label4;
-        private Label label3;
+        private Label label_欢迎使用;
+        private Label label_配置向导描述;
+        private Label label_点击下一步继续;
+        private Label label_配置向导页描述;
         private Panel panel_2坐标设置模式;
-        private Label label8;
-        private Label label9;
+        private Label label_坐标描述;
+        private Label label_选择坐标设置模式;
         private RadioButton radioButton_自动设置坐标;
-        private Label label7;
+        private Label label_手动坐标模式描述;
         private RadioButton radioButton_手动设置坐标;
-        private Label label6;
+        private Label label_自动坐标模式描述;
         private RoundedButton button_完成;
         private Panel panel_3自动设置坐标;
-        private Label label12;
-        private Label label13;
+        private Label label_自动设置坐标提示;
+        private Label label_自动设置坐标;
         private RoundedButton 选择游戏窗口进程;
         private Label label_进程状态;
-        private Label label10;
+        private Label label_选择游戏进程;
         private Panel panel_4手动设置坐标;
         private Label label_设置英雄名称坐标;
-        private Label label14;
+        private Label label_手动设置坐标提示;
         private RoundedButton roundedButton_设置英雄名称坐标;
-        private Label label16;
+        private Label label_手动设置坐标;
         private ComboBox comboBox_选择显示器;
-        private Label label15;
+        private Label label_选择显示器;
         private Label label_设置高亮提示坐标;
         private RoundedButton roundedButton_设置高亮提示坐标;
         private Label label_设置刷新按钮坐标;
         private RoundedButton roundedButton_设置刷新按钮坐标;
         private Panel Panel_5选择拿牌方式;
-        private Label label20;
-        private Label label21;
+        private Label label_购买英雄按键描述;
+        private Label label_选择拿牌方式;
         private Label label_鼠标拿牌;
         private CapsuleSwitch capsuleSwitch_鼠标拿牌;
         private Label label_按键拿牌;
@@ -1377,8 +1399,8 @@ namespace JinChanChanTool
         private Label label_拿牌按键5;
         private TextBox textBox_拿牌按键5;
         private Panel panel_6选择刷新商店方式;
-        private Label label25;
-        private Label label26;
+        private Label label_选择刷新商店方式描述;
+        private Label label_选择刷新商店方式;
         private Label label_鼠标刷新;
         private CapsuleSwitch capsuleSwitch_鼠标刷新;
         private Label label_按键刷新;
@@ -1386,8 +1408,8 @@ namespace JinChanChanTool
         private Label label_刷新按键;
         private TextBox textBox_刷新按键;
         private Panel panel_7选择OCR推理设备;
-        private Label label19;
-        private Label label22;
+        private Label label_OCR设备描述;
+        private Label label_选择OCR推理设备;
         private Label label_CPU推理;
         private CapsuleSwitch capsuleSwitch_CPU推理;
         private Label label_CPU说明;
@@ -1400,17 +1422,17 @@ namespace JinChanChanTool
         private Label label_GPU状态;
         private Label label_CUDA状态;
         private Label label_cuDNN状态;
-        private Label label24;
-        private Label label27;
+        private Label label_GPU环境配置页描述;
+        private Label label_GPU环境配置;
         private Panel panel_9配置完成;
-        private Label label17;
+        private Label label_配置完成;
         private Label label_完成说明;
-        private RichTextBox richTextBox1;
-        private GroupBox groupBoxEnvironment;
+        private RichTextBox richTextBox_配置概览;
+        private GroupBox groupBox_环境检测;
        
-        private GroupBox groupBoxConfig;
-        private Label labelCudaVersion;
-        private ComboBox comboBoxCudaVersion;
-        private RichTextBox richTextBoxLog;
+        private GroupBox groupBox_安装配置;
+        private Label label_CUDA版本;
+        private ComboBox comboBox_选择CUDA版本;
+        private RichTextBox richTextBox_GPU环境配置输出;
     }
 }

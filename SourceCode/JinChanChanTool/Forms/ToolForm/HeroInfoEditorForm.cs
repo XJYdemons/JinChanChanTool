@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using Microsoft.VisualBasic;
 using System.ComponentModel;
@@ -20,6 +21,11 @@ namespace JinChanChanTool.Forms
         private IHeroDataService _iheroDataService;
 
         /// <summary>
+        /// 本地化服务实例
+        /// </summary>
+        private readonly ILocalizationService _iLocalizationService;
+
+        /// <summary>
         /// 默认图片
         /// </summary>
         private Image defaultImage;
@@ -29,11 +35,12 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private bool isChanged;
 
-        public HeroInfoEditorForm()
+        public HeroInfoEditorForm(ILocalizationService iLocalizationService)
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
 
+            _iLocalizationService = iLocalizationService;
             isChanged = false;
             _iheroDataService = new HeroDataService();
 
@@ -54,6 +61,28 @@ namespace JinChanChanTool.Forms
 
             InitializeDataGridViewColumns(); // 只初始化列一次
             BindDataGridView(); // 绑定数据
+
+            // 应用本地化
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            if (_iLocalizationService == null) return;
+
+            this.Text = _iLocalizationService.Get("HeroInfoEditorForm.标题");
+            label_标题.Text = _iLocalizationService.Get("HeroInfoEditorForm.标题");
+            button_打开目录.Text = _iLocalizationService.Get("HeroInfoEditorForm.Button.打开目录");
+            button_保存.Text = _iLocalizationService.Get("HeroInfoEditorForm.Button.保存");
+            button_添加.Text = _iLocalizationService.Get("HeroInfoEditorForm.Button.添加");
+            button_删除.Text = _iLocalizationService.Get("HeroInfoEditorForm.Button.删除");
+            button_上移.Text = _iLocalizationService.Get("HeroInfoEditorForm.Button.上移");
+            button_下移.Text = _iLocalizationService.Get("HeroInfoEditorForm.Button.下移");            
+            button_退出.Text = _iLocalizationService.Get("HeroInfoEditorForm.Button.退出");
+            
         }
 
         private void HeroInfoEditorForm_Load(object sender, EventArgs e)
@@ -74,8 +103,8 @@ namespace JinChanChanTool.Forms
                 }
                 else
                 {
-                    MessageBox.Show($"找不到默认英雄图片\"defaultHeroIcon.png\"\n路径：\n{_iheroDataService.GetDefaultImagePath()}",
-                                   "默认英雄图片缺失",
+                    MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.默认图片缺失", _iheroDataService.GetDefaultImagePath()),
+                                   _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.默认图片缺失"),
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Error
                                    );
@@ -84,8 +113,8 @@ namespace JinChanChanTool.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"默认英雄图片\"defaultHeroIcon.png\"加载失败\n路径：\n{_iheroDataService.GetDefaultImagePath()}",
-                                    "加载默认图片失败",
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.默认图片加载失败", _iheroDataService.GetDefaultImagePath()),
+                                    _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.默认图片加载失败"),
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error
                                     );
@@ -106,7 +135,7 @@ namespace JinChanChanTool.Forms
 
             // 添加图片列
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
-            imageColumn.HeaderText = "图片";
+            imageColumn.HeaderText = _iLocalizationService.Get("HeroInfoEditorForm.Label.图片");
             imageColumn.Name = "Image";
             imageColumn.Width = 32;
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -115,7 +144,7 @@ namespace JinChanChanTool.Forms
 
             // 添加名称列
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = "英雄名称";
+            nameColumn.HeaderText = _iLocalizationService.Get("HeroInfoEditorForm.Label.英雄名称");
             nameColumn.Name = "HeroName";
             nameColumn.DataPropertyName = "HeroName";
             nameColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
@@ -123,7 +152,7 @@ namespace JinChanChanTool.Forms
 
             // 添加费用列
             DataGridViewTextBoxColumn costColumn = new DataGridViewTextBoxColumn();
-            costColumn.HeaderText = "费用";
+            costColumn.HeaderText = _iLocalizationService.Get("HeroInfoEditorForm.Label.费用");
             costColumn.Name = "Cost";
             costColumn.DataPropertyName = "Cost";
             costColumn.Width = 50;
@@ -132,7 +161,7 @@ namespace JinChanChanTool.Forms
 
             // 添加职业列（不绑定 DataPropertyName，因为是 List<string> 类型）
             DataGridViewTextBoxColumn professionColumn = new DataGridViewTextBoxColumn();
-            professionColumn.HeaderText = "职业";
+            professionColumn.HeaderText = _iLocalizationService.Get("HeroInfoEditorForm.Label.职业");
             professionColumn.Name = "Profession";
             professionColumn.Width = 205;
             professionColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
@@ -140,13 +169,13 @@ namespace JinChanChanTool.Forms
 
             // 添加特性列（不绑定 DataPropertyName，因为是 List<string> 类型）
             DataGridViewTextBoxColumn peculiarityColumn = new DataGridViewTextBoxColumn();
-            peculiarityColumn.HeaderText = "特性";
+            peculiarityColumn.HeaderText = _iLocalizationService.Get("HeroInfoEditorForm.Label.特性");
             peculiarityColumn.Name = "Peculiarity";
             peculiarityColumn.Width = 205;
             peculiarityColumn.SortMode = DataGridViewColumnSortMode.NotSortable; // 禁用排序
             dataGridView_英雄数据编辑器.Columns.Add(peculiarityColumn);
 
-          
+
 
             // 绑定事件
             dataGridView_英雄数据编辑器.CellFormatting += DataGridView_CellFormatting;
@@ -301,7 +330,7 @@ namespace JinChanChanTool.Forms
             // 处理数据错误（例如Cost列输入非数字值）
             if (dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name == "Cost")
             {
-                MessageBox.Show("费用必须为数字！");
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.费用必须为数字"));
                 e.ThrowException = false;
             }
         }
@@ -365,7 +394,7 @@ namespace JinChanChanTool.Forms
 
             if (selectedRows.Count == 0)
             {
-                MessageBox.Show("请先选择要删除的行！");
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.请选择要删除的行"));
                 return;
             }
 
@@ -446,7 +475,7 @@ namespace JinChanChanTool.Forms
         {
             if (isChanged)
             {
-                var result = MessageBox.Show("存在未保存的更改，是否保存？", "未保存的更改", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.未保存的更改"), _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.未保存的更改标题"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     Save();
@@ -474,7 +503,7 @@ namespace JinChanChanTool.Forms
             // 检查是否有当前单元格
             if (dataGridView_英雄数据编辑器.CurrentCell == null)
             {
-                MessageBox.Show("请先选择要移动的行！");
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.请选择要移动的行"));
                 return;
             }
             // 获取当前行索引
@@ -482,7 +511,7 @@ namespace JinChanChanTool.Forms
             // 检查是否可以上移（不是第一行）
             if (currentIndex <= 0)
             {
-                MessageBox.Show("已经是第一行，无法上移！");
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.已是第一行"));
                 return;
             }
             // 记录滚动位置
@@ -517,7 +546,7 @@ namespace JinChanChanTool.Forms
             // 检查是否有当前单元格
             if (dataGridView_英雄数据编辑器.CurrentCell == null)
             {
-                MessageBox.Show("请先选择要移动的行！");
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.请选择要移动的行"));
                 return;
             }
 
@@ -527,7 +556,7 @@ namespace JinChanChanTool.Forms
             // 检查是否可以下移（不是最后一行）
             if (currentIndex >= _iheroDataService.GetHeroCount() - 1)
             {
-                MessageBox.Show("已经是最后一行，无法下移！");
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.已是最后一行"));
                 return;
             }
 
@@ -563,7 +592,7 @@ namespace JinChanChanTool.Forms
         {
             if (isChanged)
             {
-                var result = MessageBox.Show("存在未保存的更改，是否保存？", "未保存的更改", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.未保存的更改"), _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.未保存的更改标题"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     Save();
@@ -596,7 +625,7 @@ namespace JinChanChanTool.Forms
         {
             Save();
             isChanged = false;
-            MessageBox.Show("保存成功！重启应用后生效。", "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.保存成功需重启"), _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.保存成功标题"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -626,12 +655,12 @@ namespace JinChanChanTool.Forms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"打开目录失败：{ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.打开目录失败", ex.Message), _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.错误"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("没有可用的数据集目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.无数据集目录"), _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.提示"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

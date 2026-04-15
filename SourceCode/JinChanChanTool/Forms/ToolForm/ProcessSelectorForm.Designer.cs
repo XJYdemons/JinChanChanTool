@@ -32,17 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessSelectorForm));
             listView_Processes = new ListView();
             imageList_ProcessIcons = new ImageList(components);
-            button_Select = new Button();
-            button_Refresh = new Button();
-            panel_BackGround = new Panel();
-            panel3 = new Panel();
-            label29 = new Label();
-            button2 = new Button();
-            button3 = new Button();
-            panel1 = new Panel();
-            panel_BackGround.SuspendLayout();
-            panel3.SuspendLayout();
-            panel1.SuspendLayout();
+            button_选定此进程 = new Button();
+            button_刷新 = new Button();
+            panel_副背景 = new Panel();
+            panel_标题栏 = new Panel();
+            label_标题 = new Label();
+            button_最小化 = new Button();
+            button_关闭 = new Button();
+            panel_主背景 = new Panel();
+            panel_副背景.SuspendLayout();
+            panel_标题栏.SuspendLayout();
+            panel_主背景.SuspendLayout();
             SuspendLayout();
             // 
             // listView_Processes
@@ -68,115 +68,115 @@
             // 
             // button_Select
             // 
-            button_Select.FlatStyle = FlatStyle.Flat;
-            button_Select.Location = new Point(5, 336);
-            button_Select.Margin = new Padding(0);
-            button_Select.Name = "button_Select";
-            button_Select.Size = new Size(718, 28);
-            button_Select.TabIndex = 1;
-            button_Select.Text = "选定此进程";
-            button_Select.UseVisualStyleBackColor = true;
+            button_选定此进程.FlatStyle = FlatStyle.Flat;
+            button_选定此进程.Location = new Point(5, 336);
+            button_选定此进程.Margin = new Padding(0);
+            button_选定此进程.Name = "button_Select";
+            button_选定此进程.Size = new Size(718, 28);
+            button_选定此进程.TabIndex = 1;
+            button_选定此进程.Text = "选定此进程";
+            button_选定此进程.UseVisualStyleBackColor = true;
             // 
             // button_Refresh
             // 
-            button_Refresh.FlatStyle = FlatStyle.Flat;
-            button_Refresh.Location = new Point(5, 304);
-            button_Refresh.Margin = new Padding(0);
-            button_Refresh.Name = "button_Refresh";
-            button_Refresh.Size = new Size(718, 28);
-            button_Refresh.TabIndex = 2;
-            button_Refresh.Text = "刷新列表";
-            button_Refresh.UseVisualStyleBackColor = true;
+            button_刷新.FlatStyle = FlatStyle.Flat;
+            button_刷新.Location = new Point(5, 304);
+            button_刷新.Margin = new Padding(0);
+            button_刷新.Name = "button_Refresh";
+            button_刷新.Size = new Size(718, 28);
+            button_刷新.TabIndex = 2;
+            button_刷新.Text = "刷新列表";
+            button_刷新.UseVisualStyleBackColor = true;
             // 
             // panel_BackGround
             // 
-            panel_BackGround.BackColor = Color.White;
-            panel_BackGround.Controls.Add(panel3);
-            panel_BackGround.Controls.Add(button_Select);
-            panel_BackGround.Controls.Add(listView_Processes);
-            panel_BackGround.Controls.Add(button_Refresh);
-            panel_BackGround.Dock = DockStyle.Fill;
-            panel_BackGround.Location = new Point(3, 3);
-            panel_BackGround.Margin = new Padding(0);
-            panel_BackGround.Name = "panel_BackGround";
-            panel_BackGround.Size = new Size(728, 368);
-            panel_BackGround.TabIndex = 3;
+            panel_副背景.BackColor = Color.White;
+            panel_副背景.Controls.Add(panel_标题栏);
+            panel_副背景.Controls.Add(button_选定此进程);
+            panel_副背景.Controls.Add(listView_Processes);
+            panel_副背景.Controls.Add(button_刷新);
+            panel_副背景.Dock = DockStyle.Fill;
+            panel_副背景.Location = new Point(3, 3);
+            panel_副背景.Margin = new Padding(0);
+            panel_副背景.Name = "panel_BackGround";
+            panel_副背景.Size = new Size(728, 368);
+            panel_副背景.TabIndex = 3;
             // 
             // panel3
             // 
-            panel3.BackColor = Color.White;
-            panel3.Controls.Add(label29);
-            panel3.Controls.Add(button2);
-            panel3.Controls.Add(button3);
-            panel3.Location = new Point(0, 0);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(728, 25);
-            panel3.TabIndex = 212;
+            panel_标题栏.BackColor = Color.White;
+            panel_标题栏.Controls.Add(label_标题);
+            panel_标题栏.Controls.Add(button_最小化);
+            panel_标题栏.Controls.Add(button_关闭);
+            panel_标题栏.Location = new Point(0, 0);
+            panel_标题栏.Name = "panel3";
+            panel_标题栏.Size = new Size(728, 25);
+            panel_标题栏.TabIndex = 212;
             // 
             // label29
             // 
-            label29.AutoSize = true;
-            label29.Location = new Point(4, 1);
-            label29.MinimumSize = new Size(80, 23);
-            label29.Name = "label29";
-            label29.Size = new Size(104, 23);
-            label29.TabIndex = 10;
-            label29.Text = "选择游戏窗口进程";
-            label29.TextAlign = ContentAlignment.MiddleLeft;
+            label_标题.AutoSize = true;
+            label_标题.Location = new Point(4, 1);
+            label_标题.MinimumSize = new Size(80, 23);
+            label_标题.Name = "label29";
+            label_标题.Size = new Size(104, 23);
+            label_标题.TabIndex = 10;
+            label_标题.Text = "选择游戏窗口进程";
+            label_标题.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // button2
             // 
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(678, 1);
-            button2.Margin = new Padding(0);
-            button2.Name = "button2";
-            button2.Size = new Size(23, 23);
-            button2.TabIndex = 8;
-            button2.Text = "—";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button_最小化_Click;
+            button_最小化.FlatAppearance.BorderSize = 0;
+            button_最小化.FlatStyle = FlatStyle.Flat;
+            button_最小化.Location = new Point(678, 1);
+            button_最小化.Margin = new Padding(0);
+            button_最小化.Name = "button2";
+            button_最小化.Size = new Size(23, 23);
+            button_最小化.TabIndex = 8;
+            button_最小化.Text = "—";
+            button_最小化.UseVisualStyleBackColor = true;
+            button_最小化.Click += button_最小化_Click;
             // 
             // button3
             // 
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(702, 1);
-            button3.Margin = new Padding(0);
-            button3.Name = "button3";
-            button3.Size = new Size(23, 23);
-            button3.TabIndex = 7;
-            button3.Text = "X";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button_关闭_Click;
+            button_关闭.FlatAppearance.BorderSize = 0;
+            button_关闭.FlatStyle = FlatStyle.Flat;
+            button_关闭.Location = new Point(702, 1);
+            button_关闭.Margin = new Padding(0);
+            button_关闭.Name = "button3";
+            button_关闭.Size = new Size(23, 23);
+            button_关闭.TabIndex = 7;
+            button_关闭.Text = "X";
+            button_关闭.UseVisualStyleBackColor = true;
+            button_关闭.Click += button_关闭_Click;
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(250, 250, 250);
-            panel1.Controls.Add(panel_BackGround);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(0);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(3, 3, 4, 4);
-            panel1.Size = new Size(735, 375);
-            panel1.TabIndex = 4;
+            panel_主背景.BackColor = Color.FromArgb(250, 250, 250);
+            panel_主背景.Controls.Add(panel_副背景);
+            panel_主背景.Dock = DockStyle.Fill;
+            panel_主背景.Location = new Point(0, 0);
+            panel_主背景.Margin = new Padding(0);
+            panel_主背景.Name = "panel1";
+            panel_主背景.Padding = new Padding(3, 3, 4, 4);
+            panel_主背景.Size = new Size(735, 375);
+            panel_主背景.TabIndex = 4;
             // 
             // ProcessSelectorForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(735, 375);
-            Controls.Add(panel1);
+            Controls.Add(panel_主背景);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ProcessSelectorForm";
             Text = "ProcessSelectorForm";
             TopMost = true;
-            panel_BackGround.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            panel1.ResumeLayout(false);
+            panel_副背景.ResumeLayout(false);
+            panel_标题栏.ResumeLayout(false);
+            panel_标题栏.PerformLayout();
+            panel_主背景.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -184,13 +184,13 @@
 
         private ListView listView_Processes;
         private ImageList imageList_ProcessIcons;
-        private Button button_Select;
-        private Button button_Refresh;
-        private Panel panel_BackGround;
-        private Panel panel3;
-        private Label label29;
-        private Button button2;
-        private Button button3;
-        private Panel panel1;
+        private Button button_选定此进程;
+        private Button button_刷新;
+        private Panel panel_副背景;
+        private Panel panel_标题栏;
+        private Label label_标题;
+        private Button button_最小化;
+        private Button button_关闭;
+        private Panel panel_主背景;
     }
 }

@@ -30,28 +30,28 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanel1 = new CustomFlowLayoutPanel();
+            flowLayoutPanel_阵容展示 = new CustomFlowLayoutPanel();
             button_清空 = new Button();
             button_保存 = new Button();
-            comboBox_LineUpSelected = new ComboBox();
+            comboBox_阵容选择 = new ComboBox();
             button_阵容推荐 = new Button();
             button_展开收起 = new Button();
             hexagonBoard = new HexagonBoard();
             benchPanel = new BenchPanel();
-            componentPanel = new FlowLayoutPanel();
+            flowLayoutPanel_装备散件展示 = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.BackColor = Color.FromArgb(1, 1, 1);
-            flowLayoutPanel1.BorderWidth = 0;
-            flowLayoutPanel1.Location = new Point(2, 27);
-            flowLayoutPanel1.Margin = new Padding(0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(2);
-            flowLayoutPanel1.Size = new Size(426, 64);
-            flowLayoutPanel1.TabIndex = 4;
-            flowLayoutPanel1.WrapContents = false;
+            flowLayoutPanel_阵容展示.BackColor = Color.FromArgb(1, 1, 1);
+            flowLayoutPanel_阵容展示.BorderWidth = 0;
+            flowLayoutPanel_阵容展示.Location = new Point(2, 27);
+            flowLayoutPanel_阵容展示.Margin = new Padding(0);
+            flowLayoutPanel_阵容展示.Name = "flowLayoutPanel1";
+            flowLayoutPanel_阵容展示.Padding = new Padding(2);
+            flowLayoutPanel_阵容展示.Size = new Size(426, 64);
+            flowLayoutPanel_阵容展示.TabIndex = 4;
+            flowLayoutPanel_阵容展示.WrapContents = false;
             // 
             // button_清空
             // 
@@ -83,13 +83,13 @@ namespace JinChanChanTool.Forms
             // 
             // comboBox_LineUpSelected
             // 
-            comboBox_LineUpSelected.BackColor = Color.White;
-            comboBox_LineUpSelected.ForeColor = Color.Black;
-            comboBox_LineUpSelected.FormattingEnabled = true;
-            comboBox_LineUpSelected.Location = new Point(2, 1);
-            comboBox_LineUpSelected.Name = "comboBox_LineUpSelected";
-            comboBox_LineUpSelected.Size = new Size(158, 25);
-            comboBox_LineUpSelected.TabIndex = 7;
+            comboBox_阵容选择.BackColor = Color.White;
+            comboBox_阵容选择.ForeColor = Color.Black;
+            comboBox_阵容选择.FormattingEnabled = true;
+            comboBox_阵容选择.Location = new Point(2, 1);
+            comboBox_阵容选择.Name = "comboBox_LineUpSelected";
+            comboBox_阵容选择.Size = new Size(158, 25);
+            comboBox_阵容选择.TabIndex = 7;
             // 
             // button_阵容推荐
             // 
@@ -127,10 +127,9 @@ namespace JinChanChanTool.Forms
             hexagonBoard.Size = new Size(319, 150);
             hexagonBoard.TabIndex = 15;
             hexagonBoard.Visible = false;
-            // 
+            //
             // benchPanel
-            // 
-            benchPanel.AllowDrop = true;
+            //
             benchPanel.BackColor = Color.FromArgb(1, 1, 1);
             benchPanel.Location = new Point(2, 293);
             benchPanel.Name = "benchPanel";
@@ -140,13 +139,13 @@ namespace JinChanChanTool.Forms
             // 
             // componentPanel
             // 
-            componentPanel.AutoScroll = true;
-            componentPanel.BackColor = Color.FromArgb(1, 1, 1);
-            componentPanel.Location = new Point(480, 93);
-            componentPanel.Name = "componentPanel";
-            componentPanel.Size = new Size(150, 250);
-            componentPanel.TabIndex = 17;
-            componentPanel.Visible = false;
+            flowLayoutPanel_装备散件展示.AutoScroll = true;
+            flowLayoutPanel_装备散件展示.BackColor = Color.FromArgb(1, 1, 1);
+            flowLayoutPanel_装备散件展示.Location = new Point(480, 93);
+            flowLayoutPanel_装备散件展示.Name = "componentPanel";
+            flowLayoutPanel_装备散件展示.Size = new Size(150, 250);
+            flowLayoutPanel_装备散件展示.TabIndex = 17;
+            flowLayoutPanel_装备散件展示.Visible = false;
             // 
             // LineUpForm
             // 
@@ -154,15 +153,15 @@ namespace JinChanChanTool.Forms
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(1, 1, 1);
             ClientSize = new Size(430, 95);
-            Controls.Add(componentPanel);
+            Controls.Add(flowLayoutPanel_装备散件展示);
             Controls.Add(benchPanel);
             Controls.Add(hexagonBoard);
             Controls.Add(button_展开收起);
             Controls.Add(button_阵容推荐);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowLayoutPanel_阵容展示);
             Controls.Add(button_清空);
             Controls.Add(button_保存);
-            Controls.Add(comboBox_LineUpSelected);
+            Controls.Add(comboBox_阵容选择);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LineUpForm";
             ShowInTaskbar = false;
@@ -174,14 +173,14 @@ namespace JinChanChanTool.Forms
         }
 
         #endregion
-        public CustomFlowLayoutPanel flowLayoutPanel1;
-        private ComboBox comboBox_LineUpSelected;
+        public CustomFlowLayoutPanel flowLayoutPanel_阵容展示;
+        private ComboBox comboBox_阵容选择;
         private Button button_清空;
         private Button button_保存;
         private Button button_阵容推荐;
         private Button button_展开收起;
         private HexagonBoard hexagonBoard;
         private BenchPanel benchPanel;
-        private FlowLayoutPanel componentPanel;
+        private FlowLayoutPanel flowLayoutPanel_装备散件展示;
     }
 }

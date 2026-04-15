@@ -1,0 +1,636 @@
+[
+  {
+    "HeroName": "亚托克斯",
+    "Cost": 1,
+    "Profession": [
+      "堡垒卫士"
+    ],
+    "Peculiarity": [
+      "新星特攻队"
+    ]
+  },
+  {
+    "HeroName": "贝蕾亚",
+    "Cost": 1,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "幻灵战队",
+      "海魔人"
+    ]
+  },
+  {
+    "HeroName": "凯特琳",
+    "Cost": 1,
+    "Profession": [
+      "织命人"
+    ],
+    "Peculiarity": [
+      "新星特攻队"
+    ]
+  },
+  {
+    "HeroName": "科加斯",
+    "Cost": 1,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "暗星"
+    ]
+  },
+  {
+    "HeroName": "伊泽瑞尔",
+    "Cost": 1,
+    "Profession": [
+      "狙神"
+    ],
+    "Peculiarity": [
+      "未来战士"
+    ]
+  },
+  {
+    "HeroName": "蕾欧娜",
+    "Cost": 1,
+    "Profession": [
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "法官"
+    ]
+  },
+  {
+    "HeroName": "丽桑卓",
+    "Cost": 1,
+    "Profession": [
+      "魔术师",
+      "牧羊人"
+    ],
+    "Peculiarity": [
+      "暗星"
+    ]
+  },
+  {
+    "HeroName": "内瑟斯",
+    "Cost": 1,
+    "Profession": [
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "太空律动"
+    ]
+  },
+  {
+    "HeroName": "波比",
+    "Cost": 1,
+    "Profession": [
+      "堡垒卫士"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "雷克塞",
+    "Cost": 1,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "海魔人"
+    ]
+  },
+  {
+    "HeroName": "泰隆",
+    "Cost": 1,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "观星者"
+    ]
+  },
+  {
+    "HeroName": "提莫",
+    "Cost": 1,
+    "Profession": [
+      "牧羊人"
+    ],
+    "Peculiarity": [
+      "太空律动"
+    ]
+  },
+  {
+    "HeroName": "崔斯特",
+    "Cost": 1,
+    "Profession": [
+      "织命人"
+    ],
+    "Peculiarity": [
+      "观星者"
+    ]
+  },
+  {
+    "HeroName": "维迦",
+    "Cost": 1,
+    "Profession": [
+      "魔术师"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "阿卡丽",
+    "Cost": 2,
+    "Profession": [
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "新星特攻队"
+    ]
+  },
+  {
+    "HeroName": "卑尔维斯",
+    "Cost": 2,
+    "Profession": [
+      "狂战士",
+      "挑战者"
+    ],
+    "Peculiarity": [
+      "海魔人"
+    ]
+  },
+  {
+    "HeroName": "纳尔",
+    "Cost": 2,
+    "Profession": [
+      "狙神"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "古拉加斯",
+    "Cost": 2,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "灵能特工"
+    ]
+  },
+  {
+    "HeroName": "格温",
+    "Cost": 2,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "太空律动"
+    ]
+  },
+  {
+    "HeroName": "贾克斯",
+    "Cost": 2,
+    "Profession": [
+      "堡垒卫士"
+    ],
+    "Peculiarity": [
+      "观星者"
+    ]
+  },
+  {
+    "HeroName": "金克丝",
+    "Cost": 2,
+    "Profession": [
+      "挑战者"
+    ],
+    "Peculiarity": [
+      "幻灵战队"
+    ]
+  },
+  {
+    "HeroName": "小木灵",
+    "Cost": 2,
+    "Profession": [
+      "牧羊人",
+      "旅人"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "米利欧",
+    "Cost": 2,
+    "Profession": [
+      "织命人"
+    ],
+    "Peculiarity": [
+      "未来战士"
+    ]
+  },
+  {
+    "HeroName": "莫德凯撒",
+    "Cost": 2,
+    "Profession": [
+      "神谕",
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "暗星"
+    ]
+  },
+  {
+    "HeroName": "潘森",
+    "Cost": 2,
+    "Profession": [
+      "斗士",
+      "魔术师"
+    ],
+    "Peculiarity": [
+      "未来战士"
+    ]
+  },
+  {
+    "HeroName": "派克",
+    "Cost": 2,
+    "Profession": [
+      "旅人"
+    ],
+    "Peculiarity": [
+      "灵能特工"
+    ]
+  },
+  {
+    "HeroName": "佐伊",
+    "Cost": 2,
+    "Profession": [
+      "神谕"
+    ],
+    "Peculiarity": [
+      "法官"
+    ]
+  },
+  {
+    "HeroName": "阿萝拉",
+    "Cost": 3,
+    "Profession": [
+      "旅人"
+    ],
+    "Peculiarity": [
+      "幻灵战队"
+    ]
+  },
+  {
+    "HeroName": "黛安娜",
+    "Cost": 3,
+    "Profession": [
+      "挑战者"
+    ],
+    "Peculiarity": [
+      "法官"
+    ]
+  },
+  {
+    "HeroName": "菲兹",
+    "Cost": 3,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "俄洛伊",
+    "Cost": 3,
+    "Profession": [
+      "重装战士",
+      "牧羊人"
+    ],
+    "Peculiarity": [
+      "幻灵战队"
+    ]
+  },
+  {
+    "HeroName": "卡莎",
+    "Cost": 3,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "暗星"
+    ]
+  },
+  {
+    "HeroName": "璐璐",
+    "Cost": 3,
+    "Profession": [
+      "魔术师"
+    ],
+    "Peculiarity": [
+      "观星者"
+    ]
+  },
+  {
+    "HeroName": "茂凯",
+    "Cost": 3,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "新星特攻队"
+    ]
+  },
+  {
+    "HeroName": "厄运小姐",
+    "Cost": 3,
+    "Profession": [
+      "神谕",
+      "挑战者",
+      "魔术师"
+    ],
+    "Peculiarity": [
+      "武装战姬"
+    ]
+  },
+  {
+    "HeroName": "奥恩",
+    "Cost": 3,
+    "Profession": [
+      "堡垒卫士"
+    ],
+    "Peculiarity": [
+      "太空律动"
+    ]
+  },
+  {
+    "HeroName": "拉亚斯特",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "救世主"
+    ]
+  },
+  {
+    "HeroName": "莎弥拉",
+    "Cost": 3,
+    "Profession": [
+      "狙神"
+    ],
+    "Peculiarity": [
+      "太空律动"
+    ]
+  },
+  {
+    "HeroName": "厄加特",
+    "Cost": 3,
+    "Profession": [
+      "斗士",
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "霸天机甲"
+    ]
+  },
+  {
+    "HeroName": "维克托",
+    "Cost": 3,
+    "Profession": [
+      "神谕"
+    ],
+    "Peculiarity": [
+      "灵能特工"
+    ]
+  },
+  {
+    "HeroName": "奥瑞利安索尔",
+    "Cost": 4,
+    "Profession": [
+      "神谕"
+    ],
+    "Peculiarity": [
+      "霸天机甲"
+    ]
+  },
+  {
+    "HeroName": "库奇",
+    "Cost": 4,
+    "Profession": [
+      "织命人"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "卡尔玛",
+    "Cost": 4,
+    "Profession": [
+      "旅人"
+    ],
+    "Peculiarity": [
+      "暗星"
+    ]
+  },
+  {
+    "HeroName": "千珏",
+    "Cost": 4,
+    "Profession": [
+      "挑战者"
+    ],
+    "Peculiarity": [
+      "新星特攻队"
+    ]
+  },
+  {
+    "HeroName": "乐芙兰",
+    "Cost": 4,
+    "Profession": [
+      "牧羊人"
+    ],
+    "Peculiarity": [
+      "法官"
+    ]
+  },
+  {
+    "HeroName": "易",
+    "Cost": 4,
+    "Profession": [
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "灵能特工"
+    ]
+  },
+  {
+    "HeroName": "娜美",
+    "Cost": 4,
+    "Profession": [
+      "魔术师"
+    ],
+    "Peculiarity": [
+      "太空律动"
+    ]
+  },
+  {
+    "HeroName": "努努和威朗普",
+    "Cost": 4,
+    "Profession": [
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "观星者"
+    ]
+  },
+  {
+    "HeroName": "拉莫斯",
+    "Cost": 4,
+    "Profession": [
+      "堡垒卫士"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "锐雯",
+    "Cost": 4,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "未来战士"
+    ]
+  },
+  {
+    "HeroName": "塔姆",
+    "Cost": 4,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "命运祭司"
+    ]
+  },
+  {
+    "HeroName": "超级机甲",
+    "Cost": 4,
+    "Profession": [
+      "旅人"
+    ],
+    "Peculiarity": [
+      "霸天机甲"
+    ]
+  },
+  {
+    "HeroName": "霞",
+    "Cost": 4,
+    "Profession": [
+      "狙神"
+    ],
+    "Peculiarity": [
+      "观星者"
+    ]
+  },
+  {
+    "HeroName": "巴德",
+    "Cost": 5,
+    "Profession": [
+      "神谕"
+    ],
+    "Peculiarity": [
+      "木灵族"
+    ]
+  },
+  {
+    "HeroName": "布里茨",
+    "Cost": 5,
+    "Profession": [
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "汪星机器人",
+      "太空律动"
+    ]
+  },
+  {
+    "HeroName": "菲奥娜",
+    "Cost": 5,
+    "Profession": [
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "斗神",
+      "幻灵战队"
+    ]
+  },
+  {
+    "HeroName": "格雷福斯",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "军工1号"
+    ]
+  },
+  {
+    "HeroName": "烬",
+    "Cost": 5,
+    "Profession": [
+      "狙神"
+    ],
+    "Peculiarity": [
+      "灭星尊",
+      "暗星"
+    ]
+  },
+  {
+    "HeroName": "莫甘娜",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "黑暗魔女"
+    ]
+  },
+  {
+    "HeroName": "慎",
+    "Cost": 5,
+    "Profession": [
+      "堡垒卫士"
+    ],
+    "Peculiarity": [
+      "暮光铁壁"
+    ]
+  },
+  {
+    "HeroName": "娑娜",
+    "Cost": 5,
+    "Profession": [
+      "牧羊人"
+    ],
+    "Peculiarity": [
+      "最高指挥官",
+      "灵能特工"
+    ]
+  },
+  {
+    "HeroName": "薇古丝",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "末日使者"
+    ]
+  },
+  {
+    "HeroName": "劫",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "天煞"
+    ]
+  }
+]

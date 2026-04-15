@@ -14,7 +14,7 @@
         /// <summary>
         /// 阵容状态
         /// </summary>
-        public SubLineUp[] SubLineUps { get; set; } = [  new SubLineUp("前期"), new SubLineUp("中期"), new SubLineUp("后期") ];
+        public SubLineUp[] SubLineUps { get; set; } = [  new SubLineUp(), new SubLineUp(), new SubLineUp() ];
       
         /// <summary>
         /// 对阵容命名的构造函数
@@ -36,17 +36,17 @@
     /// </summary>
     public class SubLineUp
     {
-        public string SubLineUpName { get; set; } = "新变阵";
+       
 
         public List<LineUpUnit> LineUpUnits { get; set; } = [];
       
         /// <summary>
-        /// 对变阵命名的构造函数
+        /// 构造函数
         /// </summary>
         /// <param name="name"></param>
-        public SubLineUp(string name)
+        public SubLineUp()
         {
-            SubLineUpName = name;           
+                   
         }
 
         /// <summary>

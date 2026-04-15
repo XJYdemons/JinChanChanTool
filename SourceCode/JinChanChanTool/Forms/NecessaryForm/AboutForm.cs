@@ -1,4 +1,5 @@
-﻿using JinChanChanTool.Tools;
+﻿using JinChanChanTool.Services.Localization;
+using JinChanChanTool.Tools;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -9,10 +10,28 @@ namespace JinChanChanTool
     /// </summary>
     public partial class AboutForm : Form
     {
-        public AboutForm()
+        private readonly ILocalizationService _iLocalizationService;
+
+        public AboutForm(ILocalizationService iLocalizationService)
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏背景);
+            _iLocalizationService = iLocalizationService;
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            label_标题.Text = _iLocalizationService.Get("AboutForm.标题");
+            label_架构.Text = _iLocalizationService.Get("AboutForm.Label.架构");
+            label_版本号.Text = _iLocalizationService.Get("AboutForm.Label.版本");
+            label_版权所有.Text = _iLocalizationService.Get("AboutForm.Label.版权所有");
+            label_项目地址.Text = _iLocalizationService.Get("AboutForm.Label.项目地址");
+            label_Github主页.Text = _iLocalizationService.Get("AboutForm.Label.Github主页");
+            label_开发者.Text = _iLocalizationService.Get("AboutForm.Label.开发者");                        
         }
 
         /// <summary>

@@ -42,9 +42,6 @@ namespace JinChanChanTool.DIYComponents
             // 背景色
             BackColor = Color.FromArgb(35, 40, 50);
 
-            // 允许拖放
-            AllowDrop = true;
-
             // 初始化格子数组
             _slots = new BenchSlot[MaxHeroCount];
 
@@ -222,40 +219,32 @@ namespace JinChanChanTool.DIYComponents
         public bool IsFull => GetBenchHeroCount() >= MaxHeroCount;
 
         /// <summary>
-        /// 拖放进入事件
+        /// 获取所有备战席格子的迭代器，供 BoardDragManager 遍历绑定事件
         /// </summary>
-        protected override void OnDragEnter(DragEventArgs e)
+        /// <returns>所有备战席格子的枚举</returns>
+        public IEnumerable<BenchSlot> GetAllSlots()
         {
-            base.OnDragEnter(e);
-
-            // 接受来自棋盘格子的拖放（备战席未满时）
-            if (e.Data?.GetData(typeof(HexagonCell)) is HexagonCell sourceCell && sourceCell.HasHero && !IsFull)
+            for (int i = 0; i < MaxHeroCount; i++)
             {
-                e.Effect = DragDropEffects.Move;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
+                yield return _slots[i];
             }
         }
 
         /// <summary>
-        /// 拖放完成事件
+        /// 触发英雄放入备战席事件（供 BoardDragManager 调用）
         /// </summary>
-        protected override void OnDragDrop(DragEventArgs e)
+        /// <param name="sourceRow">源位置行（棋盘坐标）</param>
+        /// <param name="sourceColumn">源位置列（棋盘坐标）</param>
+        /// <param name="movedUnit">被移动的阵容单位</param>
+        public void InvokeHeroDroppedIn(int sourceRow, int sourceColumn, LineUpUnit movedUnit)
         {
-            base.OnDragDrop(e);
+            HeroDroppedIn?.Invoke(this, new BenchHeroDroppedInEventArgs(
+                sourceRow, sourceColumn,
+                movedUnit
+            ));
+        }
 
-            // 处理来自棋盘格子的拖放
-            if (e.Data?.GetData(typeof(HexagonCell)) is HexagonCell sourceCell && sourceCell.HasHero)
-            {
-                // 触发位置变更事件
-                HeroDroppedIn?.Invoke(this, new BenchHeroDroppedInEventArgs(
-                    sourceCell.Row, sourceCell.Column,
-                    sourceCell.LineUpUnit
-                ));
-            }
-        }      
+      
     }
 
     /// <summary>
@@ -291,6 +280,14 @@ namespace JinChanChanTool.DIYComponents
         /// 开始拖拽事件
         /// </summary>
         public event EventHandler<BenchSlotDragEventArgs> HeroDragStarted;
+
+        /// <summary>
+        /// 触发开始拖拽事件（供 BoardDragManager 调用）
+        /// </summary>
+        public void InvokeHeroDragStarted()
+        {
+            HeroDragStarted?.Invoke(this, new BenchSlotDragEventArgs(_lineUpUnit, slotIndex));
+        }
 
         public BenchSlot(int index)
         {
@@ -377,22 +374,6 @@ namespace JinChanChanTool.DIYComponents
             Invalidate();
         }
 
-        /// <summary>
-        /// 鼠标按下 - 开始拖拽
-        /// </summary>
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-
-            if (e.Button == MouseButtons.Left && HasHero)
-            {
-                // 触发拖拽事件
-                HeroDragStarted?.Invoke(this, new BenchSlotDragEventArgs(_lineUpUnit, slotIndex));
-
-                // 开始拖放
-                DoDragDrop(this, DragDropEffects.Move);
-            }
-        }
 
         /// <summary>
         /// 覆盖自动缩放方法，禁用DPI自动缩放

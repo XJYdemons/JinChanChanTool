@@ -22,7 +22,6 @@ namespace JinChanChanTool.DIYComponents
         private Color _borderColor = Color.FromArgb(100, 150, 180);
 
         // 拖拽相关
-        private bool _isDragging;
         private bool _isDropTarget;
 
         // 外观设置
@@ -136,8 +135,6 @@ namespace JinChanChanTool.DIYComponents
             // 默认大小
             Size = new Size(50, 58);
 
-            // 允许接收拖放
-            AllowDrop = true;
         }
 
         /// <summary>
@@ -311,26 +308,6 @@ namespace JinChanChanTool.DIYComponents
             Invalidate();
         }
 
-        /// <summary>
-        /// 鼠标按下事件 - 开始拖拽
-        /// </summary>
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-
-            if (e.Button == MouseButtons.Left && HasHero && IsPointInHexagon(e.Location))
-            {
-                _isDragging = true;
-
-                // 触发开始拖拽事件
-                HeroDragStart?.Invoke(this, new HeroDragStartEventArgs(this));
-
-                // 开始拖放操作
-                DoDragDrop(this, DragDropEffects.Move);
-
-                _isDragging = false;
-            }
-        }
 
         /// <summary>
         /// 鼠标释放事件 - 右键清除
@@ -346,68 +323,28 @@ namespace JinChanChanTool.DIYComponents
             }
         }
 
-        /// <summary>
-        /// 拖放进入事件
-        /// </summary>
-        protected override void OnDragEnter(DragEventArgs e)
-        {
-            base.OnDragEnter(e);
 
-            // 接受来自棋盘格子的拖放
-            if (e.Data?.GetData(typeof(HexagonCell)) is HexagonCell sourceCell && sourceCell != this)
-            {
-                e.Effect = DragDropEffects.Move;
-                IsDropTarget = true;
-            }
-            // 接受来自备战席的拖放
-            else if (e.Data?.GetData(typeof(BenchSlot)) is BenchSlot benchSlot && benchSlot.HasHero)
-            {
-                e.Effect = DragDropEffects.Move;
-                IsDropTarget = true;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
+        /// <summary>
+        /// 触发英雄位置变更事件（供 BoardDragManager 调用）
+        /// </summary>
+        /// <param name="sourceRow">源位置行</param>
+        /// <param name="sourceColumn">源位置列</param>
+        /// <param name="movedUnit">被移动的阵容单位</param>
+        public void InvokeHeroPositionChanged(int sourceRow, int sourceColumn, LineUpUnit movedUnit)
+        {
+            HeroPositionChanged?.Invoke(this, new HeroPositionChangedEventArgs(
+                sourceRow, sourceColumn,
+                _row, _column,
+                movedUnit
+            ));
         }
 
         /// <summary>
-        /// 拖放离开事件
+        /// 触发开始拖拽事件（供 BoardDragManager 调用）
         /// </summary>
-        protected override void OnDragLeave(EventArgs e)
+        public void InvokeHeroDragStart()
         {
-            base.OnDragLeave(e);
-            IsDropTarget = false;
-        }
-
-        /// <summary>
-        /// 拖放完成事件
-        /// </summary>
-        protected override void OnDragDrop(DragEventArgs e)
-        {
-            base.OnDragDrop(e);
-            IsDropTarget = false;
-
-            // 处理来自棋盘格子的拖放
-            if (e.Data?.GetData(typeof(HexagonCell)) is HexagonCell sourceCell && sourceCell != this)
-            {
-                // 触发位置变更事件
-                HeroPositionChanged?.Invoke(this, new HeroPositionChangedEventArgs(
-                    sourceCell.Row, sourceCell.Column,
-                    _row, _column,
-                    sourceCell.LineUpUnit
-                ));
-            }
-            // 处理来自备战席的拖放
-            else if (e.Data?.GetData(typeof(BenchSlot)) is BenchSlot benchSlot && benchSlot.HasHero)
-            {
-                // 从备战席拖到棋盘，源位置是(0,0)
-                HeroPositionChanged?.Invoke(this, new HeroPositionChangedEventArgs(
-                    0, 0,
-                    _row, _column,
-                    benchSlot.LineUpUnit
-                ));
-            }
+            HeroDragStart?.Invoke(this, new HeroDragStartEventArgs(this));
         }
 
         /// <summary>

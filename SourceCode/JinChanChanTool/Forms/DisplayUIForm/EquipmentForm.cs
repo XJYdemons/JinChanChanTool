@@ -1,6 +1,7 @@
 using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System.Runtime.InteropServices;
 
@@ -12,6 +13,11 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// 装备数据服务
         /// </summary>
         private readonly IEquipmentService _equipmentService;
+
+        /// <summary>
+        /// 本地化服务
+        /// </summary>
+        private readonly ILocalizationService _iLocalizationService;
 
         /// <summary>
         /// 当前英雄名称
@@ -49,19 +55,21 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <param name="equipmentService">装备数据服务</param>
         /// <param name="heroName">英雄名称</param>
         /// <param name="equipmentIndex">装备槽位索引</param>
-        public EquipmentForm(IEquipmentService equipmentService, string heroName, int equipmentIndex)
+        /// <param name="iLocalizationService">本地化服务</param>
+        public EquipmentForm(IEquipmentService equipmentService, string heroName, int equipmentIndex, ILocalizationService iLocalizationService)
         {
             InitializeComponent();
             _equipmentService = equipmentService;
             _heroName = heroName;
             _equipmentIndex = equipmentIndex;
+            _iLocalizationService = iLocalizationService;
             SelectedEquipmentName = string.Empty;
 
             // 设置标题文本
-            label_Title.Text = $"为 {heroName} 选择装备（槽位 {equipmentIndex + 1}）";
+            label_标题.Text = _iLocalizationService.Get("EquipmentForm.Label.标题", heroName, (equipmentIndex + 1).ToString());
 
             // 启用标题栏拖动功能
-            DragHelper.EnableDragForChildren(panel_TitleBar);
+            DragHelper.EnableDragForChildren(panel_标题栏);
 
             // 隐藏图标
             this.ShowIcon = false;
@@ -163,18 +171,18 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         private void BuildEquipmentUI()
         {
-            panelMain.Controls.Clear();
+            panel客户区.Controls.Clear();
 
             List<Equipment> equipments = _equipmentService.GetEquipmentDatas();
             if (equipments == null || equipments.Count == 0)
             {
                 Label noDataLabel = new Label
                 {
-                    Text = "暂无装备数据",
+                    Text = _iLocalizationService.Get("EquipmentForm.Label.暂无数据"),
                     AutoSize = true,
                     Location = new Point(Dpi(20), Dpi(20))
                 };
-                panelMain.Controls.Add(noDataLabel);
+                panel客户区.Controls.Add(noDataLabel);
                 return;
             }
 
@@ -205,19 +213,19 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             // 分组标题
             Label titleLabel = new Label
             {
-                Text = "操作",
+                Text = _iLocalizationService.Get("EquipmentForm.Label.操作"),
                 Font = new Font(this.Font.FontFamily, 10f, FontStyle.Bold, GraphicsUnit.Point),
                 AutoSize = true,
                 Location = new Point(Dpi(10), startY)
             };
-            panelMain.Controls.Add(titleLabel);
+            panel客户区.Controls.Add(titleLabel);
 
             int contentY = startY + titleLabel.Height + Dpi(5);
 
             // 清空装备按钮
             Button clearButton = new Button
             {
-                Text = "清空此槽位装备",
+                Text = _iLocalizationService.Get("EquipmentForm.Button.清空装备栏"),
                 Size = new Size(Dpi(120), Dpi(30)),
                 Location = new Point(Dpi(10), contentY),
                 FlatStyle = FlatStyle.Flat,                
@@ -229,7 +237,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             };
-            panelMain.Controls.Add(clearButton);
+            panel客户区.Controls.Add(clearButton);
 
             return contentY + clearButton.Height + Dpi(15);
         }
@@ -247,16 +255,16 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 AutoSize = true,
                 Location = new Point(Dpi(10), startY)
             };
-            panelMain.Controls.Add(titleLabel);
+            panel客户区.Controls.Add(titleLabel);
 
             // 分隔线
             Panel separator = new Panel
             {
                 BackColor = Color.LightGray,
-                Size = new Size(panelMain.ClientSize.Width - Dpi(40), 1),
+                Size = new Size(panel客户区.ClientSize.Width - Dpi(40), 1),
                 Location = new Point(Dpi(10), startY + titleLabel.Height + Dpi(2))
             };
-            panelMain.Controls.Add(separator);
+            panel客户区.Controls.Add(separator);
 
             // 装备容器FlowLayoutPanel
             FlowLayoutPanel flowPanel = new FlowLayoutPanel
@@ -266,7 +274,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 Location = new Point(Dpi(10), startY + titleLabel.Height + Dpi(8)),
-                MaximumSize = new Size(panelMain.Width - Dpi(30), 0),
+                MaximumSize = new Size(panel客户区.Width - Dpi(30), 0),
                 BackColor = Color.White
             };
 
@@ -276,7 +284,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
                 flowPanel.Controls.Add(itemContainer);
             }
 
-            panelMain.Controls.Add(flowPanel);
+            panel客户区.Controls.Add(flowPanel);
 
             return startY + titleLabel.Height + Dpi(8) + flowPanel.PreferredSize.Height + Dpi(15);
         }

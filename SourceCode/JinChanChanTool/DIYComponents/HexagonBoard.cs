@@ -292,6 +292,21 @@ namespace JinChanChanTool.DIYComponents
         }
 
         /// <summary>
+        /// 获取所有格子的迭代器，供 BoardDragManager 遍历绑定事件和命中测试
+        /// </summary>
+        /// <returns>所有六边形格子的枚举</returns>
+        public IEnumerable<HexagonCell> GetAllCells()
+        {
+            for (int row = 0; row < ROWS; row++)
+            {
+                for (int col = 0; col < COLUMNS; col++)
+                {
+                    yield return _cells[row, col];
+                }
+            }
+        }
+
+        /// <summary>
         /// 获取指定位置的格子（使用棋盘坐标1-4, 1-7）
         /// </summary>
         /// <param name="row">行坐标（1-4）</param>

@@ -1,4 +1,5 @@
-﻿using JinChanChanTool.Tools.MouseTools;
+﻿using JinChanChanTool.Services.Localization;
+using JinChanChanTool.Tools.MouseTools;
 namespace JinChanChanTool.Services.ManuallySetCoordinates
 {
     /// <summary>
@@ -29,9 +30,13 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
         // 目标屏幕
         private Screen targetScreen;
 
-        public FastSettingPositionService(Screen screen)
+        // 本地化服务
+        private readonly ILocalizationService _iLocalizationService;
+
+        public FastSettingPositionService(Screen screen, ILocalizationService iLocalizationService)
         {
             targetScreen = screen;
+            _iLocalizationService = iLocalizationService;
             InitializeComponents();
         }
 
@@ -55,7 +60,7 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
             {
                 ForeColor = Color.Red,// 设置字体颜色为红色
                 Font = new Font("Arial", 14, FontStyle.Bold),// 设置字体大小和加粗
-                Size = new Size(700, 70),
+                AutoSize = true,// 自动调整大小以适应文本内容
                 TextAlign = ContentAlignment.TopCenter// 使文本居中
             };
 
@@ -101,7 +106,7 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
             waitClick = true;// 设置绘制状态
 
             SetupForms();
-            showTipLabel.Text = prompt;
+            UpdateTipLabel(prompt);
 
             // 等待直到绘制完成
             while (waitClick)
@@ -122,7 +127,7 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
             isDrawing = true;// 设置绘制状态
 
             SetupForms();
-            showTipLabel.Text = prompt;
+            UpdateTipLabel(prompt);
 
             // 等待直到绘制完成
             while (isDrawing)
@@ -149,7 +154,9 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
                 targetScreen.Bounds.Top
             );
 
-            showTipLabel.Location = new(overlayForm.Size.Width / 2 - showTipLabel.Size.Width / 2, 60);
+            // 设置提示标签的最大宽度为覆盖层宽度的80%，高度不限制，允许自动换行
+            int tipMaxWidth = overlayForm.ClientSize.Width * 4 / 5;
+            showTipLabel.MaximumSize = new Size(tipMaxWidth, 0);
 
 
             overlayForm.Show();
@@ -157,6 +164,20 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
             labelForm.BringToFront();
             overlayForm.Cursor = Cursors.Cross;
             showTipLabel.Show();
+        }
+
+        /// <summary>
+        /// 更新提示标签的文本并居中显示
+        /// </summary>
+        /// <param name="prompt">提示信息</param>
+        private void UpdateTipLabel(string prompt)
+        {
+            showTipLabel.Text = prompt;
+            // 文本设置后根据实际宽度重新计算居中位置
+            showTipLabel.Location = new Point(
+                overlayForm.ClientSize.Width / 2 - showTipLabel.Width / 2,
+                60
+            );
         }
 
         /// <summary>
@@ -202,9 +223,12 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
                 overlayForm.Invalidate();// 请求重绘
             }
 
-            showPointLabel.Text = $"鼠标坐标X：{MousePositionTool.GetCurrentCoordinates().Physical.X}, " +
-                                 $"鼠标坐标Y：{MousePositionTool.GetCurrentCoordinates().Physical.Y}   " +
-                                 $"宽度：{currentRectangle.Width}, 高度：{currentRectangle.Height}";
+            showPointLabel.Text = _iLocalizationService.Get(
+                "FastSetting.Label.鼠标坐标",
+                MousePositionTool.GetCurrentCoordinates().Physical.X,
+                MousePositionTool.GetCurrentCoordinates().Physical.Y,
+                currentRectangle.Width,
+                currentRectangle.Height);
         }
 
         /// <summary>

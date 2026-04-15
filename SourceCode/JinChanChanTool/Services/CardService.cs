@@ -41,7 +41,11 @@ namespace JinChanChanTool.Services
         /// 阵容数据服务实例
         /// </summary>
         private readonly ILineUpService _ilineUpService;
-       
+
+        //private KmBoxNet kmBox;
+
+        //private KmBoxNetHelper km ;
+
         private QueuedOCRService _ocrService;
 
         public bool isHighLight = false;//是否开启 高亮提示 标志(初始false)
@@ -99,6 +103,9 @@ namespace JinChanChanTool.Services
             {
                 InitializeOcrService(QueuedOCRService.设备.CPU);
             }
+            //kmBox = new KmBoxNet();
+            //kmBox.Init("192.168.2.188", "51200", "EA2A3CAB");
+            //km = new KmBoxNetHelper(kmBox);           
         }
 
         /// <summary>
@@ -770,6 +777,14 @@ namespace JinChanChanTool.Services
                     Y = Random.Shared.Next(_iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height / 5,
                         _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Y + _iappConfigService.CurrentConfig.RefreshStoreButtonRectangle.Height * 4 / 5);
                 }
+                //设置鼠标位置
+                //km.EncSetPositionSmooth(X, X, 10);
+                //await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
+                //执行点击操作，逐个点击并等待
+                //kmBox.EncLeft(true);
+                //await Task.Delay(10);
+                //kmBox.EncLeft(false);
+
 
                 MouseControlTool.SetMousePosition(X, Y);
                 await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
@@ -1014,18 +1029,19 @@ namespace JinChanChanTool.Services
                             randomX = Random.Shared.Next(rects[i].Left + rects[i].Width / 3, rects[i].Left + rects[i].Width * 2 / 3);
                             randomY = Random.Shared.Next(rects[i].Top + rects[i].Height / 3, rects[i].Top + rects[i].Height * 2 / 3);
                         }
+                        //// 设置鼠标位置                       
+                        //km.EncSetPositionSmooth(randomX, randomY,10);
+                        //await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
+                        //// 执行点击操作，逐个点击并等待
+                        //kmBox.EncLeft(true);
+                        //await Task.Delay(10);
+                        //kmBox.EncLeft(false);
+                        //await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
 
-
-                        // 设置鼠标位置
+                        //设置鼠标位置
                         MouseControlTool.SetMousePosition(randomX, randomY);
-
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
-
-
-                        // 执行点击操作，逐个点击并等待
-
                         await ClickOneTime();
-
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
 
                     }

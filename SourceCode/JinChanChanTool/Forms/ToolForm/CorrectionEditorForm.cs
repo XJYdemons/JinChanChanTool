@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System.Data;
 using System.Runtime.InteropServices;
@@ -18,20 +19,43 @@ namespace JinChanChanTool
         private ICorrectionService _iCorrectionService;
 
         /// <summary>
+        /// 本地化服务对象
+        /// </summary>
+        private readonly ILocalizationService _iLocalizationService;
+
+        /// <summary>
         /// 是否发生改动的标志
         /// </summary>
         private bool isChanged;
 
-        public CorrectionEditorForm(IManualSettingsService iManualSettingsService)
+        public CorrectionEditorForm(IManualSettingsService iManualSettingsService, ILocalizationService iLocalizationService)
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
             //实例化OCR结果纠正列表服务对象
             _iCorrectionService = new CorrectionService(iManualSettingsService);
             _iCorrectionService.Load();
+            _iLocalizationService = iLocalizationService;
             isChanged = false;
             InitializeDataGrid();
             LoadDataToDataGrid();
+
+            // 应用本地化
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            if (_iLocalizationService == null) return;
+
+            label_标题.Text = _iLocalizationService.Get("CorrectionEditorForm.标题");
+            button_添加.Text = _iLocalizationService.Get("CorrectionEditorForm.添加");
+            button_删除.Text = _iLocalizationService.Get("CorrectionEditorForm.删除");
+            button_保存.Text = _iLocalizationService.Get("CorrectionEditorForm.保存");
+            button_取消.Text = _iLocalizationService.Get("CorrectionEditorForm.退出");
         }
 
         private void CorrectionEditorForm_Load(object sender, EventArgs e)
@@ -49,7 +73,7 @@ namespace JinChanChanTool
             // 添加纠正值列
             dataGridView_结果纠正列表编辑器.Columns.Add(new DataGridViewTextBoxColumn
             {
-                HeaderText = "纠正值",
+                HeaderText = _iLocalizationService.Get("CorrectionEditorForm..Label.纠正值"),
                 Name = "CorrectColumn",
                 Width = 150,
                 SortMode = DataGridViewColumnSortMode.NotSortable // 禁用排序
@@ -57,7 +81,7 @@ namespace JinChanChanTool
             // 添加原始值列
             dataGridView_结果纠正列表编辑器.Columns.Add(new DataGridViewTextBoxColumn
             {
-                HeaderText = "原始值",
+                HeaderText = _iLocalizationService.Get("CorrectionEditorForm..Label.原始值"),
                 Name = "IncorrectColumn",
                 Width = 150,
                 SortMode = DataGridViewColumnSortMode.NotSortable // 禁用排序
@@ -145,7 +169,7 @@ namespace JinChanChanTool
             }
             if (selectedRows.Count == 0)
             {
-                MessageBox.Show("请先选择要删除的行！", "未选中删除行", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(_iLocalizationService.Get("CorrectionEditorForm.Msg.请选择要删除的行"), _iLocalizationService.Get("CorrectionEditorForm.MsgTitle.请选择要删除的行"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -216,7 +240,7 @@ namespace JinChanChanTool
         {
             if (isChanged)
             {
-                var result = MessageBox.Show("存在未保存的更改，是否保存？", "未保存的更改", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = MessageBox.Show(_iLocalizationService.Get("CorrectionEditorForm.MsgTitle.未保存的更改"), _iLocalizationService.Get("CorrectionEditorForm.MsgTitle.未保存的更改标题"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     SaveMappings();
@@ -243,7 +267,7 @@ namespace JinChanChanTool
         {
             SaveMappings();
             isChanged = false;
-            MessageBox.Show("保存成功！重启应用后生效。", "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(_iLocalizationService.Get("CorrectionEditorForm.MsgTitle.保存成功需重启"), _iLocalizationService.Get("CorrectionEditorForm.MsgTitle.保存成功标题"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void label1_Click(object sender, EventArgs e)

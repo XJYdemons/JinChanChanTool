@@ -18,71 +18,251 @@
     <None Remove="Resources\defaultHeroIcon.png" />
     <None Remove="Resources\DownloadSources.json" />
     <None Remove="Resources\Help\用户手册.pdf" />
-    <None Remove="Resources\HeroDatas\强音对决\HeroData.json" />
-    <None Remove="Resources\HeroDatas\强音对决\images\亚索.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\伊泽瑞尔.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\伊芙琳.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\伊莉丝.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\佛耶戈.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\俄洛伊.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\凯南.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\凯尔.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\凯特琳.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\凯隐.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\劫.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\卡尔萨斯.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\卡特琳娜.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\卡莎.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\卢锡安.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\厄加特.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\厄斐琉斯.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\厄运小姐.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\古拉加斯.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\吉格斯.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\图奇.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\塔姆.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\塔里克.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\奇亚娜.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\奎桑提.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\奥拉夫.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\妮蔻.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\娑娜.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\娜美.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\安妮.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\崔斯特.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\巴德.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\布里茨.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\库奇.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\扎克.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\拉克丝.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\格温.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\永恩.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\波比.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\潘森.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\烬.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\瑟提.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\璐璐.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\盖伦.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\约里克.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\纳尔.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\艾克.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\莉莉娅.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\莎弥拉.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\莫德凯撒.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\萨勒芬妮.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\蔚.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\薇古丝.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\贾克斯.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\赛娜.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\金克丝.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\锐雯.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\锤石.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\阿卡丽.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\阿卡丽（KDA）.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\阿卡丽（真实伤害）.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\阿木木.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\阿狸.png" />
-    <None Remove="Resources\HeroDatas\强音对决\images\阿萝拉.png" />
+    <None Remove="Resources\HeroDatas\S17\Equipment.json" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\OwO魔爆炮.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\UwU魔爆炮.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\三相之力.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\不息气旋.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\中娅悖论.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\亚索的剑艺.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\伊芙琳的本能.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版冕卫.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版圣盾使的誓约.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版坚定之心.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版夜之锋刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版大天使之杖.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版巨人杀手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版巨龙之爪.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版强袭者的链枷.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版振奋盔甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版斯特拉克的挑战护手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版无尽之刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版日炎斗篷.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版最后的轻语.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版朔极之矛.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版棘刺背心.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版正义之手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版死亡之刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版水银.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版泰坦的坚决.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版海克斯科技枪刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版海妖之怒.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版灭世者的死亡之帽.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版狂徒铠甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版珠光护手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版石像鬼石板甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版离子火花.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版窃贼手套.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版红霸符.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版纳什之牙.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版莫雷洛秘典.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版蓝霸符.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版薄暮法袍.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版虚空之杖.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版适应性头盔.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版饮血剑.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光明版鬼索的狂暴之刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\光盾徽章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\共感植入.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\冕卫.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\冰爆护甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\凯尔的崇拜.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\半导体装置.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\卢登的激荡.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\反曲之弓.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\回响蝠刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\圣盾使的誓约.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\坚定之心.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\堡垒卫士纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\夜之锋刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\大亨之铠.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\大天使之杖.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\太空律动纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\女神之泪.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\密银黎明.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\巨人杀手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\巨人腰带.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\巨型九头蛇.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\巨龙之爪.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\巫妖之祸.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\帽子饮品.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\幻灵合体至尊炮.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\幻灵启示录.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\幻灵战队纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\强袭者的链枷.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\恶意软件矩阵.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\恶火小斧.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\战兔十字弩.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\战兔至尊弩炮.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\投机者之刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\拳套.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\挑战者纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\振奋盔甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\探索者的护臂.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\斗士纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\斯塔缇克电刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\斯特拉克的挑战护手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\新星特攻队纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\旅人纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\旋风切割器.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\无人机上行链路.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\无尽之刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\无情砍削.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\无用大棒.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\日炎斗篷.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\日蚀之刻.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\智慧末刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\暗星纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\暗行者之爪.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\暗裔之弓.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\暗裔之杖.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\暗裔之盾.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\暗裔之镰.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\暴风之剑.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\最后的轻语.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\朔极之矛.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\木灵族纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\未来战士纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\枯萎珠宝.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\棘刺背心.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\正义之手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\死亡之刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\死亡之蔑.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\歼灭者.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\水银.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\永恒契约.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\泄露原型.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\法官纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\泰坦的坚决.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\海克斯科技枪刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\海妖之怒.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\海魔人纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\深度冻结.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\游侠纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\火箭狂潮.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\灭世者的死亡之帽.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\灵能特工纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\炽烈短弓.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\烁刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\牧羊人纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\狂徒铠甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\狂战士纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\狙击手的专注.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\狙神纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\猛狮之殇.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\珠光护手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\生物质维护器.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\疾射火炮.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\石像鬼石板甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\破损原型.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\碎舰者.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\离子火花.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\窃贼手套.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\索拉卡的奇迹.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\索敌光学设备.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\红霸符.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\纳什之牙.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\耀光力场.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\艾克的耐心.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\莫雷洛秘典.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\蓝霸符.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\薄暮法袍.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\薇恩的炫彩战刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\虚空之杖.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\虚空护手.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\观星者纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\视界专注.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\触手重击.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\负极斗篷.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\进化余烬射击.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\连指手套.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\适应性头盔.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\重装战士纹章.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\金币收集者.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\金铲铲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\金铲铲冠冕.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\金锅铲冠冕.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\金锅锅.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\金锅锅冠冕.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\锁子甲.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\锤石的灯笼.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\闪光原型.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\阿狸的光环.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\附灵飞弹.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\雌狮之怨.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\韦鲁斯的执念.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\顽强不屈.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\飞升护符.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\饮血剑.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\鬼索的狂暴之刃.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\鱼骨头.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\黄昏圣盾.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\黎明圣盾.png" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentImages\黎明核心.png" />
+    <None Remove="Resources\HeroDatas\S17\HeroData.json" />
+    <None Remove="Resources\HeroDatas\S17\images\丽桑卓.png" />
+    <None Remove="Resources\HeroDatas\S17\images\乐芙兰.png" />
+    <None Remove="Resources\HeroDatas\S17\images\亚托克斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\伊泽瑞尔.png" />
+    <None Remove="Resources\HeroDatas\S17\images\佐伊.png" />
+    <None Remove="Resources\HeroDatas\S17\images\俄洛伊.png" />
+    <None Remove="Resources\HeroDatas\S17\images\内瑟斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\凯特琳.png" />
+    <None Remove="Resources\HeroDatas\S17\images\努努和威朗普.png" />
+    <None Remove="Resources\HeroDatas\S17\images\劫.png" />
+    <None Remove="Resources\HeroDatas\S17\images\千珏.png" />
+    <None Remove="Resources\HeroDatas\S17\images\卑尔维斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\卡尔玛.png" />
+    <None Remove="Resources\HeroDatas\S17\images\卡莎.png" />
+    <None Remove="Resources\HeroDatas\S17\images\厄加特.png" />
+    <None Remove="Resources\HeroDatas\S17\images\厄运小姐.png" />
+    <None Remove="Resources\HeroDatas\S17\images\古拉加斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\塔姆.png" />
+    <None Remove="Resources\HeroDatas\S17\images\奥恩.png" />
+    <None Remove="Resources\HeroDatas\S17\images\奥瑞利安索尔.png" />
+    <None Remove="Resources\HeroDatas\S17\images\娑娜.png" />
+    <None Remove="Resources\HeroDatas\S17\images\娜美.png" />
+    <None Remove="Resources\HeroDatas\S17\images\小木灵.png" />
+    <None Remove="Resources\HeroDatas\S17\images\崔斯特.png" />
+    <None Remove="Resources\HeroDatas\S17\images\巴德.png" />
+    <None Remove="Resources\HeroDatas\S17\images\布里茨.png" />
+    <None Remove="Resources\HeroDatas\S17\images\库奇.png" />
+    <None Remove="Resources\HeroDatas\S17\images\慎.png" />
+    <None Remove="Resources\HeroDatas\S17\images\拉亚斯特.png" />
+    <None Remove="Resources\HeroDatas\S17\images\拉莫斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\提莫.png" />
+    <None Remove="Resources\HeroDatas\S17\images\易.png" />
+    <None Remove="Resources\HeroDatas\S17\images\格温.png" />
+    <None Remove="Resources\HeroDatas\S17\images\格雷福斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\波比.png" />
+    <None Remove="Resources\HeroDatas\S17\images\泰隆.png" />
+    <None Remove="Resources\HeroDatas\S17\images\派克.png" />
+    <None Remove="Resources\HeroDatas\S17\images\潘森.png" />
+    <None Remove="Resources\HeroDatas\S17\images\烬.png" />
+    <None Remove="Resources\HeroDatas\S17\images\璐璐.png" />
+    <None Remove="Resources\HeroDatas\S17\images\科加斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\米利欧.png" />
+    <None Remove="Resources\HeroDatas\S17\images\纳尔.png" />
+    <None Remove="Resources\HeroDatas\S17\images\维克托.png" />
+    <None Remove="Resources\HeroDatas\S17\images\维迦.png" />
+    <None Remove="Resources\HeroDatas\S17\images\茂凯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\莎弥拉.png" />
+    <None Remove="Resources\HeroDatas\S17\images\莫德凯撒.png" />
+    <None Remove="Resources\HeroDatas\S17\images\莫甘娜.png" />
+    <None Remove="Resources\HeroDatas\S17\images\菲兹.png" />
+    <None Remove="Resources\HeroDatas\S17\images\菲奥娜.png" />
+    <None Remove="Resources\HeroDatas\S17\images\蕾欧娜.png" />
+    <None Remove="Resources\HeroDatas\S17\images\薇古丝.png" />
+    <None Remove="Resources\HeroDatas\S17\images\贝蕾亚.png" />
+    <None Remove="Resources\HeroDatas\S17\images\贾克斯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\超级机甲.png" />
+    <None Remove="Resources\HeroDatas\S17\images\金克丝.png" />
+    <None Remove="Resources\HeroDatas\S17\images\锐雯.png" />
+    <None Remove="Resources\HeroDatas\S17\images\阿卡丽.png" />
+    <None Remove="Resources\HeroDatas\S17\images\阿萝拉.png" />
+    <None Remove="Resources\HeroDatas\S17\images\雷克塞.png" />
+    <None Remove="Resources\HeroDatas\S17\images\霞.png" />
+    <None Remove="Resources\HeroDatas\S17\images\黛安娜.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\Equipment.json" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentData.json" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\三相之力.png" />
@@ -344,6 +524,8 @@
     <None Remove="Resources\HeroDatas\英雄联盟传奇\images\黛安娜.png" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\LineUps.json" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\RecommendedLineUps.json" />
+    <None Remove="Resources\Languages\zh-CN.json" />
+    <None Remove="Resources\Languages\en-US.json" />
     <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json" />
     <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.pdiparams" />
     <None Remove="Resources\Models\PP-OCRv5_mobile_det_infer\inference.yml" />
@@ -366,199 +548,739 @@
     <Content Include="Resources\Help\用户手册.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\HeroData.json">
+    <Content Include="Resources\HeroDatas\S17\Equipment.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\亚索.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\OwO魔爆炮.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\伊泽瑞尔.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\UwU魔爆炮.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\伊芙琳.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\三相之力.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\伊莉丝.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\不息气旋.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\佛耶戈.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\中娅悖论.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\俄洛伊.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\亚索的剑艺.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\凯南.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\伊芙琳的本能.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\凯尔.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版冕卫.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\凯特琳.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版圣盾使的誓约.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\凯隐.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版坚定之心.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\劫.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版夜之锋刃.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\卡尔萨斯.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版大天使之杖.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\卡特琳娜.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版巨人杀手.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\卡莎.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版巨龙之爪.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\卢锡安.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版强袭者的链枷.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\厄加特.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版振奋盔甲.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\厄斐琉斯.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版斯特拉克的挑战护手.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\厄运小姐.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版无尽之刃.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\古拉加斯.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版日炎斗篷.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\吉格斯.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版最后的轻语.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\图奇.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版朔极之矛.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\塔姆.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版棘刺背心.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\塔里克.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版正义之手.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\奇亚娜.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版死亡之刃.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\奎桑提.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版水银.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\奥拉夫.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版泰坦的坚决.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\妮蔻.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版海克斯科技枪刃.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\娑娜.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版海妖之怒.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\娜美.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版灭世者的死亡之帽.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\安妮.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版狂徒铠甲.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\崔斯特.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版珠光护手.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\巴德.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版石像鬼石板甲.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\布里茨.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版离子火花.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\库奇.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版窃贼手套.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\扎克.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版红霸符.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\拉克丝.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版纳什之牙.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\格温.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版莫雷洛秘典.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\永恩.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版蓝霸符.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\波比.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版薄暮法袍.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\潘森.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版虚空之杖.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\烬.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版适应性头盔.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\瑟提.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版饮血剑.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\璐璐.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光明版鬼索的狂暴之刃.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\盖伦.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\光盾徽章.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\约里克.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\共感植入.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\纳尔.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\冕卫.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\艾克.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\冰爆护甲.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\莉莉娅.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\凯尔的崇拜.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\莎弥拉.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\半导体装置.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\莫德凯撒.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\卢登的激荡.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\萨勒芬妮.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\反曲之弓.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\蔚.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\回响蝠刃.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\薇古丝.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\圣盾使的誓约.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\贾克斯.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\坚定之心.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\赛娜.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\堡垒卫士纹章.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\金克丝.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\夜之锋刃.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\锐雯.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\大亨之铠.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\锤石.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\大天使之杖.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\阿卡丽.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\太空律动纹章.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\阿卡丽（KDA）.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\女神之泪.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\阿卡丽（真实伤害）.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\密银黎明.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\阿木木.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\巨人杀手.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\阿狸.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\巨人腰带.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HeroDatas\强音对决\images\阿萝拉.png">
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\巨型九头蛇.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\巨龙之爪.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\巫妖之祸.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\帽子饮品.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\幻灵合体至尊炮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\幻灵启示录.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\幻灵战队纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\强袭者的链枷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\恶意软件矩阵.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\恶火小斧.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\战兔十字弩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\战兔至尊弩炮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\投机者之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\拳套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\挑战者纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\振奋盔甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\探索者的护臂.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\斗士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\斯塔缇克电刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\斯特拉克的挑战护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\新星特攻队纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\旅人纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\旋风切割器.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\无人机上行链路.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\无尽之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\无情砍削.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\无用大棒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\日炎斗篷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\日蚀之刻.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\智慧末刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\暗星纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\暗行者之爪.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\暗裔之弓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\暗裔之杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\暗裔之盾.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\暗裔之镰.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\暴风之剑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\最后的轻语.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\朔极之矛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\木灵族纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\未来战士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\枯萎珠宝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\棘刺背心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\正义之手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\死亡之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\死亡之蔑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\歼灭者.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\水银.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\永恒契约.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\泄露原型.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\法官纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\泰坦的坚决.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\海克斯科技枪刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\海妖之怒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\海魔人纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\深度冻结.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\游侠纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\火箭狂潮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\灭世者的死亡之帽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\灵能特工纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\炽烈短弓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\烁刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\牧羊人纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\狂徒铠甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\狂战士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\狙击手的专注.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\狙神纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\猛狮之殇.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\珠光护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\生物质维护器.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\疾射火炮.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\石像鬼石板甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\破损原型.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\碎舰者.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\离子火花.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\窃贼手套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\索拉卡的奇迹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\索敌光学设备.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\红霸符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\纳什之牙.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\耀光力场.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\艾克的耐心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\莫雷洛秘典.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\蓝霸符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\薄暮法袍.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\薇恩的炫彩战刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\虚空之杖.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\虚空护手.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\观星者纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\视界专注.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\触手重击.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\负极斗篷.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\进化余烬射击.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\连指手套.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\适应性头盔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\重装战士纹章.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\金币收集者.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\金铲铲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\金铲铲冠冕.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\金锅铲冠冕.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\金锅锅.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\金锅锅冠冕.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\锁子甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\锤石的灯笼.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\闪光原型.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\阿狸的光环.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\附灵飞弹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\雌狮之怨.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\韦鲁斯的执念.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\顽强不屈.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\飞升护符.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\饮血剑.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\鬼索的狂暴之刃.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\鱼骨头.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\黄昏圣盾.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\黎明圣盾.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentImages\黎明核心.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\HeroData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\丽桑卓.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\乐芙兰.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\亚托克斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\伊泽瑞尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\佐伊.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\俄洛伊.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\内瑟斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\凯特琳.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\努努和威朗普.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\劫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\千珏.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\卑尔维斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\卡尔玛.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\卡莎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\厄加特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\厄运小姐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\古拉加斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\塔姆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\奥恩.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\奥瑞利安索尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\娑娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\娜美.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\小木灵.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\崔斯特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\巴德.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\布里茨.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\库奇.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\慎.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\拉亚斯特.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\拉莫斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\提莫.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\易.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\格温.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\格雷福斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\波比.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\泰隆.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\派克.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\潘森.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\烬.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\璐璐.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\科加斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\米利欧.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\纳尔.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\维克托.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\维迦.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\茂凯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\莎弥拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\莫德凯撒.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\莫甘娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\菲兹.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\菲奥娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\蕾欧娜.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\薇古丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\贝蕾亚.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\贾克斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\超级机甲.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\金克丝.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\锐雯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\阿卡丽.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\阿萝拉.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\雷克塞.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\霞.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\images\黛安娜.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\英雄联盟传奇\Equipment.json">
@@ -1347,6 +2069,12 @@
     <Content Include="Resources\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Languages\zh-CN.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Languages\en-US.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Models\PP-OCRv5_mobile_det_infer\inference.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1400,6 +2128,201 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\HeroDatas\强音对决\HeroData.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\亚索.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\伊泽瑞尔.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\伊芙琳.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\伊莉丝.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\佛耶戈.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\俄洛伊.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\凯南.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\凯尔.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\凯特琳.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\凯隐.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\劫.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\卡尔萨斯.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\卡特琳娜.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\卡莎.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\卢锡安.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\厄加特.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\厄斐琉斯.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\厄运小姐.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\古拉加斯.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\吉格斯.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\图奇.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\塔姆.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\塔里克.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\奇亚娜.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\奎桑提.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\奥拉夫.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\妮蔻.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\娑娜.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\娜美.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\安妮.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\崔斯特.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\巴德.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\布里茨.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\库奇.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\扎克.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\拉克丝.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\格温.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\永恩.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\波比.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\潘森.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\烬.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\瑟提.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\璐璐.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\盖伦.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\约里克.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\纳尔.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\艾克.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\莉莉娅.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\莎弥拉.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\莫德凯撒.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\萨勒芬妮.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\蔚.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\薇古丝.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\贾克斯.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\赛娜.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\金克丝.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\锐雯.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\锤石.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\阿卡丽.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\阿卡丽（KDA）.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\阿卡丽（真实伤害）.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\阿木木.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\阿狸.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\HeroDatas\强音对决\images\阿萝拉.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\HeroDatas\强音对决\LineUps.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

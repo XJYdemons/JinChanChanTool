@@ -483,30 +483,7 @@ namespace JinChanChanTool.Services.DataServices
             }
             return false;
         }
-
-        /// <summary>
-        /// 设置当前阵容下指定变阵名称
-        /// </summary>
-        /// <param name="index">变阵下标</param>
-        /// <param name="name">新名称</param>
-        /// <returns></returns>
-        public bool SetSubLineUpName(int index, string name)
-        {
-            if (index < 0 || index >= GetCurrentLineUp().SubLineUps.Length)
-            {
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return false;
-            }
-
-            _lineUps[_lineUpIndex].SubLineUps[index].SubLineUpName = name.Trim();
-            NotifyLineUpChanged();
-            return true;
-        }
-
+    
         /// <summary>
         /// 获取最大选择数量
         /// </summary>

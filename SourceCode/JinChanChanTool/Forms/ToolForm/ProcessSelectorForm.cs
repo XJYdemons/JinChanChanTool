@@ -1,4 +1,5 @@
 ﻿using JinChanChanTool.Services.AutoSetCoordinates;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System.Diagnostics;
 using System.Drawing;
@@ -12,6 +13,7 @@ namespace JinChanChanTool.Forms
     public partial class ProcessSelectorForm : Form
     {
         private readonly ProcessDiscoveryService _processDiscoveryService;//进程发现服务
+        private readonly ILocalizationService _iLocalizationService;
 
         public Process SelectedProcess { get; private set; }//选中的进程
 
@@ -27,21 +29,34 @@ namespace JinChanChanTool.Forms
         /// 构造函数，它接收一个外部服务
         /// </summary>
         /// <param name="processDiscoveryService"></param>
-        public ProcessSelectorForm(ProcessDiscoveryService processDiscoveryService)
+        /// <param name="iLocalizationService"></param>
+        public ProcessSelectorForm(ProcessDiscoveryService processDiscoveryService, ILocalizationService iLocalizationService)
         {
             InitializeComponent();
-            DragHelper.EnableDragForChildren(panel3);
+            DragHelper.EnableDragForChildren(panel_标题栏);
             _processDiscoveryService = processDiscoveryService;
+            _iLocalizationService = iLocalizationService;
 
             // 添加一个列用于显示进程信息（隐藏列头）
             listView_Processes.Columns.Add("进程", listView_Processes.Width - 25, HorizontalAlignment.Left);
             // 双击选择进程
             listView_Processes.DoubleClick += (s, e) => Button_Select_Click(s, e);
 
-            button_Refresh.Click += (s, e) => LoadProcesses();
-            button_Select.Click += Button_Select_Click;
+            button_刷新.Click += (s, e) => LoadProcesses();
+            button_选定此进程.Click += Button_Select_Click;
 
             this.Load += (s, e) => LoadProcesses();
+            ApplyLocalization();
+        }
+
+        /// <summary>
+        /// 应用本地化文本
+        /// </summary>
+        private void ApplyLocalization()
+        {
+            label_标题.Text = _iLocalizationService.Get("ProcessSelectorForm.标题");
+            button_选定此进程.Text = _iLocalizationService.Get("ProcessSelectorForm.Button.选定此进程");
+            button_刷新.Text = _iLocalizationService.Get("ProcessSelectorForm.Button.刷新列表");
         }
 
         /// <summary>
@@ -122,7 +137,11 @@ namespace JinChanChanTool.Forms
             }
             else
             {
-                MessageBox.Show("请先在列表中选择一个进程！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    _iLocalizationService.Get("ProcessSelectorForm.Msg.请选择进程"),
+                    _iLocalizationService.Get("ProcessSelectorForm.MsgTitle.提示"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
         }
 

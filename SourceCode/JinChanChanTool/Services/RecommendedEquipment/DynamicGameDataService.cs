@@ -14,13 +14,13 @@ namespace JinChanChanTool.Services.RecommendedEquipment
     /// </summary>
     public class DynamicGameDataService
     {
-        //private const string TranslationsUrl = "https://data.metatft.com/lookups/TFTSet16_pbe_zh_cn.json";
+        //private const string TranslationsUrl = "https://data.metatft.com/lookups/TFTSet17_latest_zh_cn.json";
         //private const string UnitListUrl = "https://api-hc.metatft.com/tft-comps-api/unit_items_processed";
         //private const string GeneralTranslationsUrl = "https://data.metatft.com/locales/zh_cn.json";
         // Cloudflare Worker 加速地址
         private const string ProxyHost = "https://api.xiaoyumetatft.xyz";
 
-        private const string TranslationsUrl = ProxyHost + "/lookups/TFTSet16_pbe_zh_cn.json";
+        private const string TranslationsUrl = ProxyHost + "/lookups/TFTSet17_latest_zh_cn.json";
         private const string UnitListUrl = ProxyHost + "/tft-comps-api/unit_items_processed";
         private const string GeneralTranslationsUrl = ProxyHost + "/locales/zh_cn.json";
 

@@ -130,7 +130,7 @@ namespace JinChanChanTool.DataClass
             LineUpFormLocation = new Point(-1, -1);
             StatusOverlayFormLocation = new Point(-1, -1);
             EquipmentLastUpdateTime = new DateTime(2025, 11, 1, 2, 44, 0);
-            SelectedSeason = "英雄联盟传奇";
+            SelectedSeason = "S17";
             SelectedLineUpIndex = 0;
             IsFirstStart = true;
         }

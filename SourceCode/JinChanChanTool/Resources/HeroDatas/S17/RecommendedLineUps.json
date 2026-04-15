@@ -1,0 +1,6758 @@
+{
+  "UpdateTime": "2026-04-15T21:46:39.029134+08:00",
+  "LineUps": [
+    {
+      "LineUpName": "太空律动 努努和威朗普",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "饮血剑",
+            "水银",
+            "斯特拉克的挑战护手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "格雷福斯",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "斯特拉克的挑战护手",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "莫甘娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "薇古丝",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "海克斯科技枪刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 16.13,
+      "AverageRank": 4.44,
+      "PickRate": 64.1,
+      "TopFourRate": 50.79,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "新星特攻队 千珏",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "凯特琳",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "千珏",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "强袭者的链枷",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "易",
+          "EquipmentNames": [
+            "新星特攻队纹章",
+            "夜之锋刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 15.29,
+      "AverageRank": 4.3,
+      "PickRate": 71.56,
+      "TopFourRate": 52.75,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "旅人 拉莫斯",
+      "LineUpUnits": [
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "莫雷洛秘典",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "薇古丝",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "巨人杀手",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 15.01,
+      "AverageRank": 4.48,
+      "PickRate": 60.86,
+      "TopFourRate": 50.19,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "霸天机甲 奥瑞利安索尔",
+      "LineUpUnits": [
+        {
+          "HeroName": "奥瑞利安索尔",
+          "EquipmentNames": [
+            "珠光护手",
+            "灭世者的死亡之帽",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "格雷福斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "莫甘娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "日炎斗篷",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "最后的轻语",
+            "强袭者的链枷",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 13.75,
+      "AverageRank": 4.49,
+      "PickRate": 62.01,
+      "TopFourRate": 50.61,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "神谕 维克托",
+      "LineUpUnits": [
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "冕卫",
+            "圣盾使的誓约",
+            "石像鬼石板甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "娜美",
+          "EquipmentNames": [
+            "灭世者的死亡之帽",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "派克",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "拉亚斯特",
+          "EquipmentNames": [
+            "离子火花",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "无人机上行链路",
+            "大天使之杖",
+            "珠光护手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 13.02,
+      "AverageRank": 3.81,
+      "PickRate": 23.41,
+      "TopFourRate": 64.58,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "重装战士 乐芙兰",
+      "LineUpUnits": [
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "莫雷洛秘典",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "乐芙兰",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "珠光护手",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "离子火花",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "佐伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "S",
+      "WinRate": 11.84,
+      "AverageRank": 4.27,
+      "PickRate": 81.5,
+      "TopFourRate": 55.2,
+      "Tags": [
+        "速8",
+        "简单"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "太空律动 娜美",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "饮血剑",
+            "离子火花",
+            "莫雷洛秘典"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "娜美",
+          "EquipmentNames": [
+            "灭世者的死亡之帽",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "太空律动纹章",
+            "饮血剑",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "离子火花",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 17.18,
+      "AverageRank": 4.19,
+      "PickRate": 26.62,
+      "TopFourRate": 54.69,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "狙神 霞",
+      "LineUpUnits": [
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "观星者纹章",
+            "死亡之刃",
+            "无尽之刃"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "璐璐",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "观星者纹章",
+            "饮血剑",
+            "夜之锋刃"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "泰隆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "红霸符",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 17.15,
+      "AverageRank": 4.14,
+      "PickRate": 20.22,
+      "TopFourRate": 56.2,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "木灵族 库奇",
+      "LineUpUnits": [
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "莫雷洛秘典",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "库奇",
+          "EquipmentNames": [
+            "蓝霸符",
+            "死亡之刃",
+            "最后的轻语"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "菲兹",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "纳尔",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "波比",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "冕卫",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 15.5,
+      "AverageRank": 4.29,
+      "PickRate": 29.0,
+      "TopFourRate": 53.2,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "织命人 崔斯特 库奇",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "凯特琳",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "库奇",
+          "EquipmentNames": [
+            "死亡之刃",
+            "巨人杀手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "冕卫",
+            "圣盾使的誓约",
+            "石像鬼石板甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "波比",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "棘刺背心",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "崔斯特",
+          "EquipmentNames": [
+            "大天使之杖",
+            "纳什之牙",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 13.93,
+      "AverageRank": 4.14,
+      "PickRate": 5.71,
+      "TopFourRate": 57.25,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "霸天机甲 超级机甲",
+      "LineUpUnits": [
+        {
+          "HeroName": "奥瑞利安索尔",
+          "EquipmentNames": [
+            "珠光护手",
+            "强袭者的链枷",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "易",
+          "EquipmentNames": [
+            "锁敌光学设备",
+            "夜之锋刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "莫甘娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "派克",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "娑娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 13.29,
+      "AverageRank": 4.45,
+      "PickRate": 21.52,
+      "TopFourRate": 51.41,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "重装战士 提莫",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "乐芙兰",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "饮血剑",
+            "鬼索的狂暴之刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "提莫",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "海克斯科技枪刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 9.67,
+      "AverageRank": 4.32,
+      "PickRate": 11.76,
+      "TopFourRate": 53.8,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "游侠 卡莎 菲兹",
+      "LineUpUnits": [
+        {
+          "HeroName": "菲兹",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "蓝霸符",
+            "无尽之刃",
+            "强袭者的链枷"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "日炎斗篷",
+            "振奋盔甲",
+            "薄暮法袍"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "拉亚斯特",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 9.49,
+      "AverageRank": 4.44,
+      "PickRate": 26.54,
+      "TopFourRate": 50.89,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "海魔人 卑尔维斯",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "强袭者的链枷",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "卑尔维斯",
+          "EquipmentNames": [
+            "巨人杀手",
+            "水银",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "贝蕾亚",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "凯特琳",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "千珏",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "巨人杀手",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 8.57,
+      "AverageRank": 4.27,
+      "PickRate": 24.22,
+      "TopFourRate": 55.63,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "织命人 崔斯特",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "凯特琳",
+          "EquipmentNames": [
+            "死亡之刃",
+            "鬼索的狂暴之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "库奇",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "冕卫",
+            "圣盾使的誓约",
+            "石像鬼石板甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "泰隆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "崔斯特",
+          "EquipmentNames": [
+            "纳什之牙",
+            "纳什之牙",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 8.18,
+      "AverageRank": 4.47,
+      "PickRate": 27.94,
+      "TopFourRate": 51.86,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "神谕 厄运小姐 维克托",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "古拉加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "厄运小姐",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "强袭者的链枷"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "拉亚斯特",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "石像鬼石板甲",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "无人机上行链路",
+            "大天使之杖",
+            "珠光护手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        }
+      ],
+      "Tier": "A",
+      "WinRate": 7.74,
+      "AverageRank": 4.5,
+      "PickRate": 27.41,
+      "TopFourRate": 50.32,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "法官 俄洛伊",
+      "LineUpUnits": [
+        {
+          "HeroName": "阿萝拉",
+          "EquipmentNames": [
+            "进化余烬射击",
+            "珠光护手",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "黛安娜",
+          "EquipmentNames": [
+            "旋风切割器",
+            "饮血剑",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "耀光力场",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "金克丝",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "乐芙兰",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "巨人杀手",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 16.68,
+      "AverageRank": 4.67,
+      "PickRate": 21.33,
+      "TopFourRate": 45.52,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "未来战士 伊泽瑞尔",
+      "LineUpUnits": [
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "伊泽瑞尔",
+          "EquipmentNames": [
+            "死亡之刃",
+            "无尽之刃",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "日炎斗篷",
+            "薄暮法袍"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 15.4,
+      "AverageRank": 4.63,
+      "PickRate": 15.78,
+      "TopFourRate": 46.26,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "木灵族 维迦",
+      "LineUpUnits": [
+        {
+          "HeroName": "库奇",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "波比",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "坚定之心",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "维迦",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 15.01,
+      "AverageRank": 4.23,
+      "PickRate": 4.34,
+      "TopFourRate": 53.94,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "牧羊人 乐芙兰",
+      "LineUpUnits": [
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "坚定之心",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "乐芙兰",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "纳什之牙",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "莫甘娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "娑娜",
+          "EquipmentNames": [
+            "红霸符",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 9.55,
+      "AverageRank": 4.52,
+      "PickRate": 10.52,
+      "TopFourRate": 49.21,
+      "Tags": [
+        "7/8级d牌",
+        "中等"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "旅人 小木灵",
+      "LineUpUnits": [
+        {
+          "HeroName": "阿萝拉",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "珠光护手",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "波比",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "派克",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "无尽之刃",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "离子火花",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "娑娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 9.33,
+      "AverageRank": 4.41,
+      "PickRate": 4.97,
+      "TopFourRate": 54.22,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "未来战士 派克",
+      "LineUpUnits": [
+        {
+          "HeroName": "库奇",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "古拉加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "珠光护手",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "离子火花",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "派克",
+          "EquipmentNames": [
+            "锁敌光学设备",
+            "无尽之刃",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "B",
+      "WinRate": 9.09,
+      "AverageRank": 4.24,
+      "PickRate": 2.67,
+      "TopFourRate": 54.96,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "旅人 阿萝拉",
+      "LineUpUnits": [
+        {
+          "HeroName": "阿萝拉",
+          "EquipmentNames": [
+            "进化余烬射击",
+            "珠光护手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "旋风切割器",
+            "饮血剑",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "冰爆护甲",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "蓝霸符",
+            "珠光护手",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "派克",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 18.89,
+      "AverageRank": 4.91,
+      "PickRate": 7.54,
+      "TopFourRate": 42.75,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "命运祭司 塔姆",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "死亡之刃",
+            "无尽之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "棘刺背心",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "巨人杀手",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 12.85,
+      "AverageRank": 4.96,
+      "PickRate": 5.93,
+      "TopFourRate": 41.34,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "未来战士 璐璐",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "璐璐",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "海克斯科技枪刃",
+            "珠光护手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "拉亚斯特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "崔斯特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 12.3,
+      "AverageRank": 4.61,
+      "PickRate": 6.74,
+      "TopFourRate": 48.03,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "太空律动 莎弥拉",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "异常突变",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "拉亚斯特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "莎弥拉",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "太空律动纹章",
+            "鬼索的狂暴之刃",
+            "无尽之刃"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 11.95,
+      "AverageRank": 4.61,
+      "PickRate": 9.71,
+      "TopFourRate": 48.69,
+      "Tags": [
+        "7/8级d牌",
+        "中等"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "狂战士 易",
+      "LineUpUnits": [
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "饮血剑",
+            "水银",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "古拉加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "易",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "巨人杀手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "娑娜",
+          "EquipmentNames": [
+            "共感植入",
+            "朔极之矛",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "坚定之心",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 11.38,
+      "AverageRank": 4.88,
+      "PickRate": 9.41,
+      "TopFourRate": 42.37,
+      "Tags": [
+        "速8",
+        "中等"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "木灵族 库奇 超级机甲",
+      "LineUpUnits": [
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "库奇",
+          "EquipmentNames": [
+            "死亡之刃",
+            "无尽之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "菲兹",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "坚定之心",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "纳尔",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "珠光护手",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "波比",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 11.21,
+      "AverageRank": 4.6,
+      "PickRate": 2.46,
+      "TopFourRate": 50.67,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "木灵族 拉莫斯",
+      "LineUpUnits": [
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "珠光护手",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "库奇",
+          "EquipmentNames": [
+            "无尽之刃",
+            "最后的轻语",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "菲兹",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "纳尔",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "饮血剑",
+            "珠光护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "波比",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "维迦",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 11.12,
+      "AverageRank": 4.93,
+      "PickRate": 15.4,
+      "TopFourRate": 40.32,
+      "Tags": [
+        "速8",
+        "中等"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "太空律动 娜美 努努和威朗普",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "珠光护手",
+            "灭世者的死亡之帽",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "娜美",
+          "EquipmentNames": [
+            "珠光护手",
+            "朔极之矛",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "莎弥拉",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "提莫",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 10.06,
+      "AverageRank": 4.65,
+      "PickRate": 5.6,
+      "TopFourRate": 48.13,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "暗星 卡尔玛",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "薄暮法袍"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "适应性头盔",
+            "珠光护手",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "棘刺背心",
+            "巨龙之爪",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 9.14,
+      "AverageRank": 4.52,
+      "PickRate": 3.87,
+      "TopFourRate": 50.0,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "新星特攻队 千珏 易",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "凯特琳",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "斯特拉克的挑战护手",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "千珏",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "红霸符",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "易",
+          "EquipmentNames": [
+            "饮血剑",
+            "巨人杀手",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 8.31,
+      "AverageRank": 4.81,
+      "PickRate": 11.17,
+      "TopFourRate": 44.02,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "暗星 努努和威朗普",
+      "LineUpUnits": [
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "无尽之刃",
+            "最后的轻语",
+            "强袭者的链枷"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "适应性头盔",
+            "珠光护手",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "棘刺背心",
+            "巨龙之爪",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "暗星纹章",
+            "鬼索的狂暴之刃",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 8.08,
+      "AverageRank": 4.86,
+      "PickRate": 5.88,
+      "TopFourRate": 43.42,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "太空律动 奥恩",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "饮血剑",
+            "离子火花",
+            "莫雷洛秘典"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "莫甘娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "娜美",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "莎弥拉",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "提莫",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 6.77,
+      "AverageRank": 4.98,
+      "PickRate": 10.27,
+      "TopFourRate": 40.54,
+      "Tags": [
+        "7/8级d牌",
+        "中等"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "太空律动 拉莫斯",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "娜美",
+          "EquipmentNames": [
+            "蓝霸符",
+            "海克斯科技枪刃",
+            "珠光护手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "狂徒铠甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "太空律动纹章",
+            "石像鬼石板甲",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "莎弥拉",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "提莫",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 4.84,
+      "AverageRank": 5.03,
+      "PickRate": 2.05,
+      "TopFourRate": 39.25,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "旅人 派克",
+      "LineUpUnits": [
+        {
+          "HeroName": "阿萝拉",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "古拉加斯",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "日炎斗篷",
+            "薄暮法袍"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "易",
+          "EquipmentNames": [
+            "饮血剑",
+            "夜之锋刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "派克",
+          "EquipmentNames": [
+            "夜之锋刃",
+            "无尽之刃",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "C",
+      "WinRate": 3.31,
+      "AverageRank": 4.95,
+      "PickRate": 5.67,
+      "TopFourRate": 42.11,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "挑战者 千珏 努努和威朗普",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "饮血剑",
+            "夜之锋刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "格雷福斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "千珏",
+          "EquipmentNames": [
+            "回响蝠刃",
+            "鬼索的狂暴之刃",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "莫甘娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "振奋盔甲",
+            "薄暮法袍"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 10.73,
+      "AverageRank": 5.22,
+      "PickRate": 2.88,
+      "TopFourRate": 35.63,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "未来战士 锐雯",
+      "LineUpUnits": [
+        {
+          "HeroName": "贝蕾亚",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "伊泽瑞尔",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "菲兹",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "饮血剑",
+            "无尽之刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "棘刺背心",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "泰隆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 9.38,
+      "AverageRank": 5.04,
+      "PickRate": 1.77,
+      "TopFourRate": 40.0,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "观星者 霞",
+      "LineUpUnits": [
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "饮血剑",
+            "鬼索的狂暴之刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "璐璐",
+          "EquipmentNames": [
+            "蓝霸符",
+            "珠光护手",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "泰隆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "崔斯特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "强袭者的链枷"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 7.98,
+      "AverageRank": 5.37,
+      "PickRate": 1.8,
+      "TopFourRate": 32.52,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "牧羊人 乐芙兰 俄洛伊",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "圣盾使的誓约",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "乐芙兰",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "珠光护手",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "娑娜",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "羊咩咩 & 咩咩羊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "佐伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 7.92,
+      "AverageRank": 5.15,
+      "PickRate": 4.04,
+      "TopFourRate": 36.89,
+      "Tags": [
+        "速8",
+        "简单"
+      ],
+      "Description": ""
+    },
+    {
+      "LineUpName": "斗士 科加斯",
+      "LineUpUnits": [
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "日炎斗篷",
+            "薄暮法袍"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "伊泽瑞尔",
+          "EquipmentNames": [
+            "死亡之刃",
+            "无尽之刃",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "珠光护手",
+            "纳什之牙",
+            "强袭者的链枷"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 7.81,
+      "AverageRank": 5.37,
+      "PickRate": 4.38,
+      "TopFourRate": 35.77,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "暗星 莫德凯撒",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "蓝霸符",
+            "珠光护手",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "坚定之心",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 7.79,
+      "AverageRank": 5.09,
+      "PickRate": 4.4,
+      "TopFourRate": 38.69,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "旅人 超级机甲",
+      "LineUpUnits": [
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "超级机甲",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "石像鬼石板甲",
+            "坚定之心"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "小木灵",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "莫雷洛秘典",
+            "朔极之矛",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "薇古丝",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "海克斯科技枪刃",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 7.44,
+      "AverageRank": 5.41,
+      "PickRate": 7.86,
+      "TopFourRate": 32.16,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "幻灵战队 金克丝",
+      "LineUpUnits": [
+        {
+          "HeroName": "阿萝拉",
+          "EquipmentNames": [
+            "蓝霸符",
+            "珠光护手",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "卑尔维斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "贝蕾亚",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "饮血剑",
+            "夜之锋刃",
+            "斯特拉克的挑战护手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "圣盾使的誓约",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "金克丝",
+          "EquipmentNames": [
+            "火箭狂潮",
+            "OwO魔爆炮",
+            "鬼索的狂暴之刃"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 6.49,
+      "AverageRank": 6.24,
+      "PickRate": 3.4,
+      "TopFourRate": 21.1,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "挑战者 黛安娜",
+      "LineUpUnits": [
+        {
+          "HeroName": "卑尔维斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "黛安娜",
+          "EquipmentNames": [
+            "饮血剑",
+            "鬼索的狂暴之刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "金克丝",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "千珏",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "巨人杀手",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 6.35,
+      "AverageRank": 5.41,
+      "PickRate": 0.7,
+      "TopFourRate": 30.16,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "斗士 厄运小姐",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "适应性头盔",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "厄运小姐",
+          "EquipmentNames": [
+            "死亡之刃",
+            "无尽之刃",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "拉亚斯特",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 6.17,
+      "AverageRank": 5.06,
+      "PickRate": 1.79,
+      "TopFourRate": 40.12,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "魔术师 厄运小姐",
+      "LineUpUnits": [
+        {
+          "HeroName": "璐璐",
+          "EquipmentNames": [
+            "珠光护手",
+            "灭世者的死亡之帽",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "厄运小姐",
+          "EquipmentNames": [
+            "蓝霸符",
+            "无尽之刃",
+            "强袭者的链枷"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "娜美",
+          "EquipmentNames": [
+            "珠光护手",
+            "灭世者的死亡之帽",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "维迦",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 6.02,
+      "AverageRank": 5.63,
+      "PickRate": 0.92,
+      "TopFourRate": 27.71,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "游侠 卡莎",
+      "LineUpUnits": [
+        {
+          "HeroName": "伊泽瑞尔",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "菲兹",
+          "EquipmentNames": [
+            "饮血剑",
+            "珠光护手",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "格温",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "米利欧",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "锐雯",
+          "EquipmentNames": [
+            "饮血剑",
+            "水银",
+            "斯特拉克的挑战护手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "泰隆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 5.67,
+      "AverageRank": 5.05,
+      "PickRate": 1.56,
+      "TopFourRate": 38.3,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "斗士 塔姆",
+      "LineUpUnits": [
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "棘刺背心",
+            "巨龙之爪",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "古拉加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "棘刺背心",
+            "日炎斗篷",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "潘森",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "日炎斗篷",
+            "狂徒铠甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "斯特拉克的挑战护手",
+            "泰坦的坚决",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 5.56,
+      "AverageRank": 5.67,
+      "PickRate": 1.79,
+      "TopFourRate": 26.54,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "海魔人 卑尔维斯 雷克塞",
+      "LineUpUnits": [
+        {
+          "HeroName": "卑尔维斯",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "卑尔维斯",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "贝蕾亚",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "贝蕾亚",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 4.3,
+      "AverageRank": 5.32,
+      "PickRate": 1.03,
+      "TopFourRate": 38.71,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "神谕 厄运小姐",
+      "LineUpUnits": [
+        {
+          "HeroName": "奥瑞利安索尔",
+          "EquipmentNames": [
+            "蓝霸符",
+            "海克斯科技枪刃",
+            "珠光护手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "巴德",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "石像鬼石板甲",
+            "离子火花",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "蓝霸符",
+            "珠光护手",
+            "纳什之牙"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "佐伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 4.29,
+      "AverageRank": 5.86,
+      "PickRate": 0.77,
+      "TopFourRate": 20.0,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "救世主 拉亚斯特",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "菲奥娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 3,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "格雷福斯",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "烬",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "最后的轻语"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "莫甘娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "拉亚斯特",
+          "EquipmentNames": [
+            "棘刺背心",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "慎",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "娑娜",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "薇古丝",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "珠光护手",
+            "巨人杀手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 4.08,
+      "AverageRank": 6.14,
+      "PickRate": 0.54,
+      "TopFourRate": 18.37,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "游侠 卡莎 雷克塞",
+      "LineUpUnits": [
+        {
+          "HeroName": "卑尔维斯",
+          "EquipmentNames": [
+            "饮血剑",
+            "泰坦的坚决",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "贝蕾亚",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "科加斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "卡莎",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "朔极之矛"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "卡尔玛",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "丽桑卓",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "雷克塞",
+          "EquipmentNames": [
+            "日炎斗篷",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 4.0,
+      "AverageRank": 5.32,
+      "PickRate": 0.55,
+      "TopFourRate": 34.0,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "堡垒卫士 贾克斯",
+      "LineUpUnits": [
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "饮血剑",
+            "鬼索的狂暴之刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "璐璐",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "日炎斗篷",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "棘刺背心",
+            "巨龙之爪",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "泰隆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "崔斯特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "霞",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 3.56,
+      "AverageRank": 5.41,
+      "PickRate": 3.72,
+      "TopFourRate": 30.56,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "挑战者 千珏",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "卑尔维斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "凯特琳",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "黛安娜",
+          "EquipmentNames": [
+            "珠光护手",
+            "灭世者的死亡之帽",
+            "正义之手"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "金克丝",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "千珏",
+          "EquipmentNames": [
+            "无尽之刃",
+            "巨人杀手",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "狂徒铠甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 2.7,
+      "AverageRank": 5.46,
+      "PickRate": 1.63,
+      "TopFourRate": 30.41,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "法官 佐伊",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "乐芙兰",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "巨人杀手",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "棘刺背心",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "棘刺背心",
+            "石像鬼石板甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "佐伊",
+          "EquipmentNames": [
+            "蓝霸符",
+            "莫雷洛秘典",
+            "虚空之杖"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 2.53,
+      "AverageRank": 5.83,
+      "PickRate": 2.19,
+      "TopFourRate": 24.24,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "灵能特工 维克托",
+      "LineUpUnits": [
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "古拉加斯",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "石像鬼石板甲",
+            "日炎斗篷"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "易",
+          "EquipmentNames": [
+            "饮血剑",
+            "无尽之刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "派克",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "塔姆",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "厄加特",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 2,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "维克托",
+          "EquipmentNames": [
+            "蓝霸符",
+            "珠光护手",
+            "灭世者的死亡之帽"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 2.43,
+      "AverageRank": 5.68,
+      "PickRate": 2.28,
+      "TopFourRate": 26.21,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "新星特攻队 亚托克斯",
+      "LineUpUnits": [
+        {
+          "HeroName": "亚托克斯",
+          "EquipmentNames": [
+            "饮血剑",
+            "斯特拉克的挑战护手",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "阿卡丽",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "凯特琳",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "无尽之刃",
+            "强袭者的链枷"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "贾克斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        },
+        {
+          "HeroName": "千珏",
+          "EquipmentNames": [
+            "死亡之刃",
+            "鬼索的狂暴之刃",
+            "海妖之怒"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "茂凯",
+          "EquipmentNames": [
+            "巨龙之爪",
+            "振奋盔甲",
+            "狂徒铠甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "奥恩",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "拉莫斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 2.33,
+      "AverageRank": 5.52,
+      "PickRate": 2.85,
+      "TopFourRate": 32.95,
+      "Tags": [],
+      "Description": ""
+    },
+    {
+      "LineUpName": "法官 乐芙兰",
+      "LineUpUnits": [
+        {
+          "HeroName": "布里茨",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "黛安娜",
+          "EquipmentNames": [
+            "饮血剑",
+            "鬼索的狂暴之刃",
+            "泰坦的坚决"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 2
+          }
+        },
+        {
+          "HeroName": "俄洛伊",
+          "EquipmentNames": [
+            "振奋盔甲",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 7
+          }
+        },
+        {
+          "HeroName": "乐芙兰",
+          "EquipmentNames": [
+            "鬼索的狂暴之刃",
+            "鬼索的狂暴之刃",
+            "海克斯科技枪刃"
+          ],
+          "Position": {
+            "Item1": 4,
+            "Item2": 1
+          }
+        },
+        {
+          "HeroName": "蕾欧娜",
+          "EquipmentNames": [
+            "棘刺背心",
+            "日炎斗篷",
+            "振奋盔甲"
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 4
+          }
+        },
+        {
+          "HeroName": "莫德凯撒",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 5
+          }
+        },
+        {
+          "HeroName": "内瑟斯",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 3
+          }
+        },
+        {
+          "HeroName": "努努和威朗普",
+          "EquipmentNames": [
+            "",
+            "",
+            ""
+          ],
+          "Position": {
+            "Item1": 1,
+            "Item2": 6
+          }
+        }
+      ],
+      "Tier": "D",
+      "WinRate": 1.79,
+      "AverageRank": 5.96,
+      "PickRate": 1.24,
+      "TopFourRate": 20.54,
+      "Tags": [],
+      "Description": ""
+    }
+  ]
+}

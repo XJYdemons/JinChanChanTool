@@ -19,6 +19,7 @@
     <None Remove="Resources\DownloadSources.json" />
     <None Remove="Resources\Help\用户手册.pdf" />
     <None Remove="Resources\HeroDatas\S17\Equipment.json" />
+    <None Remove="Resources\HeroDatas\S17\EquipmentData.json" />
     <None Remove="Resources\HeroDatas\S17\EquipmentImages\OwO魔爆炮.png" />
     <None Remove="Resources\HeroDatas\S17\EquipmentImages\UwU魔爆炮.png" />
     <None Remove="Resources\HeroDatas\S17\EquipmentImages\三相之力.png" />
@@ -263,6 +264,7 @@
     <None Remove="Resources\HeroDatas\S17\images\雷克塞.png" />
     <None Remove="Resources\HeroDatas\S17\images\霞.png" />
     <None Remove="Resources\HeroDatas\S17\images\黛安娜.png" />
+    <None Remove="Resources\HeroDatas\S17\RecommendedLineUps.json" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\Equipment.json" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentData.json" />
     <None Remove="Resources\HeroDatas\英雄联盟传奇\EquipmentImages\三相之力.png" />
@@ -550,6 +552,9 @@
     </Content>
     <Content Include="Resources\HeroDatas\S17\Equipment.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\EquipmentData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\S17\EquipmentImages\OwO魔爆炮.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1282,6 +1287,9 @@
     </Content>
     <Content Include="Resources\HeroDatas\S17\images\黛安娜.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HeroDatas\S17\RecommendedLineUps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HeroDatas\英雄联盟传奇\Equipment.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -129,7 +129,7 @@ namespace JinChanChanTool.DataClass
             SelectFormLocation = new Point(-1, -1);
             LineUpFormLocation = new Point(-1, -1);
             StatusOverlayFormLocation = new Point(-1, -1);
-            EquipmentLastUpdateTime = new DateTime(2025, 11, 1, 2, 44, 0);
+            EquipmentLastUpdateTime = new DateTime(2026, 4, 15, 21, 54, 0);
             SelectedSeason = "S17";
             SelectedLineUpIndex = 0;
             IsFirstStart = true;

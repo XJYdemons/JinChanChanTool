@@ -20,7 +20,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         // Cloudflare Worker 加速地址
         private const string ProxyHost = "https://api.xiaoyumetatft.xyz";
 
-        private const string TranslationsUrl = ProxyHost + "/lookups/TFTSet17_latest_zh_cn.json";
+        // TranslationsUrl now dynamically built from UnitList API tft_set response
         private const string UnitListUrl = ProxyHost + "/tft-comps-api/unit_items_processed";
         private const string GeneralTranslationsUrl = ProxyHost + "/locales/zh_cn.json";
 
@@ -60,24 +60,40 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 LogTool.Log("DynamicGameDataService: 开始初始化...");
                 OutputForm.Instance.WriteLineOutputMessage("DynamicGameDataService: 开始初始化...");
 
-                var translationTask = HttpProvider.Client.GetAsync(TranslationsUrl, HttpCompletionOption.ResponseContentRead);
+                // Phase 1: fetch unit list + general translations in parallel
                 var unitListTask = HttpProvider.Client.GetAsync(UnitListUrl, HttpCompletionOption.ResponseContentRead);
                 var generalTask = HttpProvider.Client.GetAsync(GeneralTranslationsUrl, HttpCompletionOption.ResponseContentRead);
 
-                await Task.WhenAll(translationTask, unitListTask, generalTask);
+                await Task.WhenAll(unitListTask, generalTask);
 
-                // 获取结果后立即 Dispose 响应对象
-                using var res1 = await translationTask;
-                using var res2 = await unitListTask;
-                using var res3 = await generalTask;
+                using var unitRes = await unitListTask;
+                using var generalRes = await generalTask;
 
-                res1.EnsureSuccessStatusCode();
-                res2.EnsureSuccessStatusCode();
-                res3.EnsureSuccessStatusCode();
+                unitRes.EnsureSuccessStatusCode();
+                generalRes.EnsureSuccessStatusCode();
 
-                ProcessUnitListData(await res2.Content.ReadAsStringAsync());
-                ProcessTranslationData(await res1.Content.ReadAsStringAsync());
-                ProcessGeneralTranslationData(await res3.Content.ReadAsStringAsync());
+                string unitListJson = await unitRes.Content.ReadAsStringAsync();
+                string generalJson = await generalRes.Content.ReadAsStringAsync();
+
+                // Extract season from unit list to build dynamic TranslationsUrl
+                using var doc = JsonDocument.Parse(unitListJson);
+                string tftSet = doc.RootElement.GetProperty("tft_set").GetString();
+                string seasonNum = tftSet.Replace("Set", "").Replace("TFT", "");
+                string translationsUrl = $"{ProxyHost}/lookups/TFTSet{seasonNum}_latest_zh_cn.json";
+
+                Debug.WriteLine($"DynamicGameDataService: 动态构建翻译URL -> {translationsUrl}");
+                LogTool.Log($"DynamicGameDataService: 动态构建翻译URL -> {translationsUrl}");
+
+                // Phase 2: fetch translations with the dynamic URL
+                using var transRes = await HttpProvider.Client.GetAsync(translationsUrl, HttpCompletionOption.ResponseContentRead);
+                transRes.EnsureSuccessStatusCode();
+
+                string translationJson = await transRes.Content.ReadAsStringAsync();
+
+                // Process all data
+                ProcessUnitListData(unitListJson);
+                ProcessTranslationData(translationJson);
+                ProcessGeneralTranslationData(generalJson);
 
                 _isInitialized = true;
                 Debug.WriteLine("DynamicGameDataService: 初始化成功！");

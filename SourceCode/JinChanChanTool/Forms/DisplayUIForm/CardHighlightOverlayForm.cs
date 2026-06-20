@@ -59,7 +59,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         private Color customColor1 = Color.FromArgb(255, 190, 20);
 
         /// <summary>
-        /// 自���义高亮颜色2（渐变结束颜色）
+        /// 自定义高亮颜色2（渐变结束颜色）
         /// </summary>
         private Color customColor2 = Color.FromArgb(255, 190, 20);
 

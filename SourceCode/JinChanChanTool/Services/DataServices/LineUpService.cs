@@ -1,6 +1,7 @@
 ﻿using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices.Interface;
+using JinChanChanTool.Services.Localization;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
@@ -40,11 +41,21 @@ namespace JinChanChanTool.Services.DataServices
         /// 英雄数据服务对象
         /// </summary>
         private IHeroDataService _iHeroDataService;
-            
+
+        /// <summary>
+        /// 手动设置服务对象
+        /// </summary>
+        private IManualSettingsService _iManualSettingsService;
+
+        /// <summary>
+        /// 本地化服务对象
+        /// </summary>
+        private ILocalizationService _iLocalizationService;
+
         /// <summary>
         /// 最大选择数量
         /// </summary>
-        /// 
+        ///
         private int _maxOfChoice;
 
         /// <summary>
@@ -58,9 +69,11 @@ namespace JinChanChanTool.Services.DataServices
         public event EventHandler LineUpNameChanged;
 
         #region 初始化
-        public LineUpService(IHeroDataService iHeroDataService, int maxOfChoice, int lineUpIndex)
+        public LineUpService(IHeroDataService iHeroDataService, IManualSettingsService iManualSettingsService, ILocalizationService iLocalizationService, int maxOfChoice, int lineUpIndex)
         {
             _iHeroDataService = iHeroDataService;
+            _iManualSettingsService = iManualSettingsService;
+            _iLocalizationService = iLocalizationService;
             _maxOfChoice = maxOfChoice;
             InitializePaths();
             _pathIndex = 0;
@@ -622,20 +635,78 @@ namespace JinChanChanTool.Services.DataServices
                     }
 
                     //只保存设置中设置的最大选择英雄个数
+                    bool hasOverCapacity = false;
+                    int maxHeroCount = 0;
+                    string overCapacityLineUpName = "";
+
+                    // 先检查是否有超容量的阵容
                     foreach (LineUp lineUp in _lineUps)
                     {
                         for (int i = 0; i < lineUp.SubLineUps.Length; i++)
                         {
-                            // 如果成员数超过限制，保留前 n 个
                             if (lineUp.SubLineUps[i].LineUpUnits.Count > _maxOfChoice)
                             {
-                                List<LineUpUnit> newList = lineUp.SubLineUps[i].LineUpUnits.Take(_maxOfChoice).ToList();
-                                lineUp.SubLineUps[i].LineUpUnits.Clear();
-                                lineUp.SubLineUps[i].LineUpUnits.AddRange(newList);
+                                hasOverCapacity = true;
+                                maxHeroCount = Math.Max(maxHeroCount, lineUp.SubLineUps[i].LineUpUnits.Count);
+                                overCapacityLineUpName = lineUp.LineUpName;
+                                break;
                             }
                         }
-
+                        if (hasOverCapacity) break;
                     }
+
+                    // 如果有超容量的阵容，弹窗询问用户
+                    if (hasOverCapacity)
+                    {
+                        var result = MessageBox.Show(
+                            _iLocalizationService.Get("LineUpService.Msg.容量冲突", overCapacityLineUpName, maxHeroCount, _maxOfChoice),
+                            _iLocalizationService.Get("LineUpService.MsgTitle.容量不足"),
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Warning,
+                            MessageBoxDefaultButton.Button2
+                        );
+
+                        if (result == DialogResult.No)
+                        {
+                            // 用户选择不截断，自动修改容量设置并重启
+                            try
+                            {
+                                // 使用服务修改配置
+                                _iManualSettingsService.CurrentConfig.LineUpCapacity = maxHeroCount;
+                                _iManualSettingsService.Save(true); // true表示手动保存
+
+                                // 直接重启程序
+                                System.Diagnostics.Process.Start(Application.ExecutablePath);
+                                Environment.Exit(0);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(
+                                    _iLocalizationService.Get("LineUpService.Msg.修改失败", ex.Message, maxHeroCount),
+                                    _iLocalizationService.Get("LineUpService.MsgTitle.修改失败"),
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error
+                                );
+                                Environment.Exit(0);
+                            }
+                            return;
+                        }
+
+                        // 用户选择截断，执行截断操作
+                        foreach (LineUp lineUp in _lineUps)
+                        {
+                            for (int i = 0; i < lineUp.SubLineUps.Length; i++)
+                            {
+                                if (lineUp.SubLineUps[i].LineUpUnits.Count > _maxOfChoice)
+                                {
+                                    List<LineUpUnit> newList = lineUp.SubLineUps[i].LineUpUnits.Take(_maxOfChoice).ToList();
+                                    lineUp.SubLineUps[i].LineUpUnits.Clear();
+                                    lineUp.SubLineUps[i].LineUpUnits.AddRange(newList);
+                                }
+                            }
+                        }
+                    }
+
                     SaveWithoutNotify();
                 }
                 catch

@@ -46,7 +46,17 @@ namespace JinChanChanTool.Forms
         // 窗体高度常量（逻辑像素）
         private const int COLLAPSED_HEIGHT = 95;
         private const int BOARD_HEIGHT = 150;
-        private const int BENCH_HEIGHT = 35;
+        private const int BENCH_HEIGHT_PER_ROW = 35; // 每行备战席的高度
+
+        /// <summary>
+        /// 计算备战席高度（根据容量动态计算）
+        /// </summary>
+        private int CalculateBenchHeight()
+        {
+            int maxCapacity = flowLayoutPanel_阵容展示.Controls.Count; // 获取实际容量
+            int benchRows = (int)Math.Ceiling((double)maxCapacity / 10.0);
+            return benchRows * BENCH_HEIGHT_PER_ROW;
+        }
 
         private ILineUpService _ilineUpService; // 阵容数据服务对象
         public IAutomaticSettingsService _iAutoConfigService; // 自动设置数据服务对象
@@ -287,7 +297,7 @@ namespace JinChanChanTool.Forms
                 //componentPanel.BackColor = Color.FromArgb(30, 35, 45);
                 // 展开棋盘和备战席
                 int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
-                int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+                int benchHeight = LogicalToDeviceUnits(CalculateBenchHeight()); // 使用动态计算
 
                 // 棋盘紧贴 flowLayoutPanel1 底部
                 int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
@@ -333,7 +343,11 @@ namespace JinChanChanTool.Forms
                 hexagonBoard.Visible = false;
                 benchPanel.Visible = false;
                 flowLayoutPanel_装备散件展示.Visible = false;
-                this.ClientSize = new Size(LogicalToDeviceUnits(632), LogicalToDeviceUnits(COLLAPSED_HEIGHT));
+
+                // 计算收起后的高度（动态）
+                // 收起高度 = flowLayoutPanel_阵容展示的底部位置 + 一些底部边距
+                int collapsedHeight = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height + LogicalToDeviceUnits(30);
+                this.ClientSize = new Size(LogicalToDeviceUnits(632), collapsedHeight);
 
                 button_展开收起.BackColor = Color.FromArgb(45, 45, 48);
             }
@@ -718,7 +732,7 @@ namespace JinChanChanTool.Forms
                 {
                     // 计算完全展开状态的窗体高度（包括棋盘和备战席）
                     int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
-                    int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+                    int benchHeight = LogicalToDeviceUnits(CalculateBenchHeight());
                     int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
                     int benchY = boardY + boardHeight;
                     int expandedHeight = benchY + benchHeight;
@@ -740,7 +754,7 @@ namespace JinChanChanTool.Forms
                 {
                     // 计算完全展开状态的窗体高度（包括棋盘和备战席）
                     int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
-                    int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+                    int benchHeight = LogicalToDeviceUnits(CalculateBenchHeight());
                     int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
                     int benchY = boardY + boardHeight;
                     int expandedHeight = benchY + benchHeight;
@@ -757,7 +771,7 @@ namespace JinChanChanTool.Forms
             {
                 // 计算完全展开状态的窗体高度（包括棋盘和备战席）
                 int boardHeight = LogicalToDeviceUnits(BOARD_HEIGHT);
-                int benchHeight = LogicalToDeviceUnits(BENCH_HEIGHT);
+                int benchHeight = LogicalToDeviceUnits(CalculateBenchHeight());
                 int boardY = flowLayoutPanel_阵容展示.Location.Y + flowLayoutPanel_阵容展示.Height;
                 int benchY = boardY + boardHeight;
                 int expandedHeight = benchY + benchHeight;

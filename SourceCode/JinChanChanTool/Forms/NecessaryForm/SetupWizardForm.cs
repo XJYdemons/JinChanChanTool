@@ -46,7 +46,6 @@ namespace JinChanChanTool
 
         // GPU环境配置取消令牌
         private CancellationTokenSource? _gpuConfigCancellationTokenSource;
-        private bool _isGpuConfiguring;
 
         public SetupWizardForm(IManualSettingsService manualSettingsService, ILocalizationService iLocalizationService)
         {
@@ -1204,7 +1203,6 @@ namespace JinChanChanTool
         private async Task StartGpuConfigurationAsync(string cudaTag, string targetDir,
             bool needInstallCuda, bool needInstallCudnn)
         {
-            _isGpuConfiguring = true;
             _gpuConfigCancellationTokenSource = new CancellationTokenSource();
 
             // 禁用界面
@@ -1319,7 +1317,6 @@ namespace JinChanChanTool
             }
             finally
             {
-                _isGpuConfiguring = false;
                 SetGpuConfigUIEnabled(true);
 
                 // 重新检测环境

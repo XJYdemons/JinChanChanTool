@@ -36,6 +36,26 @@
         public string HotKey5 { get; set; }
 
         /// <summary>
+        /// 快捷键6-显示/隐藏英雄选择窗口
+        /// </summary>
+        public string HotKey6 { get; set; }
+
+        /// <summary>
+        /// 快捷键7-显示/隐藏阵容选择窗口
+        /// </summary>
+        public string HotKey7 { get; set; }
+
+        /// <summary>
+        /// 快捷键8-显示/隐藏状态窗口
+        /// </summary>
+        public string HotKey8 { get; set; }
+
+        /// <summary>
+        /// 快捷键9-显示/隐藏输出窗口
+        /// </summary>
+        public string HotKey9 { get; set; }
+
+        /// <summary>
         /// 商店售卖的第一张英雄的名称截图数据矩形
         /// </summary>
         public Rectangle HeroNameScreenshotRectangle_1 { get; set; }
@@ -241,6 +261,16 @@
         public bool IsAutomaticUpdateEquipment { get; set; }
 
         /// <summary>
+        /// 推荐阵容更新频率，单位：小时
+        /// </summary>
+        public int UpdateLineupInterval { get; set; }
+
+        /// <summary>
+        /// 是否自动更新推荐阵容
+        /// </summary>
+        public bool IsAutomaticUpdateLineup { get; set; }
+
+        /// <summary>
         /// 自动模式下要锁定的目标进程的名称。
         /// </summary>
         public string TargetProcessName { get; set; }
@@ -311,6 +341,11 @@
         public string Language { get; set; }
 
         /// <summary>
+        /// 阵容容量（可选择的英雄数量），范围：10-20
+        /// </summary>
+        public int LineUpCapacity { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public ManualSettings()
@@ -320,6 +355,10 @@
             HotKey3 = "Home";
             HotKey4 = "F9";
             HotKey5 = "F6";
+            HotKey6 = "F2";
+            HotKey7 = "F3";
+            HotKey8 = "F4";
+            HotKey9 = "F5";
             SelectedScreenIndex = 0;
             HeroNameScreenshotRectangle_1 = new Rectangle(0, 0, 10, 10);
             HeroNameScreenshotRectangle_2 = new Rectangle(0, 0, 10, 10);
@@ -362,6 +401,8 @@
             IsStopRefreshStoreWhenErrorCharacters = true;
             UpdateEquipmentInterval = 12;
             IsAutomaticUpdateEquipment = true;
+            UpdateLineupInterval = 12;
+            IsAutomaticUpdateLineup = true;
             TargetProcessName = "";
             TargetProcessId = 0;
             SelectFormHeroPictureBoxSize = 36;
@@ -376,6 +417,7 @@
             HighlightBorderWidth = 3;
             HighlightGradientSpeed = 0.05f;
             Language = "zh-CN";
+            LineUpCapacity = 10;
 
         }
 
@@ -392,6 +434,10 @@
                 HotKey3 = this.HotKey3,
                 HotKey4 = this.HotKey4,
                 HotKey5 = this.HotKey5,
+                HotKey6 = this.HotKey6,
+                HotKey7 = this.HotKey7,
+                HotKey8 = this.HotKey8,
+                HotKey9 = this.HotKey9,
                 SelectedScreenIndex = this.SelectedScreenIndex,
                 HeroNameScreenshotRectangle_1 = this.HeroNameScreenshotRectangle_1,
                 HeroNameScreenshotRectangle_2 = this.HeroNameScreenshotRectangle_2,
@@ -434,6 +480,8 @@
                 IsStopRefreshStoreWhenErrorCharacters = this.IsStopRefreshStoreWhenErrorCharacters,
                 UpdateEquipmentInterval = this.UpdateEquipmentInterval,
                 IsAutomaticUpdateEquipment = this.IsAutomaticUpdateEquipment,
+                UpdateLineupInterval = this.UpdateLineupInterval,
+                IsAutomaticUpdateLineup = this.IsAutomaticUpdateLineup,
                 TargetProcessName = this.TargetProcessName,
                 TargetProcessId = this.TargetProcessId,
                 SelectFormHeroPictureBoxSize = this.SelectFormHeroPictureBoxSize,
@@ -448,6 +496,7 @@
                 HighlightBorderWidth = this.HighlightBorderWidth,
                 HighlightGradientSpeed = this.HighlightGradientSpeed,
                 Language = this.Language,
+                LineUpCapacity = this.LineUpCapacity,
             };
         }
 
@@ -466,6 +515,10 @@
                    HotKey3 == other.HotKey3 &&
                    HotKey4 == other.HotKey4 &&
                    HotKey5 == other.HotKey5 &&
+                   HotKey6 == other.HotKey6 &&
+                   HotKey7 == other.HotKey7 &&
+                   HotKey8 == other.HotKey8 &&
+                   HotKey9 == other.HotKey9 &&
                    SelectedScreenIndex == other.SelectedScreenIndex &&
                    HeroNameScreenshotRectangle_1 == other.HeroNameScreenshotRectangle_1 &&
                    HeroNameScreenshotRectangle_2 == other.HeroNameScreenshotRectangle_2 &&
@@ -508,6 +561,8 @@
                    IsStopRefreshStoreWhenErrorCharacters == other.IsStopRefreshStoreWhenErrorCharacters &&
                    UpdateEquipmentInterval == other.UpdateEquipmentInterval &&
                    IsAutomaticUpdateEquipment == other.IsAutomaticUpdateEquipment &&
+                   UpdateLineupInterval == other.UpdateLineupInterval &&
+                   IsAutomaticUpdateLineup == other.IsAutomaticUpdateLineup &&
                    TargetProcessName == other.TargetProcessName &&
                    TargetProcessId == other.TargetProcessId &&
                    SelectFormHeroPictureBoxSize == other.SelectFormHeroPictureBoxSize &&
@@ -521,7 +576,8 @@
                    HighlightColor2 == other.HighlightColor2 &&
                    HighlightBorderWidth == other.HighlightBorderWidth &&
                    HighlightGradientSpeed == other.HighlightGradientSpeed &&
-                   Language == other.Language;
+                   Language == other.Language &&
+                   LineUpCapacity == other.LineUpCapacity;
         }
 
         

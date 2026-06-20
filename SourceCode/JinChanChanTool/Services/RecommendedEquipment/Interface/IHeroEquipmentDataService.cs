@@ -32,6 +32,11 @@ namespace JinChanChanTool.Services.RecommendedEquipment.Interface
         void Load();
 
         /// <summary>
+        /// 设置当前赛季对应的数据文件路径。
+        /// </summary>
+        bool SetFilePathsIndex(string season);
+
+        /// <summary>
         /// 将内存中的 HeroEquipments 数据保存到当前PathIndex指定的本地JSON文件中。
         /// </summary>
         void Save();
@@ -50,5 +55,17 @@ namespace JinChanChanTool.Services.RecommendedEquipment.Interface
         DataClass.RecommendedEquipment GetHeroEquipmentFromName(string name);
 
         List<Image> GetImagesFromHeroEquipment(DataClass.RecommendedEquipment heroEquipment);
+
+        /// <summary>
+        /// 获取数据最后更新时间
+        /// </summary>
+        DateTime GetLastUpdateTime();
+
+        /// <summary>
+        /// 检查数据是否需要更新
+        /// </summary>
+        /// <param name="hours">更新间隔小时数</param>
+        /// <returns>true 表示需要更新</returns>
+        bool NeedsUpdate(int hours = 12);
     }
 }

@@ -340,8 +340,6 @@ namespace JinChanChanTool.Services.LineupCrawling
             int[] assignment = SolveHungarian(costMatrix, numHeroes, numCells);
 
             // 3. 解析结果并打印输出
-            Debug.WriteLine($"\n--- 全局最优站位分布 (指派算法): {lineupName} ---");
-            LogTool.Log($"--- 全局最优站位分布: {lineupName} ---");
 
             for (int i = 0; i < numHeroes; i++)
             {
@@ -356,7 +354,6 @@ namespace JinChanChanTool.Services.LineupCrawling
                     units[i].Position = (row, col);
 
                     string heroName = units[i].HeroName;
-                    Debug.WriteLine($"棋子: {heroName.PadRight(6)} | 分配格: cell_{cellId.ToString().PadRight(2)} | 坐标: ({row}, {col})");
                 }
             }
         }

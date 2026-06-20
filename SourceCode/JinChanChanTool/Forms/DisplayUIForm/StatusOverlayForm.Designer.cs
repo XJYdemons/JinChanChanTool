@@ -43,6 +43,14 @@
             capsuleSwitch_高亮提示 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
             label_高亮提示 = new Label();
             label_HotKey5 = new Label();
+            label_英雄选择窗口 = new Label();
+            label_HotKey6 = new Label();
+            label_阵容选择窗口 = new Label();
+            label_HotKey7 = new Label();
+            label_状态窗口 = new Label();
+            label_HotKey8 = new Label();
+            label_输出窗口 = new Label();
+            label_HotKey9 = new Label();
             panel_主背景.SuspendLayout();
             panel_副背景.SuspendLayout();
             SuspendLayout();
@@ -56,12 +64,20 @@
             panel_主背景.Margin = new Padding(0);
             panel_主背景.Name = "panel1";
             panel_主背景.Padding = new Padding(3, 3, 4, 4);
-            panel_主背景.Size = new Size(256, 136);
+            panel_主背景.Size = new Size(256, 236);
             panel_主背景.TabIndex = 0;
             // 
             // panel2
             // 
             panel_副背景.BackColor = Color.White;
+            panel_副背景.Controls.Add(label_输出窗口);
+            panel_副背景.Controls.Add(label_HotKey9);
+            panel_副背景.Controls.Add(label_状态窗口);
+            panel_副背景.Controls.Add(label_HotKey8);
+            panel_副背景.Controls.Add(label_阵容选择窗口);
+            panel_副背景.Controls.Add(label_HotKey7);
+            panel_副背景.Controls.Add(label_英雄选择窗口);
+            panel_副背景.Controls.Add(label_HotKey6);
             panel_副背景.Controls.Add(label_隐藏召出主窗口);
             panel_副背景.Controls.Add(label_HotKey3);
             panel_副背景.Controls.Add(label_自动D牌);
@@ -79,7 +95,7 @@
             panel_副背景.Location = new Point(3, 3);
             panel_副背景.Margin = new Padding(0);
             panel_副背景.Name = "panel2";
-            panel_副背景.Size = new Size(249, 129);
+            panel_副背景.Size = new Size(249, 229);
             panel_副背景.TabIndex = 0;
             // 
             // label9
@@ -238,12 +254,104 @@
             label_HotKey5.TabIndex = 0;
             label_HotKey5.Text = "F6";
             label_HotKey5.TextAlign = ContentAlignment.MiddleLeft;
-            // 
+            //
+            // label_英雄选择窗口
+            //
+            label_英雄选择窗口.AutoSize = true;
+            label_英雄选择窗口.Location = new Point(83, 131);
+            label_英雄选择窗口.MinimumSize = new Size(100, 20);
+            label_英雄选择窗口.Name = "label_英雄选择窗口";
+            label_英雄选择窗口.Size = new Size(100, 20);
+            label_英雄选择窗口.TabIndex = 15;
+            label_英雄选择窗口.Text = "英雄选择窗口";
+            label_英雄选择窗口.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_HotKey6
+            //
+            label_HotKey6.AutoSize = true;
+            label_HotKey6.ForeColor = Color.Gray;
+            label_HotKey6.Location = new Point(9, 131);
+            label_HotKey6.MinimumSize = new Size(69, 20);
+            label_HotKey6.Name = "label_HotKey6";
+            label_HotKey6.Size = new Size(69, 20);
+            label_HotKey6.TabIndex = 14;
+            label_HotKey6.Text = "F2";
+            label_HotKey6.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_阵容选择窗口
+            //
+            label_阵容选择窗口.AutoSize = true;
+            label_阵容选择窗口.Location = new Point(83, 156);
+            label_阵容选择窗口.MinimumSize = new Size(100, 20);
+            label_阵容选择窗口.Name = "label_阵容选择窗口";
+            label_阵容选择窗口.Size = new Size(100, 20);
+            label_阵容选择窗口.TabIndex = 17;
+            label_阵容选择窗口.Text = "阵容选择窗口";
+            label_阵容选择窗口.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_HotKey7
+            //
+            label_HotKey7.AutoSize = true;
+            label_HotKey7.ForeColor = Color.Gray;
+            label_HotKey7.Location = new Point(9, 156);
+            label_HotKey7.MinimumSize = new Size(69, 20);
+            label_HotKey7.Name = "label_HotKey7";
+            label_HotKey7.Size = new Size(69, 20);
+            label_HotKey7.TabIndex = 16;
+            label_HotKey7.Text = "F3";
+            label_HotKey7.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_状态窗口
+            //
+            label_状态窗口.AutoSize = true;
+            label_状态窗口.Location = new Point(83, 181);
+            label_状态窗口.MinimumSize = new Size(100, 20);
+            label_状态窗口.Name = "label_状态窗口";
+            label_状态窗口.Size = new Size(100, 20);
+            label_状态窗口.TabIndex = 19;
+            label_状态窗口.Text = "状态窗口";
+            label_状态窗口.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_HotKey8
+            //
+            label_HotKey8.AutoSize = true;
+            label_HotKey8.ForeColor = Color.Gray;
+            label_HotKey8.Location = new Point(9, 181);
+            label_HotKey8.MinimumSize = new Size(69, 20);
+            label_HotKey8.Name = "label_HotKey8";
+            label_HotKey8.Size = new Size(69, 20);
+            label_HotKey8.TabIndex = 18;
+            label_HotKey8.Text = "F4";
+            label_HotKey8.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_输出窗口
+            //
+            label_输出窗口.AutoSize = true;
+            label_输出窗口.Location = new Point(83, 206);
+            label_输出窗口.MinimumSize = new Size(100, 20);
+            label_输出窗口.Name = "label_输出窗口";
+            label_输出窗口.Size = new Size(100, 20);
+            label_输出窗口.TabIndex = 21;
+            label_输出窗口.Text = "输出窗口";
+            label_输出窗口.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_HotKey9
+            //
+            label_HotKey9.AutoSize = true;
+            label_HotKey9.ForeColor = Color.Gray;
+            label_HotKey9.Location = new Point(9, 206);
+            label_HotKey9.MinimumSize = new Size(69, 20);
+            label_HotKey9.Name = "label_HotKey9";
+            label_HotKey9.Size = new Size(69, 20);
+            label_HotKey9.TabIndex = 20;
+            label_HotKey9.Text = "F5";
+            label_HotKey9.TextAlign = ContentAlignment.MiddleLeft;
+            //
             // StatusOverlayForm
-            // 
+            //
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(256, 136);
+            ClientSize = new Size(256, 236);
             Controls.Add(panel_主背景);
             FormBorderStyle = FormBorderStyle.None;
             Name = "StatusOverlayForm";
@@ -273,5 +381,13 @@
         private DIYComponents.CapsuleSwitch capsuleSwitch_自动拿牌;
         private Label label_自动拿牌;
         private Label label_HotKey1;
+        private Label label_英雄选择窗口;
+        private Label label_HotKey6;
+        private Label label_阵容选择窗口;
+        private Label label_HotKey7;
+        private Label label_状态窗口;
+        private Label label_HotKey8;
+        private Label label_输出窗口;
+        private Label label_HotKey9;
     }
 }

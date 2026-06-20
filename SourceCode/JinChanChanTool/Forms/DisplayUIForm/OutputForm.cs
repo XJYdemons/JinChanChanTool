@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -87,6 +88,11 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteErrorMessage(string message)
         {
+            // 同步输出到Debug窗口
+            Debug.Write($"[ERROR] {message}");
+            // 同步输出到日志文件
+            LogTool.Log($"[ERROR] {message}");
+
             textBox_错误信息.Invoke((MethodInvoker)delegate
             {
                 textBox_错误信息.AppendText(message);
@@ -99,6 +105,11 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteLineErrorMessage(string message)
         {
+            // 同步输出到Debug窗口
+            Debug.WriteLine($"[ERROR] {message}");
+            // 同步输出到日志文件
+            LogTool.Log($"[ERROR] {message}");
+
             textBox_错误信息.Invoke((MethodInvoker)delegate
             {
                 textBox_错误信息.AppendText(message+"\r\n");
@@ -111,6 +122,11 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteOutputMessage(string message)
         {
+            // 同步输出到Debug窗口
+            Debug.Write(message);
+            // 同步输出到日志文件
+            LogTool.Log(message);
+
             textBox_输出信息.Invoke((MethodInvoker)delegate
             {
                 textBox_输出信息.AppendText(message);
@@ -123,6 +139,11 @@ namespace JinChanChanTool.Forms
         /// <param name="message"></param>
         public void WriteLineOutputMessage(string message)
         {
+            // 同步输出到Debug窗口
+            Debug.WriteLine(message);
+            // 同步输出到日志文件
+            LogTool.Log(message);
+
             textBox_输出信息.Invoke((MethodInvoker)delegate
             {
                 textBox_输出信息.AppendText(message + "\r\n");

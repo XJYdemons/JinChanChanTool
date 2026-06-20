@@ -74,11 +74,11 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 更新状态显示
         /// </summary>
-        public void UpdateStatus(string hotkey1, string hotkey2, string hotkey3, string hotkey4, string hotkey5)
-        {           
+        public void UpdateStatus(string hotkey1, string hotkey2, string hotkey3, string hotkey4, string hotkey5, string hotkey6, string hotkey7, string hotkey8, string hotkey9)
+        {
             if (label_HotKey1.InvokeRequired)
             {
-                label_HotKey1.Invoke(new Action(() => UpdateStatus(hotkey1,hotkey2,hotkey3,hotkey4,hotkey5)));
+                label_HotKey1.Invoke(new Action(() => UpdateStatus(hotkey1, hotkey2, hotkey3, hotkey4, hotkey5, hotkey6, hotkey7, hotkey8, hotkey9)));
                 return;
             }
             label_HotKey1.Text = hotkey1;
@@ -86,6 +86,10 @@ namespace JinChanChanTool.Forms
             label_HotKey3.Text = hotkey3;
             label_HotKey4.Text = hotkey4;
             label_HotKey5.Text = hotkey5;
+            label_HotKey6.Text = hotkey6;
+            label_HotKey7.Text = hotkey7;
+            label_HotKey8.Text = hotkey8;
+            label_HotKey9.Text = hotkey9;
         }
 
         /// <summary>
@@ -154,6 +158,10 @@ namespace JinChanChanTool.Forms
             label_自动刷新商店.Text = _iLocalizationService.Get("StatusOverlay.Label.自动刷新商店");
             label_自动D牌.Text = _iLocalizationService.Get("StatusOverlay.Label.自动D牌");
             label_隐藏召出主窗口.Text = _iLocalizationService.Get("StatusOverlay.Label.隐藏召出主窗口");
+            label_英雄选择窗口.Text = _iLocalizationService.Get("StatusOverlay.Label.英雄选择窗口");
+            label_阵容选择窗口.Text = _iLocalizationService.Get("StatusOverlay.Label.阵容选择窗口");
+            label_状态窗口.Text = _iLocalizationService.Get("StatusOverlay.Label.状态窗口");
+            label_输出窗口.Text = _iLocalizationService.Get("StatusOverlay.Label.输出窗口");
         }
 
         /// <summary>
@@ -243,7 +251,6 @@ namespace JinChanChanTool.Forms
         /// </summary>
         private void SaveFormLocation()
         {
-            Debug.WriteLine($"StatusOverlayForm - 保存位置: {this.Location}");
             try
             {
                 if (_iAutoConfigService != null)

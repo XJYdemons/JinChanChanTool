@@ -30,11 +30,23 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingForm));
             panel_快捷键 = new Panel();
+            panel_分割线_快捷键9 = new Panel();
+            panel_分割线_快捷键8 = new Panel();
+            panel_分割线_快捷键7 = new Panel();
+            panel_分割线_快捷键6 = new Panel();
             panel_分割线_快捷键5 = new Panel();
             panel_分割线_快捷键4 = new Panel();
             panel_分割线_快捷键3 = new Panel();
             panel_分割线_快捷键2 = new Panel();
             panel_分割线_快捷键1 = new Panel();
+            label_输出窗口_快捷键 = new Label();
+            textBox_输出窗口快捷键 = new TextBox();
+            label_状态窗口_快捷键 = new Label();
+            textBox_状态窗口快捷键 = new TextBox();
+            label_阵容选择窗口_快捷键 = new Label();
+            textBox_阵容选择窗口快捷键 = new TextBox();
+            label_英雄选择窗口_快捷键 = new Label();
+            textBox_英雄选择窗口快捷键 = new TextBox();
             label_高亮提示_快捷键 = new Label();
             textBox_高亮提示 = new TextBox();
             label_长按自动D牌_快捷键 = new Label();
@@ -58,6 +70,10 @@
             tabControl_高亮边框渐变色1 = new TabControl();
             tabPage_功能_常规 = new TabPage();
             panel_功能_常规 = new Panel();
+            panel_分割线_功能_常规3 = new Panel();
+            label_阵容容量描述 = new Label();
+            label_阵容容量 = new Label();
+            numericUpDown_阵容容量 = new NumericUpDown();
             panel_分割线_功能_常规2 = new Panel();
             panel_分割线_功能_常规1 = new Panel();
             label_模拟操作间隔描述 = new Label();
@@ -259,10 +275,13 @@
             label_程序启动时更新推荐装备描述1 = new Label();
             tabPage_大数据推荐_阵容推荐 = new TabPage();
             panel_大数据推荐_阵容推荐 = new Panel();
-            roundedButton_更新推荐阵容 = new JinChanChanTool.DIYComponents.RoundedButton();
             panel_分割线_大数据推荐_阵容推荐1 = new Panel();
-            label_更新推荐阵容描述 = new Label();
-            label_更新推荐阵容 = new Label();
+            label_程序启动时更新推荐阵容 = new Label();
+            textBox_更新推荐阵容间隔 = new TextBox();
+            label_程序启动时更新推荐阵容描述2 = new Label();
+            label_程序启动时更新推荐阵容描述3 = new Label();
+            capsuleSwitch_程序启动时更新推荐阵容 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
+            label_程序启动时更新推荐阵容描述1 = new Label();
             tabPage_开发者选项 = new TabPage();
             panel_开发者选项 = new Panel();
             panel_分割线_开发者选项1 = new Panel();
@@ -340,11 +359,23 @@
             // 
             panel_快捷键.AutoScroll = true;
             panel_快捷键.BackColor = Color.White;
+            panel_快捷键.Controls.Add(panel_分割线_快捷键9);
+            panel_快捷键.Controls.Add(panel_分割线_快捷键8);
+            panel_快捷键.Controls.Add(panel_分割线_快捷键7);
+            panel_快捷键.Controls.Add(panel_分割线_快捷键6);
             panel_快捷键.Controls.Add(panel_分割线_快捷键5);
             panel_快捷键.Controls.Add(panel_分割线_快捷键4);
             panel_快捷键.Controls.Add(panel_分割线_快捷键3);
             panel_快捷键.Controls.Add(panel_分割线_快捷键2);
             panel_快捷键.Controls.Add(panel_分割线_快捷键1);
+            panel_快捷键.Controls.Add(label_输出窗口_快捷键);
+            panel_快捷键.Controls.Add(textBox_输出窗口快捷键);
+            panel_快捷键.Controls.Add(label_状态窗口_快捷键);
+            panel_快捷键.Controls.Add(textBox_状态窗口快捷键);
+            panel_快捷键.Controls.Add(label_阵容选择窗口_快捷键);
+            panel_快捷键.Controls.Add(textBox_阵容选择窗口快捷键);
+            panel_快捷键.Controls.Add(label_英雄选择窗口_快捷键);
+            panel_快捷键.Controls.Add(textBox_英雄选择窗口快捷键);
             panel_快捷键.Controls.Add(label_高亮提示_快捷键);
             panel_快捷键.Controls.Add(textBox_高亮提示);
             panel_快捷键.Controls.Add(label_长按自动D牌_快捷键);
@@ -360,9 +391,45 @@
             panel_快捷键.Name = "panel_快捷键";
             panel_快捷键.Size = new Size(960, 498);
             panel_快捷键.TabIndex = 208;
-            // 
+            //
+            // panel_分割线_快捷键9
+            //
+            panel_分割线_快捷键9.BackColor = Color.Silver;
+            panel_分割线_快捷键9.Location = new Point(5, 312);
+            panel_分割线_快捷键9.Margin = new Padding(0);
+            panel_分割线_快捷键9.Name = "panel_分割线_快捷键9";
+            panel_分割线_快捷键9.Size = new Size(950, 1);
+            panel_分割线_快捷键9.TabIndex = 267;
+            //
+            // panel_分割线_快捷键8
+            //
+            panel_分割线_快捷键8.BackColor = Color.Silver;
+            panel_分割线_快捷键8.Location = new Point(5, 277);
+            panel_分割线_快捷键8.Margin = new Padding(0);
+            panel_分割线_快捷键8.Name = "panel_分割线_快捷键8";
+            panel_分割线_快捷键8.Size = new Size(950, 1);
+            panel_分割线_快捷键8.TabIndex = 266;
+            //
+            // panel_分割线_快捷键7
+            //
+            panel_分割线_快捷键7.BackColor = Color.Silver;
+            panel_分割线_快捷键7.Location = new Point(5, 242);
+            panel_分割线_快捷键7.Margin = new Padding(0);
+            panel_分割线_快捷键7.Name = "panel_分割线_快捷键7";
+            panel_分割线_快捷键7.Size = new Size(950, 1);
+            panel_分割线_快捷键7.TabIndex = 265;
+            //
+            // panel_分割线_快捷键6
+            //
+            panel_分割线_快捷键6.BackColor = Color.Silver;
+            panel_分割线_快捷键6.Location = new Point(5, 207);
+            panel_分割线_快捷键6.Margin = new Padding(0);
+            panel_分割线_快捷键6.Name = "panel_分割线_快捷键6";
+            panel_分割线_快捷键6.Size = new Size(950, 1);
+            panel_分割线_快捷键6.TabIndex = 264;
+            //
             // panel_分割线_快捷键5
-            // 
+            //
             panel_分割线_快捷键5.BackColor = Color.Silver;
             panel_分割线_快捷键5.Location = new Point(5, 172);
             panel_分割线_快捷键5.Margin = new Padding(0);
@@ -437,17 +504,97 @@
             label_长按自动D牌_快捷键.TabIndex = 18;
             label_长按自动D牌_快捷键.Text = "长按自动D牌";
             label_长按自动D牌_快捷键.TextAlign = ContentAlignment.MiddleLeft;
-            // 
+            //
             // textBox_长按自动D牌快捷键
-            // 
+            //
             textBox_长按自动D牌快捷键.Location = new Point(851, 144);
             textBox_长按自动D牌快捷键.Name = "textBox_长按自动D牌快捷键";
             textBox_长按自动D牌快捷键.Size = new Size(104, 23);
             textBox_长按自动D牌快捷键.TabIndex = 17;
             textBox_长按自动D牌快捷键.TabStop = false;
-            // 
+            //
+            // label_英雄选择窗口_快捷键
+            //
+            label_英雄选择窗口_快捷键.AutoSize = true;
+            label_英雄选择窗口_快捷键.Location = new Point(5, 178);
+            label_英雄选择窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_英雄选择窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_英雄选择窗口_快捷键.Name = "label_英雄选择窗口_快捷键";
+            label_英雄选择窗口_快捷键.Size = new Size(88, 23);
+            label_英雄选择窗口_快捷键.TabIndex = 21;
+            label_英雄选择窗口_快捷键.Text = "英雄选择窗口";
+            label_英雄选择窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // textBox_英雄选择窗口快捷键
+            //
+            textBox_英雄选择窗口快捷键.Location = new Point(851, 179);
+            textBox_英雄选择窗口快捷键.Name = "textBox_英雄选择窗口快捷键";
+            textBox_英雄选择窗口快捷键.Size = new Size(104, 23);
+            textBox_英雄选择窗口快捷键.TabIndex = 22;
+            textBox_英雄选择窗口快捷键.TabStop = false;
+            //
+            // label_阵容选择窗口_快捷键
+            //
+            label_阵容选择窗口_快捷键.AutoSize = true;
+            label_阵容选择窗口_快捷键.Location = new Point(5, 213);
+            label_阵容选择窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_阵容选择窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_阵容选择窗口_快捷键.Name = "label_阵容选择窗口_快捷键";
+            label_阵容选择窗口_快捷键.Size = new Size(88, 23);
+            label_阵容选择窗口_快捷键.TabIndex = 23;
+            label_阵容选择窗口_快捷键.Text = "阵容选择窗口";
+            label_阵容选择窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // textBox_阵容选择窗口快捷键
+            //
+            textBox_阵容选择窗口快捷键.Location = new Point(851, 214);
+            textBox_阵容选择窗口快捷键.Name = "textBox_阵容选择窗口快捷键";
+            textBox_阵容选择窗口快捷键.Size = new Size(104, 23);
+            textBox_阵容选择窗口快捷键.TabIndex = 24;
+            textBox_阵容选择窗口快捷键.TabStop = false;
+            //
+            // label_状态窗口_快捷键
+            //
+            label_状态窗口_快捷键.AutoSize = true;
+            label_状态窗口_快捷键.Location = new Point(5, 248);
+            label_状态窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_状态窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_状态窗口_快捷键.Name = "label_状态窗口_快捷键";
+            label_状态窗口_快捷键.Size = new Size(88, 23);
+            label_状态窗口_快捷键.TabIndex = 25;
+            label_状态窗口_快捷键.Text = "状态窗口";
+            label_状态窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // textBox_状态窗口快捷键
+            //
+            textBox_状态窗口快捷键.Location = new Point(851, 249);
+            textBox_状态窗口快捷键.Name = "textBox_状态窗口快捷键";
+            textBox_状态窗口快捷键.Size = new Size(104, 23);
+            textBox_状态窗口快捷键.TabIndex = 26;
+            textBox_状态窗口快捷键.TabStop = false;
+            //
+            // label_输出窗口_快捷键
+            //
+            label_输出窗口_快捷键.AutoSize = true;
+            label_输出窗口_快捷键.Location = new Point(5, 283);
+            label_输出窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_输出窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_输出窗口_快捷键.Name = "label_输出窗口_快捷键";
+            label_输出窗口_快捷键.Size = new Size(88, 23);
+            label_输出窗口_快捷键.TabIndex = 27;
+            label_输出窗口_快捷键.Text = "输出窗口";
+            label_输出窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // textBox_输出窗口快捷键
+            //
+            textBox_输出窗口快捷键.Location = new Point(851, 284);
+            textBox_输出窗口快捷键.Name = "textBox_输出窗口快捷键";
+            textBox_输出窗口快捷键.Size = new Size(104, 23);
+            textBox_输出窗口快捷键.TabIndex = 28;
+            textBox_输出窗口快捷键.TabStop = false;
+            //
             // label_召出隐藏窗口_快捷键
-            // 
+            //
             label_召出隐藏窗口_快捷键.AutoSize = true;
             label_召出隐藏窗口_快捷键.Location = new Point(5, 5);
             label_召出隐藏窗口_快捷键.MaximumSize = new Size(840, 23);
@@ -647,11 +794,15 @@
             tabPage_功能_常规.Size = new Size(952, 468);
             tabPage_功能_常规.TabIndex = 2;
             tabPage_功能_常规.Text = "常规";
-            // 
+            //
             // panel_功能_常规
-            // 
+            //
             panel_功能_常规.AutoScroll = true;
             panel_功能_常规.BackColor = Color.White;
+            panel_功能_常规.Controls.Add(panel_分割线_功能_常规3);
+            panel_功能_常规.Controls.Add(label_阵容容量描述);
+            panel_功能_常规.Controls.Add(label_阵容容量);
+            panel_功能_常规.Controls.Add(numericUpDown_阵容容量);
             panel_功能_常规.Controls.Add(panel_分割线_功能_常规2);
             panel_功能_常规.Controls.Add(panel_分割线_功能_常规1);
             panel_功能_常规.Controls.Add(label_模拟操作间隔描述);
@@ -665,9 +816,53 @@
             panel_功能_常规.Name = "panel_功能_常规";
             panel_功能_常规.Size = new Size(946, 462);
             panel_功能_常规.TabIndex = 211;
-            // 
+            //
+            // panel_分割线_功能_常规3
+            //
+            panel_分割线_功能_常规3.BackColor = Color.Silver;
+            panel_分割线_功能_常规3.Location = new Point(5, 188);
+            panel_分割线_功能_常规3.Margin = new Padding(0);
+            panel_分割线_功能_常规3.Name = "panel_分割线_功能_常规3";
+            panel_分割线_功能_常规3.Size = new Size(936, 1);
+            panel_分割线_功能_常规3.TabIndex = 259;
+            //
+            // label_阵容容量描述
+            //
+            label_阵容容量描述.AutoSize = true;
+            label_阵容容量描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_阵容容量描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_阵容容量描述.Location = new Point(6, 149);
+            label_阵容容量描述.MaximumSize = new Size(825, 34);
+            label_阵容容量描述.MinimumSize = new Size(200, 17);
+            label_阵容容量描述.Name = "label_阵容容量描述";
+            label_阵容容量描述.Size = new Size(200, 17);
+            label_阵容容量描述.TabIndex = 258;
+            label_阵容容量描述.Text = "设置可选择的英雄数量，范围10-20";
+            //
+            // label_阵容容量
+            //
+            label_阵容容量.AutoSize = true;
+            label_阵容容量.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_阵容容量.Location = new Point(6, 131);
+            label_阵容容量.MaximumSize = new Size(825, 17);
+            label_阵容容量.MinimumSize = new Size(56, 17);
+            label_阵容容量.Name = "label_阵容容量";
+            label_阵容容量.Size = new Size(56, 17);
+            label_阵容容量.TabIndex = 257;
+            label_阵容容量.Text = "阵容容量";
+            //
+            // numericUpDown_阵容容量
+            //
+            numericUpDown_阵容容量.Location = new Point(837, 145);
+            numericUpDown_阵容容量.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            numericUpDown_阵容容量.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            numericUpDown_阵容容量.Name = "numericUpDown_阵容容量";
+            numericUpDown_阵容容量.Size = new Size(104, 23);
+            numericUpDown_阵容容量.TabIndex = 256;
+            numericUpDown_阵容容量.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            //
             // panel_分割线_功能_常规2
-            // 
+            //
             panel_分割线_功能_常规2.BackColor = Color.Silver;
             panel_分割线_功能_常规2.Location = new Point(5, 125);
             panel_分割线_功能_常规2.Margin = new Padding(0);
@@ -3092,70 +3287,103 @@
             tabPage_大数据推荐_阵容推荐.Size = new Size(952, 468);
             tabPage_大数据推荐_阵容推荐.TabIndex = 1;
             tabPage_大数据推荐_阵容推荐.Text = "阵容推荐";
-            // 
+            //
             // panel_大数据推荐_阵容推荐
-            // 
-            panel_大数据推荐_阵容推荐.Controls.Add(roundedButton_更新推荐阵容);
+            //
             panel_大数据推荐_阵容推荐.Controls.Add(panel_分割线_大数据推荐_阵容推荐1);
-            panel_大数据推荐_阵容推荐.Controls.Add(label_更新推荐阵容描述);
-            panel_大数据推荐_阵容推荐.Controls.Add(label_更新推荐阵容);
+            panel_大数据推荐_阵容推荐.Controls.Add(label_程序启动时更新推荐阵容);
+            panel_大数据推荐_阵容推荐.Controls.Add(textBox_更新推荐阵容间隔);
+            panel_大数据推荐_阵容推荐.Controls.Add(label_程序启动时更新推荐阵容描述2);
+            panel_大数据推荐_阵容推荐.Controls.Add(label_程序启动时更新推荐阵容描述3);
+            panel_大数据推荐_阵容推荐.Controls.Add(capsuleSwitch_程序启动时更新推荐阵容);
+            panel_大数据推荐_阵容推荐.Controls.Add(label_程序启动时更新推荐阵容描述1);
             panel_大数据推荐_阵容推荐.Dock = DockStyle.Fill;
             panel_大数据推荐_阵容推荐.Location = new Point(3, 3);
             panel_大数据推荐_阵容推荐.Name = "panel_大数据推荐_阵容推荐";
             panel_大数据推荐_阵容推荐.Size = new Size(946, 462);
             panel_大数据推荐_阵容推荐.TabIndex = 0;
-            // 
-            // roundedButton_更新推荐阵容
-            // 
-            roundedButton_更新推荐阵容.BorderColor = Color.FromArgb(200, 200, 200);
-            roundedButton_更新推荐阵容.BorderWidth = 1;
-            roundedButton_更新推荐阵容.ButtonColor = Color.FromArgb(255, 255, 255);
-            roundedButton_更新推荐阵容.CornerRadius = 1;
-            roundedButton_更新推荐阵容.DisabledColor = Color.FromArgb(160, 160, 160);
-            roundedButton_更新推荐阵容.HoverColor = Color.FromArgb(232, 232, 232);
-            roundedButton_更新推荐阵容.Location = new Point(854, 22);
-            roundedButton_更新推荐阵容.Name = "roundedButton_更新推荐阵容";
-            roundedButton_更新推荐阵容.PressedColor = Color.FromArgb(222, 222, 222);
-            roundedButton_更新推荐阵容.Size = new Size(87, 25);
-            roundedButton_更新推荐阵容.TabIndex = 270;
-            roundedButton_更新推荐阵容.Text = "获取";
-            roundedButton_更新推荐阵容.TextColor = Color.Black;
-            roundedButton_更新推荐阵容.TextFont = new Font("微软雅黑", 10F);
-            roundedButton_更新推荐阵容.Click += roundedButton6_Click;
-            // 
+            //
             // panel_分割线_大数据推荐_阵容推荐1
-            // 
+            //
             panel_分割线_大数据推荐_阵容推荐1.BackColor = Color.Silver;
-            panel_分割线_大数据推荐_阵容推荐1.Location = new Point(5, 66);
+            panel_分割线_大数据推荐_阵容推荐1.Location = new Point(5, 86);
             panel_分割线_大数据推荐_阵容推荐1.Margin = new Padding(0);
             panel_分割线_大数据推荐_阵容推荐1.Name = "panel_分割线_大数据推荐_阵容推荐1";
             panel_分割线_大数据推荐_阵容推荐1.Size = new Size(936, 1);
             panel_分割线_大数据推荐_阵容推荐1.TabIndex = 270;
-            // 
-            // label_更新推荐阵容描述
-            // 
-            label_更新推荐阵容描述.AutoSize = true;
-            label_更新推荐阵容描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_更新推荐阵容描述.ForeColor = Color.FromArgb(133, 133, 133);
-            label_更新推荐阵容描述.Location = new Point(5, 27);
-            label_更新推荐阵容描述.MaximumSize = new Size(843, 34);
-            label_更新推荐阵容描述.MinimumSize = new Size(224, 17);
-            label_更新推荐阵容描述.Name = "label_更新推荐阵容描述";
-            label_更新推荐阵容描述.Size = new Size(224, 17);
-            label_更新推荐阵容描述.TabIndex = 269;
-            label_更新推荐阵容描述.Text = "立即从大数据网站获取最新推荐阵容数据";
-            // 
-            // label_更新推荐阵容
-            // 
-            label_更新推荐阵容.AutoSize = true;
-            label_更新推荐阵容.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label_更新推荐阵容.Location = new Point(5, 5);
-            label_更新推荐阵容.MaximumSize = new Size(843, 17);
-            label_更新推荐阵容.MinimumSize = new Size(80, 17);
-            label_更新推荐阵容.Name = "label_更新推荐阵容";
-            label_更新推荐阵容.Size = new Size(80, 17);
-            label_更新推荐阵容.TabIndex = 268;
-            label_更新推荐阵容.Text = "更新推荐阵容";
+            //
+            // label_程序启动时更新推荐阵容
+            //
+            label_程序启动时更新推荐阵容.AutoSize = true;
+            label_程序启动时更新推荐阵容.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_程序启动时更新推荐阵容.Location = new Point(5, 5);
+            label_程序启动时更新推荐阵容.MaximumSize = new Size(862, 17);
+            label_程序启动时更新推荐阵容.MinimumSize = new Size(140, 17);
+            label_程序启动时更新推荐阵容.Name = "label_程序启动时更新推荐阵容";
+            label_程序启动时更新推荐阵容.Size = new Size(140, 17);
+            label_程序启动时更新推荐阵容.TabIndex = 251;
+            label_程序启动时更新推荐阵容.Text = "程序启动时更新推荐阵容";
+            //
+            // textBox_更新推荐阵容间隔
+            //
+            textBox_更新推荐阵容间隔.Location = new Point(65, 58);
+            textBox_更新推荐阵容间隔.Name = "textBox_更新推荐阵容间隔";
+            textBox_更新推荐阵容间隔.Size = new Size(104, 23);
+            textBox_更新推荐阵容间隔.TabIndex = 29;
+            textBox_更新推荐阵容间隔.TabStop = false;
+            //
+            // label_程序启动时更新推荐阵容描述2
+            //
+            label_程序启动时更新推荐阵容描述2.AutoSize = true;
+            label_程序启动时更新推荐阵容描述2.ForeColor = Color.FromArgb(133, 133, 133);
+            label_程序启动时更新推荐阵容描述2.Location = new Point(5, 58);
+            label_程序启动时更新推荐阵容描述2.MaximumSize = new Size(54, 23);
+            label_程序启动时更新推荐阵容描述2.MinimumSize = new Size(32, 23);
+            label_程序启动时更新推荐阵容描述2.Name = "label_程序启动时更新推荐阵容描述2";
+            label_程序启动时更新推荐阵容描述2.Size = new Size(32, 23);
+            label_程序启动时更新推荐阵容描述2.TabIndex = 28;
+            label_程序启动时更新推荐阵容描述2.Text = "每隔";
+            label_程序启动时更新推荐阵容描述2.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label_程序启动时更新推荐阵容描述3
+            //
+            label_程序启动时更新推荐阵容描述3.AutoSize = true;
+            label_程序启动时更新推荐阵容描述3.ForeColor = Color.FromArgb(133, 133, 133);
+            label_程序启动时更新推荐阵容描述3.Location = new Point(182, 58);
+            label_程序启动时更新推荐阵容描述3.MaximumSize = new Size(700, 23);
+            label_程序启动时更新推荐阵容描述3.MinimumSize = new Size(140, 23);
+            label_程序启动时更新推荐阵容描述3.Name = "label_程序启动时更新推荐阵容描述3";
+            label_程序启动时更新推荐阵容描述3.Size = new Size(140, 23);
+            label_程序启动时更新推荐阵容描述3.TabIndex = 30;
+            label_程序启动时更新推荐阵容描述3.Text = "小时后自动更新推荐阵容";
+            label_程序启动时更新推荐阵容描述3.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // capsuleSwitch_程序启动时更新推荐阵容
+            //
+            capsuleSwitch_程序启动时更新推荐阵容.Location = new Point(891, 35);
+            capsuleSwitch_程序启动时更新推荐阵容.Name = "capsuleSwitch_程序启动时更新推荐阵容";
+            capsuleSwitch_程序启动时更新推荐阵容.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_程序启动时更新推荐阵容.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch_程序启动时更新推荐阵容.ShowText = false;
+            capsuleSwitch_程序启动时更新推荐阵容.Size = new Size(50, 20);
+            capsuleSwitch_程序启动时更新推荐阵容.TabIndex = 253;
+            capsuleSwitch_程序启动时更新推荐阵容.Text = "capsuleSwitch_程序启动时更新推荐阵容";
+            capsuleSwitch_程序启动时更新推荐阵容.TextColor = Color.White;
+            capsuleSwitch_程序启动时更新推荐阵容.ThumbColor = Color.White;
+            capsuleSwitch_程序启动时更新推荐阵容.IsOnChanged += capsuleSwitch_程序启动时更新推荐阵容_IsOnChanged;
+            //
+            // label_程序启动时更新推荐阵容描述1
+            //
+            label_程序启动时更新推荐阵容描述1.AutoSize = true;
+            label_程序启动时更新推荐阵容描述1.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_程序启动时更新推荐阵容描述1.ForeColor = Color.FromArgb(133, 133, 133);
+            label_程序启动时更新推荐阵容描述1.Location = new Point(5, 23);
+            label_程序启动时更新推荐阵容描述1.MaximumSize = new Size(862, 34);
+            label_程序启动时更新推荐阵容描述1.MinimumSize = new Size(332, 17);
+            label_程序启动时更新推荐阵容描述1.Name = "label_程序启动时更新推荐阵容描述1";
+            label_程序启动时更新推荐阵容描述1.Size = new Size(332, 17);
+            label_程序启动时更新推荐阵容描述1.TabIndex = 252;
+            label_程序启动时更新推荐阵容描述1.Text = "在阵容选择窗口中显示大数据推荐阵容";
             // 
             // tabPage_开发者选项
             // 
@@ -3538,6 +3766,10 @@
         private DIYComponents.CapsuleSwitch capsuleSwitch_避免程序与用户争夺光标控制权;
         private Label label_模拟操作间隔描述;
         private Label label_模拟操作间隔;
+        private Panel panel_分割线_功能_常规3;
+        private Label label_阵容容量;
+        private Label label_阵容容量描述;
+        private NumericUpDown numericUpDown_阵容容量;
         private DIYComponents.CapsuleSwitch capsuleSwitch_模拟鼠标拿牌;
         private Label label_模拟鼠标拿牌描述;
         private Label label_模拟鼠标拿牌;
@@ -3594,9 +3826,12 @@
         private DIYComponents.CapsuleSwitch capsuleSwitch_程序启动时更新推荐装备;
         private Label label_程序启动时更新推荐装备描述1;
         private Label label_程序启动时更新推荐装备;
-        private DIYComponents.RoundedButton roundedButton_更新推荐阵容;
-        private Label label_更新推荐阵容描述;
-        private Label label_更新推荐阵容;
+        private Label label_程序启动时更新推荐阵容;
+        private TextBox textBox_更新推荐阵容间隔;
+        private Label label_程序启动时更新推荐阵容描述2;
+        private Label label_程序启动时更新推荐阵容描述3;
+        private DIYComponents.CapsuleSwitch capsuleSwitch_程序启动时更新推荐阵容;
+        private Label label_程序启动时更新推荐阵容描述1;
         private TabControl tabControl__功能_自动拿牌;
         private TabPage tabPage_功能_自动拿牌_拿牌方式;
         private TabPage tabPage_功能_自动拿牌_异常处理;
@@ -3704,6 +3939,18 @@
         private Panel panel_分割线_快捷键5;
         private Panel panel_分割线_快捷键4;
         private Panel panel_分割线_快捷键3;
+        private Panel panel_分割线_快捷键6;
+        private Panel panel_分割线_快捷键7;
+        private Panel panel_分割线_快捷键8;
+        private Panel panel_分割线_快捷键9;
+        private Label label_英雄选择窗口_快捷键;
+        private TextBox textBox_英雄选择窗口快捷键;
+        private Label label_阵容选择窗口_快捷键;
+        private TextBox textBox_阵容选择窗口快捷键;
+        private Label label_状态窗口_快捷键;
+        private TextBox textBox_状态窗口快捷键;
+        private Label label_输出窗口_快捷键;
+        private TextBox textBox_输出窗口快捷键;
         private Panel panel_分割线_坐标设置7;
     }
 }

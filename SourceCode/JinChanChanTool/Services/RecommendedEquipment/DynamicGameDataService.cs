@@ -56,8 +56,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
             try
             {
-                Debug.WriteLine("DynamicGameDataService: 开始初始化...");
-                LogTool.Log("DynamicGameDataService: 开始初始化...");
                 OutputForm.Instance.WriteLineOutputMessage("DynamicGameDataService: 开始初始化...");
 
                 // Phase 1: fetch unit list + general translations in parallel
@@ -81,8 +79,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 string seasonNum = tftSet.Replace("Set", "").Replace("TFT", "");
                 string translationsUrl = $"{ProxyHost}/lookups/TFTSet{seasonNum}_latest_zh_cn.json";
 
-                Debug.WriteLine($"DynamicGameDataService: 动态构建翻译URL -> {translationsUrl}");
-                LogTool.Log($"DynamicGameDataService: 动态构建翻译URL -> {translationsUrl}");
 
                 // Phase 2: fetch translations with the dynamic URL
                 using var transRes = await HttpProvider.Client.GetAsync(translationsUrl, HttpCompletionOption.ResponseContentRead);
@@ -96,14 +92,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 ProcessGeneralTranslationData(generalJson);
 
                 _isInitialized = true;
-                Debug.WriteLine("DynamicGameDataService: 初始化成功！");
-                LogTool.Log("DynamicGameDataService: 初始化成功！");
                 OutputForm.Instance.WriteLineOutputMessage("DynamicGameDataService: 初始化成功！");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"DynamicGameDataService: 初始化失败! 错误: {ex.Message}");
-                LogTool.Log($"DynamicGameDataService: 初始化失败! 错误: {ex.Message}");
                 OutputForm.Instance.WriteLineOutputMessage($"DynamicGameDataService: 初始化失败! 错误: {ex.Message}");
                 throw;
             }
@@ -124,8 +116,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
             CommonTranslations = data.Common;
 
-            Debug.WriteLine($"已加载 {CommonTranslations.Count} 条通用标签翻译。");
-            LogTool.Log($"已加载 {CommonTranslations.Count} 条通用标签翻译。");
             OutputForm.Instance.WriteLineOutputMessage($"已加载 {CommonTranslations.Count} 条通用标签翻译。");
         }
 
@@ -145,8 +135,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 .Where(key => key.StartsWith(seasonPrefix, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
-            Debug.WriteLine($"已确定当前赛季: {seasonPrefix}，找到 {CurrentSeasonHeroKeys.Count} 位英雄。");
-            LogTool.Log($"已确定当前赛季: {seasonPrefix}，找到 {CurrentSeasonHeroKeys.Count} 位英雄。");
             OutputForm.Instance.WriteLineOutputMessage($"已确定当前赛季: {seasonPrefix}，找到 {CurrentSeasonHeroKeys.Count} 位英雄。");
         }
 
@@ -175,8 +163,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 .GroupBy(trait => trait.ApiName)
                 .ToDictionary(g => g.Key, g => g.First().Name);
 
-            Debug.WriteLine($"已加载 {HeroTranslations.Count} 条英雄翻译、{ItemTranslations.Count} 条装备翻译和 {TraitTranslations.Count} 条羁绊翻译。");
-            LogTool.Log($"已加载 {HeroTranslations.Count} 条英雄翻译、{ItemTranslations.Count} 条装备翻译和 {TraitTranslations.Count} 条羁绊翻译。");
             OutputForm.Instance.WriteLineOutputMessage($"已成功加载全量翻译数据（含 {TraitTranslations.Count} 条羁绊）。");
         }
 

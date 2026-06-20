@@ -76,6 +76,16 @@ namespace JinChanChanTool.Services
         /// </summary>
         private CustomFlowLayoutPanel _lineUpPanel;
 
+        /// <summary>
+        /// 主窗口中展示阵容的容器的父容器 (panel_子阵容展示区背景)
+        /// </summary>
+        private Panel _lineUpPanelParent;
+
+        /// <summary>
+        /// 主窗口中展示阵容的容器的祖父容器 (panel_用户区背景)
+        /// </summary>
+        private Panel _lineUpPanelGrandParent;
+
         //
         //主窗口英雄选择器常量
         //
@@ -85,6 +95,14 @@ namespace JinChanChanTool.Services
         private static readonly Size MainForm_HeroPictureBoxSize = new Size(48, 48);//单个英雄选择器中图像框大小
         private static readonly Size MainForm_LabelSize = new Size(67, 19);//单个英雄选择器中名称标签大小
         private static readonly Size MainForm_CheckBoxSize = new Size(14, 14);//单个复选框大小
+
+        //
+        //主窗口阵容展示组件动态尺寸（根据容量计算）
+        //
+        private Size mainFormHeroAndEquipmentBoxSize; //单个阵容英雄框的尺寸
+        private Padding mainFormHeroAndEquipmentBoxMargin; //单个阵容英雄框的Margin
+        private Size mainFormLineUpPanelSize; //阵容展示容器的尺寸
+        private Size mainFormLineUpPanelParentSize; //阵容展示容器父容器的尺寸
 
         //
         //主窗口按职业与特质选择英雄按钮常量
@@ -155,7 +173,7 @@ namespace JinChanChanTool.Services
         private readonly ILocalizationService _iLocalizationService;
 
         public UIBuilderService(IHeroDataService iHeroDataService, IManualSettingsService iManualSettingsService, ILocalizationService iLocalizationService, MainForm mainForm,TabControl tabControl_HeroSelector, CustomFlowLayoutPanel subLineUpPanel1,CustomFlowLayoutPanel LineUpPanel1,int maxHeroCount)
-        {            
+        {
             MainForm_HeroPictureBoxes = new List<HeroPictureBox>();
             MainForm_CheckBoxes = new List<CheckBox>();
             MainForm_ProfessionButtons = new List<Button>();
@@ -163,12 +181,14 @@ namespace JinChanChanTool.Services
             MaxHerosCount = maxHeroCount;
             MainForm_HeroAndEquipmentPictureBoxes = new List<HeroAndEquipmentPictureBox>();
             nameToCheckBoxMap = new Dictionary<string, CheckBox>();
-            _tabControl_HeroSelector = tabControl_HeroSelector;                       
+            _tabControl_HeroSelector = tabControl_HeroSelector;
             costPanels = new List<Panel>();
             _lineUpPanel = subLineUpPanel1;
+            _lineUpPanelParent = (Panel)subLineUpPanel1.Parent;
+            _lineUpPanelGrandParent = (Panel)_lineUpPanelParent?.Parent;
 
             SelectForm_HeroPanels = new List<FlowLayoutPanel>();
-            SelectForm_HeroPictureBoxes = new List<HeroPictureBox>();           
+            SelectForm_HeroPictureBoxes = new List<HeroPictureBox>();
 
             LineUpForm_LineUpPanel = LineUpPanel1;
             LineUpForm_HeroAndEquipmentPictureBoxes = new List<HeroAndEquipmentPictureBox>();
@@ -177,6 +197,9 @@ namespace JinChanChanTool.Services
             _iHeroDataService = iHeroDataService;
             _iManualSettingsService = iManualSettingsService;
             _iLocalizationService = iLocalizationService;
+
+            // 计算动态尺寸
+            CalculateDynamicSizes();
         }
 
         /// <summary>
@@ -207,6 +230,178 @@ namespace JinChanChanTool.Services
         private int Dpi_L(int i)
         {
             return LineUpForm.Instance.LogicalToDeviceUnits(i);
+        }
+
+        /// <summary>
+        /// 根据阵容容量计算动态尺寸
+        /// </summary>
+        private void CalculateDynamicSizes()
+        {
+            // MainForm阵容展示区计算
+            // 固定列数为5，根据容量计算行数
+            int columns = 5; // MainForm每行5个
+            int rows = (int)Math.Ceiling((double)MaxHerosCount / columns);
+
+            // 组件尺寸（宽48，高67）
+            int boxWidth = 48;
+            int boxHeight = 67;
+            int horizontalMargin = 14;
+            int verticalMargin = 2;
+
+            // 应用DPI缩放
+            mainFormHeroAndEquipmentBoxSize = new Size(Dpi_M(boxWidth), Dpi_M(boxHeight));
+            mainFormHeroAndEquipmentBoxMargin = new Padding(Dpi_M(horizontalMargin), Dpi_M(verticalMargin), Dpi_M(horizontalMargin), Dpi_M(verticalMargin));
+
+            // 计算容器尺寸
+            // 每行高度 = 组件高度67 + 上下margin各2 = 71
+            // 容器高度 = 行数 × 71 + padding 10
+            int containerWidth = 384;
+            int rowHeight = boxHeight + verticalMargin * 2; // 71
+            int containerHeight = rows * rowHeight + 10;
+
+            mainFormLineUpPanelSize = new Size(Dpi_M(containerWidth), Dpi_M(containerHeight));
+
+            // 计算父容器尺寸
+            // 父容器 = 阵容展示容器 + 变阵按钮(28) + 间距(5)
+            int parentHeight = containerHeight + 33;
+            mainFormLineUpPanelParentSize = new Size(Dpi_M(394), Dpi_M(parentHeight));
+        }
+
+        /// <summary>
+        /// 应用MainForm动态尺寸
+        /// </summary>
+        private void ApplyMainFormDynamicSizes()
+        {
+            if (_lineUpPanel != null)
+            {
+                _lineUpPanel.Size = mainFormLineUpPanelSize;
+                _lineUpPanel.WrapContents = true; // 关键：允许换行！
+            }
+
+            if (_lineUpPanelParent != null)
+            {
+                _lineUpPanelParent.AutoScroll = false; // 禁用AutoScroll
+                _lineUpPanelParent.Size = mainFormLineUpPanelParentSize;
+            }
+
+            // 调整祖父容器 panel_用户区背景 的高度
+            if (_lineUpPanelGrandParent != null)
+            {
+                int baseRows = 2;
+                int currentRows = (int)Math.Ceiling((double)MaxHerosCount / 5.0);
+                int extraRows = currentRows - baseRows;
+
+                if (extraRows > 0)
+                {
+                    // 原始高度633，每额外一行增加71px
+                    int extraHeight = extraRows * 71;
+                    int newHeight = 633 + extraHeight;
+
+                    _lineUpPanelGrandParent.Size = new Size(Dpi_M(404), Dpi_M(newHeight));
+                }
+            }
+
+            // 调整MainForm窗口高度
+            if (_mainForm != null)
+            {
+                int baseRows = 2;
+                int currentRows = (int)Math.Ceiling((double)MaxHerosCount / 5.0);
+                int extraRows = currentRows - baseRows;
+
+                if (extraRows > 0)
+                {
+                    int heightPerRow = 71;
+                    int extraHeight = extraRows * heightPerRow;
+                    int newHeight = 670 + extraHeight;
+                    _mainForm.ClientSize = new Size(Dpi_M(410), Dpi_M(newHeight));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 应用LineUpForm动态尺寸
+        /// </summary>
+        private void ApplyLineUpFormDynamicSizes()
+        {
+            // LineUpForm向下扩展
+            // 每行10个（不是5个！）
+            int columns = 10; // LineUpForm每行10个
+            int rows = (int)Math.Ceiling((double)MaxHerosCount / (double)columns);
+
+            // 原始值（容量=10时，1行）
+            int originalContainerHeight = 64;
+            int originalHexagonBoardY = 93;
+            int originalBenchPanelY = 293;
+            int originalFormHeight = 95;
+
+            // 容量10 = 1行，容量11-20 = 2行，容量21-30 = 3行
+            // 原始64高度是1行的高度
+            int rowHeight = 64; // 每行64px
+            int containerHeight = rows * rowHeight;
+
+            // 应用DPI缩放
+            int scaledHeight = Dpi_L(containerHeight);
+
+            if (LineUpForm_LineUpPanel != null)
+            {
+                LineUpForm_LineUpPanel.Size = new Size(LineUpForm_LineUpPanel.Width, scaledHeight);
+                LineUpForm_LineUpPanel.WrapContents = true; // 允许换行
+            }
+
+            // 计算额外增加的高度
+            int extraHeight = containerHeight - originalContainerHeight;
+
+            // 计算组件位置
+            int hexagonBoardY = originalHexagonBoardY + extraHeight;
+            int benchPanelY = originalBenchPanelY + extraHeight;
+            int componentPanelY = hexagonBoardY;
+
+            // 计算benchPanel的高度（支持多行）
+            // 原始高度34px（1行10个格子，格子约30px）
+            int benchRows = (int)Math.Ceiling((double)MaxHerosCount / 10.0);
+            int benchHeight;
+            int benchExtraHeight = 0; // 备战席额外增加的高度
+            if (benchRows == 1)
+            {
+                benchHeight = 34; // 保持原高度
+            }
+            else
+            {
+                // 多行时：简单地按行数倍增
+                // 每行34px（包含格子+间距+padding）
+                benchHeight = benchRows * 34;
+                benchExtraHeight = benchHeight - 34; // 相比原始高度增加的部分
+            }
+
+            // 窗口高度 = 原始高度 + 阵容展示区额外高度 + 备战席额外高度
+            int formHeight = originalFormHeight + extraHeight + benchExtraHeight;
+
+            // 调整组件位置和大小
+            foreach (Control control in LineUpForm.Instance.Controls)
+            {
+                if (control.Name == "hexagonBoard")
+                {
+                    control.Location = new Point(Dpi_L(2), Dpi_L(hexagonBoardY));
+                }
+                else if (control.Name == "benchPanel")
+                {
+                    control.Location = new Point(Dpi_L(2), Dpi_L(benchPanelY));
+                    control.Size = new Size(Dpi_L(319), Dpi_L(benchHeight)); // 动态调整高度
+
+                    // 设置备战席容量
+                    if (control is DIYComponents.BenchPanel benchPanel)
+                    {
+                        benchPanel.SetCapacity(MaxHerosCount);
+                    }
+                }
+                else if (control.Name == "componentPanel" || control.Name == "flowLayoutPanel_装备散件展示")
+                {
+                    control.Location = new Point(Dpi_L(480), Dpi_L(componentPanelY));
+                }
+            }
+
+            // 调整窗口高度
+            LineUpForm.Instance.ClientSize = new Size(Dpi_L(430), Dpi_L(formHeight));
         }
 
         #region 创建主窗口英雄选择器
@@ -502,8 +697,9 @@ namespace JinChanChanTool.Services
         private HeroAndEquipmentPictureBox CreatHeroAndEquipmentPicturebox(Panel parentPanel)
         {
             HeroAndEquipmentPictureBox heroAndEquipmentPictureBox = new HeroAndEquipmentPictureBox();
-            heroAndEquipmentPictureBox.Size = new(Dpi_M(48), Dpi_M(67));
-            heroAndEquipmentPictureBox.Margin = new Padding(Dpi_M(14), Dpi_M(2), Dpi_M(14), Dpi_M(2));
+            // 使用动态计算的尺寸
+            heroAndEquipmentPictureBox.Size = mainFormHeroAndEquipmentBoxSize;
+            heroAndEquipmentPictureBox.Margin = mainFormHeroAndEquipmentBoxMargin;
             heroAndEquipmentPictureBox.Padding = new Padding(Dpi_M(2));
             parentPanel.Controls.Add(heroAndEquipmentPictureBox);
             return heroAndEquipmentPictureBox;
@@ -683,11 +879,15 @@ namespace JinChanChanTool.Services
         /// </summary>
         public void FirstBuilding()
         {
+            // 应用动态尺寸
+            ApplyMainFormDynamicSizes();
+            ApplyLineUpFormDynamicSizes();
+
             MainForm_CreatTabPages();//创建分页
             MainForm_CreateHeroSelectors();//创建主窗口英雄选择器
             MainForm_CreateProfessionAndPeculiarityButtons();//创建主窗口职业与特质按钮
             MainForm_CreatHeroAndEquipmentPictureboxes();//创建主窗口阵容展示UI
-            LineUpForm_CreatHeroAndEquipmentPictureboxes();//创建阵容窗口阵容展示UI         
+            LineUpForm_CreatHeroAndEquipmentPictureboxes();//创建阵容窗口阵容展示UI
             SelectForm_CreatFlowLayoutPanel();//创建半透明英雄选择面板
             SelectForm_CreateHeroPictureBox();//创建半透明英雄头像框
         }

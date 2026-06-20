@@ -90,9 +90,6 @@ namespace JinChanChanTool
         /// </summary>
         private EquipmentInformationToolTip _lineUpFormEquipmentToolTip;
 
-        // 这个字段将作为开关，记录了哪个赛季文件夹的名字才允许显示装备推荐       
-        private string _seasonForEquipmentTooltip = "S17";
-
         public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, ILocalizationService iLocalizationService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService)
         {
             InitializeComponent();
@@ -241,14 +238,6 @@ namespace JinChanChanTool
             MouseHookTool.MouseLeftButtonDown += MouseHook_MouseLeftButtonDown;
             MouseHookTool.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
             #endregion
-
-            #region 更新英雄推荐装备
-            // 检查是否启用自动更新推荐装备数据
-            if (_iManualSettingsService.CurrentConfig.IsAutomaticUpdateEquipment)
-            {
-                await UpdateEquipmentsAsync();
-            }
-            #endregion
         }
 
         private void _cardService_isOCRLoopChanged(bool obj)
@@ -307,7 +296,11 @@ namespace JinChanChanTool
                 e.ChangedFields.Contains("HotKey2") ||
                 e.ChangedFields.Contains("HotKey3") ||
                 e.ChangedFields.Contains("HotKey4") ||
-                e.ChangedFields.Contains("HotKey5"))
+                e.ChangedFields.Contains("HotKey5") ||
+                e.ChangedFields.Contains("HotKey6") ||
+                e.ChangedFields.Contains("HotKey7") ||
+                e.ChangedFields.Contains("HotKey8") ||
+                e.ChangedFields.Contains("HotKey9"))
             {
                 RegisterHotKeys();
                 UpdateOverlayStatus();
@@ -384,7 +377,8 @@ namespace JinChanChanTool
             if (e.ChangedFields.Contains("MaxLineUpCount") ||
                 e.ChangedFields.Contains("IsUseCPUForInference") ||
                 e.ChangedFields.Contains("IsUseGPUForInference") ||
-                e.ChangedFields.Contains("Language"))
+                e.ChangedFields.Contains("Language") ||
+                e.ChangedFields.Contains("LineUpCapacity"))
             {
                 // 配置已保存，询问用户是否重启应用
                 var result = MessageBox.Show(
@@ -417,6 +411,11 @@ namespace JinChanChanTool
             string hotKey3 = _iManualSettingsService.CurrentConfig.HotKey3;
             string hotKey4 = _iManualSettingsService.CurrentConfig.HotKey4;
             string hotKey5 = _iManualSettingsService.CurrentConfig.HotKey5;
+            string hotKey6 = _iManualSettingsService.CurrentConfig.HotKey6;
+            string hotKey7 = _iManualSettingsService.CurrentConfig.HotKey7;
+            string hotKey8 = _iManualSettingsService.CurrentConfig.HotKey8;
+            string hotKey9 = _iManualSettingsService.CurrentConfig.HotKey9;
+
             if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey5)))
             {
                 GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey5), () => capsuleSwitch_高亮显示.IsOn = !capsuleSwitch_高亮显示.IsOn);
@@ -446,6 +445,24 @@ namespace JinChanChanTool
                 _cardService.StopLoop();
                 _cardService.AutoRefreshOff();
             });
+
+            // 注册新增的窗口显隐快捷键
+            if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey6)))
+            {
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey6), () => ToggleSelectForm());
+            }
+            if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey7)))
+            {
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey7), () => ToggleLineUpForm());
+            }
+            if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey8)))
+            {
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey8), () => ToggleStatusOverlayForm());
+            }
+            if (GlobalHotkeyTool.IsKeyAvailable(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey9)))
+            {
+                GlobalHotkeyTool.Register(GlobalHotkeyTool.ConvertKeyNameToEnumValue(hotKey9), () => ToggleOutputForm());
+            }
         }
         #endregion
 
@@ -729,8 +746,48 @@ namespace JinChanChanTool
                 _iManualSettingsService.CurrentConfig.HotKey2,
                 _iManualSettingsService.CurrentConfig.HotKey3,
                 _iManualSettingsService.CurrentConfig.HotKey4,
-                _iManualSettingsService.CurrentConfig.HotKey5
+                _iManualSettingsService.CurrentConfig.HotKey5,
+                _iManualSettingsService.CurrentConfig.HotKey6,
+                _iManualSettingsService.CurrentConfig.HotKey7,
+                _iManualSettingsService.CurrentConfig.HotKey8,
+                _iManualSettingsService.CurrentConfig.HotKey9
             );
+        }
+
+        /// <summary>
+        /// 切换英雄选择窗口显示/隐藏状态
+        /// </summary>
+        private void ToggleSelectForm()
+        {
+            _iManualSettingsService.CurrentConfig.IsUseSelectForm = !_iManualSettingsService.CurrentConfig.IsUseSelectForm;
+            _iManualSettingsService.Save(false);
+        }
+
+        /// <summary>
+        /// 切换阵容选择窗口显示/隐藏状态
+        /// </summary>
+        private void ToggleLineUpForm()
+        {
+            _iManualSettingsService.CurrentConfig.IsUseLineUpForm = !_iManualSettingsService.CurrentConfig.IsUseLineUpForm;
+            _iManualSettingsService.Save(false);
+        }
+
+        /// <summary>
+        /// 切换状态窗口显示/隐藏状态
+        /// </summary>
+        private void ToggleStatusOverlayForm()
+        {
+            _iManualSettingsService.CurrentConfig.IsUseStatusOverlayForm = !_iManualSettingsService.CurrentConfig.IsUseStatusOverlayForm;
+            _iManualSettingsService.Save(false);
+        }
+
+        /// <summary>
+        /// 切换输出窗口显示/隐藏状态
+        /// </summary>
+        private void ToggleOutputForm()
+        {
+            _iManualSettingsService.CurrentConfig.IsUseOutputForm = !_iManualSettingsService.CurrentConfig.IsUseOutputForm;
+            _iManualSettingsService.Save(false);
         }
 
         #endregion
@@ -1010,6 +1067,8 @@ namespace JinChanChanTool
             _iheroDataService.ReLoad();
             _iEquipmentService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iEquipmentService.ReLoad();
+            _iHeroEquipmentDataService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iHeroEquipmentDataService.ReLoad();
             _iRecommendedLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iRecommendedLineUpService.ReLoad();
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
@@ -1029,6 +1088,9 @@ namespace JinChanChanTool
 
             LoadLineUpsToComboBox();
             LoadLineUpToUI();
+
+            IAutoUpdateService autoUpdateService = new AutoUpdateService(_iManualSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _ = autoUpdateService.CheckAndUpdateAsync();
         }
         #endregion
 
@@ -1901,7 +1963,7 @@ namespace JinChanChanTool
                     string currentSeasonName = new DirectoryInfo(currentPaths[currentIndex]).Name;
 
                     // 检查当前赛季是否是“允许显示”的赛季
-                    if (currentSeasonName != _seasonForEquipmentTooltip)
+                    if (string.IsNullOrEmpty(currentSeasonName))
                     {
                         return; // 如果不是，直接中止，不显示任何ToolTip
                     }

@@ -151,6 +151,10 @@ namespace JinChanChanTool
             textBox_自动刷新商店快捷键.Text = _iappConfigService.CurrentConfig.HotKey2;
             textBox_长按自动D牌快捷键.Text = _iappConfigService.CurrentConfig.HotKey4;
             textBox_高亮提示.Text = _iappConfigService.CurrentConfig.HotKey5;
+            textBox_英雄选择窗口快捷键.Text = _iappConfigService.CurrentConfig.HotKey6;
+            textBox_阵容选择窗口快捷键.Text = _iappConfigService.CurrentConfig.HotKey7;
+            textBox_状态窗口快捷键.Text = _iappConfigService.CurrentConfig.HotKey8;
+            textBox_输出窗口快捷键.Text = _iappConfigService.CurrentConfig.HotKey9;
             radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseFixedCoordinates;
             radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;
 
@@ -191,6 +195,8 @@ namespace JinChanChanTool
             capsuleSwitch_启用输出面板.IsOn = _iappConfigService.CurrentConfig.IsUseOutputForm;
             capsuleSwitch_程序启动时更新推荐装备.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
             textBox_更新推荐装备间隔.Text = _iappConfigService.CurrentConfig.UpdateEquipmentInterval.ToString();
+            capsuleSwitch_程序启动时更新推荐阵容.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateLineup;
+            textBox_更新推荐阵容间隔.Text = _iappConfigService.CurrentConfig.UpdateLineupInterval.ToString();
             textBox_英雄头像框边长.Text = _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxSize.ToString();
             textBox_英雄头像框水平间隔.Text = _iappConfigService.CurrentConfig.SelectFormHeroPictureBoxHorizontalSpacing.ToString();
             textBox_英雄头像框垂直间隔.Text = _iappConfigService.CurrentConfig.SelectFormHeroPanelsVerticalSpacing.ToString();
@@ -202,6 +208,7 @@ namespace JinChanChanTool
             textBox_渐变流动速度.Text = _iappConfigService.CurrentConfig.HighlightGradientSpeed.ToString();
             button_高亮渐变色1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
             button_高亮渐变色2.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
+            numericUpDown_阵容容量.Value = _iappConfigService.CurrentConfig.LineUpCapacity;
         }
 
 
@@ -229,6 +236,22 @@ namespace JinChanChanTool
             textBox_高亮提示.KeyDown += textBox_高亮提示_KeyDown;
             textBox_高亮提示.Enter += TextBox_Enter;
             textBox_高亮提示.Leave += TextBox_Leave;
+
+            textBox_英雄选择窗口快捷键.KeyDown += textBox_英雄选择窗口快捷键_KeyDown;
+            textBox_英雄选择窗口快捷键.Enter += TextBox_Enter;
+            textBox_英雄选择窗口快捷键.Leave += TextBox_Leave;
+
+            textBox_阵容选择窗口快捷键.KeyDown += textBox_阵容选择窗口快捷键_KeyDown;
+            textBox_阵容选择窗口快捷键.Enter += TextBox_Enter;
+            textBox_阵容选择窗口快捷键.Leave += TextBox_Leave;
+
+            textBox_状态窗口快捷键.KeyDown += textBox_状态窗口快捷键_KeyDown;
+            textBox_状态窗口快捷键.Enter += TextBox_Enter;
+            textBox_状态窗口快捷键.Leave += TextBox_Leave;
+
+            textBox_输出窗口快捷键.KeyDown += textBox_输出窗口快捷键_KeyDown;
+            textBox_输出窗口快捷键.Enter += TextBox_Enter;
+            textBox_输出窗口快捷键.Leave += TextBox_Leave;
 
 
             radioButton_手动设置坐标.CheckedChanged += radioButton_手动设置坐标_CheckedChanged;
@@ -380,7 +403,7 @@ namespace JinChanChanTool
             if (GlobalHotkeyTool.IsRightKey(key))
             {
 
-                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
+                if (!IsHotKeyConflict(key, 2))
                 {
                     _iappConfigService.CurrentConfig.HotKey3 = key.ToString();
                     Update_AllComponents();
@@ -412,7 +435,7 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4)
+                if (!IsHotKeyConflict(key, 4))
                 {
                     _iappConfigService.CurrentConfig.HotKey5 = key.ToString();
                     Update_AllComponents();
@@ -443,7 +466,7 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
+                if (!IsHotKeyConflict(key, 0))
                 {
                     _iappConfigService.CurrentConfig.HotKey1 = key.ToString();
                     Update_AllComponents();
@@ -476,7 +499,7 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey4 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
+                if (!IsHotKeyConflict(key, 1))
                 {
                     _iappConfigService.CurrentConfig.HotKey2 = key.ToString();
                     Update_AllComponents();
@@ -508,7 +531,7 @@ namespace JinChanChanTool
             }
             if (GlobalHotkeyTool.IsRightKey(key))
             {
-                if (key.ToString() != _iappConfigService.CurrentConfig.HotKey1 && key.ToString() != _iappConfigService.CurrentConfig.HotKey2 && key.ToString() != _iappConfigService.CurrentConfig.HotKey3 && key.ToString() != _iappConfigService.CurrentConfig.HotKey5)
+                if (!IsHotKeyConflict(key, 3))
                 {
                     _iappConfigService.CurrentConfig.HotKey4 = key.ToString();
                     Update_AllComponents();
@@ -518,6 +541,165 @@ namespace JinChanChanTool
             }
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
+        }
+        #endregion
+
+        #region 修改-英雄选择窗口快捷键-逻辑
+        /// <summary>
+        /// 当textBox_英雄选择窗口快捷键为焦点的情况下有按键按下 ——> 若用户键入回车，则使该组件失焦；若用户输入合法键值，则判断是否和已有快捷键重复，若否则更新数据类相关数据并更新显示UI。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_英雄选择窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 捕获用户按下的键，并更新 TextBox
+            var key = e.KeyCode; // 获取按键代码
+            if (key == Keys.Enter)
+            {
+                this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
+                return;
+            }
+            if (GlobalHotkeyTool.IsRightKey(key))
+            {
+                if (!IsHotKeyConflict(key, 5))
+                {
+                    _iappConfigService.CurrentConfig.HotKey6 = key.ToString();
+                    Update_AllComponents();
+                }
+
+                e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
+            }
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+        }
+        #endregion
+
+        #region 修改-阵容选择窗口快捷键-逻辑
+        /// <summary>
+        /// 当textBox_阵容选择窗口快捷键为焦点的情况下有按键按下 ——> 若用户键入回车，则使该组件失焦；若用户输入合法键值，则判断是否和已有快捷键重复，若否则更新数据类相关数据并更新显示UI。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_阵容选择窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 捕获用户按下的键，并更新 TextBox
+            var key = e.KeyCode; // 获取按键代码
+            if (key == Keys.Enter)
+            {
+                this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
+                return;
+            }
+            if (GlobalHotkeyTool.IsRightKey(key))
+            {
+                if (!IsHotKeyConflict(key, 6))
+                {
+                    _iappConfigService.CurrentConfig.HotKey7 = key.ToString();
+                    Update_AllComponents();
+                }
+
+                e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
+            }
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+        }
+        #endregion
+
+        #region 修改-状态窗口快捷键-逻辑
+        /// <summary>
+        /// 当textBox_状态窗口快捷键为焦点的情况下有按键按下 ——> 若用户键入回车，则使该组件失焦；若用户输入合法键值，则判断是否和已有快捷键重复，若否则更新数据类相关数据并更新显示UI。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_状态窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 捕获用户按下的键，并更新 TextBox
+            var key = e.KeyCode; // 获取按键代码
+            if (key == Keys.Enter)
+            {
+                this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
+                return;
+            }
+            if (GlobalHotkeyTool.IsRightKey(key))
+            {
+                if (!IsHotKeyConflict(key, 7))
+                {
+                    _iappConfigService.CurrentConfig.HotKey8 = key.ToString();
+                    Update_AllComponents();
+                }
+
+                e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
+            }
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+        }
+        #endregion
+
+        #region 修改-输出窗口快捷键-逻辑
+        /// <summary>
+        /// 当textBox_输出窗口快捷键为焦点的情况下有按键按下 ——> 若用户键入回车，则使该组件失焦；若用户输入合法键值，则判断是否和已有快捷键重复，若否则更新数据类相关数据并更新显示UI。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_输出窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 捕获用户按下的键，并更新 TextBox
+            var key = e.KeyCode; // 获取按键代码
+            if (key == Keys.Enter)
+            {
+                this.ActiveControl = null;  // 将活动控件设置为null，使文本框失去焦点
+                return;
+            }
+            if (GlobalHotkeyTool.IsRightKey(key))
+            {
+                if (!IsHotKeyConflict(key, 8))
+                {
+                    _iappConfigService.CurrentConfig.HotKey9 = key.ToString();
+                    Update_AllComponents();
+                }
+
+                e.SuppressKeyPress = true; // 阻止进一步处理按键事件，如发出声音
+            }
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+        }
+        #endregion
+
+        #region 快捷键冲突检查
+        /// <summary>
+        /// 判断指定按键是否与除自身外的其他快捷键冲突。
+        /// </summary>
+        /// <param name="key">待检查的按键</param>
+        /// <param name="selfIndex">自身在快捷键列表中的索引（0对应HotKey1，依次类推）</param>
+        /// <returns>若与其他快捷键冲突则返回true，否则返回false。</returns>
+        private bool IsHotKeyConflict(Keys key, int selfIndex)
+        {
+            string keyString = key.ToString();
+            string[] allHotKeys = new string[]
+            {
+                _iappConfigService.CurrentConfig.HotKey1,
+                _iappConfigService.CurrentConfig.HotKey2,
+                _iappConfigService.CurrentConfig.HotKey3,
+                _iappConfigService.CurrentConfig.HotKey4,
+                _iappConfigService.CurrentConfig.HotKey5,
+                _iappConfigService.CurrentConfig.HotKey6,
+                _iappConfigService.CurrentConfig.HotKey7,
+                _iappConfigService.CurrentConfig.HotKey8,
+                _iappConfigService.CurrentConfig.HotKey9,
+            };
+
+            for (int i = 0; i < allHotKeys.Length; i++)
+            {
+                // 跳过自身，避免与自身比较
+                if (i == selfIndex)
+                {
+                    continue;
+                }
+                if (keyString == allHotKeys[i])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 
@@ -1607,89 +1789,44 @@ namespace JinChanChanTool
         #endregion
 
         #region 阵容推荐
-        private async void roundedButton6_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 程序启动时更新推荐阵容开关状态改变时触发
+        /// </summary>
+        private void capsuleSwitch_程序启动时更新推荐阵容_IsOnChanged(object sender, EventArgs e)
         {
-            try
+            _iappConfigService.CurrentConfig.IsAutomaticUpdateLineup = capsuleSwitch_程序启动时更新推荐阵容.IsOn;
+            if (_iappConfigService.CurrentConfig.IsAutomaticUpdateLineup)
             {
-                // 暂时禁用菜单项，防止用户重复点击
-                roundedButton_更新推荐阵容.Enabled = false;
-
-                // 调用异步更新逻辑
-                await UpdateRecommendedLineUpsAsync();
+                textBox_更新推荐阵容间隔.Enabled = true;
             }
-            finally
+            else
             {
-                // 恢复菜单项可用状态
-                roundedButton_更新推荐阵容.Enabled = true;
+                textBox_更新推荐阵容间隔.Enabled = false;
             }
         }
 
         /// <summary>
-        /// 业务逻辑：从网络获取最新阵容数据并保存，完成后直接刷新不重启
+        /// 更新推荐阵容间隔文本框失去焦点时触发
         /// </summary>
-        private async Task UpdateRecommendedLineUpsAsync()
+        private void textBox_更新推荐阵容间隔_Leave(object sender, EventArgs e)
         {
-            DynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
-            LineupCrawlingService _iLineupCrawlingService = new LineupCrawlingService(_iDynamicGameDataService);
-            // 1. 询问用户是否进行更新
-            var r = MessageBox.Show(
-                _iLocalizationService.Get("SettingForm.Msg.确认更新阵容"),
-                _iLocalizationService.Get("SettingForm.MsgTitle.确认更新阵容"),
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (r != DialogResult.Yes)
+            if (int.TryParse(textBox_更新推荐阵容间隔.Text, out int interval))
             {
-                return;
-            }
-
-            try
-            {
-                //  确保基础数据服务初始化
-                // 这里不再传递 progress，实现静默初始化
-                await _iDynamicGameDataService.InitializeAsync();
-
-                //  执行爬虫流程
-                // 传入 null。LineupCrawlingService 内部使用 ?. 运算符，
-                // 传入 null 后将不会触发任何进度报告逻辑，静默运行。
-                List<RecommendedLineUp> crawledLineups = await _iLineupCrawlingService.GetRecommendedLineUpsAsync(null);
-
-                if (crawledLineups != null && crawledLineups.Any())
+                if (interval >= 1 && interval <= 168)
                 {
-                    // 数据保存
-                    _iRecommendedLineUpService.ClearAll();
-
-                    // 批量添加爬取到的数据
-                    int addedCount = _iRecommendedLineUpService.AddRecommendedLineUps(crawledLineups);
-
-                    // 保存到 RecommendedLineUps.json
-                    bool saveResult = _iRecommendedLineUpService.Save();
-
-                    if (saveResult)
-                    {
-                        // 刷新内存数据
-                        _iRecommendedLineUpService.ReLoad();
-
-                        // 静默运行结束后的唯一提示
-                        MessageBox.Show(this,
-                            _iLocalizationService.Get("SettingForm.Msg.更新阵容成功", addedCount),
-                            _iLocalizationService.Get("SettingForm.MsgTitle.更新阵容成功"),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
+                    _iappConfigService.CurrentConfig.UpdateLineupInterval = interval;
                 }
                 else
                 {
-                    MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.更新阵容失败"),
-                                  _iLocalizationService.Get("SettingForm.MsgTitle.更新阵容失败"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(
+                        _iLocalizationService.Get("SettingForm.Msg.更新间隔范围错误"),
+                        _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    textBox_更新推荐阵容间隔.Text = _iappConfigService.CurrentConfig.UpdateLineupInterval.ToString();
+                    Update_AllComponents();
                 }
-            }
-            catch (Exception ex)
-            {
-                // 仅在发生严重错误时进行弹窗提示
-                MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.更新阵容错误", ex.Message),
-                              _iLocalizationService.Get("SettingForm.MsgTitle.更新阵容错误"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
@@ -1726,6 +1863,9 @@ namespace JinChanChanTool
             {
                 _iappConfigService.CurrentConfig.Language = selectedLanguage.LanguageCode;
             }
+
+            // 保存阵容容量设置
+            _iappConfigService.CurrentConfig.LineUpCapacity = (int)numericUpDown_阵容容量.Value;
 
             _iappConfigService.Save(true);
         }
@@ -1893,6 +2033,8 @@ namespace JinChanChanTool
             // 常规选项卡
             label_界面语言.Text = _iLocalizationService.Get("SettingForm.Label.界面语言");
             label_界面语言描述.Text = _iLocalizationService.Get("SettingForm.Label.界面语言描述");
+            label_阵容容量.Text = _iLocalizationService.Get("SettingForm.Label.阵容容量");
+            label_阵容容量描述.Text = _iLocalizationService.Get("SettingForm.Label.阵容容量描述");
 
             // 快捷键标签
             label_召出隐藏窗口_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.召出隐藏窗口");
@@ -1900,6 +2042,10 @@ namespace JinChanChanTool
             label_自动拿牌_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.自动拿牌");
             label_自动刷新商店_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.自动刷新商店");
             label_长按自动D牌_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.长按自动D牌");
+            label_英雄选择窗口_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.英雄选择窗口");
+            label_阵容选择窗口_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.阵容选择窗口");
+            label_状态窗口_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.状态窗口");
+            label_输出窗口_快捷键.Text = _iLocalizationService.Get("SettingForm.Label.快捷键.输出窗口");
 
             // 功能选项卡-常规
             label_避免程序与用户争夺光标控制权.Text = _iLocalizationService.Get("SettingForm.Label.避免光标冲突");
@@ -2005,9 +2151,10 @@ namespace JinChanChanTool
             label_程序启动时更新推荐装备描述1.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐装备描述1");
             label_程序启动时更新推荐装备描述2.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐装备描述2");
             label_程序启东时更新推荐装备描述3.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐装备描述3");            
-            label_更新推荐阵容.Text = _iLocalizationService.Get("SettingForm.Label.更新推荐阵容");
-            label_更新推荐阵容描述.Text = _iLocalizationService.Get("SettingForm.Label.更新推荐阵容描述");
-            roundedButton_更新推荐阵容.Text = _iLocalizationService.Get("SettingForm.Button.获取阵容");
+            label_程序启动时更新推荐阵容.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐阵容");
+            label_程序启动时更新推荐阵容描述1.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐阵容描述1");
+            label_程序启动时更新推荐阵容描述2.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐阵容描述2");
+            label_程序启动时更新推荐阵容描述3.Text = _iLocalizationService.Get("SettingForm.Label.程序启动时更新推荐阵容描述3");
 
             // 开发者选项
             label_保存截图.Text = _iLocalizationService.Get("SettingForm.Label.保存截图");

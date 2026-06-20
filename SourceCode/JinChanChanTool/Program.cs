@@ -17,13 +17,12 @@ namespace JinChanChanTool
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             ApplicationConfiguration.Initialize();
 
-            
-            // 最大选择英雄数量
-            const int MaxCountOfHero = 10;
-
             //创建并加载用户应用设置服务
             IManualSettingsService _iManualSettingsService = new ManualSettingsService();
             _iManualSettingsService.Load();
+
+            // 最大选择英雄数量（从配置读取）
+            int maxCountOfHero = _iManualSettingsService.CurrentConfig.LineUpCapacity;
 
             //创建并加载自动应用设置服务
             IAutomaticSettingsService _iAutomaticSettingsService = new AutomaticSettingsService();
@@ -88,19 +87,24 @@ namespace JinChanChanTool
             _iCorrectionService.SetCharDictionary(_iheroDataService.GetCharDictionary());
 
             //创建并加载阵容数据服务
-            ILineUpService _iLineUpService = new LineUpService(_iheroDataService, MaxCountOfHero,_iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex);
+            ILineUpService _iLineUpService = new LineUpService(_iheroDataService, _iManualSettingsService, _iLocalizationService, maxCountOfHero,_iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex);
             _iLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iLineUpService.Load();        
 
             // 创建并加载英雄装备推荐数据服务
             IHeroEquipmentDataService _iHeroEquipmentDataService = new HeroEquipmentDataService();
+            _iHeroEquipmentDataService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iHeroEquipmentDataService.Load();
 
             // 创建并配置推荐阵容数据服务
             IRecommendedLineUpService _iRecommendedLineUpService = new RecommendedLineUpService();
             _iRecommendedLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iRecommendedLineUpService.Load();
-            
+
+            // 创建自动更新服务并启动后台检查
+            IAutoUpdateService _iAutoUpdateService = new AutoUpdateService(_iManualSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _ = _iAutoUpdateService.CheckAndUpdateAsync();
+
             // 运行主窗体并传入应用设置服务
             Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iLocalizationService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService));
         }

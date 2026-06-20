@@ -9,8 +9,8 @@ namespace JinChanChanTool.DIYComponents
     /// </summary>
     public class BenchPanel : Panel
     {
-        // 备战席常量
-        private const int MaxHeroCount = 10;
+        // 备战席容量（动态）
+        private int _maxHeroCount = 10;
 
         // 备战席格子数组
         private BenchSlot[] _slots;
@@ -42,11 +42,44 @@ namespace JinChanChanTool.DIYComponents
             // 背景色
             BackColor = Color.FromArgb(35, 40, 50);
 
-            // 初始化格子数组
-            _slots = new BenchSlot[MaxHeroCount];
+            // 初始化格子数组（默认10个）
+            _slots = new BenchSlot[_maxHeroCount];
 
             // 创建所有格子
             CreateSlots();
+        }
+
+        /// <summary>
+        /// 设置备战席容量
+        /// </summary>
+        public void SetCapacity(int capacity)
+        {
+            if (capacity == _maxHeroCount)
+            {
+                return;
+            }
+
+            _maxHeroCount = capacity;
+
+            // 清除旧格子
+            foreach (var slot in _slots)
+            {
+                if (slot != null)
+                {
+                    slot.HeroDragStarted -= Slot_HeroDragStarted;
+                    Controls.Remove(slot);
+                    slot.Dispose();
+                }
+            }
+
+            // 重新创建格子数组
+            _slots = new BenchSlot[_maxHeroCount];
+
+            // 创建新格子
+            CreateSlots();
+
+            // 重新布局
+            LayoutSlots();
         }
 
         /// <summary>
@@ -78,7 +111,7 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         private void CreateSlots()
         {
-            for (int i = 0; i < MaxHeroCount; i++)
+            for (int i = 0; i < _maxHeroCount; i++)
             {
                 BenchSlot slot = new BenchSlot(i);
 
@@ -91,7 +124,7 @@ namespace JinChanChanTool.DIYComponents
         }
 
         /// <summary>
-        /// 布局所有格子
+        /// 布局所有格子（支持多行）
         /// </summary>
         private void LayoutSlots()
         {
@@ -100,24 +133,35 @@ namespace JinChanChanTool.DIYComponents
             int padding = LogicalToDeviceUnits(4);
             int spacing = LogicalToDeviceUnits(2);
 
+            // 每行最多10个
+            int columns = 10;
+            int rows = (int)Math.Ceiling((double)_maxHeroCount / columns);
+
             // 计算格子大小（正方形）
             int availableWidth = Width - padding * 2;
-            int maxSlotWidth = (availableWidth - spacing * (MaxHeroCount - 1)) / MaxHeroCount;
+            int maxSlotWidth = (availableWidth - spacing * (columns - 1)) / columns;
 
-            // 确保格子不超过高度
-            int maxSlotHeight = Height - padding * 2;
-            maxSlotWidth = Math.Min(maxSlotWidth, maxSlotHeight);
-
-            // 计算起始位置（居中）
-            int totalWidth = maxSlotWidth * MaxHeroCount + spacing * (MaxHeroCount - 1);
-            int startX = padding + (availableWidth - totalWidth) / 2;
-            int startY = (Height - maxSlotWidth) / 2;
+            // 不再根据高度限制格子大小，使用固定大小约30px
+            // 这样即使容器高度变化，格子大小也保持一致
 
             // 布局每个格子
-            for (int i = 0; i < MaxHeroCount; i++)
+            for (int i = 0; i < _maxHeroCount; i++)
             {
-                int x = startX + i * (maxSlotWidth + spacing);
-                _slots[i].Location = new Point(x, startY);
+                int row = i / columns;
+                int col = i % columns;
+
+                // 计算当前行的实际格子数（最后一行可能不足10个）
+                int itemsInRow = Math.Min(columns, _maxHeroCount - row * columns);
+
+                // 当前行居中
+                int totalRowWidth = maxSlotWidth * itemsInRow + spacing * (itemsInRow - 1);
+                int startX = padding + (availableWidth - totalRowWidth) / 2;
+                int startY = padding + row * (maxSlotWidth + spacing);
+
+                int x = startX + col * (maxSlotWidth + spacing);
+                int y = startY;
+
+                _slots[i].Location = new Point(x, y);
                 _slots[i].Size = new Size(maxSlotWidth, maxSlotWidth);
             }
         }
@@ -160,7 +204,7 @@ namespace JinChanChanTool.DIYComponents
                 if (unit.Position.Item1 != 0 || unit.Position.Item2 != 0) continue;
 
                 // 备战席已满
-                if (slotIndex >= MaxHeroCount) break;
+                if (slotIndex >= _maxHeroCount) break;
 
                 // 获取英雄数据
                 Hero hero = _heroDataService?.GetHeroFromName(unit.HeroName);
@@ -180,7 +224,7 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public void ClearAllSlots()
         {
-            for (int i = 0; i < MaxHeroCount; i++)
+            for (int i = 0; i < _maxHeroCount; i++)
             {
                 _slots[i].Clear();
             }
@@ -216,7 +260,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 备战席是否已满
         /// </summary>
-        public bool IsFull => GetBenchHeroCount() >= MaxHeroCount;
+        public bool IsFull => GetBenchHeroCount() >= _maxHeroCount;
 
         /// <summary>
         /// 获取所有备战席格子的迭代器，供 BoardDragManager 遍历绑定事件
@@ -224,7 +268,7 @@ namespace JinChanChanTool.DIYComponents
         /// <returns>所有备战席格子的枚举</returns>
         public IEnumerable<BenchSlot> GetAllSlots()
         {
-            for (int i = 0; i < MaxHeroCount; i++)
+            for (int i = 0; i < _maxHeroCount; i++)
             {
                 yield return _slots[i];
             }

@@ -83,7 +83,7 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         /// </summary>
         /// <param name="targetProcess">用户选择的目标进程。</param>
         /// <returns>如果成功获取窗口信息，则返回true。</returns>
-        public bool SetTargetWindow(Process targetProcess)
+        public bool SetTargetWindow(Process? targetProcess)
         {
             // 重置状态
             WindowHandle = nint.Zero;
@@ -121,7 +121,7 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         /// </summary>
         /// <param name="parentProcess"></param>
         /// <returns></returns>
-        public bool SetTargetToBestChildWindow(Process parentProcess)
+        public bool SetTargetToBestChildWindow(Process? parentProcess)
         {
             WindowHandle = nint.Zero;
             if (parentProcess == null || parentProcess.MainWindowHandle == nint.Zero)

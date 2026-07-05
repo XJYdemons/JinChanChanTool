@@ -78,7 +78,7 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         /// 此方法会智能判断进程类型，并采用相应的窗口查找策略。
         /// </summary>
         /// <param name="process">用户选择的进程。</param>
-        public void SetTargetProcess(Process process)
+        public void SetTargetProcess(Process? process)
         {
             if (process == null)
             {

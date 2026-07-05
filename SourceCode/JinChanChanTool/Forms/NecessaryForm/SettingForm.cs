@@ -157,6 +157,8 @@ namespace JinChanChanTool
             textBox_输出窗口快捷键.Text = _iappConfigService.CurrentConfig.HotKey9;
             radioButton_手动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseFixedCoordinates;
             radioButton_自动设置坐标.Checked = _iappConfigService.CurrentConfig.IsUseDynamicCoordinates;
+            capsuleSwitch_自动识别进程.IsOn = _iappConfigService.CurrentConfig.IsAutoDetectTargetProcess;
+            UpdateProcessSelectionControls();
 
             capsuleSwitch_避免程序与用户争夺光标控制权.IsOn = _iappConfigService.CurrentConfig.IsHighUserPriority;
 
@@ -258,6 +260,7 @@ namespace JinChanChanTool
 
             radioButton_自动设置坐标.CheckedChanged += radioButton_自动设置坐标_CheckedChanged;
 
+            capsuleSwitch_自动识别进程.IsOnChanged += capsuleSwitch_自动识别进程_IsOnChanged;
 
             textBox_拿牌按键1.KeyDown += TextBox6_KeyDown;
             textBox_拿牌按键1.Enter += TextBox_Enter;
@@ -1324,13 +1327,13 @@ namespace JinChanChanTool
         {
             if (radioButton_手动设置坐标.Checked)
             {
-                roundedButton_游戏进程窗口.Enabled = false;
                 comboBox_选择显示器.Enabled = true;
                 roundedButton_弈子截图坐标与大小.Enabled = true;
                 roundedButton_商店刷新按钮坐标与大小.Enabled = true;
                 roundedButton_高亮提示框坐标与大小.Enabled = true;
             }
             _iappConfigService.CurrentConfig.IsUseFixedCoordinates = radioButton_手动设置坐标.Checked;
+            UpdateProcessSelectionControls();
         }
 
         /// <summary>
@@ -1342,13 +1345,26 @@ namespace JinChanChanTool
         {
             if (radioButton_自动设置坐标.Checked)
             {
-                roundedButton_游戏进程窗口.Enabled = true;
                 comboBox_选择显示器.Enabled = false;
                 roundedButton_弈子截图坐标与大小.Enabled = false;
                 roundedButton_商店刷新按钮坐标与大小.Enabled = false;
                 roundedButton_高亮提示框坐标与大小.Enabled = false;
             }
             _iappConfigService.CurrentConfig.IsUseDynamicCoordinates = radioButton_自动设置坐标.Checked;
+            UpdateProcessSelectionControls();
+        }
+
+        private void capsuleSwitch_自动识别进程_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsAutoDetectTargetProcess = capsuleSwitch_自动识别进程.IsOn;
+            UpdateProcessSelectionControls();
+        }
+
+        private void UpdateProcessSelectionControls()
+        {
+            bool isDynamicCoordinates = radioButton_自动设置坐标.Checked;
+            capsuleSwitch_自动识别进程.Enabled = isDynamicCoordinates;
+            roundedButton_游戏进程窗口.Enabled = isDynamicCoordinates && !capsuleSwitch_自动识别进程.IsOn;
         }
 
         #endregion
@@ -2110,6 +2126,8 @@ namespace JinChanChanTool
             label_高亮提示框坐标与大小.Text = _iLocalizationService.Get("SettingForm.Label.高亮提示框坐标与大小");
             label_高亮提示框坐标与大小描述.Text = _iLocalizationService.Get("SettingForm.Label.高亮提示框坐标与大小描述");
             roundedButton_高亮提示框坐标与大小.Text = _iLocalizationService.Get("SettingForm.Button.高亮提示框坐标与大小设置");
+            label_自动识别进程.Text = _iLocalizationService.Get("SettingForm.Label.自动识别进程");
+            label_自动识别进程描述.Text = _iLocalizationService.Get("SettingForm.Label.自动识别进程描述");
             label_游戏进程窗口.Text = _iLocalizationService.Get("SettingForm.Label.游戏进程窗口");
             label_游戏进程窗口描述.Text = _iLocalizationService.Get("SettingForm.Label.游戏进程窗口描述");
             roundedButton_游戏进程窗口.Text = _iLocalizationService.Get("SettingForm.Button.游戏进程窗口选择");

@@ -268,9 +268,11 @@ namespace JinChanChanTool
             // 页3：自动设置坐标
             label_自动设置坐标.Text = _iLocalizationService.Get("SetupWizard.Page3.自动设置坐标");
             label_自动设置坐标提示.Text = _iLocalizationService.Get("SetupWizard.Page3.自动设置坐标提示");
+            label_自动识别进程.Text = _iLocalizationService.Get("SetupWizard.Page3.自动识别进程");
+            label_自动识别进程说明.Text = _iLocalizationService.Get("SetupWizard.Page3.自动识别进程说明");
             label_选择游戏进程.Text = _iLocalizationService.Get("SetupWizard.Page3.选择游戏进程");
             选择游戏窗口进程.Text = _iLocalizationService.Get("SetupWizard.Page3.选择游戏窗口进程");
-            label_进程状态.Text = _iLocalizationService.Get("SetupWizard.Page3.未选择进程");
+            UpdateAutoDetectProcessControls();
 
             // 页4：手动设置坐标
             label_手动设置坐标.Text = _iLocalizationService.Get("SetupWizard.Page4.手动设置坐标");
@@ -344,8 +346,38 @@ namespace JinChanChanTool
         #endregion
 
         #region 页3-自动设置坐标
+        private bool IsAutoDetectTargetProcess = true;
         private string TargetProcessName = "";
         private int TargetProcessId = 0;
+
+        private void capsuleSwitch_自动识别进程_IsOnChanged(object sender, EventArgs e)
+        {
+            IsAutoDetectTargetProcess = capsuleSwitch_自动识别进程.IsOn;
+            UpdateAutoDetectProcessControls();
+        }
+
+        private void UpdateAutoDetectProcessControls()
+        {
+            IsAutoDetectTargetProcess = capsuleSwitch_自动识别进程.IsOn;
+            选择游戏窗口进程.Enabled = !IsAutoDetectTargetProcess;
+
+            if (IsAutoDetectTargetProcess)
+            {
+                label_进程状态.Text = _iLocalizationService.Get("SetupWizard.Page3.自动识别已启用");
+                label_进程状态.ForeColor = Color.FromArgb(0, 150, 0);
+            }
+            else if (!string.IsNullOrEmpty(TargetProcessName) && TargetProcessId != 0)
+            {
+                string displayName = $"{TargetProcessName} (ID: {TargetProcessId})";
+                label_进程状态.Text = _iLocalizationService.Get("SetupWizard.Page3.已选择进程", displayName);
+                label_进程状态.ForeColor = Color.FromArgb(0, 150, 0);
+            }
+            else
+            {
+                label_进程状态.Text = _iLocalizationService.Get("SetupWizard.Page3.未选择进程");
+                label_进程状态.ForeColor = Color.Red;
+            }
+        }
 
         private void 选择游戏窗口进程_Click(object sender, EventArgs e)
         {
@@ -1461,8 +1493,15 @@ namespace JinChanChanTool
             if (IsUseDynamicCoordinates)
             {
                 summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.模式自动"));
-                summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.目标进程",
-                    TargetProcessName, TargetProcessId));
+                if (IsAutoDetectTargetProcess)
+                {
+                    summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.目标进程自动识别"));
+                }
+                else
+                {
+                    summary.AppendLine(_iLocalizationService.Get("SetupWizard.Summary.目标进程",
+                        TargetProcessName, TargetProcessId));
+                }
             }
             else if (IsUseFixedCoordinates)
             {
@@ -1558,6 +1597,7 @@ namespace JinChanChanTool
             // 自动设置坐标相关
             if (IsUseDynamicCoordinates)
             {
+                config.IsAutoDetectTargetProcess = IsAutoDetectTargetProcess;
                 config.TargetProcessName = TargetProcessName;
                 config.TargetProcessId = TargetProcessId;
             }
@@ -1698,7 +1738,7 @@ namespace JinChanChanTool
         private bool ValidateCurrentPage()
         {
             // 页面3：自动设置坐标 - 需要选择进程
-            if (pageIndex == 2 && IsUseDynamicCoordinates)
+            if (pageIndex == 2 && IsUseDynamicCoordinates && !IsAutoDetectTargetProcess)
             {
                 if (string.IsNullOrEmpty(TargetProcessName) || TargetProcessId == 0)
                 {

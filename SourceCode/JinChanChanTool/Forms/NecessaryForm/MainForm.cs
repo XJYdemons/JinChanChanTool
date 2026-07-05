@@ -2011,68 +2011,77 @@ namespace JinChanChanTool
                 return;
             }
 
-            Process targetProcess = null;
-            bool processFound = false;
-            Process[] processesByName = null; // 用于按名称查找的结果
+            Process? targetProcess = null;
 
-            // 2.【ID】使用Process.GetProcesses()获取当前的系统进程快照，然后用irstOrDefault(p => p.Id == targetId)在这个快照中查找ID匹配的进程
-            //    如果找到了，它会返回那个 Process 对象；如果没找到（因为进程已经关闭），它只会返回 null，而不会抛出任何异常。
-            int targetId = _iManualSettingsService.CurrentConfig.TargetProcessId;
-            if (targetId > 0)
+            if (_iManualSettingsService.CurrentConfig.IsAutoDetectTargetProcess)
             {
-                // 获取当前所有进程的快照，然后从中查找
-                Process pById = Process.GetProcesses().FirstOrDefault(p => p.Id == targetId);
-
-                // 检查是否找到了进程，并且进程名是否匹配
-                if (pById != null && pById.ProcessName.Equals(_iManualSettingsService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
-                {
-                    targetProcess = pById;
-                    processFound = true;
-                }
-                else
-                {
-                    // 如果没找到，或进程名不匹配（PID被重用），则清除ID
-                    _iManualSettingsService.CurrentConfig.TargetProcessId = 0;
-                }
-            }
-
-            // 3.【名称】如果按ID查找失败，则回退到按名称查找
-            if (!processFound)
-            {
-                string targetName = _iManualSettingsService.CurrentConfig.TargetProcessName;
-                if (string.IsNullOrEmpty(targetName))
+                var discoveryService = new ProcessDiscoveryService();
+                if (!discoveryService.TryGetAutoDetectedProcess(out targetProcess, out string ambiguousProcessName))
                 {
                     _automationService.SetTargetProcess(null);
+                    ShowMultiProcessWarning(ambiguousProcessName);
                     return;
                 }
 
-                processesByName = Process.GetProcessesByName(targetName);
-
-                if (processesByName.Length == 1)
+                if (targetProcess != null)
                 {
-                    targetProcess = processesByName[0];
+                    _iManualSettingsService.CurrentConfig.TargetProcessName = targetProcess.ProcessName;
                     _iManualSettingsService.CurrentConfig.TargetProcessId = targetProcess.Id;
                 }
-                else if (processesByName.Length > 1)
+            }
+            else
+            {
+                bool processFound = false;
+                Process[]? processesByName = null; // 用于按名称查找的结果
+
+                // 2.【ID】使用Process.GetProcesses()获取当前的系统进程快照，然后用irstOrDefault(p => p.Id == targetId)在这个快照中查找ID匹配的进程
+                //    如果找到了，它会返回那个 Process 对象；如果没找到（因为进程已经关闭），它只会返回 null，而不会抛出任何异常。
+                int targetId = _iManualSettingsService.CurrentConfig.TargetProcessId;
+                if (targetId > 0)
                 {
-                    _automationService.SetTargetProcess(null);
-                    if (!_multiProcessWarningShown)
+                    // 获取当前所有进程的快照，然后从中查找
+                    Process? pById = Process.GetProcesses().FirstOrDefault(p => p.Id == targetId);
+
+                    // 检查是否找到了进程，并且进程名是否匹配
+                    if (pById != null && pById.ProcessName.Equals(_iManualSettingsService.CurrentConfig.TargetProcessName, StringComparison.OrdinalIgnoreCase))
                     {
-                        _multiProcessWarningShown = true;
-                        this.Invoke((Action)(() =>
-                        {
-                            MessageBox.Show(this,
-                                _iLocalizationService.Get("MainForm.Msg.多进程冲突", targetName),
-                                _iLocalizationService.Get("MainForm.MsgTitle.多进程冲突"),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-                        }));
+                        targetProcess = pById;
+                        processFound = true;
                     }
-                    return;
+                    else
+                    {
+                        // 如果没找到，或进程名不匹配（PID被重用），则清除ID
+                        _iManualSettingsService.CurrentConfig.TargetProcessId = 0;
+                    }
                 }
-                else
+
+                // 3.【名称】如果按ID查找失败，则回退到按名称查找
+                if (!processFound)
                 {
-                    targetProcess = null;
+                    string targetName = _iManualSettingsService.CurrentConfig.TargetProcessName;
+                    if (string.IsNullOrEmpty(targetName))
+                    {
+                        _automationService.SetTargetProcess(null);
+                        return;
+                    }
+
+                    processesByName = Process.GetProcessesByName(targetName);
+
+                    if (processesByName.Length == 1)
+                    {
+                        targetProcess = processesByName[0];
+                        _iManualSettingsService.CurrentConfig.TargetProcessId = targetProcess.Id;
+                    }
+                    else if (processesByName.Length > 1)
+                    {
+                        _automationService.SetTargetProcess(null);
+                        ShowMultiProcessWarning(targetName);
+                        return;
+                    }
+                    else
+                    {
+                        targetProcess = null;
+                    }
                 }
             }
 
@@ -2080,10 +2089,7 @@ namespace JinChanChanTool
             _automationService.SetTargetProcess(targetProcess);
 
             // 5. 重置多进程警告标志
-            if (processesByName == null || processesByName.Length <= 1)
-            {
-                _multiProcessWarningShown = false;
-            }
+            _multiProcessWarningShown = false;
 
             // 6. 如果成功锁定，则更新 AppConfig
             if (_automationService.IsGameDetected)
@@ -2148,6 +2154,24 @@ namespace JinChanChanTool
                     _iAutomaticSettingsService.CurrentConfig.HighLightRectangle_5 = (Rectangle)rectHighLight5;
                 }
             }
+        }
+
+        private void ShowMultiProcessWarning(string processName)
+        {
+            if (_multiProcessWarningShown)
+            {
+                return;
+            }
+
+            _multiProcessWarningShown = true;
+            this.Invoke((Action)(() =>
+            {
+                MessageBox.Show(this,
+                    _iLocalizationService.Get("MainForm.Msg.多进程冲突", processName),
+                    _iLocalizationService.Get("MainForm.MsgTitle.多进程冲突"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }));
         }
 
         #endregion

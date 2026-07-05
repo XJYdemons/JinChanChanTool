@@ -177,6 +177,9 @@
             panel_分割线_坐标设置2 = new Panel();
             panel_分割线_坐标设置1 = new Panel();
             label_自动设置坐标提示 = new Label();
+            capsuleSwitch_自动识别进程 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
+            label_自动识别进程描述 = new Label();
+            label_自动识别进程 = new Label();
             roundedButton_游戏进程窗口 = new JinChanChanTool.DIYComponents.RoundedButton();
             label_游戏进程窗口描述 = new Label();
             label_游戏进程窗口 = new Label();
@@ -1986,6 +1989,9 @@
             panel_截图.Controls.Add(panel_分割线_坐标设置2);
             panel_截图.Controls.Add(panel_分割线_坐标设置1);
             panel_截图.Controls.Add(label_自动设置坐标提示);
+            panel_截图.Controls.Add(capsuleSwitch_自动识别进程);
+            panel_截图.Controls.Add(label_自动识别进程描述);
+            panel_截图.Controls.Add(label_自动识别进程);
             panel_截图.Controls.Add(roundedButton_游戏进程窗口);
             panel_截图.Controls.Add(label_游戏进程窗口描述);
             panel_截图.Controls.Add(label_游戏进程窗口);
@@ -2082,7 +2088,45 @@
             label_自动设置坐标提示.Name = "label_自动设置坐标提示";
             label_自动设置坐标提示.Size = new Size(527, 17);
             label_自动设置坐标提示.TabIndex = 223;
-            label_自动设置坐标提示.Text = "自动设置坐标仅端游云顶之弈（任意分辨率）与mumu模拟器（分辨率1600x910，DPI:227）可用";
+            label_自动设置坐标提示.Text = "自动设置坐标仅端游云顶之弈（任意分辨率）、MuMu模拟器（1600x910，DPI:227）与雷电模拟器（1600x900）可用";
+            //
+            // capsuleSwitch_自动识别进程
+            //
+            capsuleSwitch_自动识别进程.Location = new Point(905, 359);
+            capsuleSwitch_自动识别进程.Name = "capsuleSwitch_自动识别进程";
+            capsuleSwitch_自动识别进程.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_自动识别进程.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch_自动识别进程.ShowText = false;
+            capsuleSwitch_自动识别进程.Size = new Size(50, 20);
+            capsuleSwitch_自动识别进程.TabIndex = 252;
+            capsuleSwitch_自动识别进程.Text = "capsuleSwitch_自动识别进程";
+            capsuleSwitch_自动识别进程.TextColor = Color.White;
+            capsuleSwitch_自动识别进程.ThumbColor = Color.White;
+            //
+            // label_自动识别进程描述
+            //
+            label_自动识别进程描述.AutoSize = true;
+            label_自动识别进程描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_自动识别进程描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_自动识别进程描述.Location = new Point(5, 360);
+            label_自动识别进程描述.MaximumSize = new Size(845, 34);
+            label_自动识别进程描述.MinimumSize = new Size(164, 17);
+            label_自动识别进程描述.Name = "label_自动识别进程描述";
+            label_自动识别进程描述.Size = new Size(164, 17);
+            label_自动识别进程描述.TabIndex = 251;
+            label_自动识别进程描述.Text = "自动识别英雄联盟、MuMu模拟器和雷电模拟器窗口。如果有多个模拟器窗口，请使用自动坐标设置的手动选择进程模式。";
+            //
+            // label_自动识别进程
+            //
+            label_自动识别进程.AutoSize = true;
+            label_自动识别进程.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_自动识别进程.Location = new Point(5, 342);
+            label_自动识别进程.MaximumSize = new Size(845, 17);
+            label_自动识别进程.MinimumSize = new Size(80, 17);
+            label_自动识别进程.Name = "label_自动识别进程";
+            label_自动识别进程.Size = new Size(80, 17);
+            label_自动识别进程.TabIndex = 250;
+            label_自动识别进程.Text = "自动识别进程";
             // 
             // roundedButton_游戏进程窗口
             // 
@@ -2092,7 +2136,7 @@
             roundedButton_游戏进程窗口.CornerRadius = 1;
             roundedButton_游戏进程窗口.DisabledColor = Color.FromArgb(160, 160, 160);
             roundedButton_游戏进程窗口.HoverColor = Color.FromArgb(232, 232, 232);
-            roundedButton_游戏进程窗口.Location = new Point(868, 357);
+            roundedButton_游戏进程窗口.Location = new Point(868, 419);
             roundedButton_游戏进程窗口.Name = "roundedButton_游戏进程窗口";
             roundedButton_游戏进程窗口.PressedColor = Color.FromArgb(222, 222, 222);
             roundedButton_游戏进程窗口.Size = new Size(87, 25);
@@ -2107,7 +2151,7 @@
             label_游戏进程窗口描述.AutoSize = true;
             label_游戏进程窗口描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label_游戏进程窗口描述.ForeColor = Color.FromArgb(133, 133, 133);
-            label_游戏进程窗口描述.Location = new Point(5, 360);
+            label_游戏进程窗口描述.Location = new Point(5, 422);
             label_游戏进程窗口描述.MaximumSize = new Size(845, 34);
             label_游戏进程窗口描述.MinimumSize = new Size(164, 17);
             label_游戏进程窗口描述.Name = "label_游戏进程窗口描述";
@@ -2119,7 +2163,7 @@
             // 
             label_游戏进程窗口.AutoSize = true;
             label_游戏进程窗口.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label_游戏进程窗口.Location = new Point(5, 342);
+            label_游戏进程窗口.Location = new Point(5, 404);
             label_游戏进程窗口.MaximumSize = new Size(845, 17);
             label_游戏进程窗口.MinimumSize = new Size(80, 17);
             label_游戏进程窗口.Name = "label_游戏进程窗口";
@@ -3761,6 +3805,9 @@
         private DIYComponents.RoundedButton roundedButton_游戏进程窗口;
         private Label label_游戏进程窗口描述;
         private Label label_游戏进程窗口;
+        private DIYComponents.CapsuleSwitch capsuleSwitch_自动识别进程;
+        private Label label_自动识别进程描述;
+        private Label label_自动识别进程;
         private Label label_避免程序与用户争夺光标控制权描述;
         private Label label_避免程序与用户争夺光标控制权;
         private DIYComponents.CapsuleSwitch capsuleSwitch_避免程序与用户争夺光标控制权;

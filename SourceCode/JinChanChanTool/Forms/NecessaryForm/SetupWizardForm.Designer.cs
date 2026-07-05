@@ -98,6 +98,9 @@ namespace JinChanChanTool
             roundedButton_设置英雄名称坐标 = new RoundedButton();
             label_手动设置坐标 = new Label();
             panel_3自动设置坐标 = new Panel();
+            label_自动识别进程 = new Label();
+            capsuleSwitch_自动识别进程 = new CapsuleSwitch();
+            label_自动识别进程说明 = new Label();
             label_进程状态 = new Label();
             label_选择游戏进程 = new Label();
             选择游戏窗口进程 = new RoundedButton();
@@ -964,6 +967,9 @@ namespace JinChanChanTool
             // 
             // panel_3自动设置坐标
             // 
+            panel_3自动设置坐标.Controls.Add(label_自动识别进程);
+            panel_3自动设置坐标.Controls.Add(capsuleSwitch_自动识别进程);
+            panel_3自动设置坐标.Controls.Add(label_自动识别进程说明);
             panel_3自动设置坐标.Controls.Add(label_进程状态);
             panel_3自动设置坐标.Controls.Add(label_选择游戏进程);
             panel_3自动设置坐标.Controls.Add(选择游戏窗口进程);
@@ -974,12 +980,49 @@ namespace JinChanChanTool
             panel_3自动设置坐标.Name = "panel_3自动设置坐标";
             panel_3自动设置坐标.Size = new Size(738, 460);
             panel_3自动设置坐标.TabIndex = 11;
+            //
+            // label_自动识别进程
+            //
+            label_自动识别进程.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_自动识别进程.Location = new Point(16, 82);
+            label_自动识别进程.Name = "label_自动识别进程";
+            label_自动识别进程.Size = new Size(132, 25);
+            label_自动识别进程.TabIndex = 7;
+            label_自动识别进程.Text = "自动识别进程";
+            label_自动识别进程.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // capsuleSwitch_自动识别进程
+            //
+            capsuleSwitch_自动识别进程.IsOn = true;
+            capsuleSwitch_自动识别进程.Location = new Point(156, 84);
+            capsuleSwitch_自动识别进程.Name = "capsuleSwitch_自动识别进程";
+            capsuleSwitch_自动识别进程.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_自动识别进程.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch_自动识别进程.ShowText = false;
+            capsuleSwitch_自动识别进程.Size = new Size(50, 20);
+            capsuleSwitch_自动识别进程.TabIndex = 8;
+            capsuleSwitch_自动识别进程.Text = "capsuleSwitch_自动识别进程";
+            capsuleSwitch_自动识别进程.TextColor = Color.White;
+            capsuleSwitch_自动识别进程.ThumbColor = Color.White;
+            capsuleSwitch_自动识别进程.IsOnChanged += capsuleSwitch_自动识别进程_IsOnChanged;
+            //
+            // label_自动识别进程说明
+            //
+            label_自动识别进程说明.AutoSize = true;
+            label_自动识别进程说明.ForeColor = Color.Gray;
+            label_自动识别进程说明.Location = new Point(16, 114);
+            label_自动识别进程说明.MaximumSize = new Size(714, 34);
+            label_自动识别进程说明.MinimumSize = new Size(272, 17);
+            label_自动识别进程说明.Name = "label_自动识别进程说明";
+            label_自动识别进程说明.Size = new Size(272, 17);
+            label_自动识别进程说明.TabIndex = 9;
+            label_自动识别进程说明.Text = "自动识别英雄联盟、MuMu模拟器和雷电模拟器窗口；关闭后可手动选择。如果有多个模拟器窗口，请使用自动坐标设置的手动选择进程模式。";
             // 
             // label_进程状态
             // 
             label_进程状态.AutoSize = true;
             label_进程状态.ForeColor = Color.Red;
-            label_进程状态.Location = new Point(16, 190);
+            label_进程状态.Location = new Point(16, 237);
             label_进程状态.Name = "label_进程状态";
             label_进程状态.Size = new Size(68, 17);
             label_进程状态.TabIndex = 4;
@@ -990,7 +1033,7 @@ namespace JinChanChanTool
             // 
             label_选择游戏进程.AutoSize = true;
             label_选择游戏进程.ForeColor = Color.Gray;
-            label_选择游戏进程.Location = new Point(13, 80);
+            label_选择游戏进程.Location = new Point(13, 151);
             label_选择游戏进程.MaximumSize = new Size(714, 68);
             label_选择游戏进程.MinimumSize = new Size(272, 34);
             label_选择游戏进程.Name = "label_选择游戏进程";
@@ -1006,7 +1049,7 @@ namespace JinChanChanTool
             选择游戏窗口进程.CornerRadius = 3;
             选择游戏窗口进程.DisabledColor = Color.FromArgb(160, 160, 160);
             选择游戏窗口进程.HoverColor = Color.FromArgb(232, 232, 232);
-            选择游戏窗口进程.Location = new Point(16, 149);
+            选择游戏窗口进程.Location = new Point(16, 196);
             选择游戏窗口进程.Name = "选择游戏窗口进程";
             选择游戏窗口进程.PressedColor = Color.FromArgb(222, 222, 222);
             选择游戏窗口进程.Size = new Size(217, 35);
@@ -1026,7 +1069,7 @@ namespace JinChanChanTool
             label_自动设置坐标提示.Name = "label_自动设置坐标提示";
             label_自动设置坐标提示.Size = new Size(596, 17);
             label_自动设置坐标提示.TabIndex = 1;
-            label_自动设置坐标提示.Text = "注：自动设置坐标仅适用于任意分辨率下的端游英雄联盟与特定分辨率下运行于mumu模拟器上的金铲铲之战。";
+            label_自动设置坐标提示.Text = "注：自动设置坐标仅适用于任意分辨率下的端游英雄联盟、1600x910 的 MuMu 模拟器与 1600x900 的雷电模拟器。";
             // 
             // label_自动设置坐标
             // 
@@ -1088,7 +1131,7 @@ namespace JinChanChanTool
             label_自动坐标模式描述.Name = "label_自动坐标模式描述";
             label_自动坐标模式描述.Size = new Size(452, 34);
             label_自动坐标模式描述.TabIndex = 3;
-            label_自动坐标模式描述.Text = "通过选择游戏进程窗口，程序将自动计算并设置所有必要的坐标。\r\n适用于英雄联盟、mumu模拟器下运行的金铲铲之战，推荐首次使用者选择此模式。";
+            label_自动坐标模式描述.Text = "通过选择游戏进程窗口，程序将自动计算并设置所有必要的坐标。\r\n适用于英雄联盟、MuMu模拟器和雷电模拟器下运行的金铲铲之战，推荐首次使用者选择此模式。";
             // 
             // radioButton_自动设置坐标
             // 
@@ -1370,6 +1413,9 @@ namespace JinChanChanTool
         private RoundedButton 选择游戏窗口进程;
         private Label label_进程状态;
         private Label label_选择游戏进程;
+        private Label label_自动识别进程;
+        private CapsuleSwitch capsuleSwitch_自动识别进程;
+        private Label label_自动识别进程说明;
         private Panel panel_4手动设置坐标;
         private Label label_设置英雄名称坐标;
         private Label label_手动设置坐标提示;

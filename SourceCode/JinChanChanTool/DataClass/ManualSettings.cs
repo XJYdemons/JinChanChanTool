@@ -276,6 +276,11 @@
         public string TargetProcessName { get; set; }
 
         /// <summary>
+        /// 自动坐标模式下是否自动识别游戏进程。
+        /// </summary>
+        public bool IsAutoDetectTargetProcess { get; set; }
+
+        /// <summary>
         /// 用于多模拟器窗口时，用户在UI中精确选择的进程ID。优先级高于按名称查找。
         /// </summary>
         public int TargetProcessId { get; set; }
@@ -404,6 +409,7 @@
             UpdateLineupInterval = 12;
             IsAutomaticUpdateLineup = true;
             TargetProcessName = "";
+            IsAutoDetectTargetProcess = false;
             TargetProcessId = 0;
             SelectFormHeroPictureBoxSize = 36;
             SelectFormHeroPictureBoxHorizontalSpacing = 0;
@@ -483,6 +489,7 @@
                 UpdateLineupInterval = this.UpdateLineupInterval,
                 IsAutomaticUpdateLineup = this.IsAutomaticUpdateLineup,
                 TargetProcessName = this.TargetProcessName,
+                IsAutoDetectTargetProcess = this.IsAutoDetectTargetProcess,
                 TargetProcessId = this.TargetProcessId,
                 SelectFormHeroPictureBoxSize = this.SelectFormHeroPictureBoxSize,
                 SelectFormHeroPictureBoxHorizontalSpacing = this.SelectFormHeroPictureBoxHorizontalSpacing,
@@ -564,6 +571,7 @@
                    UpdateLineupInterval == other.UpdateLineupInterval &&
                    IsAutomaticUpdateLineup == other.IsAutomaticUpdateLineup &&
                    TargetProcessName == other.TargetProcessName &&
+                   IsAutoDetectTargetProcess == other.IsAutoDetectTargetProcess &&
                    TargetProcessId == other.TargetProcessId &&
                    SelectFormHeroPictureBoxSize == other.SelectFormHeroPictureBoxSize &&
                    SelectFormHeroPictureBoxHorizontalSpacing == other.SelectFormHeroPictureBoxHorizontalSpacing &&

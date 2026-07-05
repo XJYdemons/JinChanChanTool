@@ -28,27 +28,27 @@ namespace JinChanChanTool.DataClass.StaticData
         /// <summary>
         /// 第一个英雄名字区域。
         /// </summary>
-        public static readonly AnchorProfile CardSlot1_Name = new(-323.5, -32.5, 105, 35);
+        public static readonly AnchorProfile CardSlot1_Name = new(-333.5, -32.5, 135, 35);
 
         /// <summary>
         /// 第二个英雄名字区域。
         /// </summary>
-        public static readonly AnchorProfile CardSlot2_Name = new(-126, -32.5, 110, 35);
+        public static readonly AnchorProfile CardSlot2_Name = new(-136, -32.5, 140, 35);
 
         /// <summary>
         /// 第三个英雄名字区域。
         /// </summary>
-        public static readonly AnchorProfile CardSlot3_Name = new(74, -32.5, 110, 35);
+        public static readonly AnchorProfile CardSlot3_Name = new(64, -32.5, 140, 35);
 
         /// <summary>
         /// 第四个英雄名字区域。
         /// </summary>
-        public static readonly AnchorProfile CardSlot4_Name = new(276, -32.5, 120, 35);
+        public static readonly AnchorProfile CardSlot4_Name = new(266, -32.5, 150, 35);
 
         /// <summary>
         /// 第五个英雄名字区域。
         /// </summary>
-        public static readonly AnchorProfile CardSlot5_Name = new(475, -32.5, 120, 35);
+        public static readonly AnchorProfile CardSlot5_Name = new(465, -32.5, 150, 35);
 
         // --- 备用区域 ---
 

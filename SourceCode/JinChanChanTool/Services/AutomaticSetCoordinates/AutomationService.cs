@@ -107,7 +107,7 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             else if (process.ProcessName.Equals("dnplayer", StringComparison.OrdinalIgnoreCase))
             {
                 // --- 对于雷电模拟器，使用 1600x900 的独立坐标模板 ---
-                if (_windowInteractionService.SetTargetToBestChildWindow(process))
+                if (_windowInteractionService.SetTargetToLdPlayerGameWindow(process))
                 {
                     CurrentGameMode = GameMode.JCC_LD;
                 }

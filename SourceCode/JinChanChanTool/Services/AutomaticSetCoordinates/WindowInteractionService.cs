@@ -55,6 +55,13 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool EnumChildWindows(nint hwndParent, EnumWindowsProc lpEnumFunc, nint lParam);
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, nint lParam);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(nint hWnd, out uint lpdwProcessId);
+
         [DllImport("user32.dll", SetLastError = true)]
         private static extern nint GetAncestor(nint hwnd, uint gaFlags);
         private const uint GA_ROOT = 2;
@@ -92,28 +99,59 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                 return false;
             }
 
-            WindowHandle = targetProcess.MainWindowHandle;
+            return SetTargetWindowHandle(targetProcess.MainWindowHandle);
+        }
 
-            if (!GetClientRect(WindowHandle, out RECT clientRect))
+        /// <summary>
+        /// 设置目标窗口为雷电模拟器内的游戏渲染窗口。
+        /// </summary>
+        /// <param name="parentProcess"></param>
+        /// <returns></returns>
+        public bool SetTargetToLdPlayerGameWindow(Process? parentProcess)
+        {
+            WindowHandle = nint.Zero;
+            if (parentProcess == null)
             {
-                WindowHandle = nint.Zero;
                 return false;
             }
 
-            ClientWidth = clientRect.Right - clientRect.Left;
-            ClientHeight = clientRect.Bottom - clientRect.Top;
-
-            POINT clientTopLeft = new POINT { X = 0, Y = 0 };
-            if (!ClientToScreen(WindowHandle, ref clientTopLeft))
+            var ldMainFrames = new List<nint>();
+            EnumWindows((hWnd, lParam) =>
             {
-                WindowHandle = nint.Zero;
-                return false;
+                GetWindowThreadProcessId(hWnd, out uint processId);
+                if (processId != parentProcess.Id || !IsWindowVisible(hWnd))
+                {
+                    return true;
+                }
+
+                StringBuilder className = new StringBuilder(256);
+                GetClassName(hWnd, className, className.Capacity);
+                if (className.ToString().Equals("LDPlayerMainFrame", StringComparison.OrdinalIgnoreCase))
+                {
+                    ldMainFrames.Add(hWnd);
+                }
+
+                return true;
+            }, nint.Zero);
+
+            foreach (nint frameHwnd in ldMainFrames)
+            {
+                nint? renderWindow = FindLdPlayerRenderWindow(frameHwnd);
+                if (renderWindow.HasValue && SetTargetWindowHandle(renderWindow.Value))
+                {
+                    return true;
+                }
             }
 
-            ClientX = clientTopLeft.X;
-            ClientY = clientTopLeft.Y;
+            foreach (nint frameHwnd in ldMainFrames)
+            {
+                if (SetTargetWindowHandle(frameHwnd))
+                {
+                    return true;
+                }
+            }
 
-            return true;
+            return SetTargetToBestChildWindow(parentProcess);
         }
 
         /// <summary>
@@ -186,8 +224,52 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
 
             //Debug.WriteLine($"[日志] 决策结果：选择的最佳窗口是 -> 类名: {bestCandidate.ClassName}, 句柄: {bestHwnd}, 深度: {bestCandidate.Depth}, 面积: {bestCandidate.Area}");
 
-            WindowHandle = bestHwnd;
+            return SetTargetWindowHandle(bestHwnd);
+        }
 
+        private nint? FindLdPlayerRenderWindow(nint frameHwnd)
+        {
+            var candidates = new List<(nint Hwnd, int Width, int Height, long Area, bool IsRenderWindow, bool IsGameResolution)>();
+            EnumChildWindows(frameHwnd, (hWnd, lParam) =>
+            {
+                if (!IsWindowVisible(hWnd))
+                {
+                    return true;
+                }
+
+                GetWindowRect(hWnd, out RECT rect);
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+                if (width <= 100 || height <= 100)
+                {
+                    return true;
+                }
+
+                StringBuilder className = new StringBuilder(256);
+                GetClassName(hWnd, className, className.Capacity);
+                bool isRenderWindow = className.ToString().Equals("RenderWindow", StringComparison.OrdinalIgnoreCase);
+                bool isGameResolution = width == 1600 && height == 900;
+                candidates.Add((hWnd, width, height, (long)width * height, isRenderWindow, isGameResolution));
+
+                return true;
+            }, nint.Zero);
+
+            if (candidates.Count == 0)
+            {
+                return null;
+            }
+
+            return candidates
+                .OrderByDescending(c => c.IsRenderWindow)
+                .ThenByDescending(c => c.IsGameResolution)
+                .ThenByDescending(c => c.Area)
+                .First()
+                .Hwnd;
+        }
+
+        private bool SetTargetWindowHandle(nint hWnd)
+        {
+            WindowHandle = hWnd;
             if (!GetClientRect(WindowHandle, out RECT clientRect))
             {
                 //Debug.WriteLine("[日志] 致命错误：GetClientRect 失败！");

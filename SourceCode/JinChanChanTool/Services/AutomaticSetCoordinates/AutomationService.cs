@@ -20,7 +20,11 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         /// <summary>
         /// 金铲铲之战（模拟器）。
         /// </summary>
-        JCC
+        JCC,
+        /// <summary>
+        /// 金铲铲之战（雷电模拟器）。
+        /// </summary>
+        JCC_LD
     }
 
     /// <summary>
@@ -100,6 +104,18 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                     CurrentGameMode = GameMode.None;
                 }
             }
+            else if (process.ProcessName.Equals("dnplayer", StringComparison.OrdinalIgnoreCase))
+            {
+                // --- 对于雷电模拟器，使用 1600x900 的独立坐标模板 ---
+                if (_windowInteractionService.SetTargetToBestChildWindow(process))
+                {
+                    CurrentGameMode = GameMode.JCC_LD;
+                }
+                else
+                {
+                    CurrentGameMode = GameMode.None;
+                }
+            }
             else
             {
                 // --- 对于模拟器或任何其他程序，使用更强大的子窗口查找策略 ---
@@ -131,6 +147,11 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             {
                 profile = GetTftProfile(element);
                 baseResolution = TftCoordinateTemplates.BaseResolution;
+            }
+            else if (CurrentGameMode == GameMode.JCC_LD)
+            {
+                profile = GetJccLdProfile(element);
+                baseResolution = JccLdCoordinateTemplates.BaseResolution;
             }
             else // JCC
             {
@@ -202,6 +223,38 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                 case UiElement.CardSlot3_Highlight: return JccCoordinateTemplates.CardSlot3_Click;
                 case UiElement.CardSlot4_Highlight: return JccCoordinateTemplates.CardSlot4_Click;
                 case UiElement.CardSlot5_Highlight: return JccCoordinateTemplates.CardSlot5_Click;
+                default: throw new ArgumentOutOfRangeException(nameof(element), "未知的UI元素。");
+            }
+        }
+
+        /// <summary>
+        /// 根据UI元素枚举，获取对应的金铲铲之战（雷电模拟器）坐标模板档案。
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        private AnchorProfile GetJccLdProfile(UiElement element)
+        {
+            switch (element)
+            {
+                case UiElement.ExpButton: return JccLdCoordinateTemplates.ExperienceButton;
+                case UiElement.RefreshButton: return JccLdCoordinateTemplates.RefreshButton;
+                case UiElement.CardSlot1_Name: return JccLdCoordinateTemplates.CardSlot1_Name;
+                case UiElement.CardSlot2_Name: return JccLdCoordinateTemplates.CardSlot2_Name;
+                case UiElement.CardSlot3_Name: return JccLdCoordinateTemplates.CardSlot3_Name;
+                case UiElement.CardSlot4_Name: return JccLdCoordinateTemplates.CardSlot4_Name;
+                case UiElement.CardSlot5_Name: return JccLdCoordinateTemplates.CardSlot5_Name;
+                case UiElement.CardSlot1_Click: return JccLdCoordinateTemplates.CardSlot1_Click;
+                case UiElement.CardSlot2_Click: return JccLdCoordinateTemplates.CardSlot2_Click;
+                case UiElement.CardSlot3_Click: return JccLdCoordinateTemplates.CardSlot3_Click;
+                case UiElement.CardSlot4_Click: return JccLdCoordinateTemplates.CardSlot4_Click;
+                case UiElement.CardSlot5_Click: return JccLdCoordinateTemplates.CardSlot5_Click;
+                case UiElement.GoldAmount: return JccLdCoordinateTemplates.GoldAmount;
+                case UiElement.CardSlot1_Highlight: return JccLdCoordinateTemplates.CardSlot1_Click;
+                case UiElement.CardSlot2_Highlight: return JccLdCoordinateTemplates.CardSlot2_Click;
+                case UiElement.CardSlot3_Highlight: return JccLdCoordinateTemplates.CardSlot3_Click;
+                case UiElement.CardSlot4_Highlight: return JccLdCoordinateTemplates.CardSlot4_Click;
+                case UiElement.CardSlot5_Highlight: return JccLdCoordinateTemplates.CardSlot5_Click;
                 default: throw new ArgumentOutOfRangeException(nameof(element), "未知的UI元素。");
             }
         }

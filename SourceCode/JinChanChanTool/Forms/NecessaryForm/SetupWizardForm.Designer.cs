@@ -1016,7 +1016,7 @@ namespace JinChanChanTool
             label_自动识别进程说明.Name = "label_自动识别进程说明";
             label_自动识别进程说明.Size = new Size(272, 17);
             label_自动识别进程说明.TabIndex = 9;
-            label_自动识别进程说明.Text = "自动识别英雄联盟游戏窗口和MuMu模拟器窗口；关闭后可手动选择。如果有多个模拟器窗口，请使用自动坐标设置的手动选择进程模式。";
+            label_自动识别进程说明.Text = "自动识别英雄联盟、MuMu模拟器和雷电模拟器窗口；关闭后可手动选择。如果有多个模拟器窗口，请使用自动坐标设置的手动选择进程模式。";
             // 
             // label_进程状态
             // 
@@ -1069,7 +1069,7 @@ namespace JinChanChanTool
             label_自动设置坐标提示.Name = "label_自动设置坐标提示";
             label_自动设置坐标提示.Size = new Size(596, 17);
             label_自动设置坐标提示.TabIndex = 1;
-            label_自动设置坐标提示.Text = "注：自动设置坐标仅适用于任意分辨率下的端游英雄联盟与特定分辨率下运行于mumu模拟器上的金铲铲之战。";
+            label_自动设置坐标提示.Text = "注：自动设置坐标仅适用于任意分辨率下的端游英雄联盟、1600x910 的 MuMu 模拟器与 1600x900 的雷电模拟器。";
             // 
             // label_自动设置坐标
             // 
@@ -1131,7 +1131,7 @@ namespace JinChanChanTool
             label_自动坐标模式描述.Name = "label_自动坐标模式描述";
             label_自动坐标模式描述.Size = new Size(452, 34);
             label_自动坐标模式描述.TabIndex = 3;
-            label_自动坐标模式描述.Text = "通过选择游戏进程窗口，程序将自动计算并设置所有必要的坐标。\r\n适用于英雄联盟、mumu模拟器下运行的金铲铲之战，推荐首次使用者选择此模式。";
+            label_自动坐标模式描述.Text = "通过选择游戏进程窗口，程序将自动计算并设置所有必要的坐标。\r\n适用于英雄联盟、MuMu模拟器和雷电模拟器下运行的金铲铲之战，推荐首次使用者选择此模式。";
             // 
             // radioButton_自动设置坐标
             // 

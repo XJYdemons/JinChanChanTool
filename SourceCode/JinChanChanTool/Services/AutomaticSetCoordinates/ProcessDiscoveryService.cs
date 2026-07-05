@@ -17,6 +17,11 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             "MuMuNxDevice"
         };
 
+        private static readonly string[] LdGameProcessNames =
+        {
+            "dnplayer"
+        };
+
         /// <summary>
         /// 获取当前系统中所有拥有可见主窗口的进程列表。
         /// </summary>
@@ -77,12 +82,25 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                 return false;
             }
 
+            List<Process> ldProcesses = candidates.Where(IsLdProcess).ToList();
+            if (ldProcesses.Count == 1)
+            {
+                targetProcess = ldProcesses[0];
+                return true;
+            }
+
+            if (ldProcesses.Count > 1)
+            {
+                ambiguousProcessName = LdGameProcessNames[0];
+                return false;
+            }
+
             return true;
         }
 
         private static bool IsSupportedAutoDetectProcess(Process process)
         {
-            return IsLeagueGameProcess(process) || IsMumuProcess(process);
+            return IsLeagueGameProcess(process) || IsMumuProcess(process) || IsLdProcess(process);
         }
 
         private static bool IsLeagueGameProcess(Process process)
@@ -97,11 +115,18 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
                 process.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
+        private static bool IsLdProcess(Process process)
+        {
+            return LdGameProcessNames.Any(name =>
+                process.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
         private static int GetAutoDetectPriority(Process process)
         {
             if (IsLeagueGameProcess(process)) return 0;
             if (IsMumuProcess(process)) return 1;
-            return 2;
+            if (IsLdProcess(process)) return 2;
+            return 3;
         }
     }
 }

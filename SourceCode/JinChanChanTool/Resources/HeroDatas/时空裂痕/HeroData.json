@@ -1,0 +1,620 @@
+[
+  {
+    "HeroName": "不屈战神",
+    "Cost": 1,
+    "Profession": [
+      "骑士"
+    ],
+    "Peculiarity": [
+      "神将"
+    ]
+  },
+  {
+    "HeroName": "华剑战姬",
+    "Cost": 1,
+    "Profession": [
+      "剑士"
+    ],
+    "Peculiarity": [
+      "神将"
+    ]
+  },
+  {
+    "HeroName": "南天之怒",
+    "Cost": 1,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "狂野"
+    ]
+  },
+  {
+    "HeroName": "天罚弩神",
+    "Cost": 1,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "神将"
+    ]
+  },
+  {
+    "HeroName": "帝国之手",
+    "Cost": 1,
+    "Profession": [
+      "骑士"
+    ],
+    "Peculiarity": [
+      "帝国"
+    ]
+  },
+  {
+    "HeroName": "无畏重炮",
+    "Cost": 1,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "豪侠"
+    ]
+  },
+  {
+    "HeroName": "激流之鳞",
+    "Cost": 1,
+    "Profession": [
+      "秘术师"
+    ],
+    "Peculiarity": [
+      "狂野"
+    ]
+  },
+  {
+    "HeroName": "虚空掠夺者",
+    "Cost": 1,
+    "Profession": [
+      "潜行者"
+    ],
+    "Peculiarity": [
+      "虚空"
+    ]
+  },
+  {
+    "HeroName": "虚空行者",
+    "Cost": 1,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "虚空"
+    ]
+  },
+  {
+    "HeroName": "蛛后",
+    "Cost": 1,
+    "Profession": [
+      "换形师"
+    ],
+    "Peculiarity": [
+      "仙灵"
+    ]
+  },
+  {
+    "HeroName": "西斗之飒",
+    "Cost": 1,
+    "Profession": [
+      "换形师"
+    ],
+    "Peculiarity": [
+      "狂野"
+    ]
+  },
+  {
+    "HeroName": "钢铁领主",
+    "Cost": 1,
+    "Profession": [
+      "骑士"
+    ],
+    "Peculiarity": [
+      "暗影"
+    ]
+  },
+  {
+    "HeroName": "青钢影",
+    "Cost": 1,
+    "Profession": [
+      "剑士"
+    ],
+    "Peculiarity": [
+      "海克斯科技"
+    ]
+  },
+  {
+    "HeroName": "麦林炮手",
+    "Cost": 1,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "仙灵女巫",
+    "Cost": 2,
+    "Profession": [
+      "法师",
+      "秘术师"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "光元素使",
+    "Cost": 2,
+    "Profession": [
+      "秘术师"
+    ],
+    "Peculiarity": [
+      "神将"
+    ]
+  },
+  {
+    "HeroName": "北地之盾",
+    "Cost": 2,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "北地"
+    ]
+  },
+  {
+    "HeroName": "命运之手",
+    "Cost": 2,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "豪侠"
+    ]
+  },
+  {
+    "HeroName": "影疾忍",
+    "Cost": 2,
+    "Profession": [
+      "潜行者"
+    ],
+    "Peculiarity": [
+      "忍者"
+    ]
+  },
+  {
+    "HeroName": "御界守",
+    "Cost": 2,
+    "Profession": [
+      "剑士"
+    ],
+    "Peculiarity": [
+      "忍者"
+    ]
+  },
+  {
+    "HeroName": "未来守护者",
+    "Cost": 2,
+    "Profession": [
+      "换形师"
+    ],
+    "Peculiarity": [
+      "海克斯科技"
+    ]
+  },
+  {
+    "HeroName": "海上幽影",
+    "Cost": 2,
+    "Profession": [
+      "潜行者"
+    ],
+    "Peculiarity": [
+      "豪侠"
+    ]
+  },
+  {
+    "HeroName": "蒸汽机器人",
+    "Cost": 2,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "机器人"
+    ]
+  },
+  {
+    "HeroName": "虚空遁地兽",
+    "Cost": 2,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "虚空"
+    ]
+  },
+  {
+    "HeroName": "虚空重炮",
+    "Cost": 2,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "虚空"
+    ]
+  },
+  {
+    "HeroName": "迅箭",
+    "Cost": 2,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "仙灵"
+    ]
+  },
+  {
+    "HeroName": "霜卫首领",
+    "Cost": 2,
+    "Profession": [
+      "元素使"
+    ],
+    "Peculiarity": [
+      "北地"
+    ]
+  },
+  {
+    "HeroName": "青丘灵狐",
+    "Cost": 2,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "狂野"
+    ]
+  },
+  {
+    "HeroName": "驱邪圣枪",
+    "Cost": 2,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "神将"
+    ]
+  },
+  {
+    "HeroName": "北境之傲",
+    "Cost": 3,
+    "Profession": [
+      "潜行者"
+    ],
+    "Peculiarity": [
+      "狂野"
+    ]
+  },
+  {
+    "HeroName": "圣锤之毅",
+    "Cost": 3,
+    "Profession": [
+      "骑士"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "地火霸主",
+    "Cost": 3,
+    "Profession": [
+      "剑士",
+      "枪手"
+    ],
+    "Peculiarity": [
+      "豪侠"
+    ]
+  },
+  {
+    "HeroName": "天雷引",
+    "Cost": 3,
+    "Profession": [
+      "元素使"
+    ],
+    "Peculiarity": [
+      "忍者",
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "帝国之刃",
+    "Cost": 3,
+    "Profession": [
+      "潜行者"
+    ],
+    "Peculiarity": [
+      "帝国"
+    ]
+  },
+  {
+    "HeroName": "皮城执法官",
+    "Cost": 3,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "海克斯科技"
+    ]
+  },
+  {
+    "HeroName": "臻冰之箭",
+    "Cost": 3,
+    "Profession": [
+      "游侠"
+    ],
+    "Peculiarity": [
+      "北地"
+    ]
+  },
+  {
+    "HeroName": "苍鸾",
+    "Cost": 3,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "仙灵"
+    ]
+  },
+  {
+    "HeroName": "轩辕",
+    "Cost": 3,
+    "Profession": [
+      "剑士"
+    ],
+    "Peculiarity": [
+      "仙灵"
+    ]
+  },
+  {
+    "HeroName": "逆鳞战姬",
+    "Cost": 3,
+    "Profession": [
+      "换形师"
+    ],
+    "Peculiarity": [
+      "龙"
+    ]
+  },
+  {
+    "HeroName": "邪恶小法师",
+    "Cost": 3,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "隐娘",
+    "Cost": 3,
+    "Profession": [
+      "潜行者"
+    ],
+    "Peculiarity": [
+      "仙灵"
+    ]
+  },
+  {
+    "HeroName": "雷霆之主",
+    "Cost": 3,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "北地"
+    ]
+  },
+  {
+    "HeroName": "冰川骑士",
+    "Cost": 4,
+    "Profession": [
+      "骑士"
+    ],
+    "Peculiarity": [
+      "北地"
+    ]
+  },
+  {
+    "HeroName": "帝国之斧",
+    "Cost": 4,
+    "Profession": [
+      "剑士"
+    ],
+    "Peculiarity": [
+      "帝国"
+    ]
+  },
+  {
+    "HeroName": "星界龙神",
+    "Cost": 4,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "龙"
+    ]
+  },
+  {
+    "HeroName": "暴走萝莉",
+    "Cost": 4,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "海克斯科技"
+    ]
+  },
+  {
+    "HeroName": "曙光神将",
+    "Cost": 4,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "神将"
+    ]
+  },
+  {
+    "HeroName": "潜龙刺",
+    "Cost": 4,
+    "Profession": [
+      "潜行者"
+    ],
+    "Peculiarity": [
+      "忍者"
+    ]
+  },
+  {
+    "HeroName": "焰魂",
+    "Cost": 4,
+    "Profession": [
+      "元素使"
+    ],
+    "Peculiarity": [
+      "仙灵"
+    ]
+  },
+  {
+    "HeroName": "狻猊之心",
+    "Cost": 4,
+    "Profession": [
+      "换形师"
+    ],
+    "Peculiarity": [
+      "约德尔人",
+      "狂野"
+    ]
+  },
+  {
+    "HeroName": "虚空恐惧",
+    "Cost": 4,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "虚空"
+    ]
+  },
+  {
+    "HeroName": "驭影双生",
+    "Cost": 4,
+    "Profession": [
+      "游侠",
+      "秘术师"
+    ],
+    "Peculiarity": [
+      "暗影"
+    ]
+  },
+  {
+    "HeroName": "齐天大圣",
+    "Cost": 4,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "神将",
+      "狂野"
+    ]
+  },
+  {
+    "HeroName": "凤黯",
+    "Cost": 5,
+    "Profession": [
+      "换形师"
+    ],
+    "Peculiarity": [
+      "仙灵",
+      "帝国"
+    ]
+  },
+  {
+    "HeroName": "双枪女帝",
+    "Cost": 5,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "豪侠"
+    ]
+  },
+  {
+    "HeroName": "圣光战神",
+    "Cost": 5,
+    "Profession": [
+      "骑士"
+    ],
+    "Peculiarity": [
+      "神将"
+    ]
+  },
+  {
+    "HeroName": "挽歌",
+    "Cost": 5,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "暗影"
+    ]
+  },
+  {
+    "HeroName": "星龙战神",
+    "Cost": 5,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "龙"
+    ]
+  },
+  {
+    "HeroName": "灵鸟毕方",
+    "Cost": 5,
+    "Profession": [
+      "元素使"
+    ],
+    "Peculiarity": [
+      "北地"
+    ]
+  },
+  {
+    "HeroName": "疾风剑豪",
+    "Cost": 5,
+    "Profession": [
+      "剑士"
+    ],
+    "Peculiarity": [
+      "浪人"
+    ]
+  },
+  {
+    "HeroName": "虚空之女",
+    "Cost": 5,
+    "Profession": [
+      "潜行者",
+      "游侠"
+    ],
+    "Peculiarity": [
+      "虚空"
+    ]
+  }
+]

@@ -638,8 +638,18 @@ namespace JinChanChanTool.Forms
                     // 用户选择了阵容，替换当前子阵容
                     var selectedLineUp = selectForm.SelectedLineUp;
 
-                    // 将推荐阵容的英雄列表导入到当前子阵容
-                    if (!_ilineUpService.ReplaceCurrentSubLineUp(selectedLineUp.LineUpUnits))
+                    // 完整导入：若有变阵数据（前期/中期/后期），三个变阵都填入，并切换到后期显示
+                    if (selectedLineUp.SubLineUps is { Count: 3 })
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            _ilineUpService.SetSubLineUpIndex(i);
+                            _ilineUpService.ReplaceCurrentSubLineUp(selectedLineUp.SubLineUps[i].LineUpUnits);
+                        }
+                        // 切换到后期（完整成型阵容）显示
+                        _ilineUpService.SetSubLineUpIndex(2);
+                    }
+                    else if (!_ilineUpService.ReplaceCurrentSubLineUp(selectedLineUp.LineUpUnits))
                     {
                         MessageBox.Show(_iLocalizationService.Get("LineUpForm.Msg.应用失败"), _iLocalizationService.Get("LineUpForm.MsgTitle.错误"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }

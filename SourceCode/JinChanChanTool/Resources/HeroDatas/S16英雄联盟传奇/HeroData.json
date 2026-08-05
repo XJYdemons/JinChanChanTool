@@ -1,44 +1,11 @@
 [
   {
-    "HeroName": "艾尼维亚",
-    "Cost": 1,
+    "HeroName": "提伯斯",
+    "Cost": 0,
     "Profession": [
-      "神谕者"
+      "法师"
     ],
-    "Peculiarity": [
-      "弗雷尔卓德"
-    ]
-  },
-  {
-    "HeroName": "贝蕾亚",
-    "Cost": 1,
-    "Profession": [
-      "裁决战士",
-      "主宰"
-    ],
-    "Peculiarity": [
-      "诺克萨斯"
-    ]
-  },
-  {
-    "HeroName": "布里茨",
-    "Cost": 1,
-    "Profession": [
-      "主宰"
-    ],
-    "Peculiarity": [
-      "祖安"
-    ]
-  },
-  {
-    "HeroName": "俄洛伊",
-    "Cost": 1,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "比尔吉沃特"
-    ]
+    "Peculiarity": []
   },
   {
     "HeroName": "佛耶戈",
@@ -51,33 +18,13 @@
     ]
   },
   {
-    "HeroName": "嘉文四世",
+    "HeroName": "俄洛伊",
     "Cost": 1,
     "Profession": [
-      "护卫"
+      "斗士"
     ],
     "Peculiarity": [
-      "德玛西亚"
-    ]
-  },
-  {
-    "HeroName": "烬",
-    "Cost": 1,
-    "Profession": [
-      "枪手"
-    ],
-    "Peculiarity": [
-      "艾欧尼亚"
-    ]
-  },
-  {
-    "HeroName": "凯特琳",
-    "Cost": 1,
-    "Profession": [
-      "狙神"
-    ],
-    "Peculiarity": [
-      "皮尔特沃夫"
+      "比尔吉沃特"
     ]
   },
   {
@@ -102,13 +49,23 @@
     ]
   },
   {
-    "HeroName": "璐璐",
+    "HeroName": "凯特琳",
     "Cost": 1,
     "Profession": [
-      "法师"
+      "狙神"
     ],
     "Peculiarity": [
-      "约德尔人"
+      "皮尔特沃夫"
+    ]
+  },
+  {
+    "HeroName": "嘉文四世",
+    "Cost": 1,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "德玛西亚"
     ]
   },
   {
@@ -122,16 +79,6 @@
     ]
   },
   {
-    "HeroName": "慎",
-    "Cost": 1,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "艾欧尼亚"
-    ]
-  },
-  {
     "HeroName": "娑娜",
     "Cost": 1,
     "Profession": [
@@ -142,23 +89,83 @@
     ]
   },
   {
-    "HeroName": "艾克",
-    "Cost": 2,
+    "HeroName": "布里茨",
+    "Cost": 1,
     "Profession": [
-      "耀光使"
+      "主宰"
     ],
     "Peculiarity": [
       "祖安"
     ]
   },
   {
-    "HeroName": "艾希",
-    "Cost": 2,
+    "HeroName": "慎",
+    "Cost": 1,
     "Profession": [
-      "迅击战士"
+      "斗士"
+    ],
+    "Peculiarity": [
+      "艾欧尼亚"
+    ]
+  },
+  {
+    "HeroName": "烬",
+    "Cost": 1,
+    "Profession": [
+      "枪手",
+      "狙神"
+    ],
+    "Peculiarity": [
+      "艾欧尼亚"
+    ]
+  },
+  {
+    "HeroName": "璐璐",
+    "Cost": 1,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "艾尼维亚",
+    "Cost": 1,
+    "Profession": [
+      "神谕者"
     ],
     "Peculiarity": [
       "弗雷尔卓德"
+    ]
+  },
+  {
+    "HeroName": "贝蕾亚",
+    "Cost": 1,
+    "Profession": [
+      "裁决战士",
+      "主宰"
+    ],
+    "Peculiarity": [
+      "诺克萨斯"
+    ]
+  },
+  {
+    "HeroName": "亚索",
+    "Cost": 2,
+    "Profession": [
+      "裁决战士"
+    ],
+    "Peculiarity": [
+      "艾欧尼亚"
+    ]
+  },
+  {
+    "HeroName": "厄斐琉斯",
+    "Cost": 2,
+    "Profession": [],
+    "Peculiarity": [
+      "巨神峰"
     ]
   },
   {
@@ -172,22 +179,14 @@
     ]
   },
   {
-    "HeroName": "巴德",
-    "Cost": 2,
-    "Profession": [],
-    "Peculiarity": [
-      "星界游神"
-    ]
-  },
-  {
-    "HeroName": "波比",
+    "HeroName": "妮蔻",
     "Cost": 2,
     "Profession": [
-      "主宰"
+      "护卫",
+      "法师"
     ],
     "Peculiarity": [
-      "德玛西亚",
-      "约德尔人"
+      "以绪塔尔"
     ]
   },
   {
@@ -211,72 +210,19 @@
     ]
   },
   {
-    "HeroName": "厄斐琉斯",
+    "HeroName": "巴德",
     "Cost": 2,
     "Profession": [],
     "Peculiarity": [
-      "巨神峰"
+      "星界游神"
     ]
   },
   {
-    "HeroName": "格雷福斯",
+    "HeroName": "布兰德",
     "Cost": 2,
-    "Profession": [
-      "枪手"
-    ],
+    "Profession": [],
     "Peculiarity": [
-      "比尔吉沃特"
-    ]
-  },
-  {
-    "HeroName": "科加斯",
-    "Cost": 2,
-    "Profession": [
-      "主宰"
-    ],
-    "Peculiarity": [
-      "虚空"
-    ]
-  },
-  {
-    "HeroName": "雷克塞",
-    "Cost": 2,
-    "Profession": [
-      "征服者"
-    ],
-    "Peculiarity": [
-      "虚空"
-    ]
-  },
-  {
-    "HeroName": "妮蔻",
-    "Cost": 2,
-    "Profession": [
-      "法师",
-      "护卫"
-    ],
-    "Peculiarity": [
-      "以绪塔尔"
-    ]
-  },
-  {
-    "HeroName": "赛恩",
-    "Cost": 2,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "诺克萨斯"
-    ]
-  },
-  {
-    "HeroName": "泰达米尔",
-    "Cost": 2,
-    "Profession": [
-      "裁决战士"
-    ],
-    "Peculiarity": [
-      "弗雷尔卓德"
+      "复仇焰魂"
     ]
   },
   {
@@ -290,24 +236,44 @@
     ]
   },
   {
-    "HeroName": "蔚",
+    "HeroName": "格雷福斯",
     "Cost": 2,
     "Profession": [
-      "护卫"
+      "枪手"
     ],
     "Peculiarity": [
-      "祖安",
-      "皮尔特沃夫"
+      "比尔吉沃特"
     ]
   },
   {
-    "HeroName": "亚索",
+    "HeroName": "波比",
+    "Cost": 2,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "德玛西亚",
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "泰达米尔",
     "Cost": 2,
     "Profession": [
       "裁决战士"
     ],
     "Peculiarity": [
-      "艾欧尼亚"
+      "弗雷尔卓德"
+    ]
+  },
+  {
+    "HeroName": "科加斯",
+    "Cost": 2,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "虚空"
     ]
   },
   {
@@ -318,6 +284,47 @@
     ],
     "Peculiarity": [
       "暗影岛"
+    ]
+  },
+  {
+    "HeroName": "艾克",
+    "Cost": 2,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "祖安"
+    ]
+  },
+  {
+    "HeroName": "艾希",
+    "Cost": 2,
+    "Profession": [
+      "迅击战士"
+    ],
+    "Peculiarity": [
+      "弗雷尔卓德"
+    ]
+  },
+  {
+    "HeroName": "蔚",
+    "Cost": 2,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "皮尔特沃夫",
+      "祖安"
+    ]
+  },
+  {
+    "HeroName": "赛恩",
+    "Cost": 2,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "诺克萨斯"
     ]
   },
   {
@@ -332,13 +339,69 @@
     ]
   },
   {
-    "HeroName": "阿狸",
-    "Cost": 3,
+    "HeroName": "雷克塞",
+    "Cost": 2,
     "Profession": [
-      "法师"
+      "征服者"
     ],
     "Peculiarity": [
-      "艾欧尼亚"
+      "虚空"
+    ]
+  },
+  {
+    "HeroName": "乐芙兰",
+    "Cost": 3,
+    "Profession": [
+      "神谕者"
+    ],
+    "Peculiarity": [
+      "诺克萨斯"
+    ]
+  },
+  {
+    "HeroName": "佐伊",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "巨神峰"
+    ]
+  },
+  {
+    "HeroName": "凯南",
+    "Cost": 3,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "艾欧尼亚",
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "可酷伯与悠米",
+    "Cost": 3,
+    "Profession": [
+      "斗士",
+      "神谕者"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "墨菲特",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "熔岩巨兽"
+    ]
+  },
+  {
+    "HeroName": "希维尔",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "战争女神"
     ]
   },
   {
@@ -362,6 +425,17 @@
     ]
   },
   {
+    "HeroName": "普朗克",
+    "Cost": 3,
+    "Profession": [
+      "征服者",
+      "裁决战士"
+    ],
+    "Peculiarity": [
+      "比尔吉沃特"
+    ]
+  },
+  {
     "HeroName": "格温",
     "Cost": 3,
     "Profession": [
@@ -369,56 +443,6 @@
     ],
     "Peculiarity": [
       "暗影岛"
-    ]
-  },
-  {
-    "HeroName": "金克丝",
-    "Cost": 3,
-    "Profession": [
-      "枪手"
-    ],
-    "Peculiarity": [
-      "祖安"
-    ]
-  },
-  {
-    "HeroName": "凯南",
-    "Cost": 3,
-    "Profession": [
-      "护卫"
-    ],
-    "Peculiarity": [
-      "艾欧尼亚",
-      "约德尔人"
-    ]
-  },
-  {
-    "HeroName": "可酷伯与悠米",
-    "Cost": 3,
-    "Profession": [
-      "神谕者",
-      "斗士"
-    ],
-    "Peculiarity": [
-      "约德尔人"
-    ]
-  },
-  {
-    "HeroName": "乐芙兰",
-    "Cost": 3,
-    "Profession": [
-      "神谕者"
-    ],
-    "Peculiarity": [
-      "诺克萨斯"
-    ]
-  },
-  {
-    "HeroName": "蕾欧娜",
-    "Cost": 3,
-    "Profession": [],
-    "Peculiarity": [
-      "巨神峰"
     ]
   },
   {
@@ -442,13 +466,13 @@
     ]
   },
   {
-    "HeroName": "蒙多医生",
+    "HeroName": "瑟庄妮",
     "Cost": 3,
     "Profession": [
-      "斗士"
+      "护卫"
     ],
     "Peculiarity": [
-      "祖安"
+      "弗雷尔卓德"
     ]
   },
   {
@@ -462,35 +486,38 @@
     ]
   },
   {
-    "HeroName": "诺提勒斯",
+    "HeroName": "维克托",
     "Cost": 3,
     "Profession": [
-      "神盾使",
-      "主宰"
+      "法师",
+      "发明家"
     ],
+    "Peculiarity": []
+  },
+  {
+    "HeroName": "萨科",
+    "Cost": 3,
+    "Profession": [],
     "Peculiarity": [
-      "比尔吉沃特"
+      "恶魔小丑"
     ]
   },
   {
-    "HeroName": "普朗克",
+    "HeroName": "蒙多医生",
     "Cost": 3,
     "Profession": [
-      "征服者",
-      "裁决战士"
+      "斗士"
     ],
     "Peculiarity": [
-      "比尔吉沃特"
+      "祖安"
     ]
   },
   {
-    "HeroName": "瑟庄妮",
+    "HeroName": "蕾欧娜",
     "Cost": 3,
-    "Profession": [
-      "护卫"
-    ],
+    "Profession": [],
     "Peculiarity": [
-      "弗雷尔卓德"
+      "巨神峰"
     ]
   },
   {
@@ -504,21 +531,79 @@
     ]
   },
   {
-    "HeroName": "佐伊",
+    "HeroName": "诺提勒斯",
     "Cost": 3,
-    "Profession": [],
+    "Profession": [
+      "主宰",
+      "神盾使"
+    ],
     "Peculiarity": [
-      "巨神峰"
+      "比尔吉沃特"
     ]
   },
   {
-    "HeroName": "安蓓萨",
-    "Cost": 4,
+    "HeroName": "金克丝",
+    "Cost": 3,
     "Profession": [
-      "征服者"
+      "枪手"
     ],
     "Peculiarity": [
-      "诺克萨斯"
+      "祖安"
+    ]
+  },
+  {
+    "HeroName": "阿利斯塔",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "牛头酋长"
+    ]
+  },
+  {
+    "HeroName": "阿狸",
+    "Cost": 3,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "艾欧尼亚"
+    ]
+  },
+  {
+    "HeroName": "丽桑卓",
+    "Cost": 4,
+    "Profession": [
+      "神谕者"
+    ],
+    "Peculiarity": [
+      "弗雷尔卓德"
+    ]
+  },
+  {
+    "HeroName": "伊莉丝",
+    "Cost": 4,
+    "Profession": [
+      "换形师"
+    ],
+    "Peculiarity": [
+      "蜘蛛女皇"
+    ]
+  },
+  {
+    "HeroName": "内瑟斯",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "恕瑞玛"
+    ]
+  },
+  {
+    "HeroName": "凯隐",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "暗裔",
+      "影流之镰"
     ]
   },
   {
@@ -529,53 +614,6 @@
     ],
     "Peculiarity": [
       "虚空"
-    ]
-  },
-  {
-    "HeroName": "布隆",
-    "Cost": 4,
-    "Profession": [
-      "神盾使"
-    ],
-    "Peculiarity": [
-      "弗雷尔卓德"
-    ]
-  },
-  {
-    "HeroName": "黛安娜",
-    "Cost": 4,
-    "Profession": [],
-    "Peculiarity": [
-      "巨神峰"
-    ]
-  },
-  {
-    "HeroName": "厄运小姐",
-    "Cost": 4,
-    "Profession": [
-      "枪手"
-    ],
-    "Peculiarity": [
-      "比尔吉沃特"
-    ]
-  },
-  {
-    "HeroName": "菲兹",
-    "Cost": 4,
-    "Profession": [],
-    "Peculiarity": [
-      "约德尔人",
-      "比尔吉沃特"
-    ]
-  },
-  {
-    "HeroName": "盖伦",
-    "Cost": 4,
-    "Profession": [
-      "护卫"
-    ],
-    "Peculiarity": [
-      "德玛西亚"
     ]
   },
   {
@@ -595,36 +633,28 @@
       "狙神"
     ],
     "Peculiarity": [
-      "虚空",
-      "虚空之女"
+      "虚空之女",
+      "虚空"
     ]
   },
   {
-    "HeroName": "拉克丝",
+    "HeroName": "厄运小姐",
     "Cost": 4,
     "Profession": [
-      "法师"
+      "枪手"
     ],
     "Peculiarity": [
-      "德玛西亚"
+      "比尔吉沃特"
     ]
   },
   {
-    "HeroName": "雷克顿",
-    "Cost": 4,
-    "Profession": [],
-    "Peculiarity": [
-      "恕瑞玛"
-    ]
-  },
-  {
-    "HeroName": "丽桑卓",
+    "HeroName": "塔里克",
     "Cost": 4,
     "Profession": [
-      "神谕者"
+      "0"
     ],
     "Peculiarity": [
-      "弗雷尔卓德"
+      "巨神峰"
     ]
   },
   {
@@ -632,47 +662,8 @@
     "Cost": 4,
     "Profession": [],
     "Peculiarity": [
-      "狂野女猎手",
-      "以绪塔尔"
-    ]
-  },
-  {
-    "HeroName": "内瑟斯",
-    "Cost": 4,
-    "Profession": [],
-    "Peculiarity": [
-      "恕瑞玛"
-    ]
-  },
-  {
-    "HeroName": "萨勒芬妮",
-    "Cost": 4,
-    "Profession": [
-      "耀光使"
-    ],
-    "Peculiarity": [
-      "皮尔特沃夫"
-    ]
-  },
-  {
-    "HeroName": "斯卡纳",
-    "Cost": 4,
-    "Profession": [
-      ""
-    ],
-    "Peculiarity": [
-      "以绪塔尔"
-    ]
-  },
-  {
-    "HeroName": "斯维因",
-    "Cost": 4,
-    "Profession": [
-      "法师",
-      "主宰"
-    ],
-    "Peculiarity": [
-      "诺克萨斯"
+      "以绪塔尔",
+      "狂野女猎手"
     ]
   },
   {
@@ -686,31 +677,13 @@
     ]
   },
   {
-    "HeroName": "塔里克",
-    "Cost": 4,
-    "Profession": [],
-    "Peculiarity": [
-      "巨神峰"
-    ]
-  },
-  {
-    "HeroName": "维迦",
+    "HeroName": "安蓓萨",
     "Cost": 4,
     "Profession": [
-      "法师"
+      "征服者"
     ],
     "Peculiarity": [
-      "约德尔人"
-    ]
-  },
-  {
-    "HeroName": "沃里克",
-    "Cost": 4,
-    "Profession": [
-      "迅击战士"
-    ],
-    "Peculiarity": [
-      "祖安"
+      "诺克萨斯"
     ]
   },
   {
@@ -724,13 +697,52 @@
     ]
   },
   {
-    "HeroName": "辛吉德",
+    "HeroName": "布隆",
     "Cost": 4,
     "Profession": [
-      "主宰"
+      "神盾使"
     ],
     "Peculiarity": [
-      "祖安"
+      "弗雷尔卓德"
+    ]
+  },
+  {
+    "HeroName": "库奇",
+    "Cost": 4,
+    "Profession": [
+      "迅击战士"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "拉克丝",
+    "Cost": 4,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "德玛西亚"
+    ]
+  },
+  {
+    "HeroName": "斯卡纳",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "以绪塔尔"
+    ]
+  },
+  {
+    "HeroName": "斯维因",
+    "Cost": 4,
+    "Profession": [
+      "主宰",
+      "法师"
+    ],
+    "Peculiarity": [
+      "诺克萨斯"
     ]
   },
   {
@@ -744,6 +756,36 @@
     ]
   },
   {
+    "HeroName": "沃里克",
+    "Cost": 4,
+    "Profession": [
+      "迅击战士"
+    ],
+    "Peculiarity": [
+      "祖安"
+    ]
+  },
+  {
+    "HeroName": "盖伦",
+    "Cost": 4,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "德玛西亚"
+    ]
+  },
+  {
+    "HeroName": "维迦",
+    "Cost": 4,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "约德尔人"
+    ]
+  },
+  {
     "HeroName": "芸阿娜",
     "Cost": 4,
     "Profession": [
@@ -754,173 +796,48 @@
     ]
   },
   {
-    "HeroName": "阿兹尔",
-    "Cost": 5,
+    "HeroName": "菲兹",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "比尔吉沃特",
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "萨勒芬妮",
+    "Cost": 4,
     "Profession": [
       "耀光使"
     ],
     "Peculiarity": [
-      "恕瑞玛",
-      "沙漠皇帝"
-    ]
-  },
-  {
-    "HeroName": "安妮",
-    "Cost": 5,
-    "Profession": [
-      "法师"
-    ],
-    "Peculiarity": [
-      "黑暗之女"
-    ]
-  },
-  {
-    "HeroName": "提伯斯",
-    "Cost": 5,
-    "Profession": [
-      "法师"
-    ],
-    "Peculiarity": [ ]
-  },
-  {
-    "HeroName": "奥恩",
-    "Cost": 5,
-    "Profession": [
-      "神盾使"
-    ],
-    "Peculiarity": [
-      "山隐之焰"
-    ]
-  },
-  {
-    "HeroName": "锤石",
-    "Cost": 5,
-    "Profession": [
-      "神盾使"
-    ],
-    "Peculiarity": [
-      "暗影岛"
-    ]
-  },
-  {
-    "HeroName": "费德提克",
-    "Cost": 5,
-    "Profession": [
-      "征服者"
-    ],
-    "Peculiarity": [
-      "远古恐惧"
-    ]
-  },
-  {
-    "HeroName": "海克斯霸龙",
-    "Cost": 5,
-    "Profession": [
-      "枪手"
-    ],
-    "Peculiarity": [
-      "海克斯机甲",
       "皮尔特沃夫"
     ]
   },
   {
-    "HeroName": "基兰",
-    "Cost": 5,
-    "Profession": [
-      "神谕者"
-    ],
-    "Peculiarity": [
-      "时光守护者"
-    ]
-  },
-  {
-    "HeroName": "吉格斯",
-    "Cost": 5,
-    "Profession": [
-      "狙神"
-    ],
-    "Peculiarity": [
-      "约德尔人",
-      "祖安"
-    ]
-  },
-  {
-    "HeroName": "加里奥",
-    "Cost": 5,
-    "Profession": [],
-    "Peculiarity": [
-      "德玛西亚",
-      "正义巨像"
-    ]
-  },
-  {
-    "HeroName": "卢锡安与赛娜",
-    "Cost": 5,
-    "Profession": [
-      "枪手"
-    ],
-    "Peculiarity": [
-      "系魂圣枪"
-    ]
-  },
-  {
-    "HeroName": "梅尔",
-    "Cost": 5,
-    "Profession": [
-      "耀光使"
-    ],
-    "Peculiarity": [
-      "诺克萨斯"
-    ]
-  },
-  {
-    "HeroName": "千珏",
-    "Cost": 5,
-    "Profession": [
-      "迅击战士"
-    ],
-    "Peculiarity": [
-      "永猎双子"
-    ]
-  },
-  {
-    "HeroName": "瑟提",
-    "Cost": 5,
-    "Profession": [],
-    "Peculiarity": [
-      "艾欧尼亚",
-      "腕豪"
-    ]
-  },
-  {
-    "HeroName": "塔姆",
-    "Cost": 5,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "比尔吉沃特",
-      "河流之王"
-    ]
-  },
-  {
-    "HeroName": "沃利贝尔",
-    "Cost": 5,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "弗雷尔卓德"
-    ]
-  },
-  {
-    "HeroName": "希瓦娜",
-    "Cost": 5,
+    "HeroName": "辛吉德",
+    "Cost": 4,
     "Profession": [
       "主宰"
     ],
     "Peculiarity": [
-      "龙血武姬"
+      "祖安"
+    ]
+  },
+  {
+    "HeroName": "雷克顿",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "恕瑞玛"
+    ]
+  },
+  {
+    "HeroName": "黛安娜",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "巨神峰"
     ]
   },
   {
@@ -935,6 +852,137 @@
     ]
   },
   {
+    "HeroName": "加里奥",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "德玛西亚",
+      "正义巨像"
+    ]
+  },
+  {
+    "HeroName": "千珏",
+    "Cost": 5,
+    "Profession": [
+      "迅击战士"
+    ],
+    "Peculiarity": [
+      "永猎双子"
+    ]
+  },
+  {
+    "HeroName": "卢锡安与赛娜",
+    "Cost": 5,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "系魂圣枪"
+    ]
+  },
+  {
+    "HeroName": "吉格斯",
+    "Cost": 5,
+    "Profession": [
+      "狙神"
+    ],
+    "Peculiarity": [
+      "祖安",
+      "约德尔人"
+    ]
+  },
+  {
+    "HeroName": "基兰",
+    "Cost": 5,
+    "Profession": [
+      "神谕者"
+    ],
+    "Peculiarity": [
+      "时光守护者"
+    ]
+  },
+  {
+    "HeroName": "塔姆",
+    "Cost": 5,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "河流之王",
+      "比尔吉沃特"
+    ]
+  },
+  {
+    "HeroName": "奥恩",
+    "Cost": 5,
+    "Profession": [
+      "神盾使"
+    ],
+    "Peculiarity": [
+      "弗雷尔卓德",
+      "山隐之焰"
+    ]
+  },
+  {
+    "HeroName": "安妮",
+    "Cost": 5,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "黑暗之女"
+    ]
+  },
+  {
+    "HeroName": "希瓦娜",
+    "Cost": 5,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "龙血武姬"
+    ]
+  },
+  {
+    "HeroName": "彗",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "异画师"
+    ]
+  },
+  {
+    "HeroName": "杰斯",
+    "Cost": 5,
+    "Profession": [
+      "换形师",
+      "发明家"
+    ],
+    "Peculiarity": [
+      "皮尔特沃夫"
+    ]
+  },
+  {
+    "HeroName": "梅尔",
+    "Cost": 5,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "诺克萨斯"
+    ]
+  },
+  {
+    "HeroName": "沃利贝尔",
+    "Cost": 5,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "弗雷尔卓德"
+    ]
+  },
+  {
     "HeroName": "泽拉斯",
     "Cost": 5,
     "Profession": [],
@@ -944,7 +992,77 @@
     ]
   },
   {
-    "HeroName": "奥瑞利安索尔",
+    "HeroName": "瑟提",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "艾欧尼亚",
+      "腕豪"
+    ]
+  },
+  {
+    "HeroName": "艾瑞莉娅",
+    "Cost": 5,
+    "Profession": [
+      "狙神"
+    ],
+    "Peculiarity": [
+      "艾欧尼亚"
+    ]
+  },
+  {
+    "HeroName": "费德提克",
+    "Cost": 5,
+    "Profession": [
+      "征服者"
+    ],
+    "Peculiarity": [
+      "远古恐惧"
+    ]
+  },
+  {
+    "HeroName": "锤石",
+    "Cost": 5,
+    "Profession": [
+      "神盾使"
+    ],
+    "Peculiarity": [
+      "暗影岛"
+    ]
+  },
+  {
+    "HeroName": "阿兹尔",
+    "Cost": 5,
+    "Profession": [
+      "耀光使"
+    ],
+    "Peculiarity": [
+      "恕瑞玛",
+      "沙漠皇帝"
+    ]
+  },
+  {
+    "HeroName": "亚恒",
+    "Cost": 7,
+    "Profession": [],
+    "Peculiarity": [
+      "不落魔锋",
+      "暗裔"
+    ]
+  },
+  {
+    "HeroName": "塞拉斯",
+    "Cost": 7,
+    "Profession": [
+      "护卫",
+      "法师"
+    ],
+    "Peculiarity": [
+      "解脱者"
+    ]
+  },
+  {
+    "HeroName": "奥瑞利安·索尔",
     "Cost": 7,
     "Profession": [],
     "Peculiarity": [
@@ -953,12 +1071,22 @@
     ]
   },
   {
-    "HeroName": "纳什男爵",
+    "HeroName": "岩宝",
     "Cost": 7,
     "Profession": [],
     "Peculiarity": [
-      "纳什男爵",
-      "虚空"
+      "以绪塔尔"
+    ]
+  },
+  {
+    "HeroName": "海克斯霸龙",
+    "Cost": 7,
+    "Profession": [
+      "枪手"
+    ],
+    "Peculiarity": [
+      "海克斯机甲",
+      "皮尔特沃夫"
     ]
   },
   {
@@ -970,31 +1098,29 @@
     ]
   },
   {
-    "HeroName": "塞拉斯",
-    "Cost": 7,
-    "Profession": [
-      "法师",
-      "护卫"
-    ],
-    "Peculiarity": [
-      "解脱者"
-    ]
-  },
-  {
-    "HeroName": "亚恒",
+    "HeroName": "纳什男爵",
     "Cost": 7,
     "Profession": [],
     "Peculiarity": [
-      "暗裔",
-      "不落魔锋"
+      "虚空",
+      "纳什男爵"
     ]
   },
   {
-    "HeroName": "岩宝",
+    "HeroName": "莫德凯撒",
     "Cost": 7,
     "Profession": [],
     "Peculiarity": [
-      "以绪塔尔"
+      "诺克萨斯",
+      "铁铠冥魂"
+    ]
+  },
+  {
+    "HeroName": "远古巨龙",
+    "Cost": 7,
+    "Profession": [],
+    "Peculiarity": [
+      "远古巨龙"
     ]
   }
 ]

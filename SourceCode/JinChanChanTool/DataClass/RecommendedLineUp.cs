@@ -30,6 +30,11 @@ namespace JinChanChanTool.DataClass
         public List<LineUpUnit> LineUpUnits { get; set; } = [];
 
         /// <summary>
+        /// 阵容变阵（前期/中期/后期，3个），完整导入时使用；旧数据可为 null
+        /// </summary>
+        public List<SubLineUp>? SubLineUps { get; set; }
+
+        /// <summary>
         /// 阵容评级 (S, A, B,C, D)
         /// </summary>
         public LineUpTier Tier { get; set; } = LineUpTier.A;

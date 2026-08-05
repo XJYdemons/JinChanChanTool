@@ -1,68 +1,50 @@
 [
   {
     "Name": "暴风之剑",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
     "Name": "反曲之弓",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
     "Name": "无用大棒",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
     "Name": "女神之泪",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
     "Name": "锁子甲",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
     "Name": "负极斗篷",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
     "Name": "巨人腰带",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "拳套",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
     "Name": "金铲铲",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
+  },
+  {
+    "Name": "拳套",
+    "EquipmentType": "散件"
   },
   {
     "Name": "金锅锅",
-    "EquipmentType": "散件",
-    "SyntheticPathway": null
+    "EquipmentType": "散件"
   },
   {
-    "Name": "死亡之刃",
+    "Name": "无尽之刃",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
       "暴风之剑",
-      "暴风之剑"
-    ]
-  },
-  {
-    "Name": "巨人杀手",
-    "EquipmentType": "普通装备",
-    "SyntheticPathway": [
-      "暴风之剑",
-      "反曲之弓"
+      "拳套"
     ]
   },
   {
@@ -90,7 +72,7 @@
     ]
   },
   {
-    "Name": "饮血剑",
+    "Name": "汲取剑",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
       "暴风之剑",
@@ -103,14 +85,6 @@
     "SyntheticPathway": [
       "暴风之剑",
       "巨人腰带"
-    ]
-  },
-  {
-    "Name": "无尽之刃",
-    "EquipmentType": "普通装备",
-    "SyntheticPathway": [
-      "暴风之剑",
-      "拳套"
     ]
   },
   {
@@ -162,15 +136,7 @@
     ]
   },
   {
-    "Name": "最后的轻语",
-    "EquipmentType": "普通装备",
-    "SyntheticPathway": [
-      "反曲之弓",
-      "拳套"
-    ]
-  },
-  {
-    "Name": "灭世者的死亡之帽",
+    "Name": "班克斯的魔法帽",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
       "无用大棒",
@@ -210,14 +176,6 @@
     ]
   },
   {
-    "Name": "珠光护手",
-    "EquipmentType": "普通装备",
-    "SyntheticPathway": [
-      "无用大棒",
-      "拳套"
-    ]
-  },
-  {
     "Name": "蓝霸符",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
@@ -250,14 +208,6 @@
     ]
   },
   {
-    "Name": "正义之手",
-    "EquipmentType": "普通装备",
-    "SyntheticPathway": [
-      "女神之泪",
-      "拳套"
-    ]
-  },
-  {
     "Name": "棘刺背心",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
@@ -282,14 +232,6 @@
     ]
   },
   {
-    "Name": "坚定之心",
-    "EquipmentType": "普通装备",
-    "SyntheticPathway": [
-      "锁子甲",
-      "拳套"
-    ]
-  },
-  {
     "Name": "巨龙之爪",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
@@ -306,19 +248,59 @@
     ]
   },
   {
-    "Name": "水银",
-    "EquipmentType": "普通装备",
-    "SyntheticPathway": [
-      "负极斗篷",
-      "拳套"
-    ]
-  },
-  {
     "Name": "狂徒铠甲",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
       "巨人腰带",
       "巨人腰带"
+    ]
+  },
+  {
+    "Name": "金铲铲冠冕",
+    "EquipmentType": "普通装备",
+    "SyntheticPathway": [
+      "金铲铲",
+      "金铲铲"
+    ]
+  },
+  {
+    "Name": "最后的轻语",
+    "EquipmentType": "普通装备",
+    "SyntheticPathway": [
+      "反曲之弓",
+      "拳套"
+    ]
+  },
+  {
+    "Name": "珠光护手",
+    "EquipmentType": "普通装备",
+    "SyntheticPathway": [
+      "无用大棒",
+      "拳套"
+    ]
+  },
+  {
+    "Name": "正义之手",
+    "EquipmentType": "普通装备",
+    "SyntheticPathway": [
+      "女神之泪",
+      "拳套"
+    ]
+  },
+  {
+    "Name": "坚定之心",
+    "EquipmentType": "普通装备",
+    "SyntheticPathway": [
+      "锁子甲",
+      "拳套"
+    ]
+  },
+  {
+    "Name": "水银",
+    "EquipmentType": "普通装备",
+    "SyntheticPathway": [
+      "负极斗篷",
+      "拳套"
     ]
   },
   {
@@ -330,7 +312,7 @@
     ]
   },
   {
-    "Name": "窃贼手套",
+    "Name": "秘法手套",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
       "拳套",
@@ -338,11 +320,19 @@
     ]
   },
   {
-    "Name": "金铲铲冠冕",
+    "Name": "锐利之刃",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
-      "金铲铲",
-      "金铲铲"
+      "暴风之剑",
+      "暴风之剑"
+    ]
+  },
+  {
+    "Name": "巨人捕手",
+    "EquipmentType": "普通装备",
+    "SyntheticPathway": [
+      "暴风之剑",
+      "反曲之弓"
     ]
   },
   {
@@ -357,449 +347,453 @@
     "Name": "金锅铲冠冕",
     "EquipmentType": "普通装备",
     "SyntheticPathway": [
-      "金铲铲",
-      "金锅锅"
+      "金锅锅",
+      "金铲铲"
     ]
-  },
-  {
-    "Name": "光明版死亡之刃",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版巨人杀手",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版海克斯科技枪刃",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版朔极之矛",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版夜之锋刃",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版饮血剑",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版斯特拉克的挑战护手",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
   },
   {
     "Name": "光明版无尽之刃",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版海克斯科技枪刃",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版朔极之矛",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版夜之锋刃",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版汲取剑",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版斯特拉克的挑战护手",
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版红霸符",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版鬼索的狂暴之刃",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版虚空之杖",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版泰坦的坚决",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版海妖之怒",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版纳什之牙",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
-    "Name": "光明版最后的轻语",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版灭世者的死亡之帽",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "Name": "光明版班克斯的魔法帽",
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版大天使之杖",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版冕卫",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版离子火花",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版莫雷洛秘典",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版珠光护手",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版蓝霸符",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版圣盾使的誓约",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版适应性头盔",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版振奋盔甲",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版正义之手",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版棘刺背心",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版石像鬼石板甲",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版日炎斗篷",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版坚定之心",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版巨龙之爪",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版薄暮法袍",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光明版水银",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版狂徒铠甲",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版最后的轻语",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版珠光护手",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版正义之手",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版坚定之心",
+    "EquipmentType": "光明装备"
+  },
+  {
+    "Name": "光明版水银",
+    "EquipmentType": "光明装备"
   },
   {
     "Name": "光明版强袭者的链枷",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "EquipmentType": "光明装备"
   },
   {
-    "Name": "光明版窃贼手套",
-    "EquipmentType": "光明装备",
-    "SyntheticPathway": null
+    "Name": "光明版秘法手套",
+    "EquipmentType": "光明装备"
   },
   {
-    "Name": "伊芙琳的本能",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
+    "Name": "光明版锐利之刃",
+    "EquipmentType": "光明装备"
   },
   {
-    "Name": "亚索的剑艺",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
+    "Name": "光明版巨人捕手",
+    "EquipmentType": "光明装备"
   },
   {
-    "Name": "韦鲁斯的执念",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
+    "Name": "幸运装备宝箱",
+    "EquipmentType": "特殊装备"
   },
   {
-    "Name": "索拉卡的奇迹",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
-  },
-  {
-    "Name": "凯尔的崇拜",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
-  },
-  {
-    "Name": "锤石的灯笼",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
-  },
-  {
-    "Name": "阿狸的光环",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
-  },
-  {
-    "Name": "艾克的耐心",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": []
-  },
-  {
-    "Name": "暗裔之弓",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "暗裔之镰",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "暗裔之盾",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "暗裔之杖",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "虚空护手",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "黎明圣盾",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "恶火小斧",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "黄昏圣盾",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "帽子饮品",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "永恒契约",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "黎明核心",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "烁刃",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "斯塔缇克电刃",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "巨型九头蛇",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "顽强不屈",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "死亡之蔑",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "三相之力",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "金币收集者",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "中娅悖论",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "碎舰者",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "狙击手的专注",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
+    "Name": "光明版幸运装备宝箱",
+    "EquipmentType": "特殊装备"
   },
   {
     "Name": "大亨之铠",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "死亡之蔑",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "三相之力",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "金币收集者",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "中娅悖论",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "碎舰者",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "狙击手的专注",
+    "EquipmentType": "奥恩神器"
   },
   {
     "Name": "投机者之刃",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
+    "EquipmentType": "奥恩神器"
   },
   {
     "Name": "飞升护符",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
+    "EquipmentType": "奥恩神器"
   },
   {
     "Name": "鱼骨头",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "视界专注",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
+    "EquipmentType": "奥恩神器"
   },
   {
     "Name": "连指手套",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "疾射火炮",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "密银黎明",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "暗行者之爪",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "枯萎珠宝",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "智慧末刃",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "巫妖之祸",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "光盾徽章",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "探索者的护臂",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
+    "EquipmentType": "奥恩神器"
   },
   {
     "Name": "卢登的激荡",
-    "EquipmentType": "奥恩神器",
-    "SyntheticPathway": null
+    "EquipmentType": "奥恩神器"
   },
   {
-    "Name": "挑战者纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
-      "反曲之弓"
-    ]
+    "Name": "密银黎明",
+    "EquipmentType": "奥恩神器"
   },
   {
-    "Name": "未来战士纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金铲铲",
-      "反曲之弓"
-    ]
+    "Name": "暗行者之爪",
+    "EquipmentType": "奥恩神器"
   },
   {
-    "Name": "牧羊人纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
-      "女神之泪"
-    ]
+    "Name": "智慧末刃",
+    "EquipmentType": "奥恩神器"
   },
   {
-    "Name": "暗星纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金铲铲",
-      "暴风之剑"
-    ]
+    "Name": "疾射火炮",
+    "EquipmentType": "奥恩神器"
   },
   {
-    "Name": "旅人纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
-      "无用大棒"
-    ]
+    "Name": "枯萎珠宝",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "探索者的护臂",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "光盾徽章",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "巫妖之祸",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "烁刃",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "斯塔缇克电刃",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "顽强不屈",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "巨型九头蛇",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "黎明核心",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "黎明圣盾",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "黄昏圣盾",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "虚空护手",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "帽子饮品",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "恶火小斧",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "永恒契约",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "锤石的灯笼",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "阿狸的光环",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "艾克的耐心",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "亚索的剑艺",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "索拉卡的奇迹",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "韦鲁斯的执念",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "伊芙琳的本能",
+    "EquipmentType": "奥恩神器"
+  },
+  {
+    "Name": "德玛西亚王冠",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "无人机上行链路",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "恶意软件矩阵",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "生物质维护器",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "共感植入",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "锁敌光学设备",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "霸天机甲变形器",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "冰爆护甲",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "炽烈短弓",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "无情砍削",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "UwU魔爆炮",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "歼灭者",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "战兔十字弩",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "火箭狂潮",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "旋风切割器",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "耀光力场",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "雌狮之怨",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "附灵飞弹",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "触手重击",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "回响蝠刃",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "深度冻结",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "进化余烬射击",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "OwO魔爆炮",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "幻灵启示录",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "战兔至尊弩炮",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "不息气旋",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "日蚀之刻",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "薇恩的炫彩战刃",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "全能武器",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "闪光原型",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "破损原型",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "泄露原型",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "猛狮之殇",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "特攻队员选择器",
+    "EquipmentType": "特殊装备"
+  },
+  {
+    "Name": "幻灵战队纹章",
+    "EquipmentType": "转职纹章"
   },
   {
     "Name": "法官纹章",
@@ -818,26 +812,18 @@
     ]
   },
   {
+    "Name": "暗星纹章",
+    "EquipmentType": "转职纹章",
+    "SyntheticPathway": [
+      "金铲铲",
+      "暴风之剑"
+    ]
+  },
+  {
     "Name": "新星特攻队纹章",
     "EquipmentType": "转职纹章",
     "SyntheticPathway": [
       "金铲铲",
-      "拳套"
-    ]
-  },
-  {
-    "Name": "斗士纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
-      "巨人腰带"
-    ]
-  },
-  {
-    "Name": "游侠纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
       "拳套"
     ]
   },
@@ -850,35 +836,15 @@
     ]
   },
   {
+    "Name": "灵能特工纹章",
+    "EquipmentType": "转职纹章"
+  },
+  {
     "Name": "太空律动纹章",
     "EquipmentType": "转职纹章",
     "SyntheticPathway": [
       "金铲铲",
       "女神之泪"
-    ]
-  },
-  {
-    "Name": "狂战士纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
-      "暴风之剑"
-    ]
-  },
-  {
-    "Name": "重装战士纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
-      "负极斗篷"
-    ]
-  },
-  {
-    "Name": "堡垒卫士纹章",
-    "EquipmentType": "转职纹章",
-    "SyntheticPathway": [
-      "金锅锅",
-      "锁子甲"
     ]
   },
   {
@@ -890,178 +856,79 @@
     ]
   },
   {
-    "Name": "幻灵战队纹章",
+    "Name": "未来战士纹章",
     "EquipmentType": "转职纹章",
-    "SyntheticPathway": null
+    "SyntheticPathway": [
+      "金铲铲",
+      "反曲之弓"
+    ]
   },
   {
-    "Name": "灵能特工纹章",
+    "Name": "堡垒卫士纹章",
     "EquipmentType": "转职纹章",
-    "SyntheticPathway": null
+    "SyntheticPathway": [
+      "金锅锅",
+      "锁子甲"
+    ]
+  },
+  {
+    "Name": "斗士纹章",
+    "EquipmentType": "转职纹章",
+    "SyntheticPathway": [
+      "金锅锅",
+      "巨人腰带"
+    ]
+  },
+  {
+    "Name": "挑战者纹章",
+    "EquipmentType": "转职纹章",
+    "SyntheticPathway": [
+      "金锅锅",
+      "反曲之弓"
+    ]
+  },
+  {
+    "Name": "狂战士纹章",
+    "EquipmentType": "转职纹章",
+    "SyntheticPathway": [
+      "金锅锅",
+      "暴风之剑"
+    ]
+  },
+  {
+    "Name": "游侠纹章",
+    "EquipmentType": "转职纹章",
+    "SyntheticPathway": [
+      "金锅锅",
+      "拳套"
+    ]
   },
   {
     "Name": "狙神纹章",
+    "EquipmentType": "转职纹章"
+  },
+  {
+    "Name": "牧羊人纹章",
     "EquipmentType": "转职纹章",
-    "SyntheticPathway": null
+    "SyntheticPathway": [
+      "金锅锅",
+      "女神之泪"
+    ]
   },
   {
-    "Name": "破损原型",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
+    "Name": "重装战士纹章",
+    "EquipmentType": "转职纹章",
+    "SyntheticPathway": [
+      "金锅锅",
+      "负极斗篷"
+    ]
   },
   {
-    "Name": "泄露原型",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "闪光原型",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "附灵飞弹",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "火箭狂潮",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "无情砍削",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "触手重击",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "歼灭者",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "战兔十字弩",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "旋风切割器",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "回响蝠刃",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "冰爆护甲",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "雌狮之怨",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "耀光力场",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "炽烈短弓",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "UwU魔爆炮",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "幻灵启示录",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "战兔至尊弩炮",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "不息气旋",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "薇恩的炫彩战刃",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "深度冻结",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "猛狮之殇",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "日蚀之刻",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "进化余烬射击",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "OwO魔爆炮",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "幻灵合体至尊炮",
-    "EquipmentType": "幻灵战队",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "恶意软件矩阵",
-    "EquipmentType": "灵能特工",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "生物质维护器",
-    "EquipmentType": "灵能特工",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "索敌光学设备",
-    "EquipmentType": "灵能特工",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "半导体装置",
-    "EquipmentType": "灵能特工",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "无人机上行链路",
-    "EquipmentType": "灵能特工",
-    "SyntheticPathway": null
-  },
-  {
-    "Name": "共感植入",
-    "EquipmentType": "灵能特工",
-    "SyntheticPathway": null
+    "Name": "旅人纹章",
+    "EquipmentType": "转职纹章",
+    "SyntheticPathway": [
+      "金锅锅",
+      "无用大棒"
+    ]
   }
 ]

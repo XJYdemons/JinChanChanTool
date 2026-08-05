@@ -10,23 +10,13 @@
     ]
   },
   {
-    "HeroName": "塞拉斯",
+    "HeroName": "凯尔",
     "Cost": 1,
     "Profession": [
-      "混沌战士"
+      "决斗大师"
     ],
     "Peculiarity": [
-      "幻灵战队"
-    ]
-  },
-  {
-    "HeroName": "艾希",
-    "Cost": 1,
-    "Profession": [
-      "情报特工"
-    ],
-    "Peculiarity": [
-      "源计划：激光特工"
+      "地下魔盗团"
     ]
   },
   {
@@ -40,63 +30,13 @@
     ]
   },
   {
-    "HeroName": "普朗克",
-    "Cost": 1,
-    "Profession": [
-      "决斗大师"
-    ],
-    "Peculiarity": [
-      "超级英雄"
-    ]
-  },
-  {
-    "HeroName": "拉克丝",
-    "Cost": 1,
-    "Profession": [
-      "灵能使"
-    ],
-    "Peculiarity": [
-      "星之守护者"
-    ]
-  },
-  {
-    "HeroName": "雷克顿",
-    "Cost": 1,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "源计划：激光特工"
-    ]
-  },
-  {
-    "HeroName": "泰隆",
+    "HeroName": "塞拉斯",
     "Cost": 1,
     "Profession": [
       "混沌战士"
     ],
     "Peculiarity": [
-      "福牛守护者"
-    ]
-  },
-  {
-    "HeroName": "布里茨",
-    "Cost": 1,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "AI程序"
-    ]
-  },
-  {
-    "HeroName": "璐璐",
-    "Cost": 1,
-    "Profession": [
-      "爱心使者"
-    ],
-    "Peculiarity": [
-      "小天才"
+      "幻灵战队"
     ]
   },
   {
@@ -110,13 +50,33 @@
     ]
   },
   {
-    "HeroName": "凯尔",
+    "HeroName": "布里茨",
+    "Cost": 1,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "AI程序"
+    ]
+  },
+  {
+    "HeroName": "拉克丝",
+    "Cost": 1,
+    "Profession": [
+      "灵能使"
+    ],
+    "Peculiarity": [
+      "星之守护者"
+    ]
+  },
+  {
+    "HeroName": "普朗克",
     "Cost": 1,
     "Profession": [
       "决斗大师"
     ],
     "Peculiarity": [
-      "地下魔盗团"
+      "超级英雄"
     ]
   },
   {
@@ -130,13 +90,83 @@
     ]
   },
   {
-    "HeroName": "金克丝",
-    "Cost": 2,
+    "HeroName": "泰隆",
+    "Cost": 1,
     "Profession": [
-      "淘气包"
+      "混沌战士"
     ],
     "Peculiarity": [
-      "幻灵战队"
+      "福牛守护者"
+    ]
+  },
+  {
+    "HeroName": "璐璐",
+    "Cost": 1,
+    "Profession": [
+      "爱心使者"
+    ],
+    "Peculiarity": [
+      "小天才"
+    ]
+  },
+  {
+    "HeroName": "艾希",
+    "Cost": 1,
+    "Profession": [
+      "情报特工"
+    ],
+    "Peculiarity": [
+      "源计划：激光特工"
+    ]
+  },
+  {
+    "HeroName": "雷克顿",
+    "Cost": 1,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "源计划：激光特工"
+    ]
+  },
+  {
+    "HeroName": "亚索",
+    "Cost": 2,
+    "Profession": [
+      "决斗大师"
+    ],
+    "Peculiarity": [
+      "源计划：激光特工"
+    ]
+  },
+  {
+    "HeroName": "伊泽瑞尔",
+    "Cost": 2,
+    "Profession": [
+      "情报特工"
+    ],
+    "Peculiarity": [
+      "地下魔盗团"
+    ]
+  },
+  {
+    "HeroName": "卡蜜尔",
+    "Cost": 2,
+    "Profession": [
+      "混沌战士"
+    ],
+    "Peculiarity": [
+      "AI程序"
+    ]
+  },
+  {
+    "HeroName": "墨菲特",
+    "Cost": 2,
+    "Profession": [
+      "吉祥物"
+    ],
+    "Peculiarity": [
+      "超级英雄"
     ]
   },
   {
@@ -151,23 +181,34 @@
     ]
   },
   {
-    "HeroName": "卡蜜尔",
+    "HeroName": "希维尔",
     "Cost": 2,
     "Profession": [
-      "混沌战士"
+      "强袭枪手"
     ],
     "Peculiarity": [
-      "AI程序"
+      "平民英雄"
     ]
   },
   {
-    "HeroName": "菲奥娜",
+    "HeroName": "德莱文",
     "Cost": 2,
     "Profession": [
-      "决斗大师"
+      "精英战士"
     ],
     "Peculiarity": [
-      "福牛守护者"
+      "战斗机甲"
+    ]
+  },
+  {
+    "HeroName": "悠米",
+    "Cost": 2,
+    "Profession": [
+      "吉祥物",
+      "爱心使者"
+    ],
+    "Peculiarity": [
+      "星之守护者"
     ]
   },
   {
@@ -192,54 +233,13 @@
     ]
   },
   {
-    "HeroName": "希维尔",
-    "Cost": 2,
-    "Profession": [
-      "强袭枪手"
-    ],
-    "Peculiarity": [
-      "平民英雄"
-    ]
-  },
-  {
-    "HeroName": "亚索",
+    "HeroName": "菲奥娜",
     "Cost": 2,
     "Profession": [
       "决斗大师"
     ],
     "Peculiarity": [
-      "源计划：激光特工"
-    ]
-  },
-  {
-    "HeroName": "悠米",
-    "Cost": 2,
-    "Profession": [
-      "吉祥物",
-      "爱心使者"
-    ],
-    "Peculiarity": [
-      "星之守护者"
-    ]
-  },
-  {
-    "HeroName": "墨菲特",
-    "Cost": 2,
-    "Profession": [
-      "吉祥物"
-    ],
-    "Peculiarity": [
-      "超级英雄"
-    ]
-  },
-  {
-    "HeroName": "德莱文",
-    "Cost": 2,
-    "Profession": [
-      "精英战士"
-    ],
-    "Peculiarity": [
-      "战斗机甲"
+      "福牛守护者"
     ]
   },
   {
@@ -254,24 +254,98 @@
     ]
   },
   {
-    "HeroName": "伊泽瑞尔",
+    "HeroName": "金克丝",
     "Cost": 2,
     "Profession": [
+      "淘气包"
+    ],
+    "Peculiarity": [
+      "幻灵战队"
+    ]
+  },
+  {
+    "HeroName": "乐芙兰",
+    "Cost": 3,
+    "Profession": [
+      "灵能使",
+      "黑客"
+    ],
+    "Peculiarity": [
+      "AI程序"
+    ]
+  },
+  {
+    "HeroName": "佐伊",
+    "Cost": 3,
+    "Profession": [
+      "淘气包",
+      "黑客"
+    ],
+    "Peculiarity": [
+      "小天才"
+    ]
+  },
+  {
+    "HeroName": "卡莎",
+    "Cost": 3,
+    "Profession": [
       "情报特工"
+    ],
+    "Peculiarity": [
+      "星之守护者"
+    ]
+  },
+  {
+    "HeroName": "娑娜",
+    "Cost": 3,
+    "Profession": [
+      "灵能使",
+      "爱心使者"
     ],
     "Peculiarity": [
       "地下魔盗团"
     ]
   },
   {
-    "HeroName": "锐雯",
+    "HeroName": "尼菈",
     "Cost": 3,
     "Profession": [
-      "斗士",
-      "护卫"
+      "决斗大师"
     ],
     "Peculiarity": [
-      "幻灵战队"
+      "星之守护者"
+    ]
+  },
+  {
+    "HeroName": "拉莫斯",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "怪兽"
+    ]
+  },
+  {
+    "HeroName": "科加斯",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "怪兽"
+    ]
+  },
+  {
+    "HeroName": "维克兹",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "怪兽"
+    ]
+  },
+  {
+    "HeroName": "莫甘娜",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "怪兽"
     ]
   },
   {
@@ -280,6 +354,37 @@
     "Profession": [
       "决斗大师",
       "情报特工"
+    ],
+    "Peculiarity": [
+      "幻灵战队"
+    ]
+  },
+  {
+    "HeroName": "贾克斯",
+    "Cost": 3,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "战斗机甲"
+    ]
+  },
+  {
+    "HeroName": "赛娜",
+    "Cost": 3,
+    "Profession": [
+      "强袭枪手"
+    ],
+    "Peculiarity": [
+      "源计划：激光特工"
+    ]
+  },
+  {
+    "HeroName": "锐雯",
+    "Cost": 3,
+    "Profession": [
+      "斗士",
+      "护卫"
     ],
     "Peculiarity": [
       "幻灵战队"
@@ -297,118 +402,11 @@
     ]
   },
   {
-    "HeroName": "科加斯",
-    "Cost": 3,
-    "Profession": [],
-    "Peculiarity": [
-      "怪兽"
-    ]
-  },
-  {
-    "HeroName": "娑娜",
-    "Cost": 3,
-    "Profession": [
-      "灵能使",
-      "爱心使者"
-    ],
-    "Peculiarity": [
-      "地下魔盗团"
-    ]
-  },
-  {
-    "HeroName": "维克兹",
-    "Cost": 3,
-    "Profession": [],
-    "Peculiarity": [
-      "怪兽"
-    ]
-  },
-  {
-    "HeroName": "佐伊",
-    "Cost": 3,
-    "Profession": [
-      "淘气包",
-      "黑客"
-    ],
-    "Peculiarity": [
-      "小天才"
-    ]
-  },
-  {
-    "HeroName": "拉莫斯",
-    "Cost": 3,
-    "Profession": [],
-    "Peculiarity": [
-      "怪兽"
-    ]
-  },
-  {
-    "HeroName": "尼菈",
-    "Cost": 3,
-    "Profession": [
-      "决斗大师"
-    ],
-    "Peculiarity": [
-      "星之守护者"
-    ]
-  },
-  {
-    "HeroName": "赛娜",
-    "Cost": 3,
-    "Profession": [
-      "强袭枪手"
-    ],
-    "Peculiarity": [
-      "源计划：激光特工"
-    ]
-  },
-  {
-    "HeroName": "贾克斯",
-    "Cost": 3,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "战斗机甲"
-    ]
-  },
-  {
-    "HeroName": "乐芙兰",
-    "Cost": 3,
-    "Profession": [
-      "灵能使",
-      "黑客"
-    ],
-    "Peculiarity": [
-      "AI程序"
-    ]
-  },
-  {
-    "HeroName": "卡莎",
-    "Cost": 3,
-    "Profession": [
-      "情报特工"
-    ],
-    "Peculiarity": [
-      "星之守护者"
-    ]
-  },
-  {
-    "HeroName": "莫甘娜",
-    "Cost": 3,
-    "Profession": [],
-    "Peculiarity": [
-      "怪兽"
-    ]
-  },
-  {
-    "HeroName": "塔莉垭",
+    "HeroName": "亚托克斯",
     "Cost": 4,
-    "Profession": [
-      "灵能使"
-    ],
+    "Profession": [],
     "Peculiarity": [
-      "星之守护者"
+      "怪兽"
     ]
   },
   {
@@ -423,11 +421,14 @@
     ]
   },
   {
-    "HeroName": "奥瑞利安索尔",
+    "HeroName": "劫",
     "Cost": 4,
-    "Profession": [],
+    "Profession": [
+      "决斗大师",
+      "黑客"
+    ],
     "Peculiarity": [
-      "怪兽"
+      "源计划：激光特工"
     ]
   },
   {
@@ -449,14 +450,39 @@
     ]
   },
   {
-    "HeroName": "莎弥拉",
+    "HeroName": "塔莉垭",
     "Cost": 4,
     "Profession": [
-      "强袭枪手",
-      "精英战士"
+      "灵能使"
     ],
     "Peculiarity": [
-      "地下魔盗团"
+      "星之守护者"
+    ]
+  },
+  {
+    "HeroName": "奥瑞利安 · 索尔",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "怪兽"
+    ]
+  },
+  {
+    "HeroName": "扎克",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "怪兽"
+    ]
+  },
+  {
+    "HeroName": "瑟庄妮",
+    "Cost": 4,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "源计划：激光特工"
     ]
   },
   {
@@ -470,25 +496,6 @@
     ]
   },
   {
-    "HeroName": "扎克",
-    "Cost": 4,
-    "Profession": [],
-    "Peculiarity": [
-      "怪兽"
-    ]
-  },
-  {
-    "HeroName": "劫",
-    "Cost": 4,
-    "Profession": [
-      "决斗大师",
-      "黑客"
-    ],
-    "Peculiarity": [
-      "源计划：激光特工"
-    ]
-  },
-  {
     "HeroName": "索拉卡",
     "Cost": 4,
     "Profession": [
@@ -496,16 +503,6 @@
     ],
     "Peculiarity": [
       "AI程序"
-    ]
-  },
-  {
-    "HeroName": "瑟庄妮",
-    "Cost": 4,
-    "Profession": [
-      "斗士"
-    ],
-    "Peculiarity": [
-      "源计划：激光特工"
     ]
   },
   {
@@ -520,11 +517,14 @@
     ]
   },
   {
-    "HeroName": "亚托克斯",
+    "HeroName": "莎弥拉",
     "Cost": 4,
-    "Profession": [],
+    "Profession": [
+      "强袭枪手",
+      "精英战士"
+    ],
     "Peculiarity": [
-      "怪兽"
+      "地下魔盗团"
     ]
   },
   {
@@ -535,6 +535,61 @@
     ],
     "Peculiarity": [
       "小天才"
+    ]
+  },
+  {
+    "HeroName": "厄加特",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "怪兽"
+    ]
+  },
+  {
+    "HeroName": "厄斐琉斯",
+    "Cost": 5,
+    "Profession": [
+      "强袭枪手",
+      "枪神"
+    ],
+    "Peculiarity": [
+      "福牛守护者"
+    ]
+  },
+  {
+    "HeroName": "莫德凯撒",
+    "Cost": 5,
+    "Profession": [
+      "精英战士"
+    ],
+    "Peculiarity": [
+      "源计划：激光特工"
+    ]
+  },
+  {
+    "HeroName": "蕾欧娜",
+    "Cost": 5,
+    "Profession": [
+      "混沌战士",
+      "秘术卫士"
+    ],
+    "Peculiarity": [
+      "战斗机甲"
+    ]
+  },
+  {
+    "HeroName": "训练假人？",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": []
+  },
+  {
+    "HeroName": "费德提克",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "堕落使者",
+      "怪兽"
     ]
   },
   {
@@ -556,55 +611,6 @@
     ],
     "Peculiarity": [
       "平民英雄"
-    ]
-  },
-  {
-    "HeroName": "蕾欧娜",
-    "Cost": 5,
-    "Profession": [
-      "混沌战士",
-      "秘术卫士"
-    ],
-    "Peculiarity": [
-      "战斗机甲"
-    ]
-  },
-  {
-    "HeroName": "莫德凯撒",
-    "Cost": 5,
-    "Profession": [
-      "精英战士"
-    ],
-    "Peculiarity": [
-      "源计划：激光特工"
-    ]
-  },
-  {
-    "HeroName": "费德提克",
-    "Cost": 5,
-    "Profession": [],
-    "Peculiarity": [
-      "怪兽",
-      "堕落使者"
-    ]
-  },
-  {
-    "HeroName": "厄加特",
-    "Cost": 5,
-    "Profession": [],
-    "Peculiarity": [
-      "怪兽"
-    ]
-  },
-  {
-    "HeroName": "厄斐琉斯",
-    "Cost": 5,
-    "Profession": [
-      "枪神",
-      "强袭枪手"
-    ],
-    "Peculiarity": [
-      "福牛守护者"
     ]
   }
 ]

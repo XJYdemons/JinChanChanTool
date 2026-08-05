@@ -59,25 +59,14 @@ namespace JinChanChanTool.Services
         public event Action<bool> isGetCardStatusChanged;
         public bool isRefreshStore = false;//是否开启 自动刷新商店 标志(初始false)
         public event Action<bool> isRefreshStoreStatusChanged;
-        public bool isPickupItems = false;//是否开启 自动拾取棋盘物品 标志(初始false)
-        public event Action<bool> isPickupItemsStatusChanged;
         private CancellationTokenSource ctsHighLight = null;//控制高亮循环的取消令牌
         private CancellationTokenSource ctsGetCard = null;//控制拿牌循环的取消令牌
-        private CancellationTokenSource ctsPickupItems = null;//控制拾取循环的取消令牌
-        private string 上次拾取触发回合 = "";                  // 已触发过拾取的回合键（如 "3-1"），回合变化才再次触发
-        private DateTime 上次拾取时间 = DateTime.MinValue;     // 触发冷却计时
-        private int 回合识别失败计数 = 0;                       // 连续未识别到回合文本的累计次数（低频提示用）
-        private const double PICKUP_TRIGGER_COOLDOWN_SECONDS = 15; // 同一回合触发拾取的最小间隔（秒）
-        private const int PICKUP_POLL_INTERVAL_MS = 2000;      // 回合文本轮询间隔（毫秒）
-        private const int PICKUP_CLICK_INTERVAL_MS = 600;      // 盲点坐标点击间隔（毫秒）
-        // 触发拾取的回合（金铲铲开局野怪回合：1-2/1-3/1-4 打完掉落装备）
-        // 在野怪回合的准备阶段触发：1-3 准备阶段捡 1-2 掉落物，1-4 准备阶段捡 1-3 掉落物
-        // 注意：2-1 为海克斯选择阶段，不触发（避免选海克斯时鼠标乱动）
-        private static readonly HashSet<string> PICKUP_TRIGGER_ROUNDS = new HashSet<string> { "1-2", "1-3", "1-4" };
 
-        // 自动拾取棋盘物品：依赖自动坐标体系（由 MainForm 注入）
+        // 自动拾取棋盘物品（手动触发版）：点一下按钮 → 8 个棋盘盲点各右键点击一轮
+        // 依赖自动坐标体系（由 MainForm 注入）
         public WindowInteractionService WindowInteraction { get; set; }
         public CoordinateCalculationService CoordService { get; set; }
+        private const int PICKUP_CLICK_INTERVAL_MS = 600;      // 盲点坐标点击间隔（毫秒）
 
         private bool 鼠标左键是否按下;
         private bool 本轮是否按下过鼠标;
@@ -263,150 +252,49 @@ namespace JinChanChanTool.Services
             isRefreshStoreStatusChanged?.Invoke(false);
         }
 
-        #region 自动拾取棋盘物品（PVE 野怪回合后盲点拾取掉落物）
+        #region 自动拾取棋盘物品（手动触发：点一下按钮 → 8 个棋盘盲点各右键点击一轮）
         /// <summary>
-        /// 切换自动拾取棋盘物品
+        /// 执行一轮盲点拾取：对棋盘 8 个预设坐标依次右键点击（英雄移动路径自动拾取掉落物）
+        /// 手动触发（按钮/快捷键），不与回合数捆绑；未绑定游戏窗口时不动作
         /// </summary>
-        public void TogglePickupItems()
+        public async Task ExecutePickupOnce()
         {
-            if (isPickupItems)
-                StopPickupItems();
-            else
-                StartPickupItems();
-        }
-
-        /// <summary>
-        /// 开始自动拾取循环：OCR 读回合号 → 检测到 X-1（刚打完 X-7 野怪）→ 盲点棋盘拾取
-        /// </summary>
-        public void StartPickupItems()
-        {
-            if (isPickupItems) return;
-            isPickupItems = true;
-            ctsPickupItems = new CancellationTokenSource();
-            isPickupItemsStatusChanged?.Invoke(true);
-            Task.Run(() => ProcessLoop_PickupItems(ctsPickupItems.Token), ctsPickupItems.Token);
-        }
-
-        /// <summary>
-        /// 停止自动拾取循环
-        /// </summary>
-        public void StopPickupItems()
-        {
-            isPickupItems = false;
-            ctsPickupItems?.Cancel();
-            ctsPickupItems?.Dispose();
-            ctsPickupItems = null;
-            isPickupItemsStatusChanged?.Invoke(false);
-        }
-
-        /// <summary>
-        /// 自动拾取主循环：每 2 秒读一次回合文本，检测到新的 X-1 回合（野怪 X-7 刚打完）时
-        /// 对棋盘 8 个盲点坐标依次左键点击（触发英雄移动拾取），全程限定游戏窗口内 + 程序点击标记
-        /// </summary>
-        private async Task ProcessLoop_PickupItems(CancellationToken token)
-        {
-            int 轮次 = 0;
-            while (isPickupItems && !token.IsCancellationRequested)
+            try
             {
-                try
+                if (WindowInteraction == null || CoordService == null || !WindowInteraction.IsWindowFound)
                 {
-                    轮次++;
-                    // 0. 前置检查：窗口已绑定 + 坐标服务可用（自动设置坐标模式下才有）
-                    if (WindowInteraction == null || CoordService == null || !WindowInteraction.IsWindowFound)
-                    {
-                        LogTool.Log("自动拾取物品：未绑定游戏窗口（请先使用“自动设置坐标”选择游戏进程），跳过本轮");
-                        await Task.Delay(3000, token);
-                        continue;
-                    }
-                    // 1. 截取回合文本区域并识别（如 "1-2"、"3-1"）
-                    Rectangle? roundRect = CoordService.GetScaledRectangle(
-                        JccCoordinateTemplates.RoundText, JccCoordinateTemplates.BaseResolution, GameMode.JCC);
-                    if (roundRect == null)
-                    {
-                        await Task.Delay(2000, token);
-                        continue;
-                    }
-                    string roundText;
-                    using (Bitmap bmp = ImageProcessingTool.AreaScreenshots(roundRect.Value))
-                    // 回合号是小字（约 20-30px 高），放大 3 倍后再 OCR 以提高识别率
-                    using (Bitmap scaled = ScaleBitmap(bmp, 3))
-                    {
-                        roundText = (await _ocrService.RecognizeTextAsync(scaled)).Trim();
-                        // 调试：识别失败时保存该区域截图到 Logs，便于标定回合文本区域坐标
-                        if (!Regex.Match(roundText, @"(\d+)\s*[-–]\s*(\d+)").Success && 回合识别失败计数 % 20 == 0)
-                        {
-                            try
-                            {
-                                string dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-                                System.IO.Directory.CreateDirectory(dir);
-                                string file = System.IO.Path.Combine(dir, $"PickupRoundText_{DateTime.Now:yyyyMMdd_HHmmss}.png");
-                                bmp.Save(file, System.Drawing.Imaging.ImageFormat.Png);
-                                LogTool.Log($"自动拾取物品：已保存回合文本调试截图 {file}");
-                            }
-                            catch (Exception) { }
-                        }
-                    }
-                    Match m = Regex.Match(roundText, @"(\d+)\s*[-–]\s*(\d+)");
-                    if (!m.Success)
-                    {
-                        // 连续识别失败累计提示（避免每轮刷屏），便于排查回合文本区域坐标是否标偏
-                        回合识别失败计数++;
-                        if (回合识别失败计数 % 60 == 1) // 约每 2 分钟提示一次
-                        {
-                            LogTool.Log($"自动拾取物品：已连续约 {回合识别失败计数 * PICKUP_POLL_INTERVAL_MS / 1000} 秒未识别到回合文本（最近识别内容：\"{roundText}\"），请检查回合文本区域坐标");
-                        }
-                        await Task.Delay(2000, token);
-                        continue;
-                    }
-                    回合识别失败计数 = 0;
-                    int stage = int.Parse(m.Groups[1].Value);
-                    int round = int.Parse(m.Groups[2].Value);
-                    string roundKey = $"{stage}-{round}";
-                    // 2. 触发条件：当前回合 ∈ 拾取触发集合（开局野怪回合 1-2/1-3/1-4）
-                    //    + 回合键与上次不同（同一回合只触发一次）+ 距上次拾取超过冷却
-                    if (PICKUP_TRIGGER_ROUNDS.Contains(roundKey) && roundKey != 上次拾取触发回合
-                        && (DateTime.Now - 上次拾取时间).TotalSeconds >= PICKUP_TRIGGER_COOLDOWN_SECONDS)
-                    {
-                        LogTool.Log($"自动拾取物品：检测到回合 {roundKey}（野怪回合），开始盲点拾取棋盘物品");
-                        上次拾取触发回合 = roundKey;
-                        上次拾取时间 = DateTime.Now;
-                        await 盲点拾取一轮(token);
-                    }
+                    LogTool.Log("自动拾取物品：未绑定游戏窗口（请先使用“自动设置坐标”选择游戏进程），未执行");
+                    return;
                 }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    LogTool.Log($"自动拾取物品异常:{ex.Message}");
-                }
-                await Task.Delay(PICKUP_POLL_INTERVAL_MS, token); // 每 2 秒一轮
+                LogTool.Log("自动拾取物品：开始一轮盲点拾取");
+                await 盲点拾取一轮();
             }
-            StopPickupItems();
+            catch (Exception ex)
+            {
+                LogTool.Log($"自动拾取物品异常:{ex.Message}");
+            }
         }
 
         /// <summary>
         /// 对棋盘 8 个盲点坐标依次右键点击（英雄移动路径自动拾取掉落物）
         /// 点击使用 ClickRightOnce（带程序点击标记，不干扰用户操作检测），点间间隔防连点
         /// </summary>
-        private async Task 盲点拾取一轮(CancellationToken token)
+        private async Task 盲点拾取一轮()
         {
             int clicked = 0;
             foreach (var profile in JccCoordinateTemplates.PickupPoints)
             {
-                if (!isPickupItems) return; // 中途关闭则停止
                 Rectangle? rect = CoordService.GetScaledRectangle(
                     profile, JccCoordinateTemplates.BaseResolution, GameMode.JCC);
                 if (rect == null) continue;
                 int x = rect.Value.X + rect.Value.Width / 2;
                 int y = rect.Value.Y + rect.Value.Height / 2;
                 MouseControlTool.SetMousePosition(x, y);
-                await Task.Delay(30, token);
+                await Task.Delay(30);
                 await ClickRightOnce();
                 clicked++;
                 LogTool.Log($"自动拾取物品：已右键点击棋盘点 ({x},{y})");
-                await Task.Delay(PICKUP_CLICK_INTERVAL_MS, token); // 点间间隔
+                await Task.Delay(PICKUP_CLICK_INTERVAL_MS); // 点间间隔
             }
             LogTool.Log($"自动拾取物品：本轮盲点拾取完成，共点击 {clicked} 个位置");
         }
@@ -421,20 +309,6 @@ namespace JinChanChanTool.Services
             MouseControlTool.MakeMouseRightButtonUp();
             await Task.Delay(1);
             MouseHookTool.DecrementProgramClickCount();
-        }
-
-        /// <summary>
-        /// 将图片按整数倍放大（用于小字 OCR 前提升识别率）
-        /// </summary>
-        private static Bitmap ScaleBitmap(Bitmap src, int scale)
-        {
-            Bitmap dst = new Bitmap(src.Width * scale, src.Height * scale);
-            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(dst))
-            {
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g.DrawImage(src, 0, 0, dst.Width, dst.Height);
-            }
-            return dst;
         }
         #endregion
 

@@ -86,15 +86,9 @@ namespace JinChanChanTool.DataClass.StaticData
         /// </summary>
         public static readonly AnchorProfile GoldAmount = new(17.5, -105, 65, 30);
 
-        // --- 自动拾取棋盘物品（PVE 野怪后盲点拾取掉落物）---
+        // --- 自动拾取棋盘物品（手动触发：点按钮 → 8 个棋盘盲点各右键点击一轮）---
         // 说明：坐标基于 1600x910 基准 + 底部居中锚点，经 CoordinateCalculationService 缩放适配实际窗口
-        // 注：坐标已按 2026-08-05 用户实机截图标定（回合号在顶部中央，非左上角）
-
-        /// <summary>
-        /// 回合文本识别区域（顶部偏左回合号，如 "1-2"、"3-5"），用于判断野怪回合触发拾取
-        /// 调试截图确认：回合号+皇冠图标在顶部中央偏左（屏幕 x≈530-800, y≈12-60）
-        /// </summary>
-        public static readonly AnchorProfile RoundText = new(-135, -874, 270, 48);
+        // 注：坐标已按 2026-08-05 用户实机截图初步标定，可进一步微调
 
         /// <summary>
         /// 棋盘盲点拾取网格（8 个点，右键点击触发英雄移动拾取）

@@ -66,7 +66,7 @@ namespace JinChanChanTool.Services
         // 依赖自动坐标体系（由 MainForm 注入）
         public WindowInteractionService WindowInteraction { get; set; }
         public CoordinateCalculationService CoordService { get; set; }
-        private const int PICKUP_CLICK_INTERVAL_MS = 600;      // 盲点坐标点击间隔（毫秒）
+        private const int PICKUP_CLICK_INTERVAL_MS = 1100;     // 盲点坐标点击间隔（毫秒）
 
         private bool 鼠标左键是否按下;
         private bool 本轮是否按下过鼠标;

@@ -315,7 +315,6 @@ namespace JinChanChanTool.Services
                     if (WindowInteraction == null || CoordService == null || !WindowInteraction.IsWindowFound)
                     {
                         LogTool.Log("自动拾取物品：未绑定游戏窗口（请先使用“自动设置坐标”选择游戏进程），跳过本轮");
-                        OutputForm.Instance.WriteLineOutputMessage("自动拾取物品：未绑定游戏窗口（请先使用“自动设置坐标”选择游戏进程），跳过本轮");
                         await Task.Delay(3000, token);
                         continue;
                     }
@@ -343,7 +342,6 @@ namespace JinChanChanTool.Services
                                 string file = System.IO.Path.Combine(dir, $"PickupRoundText_{DateTime.Now:yyyyMMdd_HHmmss}.png");
                                 bmp.Save(file, System.Drawing.Imaging.ImageFormat.Png);
                                 LogTool.Log($"自动拾取物品：已保存回合文本调试截图 {file}");
-                                OutputForm.Instance.WriteLineOutputMessage($"自动拾取物品：已保存回合文本调试截图 {file}");
                             }
                             catch (Exception) { }
                         }
@@ -356,7 +354,6 @@ namespace JinChanChanTool.Services
                         if (回合识别失败计数 % 60 == 1) // 约每 2 分钟提示一次
                         {
                             LogTool.Log($"自动拾取物品：已连续约 {回合识别失败计数 * PICKUP_POLL_INTERVAL_MS / 1000} 秒未识别到回合文本（最近识别内容：\"{roundText}\"），请检查回合文本区域坐标");
-                            OutputForm.Instance.WriteLineOutputMessage($"自动拾取物品：长时间未识别到回合文本（最近识别内容：\"{roundText}\"），请检查回合文本区域坐标");
                         }
                         await Task.Delay(2000, token);
                         continue;
@@ -371,7 +368,6 @@ namespace JinChanChanTool.Services
                         && (DateTime.Now - 上次拾取时间).TotalSeconds >= PICKUP_TRIGGER_COOLDOWN_SECONDS)
                     {
                         LogTool.Log($"自动拾取物品：检测到回合 {roundKey}（野怪回合），开始盲点拾取棋盘物品");
-                        OutputForm.Instance.WriteLineOutputMessage($"自动拾取物品：检测到回合 {roundKey}（野怪回合），开始盲点拾取棋盘物品");
                         上次拾取触发回合 = roundKey;
                         上次拾取时间 = DateTime.Now;
                         await 盲点拾取一轮(token);
@@ -410,11 +406,9 @@ namespace JinChanChanTool.Services
                 await ClickRightOnce();
                 clicked++;
                 LogTool.Log($"自动拾取物品：已右键点击棋盘点 ({x},{y})");
-                OutputForm.Instance.WriteLineOutputMessage($"自动拾取物品：已右键点击棋盘点 ({x},{y})");
                 await Task.Delay(PICKUP_CLICK_INTERVAL_MS, token); // 点间间隔
             }
             LogTool.Log($"自动拾取物品：本轮盲点拾取完成，共点击 {clicked} 个位置");
-            OutputForm.Instance.WriteLineOutputMessage($"自动拾取物品：本轮盲点拾取完成，共点击 {clicked} 个位置");
         }
 
         /// <summary>

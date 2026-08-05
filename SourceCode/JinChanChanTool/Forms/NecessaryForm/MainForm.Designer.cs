@@ -66,6 +66,8 @@ namespace JinChanChanTool
             capsuleSwitch_自动拿牌 = new CapsuleSwitch();
             label_高亮显示 = new Label();
             capsuleSwitch_高亮显示 = new CapsuleSwitch();
+            label_自动拾取物品 = new Label();
+            capsuleSwitch_自动拾取物品 = new CapsuleSwitch();
             timer_装备推荐 = new System.Windows.Forms.Timer(components);
             timer_更新坐标 = new System.Windows.Forms.Timer(components);
             panel_窗体总背景 = new Panel();
@@ -279,6 +281,8 @@ namespace JinChanChanTool
             panel_用户区背景.Controls.Add(textBox_阵容码);
             panel_用户区背景.Controls.Add(label_高亮显示);
             panel_用户区背景.Controls.Add(capsuleSwitch_高亮显示);
+            panel_用户区背景.Controls.Add(label_自动拾取物品);
+            panel_用户区背景.Controls.Add(capsuleSwitch_自动拾取物品);
             panel_用户区背景.Controls.Add(panel_子阵容展示区背景);
             panel_用户区背景.Controls.Add(tabControl_英雄选择容器);
             panel_用户区背景.Controls.Add(menuStrip_主窗口菜单);
@@ -496,6 +500,30 @@ namespace JinChanChanTool
             capsuleSwitch_自动刷新商店.ThumbColor = Color.White;
             capsuleSwitch_自动刷新商店.IsOnChanged += capsuleSwitch3_IsOnChanged;
             // 
+            // label_自动拾取物品
+            // 
+            label_自动拾取物品.Location = new Point(405, 31);
+            label_自动拾取物品.Margin = new Padding(2, 5, 0, 5);
+            label_自动拾取物品.Name = "label_自动拾取物品";
+            label_自动拾取物品.Size = new Size(62, 20);
+            label_自动拾取物品.TabIndex = 17;
+            label_自动拾取物品.Text = "拾取物品";
+            label_自动拾取物品.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // capsuleSwitch_自动拾取物品
+            // 
+            capsuleSwitch_自动拾取物品.Location = new Point(468, 31);
+            capsuleSwitch_自动拾取物品.Name = "capsuleSwitch_自动拾取物品";
+            capsuleSwitch_自动拾取物品.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_自动拾取物品.OnColor = Color.FromArgb(76, 175, 80);
+            capsuleSwitch_自动拾取物品.ShowText = false;
+            capsuleSwitch_自动拾取物品.Size = new Size(50, 20);
+            capsuleSwitch_自动拾取物品.TabIndex = 18;
+            capsuleSwitch_自动拾取物品.Text = "capsuleSwitch_自动拾取物品";
+            capsuleSwitch_自动拾取物品.TextColor = Color.DimGray;
+            capsuleSwitch_自动拾取物品.ThumbColor = Color.White;
+            capsuleSwitch_自动拾取物品.IsOnChanged += capsuleSwitch_自动拾取物品_IsOnChanged;
+            // 
             // label_自动拿牌
             // 
             label_自动拿牌.Location = new Point(138, 31);
@@ -686,6 +714,8 @@ namespace JinChanChanTool
         private Button button_变阵2;
         private CapsuleSwitch capsuleSwitch_高亮显示;
         private Label label_高亮显示;
+        private Label label_自动拾取物品;
+        private CapsuleSwitch capsuleSwitch_自动拾取物品;
         private Label label_自动刷新商店;
         private CapsuleSwitch capsuleSwitch_自动刷新商店;
         private Label label_自动拿牌;

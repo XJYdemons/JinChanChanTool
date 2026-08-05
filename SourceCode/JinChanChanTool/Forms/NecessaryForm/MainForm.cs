@@ -213,9 +213,13 @@ namespace JinChanChanTool
 
             #region 自动拿牌服务对象实例化
             _cardService = new CardService(_iManualSettingsService, _iAutomaticSettingsService, _iCorrectionService, _iheroDataService, _iLineUpService);
+            // 注入自动拾取棋盘物品所需的窗口/坐标服务（依赖自动设置坐标体系）
+            _cardService.WindowInteraction = _windowInteractionService;
+            _cardService.CoordService = _coordService;
             _cardService.isHighLightStatusChanged += OnIsHighLightChanged;
             _cardService.isGetCardStatusChanged += OnIsGetCardChanged;
             _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;
+            _cardService.isPickupItemsStatusChanged += OnIsPickupItemsChanged;
             #endregion
 
             #region 初始化状态显示窗口
@@ -797,6 +801,7 @@ namespace JinChanChanTool
         private bool _isSyncingHighLight = false;
         private bool _isSyncingGetCard = false;
         private bool _isSyncingRefreshStore = false;
+        private bool _isSyncingPickupItems = false;
 
 
         private void capsuleSwitch1_IsOnChanged(object sender, EventArgs e)
@@ -815,6 +820,12 @@ namespace JinChanChanTool
         {
             if (_isSyncingRefreshStore) return;
             _cardService.ToggleRefreshStore();
+        }
+
+        private void capsuleSwitch_自动拾取物品_IsOnChanged(object sender, EventArgs e)
+        {
+            if (_isSyncingPickupItems) return;
+            _cardService.TogglePickupItems();
         }
 
         private void OnIsHighLightChanged(bool isRunning)
@@ -847,6 +858,21 @@ namespace JinChanChanTool
             capsuleSwitch_自动拿牌.IsOn = isRunning;
             _isSyncingGetCard = false;
             comboBox_赛季选择.Enabled = !_cardService.isGetCard && !_cardService.isHighLight;
+        }
+
+        /// <summary>
+        /// 自动拾取棋盘物品功能变更通知事件
+        /// </summary>
+        private void OnIsPickupItemsChanged(bool isRunning)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<bool>(OnIsPickupItemsChanged), isRunning);
+                return;
+            }
+            _isSyncingPickupItems = true;
+            capsuleSwitch_自动拾取物品.IsOn = isRunning;
+            _isSyncingPickupItems = false;
         }
 
         /// <summary>

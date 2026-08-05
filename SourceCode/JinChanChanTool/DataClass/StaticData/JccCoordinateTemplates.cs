@@ -85,5 +85,30 @@ namespace JinChanChanTool.DataClass.StaticData
         /// 金币数量识别区域
         /// </summary>
         public static readonly AnchorProfile GoldAmount = new(17.5, -105, 65, 30);
+
+        // --- 自动拾取棋盘物品（PVE 野怪后盲点拾取掉落物）---
+        // 说明：坐标基于 1600x910 基准 + 底部居中锚点，经 CoordinateCalculationService 缩放适配实际窗口
+        // 注：以下偏移为初版估算值，需按实际游戏画面微调（可进对局截图确认）
+
+        /// <summary>
+        /// 回合文本识别区域（左上角回合号，如 "2-1"），用于判断野怪回合结束时机
+        /// </summary>
+        public static readonly AnchorProfile RoundText = new(-740, -860, 130, 42);
+
+        /// <summary>
+        /// 棋盘盲点拾取网格（8 个点，左键点击触发英雄移动拾取）
+        /// 覆盖棋盘中央 3x3 网格（去中心），英雄移动路径自动拾取掉落物
+        /// </summary>
+        public static readonly AnchorProfile[] PickupPoints = new AnchorProfile[]
+        {
+            new(-300, -530, 20, 20),   // 左上
+            new(0,    -530, 20, 20),   // 上中
+            new(300,  -530, 20, 20),   // 右上
+            new(-300, -390, 20, 20),   // 左中
+            new(0,    -390, 20, 20),   // 正中
+            new(300,  -390, 20, 20),   // 右中
+            new(-150, -250, 20, 20),   // 左下
+            new(150,  -250, 20, 20),   // 右下
+        };
     }
 }

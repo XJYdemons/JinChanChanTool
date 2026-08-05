@@ -331,6 +331,20 @@ namespace JinChanChanTool.Services
                     using (Bitmap bmp = ImageProcessingTool.AreaScreenshots(roundRect.Value))
                     {
                         roundText = (await _ocrService.RecognizeTextAsync(bmp)).Trim();
+                        // 调试：识别失败时保存该区域截图到 Logs，便于标定回合文本区域坐标
+                        if (!Regex.Match(roundText, @"(\d+)\s*[-–]\s*(\d+)").Success && 回合识别失败计数 % 20 == 0)
+                        {
+                            try
+                            {
+                                string dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+                                System.IO.Directory.CreateDirectory(dir);
+                                string file = System.IO.Path.Combine(dir, $"PickupRoundText_{DateTime.Now:yyyyMMdd_HHmmss}.png");
+                                bmp.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+                                LogTool.Log($"自动拾取物品：已保存回合文本调试截图 {file}");
+                                OutputForm.Instance.WriteLineOutputMessage($"自动拾取物品：已保存回合文本调试截图 {file}");
+                            }
+                            catch (Exception) { }
+                        }
                     }
                     Match m = Regex.Match(roundText, @"(\d+)\s*[-–]\s*(\d+)");
                     if (!m.Success)

@@ -329,8 +329,10 @@ namespace JinChanChanTool.Services
                     }
                     string roundText;
                     using (Bitmap bmp = ImageProcessingTool.AreaScreenshots(roundRect.Value))
+                    // 回合号是小字（约 20-30px 高），放大 3 倍后再 OCR 以提高识别率
+                    using (Bitmap scaled = ScaleBitmap(bmp, 3))
                     {
-                        roundText = (await _ocrService.RecognizeTextAsync(bmp)).Trim();
+                        roundText = (await _ocrService.RecognizeTextAsync(scaled)).Trim();
                         // 调试：识别失败时保存该区域截图到 Logs，便于标定回合文本区域坐标
                         if (!Regex.Match(roundText, @"(\d+)\s*[-–]\s*(\d+)").Success && 回合识别失败计数 % 20 == 0)
                         {
@@ -425,6 +427,20 @@ namespace JinChanChanTool.Services
             MouseControlTool.MakeMouseRightButtonUp();
             await Task.Delay(1);
             MouseHookTool.DecrementProgramClickCount();
+        }
+
+        /// <summary>
+        /// 将图片按整数倍放大（用于小字 OCR 前提升识别率）
+        /// </summary>
+        private static Bitmap ScaleBitmap(Bitmap src, int scale)
+        {
+            Bitmap dst = new Bitmap(src.Width * scale, src.Height * scale);
+            using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(dst))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.DrawImage(src, 0, 0, dst.Width, dst.Height);
+            }
+            return dst;
         }
         #endregion
 

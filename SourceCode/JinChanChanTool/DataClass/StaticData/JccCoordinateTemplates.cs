@@ -91,9 +91,10 @@ namespace JinChanChanTool.DataClass.StaticData
         // 注：坐标已按 2026-08-05 用户实机截图标定（回合号在顶部中央，非左上角）
 
         /// <summary>
-        /// 回合文本识别区域（顶部中央回合号，如 "1-2"、"3-2"），用于判断野怪回合触发拾取
+        /// 回合文本识别区域（顶部偏左回合号，如 "1-2"、"3-5"），用于判断野怪回合触发拾取
+        /// 调试截图确认：回合号+皇冠图标在顶部中央偏左（屏幕 x≈530-800, y≈12-60）
         /// </summary>
-        public static readonly AnchorProfile RoundText = new(-8, -855, 520, 70);
+        public static readonly AnchorProfile RoundText = new(-135, -874, 270, 48);
 
         /// <summary>
         /// 棋盘盲点拾取网格（8 个点，右键点击触发英雄移动拾取）

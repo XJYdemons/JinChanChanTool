@@ -289,7 +289,7 @@ namespace JinChanChanTool
             panel_用户区背景.Location = new Point(0, 25);
             panel_用户区背景.Margin = new Padding(0);
             panel_用户区背景.Name = "panel_用户区背景";
-            panel_用户区背景.Size = new Size(404, 658);
+            panel_用户区背景.Size = new Size(524, 658);
             panel_用户区背景.TabIndex = 5;
             // 
             // roundedButton_导入
@@ -592,7 +592,7 @@ namespace JinChanChanTool
             panel_窗体总背景.Margin = new Padding(0);
             panel_窗体总背景.Name = "panel_窗体总背景";
             panel_窗体总背景.Padding = new Padding(3, 3, 4, 4);
-            panel_窗体总背景.Size = new Size(410, 695);
+            panel_窗体总背景.Size = new Size(530, 695);
             panel_窗体总背景.TabIndex = 6;
             // 
             // panel_窗体副背景
@@ -604,7 +604,7 @@ namespace JinChanChanTool
             panel_窗体副背景.Location = new Point(3, 3);
             panel_窗体副背景.Margin = new Padding(0);
             panel_窗体副背景.Name = "panel_窗体副背景";
-            panel_窗体副背景.Size = new Size(403, 688);
+            panel_窗体副背景.Size = new Size(523, 688);
             panel_窗体副背景.TabIndex = 6;
             // 
             // panel_标题栏背景
@@ -644,7 +644,7 @@ namespace JinChanChanTool
             // 
             button_最小化.FlatAppearance.BorderSize = 0;
             button_最小化.FlatStyle = FlatStyle.Flat;
-            button_最小化.Location = new Point(354, 1);
+            button_最小化.Location = new Point(474, 1);
             button_最小化.Margin = new Padding(0);
             button_最小化.Name = "button_最小化";
             button_最小化.Size = new Size(23, 23);
@@ -657,7 +657,7 @@ namespace JinChanChanTool
             // 
             button_关闭.FlatAppearance.BorderSize = 0;
             button_关闭.FlatStyle = FlatStyle.Flat;
-            button_关闭.Location = new Point(379, 1);
+            button_关闭.Location = new Point(499, 1);
             button_关闭.Margin = new Padding(0);
             button_关闭.Name = "button_关闭";
             button_关闭.Size = new Size(23, 23);
@@ -670,7 +670,7 @@ namespace JinChanChanTool
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(410, 695);
+            ClientSize = new Size(530, 695);
             Controls.Add(panel_窗体总背景);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");

@@ -360,8 +360,8 @@ namespace JinChanChanTool.Services
         }
 
         /// <summary>
-        /// 对棋盘 8 个盲点坐标依次左键点击（英雄移动路径自动拾取掉落物）
-        /// 点击使用 ClickOneTime（带程序点击标记，不干扰用户操作检测），点间间隔防连点
+        /// 对棋盘 8 个盲点坐标依次右键点击（英雄移动路径自动拾取掉落物）
+        /// 点击使用 ClickRightOnce（带程序点击标记，不干扰用户操作检测），点间间隔防连点
         /// </summary>
         private async Task 盲点拾取一轮(CancellationToken token)
         {
@@ -376,12 +376,24 @@ namespace JinChanChanTool.Services
                 int y = rect.Value.Y + rect.Value.Height / 2;
                 MouseControlTool.SetMousePosition(x, y);
                 await Task.Delay(30, token);
-                await ClickOneTime();
+                await ClickRightOnce();
                 clicked++;
-                LogTool.Log($"自动拾取物品：已点击棋盘点 ({x},{y})");
+                LogTool.Log($"自动拾取物品：已右键点击棋盘点 ({x},{y})");
                 await Task.Delay(PICKUP_CLICK_INTERVAL_MS, token); // 点间间隔
             }
             LogTool.Log($"自动拾取物品：本轮盲点拾取完成，共点击 {clicked} 个位置");
+        }
+
+        /// <summary>
+        /// 模拟一次右键点击（带程序点击标记，与左键 ClickOneTime 同机制）
+        /// </summary>
+        private async Task ClickRightOnce()
+        {
+            MouseHookTool.IncrementProgramClickCount(); // 标记程序点击
+            MouseControlTool.MakeMouseRightButtonDown();
+            MouseControlTool.MakeMouseRightButtonUp();
+            await Task.Delay(1);
+            MouseHookTool.DecrementProgramClickCount();
         }
         #endregion
 

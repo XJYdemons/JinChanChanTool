@@ -7,6 +7,8 @@ namespace JinChanChanTool.Tools.MouseTools
         #region 添加鼠标按键声明
         public const int MOUSEEVENTF_LEFTDOWN = 0x02; // 鼠标左键按下
         public const int MOUSEEVENTF_LEFTUP = 0x04;   // 鼠标左键抬起
+        public const int MOUSEEVENTF_RIGHTDOWN = 0x08; // 鼠标右键按下
+        public const int MOUSEEVENTF_RIGHTUP = 0x10;   // 鼠标右键抬起
         [DllImport("user32.dll")]
         static extern bool SetCursorPos(int X, int Y);
 
@@ -54,12 +56,28 @@ namespace JinChanChanTool.Tools.MouseTools
         }
 
         /// <summary>
-        /// 鼠标左键抬起
+        /// 模拟鼠标左键抬起
         /// </summary>
         public static void MakeMouseLeftButtonUp()
         {
             // 模拟鼠标左键抬起
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        }       
+        }
+
+        /// <summary>
+        /// 模拟鼠标右键按下
+        /// </summary>
+        public static void MakeMouseRightButtonDown()
+        {
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+        }
+
+        /// <summary>
+        /// 模拟鼠标右键抬起
+        /// </summary>
+        public static void MakeMouseRightButtonUp()
+        {
+            mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+        }
     }
 }

@@ -615,7 +615,7 @@ namespace JinChanChanTool
             panel_标题栏背景.Controls.Add(button_关闭);
             panel_标题栏背景.Location = new Point(0, 0);
             panel_标题栏背景.Name = "panel_标题栏背景";
-            panel_标题栏背景.Size = new Size(404, 25);
+            panel_标题栏背景.Size = new Size(530, 25);
             panel_标题栏背景.TabIndex = 6;
             // 
             // label_标题

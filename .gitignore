@@ -56,6 +56,11 @@ SourceCode/JinChanChanTool/obj
 SourceCode/JinChanChanTool/bin
 .craft/
 
+# 备份与缓存文件
+*.bak
+__pycache__/
+*.pyc
+
 SourceCode/JinChanChanTool/CLAUDE.md
 SourceCode/JinChanChanTool/.claude
 SourceCode/JinChanChanTool/.claude/settings.local.json

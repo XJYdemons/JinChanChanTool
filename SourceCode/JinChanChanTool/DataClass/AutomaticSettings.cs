@@ -94,6 +94,11 @@ namespace JinChanChanTool.DataClass
         public DateTime EquipmentLastUpdateTime { get; set; }
 
         /// <summary>
+        /// 主赛季，同时也是配置无效时使用的默认赛季
+        /// </summary>
+        public string MainSeason { get; set; }
+
+        /// <summary>
         /// 上次选择的赛季
         /// </summary>
         public string SelectedSeason { get; set; }
@@ -130,7 +135,8 @@ namespace JinChanChanTool.DataClass
             LineUpFormLocation = new Point(-1, -1);
             StatusOverlayFormLocation = new Point(-1, -1);
             EquipmentLastUpdateTime = new DateTime(2026, 4, 15, 21, 54, 0);
-            SelectedSeason = "S17";
+            MainSeason = "S18";
+            SelectedSeason = MainSeason;
             SelectedLineUpIndex = 0;
             IsFirstStart = true;
         }
@@ -160,6 +166,7 @@ namespace JinChanChanTool.DataClass
                 LineUpFormLocation = this.LineUpFormLocation,
                 StatusOverlayFormLocation = this.StatusOverlayFormLocation,
                 EquipmentLastUpdateTime = this.EquipmentLastUpdateTime,
+                MainSeason = this.MainSeason,
                 SelectedSeason = this.SelectedSeason,
                 SelectedLineUpIndex = this.SelectedLineUpIndex,
                 IsFirstStart = this.IsFirstStart
@@ -193,6 +200,7 @@ namespace JinChanChanTool.DataClass
                    LineUpFormLocation == other.LineUpFormLocation &&
                    StatusOverlayFormLocation == other.StatusOverlayFormLocation &&
                    EquipmentLastUpdateTime == other.EquipmentLastUpdateTime&&
+                   MainSeason == other.MainSeason&&
                    SelectedSeason == other.SelectedSeason&&
                    SelectedLineUpIndex == other.SelectedLineUpIndex&&
                    IsFirstStart == other.IsFirstStart;

@@ -73,12 +73,35 @@ namespace JinChanChanTool
 
             //创建并加载英雄数据服务
             IHeroDataService _iheroDataService = new HeroDataService();
-            _iheroDataService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);        
+            string selectedSeason;
+            try
+            {
+                selectedSeason = ResolveSelectedSeason(
+                    _iheroDataService.GetFilePaths(),
+                    _iAutomaticSettingsService.CurrentConfig.SelectedSeason,
+                    _iAutomaticSettingsService.CurrentConfig.MainSeason);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "赛季配置错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!string.Equals(selectedSeason,
+                               _iAutomaticSettingsService.CurrentConfig.SelectedSeason,
+                               StringComparison.OrdinalIgnoreCase))
+            {
+                OutputForm.Instance.WriteLineOutputMessage(
+                    $"配置的赛季不存在，已切换到可用赛季：{selectedSeason}");
+                _iAutomaticSettingsService.CurrentConfig.SelectedSeason = selectedSeason;
+                _iAutomaticSettingsService.Save();
+            }
+
+            _iheroDataService.SetFilePathsIndex(selectedSeason);
             _iheroDataService.Load();
 
             //创建并加载装备数据服务
             IEquipmentService _iEquipmentService = new EquipmentService();
-            _iEquipmentService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iEquipmentService.SetFilePathsIndex(selectedSeason);
             _iEquipmentService.Load();
 
             //创建OCR结果纠正服务
@@ -88,25 +111,48 @@ namespace JinChanChanTool
 
             //创建并加载阵容数据服务
             ILineUpService _iLineUpService = new LineUpService(_iheroDataService, _iManualSettingsService, _iLocalizationService, maxCountOfHero,_iAutomaticSettingsService.CurrentConfig.SelectedLineUpIndex);
-            _iLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iLineUpService.SetFilePathsIndex(selectedSeason);
             _iLineUpService.Load();        
 
             // 创建并加载英雄装备推荐数据服务
             IHeroEquipmentDataService _iHeroEquipmentDataService = new HeroEquipmentDataService();
-            _iHeroEquipmentDataService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iHeroEquipmentDataService.SetFilePathsIndex(selectedSeason);
             _iHeroEquipmentDataService.Load();
 
             // 创建并配置推荐阵容数据服务
             IRecommendedLineUpService _iRecommendedLineUpService = new RecommendedLineUpService();
-            _iRecommendedLineUpService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            _iRecommendedLineUpService.SetFilePathsIndex(selectedSeason);
             _iRecommendedLineUpService.Load();
 
             // 创建自动更新服务并启动后台检查
-            IAutoUpdateService _iAutoUpdateService = new AutoUpdateService(_iManualSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            IAutoUpdateService _iAutoUpdateService = new AutoUpdateService(_iManualSettingsService, _iAutomaticSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService);
             _ = _iAutoUpdateService.CheckAndUpdateAsync();
 
             // 运行主窗体并传入应用设置服务
             Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iLocalizationService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService));
+        }
+
+        private static string ResolveSelectedSeason(
+            string[] seasonPaths,
+            string configuredSeason,
+            string mainSeason)
+        {
+            string[] availableSeasons = seasonPaths
+                .Select(Path.GetFileName)
+                .Where(season => !string.IsNullOrWhiteSpace(season))
+                .Select(season => season!)
+                .ToArray();
+
+            if (availableSeasons.Length == 0)
+            {
+                throw new InvalidOperationException("没有找到任何可用的赛季数据目录。");
+            }
+
+            return availableSeasons.FirstOrDefault(season =>
+                       string.Equals(season, configuredSeason, StringComparison.OrdinalIgnoreCase))
+                   ?? availableSeasons.FirstOrDefault(season =>
+                       string.Equals(season, mainSeason, StringComparison.OrdinalIgnoreCase))
+                   ?? availableSeasons[0];
         }
     }
 }

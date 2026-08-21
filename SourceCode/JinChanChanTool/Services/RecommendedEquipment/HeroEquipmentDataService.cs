@@ -25,7 +25,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
     /// <summary>
     /// 负责管理本地的装备推荐数据，包括从JSON文件加载、保存数据，以及加载相关的装备图片。
-    /// 这个服务现在通过硬编码的赛季名来定位目标文件夹，确保操作的确定性。
+    /// 网络更新由调用方明确指定目标赛季，避免当前选择变化时写入错误目录。
     /// </summary>
     public class HeroEquipmentDataService : IHeroEquipmentDataService
     {
@@ -50,7 +50,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             EquipmentImageMap = new Dictionary<DataClass.RecommendedEquipment, List<Image>>();
             nameToHeroEquipmentMap = new Dictionary<string, DataClass.RecommendedEquipment>();
             _lastUpdateTime = DateTime.MinValue;
-            _pathIndex = 0;
+            _pathIndex = -1;
         }
 
         /// <summary>
@@ -74,18 +74,17 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// <returns>返回匹配的路径，如果找不到则返回null。</returns>
         private string GetCurrentSeasonPath()
         {
-            if (Paths == null || Paths.Length == 0)
+            if (Paths == null || Paths.Length == 0 || _pathIndex < 0 || _pathIndex >= Paths.Length)
             {
                 return null;
             }
 
-            return Paths[Math.Min(_pathIndex, Paths.Length - 1)];
+            return Paths[_pathIndex];
         }
 
         public bool SetFilePathsIndex(string season)
         {
-            int selectedIndex = 0;
-            bool isFound = false;
+            int selectedIndex = -1;
             if (!string.IsNullOrEmpty(season))
             {
                 for (int i = 0; i < Paths.Length; i++)
@@ -93,18 +92,14 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                     if (Path.GetFileName(Paths[i]).Equals(season, StringComparison.OrdinalIgnoreCase))
                     {
                         selectedIndex = i;
-                        isFound = true;
                         break;
                     }
                 }
             }
 
-            if (Paths.Length > 0)
-            {
-                _pathIndex = Math.Min(selectedIndex, Paths.Length - 1);
-            }
+            _pathIndex = selectedIndex;
 
-            return isFound;
+            return selectedIndex >= 0;
         }
 
         public DataClass.RecommendedEquipment GetHeroEquipmentFromName(string name)
@@ -181,18 +176,44 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             Load();
         }
 
-        public void UpdateDataFromCrawling(List<DataClass.RecommendedEquipment> crawledData)
+        public void UpdateDataFromCrawling(List<DataClass.RecommendedEquipment> crawledData, string targetSeason)
         {
             if (crawledData == null)
             {
                 OutputForm.Instance.WriteLineOutputMessage("警告: UpdateDataFromCrawling 接收到的数据为 null，已中止更新。");
                 return;
             }
+
+            string targetSeasonPath = Paths.FirstOrDefault(path =>
+                string.Equals(Path.GetFileName(path), targetSeason, StringComparison.OrdinalIgnoreCase));
+            if (string.IsNullOrEmpty(targetSeasonPath))
+            {
+                throw new InvalidOperationException($"找不到网络推荐数据的目标赛季目录：{targetSeason}");
+            }
+
             OutputForm.Instance.WriteLineOutputMessage($"HeroEquipmentDataService: 接收到 {crawledData.Count} 条从网络爬取的新数据。");
-            HeroEquipments = new List<DataClass.RecommendedEquipment>(crawledData);
-            _lastUpdateTime = DateTime.Now;
-            OutputForm.Instance.WriteLineOutputMessage("正在将新数据保存到本地文件...");
-            Save();
+            DateTime updateTime = DateTime.Now;
+            EquipmentDataFile dataFile = new EquipmentDataFile
+            {
+                UpdateTime = updateTime,
+                Data = crawledData.ToDictionary(item => item.HeroName, item => item.Equipments)
+            };
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+            string filePath = Path.Combine(targetSeasonPath, "EquipmentData.json");
+            File.WriteAllText(filePath, JsonSerializer.Serialize(dataFile, options));
+
+            if (string.Equals(GetCurrentSeasonPath(), targetSeasonPath, StringComparison.OrdinalIgnoreCase))
+            {
+                HeroEquipments = new List<DataClass.RecommendedEquipment>(crawledData);
+                _lastUpdateTime = updateTime;
+            }
+
+            OutputForm.Instance.WriteLineOutputMessage(
+                $"网络推荐装备数据已保存到赛季“{targetSeason}”：{filePath}");
         }
 
         /// <summary>

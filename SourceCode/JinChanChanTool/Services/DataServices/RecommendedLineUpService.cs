@@ -59,7 +59,7 @@ namespace JinChanChanTool.Services.DataServices
         public RecommendedLineUpService()
         {
             InitializePaths();
-            _pathIndex = 0;
+            _pathIndex = -1;
             _recommendedLineUps = new List<RecommendedLineUp>();
             _lastUpdateTime = DateTime.MinValue;
         }
@@ -94,7 +94,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public bool Save()
         {
-            if (_paths.Length > 0 && _pathIndex < _paths.Length)
+            if (_paths.Length > 0 && _pathIndex >= 0 && _pathIndex < _paths.Length)
             {
                 string filePath = Path.Combine(_paths[_pathIndex], DataFileName);
                 try
@@ -241,6 +241,50 @@ namespace JinChanChanTool.Services.DataServices
             return addedCount;
         }
 
+        public int UpdateDataFromCrawling(List<RecommendedLineUp> lineUps, string targetSeason)
+        {
+            List<RecommendedLineUp> validLineUps = lineUps?
+                .Where(lineUp => lineUp != null && !string.IsNullOrWhiteSpace(lineUp.LineUpName))
+                .ToList() ?? [];
+            if (validLineUps.Count == 0)
+            {
+                return 0;
+            }
+
+            string targetSeasonPath = _paths.FirstOrDefault(path =>
+                string.Equals(Path.GetFileName(path), targetSeason, StringComparison.OrdinalIgnoreCase));
+            if (string.IsNullOrEmpty(targetSeasonPath))
+            {
+                throw new InvalidOperationException($"找不到网络推荐数据的目标赛季目录：{targetSeason}");
+            }
+
+            DateTime updateTime = DateTime.Now;
+            RecommendedLineUpDataFile dataFile = new RecommendedLineUpDataFile
+            {
+                UpdateTime = updateTime,
+                LineUps = validLineUps
+            };
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                Converters = { new Newtonsoft.Json.Converters.StringEnumConverter() }
+            };
+            string filePath = Path.Combine(targetSeasonPath, DataFileName);
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(dataFile, settings));
+
+            string currentSeasonPath = _pathIndex >= 0 && _pathIndex < _paths.Length
+                ? _paths[_pathIndex]
+                : string.Empty;
+            if (string.Equals(currentSeasonPath, targetSeasonPath, StringComparison.OrdinalIgnoreCase))
+            {
+                _recommendedLineUps = validLineUps;
+                _lastUpdateTime = updateTime;
+                NotifyDataChanged();
+            }
+
+            return validLineUps.Count;
+        }
+
         /// <summary>
         /// 删除推荐阵容
         /// </summary>
@@ -307,8 +351,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public bool SetFilePathsIndex(string season)
         {
-            int selectedIndex = 0;
-            bool isFound = false;
+            int selectedIndex = -1;
             if (!string.IsNullOrEmpty(season))
             {
                 for (int i = 0; i < _paths.Length; i++)
@@ -316,16 +359,12 @@ namespace JinChanChanTool.Services.DataServices
                     if (Path.GetFileName(_paths[i]).Equals(season, StringComparison.OrdinalIgnoreCase))
                     {
                         selectedIndex = i;
-                        isFound = true;
                         break;
                     }
                 }
             }
-            if (_paths.Length > 0)
-            {
-                _pathIndex = Math.Min(selectedIndex, _paths.Length - 1);
-            }
-            return isFound;
+            _pathIndex = selectedIndex;
+            return selectedIndex >= 0;
         }
 
         /// <summary>
@@ -350,7 +389,7 @@ namespace JinChanChanTool.Services.DataServices
         {
             _recommendedLineUps.Clear();
 
-            if (_paths.Length > 0 && _pathIndex < _paths.Length)
+            if (_paths.Length > 0 && _pathIndex >= 0 && _pathIndex < _paths.Length)
             {
                 string filePath = Path.Combine(_paths[_pathIndex], DataFileName);
                 try

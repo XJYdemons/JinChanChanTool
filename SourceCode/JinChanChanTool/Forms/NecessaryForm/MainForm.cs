@@ -1089,7 +1089,7 @@ namespace JinChanChanTool
             LoadLineUpsToComboBox();
             LoadLineUpToUI();
 
-            IAutoUpdateService autoUpdateService = new AutoUpdateService(_iManualSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iAutomaticSettingsService.CurrentConfig.SelectedSeason);
+            IAutoUpdateService autoUpdateService = new AutoUpdateService(_iManualSettingsService, _iAutomaticSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService);
             _ = autoUpdateService.CheckAndUpdateAsync();
         }
         #endregion
@@ -1832,6 +1832,16 @@ namespace JinChanChanTool
         #region 更新装备数据       
         private async Task UpdateEquipmentsAsync()
         {
+            if (!string.Equals(
+                    _iAutomaticSettingsService.CurrentConfig.SelectedSeason,
+                    _iAutomaticSettingsService.CurrentConfig.MainSeason,
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                OutputForm.Instance.WriteLineOutputMessage(
+                    "当前选择的是非主赛季，仅使用本地推荐装备，不执行网络更新。");
+                return;
+            }
+
             DynamicGameDataService _iDynamicGameDataService = new DynamicGameDataService();
             CrawlingService _iCrawlingService = new CrawlingService(_iDynamicGameDataService);
 
@@ -1881,7 +1891,9 @@ namespace JinChanChanTool
                 if (crawledData != null && crawledData.Any())
                 {
                     // 将爬取到的新数据，传递给我们注入的“数据中心”服务进行更新和保存 
-                    _iHeroEquipmentDataService.UpdateDataFromCrawling(crawledData);
+                    _iHeroEquipmentDataService.UpdateDataFromCrawling(
+                        crawledData,
+                        _iAutomaticSettingsService.CurrentConfig.MainSeason);
                     updateSuccess = true;
                 }
                 else

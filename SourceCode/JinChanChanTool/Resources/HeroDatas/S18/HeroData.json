@@ -1,0 +1,654 @@
+[
+  {
+    "HeroName": "卡尔玛",
+    "Cost": 1,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "灵魂莲华"
+    ]
+  },
+  {
+    "HeroName": "维迦",
+    "Cost": 1,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "黑荆棘",
+      "约德尔人和朋友"
+    ]
+  },
+  {
+    "HeroName": "约里克",
+    "Cost": 1,
+    "Profession": [
+      "主宰",
+      "召唤师"
+    ],
+    "Peculiarity": [
+      "灵魂莲华"
+    ]
+  },
+  {
+    "HeroName": "阿卡丽",
+    "Cost": 1,
+    "Profession": [
+      "狂战士",
+      "魔战士"
+    ],
+    "Peculiarity": [
+      "地狱火"
+    ]
+  },
+  {
+    "HeroName": "蕾欧娜",
+    "Cost": 1,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "日蚀骑士"
+    ]
+  },
+  {
+    "HeroName": "韦鲁斯",
+    "Cost": 1,
+    "Profession": [
+      "迅捷射手"
+    ],
+    "Peculiarity": [
+      "地狱火"
+    ]
+  },
+  {
+    "HeroName": "卡蜜尔",
+    "Cost": 1,
+    "Profession": [
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "魔女"
+    ]
+  },
+  {
+    "HeroName": "雷克塞",
+    "Cost": 1,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "黑荆棘"
+    ]
+  },
+  {
+    "HeroName": "洛",
+    "Cost": 1,
+    "Profession": [
+      "主宰",
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "花仙子"
+    ]
+  },
+  {
+    "HeroName": "霞",
+    "Cost": 1,
+    "Profession": [
+      "迅捷射手"
+    ],
+    "Peculiarity": [
+      "花仙子",
+      "永恒之森"
+    ]
+  },
+  {
+    "HeroName": "奥恩",
+    "Cost": 1,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "永恒之森"
+    ]
+  },
+  {
+    "HeroName": "可酷伯",
+    "Cost": 1,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "约德尔人和朋友"
+    ]
+  },
+  {
+    "HeroName": "苍蓝哨戒",
+    "Cost": 1,
+    "Profession": [
+      "神谕"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "绯红树怪",
+    "Cost": 1,
+    "Profession": [
+      "猎人"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "乐芙兰",
+    "Cost": 2,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "永恒之森"
+    ]
+  },
+  {
+    "HeroName": "凯尔",
+    "Cost": 2,
+    "Profession": [
+      "迅捷射手"
+    ],
+    "Peculiarity": [
+      "日蚀骑士"
+    ]
+  },
+  {
+    "HeroName": "阿利斯塔",
+    "Cost": 2,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "永恒之森"
+    ]
+  },
+  {
+    "HeroName": "提莫",
+    "Cost": 2,
+    "Profession": [
+      "神谕"
+    ],
+    "Peculiarity": [
+      "约德尔人和朋友"
+    ]
+  },
+  {
+    "HeroName": "沃里克",
+    "Cost": 2,
+    "Profession": [
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "黑荆棘"
+    ]
+  },
+  {
+    "HeroName": "凯特琳",
+    "Cost": 2,
+    "Profession": [
+      "猎人"
+    ],
+    "Peculiarity": [
+      "魔女"
+    ]
+  },
+  {
+    "HeroName": "伊莉丝",
+    "Cost": 2,
+    "Profession": [
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "魔女"
+    ]
+  },
+  {
+    "HeroName": "慎",
+    "Cost": 2,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "地狱火"
+    ]
+  },
+  {
+    "HeroName": "瑟庄妮",
+    "Cost": 2,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "日蚀骑士"
+    ]
+  },
+  {
+    "HeroName": "芸阿娜",
+    "Cost": 2,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "灵魂莲华"
+    ]
+  },
+  {
+    "HeroName": "魔沼蛙",
+    "Cost": 2,
+    "Profession": [
+      "魔战士"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "暗影狼",
+    "Cost": 2,
+    "Profession": [
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "峡谷迅捷蟹",
+    "Cost": 2,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "费德提克",
+    "Cost": 3,
+    "Profession": [
+      "护卫",
+      "法师"
+    ],
+    "Peculiarity": [
+      "绝命花妖"
+    ]
+  },
+  {
+    "HeroName": "易",
+    "Cost": 3,
+    "Profession": [
+      "魔战士"
+    ],
+    "Peculiarity": [
+      "灵魂莲华"
+    ]
+  },
+  {
+    "HeroName": "崔丝塔娜",
+    "Cost": 3,
+    "Profession": [
+      "猎人"
+    ],
+    "Peculiarity": [
+      "花仙子",
+      "约德尔人和朋友"
+    ]
+  },
+  {
+    "HeroName": "拉莫斯",
+    "Cost": 3,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "约德尔人和朋友"
+    ]
+  },
+  {
+    "HeroName": "卡西奥佩娅",
+    "Cost": 3,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "魔女"
+    ]
+  },
+  {
+    "HeroName": "克格莫",
+    "Cost": 3,
+    "Profession": [
+      "魔战士",
+      "神谕"
+    ],
+    "Peculiarity": [
+      "帝王斑蝶"
+    ]
+  },
+  {
+    "HeroName": "雷恩加尔",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "宿敌"
+    ]
+  },
+  {
+    "HeroName": "赫卡里姆",
+    "Cost": 3,
+    "Profession": [
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "永恒之森"
+    ]
+  },
+  {
+    "HeroName": "卡兹克",
+    "Cost": 3,
+    "Profession": [],
+    "Peculiarity": [
+      "宿敌"
+    ]
+  },
+  {
+    "HeroName": "黛安娜",
+    "Cost": 3,
+    "Profession": [
+      "狂战士",
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "月蚀骑士"
+    ]
+  },
+  {
+    "HeroName": "蔚",
+    "Cost": 3,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "野兽之灵"
+    ]
+  },
+  {
+    "HeroName": "阿兹尔",
+    "Cost": 3,
+    "Profession": [
+      "裁决使",
+      "召唤师"
+    ],
+    "Peculiarity": [
+      "黑荆棘"
+    ]
+  },
+  {
+    "HeroName": "远古石甲虫",
+    "Cost": 3,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "深红锋喙鸟",
+    "Cost": 3,
+    "Profession": [
+      "召唤师",
+      "迅捷射手"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "希维尔",
+    "Cost": 4,
+    "Profession": [
+      "猎人"
+    ],
+    "Peculiarity": [
+      "野兽之灵"
+    ]
+  },
+  {
+    "HeroName": "索拉卡",
+    "Cost": 4,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "绝命花妖"
+    ]
+  },
+  {
+    "HeroName": "莫甘娜",
+    "Cost": 4,
+    "Profession": [
+      "神谕"
+    ],
+    "Peculiarity": [
+      "魔女"
+    ]
+  },
+  {
+    "HeroName": "阿木木",
+    "Cost": 4,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "地狱火"
+    ]
+  },
+  {
+    "HeroName": "墨菲特",
+    "Cost": 4,
+    "Profession": [],
+    "Peculiarity": [
+      "黑荆棘",
+      "魔岩巨兽"
+    ]
+  },
+  {
+    "HeroName": "奈德丽",
+    "Cost": 4,
+    "Profession": [
+      "魔战士"
+    ],
+    "Peculiarity": [
+      "野兽之灵"
+    ]
+  },
+  {
+    "HeroName": "伊泽瑞尔",
+    "Cost": 4,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "永恒之森"
+    ]
+  },
+  {
+    "HeroName": "阿狸",
+    "Cost": 4,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "灵魂莲华"
+    ]
+  },
+  {
+    "HeroName": "婕拉",
+    "Cost": 4,
+    "Profession": [
+      "召唤师"
+    ],
+    "Peculiarity": [
+      "荆棘之兴"
+    ]
+  },
+  {
+    "HeroName": "厄斐琉斯",
+    "Cost": 4,
+    "Profession": [
+      "迅捷射手"
+    ],
+    "Peculiarity": [
+      "月蚀骑士"
+    ]
+  },
+  {
+    "HeroName": "瑟提",
+    "Cost": 4,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "灵魂莲华"
+    ]
+  },
+  {
+    "HeroName": "莉莉娅",
+    "Cost": 4,
+    "Profession": [
+      "护卫"
+    ],
+    "Peculiarity": [
+      "花仙子"
+    ]
+  },
+  {
+    "HeroName": "绯红印记树怪",
+    "Cost": 4,
+    "Profession": [
+      "狂战士"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "苍蓝雕纹魔像",
+    "Cost": 4,
+    "Profession": [
+      "重装战士",
+      "神谕"
+    ],
+    "Peculiarity": [
+      "峡谷野怪"
+    ]
+  },
+  {
+    "HeroName": "艾希",
+    "Cost": 5,
+    "Profession": [
+      "猎人"
+    ],
+    "Peculiarity": [
+      "灵魂莲华"
+    ]
+  },
+  {
+    "HeroName": "塔里克",
+    "Cost": 5,
+    "Profession": [
+      "重装战士"
+    ],
+    "Peculiarity": [
+      "宝石骑士"
+    ]
+  },
+  {
+    "HeroName": "茂凯",
+    "Cost": 5,
+    "Profession": [
+      "主宰"
+    ],
+    "Peculiarity": [
+      "远古树精"
+    ]
+  },
+  {
+    "HeroName": "凯南",
+    "Cost": 5,
+    "Profession": [
+      "裁决使"
+    ],
+    "Peculiarity": [
+      "地狱火"
+    ]
+  },
+  {
+    "HeroName": "拉克丝",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "自然之力！大元素使"
+    ]
+  },
+  {
+    "HeroName": "德莱文",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "赏金猎人"
+    ]
+  },
+  {
+    "HeroName": "纳尔",
+    "Cost": 5,
+    "Profession": [
+      "斗士"
+    ],
+    "Peculiarity": [
+      "永恒之森",
+      "约德尔人和朋友"
+    ]
+  },
+  {
+    "HeroName": "艾翁",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "翠神"
+    ]
+  },
+  {
+    "HeroName": "拉露恩",
+    "Cost": 5,
+    "Profession": [
+      "法师"
+    ],
+    "Peculiarity": [
+      "月蚀骑士",
+      "月华神女"
+    ]
+  },
+  {
+    "HeroName": "远古巨龙",
+    "Cost": 5,
+    "Profession": [],
+    "Peculiarity": [
+      "峡谷野怪",
+      "顶级掠食者"
+    ]
+  }
+]

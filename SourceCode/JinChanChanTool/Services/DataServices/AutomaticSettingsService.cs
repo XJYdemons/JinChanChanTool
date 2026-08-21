@@ -102,6 +102,7 @@ namespace JinChanChanTool.Services.DataServices
         private void LoadFromFile()
         {
             CurrentConfig = new AutomaticSettings();
+            bool shouldSave = false;
             try
             {
                 //判断Json文件是否存在
@@ -112,21 +113,26 @@ namespace JinChanChanTool.Services.DataServices
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Warning
                                     );
-                    Save();
-                    return;
+                    shouldSave = true;
                 }
-                string json = File.ReadAllText(filePath);
-                if (string.IsNullOrEmpty(json))
+                else
                 {
-                    MessageBox.Show($"自动应用配置文件\"{Path.GetFileName(filePath)}\"内容为空。\n路径：\n{filePath}\n将创建默认配置文件。",
-                               "文件为空",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Warning
-                               );
-                    Save();
-                    return;
+                    string json = File.ReadAllText(filePath);
+                    if (string.IsNullOrWhiteSpace(json))
+                    {
+                        MessageBox.Show($"自动应用配置文件\"{Path.GetFileName(filePath)}\"内容为空。\n路径：\n{filePath}\n将创建默认配置文件。",
+                                   "文件为空",
+                                   MessageBoxButtons.OK,
+                                   MessageBoxIcon.Warning
+                                   );
+                        shouldSave = true;
+                    }
+                    else
+                    {
+                        CurrentConfig = JsonSerializer.Deserialize<AutomaticSettings>(json)
+                                        ?? new AutomaticSettings();
+                    }
                 }
-                CurrentConfig = JsonSerializer.Deserialize<AutomaticSettings>(json);
             }
             catch
             {
@@ -135,9 +141,17 @@ namespace JinChanChanTool.Services.DataServices
                                    MessageBoxButtons.OK,
                                    MessageBoxIcon.Warning
                                    );
+                CurrentConfig = new AutomaticSettings();
+                shouldSave = true;
+            }
+
+            if (shouldSave)
+            {
                 Save();
             }
-        }       
+
+        }
+
         #endregion
     }
 }

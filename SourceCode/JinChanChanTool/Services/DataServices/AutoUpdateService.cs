@@ -15,24 +15,23 @@ namespace JinChanChanTool.Services.DataServices
     public class AutoUpdateService : IAutoUpdateService
     {
         private readonly IManualSettingsService _manualSettingsService;
+        private readonly IAutomaticSettingsService _automaticSettingsService;
         private readonly IHeroEquipmentDataService _heroEquipmentDataService;
         private readonly IRecommendedLineUpService _recommendedLineUpService;
-        private readonly string _selectedSeason;
-        private const string MainSeasonName = "S17";
 
         /// <summary>
         /// 构造函数
         /// </summary>
         public AutoUpdateService(
             IManualSettingsService manualSettingsService,
+            IAutomaticSettingsService automaticSettingsService,
             IHeroEquipmentDataService heroEquipmentDataService,
-            IRecommendedLineUpService recommendedLineUpService,
-            string selectedSeason)
+            IRecommendedLineUpService recommendedLineUpService)
         {
             _manualSettingsService = manualSettingsService;
+            _automaticSettingsService = automaticSettingsService;
             _heroEquipmentDataService = heroEquipmentDataService;
             _recommendedLineUpService = recommendedLineUpService;
-            _selectedSeason = selectedSeason;
         }
 
         /// <summary>
@@ -40,6 +39,19 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public async Task CheckAndUpdateAsync()
         {
+            string selectedSeason = _automaticSettingsService.CurrentConfig.SelectedSeason;
+            string mainSeason = _automaticSettingsService.CurrentConfig.MainSeason;
+            bool isMainSeason = string.Equals(
+                selectedSeason,
+                mainSeason,
+                StringComparison.OrdinalIgnoreCase);
+            if (!isMainSeason)
+            {
+                OutputForm.Instance.WriteLineOutputMessage(
+                    $"当前选择的是非主赛季“{selectedSeason}”，仅使用本地推荐数据，不执行网络更新。");
+                return;
+            }
+
             // 检查是否需要更新装备数据
             bool needsEquipmentUpdate = _manualSettingsService.CurrentConfig.IsAutomaticUpdateEquipment &&
                                         _heroEquipmentDataService.NeedsUpdate(_manualSettingsService.CurrentConfig.UpdateEquipmentInterval);
@@ -47,10 +59,6 @@ namespace JinChanChanTool.Services.DataServices
             // 检查是否需要更新阵容数据
             bool needsLineupUpdate = _manualSettingsService.CurrentConfig.IsAutomaticUpdateLineup &&
                                      _recommendedLineUpService.NeedsUpdate(_manualSettingsService.CurrentConfig.UpdateLineupInterval);
-            bool isMainSeason = string.Equals(_selectedSeason, MainSeasonName, StringComparison.OrdinalIgnoreCase);
-            needsEquipmentUpdate = needsEquipmentUpdate && isMainSeason;
-            needsLineupUpdate = needsLineupUpdate && isMainSeason;
-
             // 如果都不需要更新，直接返回
             if (!needsEquipmentUpdate && !needsLineupUpdate)
             {
@@ -65,12 +73,12 @@ namespace JinChanChanTool.Services.DataServices
                 {
                     if (needsEquipmentUpdate)
                     {
-                        await UpdateEquipmentDataAsync();
+                        await UpdateEquipmentDataAsync(mainSeason);
                     }
 
                     if (needsLineupUpdate)
                     {
-                        await UpdateLineupDataAsync();
+                        await UpdateLineupDataAsync(mainSeason);
                     }
                 }
                 catch (Exception ex)
@@ -87,7 +95,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 更新装备数据
         /// </summary>
-        private async Task UpdateEquipmentDataAsync()
+        private async Task UpdateEquipmentDataAsync(string targetSeason)
         {
             try
             {
@@ -110,10 +118,16 @@ namespace JinChanChanTool.Services.DataServices
 
                 if (crawledData != null && crawledData.Count > 0)
                 {
-                    _heroEquipmentDataService.UpdateDataFromCrawling(crawledData);
+                    _heroEquipmentDataService.UpdateDataFromCrawling(crawledData, targetSeason);
 
                     // 重新加载数据使其立即生效
-                    _heroEquipmentDataService.ReLoad();
+                    if (string.Equals(
+                            _automaticSettingsService.CurrentConfig.SelectedSeason,
+                            targetSeason,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        _heroEquipmentDataService.ReLoad();
+                    }
 
                     OutputForm.Instance.WriteLineOutputMessage($"推荐装备数据更新成功，共 {crawledData.Count} 位英雄。");
                 }
@@ -131,7 +145,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 更新阵容数据
         /// </summary>
-        private async Task UpdateLineupDataAsync()
+        private async Task UpdateLineupDataAsync(string targetSeason)
         {
             try
             {
@@ -154,13 +168,16 @@ namespace JinChanChanTool.Services.DataServices
 
                 if (crawledLineups != null && crawledLineups.Count > 0)
                 {
-                    // 清空旧数据并添加新数据
-                    _recommendedLineUpService.ClearAll();
-                    int addedCount = _recommendedLineUpService.AddRecommendedLineUps(crawledLineups);
-                    _recommendedLineUpService.Save();
+                    int addedCount = _recommendedLineUpService.UpdateDataFromCrawling(crawledLineups, targetSeason);
 
                     // 重新加载数据使其立即生效
-                    _recommendedLineUpService.ReLoad();
+                    if (string.Equals(
+                            _automaticSettingsService.CurrentConfig.SelectedSeason,
+                            targetSeason,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        _recommendedLineUpService.ReLoad();
+                    }
 
                     OutputForm.Instance.WriteLineOutputMessage($"推荐阵容数据更新成功，共 {addedCount} 个阵容。");
                 }

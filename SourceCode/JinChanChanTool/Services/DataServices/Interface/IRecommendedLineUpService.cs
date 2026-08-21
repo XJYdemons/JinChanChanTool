@@ -65,6 +65,11 @@ namespace JinChanChanTool.Services.DataServices.Interface
         int AddRecommendedLineUps(List<RecommendedLineUp> lineUps);
 
         /// <summary>
+        /// 使用网络数据替换明确指定赛季的推荐阵容。
+        /// </summary>
+        int UpdateDataFromCrawling(List<RecommendedLineUp> lineUps, string targetSeason);
+
+        /// <summary>
         /// 删除推荐阵容
         /// </summary>
         /// <param name="name">要删除的阵容名称</param>

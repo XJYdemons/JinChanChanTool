@@ -47,10 +47,11 @@ namespace JinChanChanTool.Services.RecommendedEquipment.Interface
         void ReLoad();
 
         /// <summary>
-        /// 接收从网络爬取到的新数据，更新内存中的状态，并将其持久化保存。
+        /// 接收从网络爬取到的新数据，并保存到明确指定的赛季。
         /// </summary>
         /// <param name="crawledData">由 ICrawlingService 获取到的最新英雄装备数据列表。</param>
-        void UpdateDataFromCrawling(List<DataClass.RecommendedEquipment> crawledData);
+        /// <param name="targetSeason">接收网络数据的赛季目录名。</param>
+        void UpdateDataFromCrawling(List<DataClass.RecommendedEquipment> crawledData, string targetSeason);
 
         DataClass.RecommendedEquipment GetHeroEquipmentFromName(string name);
 

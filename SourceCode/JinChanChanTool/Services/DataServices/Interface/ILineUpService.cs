@@ -134,6 +134,10 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// <returns></returns>
         int GetSubLineUpIndex();
 
+        bool AddSubLineUp(string name, string description);
+        bool UpdateSubLineUp(int index, string name, string description);
+        bool DeleteSubLineUp(int index);
+
         /// <summary>
         /// 设置指定下标阵容名称
         /// </summary>
@@ -165,6 +169,8 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// 阵容改变事件
         /// </summary>
         event EventHandler LineUpChanged;
+
+        event EventHandler SubLineUpIndexChanged;
 
         /// <summary>
         /// 阵容名改变事件

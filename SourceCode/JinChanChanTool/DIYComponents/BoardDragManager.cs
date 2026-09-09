@@ -80,6 +80,8 @@ namespace JinChanChanTool.DIYComponents
         private Form _hostForm;              // 宿主窗体
         private HexagonBoard _hexagonBoard;  // 棋盘控件
         private BenchPanel _benchPanel;      // 备战席控件
+        private readonly HashSet<HexagonCell> _boundCells = [];
+        private readonly HashSet<BenchSlot> _boundBenchSlots = [];
 
         /// <summary>
         /// 初始化拖拽管理器，绑定所有子控件的鼠标事件
@@ -93,25 +95,39 @@ namespace JinChanChanTool.DIYComponents
             _hexagonBoard = hexagonBoard;
             _benchPanel = benchPanel;
 
-            // 为每个棋盘格子绑定鼠标事件
-            foreach (HexagonCell cell in _hexagonBoard.GetAllCells())
-            {
-                cell.MouseDown += OnCellMouseDown;
-                cell.MouseMove += OnMouseMove;
-                cell.MouseUp += OnMouseUp;
-            }
-
-            // 为每个备战席格子绑定鼠标事件
-            foreach (BenchSlot slot in _benchPanel.GetAllSlots())
-            {
-                slot.MouseDown += OnBenchSlotMouseDown;
-                slot.MouseMove += OnMouseMove;
-                slot.MouseUp += OnMouseUp;
-            }
+            RefreshBindings();
 
             // 监听 Escape 键取消拖拽
             _hostForm.KeyPreview = true;
             _hostForm.KeyDown += OnKeyDown;
+        }
+
+        /// <summary>
+        /// 绑定新创建的备战席格子。容量增加后由宿主窗体调用。
+        /// </summary>
+        public void RefreshBindings()
+        {
+            _boundBenchSlots.RemoveWhere(slot => slot.IsDisposed);
+
+            foreach (HexagonCell cell in _hexagonBoard.GetAllCells())
+            {
+                if (_boundCells.Add(cell))
+                {
+                    cell.MouseDown += OnCellMouseDown;
+                    cell.MouseMove += OnMouseMove;
+                    cell.MouseUp += OnMouseUp;
+                }
+            }
+
+            foreach (BenchSlot slot in _benchPanel.GetAllSlots())
+            {
+                if (_boundBenchSlots.Add(slot))
+                {
+                    slot.MouseDown += OnBenchSlotMouseDown;
+                    slot.MouseMove += OnMouseMove;
+                    slot.MouseUp += OnMouseUp;
+                }
+            }
         }
 
         /// <summary>
@@ -218,6 +234,12 @@ namespace JinChanChanTool.DIYComponents
             // 未达到拖拽阈值，视为普通点击，直接清理
             if (!_isDragActive)
             {
+                if (_dragSourceType == DragSourceType.HexagonCell &&
+                    _sourceCell != null &&
+                    !_sourceCell.IsLongPressTriggered)
+                {
+                    _sourceCell.CycleDisplayedHero();
+                }
                 CleanupDrag();
                 return;
             }
@@ -265,7 +287,7 @@ namespace JinChanChanTool.DIYComponents
                 bool isSameAsSource = (_dragSourceType == DragSourceType.HexagonCell
                     && hitResult.TargetCell == _sourceCell);
 
-                if (!isSameAsSource)
+                if (!isSameAsSource && hitResult.TargetCell.HasStackCapacity)
                 {
                     newHighlightCell = hitResult.TargetCell;
                 }

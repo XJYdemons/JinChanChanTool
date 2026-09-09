@@ -61,14 +61,105 @@
             tabControl_设置 = new TabControl();
             tabPage_常规 = new TabPage();
             panel_常规 = new Panel();
+            panel_分割线_常规3 = new Panel();
+            capsuleSwitch_CloseToTray = new JinChanChanTool.DIYComponents.CapsuleSwitch();
+            label_CloseToTrayDescription = new Label();
+            label_CloseToTray = new Label();
+            panel_分割线_常规2 = new Panel();
+            capsuleSwitch_所有窗口置顶 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
+            label_所有窗口置顶描述 = new Label();
+            label_所有窗口置顶 = new Label();
             label_界面语言描述 = new Label();
             comboBox_语言选择 = new ComboBox();
             label_界面语言 = new Label();
             panel_分割线_常规1 = new Panel();
-            capsuleSwitch_所有窗口置顶 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
-            label_所有窗口置顶描述 = new Label();
-            label_所有窗口置顶 = new Label();
-            panel_分割线_常规2 = new Panel();
+            tabPage_键鼠设备 = new TabPage();
+            tabControl_键鼠设备 = new TabControl();
+            tabPage_键鼠设备_常规 = new TabPage();
+            panel_键鼠设备_常规 = new Panel();
+            panel_分割线_键鼠设备_常规1 = new Panel();
+            comboBox_键鼠设备选择 = new ComboBox();
+            label_鼠标移动方式描述 = new Label();
+            label_鼠标移动方式 = new Label();
+            tabPage_键鼠设备_WinAPI = new TabPage();
+            panel_键鼠设备_WinAPI = new Panel();
+            panel_分割线_键鼠设备_WinAPI2 = new Panel();
+            panel_分割线_键鼠设备_WinAPI1 = new Panel();
+            roundedButton_测试左键点击 = new JinChanChanTool.DIYComponents.RoundedButton();
+            label_测试左键点击描述 = new Label();
+            label_测试左键点击 = new Label();
+            roundedButton_测试光标移动 = new JinChanChanTool.DIYComponents.RoundedButton();
+            textBox_测试光标移动_Y = new TextBox();
+            label_测试光标移动_Y = new Label();
+            textBox_测试光标移动_X = new TextBox();
+            label_测试光标移动_X = new Label();
+            label_测试光标移动描述 = new Label();
+            label_测试光标移动 = new Label();
+            tabPage_键鼠设备_Makcu = new TabPage();
+            panel_键鼠设备_Makcu = new Panel();
+            panel_分割线_键鼠设备_Makcu5 = new Panel();
+            panel_分割线_键鼠设备_Makcu4 = new Panel();
+            panel_分割线_键鼠设备_Makcu3 = new Panel();
+            panel_分割线_键鼠设备_Makcu2 = new Panel();
+            panel_分割线_键鼠设备_Makcu1 = new Panel();
+            label_Makcu串口 = new Label();
+            label_Makcu串口描述 = new Label();
+            comboBox_Makcu串口 = new ComboBox();
+            roundedButton_Makcu刷新串口 = new JinChanChanTool.DIYComponents.RoundedButton();
+            label_Makcu波特率 = new Label();
+            label_Makcu波特率描述 = new Label();
+            textBox_Makcu波特率 = new TextBox();
+            label_Makcu连接状态 = new Label();
+            label_Makcu连接状态描述 = new Label();
+            label_Makcu连接状态值 = new Label();
+            roundedButton_Makcu测试连接 = new JinChanChanTool.DIYComponents.RoundedButton();
+            label_Makcu测试光标移动 = new Label();
+            label_Makcu测试光标移动描述 = new Label();
+            label_Makcu测试光标移动_X = new Label();
+            textBox_Makcu测试光标移动_X = new TextBox();
+            label_Makcu测试光标移动_Y = new Label();
+            textBox_Makcu测试光标移动_Y = new TextBox();
+            roundedButton_Makcu测试光标移动 = new JinChanChanTool.DIYComponents.RoundedButton();
+            label_Makcu测试左键点击 = new Label();
+            label_Makcu测试左键点击描述 = new Label();
+            roundedButton_Makcu测试左键点击 = new JinChanChanTool.DIYComponents.RoundedButton();
+            tabPage_键鼠设备_KmBox = new TabPage();
+            panel_键鼠设备_KmBox = new Panel();
+            label1 = new Label();
+            panel_分割线_键鼠设备_KmBox6 = new Panel();
+            panel_分割线_键鼠设备_KmBox5 = new Panel();
+            panel_分割线_键鼠设备_KmBox4 = new Panel();
+            panel_分割线_键鼠设备_KmBox3 = new Panel();
+            panel_分割线_键鼠设备_KmBox2 = new Panel();
+            panel_分割线_键鼠设备_KmBox1 = new Panel();
+            label_KmBoxIP = new Label();
+            label_KmBoxIP描述 = new Label();
+            textBox_KmBoxIP1 = new TextBox();
+            label_KmBoxIP点1 = new Label();
+            textBox_KmBoxIP2 = new TextBox();
+            label_KmBoxIP点2 = new Label();
+            textBox_KmBoxIP3 = new TextBox();
+            label_KmBoxIP点3 = new Label();
+            textBox_KmBoxIP4 = new TextBox();
+            label_KmBox端口 = new Label();
+            label_KmBox端口描述 = new Label();
+            textBox_KmBox端口 = new TextBox();
+            label_KmBoxMAC = new Label();
+            label_KmBoxMAC描述 = new Label();
+            textBox_KmBoxMAC = new TextBox();
+            label_KmBox状态 = new Label();
+            label_KmBox状态描述 = new Label();
+            roundedButton_KmBox连接 = new JinChanChanTool.DIYComponents.RoundedButton();
+            label_KmBox测试移动 = new Label();
+            label_KmBox测试移动描述 = new Label();
+            label_KmBox测试移动_X = new Label();
+            textBox_KmBox测试移动_X = new TextBox();
+            label_KmBox测试移动_Y = new Label();
+            textBox_KmBox测试移动_Y = new TextBox();
+            roundedButton_KmBox测试移动 = new JinChanChanTool.DIYComponents.RoundedButton();
+            label_KmBox测试点击 = new Label();
+            label_KmBox测试点击描述 = new Label();
+            roundedButton_KmBox测试点击 = new JinChanChanTool.DIYComponents.RoundedButton();
             tabPage_快捷键 = new TabPage();
             tabPage_功能 = new TabPage();
             tabControl_高亮边框渐变色1 = new TabControl();
@@ -233,6 +324,12 @@
             roundedButton_OCR结果纠正列表 = new JinChanChanTool.DIYComponents.RoundedButton();
             tabPage_窗口 = new TabPage();
             tabControl_窗口 = new TabControl();
+            tabPage_窗口_主窗口 = new TabPage();
+            panel_窗口_主窗口 = new Panel();
+            panel_分割线_窗口_主窗口1 = new Panel();
+            label_紧凑阵容展示 = new Label();
+            capsuleSwitch_紧凑阵容展示 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
+            label_紧凑阵容展示描述 = new Label();
             tabPage_窗口_英雄选择窗口 = new TabPage();
             panel_窗口_英雄选择窗口 = new Panel();
             panel_分割线_窗口_英雄选择窗口4 = new Panel();
@@ -310,11 +407,22 @@
             tabControl_设置.SuspendLayout();
             tabPage_常规.SuspendLayout();
             panel_常规.SuspendLayout();
+            tabPage_键鼠设备.SuspendLayout();
+            tabControl_键鼠设备.SuspendLayout();
+            tabPage_键鼠设备_常规.SuspendLayout();
+            panel_键鼠设备_常规.SuspendLayout();
+            tabPage_键鼠设备_WinAPI.SuspendLayout();
+            panel_键鼠设备_WinAPI.SuspendLayout();
+            tabPage_键鼠设备_Makcu.SuspendLayout();
+            panel_键鼠设备_Makcu.SuspendLayout();
+            tabPage_键鼠设备_KmBox.SuspendLayout();
+            panel_键鼠设备_KmBox.SuspendLayout();
             tabPage_快捷键.SuspendLayout();
             tabPage_功能.SuspendLayout();
             tabControl_高亮边框渐变色1.SuspendLayout();
             tabPage_功能_常规.SuspendLayout();
             panel_功能_常规.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_阵容容量).BeginInit();
             tabPage_功能_自动拿牌.SuspendLayout();
             tabControl__功能_自动拿牌.SuspendLayout();
             tabPage_功能_自动拿牌_拿牌方式.SuspendLayout();
@@ -340,6 +448,8 @@
             panel_OCR相关_OCR设置.SuspendLayout();
             tabPage_窗口.SuspendLayout();
             tabControl_窗口.SuspendLayout();
+            tabPage_窗口_主窗口.SuspendLayout();
+            panel_窗口_主窗口.SuspendLayout();
             tabPage_窗口_英雄选择窗口.SuspendLayout();
             panel_窗口_英雄选择窗口.SuspendLayout();
             tabPage_窗口_阵容窗口.SuspendLayout();
@@ -398,45 +508,45 @@
             panel_快捷键.Name = "panel_快捷键";
             panel_快捷键.Size = new Size(960, 498);
             panel_快捷键.TabIndex = 208;
-            //
+            // 
             // panel_分割线_快捷键9
-            //
+            // 
             panel_分割线_快捷键9.BackColor = Color.Silver;
             panel_分割线_快捷键9.Location = new Point(5, 312);
             panel_分割线_快捷键9.Margin = new Padding(0);
             panel_分割线_快捷键9.Name = "panel_分割线_快捷键9";
             panel_分割线_快捷键9.Size = new Size(950, 1);
             panel_分割线_快捷键9.TabIndex = 267;
-            //
+            // 
             // panel_分割线_快捷键8
-            //
+            // 
             panel_分割线_快捷键8.BackColor = Color.Silver;
             panel_分割线_快捷键8.Location = new Point(5, 277);
             panel_分割线_快捷键8.Margin = new Padding(0);
             panel_分割线_快捷键8.Name = "panel_分割线_快捷键8";
             panel_分割线_快捷键8.Size = new Size(950, 1);
             panel_分割线_快捷键8.TabIndex = 266;
-            //
+            // 
             // panel_分割线_快捷键7
-            //
+            // 
             panel_分割线_快捷键7.BackColor = Color.Silver;
             panel_分割线_快捷键7.Location = new Point(5, 242);
             panel_分割线_快捷键7.Margin = new Padding(0);
             panel_分割线_快捷键7.Name = "panel_分割线_快捷键7";
             panel_分割线_快捷键7.Size = new Size(950, 1);
             panel_分割线_快捷键7.TabIndex = 265;
-            //
+            // 
             // panel_分割线_快捷键6
-            //
+            // 
             panel_分割线_快捷键6.BackColor = Color.Silver;
             panel_分割线_快捷键6.Location = new Point(5, 207);
             panel_分割线_快捷键6.Margin = new Padding(0);
             panel_分割线_快捷键6.Name = "panel_分割线_快捷键6";
             panel_分割线_快捷键6.Size = new Size(950, 1);
             panel_分割线_快捷键6.TabIndex = 264;
-            //
+            // 
             // panel_分割线_快捷键5
-            //
+            // 
             panel_分割线_快捷键5.BackColor = Color.Silver;
             panel_分割线_快捷键5.Location = new Point(5, 172);
             panel_分割线_快捷键5.Margin = new Padding(0);
@@ -480,6 +590,86 @@
             panel_分割线_快捷键1.Size = new Size(950, 1);
             panel_分割线_快捷键1.TabIndex = 259;
             // 
+            // label_输出窗口_快捷键
+            // 
+            label_输出窗口_快捷键.AutoSize = true;
+            label_输出窗口_快捷键.Location = new Point(5, 283);
+            label_输出窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_输出窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_输出窗口_快捷键.Name = "label_输出窗口_快捷键";
+            label_输出窗口_快捷键.Size = new Size(88, 23);
+            label_输出窗口_快捷键.TabIndex = 27;
+            label_输出窗口_快捷键.Text = "输出窗口";
+            label_输出窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_输出窗口快捷键
+            // 
+            textBox_输出窗口快捷键.Location = new Point(851, 284);
+            textBox_输出窗口快捷键.Name = "textBox_输出窗口快捷键";
+            textBox_输出窗口快捷键.Size = new Size(104, 23);
+            textBox_输出窗口快捷键.TabIndex = 28;
+            textBox_输出窗口快捷键.TabStop = false;
+            // 
+            // label_状态窗口_快捷键
+            // 
+            label_状态窗口_快捷键.AutoSize = true;
+            label_状态窗口_快捷键.Location = new Point(5, 248);
+            label_状态窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_状态窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_状态窗口_快捷键.Name = "label_状态窗口_快捷键";
+            label_状态窗口_快捷键.Size = new Size(88, 23);
+            label_状态窗口_快捷键.TabIndex = 25;
+            label_状态窗口_快捷键.Text = "状态窗口";
+            label_状态窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_状态窗口快捷键
+            // 
+            textBox_状态窗口快捷键.Location = new Point(851, 249);
+            textBox_状态窗口快捷键.Name = "textBox_状态窗口快捷键";
+            textBox_状态窗口快捷键.Size = new Size(104, 23);
+            textBox_状态窗口快捷键.TabIndex = 26;
+            textBox_状态窗口快捷键.TabStop = false;
+            // 
+            // label_阵容选择窗口_快捷键
+            // 
+            label_阵容选择窗口_快捷键.AutoSize = true;
+            label_阵容选择窗口_快捷键.Location = new Point(5, 213);
+            label_阵容选择窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_阵容选择窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_阵容选择窗口_快捷键.Name = "label_阵容选择窗口_快捷键";
+            label_阵容选择窗口_快捷键.Size = new Size(88, 23);
+            label_阵容选择窗口_快捷键.TabIndex = 23;
+            label_阵容选择窗口_快捷键.Text = "阵容选择窗口";
+            label_阵容选择窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_阵容选择窗口快捷键
+            // 
+            textBox_阵容选择窗口快捷键.Location = new Point(851, 214);
+            textBox_阵容选择窗口快捷键.Name = "textBox_阵容选择窗口快捷键";
+            textBox_阵容选择窗口快捷键.Size = new Size(104, 23);
+            textBox_阵容选择窗口快捷键.TabIndex = 24;
+            textBox_阵容选择窗口快捷键.TabStop = false;
+            // 
+            // label_英雄选择窗口_快捷键
+            // 
+            label_英雄选择窗口_快捷键.AutoSize = true;
+            label_英雄选择窗口_快捷键.Location = new Point(5, 178);
+            label_英雄选择窗口_快捷键.MaximumSize = new Size(840, 23);
+            label_英雄选择窗口_快捷键.MinimumSize = new Size(88, 23);
+            label_英雄选择窗口_快捷键.Name = "label_英雄选择窗口_快捷键";
+            label_英雄选择窗口_快捷键.Size = new Size(88, 23);
+            label_英雄选择窗口_快捷键.TabIndex = 21;
+            label_英雄选择窗口_快捷键.Text = "英雄选择窗口";
+            label_英雄选择窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // textBox_英雄选择窗口快捷键
+            // 
+            textBox_英雄选择窗口快捷键.Location = new Point(851, 179);
+            textBox_英雄选择窗口快捷键.Name = "textBox_英雄选择窗口快捷键";
+            textBox_英雄选择窗口快捷键.Size = new Size(104, 23);
+            textBox_英雄选择窗口快捷键.TabIndex = 22;
+            textBox_英雄选择窗口快捷键.TabStop = false;
+            // 
             // label_高亮提示_快捷键
             // 
             label_高亮提示_快捷键.AutoSize = true;
@@ -511,97 +701,17 @@
             label_长按自动D牌_快捷键.TabIndex = 18;
             label_长按自动D牌_快捷键.Text = "长按自动D牌";
             label_长按自动D牌_快捷键.TextAlign = ContentAlignment.MiddleLeft;
-            //
+            // 
             // textBox_长按自动D牌快捷键
-            //
+            // 
             textBox_长按自动D牌快捷键.Location = new Point(851, 144);
             textBox_长按自动D牌快捷键.Name = "textBox_长按自动D牌快捷键";
             textBox_长按自动D牌快捷键.Size = new Size(104, 23);
             textBox_长按自动D牌快捷键.TabIndex = 17;
             textBox_长按自动D牌快捷键.TabStop = false;
-            //
-            // label_英雄选择窗口_快捷键
-            //
-            label_英雄选择窗口_快捷键.AutoSize = true;
-            label_英雄选择窗口_快捷键.Location = new Point(5, 178);
-            label_英雄选择窗口_快捷键.MaximumSize = new Size(840, 23);
-            label_英雄选择窗口_快捷键.MinimumSize = new Size(88, 23);
-            label_英雄选择窗口_快捷键.Name = "label_英雄选择窗口_快捷键";
-            label_英雄选择窗口_快捷键.Size = new Size(88, 23);
-            label_英雄选择窗口_快捷键.TabIndex = 21;
-            label_英雄选择窗口_快捷键.Text = "英雄选择窗口";
-            label_英雄选择窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
-            //
-            // textBox_英雄选择窗口快捷键
-            //
-            textBox_英雄选择窗口快捷键.Location = new Point(851, 179);
-            textBox_英雄选择窗口快捷键.Name = "textBox_英雄选择窗口快捷键";
-            textBox_英雄选择窗口快捷键.Size = new Size(104, 23);
-            textBox_英雄选择窗口快捷键.TabIndex = 22;
-            textBox_英雄选择窗口快捷键.TabStop = false;
-            //
-            // label_阵容选择窗口_快捷键
-            //
-            label_阵容选择窗口_快捷键.AutoSize = true;
-            label_阵容选择窗口_快捷键.Location = new Point(5, 213);
-            label_阵容选择窗口_快捷键.MaximumSize = new Size(840, 23);
-            label_阵容选择窗口_快捷键.MinimumSize = new Size(88, 23);
-            label_阵容选择窗口_快捷键.Name = "label_阵容选择窗口_快捷键";
-            label_阵容选择窗口_快捷键.Size = new Size(88, 23);
-            label_阵容选择窗口_快捷键.TabIndex = 23;
-            label_阵容选择窗口_快捷键.Text = "阵容选择窗口";
-            label_阵容选择窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
-            //
-            // textBox_阵容选择窗口快捷键
-            //
-            textBox_阵容选择窗口快捷键.Location = new Point(851, 214);
-            textBox_阵容选择窗口快捷键.Name = "textBox_阵容选择窗口快捷键";
-            textBox_阵容选择窗口快捷键.Size = new Size(104, 23);
-            textBox_阵容选择窗口快捷键.TabIndex = 24;
-            textBox_阵容选择窗口快捷键.TabStop = false;
-            //
-            // label_状态窗口_快捷键
-            //
-            label_状态窗口_快捷键.AutoSize = true;
-            label_状态窗口_快捷键.Location = new Point(5, 248);
-            label_状态窗口_快捷键.MaximumSize = new Size(840, 23);
-            label_状态窗口_快捷键.MinimumSize = new Size(88, 23);
-            label_状态窗口_快捷键.Name = "label_状态窗口_快捷键";
-            label_状态窗口_快捷键.Size = new Size(88, 23);
-            label_状态窗口_快捷键.TabIndex = 25;
-            label_状态窗口_快捷键.Text = "状态窗口";
-            label_状态窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
-            //
-            // textBox_状态窗口快捷键
-            //
-            textBox_状态窗口快捷键.Location = new Point(851, 249);
-            textBox_状态窗口快捷键.Name = "textBox_状态窗口快捷键";
-            textBox_状态窗口快捷键.Size = new Size(104, 23);
-            textBox_状态窗口快捷键.TabIndex = 26;
-            textBox_状态窗口快捷键.TabStop = false;
-            //
-            // label_输出窗口_快捷键
-            //
-            label_输出窗口_快捷键.AutoSize = true;
-            label_输出窗口_快捷键.Location = new Point(5, 283);
-            label_输出窗口_快捷键.MaximumSize = new Size(840, 23);
-            label_输出窗口_快捷键.MinimumSize = new Size(88, 23);
-            label_输出窗口_快捷键.Name = "label_输出窗口_快捷键";
-            label_输出窗口_快捷键.Size = new Size(88, 23);
-            label_输出窗口_快捷键.TabIndex = 27;
-            label_输出窗口_快捷键.Text = "输出窗口";
-            label_输出窗口_快捷键.TextAlign = ContentAlignment.MiddleLeft;
-            //
-            // textBox_输出窗口快捷键
-            //
-            textBox_输出窗口快捷键.Location = new Point(851, 284);
-            textBox_输出窗口快捷键.Name = "textBox_输出窗口快捷键";
-            textBox_输出窗口快捷键.Size = new Size(104, 23);
-            textBox_输出窗口快捷键.TabIndex = 28;
-            textBox_输出窗口快捷键.TabStop = false;
-            //
+            // 
             // label_召出隐藏窗口_快捷键
-            //
+            // 
             label_召出隐藏窗口_快捷键.AutoSize = true;
             label_召出隐藏窗口_快捷键.Location = new Point(5, 5);
             label_召出隐藏窗口_快捷键.MaximumSize = new Size(840, 23);
@@ -673,6 +783,7 @@
             // tabControl_设置
             // 
             tabControl_设置.Controls.Add(tabPage_常规);
+            tabControl_设置.Controls.Add(tabPage_键鼠设备);
             tabControl_设置.Controls.Add(tabPage_快捷键);
             tabControl_设置.Controls.Add(tabPage_功能);
             tabControl_设置.Controls.Add(tabPage_坐标设置);
@@ -702,6 +813,10 @@
             // 
             panel_常规.AutoScroll = true;
             panel_常规.BackColor = Color.White;
+            panel_常规.Controls.Add(panel_分割线_常规3);
+            panel_常规.Controls.Add(capsuleSwitch_CloseToTray);
+            panel_常规.Controls.Add(label_CloseToTrayDescription);
+            panel_常规.Controls.Add(label_CloseToTray);
             panel_常规.Controls.Add(panel_分割线_常规2);
             panel_常规.Controls.Add(capsuleSwitch_所有窗口置顶);
             panel_常规.Controls.Add(label_所有窗口置顶描述);
@@ -715,6 +830,100 @@
             panel_常规.Name = "panel_常规";
             panel_常规.Size = new Size(960, 498);
             panel_常规.TabIndex = 260;
+            // 
+            // panel_分割线_常规3
+            // 
+            panel_分割线_常规3.BackColor = Color.Silver;
+            panel_分割线_常规3.Location = new Point(5, 188);
+            panel_分割线_常规3.Margin = new Padding(0);
+            panel_分割线_常规3.Name = "panel_分割线_常规3";
+            panel_分割线_常规3.Size = new Size(950, 1);
+            panel_分割线_常规3.TabIndex = 268;
+            // 
+            // capsuleSwitch_CloseToTray
+            // 
+            capsuleSwitch_CloseToTray.Location = new Point(891, 145);
+            capsuleSwitch_CloseToTray.Name = "capsuleSwitch_CloseToTray";
+            capsuleSwitch_CloseToTray.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_CloseToTray.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch_CloseToTray.ShowText = false;
+            capsuleSwitch_CloseToTray.Size = new Size(50, 20);
+            capsuleSwitch_CloseToTray.TabIndex = 267;
+            capsuleSwitch_CloseToTray.Text = "capsuleSwitch_CloseToTray";
+            capsuleSwitch_CloseToTray.TextColor = Color.White;
+            capsuleSwitch_CloseToTray.ThumbColor = Color.White;
+            // 
+            // label_CloseToTrayDescription
+            // 
+            label_CloseToTrayDescription.AutoSize = true;
+            label_CloseToTrayDescription.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_CloseToTrayDescription.ForeColor = Color.FromArgb(133, 133, 133);
+            label_CloseToTrayDescription.Location = new Point(5, 149);
+            label_CloseToTrayDescription.MaximumSize = new Size(862, 34);
+            label_CloseToTrayDescription.MinimumSize = new Size(224, 17);
+            label_CloseToTrayDescription.Name = "label_CloseToTrayDescription";
+            label_CloseToTrayDescription.Size = new Size(344, 17);
+            label_CloseToTrayDescription.TabIndex = 266;
+            label_CloseToTrayDescription.Text = "开启后点击主窗口关闭按钮将隐藏到任务栏托盘，否则退出程序";
+            // 
+            // label_CloseToTray
+            // 
+            label_CloseToTray.AutoSize = true;
+            label_CloseToTray.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_CloseToTray.Location = new Point(5, 131);
+            label_CloseToTray.MaximumSize = new Size(862, 17);
+            label_CloseToTray.MinimumSize = new Size(160, 17);
+            label_CloseToTray.Name = "label_CloseToTray";
+            label_CloseToTray.Size = new Size(160, 17);
+            label_CloseToTray.TabIndex = 265;
+            label_CloseToTray.Text = "关闭主窗口时最小化到托盘";
+            // 
+            // panel_分割线_常规2
+            // 
+            panel_分割线_常规2.BackColor = Color.Silver;
+            panel_分割线_常规2.Location = new Point(5, 125);
+            panel_分割线_常规2.Margin = new Padding(0);
+            panel_分割线_常规2.Name = "panel_分割线_常规2";
+            panel_分割线_常规2.Size = new Size(950, 1);
+            panel_分割线_常规2.TabIndex = 264;
+            // 
+            // capsuleSwitch_所有窗口置顶
+            // 
+            capsuleSwitch_所有窗口置顶.Location = new Point(891, 82);
+            capsuleSwitch_所有窗口置顶.Name = "capsuleSwitch_所有窗口置顶";
+            capsuleSwitch_所有窗口置顶.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_所有窗口置顶.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch_所有窗口置顶.ShowText = false;
+            capsuleSwitch_所有窗口置顶.Size = new Size(50, 20);
+            capsuleSwitch_所有窗口置顶.TabIndex = 263;
+            capsuleSwitch_所有窗口置顶.Text = "capsuleSwitch20";
+            capsuleSwitch_所有窗口置顶.TextColor = Color.White;
+            capsuleSwitch_所有窗口置顶.ThumbColor = Color.White;
+            // 
+            // label_所有窗口置顶描述
+            // 
+            label_所有窗口置顶描述.AutoSize = true;
+            label_所有窗口置顶描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_所有窗口置顶描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_所有窗口置顶描述.Location = new Point(5, 86);
+            label_所有窗口置顶描述.MaximumSize = new Size(862, 34);
+            label_所有窗口置顶描述.MinimumSize = new Size(224, 17);
+            label_所有窗口置顶描述.Name = "label_所有窗口置顶描述";
+            label_所有窗口置顶描述.Size = new Size(236, 17);
+            label_所有窗口置顶描述.TabIndex = 262;
+            label_所有窗口置顶描述.Text = "使应用的所有窗口始终显示在其他窗口上方";
+            // 
+            // label_所有窗口置顶
+            // 
+            label_所有窗口置顶.AutoSize = true;
+            label_所有窗口置顶.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_所有窗口置顶.Location = new Point(5, 68);
+            label_所有窗口置顶.MaximumSize = new Size(862, 17);
+            label_所有窗口置顶.MinimumSize = new Size(92, 17);
+            label_所有窗口置顶.Name = "label_所有窗口置顶";
+            label_所有窗口置顶.Size = new Size(92, 17);
+            label_所有窗口置顶.TabIndex = 261;
+            label_所有窗口置顶.Text = "所有窗口置顶";
             // 
             // label_界面语言描述
             // 
@@ -759,53 +968,1080 @@
             panel_分割线_常规1.Name = "panel_分割线_常规1";
             panel_分割线_常规1.Size = new Size(950, 1);
             panel_分割线_常规1.TabIndex = 258;
-            //
-            // label_所有窗口置顶
-            //
-            label_所有窗口置顶.AutoSize = true;
-            label_所有窗口置顶.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label_所有窗口置顶.Location = new Point(5, 68);
-            label_所有窗口置顶.MaximumSize = new Size(862, 17);
-            label_所有窗口置顶.MinimumSize = new Size(92, 17);
-            label_所有窗口置顶.Name = "label_所有窗口置顶";
-            label_所有窗口置顶.Size = new Size(92, 17);
-            label_所有窗口置顶.TabIndex = 261;
-            label_所有窗口置顶.Text = "所有窗口置顶";
-            //
-            // label_所有窗口置顶描述
-            //
-            label_所有窗口置顶描述.AutoSize = true;
-            label_所有窗口置顶描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            label_所有窗口置顶描述.ForeColor = Color.FromArgb(133, 133, 133);
-            label_所有窗口置顶描述.Location = new Point(5, 86);
-            label_所有窗口置顶描述.MaximumSize = new Size(862, 34);
-            label_所有窗口置顶描述.MinimumSize = new Size(224, 17);
-            label_所有窗口置顶描述.Name = "label_所有窗口置顶描述";
-            label_所有窗口置顶描述.Size = new Size(224, 17);
-            label_所有窗口置顶描述.TabIndex = 262;
-            label_所有窗口置顶描述.Text = "使应用的所有窗口始终显示在其他窗口上方";
-            //
-            // capsuleSwitch_所有窗口置顶
-            //
-            capsuleSwitch_所有窗口置顶.Location = new Point(891, 82);
-            capsuleSwitch_所有窗口置顶.Name = "capsuleSwitch_所有窗口置顶";
-            capsuleSwitch_所有窗口置顶.OffColor = Color.FromArgb(189, 189, 189);
-            capsuleSwitch_所有窗口置顶.OnColor = Color.FromArgb(24, 96, 251);
-            capsuleSwitch_所有窗口置顶.ShowText = false;
-            capsuleSwitch_所有窗口置顶.Size = new Size(50, 20);
-            capsuleSwitch_所有窗口置顶.TabIndex = 263;
-            capsuleSwitch_所有窗口置顶.Text = "capsuleSwitch20";
-            capsuleSwitch_所有窗口置顶.TextColor = Color.White;
-            capsuleSwitch_所有窗口置顶.ThumbColor = Color.White;
-            //
-            // panel_分割线_常规2
-            //
-            panel_分割线_常规2.BackColor = Color.Silver;
-            panel_分割线_常规2.Location = new Point(5, 125);
-            panel_分割线_常规2.Margin = new Padding(0);
-            panel_分割线_常规2.Name = "panel_分割线_常规2";
-            panel_分割线_常规2.Size = new Size(950, 1);
-            panel_分割线_常规2.TabIndex = 264;
+            // 
+            // tabPage_键鼠设备
+            // 
+            tabPage_键鼠设备.BackColor = Color.White;
+            tabPage_键鼠设备.Controls.Add(tabControl_键鼠设备);
+            tabPage_键鼠设备.Location = new Point(4, 26);
+            tabPage_键鼠设备.Name = "tabPage_键鼠设备";
+            tabPage_键鼠设备.Padding = new Padding(3);
+            tabPage_键鼠设备.Size = new Size(966, 504);
+            tabPage_键鼠设备.TabIndex = 13;
+            tabPage_键鼠设备.Text = "键鼠设备";
+            // 
+            // tabControl_键鼠设备
+            // 
+            tabControl_键鼠设备.Controls.Add(tabPage_键鼠设备_常规);
+            tabControl_键鼠设备.Controls.Add(tabPage_键鼠设备_WinAPI);
+            tabControl_键鼠设备.Controls.Add(tabPage_键鼠设备_Makcu);
+            tabControl_键鼠设备.Controls.Add(tabPage_键鼠设备_KmBox);
+            tabControl_键鼠设备.Dock = DockStyle.Fill;
+            tabControl_键鼠设备.Location = new Point(3, 3);
+            tabControl_键鼠设备.Name = "tabControl_键鼠设备";
+            tabControl_键鼠设备.SelectedIndex = 0;
+            tabControl_键鼠设备.Size = new Size(960, 498);
+            tabControl_键鼠设备.TabIndex = 0;
+            tabControl_键鼠设备.TabStop = false;
+            // 
+            // tabPage_键鼠设备_常规
+            // 
+            tabPage_键鼠设备_常规.BackColor = Color.White;
+            tabPage_键鼠设备_常规.Controls.Add(panel_键鼠设备_常规);
+            tabPage_键鼠设备_常规.Location = new Point(4, 26);
+            tabPage_键鼠设备_常规.Name = "tabPage_键鼠设备_常规";
+            tabPage_键鼠设备_常规.Padding = new Padding(3);
+            tabPage_键鼠设备_常规.Size = new Size(952, 468);
+            tabPage_键鼠设备_常规.TabIndex = 0;
+            tabPage_键鼠设备_常规.Text = "常规";
+            // 
+            // panel_键鼠设备_常规
+            // 
+            panel_键鼠设备_常规.AutoScroll = true;
+            panel_键鼠设备_常规.BackColor = Color.White;
+            panel_键鼠设备_常规.Controls.Add(panel_分割线_键鼠设备_常规1);
+            panel_键鼠设备_常规.Controls.Add(comboBox_键鼠设备选择);
+            panel_键鼠设备_常规.Controls.Add(label_鼠标移动方式描述);
+            panel_键鼠设备_常规.Controls.Add(label_鼠标移动方式);
+            panel_键鼠设备_常规.Dock = DockStyle.Fill;
+            panel_键鼠设备_常规.Location = new Point(3, 3);
+            panel_键鼠设备_常规.Name = "panel_键鼠设备_常规";
+            panel_键鼠设备_常规.Size = new Size(946, 462);
+            panel_键鼠设备_常规.TabIndex = 0;
+            // 
+            // panel_分割线_键鼠设备_常规1
+            // 
+            panel_分割线_键鼠设备_常规1.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_常规1.Location = new Point(5, 62);
+            panel_分割线_键鼠设备_常规1.Margin = new Padding(0);
+            panel_分割线_键鼠设备_常规1.Name = "panel_分割线_键鼠设备_常规1";
+            panel_分割线_键鼠设备_常规1.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_常规1.TabIndex = 278;
+            // 
+            // comboBox_键鼠设备选择
+            // 
+            comboBox_键鼠设备选择.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_键鼠设备选择.FormattingEnabled = true;
+            comboBox_键鼠设备选择.Location = new Point(801, 19);
+            comboBox_键鼠设备选择.Name = "comboBox_键鼠设备选择";
+            comboBox_键鼠设备选择.Size = new Size(140, 25);
+            comboBox_键鼠设备选择.TabIndex = 279;
+            comboBox_键鼠设备选择.TabStop = false;
+            comboBox_键鼠设备选择.SelectedIndexChanged += comboBox_键鼠设备选择_SelectedIndexChanged;
+            // 
+            // label_鼠标移动方式描述
+            // 
+            label_鼠标移动方式描述.AutoSize = true;
+            label_鼠标移动方式描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_鼠标移动方式描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_鼠标移动方式描述.Location = new Point(5, 23);
+            label_鼠标移动方式描述.MaximumSize = new Size(720, 34);
+            label_鼠标移动方式描述.MinimumSize = new Size(200, 17);
+            label_鼠标移动方式描述.Name = "label_鼠标移动方式描述";
+            label_鼠标移动方式描述.Size = new Size(200, 17);
+            label_鼠标移动方式描述.TabIndex = 280;
+            label_鼠标移动方式描述.Text = "选择用于模拟键鼠输入的设备";
+            // 
+            // label_鼠标移动方式
+            // 
+            label_鼠标移动方式.AutoSize = true;
+            label_鼠标移动方式.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_鼠标移动方式.Location = new Point(5, 5);
+            label_鼠标移动方式.MaximumSize = new Size(862, 17);
+            label_鼠标移动方式.MinimumSize = new Size(56, 17);
+            label_鼠标移动方式.Name = "label_鼠标移动方式";
+            label_鼠标移动方式.Size = new Size(80, 17);
+            label_鼠标移动方式.TabIndex = 281;
+            label_鼠标移动方式.Text = "鼠标移动方式";
+            // 
+            // tabPage_键鼠设备_WinAPI
+            // 
+            tabPage_键鼠设备_WinAPI.BackColor = Color.White;
+            tabPage_键鼠设备_WinAPI.Controls.Add(panel_键鼠设备_WinAPI);
+            tabPage_键鼠设备_WinAPI.Location = new Point(4, 26);
+            tabPage_键鼠设备_WinAPI.Name = "tabPage_键鼠设备_WinAPI";
+            tabPage_键鼠设备_WinAPI.Padding = new Padding(3);
+            tabPage_键鼠设备_WinAPI.Size = new Size(952, 468);
+            tabPage_键鼠设备_WinAPI.TabIndex = 1;
+            tabPage_键鼠设备_WinAPI.Text = "WinAPI";
+            // 
+            // panel_键鼠设备_WinAPI
+            // 
+            panel_键鼠设备_WinAPI.AutoScroll = true;
+            panel_键鼠设备_WinAPI.BackColor = Color.White;
+            panel_键鼠设备_WinAPI.Controls.Add(panel_分割线_键鼠设备_WinAPI2);
+            panel_键鼠设备_WinAPI.Controls.Add(panel_分割线_键鼠设备_WinAPI1);
+            panel_键鼠设备_WinAPI.Controls.Add(roundedButton_测试左键点击);
+            panel_键鼠设备_WinAPI.Controls.Add(label_测试左键点击描述);
+            panel_键鼠设备_WinAPI.Controls.Add(label_测试左键点击);
+            panel_键鼠设备_WinAPI.Controls.Add(roundedButton_测试光标移动);
+            panel_键鼠设备_WinAPI.Controls.Add(textBox_测试光标移动_Y);
+            panel_键鼠设备_WinAPI.Controls.Add(label_测试光标移动_Y);
+            panel_键鼠设备_WinAPI.Controls.Add(textBox_测试光标移动_X);
+            panel_键鼠设备_WinAPI.Controls.Add(label_测试光标移动_X);
+            panel_键鼠设备_WinAPI.Controls.Add(label_测试光标移动描述);
+            panel_键鼠设备_WinAPI.Controls.Add(label_测试光标移动);
+            panel_键鼠设备_WinAPI.Dock = DockStyle.Fill;
+            panel_键鼠设备_WinAPI.Location = new Point(3, 3);
+            panel_键鼠设备_WinAPI.Name = "panel_键鼠设备_WinAPI";
+            panel_键鼠设备_WinAPI.Size = new Size(946, 462);
+            panel_键鼠设备_WinAPI.TabIndex = 0;
+            // 
+            // panel_分割线_键鼠设备_WinAPI2
+            // 
+            panel_分割线_键鼠设备_WinAPI2.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_WinAPI2.Location = new Point(5, 123);
+            panel_分割线_键鼠设备_WinAPI2.Margin = new Padding(0);
+            panel_分割线_键鼠设备_WinAPI2.Name = "panel_分割线_键鼠设备_WinAPI2";
+            panel_分割线_键鼠设备_WinAPI2.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_WinAPI2.TabIndex = 282;
+            // 
+            // panel_分割线_键鼠设备_WinAPI1
+            // 
+            panel_分割线_键鼠设备_WinAPI1.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_WinAPI1.Location = new Point(5, 62);
+            panel_分割线_键鼠设备_WinAPI1.Margin = new Padding(0);
+            panel_分割线_键鼠设备_WinAPI1.Name = "panel_分割线_键鼠设备_WinAPI1";
+            panel_分割线_键鼠设备_WinAPI1.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_WinAPI1.TabIndex = 283;
+            // 
+            // roundedButton_测试左键点击
+            // 
+            roundedButton_测试左键点击.BorderColor = SystemColors.ScrollBar;
+            roundedButton_测试左键点击.BorderWidth = 1;
+            roundedButton_测试左键点击.ButtonColor = Color.White;
+            roundedButton_测试左键点击.CornerRadius = 1;
+            roundedButton_测试左键点击.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_测试左键点击.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_测试左键点击.Location = new Point(854, 82);
+            roundedButton_测试左键点击.Name = "roundedButton_测试左键点击";
+            roundedButton_测试左键点击.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_测试左键点击.Size = new Size(87, 25);
+            roundedButton_测试左键点击.TabIndex = 293;
+            roundedButton_测试左键点击.Text = "测试";
+            roundedButton_测试左键点击.TextColor = Color.Black;
+            roundedButton_测试左键点击.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_测试左键点击.Click += roundedButton_测试左键点击_Click;
+            // 
+            // label_测试左键点击描述
+            // 
+            label_测试左键点击描述.AutoSize = true;
+            label_测试左键点击描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_测试左键点击描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_测试左键点击描述.Location = new Point(5, 85);
+            label_测试左键点击描述.MaximumSize = new Size(720, 34);
+            label_测试左键点击描述.MinimumSize = new Size(200, 17);
+            label_测试左键点击描述.Name = "label_测试左键点击描述";
+            label_测试左键点击描述.Size = new Size(207, 17);
+            label_测试左键点击描述.TabIndex = 292;
+            label_测试左键点击描述.Text = "点击测试后等待3秒执行一次左键点击";
+            // 
+            // label_测试左键点击
+            // 
+            label_测试左键点击.AutoSize = true;
+            label_测试左键点击.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_测试左键点击.Location = new Point(5, 67);
+            label_测试左键点击.MaximumSize = new Size(862, 17);
+            label_测试左键点击.MinimumSize = new Size(56, 17);
+            label_测试左键点击.Name = "label_测试左键点击";
+            label_测试左键点击.Size = new Size(80, 17);
+            label_测试左键点击.TabIndex = 291;
+            label_测试左键点击.Text = "测试左键点击";
+            // 
+            // roundedButton_测试光标移动
+            // 
+            roundedButton_测试光标移动.BorderColor = SystemColors.ScrollBar;
+            roundedButton_测试光标移动.BorderWidth = 1;
+            roundedButton_测试光标移动.ButtonColor = Color.White;
+            roundedButton_测试光标移动.CornerRadius = 1;
+            roundedButton_测试光标移动.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_测试光标移动.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_测试光标移动.Location = new Point(854, 19);
+            roundedButton_测试光标移动.Name = "roundedButton_测试光标移动";
+            roundedButton_测试光标移动.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_测试光标移动.Size = new Size(87, 25);
+            roundedButton_测试光标移动.TabIndex = 290;
+            roundedButton_测试光标移动.Text = "测试";
+            roundedButton_测试光标移动.TextColor = Color.Black;
+            roundedButton_测试光标移动.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_测试光标移动.Click += roundedButton_测试光标移动_Click;
+            // 
+            // textBox_测试光标移动_Y
+            // 
+            textBox_测试光标移动_Y.Location = new Point(757, 20);
+            textBox_测试光标移动_Y.Name = "textBox_测试光标移动_Y";
+            textBox_测试光标移动_Y.Size = new Size(75, 23);
+            textBox_测试光标移动_Y.TabIndex = 289;
+            textBox_测试光标移动_Y.TabStop = false;
+            // 
+            // label_测试光标移动_Y
+            // 
+            label_测试光标移动_Y.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_测试光标移动_Y.Location = new Point(739, 23);
+            label_测试光标移动_Y.Name = "label_测试光标移动_Y";
+            label_测试光标移动_Y.Size = new Size(16, 23);
+            label_测试光标移动_Y.TabIndex = 288;
+            label_测试光标移动_Y.Text = "Y";
+            label_测试光标移动_Y.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_测试光标移动_X
+            // 
+            textBox_测试光标移动_X.Location = new Point(643, 20);
+            textBox_测试光标移动_X.Name = "textBox_测试光标移动_X";
+            textBox_测试光标移动_X.Size = new Size(75, 23);
+            textBox_测试光标移动_X.TabIndex = 287;
+            textBox_测试光标移动_X.TabStop = false;
+            // 
+            // label_测试光标移动_X
+            // 
+            label_测试光标移动_X.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_测试光标移动_X.Location = new Point(625, 23);
+            label_测试光标移动_X.Name = "label_测试光标移动_X";
+            label_测试光标移动_X.Size = new Size(16, 23);
+            label_测试光标移动_X.TabIndex = 286;
+            label_测试光标移动_X.Text = "X";
+            label_测试光标移动_X.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label_测试光标移动描述
+            // 
+            label_测试光标移动描述.AutoSize = true;
+            label_测试光标移动描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_测试光标移动描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_测试光标移动描述.Location = new Point(5, 23);
+            label_测试光标移动描述.MaximumSize = new Size(620, 34);
+            label_测试光标移动描述.MinimumSize = new Size(200, 17);
+            label_测试光标移动描述.Name = "label_测试光标移动描述";
+            label_测试光标移动描述.Size = new Size(287, 17);
+            label_测试光标移动描述.TabIndex = 285;
+            label_测试光标移动描述.Text = "输入屏幕绝对坐标（X/Y），点击测试后1秒执行移动";
+            // 
+            // label_测试光标移动
+            // 
+            label_测试光标移动.AutoSize = true;
+            label_测试光标移动.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_测试光标移动.Location = new Point(5, 5);
+            label_测试光标移动.MaximumSize = new Size(862, 17);
+            label_测试光标移动.MinimumSize = new Size(56, 17);
+            label_测试光标移动.Name = "label_测试光标移动";
+            label_测试光标移动.Size = new Size(80, 17);
+            label_测试光标移动.TabIndex = 284;
+            label_测试光标移动.Text = "测试光标移动";
+            // 
+            // tabPage_键鼠设备_Makcu
+            // 
+            tabPage_键鼠设备_Makcu.BackColor = Color.White;
+            tabPage_键鼠设备_Makcu.Controls.Add(panel_键鼠设备_Makcu);
+            tabPage_键鼠设备_Makcu.Location = new Point(4, 26);
+            tabPage_键鼠设备_Makcu.Name = "tabPage_键鼠设备_Makcu";
+            tabPage_键鼠设备_Makcu.Padding = new Padding(3);
+            tabPage_键鼠设备_Makcu.Size = new Size(952, 468);
+            tabPage_键鼠设备_Makcu.TabIndex = 2;
+            tabPage_键鼠设备_Makcu.Text = "Makcu";
+            // 
+            // panel_键鼠设备_Makcu
+            // 
+            panel_键鼠设备_Makcu.AutoScroll = true;
+            panel_键鼠设备_Makcu.BackColor = Color.White;
+            panel_键鼠设备_Makcu.Controls.Add(panel_分割线_键鼠设备_Makcu5);
+            panel_键鼠设备_Makcu.Controls.Add(panel_分割线_键鼠设备_Makcu4);
+            panel_键鼠设备_Makcu.Controls.Add(panel_分割线_键鼠设备_Makcu3);
+            panel_键鼠设备_Makcu.Controls.Add(panel_分割线_键鼠设备_Makcu2);
+            panel_键鼠设备_Makcu.Controls.Add(panel_分割线_键鼠设备_Makcu1);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu串口);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu串口描述);
+            panel_键鼠设备_Makcu.Controls.Add(comboBox_Makcu串口);
+            panel_键鼠设备_Makcu.Controls.Add(roundedButton_Makcu刷新串口);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu波特率);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu波特率描述);
+            panel_键鼠设备_Makcu.Controls.Add(textBox_Makcu波特率);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu连接状态);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu连接状态描述);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu连接状态值);
+            panel_键鼠设备_Makcu.Controls.Add(roundedButton_Makcu测试连接);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu测试光标移动);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu测试光标移动描述);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu测试光标移动_X);
+            panel_键鼠设备_Makcu.Controls.Add(textBox_Makcu测试光标移动_X);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu测试光标移动_Y);
+            panel_键鼠设备_Makcu.Controls.Add(textBox_Makcu测试光标移动_Y);
+            panel_键鼠设备_Makcu.Controls.Add(roundedButton_Makcu测试光标移动);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu测试左键点击);
+            panel_键鼠设备_Makcu.Controls.Add(label_Makcu测试左键点击描述);
+            panel_键鼠设备_Makcu.Controls.Add(roundedButton_Makcu测试左键点击);
+            panel_键鼠设备_Makcu.Dock = DockStyle.Fill;
+            panel_键鼠设备_Makcu.Location = new Point(3, 3);
+            panel_键鼠设备_Makcu.Name = "panel_键鼠设备_Makcu";
+            panel_键鼠设备_Makcu.Size = new Size(946, 462);
+            panel_键鼠设备_Makcu.TabIndex = 0;
+            // 
+            // panel_分割线_键鼠设备_Makcu5
+            // 
+            panel_分割线_键鼠设备_Makcu5.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_Makcu5.Location = new Point(5, 312);
+            panel_分割线_键鼠设备_Makcu5.Margin = new Padding(0);
+            panel_分割线_键鼠设备_Makcu5.Name = "panel_分割线_键鼠设备_Makcu5";
+            panel_分割线_键鼠设备_Makcu5.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_Makcu5.TabIndex = 4;
+            // 
+            // panel_分割线_键鼠设备_Makcu4
+            // 
+            panel_分割线_键鼠设备_Makcu4.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_Makcu4.Location = new Point(5, 251);
+            panel_分割线_键鼠设备_Makcu4.Margin = new Padding(0);
+            panel_分割线_键鼠设备_Makcu4.Name = "panel_分割线_键鼠设备_Makcu4";
+            panel_分割线_键鼠设备_Makcu4.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_Makcu4.TabIndex = 3;
+            // 
+            // panel_分割线_键鼠设备_Makcu3
+            // 
+            panel_分割线_键鼠设备_Makcu3.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_Makcu3.Location = new Point(5, 188);
+            panel_分割线_键鼠设备_Makcu3.Margin = new Padding(0);
+            panel_分割线_键鼠设备_Makcu3.Name = "panel_分割线_键鼠设备_Makcu3";
+            panel_分割线_键鼠设备_Makcu3.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_Makcu3.TabIndex = 2;
+            // 
+            // panel_分割线_键鼠设备_Makcu2
+            // 
+            panel_分割线_键鼠设备_Makcu2.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_Makcu2.Location = new Point(5, 125);
+            panel_分割线_键鼠设备_Makcu2.Margin = new Padding(0);
+            panel_分割线_键鼠设备_Makcu2.Name = "panel_分割线_键鼠设备_Makcu2";
+            panel_分割线_键鼠设备_Makcu2.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_Makcu2.TabIndex = 1;
+            // 
+            // panel_分割线_键鼠设备_Makcu1
+            // 
+            panel_分割线_键鼠设备_Makcu1.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_Makcu1.Location = new Point(5, 62);
+            panel_分割线_键鼠设备_Makcu1.Margin = new Padding(0);
+            panel_分割线_键鼠设备_Makcu1.Name = "panel_分割线_键鼠设备_Makcu1";
+            panel_分割线_键鼠设备_Makcu1.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_Makcu1.TabIndex = 0;
+            // 
+            // label_Makcu串口
+            // 
+            label_Makcu串口.AutoSize = true;
+            label_Makcu串口.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_Makcu串口.Location = new Point(5, 5);
+            label_Makcu串口.MaximumSize = new Size(640, 17);
+            label_Makcu串口.MinimumSize = new Size(56, 17);
+            label_Makcu串口.Name = "label_Makcu串口";
+            label_Makcu串口.Size = new Size(76, 17);
+            label_Makcu串口.TabIndex = 5;
+            label_Makcu串口.Text = "Makcu 串口";
+            // 
+            // label_Makcu串口描述
+            // 
+            label_Makcu串口描述.AutoSize = true;
+            label_Makcu串口描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu串口描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_Makcu串口描述.Location = new Point(5, 23);
+            label_Makcu串口描述.MaximumSize = new Size(640, 34);
+            label_Makcu串口描述.MinimumSize = new Size(200, 17);
+            label_Makcu串口描述.Name = "label_Makcu串口描述";
+            label_Makcu串口描述.Size = new Size(200, 17);
+            label_Makcu串口描述.TabIndex = 6;
+            label_Makcu串口描述.Text = "选择或输入 Makcu 设备使用的串口";
+            // 
+            // comboBox_Makcu串口
+            // 
+            comboBox_Makcu串口.FormattingEnabled = true;
+            comboBox_Makcu串口.Location = new Point(650, 19);
+            comboBox_Makcu串口.Name = "comboBox_Makcu串口";
+            comboBox_Makcu串口.Size = new Size(195, 25);
+            comboBox_Makcu串口.TabIndex = 7;
+            comboBox_Makcu串口.TabStop = false;
+            comboBox_Makcu串口.Leave += comboBox_Makcu串口_Leave;
+            // 
+            // roundedButton_Makcu刷新串口
+            // 
+            roundedButton_Makcu刷新串口.BorderColor = SystemColors.ScrollBar;
+            roundedButton_Makcu刷新串口.BorderWidth = 1;
+            roundedButton_Makcu刷新串口.ButtonColor = Color.White;
+            roundedButton_Makcu刷新串口.CornerRadius = 1;
+            roundedButton_Makcu刷新串口.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_Makcu刷新串口.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_Makcu刷新串口.Location = new Point(854, 20);
+            roundedButton_Makcu刷新串口.Name = "roundedButton_Makcu刷新串口";
+            roundedButton_Makcu刷新串口.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_Makcu刷新串口.Size = new Size(87, 25);
+            roundedButton_Makcu刷新串口.TabIndex = 8;
+            roundedButton_Makcu刷新串口.TabStop = false;
+            roundedButton_Makcu刷新串口.Text = "刷新串口";
+            roundedButton_Makcu刷新串口.TextColor = Color.Black;
+            roundedButton_Makcu刷新串口.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_Makcu刷新串口.Click += roundedButton_Makcu刷新串口_Click;
+            // 
+            // label_Makcu波特率
+            // 
+            label_Makcu波特率.AutoSize = true;
+            label_Makcu波特率.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_Makcu波特率.Location = new Point(5, 68);
+            label_Makcu波特率.MaximumSize = new Size(825, 17);
+            label_Makcu波特率.MinimumSize = new Size(56, 17);
+            label_Makcu波特率.Name = "label_Makcu波特率";
+            label_Makcu波特率.Size = new Size(88, 17);
+            label_Makcu波特率.TabIndex = 8;
+            label_Makcu波特率.Text = "Makcu 波特率";
+            // 
+            // label_Makcu波特率描述
+            // 
+            label_Makcu波特率描述.AutoSize = true;
+            label_Makcu波特率描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu波特率描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_Makcu波特率描述.Location = new Point(5, 86);
+            label_Makcu波特率描述.MaximumSize = new Size(825, 34);
+            label_Makcu波特率描述.MinimumSize = new Size(200, 17);
+            label_Makcu波特率描述.Name = "label_Makcu波特率描述";
+            label_Makcu波特率描述.Size = new Size(245, 17);
+            label_Makcu波特率描述.TabIndex = 9;
+            label_Makcu波特率描述.Text = "输入 Makcu 串口通信波特率，默认 115200";
+            // 
+            // textBox_Makcu波特率
+            // 
+            textBox_Makcu波特率.Location = new Point(837, 82);
+            textBox_Makcu波特率.Name = "textBox_Makcu波特率";
+            textBox_Makcu波特率.Size = new Size(104, 23);
+            textBox_Makcu波特率.TabIndex = 10;
+            textBox_Makcu波特率.TabStop = false;
+            textBox_Makcu波特率.Leave += textBox_Makcu波特率_Leave;
+            // 
+            // label_Makcu连接状态
+            // 
+            label_Makcu连接状态.AutoSize = true;
+            label_Makcu连接状态.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_Makcu连接状态.Location = new Point(5, 131);
+            label_Makcu连接状态.MaximumSize = new Size(853, 17);
+            label_Makcu连接状态.MinimumSize = new Size(56, 17);
+            label_Makcu连接状态.Name = "label_Makcu连接状态";
+            label_Makcu连接状态.Size = new Size(56, 17);
+            label_Makcu连接状态.TabIndex = 11;
+            label_Makcu连接状态.Text = "连接状态";
+            // 
+            // label_Makcu连接状态描述
+            // 
+            label_Makcu连接状态描述.AutoSize = true;
+            label_Makcu连接状态描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu连接状态描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_Makcu连接状态描述.Location = new Point(5, 149);
+            label_Makcu连接状态描述.MaximumSize = new Size(825, 34);
+            label_Makcu连接状态描述.MinimumSize = new Size(200, 17);
+            label_Makcu连接状态描述.Name = "label_Makcu连接状态描述";
+            label_Makcu连接状态描述.Size = new Size(295, 17);
+            label_Makcu连接状态描述.TabIndex = 12;
+            label_Makcu连接状态描述.Text = "只有连接校验成功后才能执行 Makcu 移动和点击测试";
+            // 
+            // label_Makcu连接状态值
+            // 
+            label_Makcu连接状态值.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu连接状态值.ForeColor = Color.FromArgb(133, 133, 133);
+            label_Makcu连接状态值.Location = new Point(625, 149);
+            label_Makcu连接状态值.Name = "label_Makcu连接状态值";
+            label_Makcu连接状态值.Size = new Size(207, 17);
+            label_Makcu连接状态值.TabIndex = 13;
+            label_Makcu连接状态值.Text = "未连接";
+            label_Makcu连接状态值.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // roundedButton_Makcu测试连接
+            // 
+            roundedButton_Makcu测试连接.BorderColor = SystemColors.ScrollBar;
+            roundedButton_Makcu测试连接.BorderWidth = 1;
+            roundedButton_Makcu测试连接.ButtonColor = Color.White;
+            roundedButton_Makcu测试连接.CornerRadius = 1;
+            roundedButton_Makcu测试连接.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_Makcu测试连接.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_Makcu测试连接.Location = new Point(854, 146);
+            roundedButton_Makcu测试连接.Name = "roundedButton_Makcu测试连接";
+            roundedButton_Makcu测试连接.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_Makcu测试连接.Size = new Size(87, 25);
+            roundedButton_Makcu测试连接.TabIndex = 14;
+            roundedButton_Makcu测试连接.TabStop = false;
+            roundedButton_Makcu测试连接.Text = "测试连接";
+            roundedButton_Makcu测试连接.TextColor = Color.Black;
+            roundedButton_Makcu测试连接.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_Makcu测试连接.Click += roundedButton_Makcu测试连接_Click;
+            // 
+            // label_Makcu测试光标移动
+            // 
+            label_Makcu测试光标移动.AutoSize = true;
+            label_Makcu测试光标移动.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_Makcu测试光标移动.Location = new Point(5, 194);
+            label_Makcu测试光标移动.MaximumSize = new Size(862, 17);
+            label_Makcu测试光标移动.MinimumSize = new Size(56, 17);
+            label_Makcu测试光标移动.Name = "label_Makcu测试光标移动";
+            label_Makcu测试光标移动.Size = new Size(80, 17);
+            label_Makcu测试光标移动.TabIndex = 14;
+            label_Makcu测试光标移动.Text = "测试光标移动";
+            // 
+            // label_Makcu测试光标移动描述
+            // 
+            label_Makcu测试光标移动描述.AutoSize = true;
+            label_Makcu测试光标移动描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu测试光标移动描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_Makcu测试光标移动描述.Location = new Point(5, 212);
+            label_Makcu测试光标移动描述.MaximumSize = new Size(620, 34);
+            label_Makcu测试光标移动描述.MinimumSize = new Size(200, 17);
+            label_Makcu测试光标移动描述.Name = "label_Makcu测试光标移动描述";
+            label_Makcu测试光标移动描述.Size = new Size(287, 17);
+            label_Makcu测试光标移动描述.TabIndex = 15;
+            label_Makcu测试光标移动描述.Text = "输入屏幕绝对坐标（X/Y），点击测试后1秒执行移动";
+            // 
+            // label_Makcu测试光标移动_X
+            // 
+            label_Makcu测试光标移动_X.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu测试光标移动_X.Location = new Point(625, 212);
+            label_Makcu测试光标移动_X.Name = "label_Makcu测试光标移动_X";
+            label_Makcu测试光标移动_X.Size = new Size(16, 23);
+            label_Makcu测试光标移动_X.TabIndex = 16;
+            label_Makcu测试光标移动_X.Text = "X";
+            label_Makcu测试光标移动_X.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_Makcu测试光标移动_X
+            // 
+            textBox_Makcu测试光标移动_X.Location = new Point(643, 209);
+            textBox_Makcu测试光标移动_X.Name = "textBox_Makcu测试光标移动_X";
+            textBox_Makcu测试光标移动_X.Size = new Size(75, 23);
+            textBox_Makcu测试光标移动_X.TabIndex = 17;
+            textBox_Makcu测试光标移动_X.TabStop = false;
+            // 
+            // label_Makcu测试光标移动_Y
+            // 
+            label_Makcu测试光标移动_Y.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu测试光标移动_Y.Location = new Point(739, 212);
+            label_Makcu测试光标移动_Y.Name = "label_Makcu测试光标移动_Y";
+            label_Makcu测试光标移动_Y.Size = new Size(16, 23);
+            label_Makcu测试光标移动_Y.TabIndex = 18;
+            label_Makcu测试光标移动_Y.Text = "Y";
+            label_Makcu测试光标移动_Y.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_Makcu测试光标移动_Y
+            // 
+            textBox_Makcu测试光标移动_Y.Location = new Point(757, 209);
+            textBox_Makcu测试光标移动_Y.Name = "textBox_Makcu测试光标移动_Y";
+            textBox_Makcu测试光标移动_Y.Size = new Size(75, 23);
+            textBox_Makcu测试光标移动_Y.TabIndex = 19;
+            textBox_Makcu测试光标移动_Y.TabStop = false;
+            // 
+            // roundedButton_Makcu测试光标移动
+            // 
+            roundedButton_Makcu测试光标移动.BorderColor = SystemColors.ScrollBar;
+            roundedButton_Makcu测试光标移动.BorderWidth = 1;
+            roundedButton_Makcu测试光标移动.ButtonColor = Color.White;
+            roundedButton_Makcu测试光标移动.CornerRadius = 1;
+            roundedButton_Makcu测试光标移动.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_Makcu测试光标移动.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_Makcu测试光标移动.Location = new Point(854, 208);
+            roundedButton_Makcu测试光标移动.Name = "roundedButton_Makcu测试光标移动";
+            roundedButton_Makcu测试光标移动.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_Makcu测试光标移动.Size = new Size(87, 25);
+            roundedButton_Makcu测试光标移动.TabIndex = 20;
+            roundedButton_Makcu测试光标移动.TabStop = false;
+            roundedButton_Makcu测试光标移动.Text = "测试";
+            roundedButton_Makcu测试光标移动.TextColor = Color.Black;
+            roundedButton_Makcu测试光标移动.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_Makcu测试光标移动.Click += roundedButton_Makcu测试光标移动_Click;
+            // 
+            // label_Makcu测试左键点击
+            // 
+            label_Makcu测试左键点击.AutoSize = true;
+            label_Makcu测试左键点击.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_Makcu测试左键点击.Location = new Point(5, 256);
+            label_Makcu测试左键点击.MaximumSize = new Size(853, 17);
+            label_Makcu测试左键点击.MinimumSize = new Size(56, 17);
+            label_Makcu测试左键点击.Name = "label_Makcu测试左键点击";
+            label_Makcu测试左键点击.Size = new Size(80, 17);
+            label_Makcu测试左键点击.TabIndex = 21;
+            label_Makcu测试左键点击.Text = "测试左键点击";
+            // 
+            // label_Makcu测试左键点击描述
+            // 
+            label_Makcu测试左键点击描述.AutoSize = true;
+            label_Makcu测试左键点击描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_Makcu测试左键点击描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_Makcu测试左键点击描述.Location = new Point(5, 274);
+            label_Makcu测试左键点击描述.MaximumSize = new Size(853, 34);
+            label_Makcu测试左键点击描述.MinimumSize = new Size(200, 17);
+            label_Makcu测试左键点击描述.Name = "label_Makcu测试左键点击描述";
+            label_Makcu测试左键点击描述.Size = new Size(207, 17);
+            label_Makcu测试左键点击描述.TabIndex = 22;
+            label_Makcu测试左键点击描述.Text = "点击测试后等待3秒执行一次左键点击";
+            // 
+            // roundedButton_Makcu测试左键点击
+            // 
+            roundedButton_Makcu测试左键点击.BorderColor = SystemColors.ScrollBar;
+            roundedButton_Makcu测试左键点击.BorderWidth = 1;
+            roundedButton_Makcu测试左键点击.ButtonColor = Color.White;
+            roundedButton_Makcu测试左键点击.CornerRadius = 1;
+            roundedButton_Makcu测试左键点击.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_Makcu测试左键点击.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_Makcu测试左键点击.Location = new Point(854, 271);
+            roundedButton_Makcu测试左键点击.Name = "roundedButton_Makcu测试左键点击";
+            roundedButton_Makcu测试左键点击.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_Makcu测试左键点击.Size = new Size(87, 25);
+            roundedButton_Makcu测试左键点击.TabIndex = 23;
+            roundedButton_Makcu测试左键点击.TabStop = false;
+            roundedButton_Makcu测试左键点击.Text = "测试";
+            roundedButton_Makcu测试左键点击.TextColor = Color.Black;
+            roundedButton_Makcu测试左键点击.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_Makcu测试左键点击.Click += roundedButton_Makcu测试左键点击_Click;
+            // 
+            // tabPage_键鼠设备_KmBox
+            // 
+            tabPage_键鼠设备_KmBox.BackColor = Color.White;
+            tabPage_键鼠设备_KmBox.Controls.Add(panel_键鼠设备_KmBox);
+            tabPage_键鼠设备_KmBox.Location = new Point(4, 26);
+            tabPage_键鼠设备_KmBox.Name = "tabPage_键鼠设备_KmBox";
+            tabPage_键鼠设备_KmBox.Padding = new Padding(3);
+            tabPage_键鼠设备_KmBox.Size = new Size(952, 468);
+            tabPage_键鼠设备_KmBox.TabIndex = 3;
+            tabPage_键鼠设备_KmBox.Text = "KMbox";
+            // 
+            // panel_键鼠设备_KmBox
+            // 
+            panel_键鼠设备_KmBox.AutoScroll = true;
+            panel_键鼠设备_KmBox.BackColor = Color.White;
+            panel_键鼠设备_KmBox.Controls.Add(label1);
+            panel_键鼠设备_KmBox.Controls.Add(panel_分割线_键鼠设备_KmBox6);
+            panel_键鼠设备_KmBox.Controls.Add(panel_分割线_键鼠设备_KmBox5);
+            panel_键鼠设备_KmBox.Controls.Add(panel_分割线_键鼠设备_KmBox4);
+            panel_键鼠设备_KmBox.Controls.Add(panel_分割线_键鼠设备_KmBox3);
+            panel_键鼠设备_KmBox.Controls.Add(panel_分割线_键鼠设备_KmBox2);
+            panel_键鼠设备_KmBox.Controls.Add(panel_分割线_键鼠设备_KmBox1);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBoxIP);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBoxIP描述);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBoxIP1);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBoxIP点1);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBoxIP2);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBoxIP点2);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBoxIP3);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBoxIP点3);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBoxIP4);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox端口);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox端口描述);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBox端口);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBoxMAC);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBoxMAC描述);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBoxMAC);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox状态);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox状态描述);
+            panel_键鼠设备_KmBox.Controls.Add(roundedButton_KmBox连接);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox测试移动);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox测试移动描述);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox测试移动_X);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBox测试移动_X);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox测试移动_Y);
+            panel_键鼠设备_KmBox.Controls.Add(textBox_KmBox测试移动_Y);
+            panel_键鼠设备_KmBox.Controls.Add(roundedButton_KmBox测试移动);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox测试点击);
+            panel_键鼠设备_KmBox.Controls.Add(label_KmBox测试点击描述);
+            panel_键鼠设备_KmBox.Controls.Add(roundedButton_KmBox测试点击);
+            panel_键鼠设备_KmBox.Dock = DockStyle.Fill;
+            panel_键鼠设备_KmBox.Location = new Point(3, 3);
+            panel_键鼠设备_KmBox.Name = "panel_键鼠设备_KmBox";
+            panel_键鼠设备_KmBox.Size = new Size(946, 462);
+            panel_键鼠设备_KmBox.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label1.Location = new Point(5, 194);
+            label1.MaximumSize = new Size(853, 17);
+            label1.MinimumSize = new Size(56, 17);
+            label1.Name = "label1";
+            label1.Size = new Size(56, 17);
+            label1.TabIndex = 25;
+            label1.Text = "连接状态";
+            // 
+            // panel_分割线_键鼠设备_KmBox6
+            // 
+            panel_分割线_键鼠设备_KmBox6.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_KmBox6.Location = new Point(5, 377);
+            panel_分割线_键鼠设备_KmBox6.Margin = new Padding(0);
+            panel_分割线_键鼠设备_KmBox6.Name = "panel_分割线_键鼠设备_KmBox6";
+            panel_分割线_键鼠设备_KmBox6.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_KmBox6.TabIndex = 24;
+            // 
+            // panel_分割线_键鼠设备_KmBox5
+            // 
+            panel_分割线_键鼠设备_KmBox5.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_KmBox5.Location = new Point(5, 314);
+            panel_分割线_键鼠设备_KmBox5.Margin = new Padding(0);
+            panel_分割线_键鼠设备_KmBox5.Name = "panel_分割线_键鼠设备_KmBox5";
+            panel_分割线_键鼠设备_KmBox5.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_KmBox5.TabIndex = 4;
+            // 
+            // panel_分割线_键鼠设备_KmBox4
+            // 
+            panel_分割线_键鼠设备_KmBox4.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_KmBox4.Location = new Point(5, 251);
+            panel_分割线_键鼠设备_KmBox4.Margin = new Padding(0);
+            panel_分割线_键鼠设备_KmBox4.Name = "panel_分割线_键鼠设备_KmBox4";
+            panel_分割线_键鼠设备_KmBox4.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_KmBox4.TabIndex = 3;
+            // 
+            // panel_分割线_键鼠设备_KmBox3
+            // 
+            panel_分割线_键鼠设备_KmBox3.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_KmBox3.Location = new Point(5, 188);
+            panel_分割线_键鼠设备_KmBox3.Margin = new Padding(0);
+            panel_分割线_键鼠设备_KmBox3.Name = "panel_分割线_键鼠设备_KmBox3";
+            panel_分割线_键鼠设备_KmBox3.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_KmBox3.TabIndex = 2;
+            // 
+            // panel_分割线_键鼠设备_KmBox2
+            // 
+            panel_分割线_键鼠设备_KmBox2.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_KmBox2.Location = new Point(5, 125);
+            panel_分割线_键鼠设备_KmBox2.Margin = new Padding(0);
+            panel_分割线_键鼠设备_KmBox2.Name = "panel_分割线_键鼠设备_KmBox2";
+            panel_分割线_键鼠设备_KmBox2.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_KmBox2.TabIndex = 1;
+            // 
+            // panel_分割线_键鼠设备_KmBox1
+            // 
+            panel_分割线_键鼠设备_KmBox1.BackColor = Color.Silver;
+            panel_分割线_键鼠设备_KmBox1.Location = new Point(5, 62);
+            panel_分割线_键鼠设备_KmBox1.Margin = new Padding(0);
+            panel_分割线_键鼠设备_KmBox1.Name = "panel_分割线_键鼠设备_KmBox1";
+            panel_分割线_键鼠设备_KmBox1.Size = new Size(936, 1);
+            panel_分割线_键鼠设备_KmBox1.TabIndex = 0;
+            // 
+            // label_KmBoxIP
+            // 
+            label_KmBoxIP.AutoSize = true;
+            label_KmBoxIP.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_KmBoxIP.Location = new Point(5, 5);
+            label_KmBoxIP.MaximumSize = new Size(720, 17);
+            label_KmBoxIP.MinimumSize = new Size(56, 17);
+            label_KmBoxIP.Name = "label_KmBoxIP";
+            label_KmBoxIP.Size = new Size(56, 17);
+            label_KmBoxIP.TabIndex = 5;
+            label_KmBoxIP.Text = "IP 地址";
+            // 
+            // label_KmBoxIP描述
+            // 
+            label_KmBoxIP描述.AutoSize = true;
+            label_KmBoxIP描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBoxIP描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_KmBoxIP描述.Location = new Point(5, 23);
+            label_KmBoxIP描述.MaximumSize = new Size(720, 34);
+            label_KmBoxIP描述.MinimumSize = new Size(200, 17);
+            label_KmBoxIP描述.Name = "label_KmBoxIP描述";
+            label_KmBoxIP描述.Size = new Size(200, 17);
+            label_KmBoxIP描述.TabIndex = 6;
+            label_KmBoxIP描述.Text = "输入 KMbox 设备的 IP 地址";
+            // 
+            // textBox_KmBoxIP1
+            // 
+            textBox_KmBoxIP1.Location = new Point(667, 19);
+            textBox_KmBoxIP1.MaxLength = 3;
+            textBox_KmBoxIP1.Name = "textBox_KmBoxIP1";
+            textBox_KmBoxIP1.Size = new Size(58, 23);
+            textBox_KmBoxIP1.TabIndex = 7;
+            textBox_KmBoxIP1.TabStop = false;
+            // 
+            // label_KmBoxIP点1
+            // 
+            label_KmBoxIP点1.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBoxIP点1.Location = new Point(727, 19);
+            label_KmBoxIP点1.Name = "label_KmBoxIP点1";
+            label_KmBoxIP点1.Size = new Size(12, 23);
+            label_KmBoxIP点1.TabIndex = 8;
+            label_KmBoxIP点1.Text = ".";
+            label_KmBoxIP点1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_KmBoxIP2
+            // 
+            textBox_KmBoxIP2.Location = new Point(739, 19);
+            textBox_KmBoxIP2.MaxLength = 3;
+            textBox_KmBoxIP2.Name = "textBox_KmBoxIP2";
+            textBox_KmBoxIP2.Size = new Size(58, 23);
+            textBox_KmBoxIP2.TabIndex = 9;
+            textBox_KmBoxIP2.TabStop = false;
+            // 
+            // label_KmBoxIP点2
+            // 
+            label_KmBoxIP点2.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBoxIP点2.Location = new Point(799, 19);
+            label_KmBoxIP点2.Name = "label_KmBoxIP点2";
+            label_KmBoxIP点2.Size = new Size(12, 23);
+            label_KmBoxIP点2.TabIndex = 10;
+            label_KmBoxIP点2.Text = ".";
+            label_KmBoxIP点2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_KmBoxIP3
+            // 
+            textBox_KmBoxIP3.Location = new Point(811, 19);
+            textBox_KmBoxIP3.MaxLength = 3;
+            textBox_KmBoxIP3.Name = "textBox_KmBoxIP3";
+            textBox_KmBoxIP3.Size = new Size(58, 23);
+            textBox_KmBoxIP3.TabIndex = 11;
+            textBox_KmBoxIP3.TabStop = false;
+            // 
+            // label_KmBoxIP点3
+            // 
+            label_KmBoxIP点3.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBoxIP点3.Location = new Point(871, 19);
+            label_KmBoxIP点3.Name = "label_KmBoxIP点3";
+            label_KmBoxIP点3.Size = new Size(12, 23);
+            label_KmBoxIP点3.TabIndex = 12;
+            label_KmBoxIP点3.Text = ".";
+            label_KmBoxIP点3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_KmBoxIP4
+            // 
+            textBox_KmBoxIP4.Location = new Point(883, 19);
+            textBox_KmBoxIP4.MaxLength = 3;
+            textBox_KmBoxIP4.Name = "textBox_KmBoxIP4";
+            textBox_KmBoxIP4.Size = new Size(58, 23);
+            textBox_KmBoxIP4.TabIndex = 13;
+            textBox_KmBoxIP4.TabStop = false;
+            // 
+            // label_KmBox端口
+            // 
+            label_KmBox端口.AutoSize = true;
+            label_KmBox端口.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_KmBox端口.Location = new Point(5, 68);
+            label_KmBox端口.MaximumSize = new Size(720, 17);
+            label_KmBox端口.MinimumSize = new Size(56, 17);
+            label_KmBox端口.Name = "label_KmBox端口";
+            label_KmBox端口.Size = new Size(63, 17);
+            label_KmBox端口.TabIndex = 8;
+            label_KmBox端口.Text = "UDP 端口";
+            // 
+            // label_KmBox端口描述
+            // 
+            label_KmBox端口描述.AutoSize = true;
+            label_KmBox端口描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBox端口描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_KmBox端口描述.Location = new Point(5, 86);
+            label_KmBox端口描述.MaximumSize = new Size(720, 34);
+            label_KmBox端口描述.MinimumSize = new Size(200, 17);
+            label_KmBox端口描述.Name = "label_KmBox端口描述";
+            label_KmBox端口描述.Size = new Size(200, 17);
+            label_KmBox端口描述.TabIndex = 9;
+            label_KmBox端口描述.Text = "输入 KMbox 使用的 UDP 通信端口";
+            // 
+            // textBox_KmBox端口
+            // 
+            textBox_KmBox端口.Location = new Point(837, 82);
+            textBox_KmBox端口.Name = "textBox_KmBox端口";
+            textBox_KmBox端口.Size = new Size(104, 23);
+            textBox_KmBox端口.TabIndex = 10;
+            textBox_KmBox端口.TabStop = false;
+            // 
+            // label_KmBoxMAC
+            // 
+            label_KmBoxMAC.AutoSize = true;
+            label_KmBoxMAC.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_KmBoxMAC.Location = new Point(5, 131);
+            label_KmBoxMAC.MaximumSize = new Size(720, 17);
+            label_KmBoxMAC.MinimumSize = new Size(56, 17);
+            label_KmBoxMAC.Name = "label_KmBoxMAC";
+            label_KmBoxMAC.Size = new Size(83, 17);
+            label_KmBoxMAC.TabIndex = 11;
+            label_KmBoxMAC.Text = "MAC / UUID";
+            // 
+            // label_KmBoxMAC描述
+            // 
+            label_KmBoxMAC描述.AutoSize = true;
+            label_KmBoxMAC描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBoxMAC描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_KmBoxMAC描述.Location = new Point(5, 149);
+            label_KmBoxMAC描述.MaximumSize = new Size(720, 34);
+            label_KmBoxMAC描述.MinimumSize = new Size(200, 17);
+            label_KmBoxMAC描述.Name = "label_KmBoxMAC描述";
+            label_KmBoxMAC描述.Size = new Size(214, 17);
+            label_KmBoxMAC描述.TabIndex = 12;
+            label_KmBoxMAC描述.Text = "输入设备标识，用于建立 KMbox 连接";
+            // 
+            // textBox_KmBoxMAC
+            // 
+            textBox_KmBoxMAC.Location = new Point(837, 145);
+            textBox_KmBoxMAC.Name = "textBox_KmBoxMAC";
+            textBox_KmBoxMAC.Size = new Size(104, 23);
+            textBox_KmBoxMAC.TabIndex = 13;
+            textBox_KmBoxMAC.TabStop = false;
+            // 
+            // label_KmBox状态
+            // 
+            label_KmBox状态.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBox状态.ForeColor = Color.FromArgb(133, 133, 133);
+            label_KmBox状态.Location = new Point(625, 212);
+            label_KmBox状态.MaximumSize = new Size(720, 17);
+            label_KmBox状态.MinimumSize = new Size(56, 17);
+            label_KmBox状态.Name = "label_KmBox状态";
+            label_KmBox状态.Size = new Size(207, 17);
+            label_KmBox状态.TabIndex = 14;
+            label_KmBox状态.Text = "未连接";
+            // 
+            // label_KmBox状态描述
+            // 
+            label_KmBox状态描述.AutoSize = true;
+            label_KmBox状态描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBox状态描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_KmBox状态描述.Location = new Point(5, 212);
+            label_KmBox状态描述.MaximumSize = new Size(620, 34);
+            label_KmBox状态描述.MinimumSize = new Size(200, 17);
+            label_KmBox状态描述.Name = "label_KmBox状态描述";
+            label_KmBox状态描述.Size = new Size(238, 17);
+            label_KmBox状态描述.TabIndex = 15;
+            label_KmBox状态描述.Text = "只有连接成功后才能执行 KMbox 测试操作";
+            // 
+            // roundedButton_KmBox连接
+            // 
+            roundedButton_KmBox连接.BorderColor = SystemColors.ScrollBar;
+            roundedButton_KmBox连接.BorderWidth = 1;
+            roundedButton_KmBox连接.ButtonColor = Color.White;
+            roundedButton_KmBox连接.CornerRadius = 1;
+            roundedButton_KmBox连接.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_KmBox连接.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_KmBox连接.Location = new Point(854, 209);
+            roundedButton_KmBox连接.Name = "roundedButton_KmBox连接";
+            roundedButton_KmBox连接.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_KmBox连接.Size = new Size(87, 25);
+            roundedButton_KmBox连接.TabIndex = 16;
+            roundedButton_KmBox连接.TabStop = false;
+            roundedButton_KmBox连接.Text = "测试连接";
+            roundedButton_KmBox连接.TextColor = Color.Black;
+            roundedButton_KmBox连接.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_KmBox连接.Click += roundedButton_KmBox连接_Click;
+            // 
+            // label_KmBox测试移动
+            // 
+            label_KmBox测试移动.AutoSize = true;
+            label_KmBox测试移动.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_KmBox测试移动.Location = new Point(5, 257);
+            label_KmBox测试移动.MaximumSize = new Size(720, 17);
+            label_KmBox测试移动.MinimumSize = new Size(56, 17);
+            label_KmBox测试移动.Name = "label_KmBox测试移动";
+            label_KmBox测试移动.Size = new Size(80, 17);
+            label_KmBox测试移动.TabIndex = 17;
+            label_KmBox测试移动.Text = "测试光标移动";
+            // 
+            // label_KmBox测试移动描述
+            // 
+            label_KmBox测试移动描述.AutoSize = true;
+            label_KmBox测试移动描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBox测试移动描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_KmBox测试移动描述.Location = new Point(5, 275);
+            label_KmBox测试移动描述.MaximumSize = new Size(825, 34);
+            label_KmBox测试移动描述.MinimumSize = new Size(200, 17);
+            label_KmBox测试移动描述.Name = "label_KmBox测试移动描述";
+            label_KmBox测试移动描述.Size = new Size(287, 17);
+            label_KmBox测试移动描述.TabIndex = 18;
+            label_KmBox测试移动描述.Text = "输入屏幕绝对坐标（X/Y），点击测试后1秒执行移动";
+            // 
+            // label_KmBox测试移动_X
+            // 
+            label_KmBox测试移动_X.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBox测试移动_X.Location = new Point(625, 278);
+            label_KmBox测试移动_X.Name = "label_KmBox测试移动_X";
+            label_KmBox测试移动_X.Size = new Size(16, 23);
+            label_KmBox测试移动_X.TabIndex = 19;
+            label_KmBox测试移动_X.Text = "X";
+            label_KmBox测试移动_X.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_KmBox测试移动_X
+            // 
+            textBox_KmBox测试移动_X.Location = new Point(643, 275);
+            textBox_KmBox测试移动_X.Name = "textBox_KmBox测试移动_X";
+            textBox_KmBox测试移动_X.Size = new Size(75, 23);
+            textBox_KmBox测试移动_X.TabIndex = 20;
+            textBox_KmBox测试移动_X.TabStop = false;
+            // 
+            // label_KmBox测试移动_Y
+            // 
+            label_KmBox测试移动_Y.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBox测试移动_Y.Location = new Point(739, 278);
+            label_KmBox测试移动_Y.Name = "label_KmBox测试移动_Y";
+            label_KmBox测试移动_Y.Size = new Size(16, 23);
+            label_KmBox测试移动_Y.TabIndex = 21;
+            label_KmBox测试移动_Y.Text = "Y";
+            label_KmBox测试移动_Y.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox_KmBox测试移动_Y
+            // 
+            textBox_KmBox测试移动_Y.Location = new Point(757, 275);
+            textBox_KmBox测试移动_Y.Name = "textBox_KmBox测试移动_Y";
+            textBox_KmBox测试移动_Y.Size = new Size(75, 23);
+            textBox_KmBox测试移动_Y.TabIndex = 22;
+            textBox_KmBox测试移动_Y.TabStop = false;
+            // 
+            // roundedButton_KmBox测试移动
+            // 
+            roundedButton_KmBox测试移动.BorderColor = SystemColors.ScrollBar;
+            roundedButton_KmBox测试移动.BorderWidth = 1;
+            roundedButton_KmBox测试移动.ButtonColor = Color.White;
+            roundedButton_KmBox测试移动.CornerRadius = 1;
+            roundedButton_KmBox测试移动.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_KmBox测试移动.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_KmBox测试移动.Location = new Point(854, 272);
+            roundedButton_KmBox测试移动.Name = "roundedButton_KmBox测试移动";
+            roundedButton_KmBox测试移动.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_KmBox测试移动.Size = new Size(87, 25);
+            roundedButton_KmBox测试移动.TabIndex = 23;
+            roundedButton_KmBox测试移动.TabStop = false;
+            roundedButton_KmBox测试移动.Text = "测试移动";
+            roundedButton_KmBox测试移动.TextColor = Color.Black;
+            roundedButton_KmBox测试移动.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_KmBox测试移动.Click += roundedButton_KmBox测试移动_Click;
+            // 
+            // label_KmBox测试点击
+            // 
+            label_KmBox测试点击.AutoSize = true;
+            label_KmBox测试点击.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold);
+            label_KmBox测试点击.Location = new Point(5, 320);
+            label_KmBox测试点击.MaximumSize = new Size(720, 17);
+            label_KmBox测试点击.MinimumSize = new Size(56, 17);
+            label_KmBox测试点击.Name = "label_KmBox测试点击";
+            label_KmBox测试点击.Size = new Size(80, 17);
+            label_KmBox测试点击.TabIndex = 20;
+            label_KmBox测试点击.Text = "测试左键点击";
+            // 
+            // label_KmBox测试点击描述
+            // 
+            label_KmBox测试点击描述.AutoSize = true;
+            label_KmBox测试点击描述.Font = new Font("Microsoft YaHei UI", 9F);
+            label_KmBox测试点击描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_KmBox测试点击描述.Location = new Point(5, 338);
+            label_KmBox测试点击描述.MaximumSize = new Size(825, 34);
+            label_KmBox测试点击描述.MinimumSize = new Size(200, 17);
+            label_KmBox测试点击描述.Name = "label_KmBox测试点击描述";
+            label_KmBox测试点击描述.Size = new Size(303, 17);
+            label_KmBox测试点击描述.TabIndex = 21;
+            label_KmBox测试点击描述.Text = "点击测试后等待3秒，在当前光标位置执行一次左键点击";
+            // 
+            // roundedButton_KmBox测试点击
+            // 
+            roundedButton_KmBox测试点击.BorderColor = SystemColors.ScrollBar;
+            roundedButton_KmBox测试点击.BorderWidth = 1;
+            roundedButton_KmBox测试点击.ButtonColor = Color.White;
+            roundedButton_KmBox测试点击.CornerRadius = 1;
+            roundedButton_KmBox测试点击.DisabledColor = Color.FromArgb(160, 160, 160);
+            roundedButton_KmBox测试点击.HoverColor = Color.FromArgb(232, 232, 232);
+            roundedButton_KmBox测试点击.Location = new Point(854, 335);
+            roundedButton_KmBox测试点击.Name = "roundedButton_KmBox测试点击";
+            roundedButton_KmBox测试点击.PressedColor = Color.FromArgb(222, 222, 222);
+            roundedButton_KmBox测试点击.Size = new Size(87, 25);
+            roundedButton_KmBox测试点击.TabIndex = 22;
+            roundedButton_KmBox测试点击.TabStop = false;
+            roundedButton_KmBox测试点击.Text = "测试点击";
+            roundedButton_KmBox测试点击.TextColor = Color.Black;
+            roundedButton_KmBox测试点击.TextFont = new Font("微软雅黑", 10F);
+            roundedButton_KmBox测试点击.Click += roundedButton_KmBox测试点击_Click;
             // 
             // tabPage_快捷键
             // 
@@ -852,9 +2088,9 @@
             tabPage_功能_常规.Size = new Size(952, 468);
             tabPage_功能_常规.TabIndex = 2;
             tabPage_功能_常规.Text = "常规";
-            //
+            // 
             // panel_功能_常规
-            //
+            // 
             panel_功能_常规.AutoScroll = true;
             panel_功能_常规.BackColor = Color.White;
             panel_功能_常规.Controls.Add(panel_分割线_功能_常规3);
@@ -874,18 +2110,18 @@
             panel_功能_常规.Name = "panel_功能_常规";
             panel_功能_常规.Size = new Size(946, 462);
             panel_功能_常规.TabIndex = 211;
-            //
+            // 
             // panel_分割线_功能_常规3
-            //
+            // 
             panel_分割线_功能_常规3.BackColor = Color.Silver;
             panel_分割线_功能_常规3.Location = new Point(5, 188);
             panel_分割线_功能_常规3.Margin = new Padding(0);
             panel_分割线_功能_常规3.Name = "panel_分割线_功能_常规3";
             panel_分割线_功能_常规3.Size = new Size(936, 1);
             panel_分割线_功能_常规3.TabIndex = 259;
-            //
+            // 
             // label_阵容容量描述
-            //
+            // 
             label_阵容容量描述.AutoSize = true;
             label_阵容容量描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label_阵容容量描述.ForeColor = Color.FromArgb(133, 133, 133);
@@ -896,9 +2132,9 @@
             label_阵容容量描述.Size = new Size(200, 17);
             label_阵容容量描述.TabIndex = 258;
             label_阵容容量描述.Text = "设置可选择的英雄数量，范围10-20";
-            //
+            // 
             // label_阵容容量
-            //
+            // 
             label_阵容容量.AutoSize = true;
             label_阵容容量.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
             label_阵容容量.Location = new Point(6, 131);
@@ -908,9 +2144,9 @@
             label_阵容容量.Size = new Size(56, 17);
             label_阵容容量.TabIndex = 257;
             label_阵容容量.Text = "阵容容量";
-            //
+            // 
             // numericUpDown_阵容容量
-            //
+            // 
             numericUpDown_阵容容量.Location = new Point(837, 145);
             numericUpDown_阵容容量.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             numericUpDown_阵容容量.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
@@ -918,9 +2154,9 @@
             numericUpDown_阵容容量.Size = new Size(104, 23);
             numericUpDown_阵容容量.TabIndex = 256;
             numericUpDown_阵容容量.Value = new decimal(new int[] { 10, 0, 0, 0 });
-            //
+            // 
             // panel_分割线_功能_常规2
-            //
+            // 
             panel_分割线_功能_常规2.BackColor = Color.Silver;
             panel_分割线_功能_常规2.Location = new Point(5, 125);
             panel_分割线_功能_常规2.Margin = new Padding(0);
@@ -2021,11 +3257,11 @@
             textBox_高亮边框粗细.TabIndex = 256;
             textBox_高亮边框粗细.TabStop = false;
             // 
-            // tabPage_截图
+            // tabPage_坐标设置
             // 
             tabPage_坐标设置.Controls.Add(panel_截图);
             tabPage_坐标设置.Location = new Point(4, 26);
-            tabPage_坐标设置.Name = "tabPage_截图";
+            tabPage_坐标设置.Name = "tabPage_坐标设置";
             tabPage_坐标设置.Padding = new Padding(3);
             tabPage_坐标设置.Size = new Size(966, 504);
             tabPage_坐标设置.TabIndex = 2;
@@ -2141,12 +3377,12 @@
             label_自动设置坐标提示.MaximumSize = new Size(950, 17);
             label_自动设置坐标提示.MinimumSize = new Size(527, 17);
             label_自动设置坐标提示.Name = "label_自动设置坐标提示";
-            label_自动设置坐标提示.Size = new Size(527, 17);
+            label_自动设置坐标提示.Size = new Size(644, 17);
             label_自动设置坐标提示.TabIndex = 223;
             label_自动设置坐标提示.Text = "自动设置坐标仅端游云顶之弈（任意分辨率）、MuMu模拟器（1600x910，DPI:227）与雷电模拟器（1600x900）可用";
-            //
+            // 
             // capsuleSwitch_自动识别进程
-            //
+            // 
             capsuleSwitch_自动识别进程.Location = new Point(905, 359);
             capsuleSwitch_自动识别进程.Name = "capsuleSwitch_自动识别进程";
             capsuleSwitch_自动识别进程.OffColor = Color.FromArgb(189, 189, 189);
@@ -2157,9 +3393,9 @@
             capsuleSwitch_自动识别进程.Text = "capsuleSwitch_自动识别进程";
             capsuleSwitch_自动识别进程.TextColor = Color.White;
             capsuleSwitch_自动识别进程.ThumbColor = Color.White;
-            //
+            // 
             // label_自动识别进程描述
-            //
+            // 
             label_自动识别进程描述.AutoSize = true;
             label_自动识别进程描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label_自动识别进程描述.ForeColor = Color.FromArgb(133, 133, 133);
@@ -2167,12 +3403,12 @@
             label_自动识别进程描述.MaximumSize = new Size(845, 34);
             label_自动识别进程描述.MinimumSize = new Size(164, 17);
             label_自动识别进程描述.Name = "label_自动识别进程描述";
-            label_自动识别进程描述.Size = new Size(164, 17);
+            label_自动识别进程描述.Size = new Size(658, 17);
             label_自动识别进程描述.TabIndex = 251;
             label_自动识别进程描述.Text = "自动识别英雄联盟、MuMu模拟器和雷电模拟器窗口。如果有多个模拟器窗口，请使用自动坐标设置的手动选择进程模式。";
-            //
+            // 
             // label_自动识别进程
-            //
+            // 
             label_自动识别进程.AutoSize = true;
             label_自动识别进程.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
             label_自动识别进程.Location = new Point(5, 342);
@@ -2811,6 +4047,7 @@
             // 
             // tabControl_窗口
             // 
+            tabControl_窗口.Controls.Add(tabPage_窗口_主窗口);
             tabControl_窗口.Controls.Add(tabPage_窗口_英雄选择窗口);
             tabControl_窗口.Controls.Add(tabPage_窗口_阵容窗口);
             tabControl_窗口.Controls.Add(tabPage_窗口_状态窗口);
@@ -2821,6 +4058,78 @@
             tabControl_窗口.SelectedIndex = 0;
             tabControl_窗口.Size = new Size(960, 498);
             tabControl_窗口.TabIndex = 0;
+            // 
+            // tabPage_窗口_主窗口
+            // 
+            tabPage_窗口_主窗口.BackColor = Color.White;
+            tabPage_窗口_主窗口.Controls.Add(panel_窗口_主窗口);
+            tabPage_窗口_主窗口.Location = new Point(4, 26);
+            tabPage_窗口_主窗口.Name = "tabPage_窗口_主窗口";
+            tabPage_窗口_主窗口.Padding = new Padding(3);
+            tabPage_窗口_主窗口.Size = new Size(952, 468);
+            tabPage_窗口_主窗口.TabIndex = 0;
+            tabPage_窗口_主窗口.Text = "主窗口";
+            // 
+            // panel_窗口_主窗口
+            // 
+            panel_窗口_主窗口.AutoScroll = true;
+            panel_窗口_主窗口.Controls.Add(panel_分割线_窗口_主窗口1);
+            panel_窗口_主窗口.Controls.Add(label_紧凑阵容展示);
+            panel_窗口_主窗口.Controls.Add(capsuleSwitch_紧凑阵容展示);
+            panel_窗口_主窗口.Controls.Add(label_紧凑阵容展示描述);
+            panel_窗口_主窗口.Dock = DockStyle.Fill;
+            panel_窗口_主窗口.Location = new Point(3, 3);
+            panel_窗口_主窗口.Name = "panel_窗口_主窗口";
+            panel_窗口_主窗口.Size = new Size(946, 462);
+            panel_窗口_主窗口.TabIndex = 0;
+            // 
+            // panel_分割线_窗口_主窗口1
+            // 
+            panel_分割线_窗口_主窗口1.BackColor = Color.Silver;
+            panel_分割线_窗口_主窗口1.Location = new Point(5, 62);
+            panel_分割线_窗口_主窗口1.Margin = new Padding(0);
+            panel_分割线_窗口_主窗口1.Name = "panel_分割线_窗口_主窗口1";
+            panel_分割线_窗口_主窗口1.Size = new Size(936, 1);
+            panel_分割线_窗口_主窗口1.TabIndex = 275;
+            // 
+            // label_紧凑阵容展示
+            // 
+            label_紧凑阵容展示.AutoSize = true;
+            label_紧凑阵容展示.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_紧凑阵容展示.Location = new Point(5, 5);
+            label_紧凑阵容展示.MaximumSize = new Size(862, 17);
+            label_紧凑阵容展示.MinimumSize = new Size(120, 17);
+            label_紧凑阵容展示.Name = "label_紧凑阵容展示";
+            label_紧凑阵容展示.Size = new Size(120, 17);
+            label_紧凑阵容展示.TabIndex = 276;
+            label_紧凑阵容展示.Text = "紧凑阵容展示";
+            // 
+            // capsuleSwitch_紧凑阵容展示
+            // 
+            capsuleSwitch_紧凑阵容展示.Location = new Point(891, 21);
+            capsuleSwitch_紧凑阵容展示.Name = "capsuleSwitch_紧凑阵容展示";
+            capsuleSwitch_紧凑阵容展示.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_紧凑阵容展示.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch_紧凑阵容展示.ShowText = false;
+            capsuleSwitch_紧凑阵容展示.Size = new Size(50, 20);
+            capsuleSwitch_紧凑阵容展示.TabIndex = 277;
+            capsuleSwitch_紧凑阵容展示.Text = "capsuleSwitch_紧凑阵容展示";
+            capsuleSwitch_紧凑阵容展示.TextColor = Color.White;
+            capsuleSwitch_紧凑阵容展示.ThumbColor = Color.White;
+            capsuleSwitch_紧凑阵容展示.IsOnChanged += capsuleSwitch_紧凑阵容展示_IsOnChanged;
+            // 
+            // label_紧凑阵容展示描述
+            // 
+            label_紧凑阵容展示描述.AutoSize = true;
+            label_紧凑阵容展示描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_紧凑阵容展示描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_紧凑阵容展示描述.Location = new Point(5, 23);
+            label_紧凑阵容展示描述.MaximumSize = new Size(862, 34);
+            label_紧凑阵容展示描述.MinimumSize = new Size(300, 17);
+            label_紧凑阵容展示描述.Name = "label_紧凑阵容展示描述";
+            label_紧凑阵容展示描述.Size = new Size(300, 17);
+            label_紧凑阵容展示描述.TabIndex = 278;
+            label_紧凑阵容展示描述.Text = "仅预留两行高度，鼠标滚轮可浏览其余英雄";
             // 
             // tabPage_窗口_英雄选择窗口
             // 
@@ -3386,9 +4695,9 @@
             tabPage_大数据推荐_阵容推荐.Size = new Size(952, 468);
             tabPage_大数据推荐_阵容推荐.TabIndex = 1;
             tabPage_大数据推荐_阵容推荐.Text = "阵容推荐";
-            //
+            // 
             // panel_大数据推荐_阵容推荐
-            //
+            // 
             panel_大数据推荐_阵容推荐.Controls.Add(panel_分割线_大数据推荐_阵容推荐1);
             panel_大数据推荐_阵容推荐.Controls.Add(label_程序启动时更新推荐阵容);
             panel_大数据推荐_阵容推荐.Controls.Add(textBox_更新推荐阵容间隔);
@@ -3401,18 +4710,18 @@
             panel_大数据推荐_阵容推荐.Name = "panel_大数据推荐_阵容推荐";
             panel_大数据推荐_阵容推荐.Size = new Size(946, 462);
             panel_大数据推荐_阵容推荐.TabIndex = 0;
-            //
+            // 
             // panel_分割线_大数据推荐_阵容推荐1
-            //
+            // 
             panel_分割线_大数据推荐_阵容推荐1.BackColor = Color.Silver;
             panel_分割线_大数据推荐_阵容推荐1.Location = new Point(5, 86);
             panel_分割线_大数据推荐_阵容推荐1.Margin = new Padding(0);
             panel_分割线_大数据推荐_阵容推荐1.Name = "panel_分割线_大数据推荐_阵容推荐1";
             panel_分割线_大数据推荐_阵容推荐1.Size = new Size(936, 1);
             panel_分割线_大数据推荐_阵容推荐1.TabIndex = 270;
-            //
+            // 
             // label_程序启动时更新推荐阵容
-            //
+            // 
             label_程序启动时更新推荐阵容.AutoSize = true;
             label_程序启动时更新推荐阵容.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
             label_程序启动时更新推荐阵容.Location = new Point(5, 5);
@@ -3422,17 +4731,17 @@
             label_程序启动时更新推荐阵容.Size = new Size(140, 17);
             label_程序启动时更新推荐阵容.TabIndex = 251;
             label_程序启动时更新推荐阵容.Text = "程序启动时更新推荐阵容";
-            //
+            // 
             // textBox_更新推荐阵容间隔
-            //
+            // 
             textBox_更新推荐阵容间隔.Location = new Point(65, 58);
             textBox_更新推荐阵容间隔.Name = "textBox_更新推荐阵容间隔";
             textBox_更新推荐阵容间隔.Size = new Size(104, 23);
             textBox_更新推荐阵容间隔.TabIndex = 29;
             textBox_更新推荐阵容间隔.TabStop = false;
-            //
+            // 
             // label_程序启动时更新推荐阵容描述2
-            //
+            // 
             label_程序启动时更新推荐阵容描述2.AutoSize = true;
             label_程序启动时更新推荐阵容描述2.ForeColor = Color.FromArgb(133, 133, 133);
             label_程序启动时更新推荐阵容描述2.Location = new Point(5, 58);
@@ -3443,9 +4752,9 @@
             label_程序启动时更新推荐阵容描述2.TabIndex = 28;
             label_程序启动时更新推荐阵容描述2.Text = "每隔";
             label_程序启动时更新推荐阵容描述2.TextAlign = ContentAlignment.MiddleLeft;
-            //
+            // 
             // label_程序启动时更新推荐阵容描述3
-            //
+            // 
             label_程序启动时更新推荐阵容描述3.AutoSize = true;
             label_程序启动时更新推荐阵容描述3.ForeColor = Color.FromArgb(133, 133, 133);
             label_程序启动时更新推荐阵容描述3.Location = new Point(182, 58);
@@ -3456,9 +4765,9 @@
             label_程序启动时更新推荐阵容描述3.TabIndex = 30;
             label_程序启动时更新推荐阵容描述3.Text = "小时后自动更新推荐阵容";
             label_程序启动时更新推荐阵容描述3.TextAlign = ContentAlignment.MiddleLeft;
-            //
+            // 
             // capsuleSwitch_程序启动时更新推荐阵容
-            //
+            // 
             capsuleSwitch_程序启动时更新推荐阵容.Location = new Point(891, 35);
             capsuleSwitch_程序启动时更新推荐阵容.Name = "capsuleSwitch_程序启动时更新推荐阵容";
             capsuleSwitch_程序启动时更新推荐阵容.OffColor = Color.FromArgb(189, 189, 189);
@@ -3470,9 +4779,9 @@
             capsuleSwitch_程序启动时更新推荐阵容.TextColor = Color.White;
             capsuleSwitch_程序启动时更新推荐阵容.ThumbColor = Color.White;
             capsuleSwitch_程序启动时更新推荐阵容.IsOnChanged += capsuleSwitch_程序启动时更新推荐阵容_IsOnChanged;
-            //
+            // 
             // label_程序启动时更新推荐阵容描述1
-            //
+            // 
             label_程序启动时更新推荐阵容描述1.AutoSize = true;
             label_程序启动时更新推荐阵容描述1.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label_程序启动时更新推荐阵容描述1.ForeColor = Color.FromArgb(133, 133, 133);
@@ -3708,12 +5017,27 @@
             tabPage_常规.ResumeLayout(false);
             panel_常规.ResumeLayout(false);
             panel_常规.PerformLayout();
+            tabPage_键鼠设备.ResumeLayout(false);
+            tabControl_键鼠设备.ResumeLayout(false);
+            tabPage_键鼠设备_常规.ResumeLayout(false);
+            panel_键鼠设备_常规.ResumeLayout(false);
+            panel_键鼠设备_常规.PerformLayout();
+            tabPage_键鼠设备_WinAPI.ResumeLayout(false);
+            panel_键鼠设备_WinAPI.ResumeLayout(false);
+            panel_键鼠设备_WinAPI.PerformLayout();
+            tabPage_键鼠设备_Makcu.ResumeLayout(false);
+            panel_键鼠设备_Makcu.ResumeLayout(false);
+            panel_键鼠设备_Makcu.PerformLayout();
+            tabPage_键鼠设备_KmBox.ResumeLayout(false);
+            panel_键鼠设备_KmBox.ResumeLayout(false);
+            panel_键鼠设备_KmBox.PerformLayout();
             tabPage_快捷键.ResumeLayout(false);
             tabPage_功能.ResumeLayout(false);
             tabControl_高亮边框渐变色1.ResumeLayout(false);
             tabPage_功能_常规.ResumeLayout(false);
             panel_功能_常规.ResumeLayout(false);
             panel_功能_常规.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_阵容容量).EndInit();
             tabPage_功能_自动拿牌.ResumeLayout(false);
             tabControl__功能_自动拿牌.ResumeLayout(false);
             tabPage_功能_自动拿牌_拿牌方式.ResumeLayout(false);
@@ -3748,6 +5072,9 @@
             panel_OCR相关_OCR设置.PerformLayout();
             tabPage_窗口.ResumeLayout(false);
             tabControl_窗口.ResumeLayout(false);
+            tabPage_窗口_主窗口.ResumeLayout(false);
+            panel_窗口_主窗口.ResumeLayout(false);
+            panel_窗口_主窗口.PerformLayout();
             tabPage_窗口_英雄选择窗口.ResumeLayout(false);
             panel_窗口_英雄选择窗口.ResumeLayout(false);
             panel_窗口_英雄选择窗口.PerformLayout();
@@ -3780,6 +5107,7 @@
         }
 
         #endregion
+
         public Panel panel_快捷键;
         public Label label_召出隐藏窗口_快捷键;
         public TextBox textBox_召出隐藏窗口快捷键;
@@ -3980,6 +5308,12 @@
         private Panel panel_分割线_窗口_英雄选择窗口1;
         private Panel panel_窗口_阵容窗口;
         private Panel panel_分割线_窗口_阵容窗口1;
+        private TabPage tabPage_窗口_主窗口;
+        private Panel panel_窗口_主窗口;
+        private Panel panel_分割线_窗口_主窗口1;
+        private Label label_紧凑阵容展示;
+        private Label label_紧凑阵容展示描述;
+        private DIYComponents.CapsuleSwitch capsuleSwitch_紧凑阵容展示;
         private TabPage tabPage_窗口_状态窗口;
         private TabPage tabPage_窗口_输出窗口;
         private Panel panel_窗口_状态窗口;
@@ -4038,8 +5372,97 @@
         private Label label_所有窗口置顶;
         private Label label_所有窗口置顶描述;
         private DIYComponents.CapsuleSwitch capsuleSwitch_所有窗口置顶;
+        private Panel panel_分割线_常规3;
+        private Label label_CloseToTray;
+        private Label label_CloseToTrayDescription;
+        private DIYComponents.CapsuleSwitch capsuleSwitch_CloseToTray;
         private TabPage tabPage_常规;
         public Panel panel_常规;
+        private TabPage tabPage_键鼠设备;
+        private TabControl tabControl_键鼠设备;
+        private TabPage tabPage_键鼠设备_常规;
+        private TabPage tabPage_键鼠设备_WinAPI;
+        private TabPage tabPage_键鼠设备_Makcu;
+        private TabPage tabPage_键鼠设备_KmBox;
+        private Panel panel_键鼠设备_常规;
+        private Panel panel_键鼠设备_WinAPI;
+        private Panel panel_键鼠设备_Makcu;
+        private Panel panel_键鼠设备_KmBox;
+        private Panel panel_分割线_键鼠设备_常规1;
+        private Panel panel_分割线_键鼠设备_WinAPI1;
+        private Panel panel_分割线_键鼠设备_WinAPI2;
+        private Panel panel_分割线_键鼠设备_Makcu1;
+        private Panel panel_分割线_键鼠设备_Makcu2;
+        private Panel panel_分割线_键鼠设备_Makcu3;
+        private Panel panel_分割线_键鼠设备_Makcu4;
+        private Panel panel_分割线_键鼠设备_Makcu5;
+        private ComboBox comboBox_键鼠设备选择;
+        private Label label_鼠标移动方式;
+        private Label label_鼠标移动方式描述;
+        private Label label_测试光标移动;
+        private Label label_测试光标移动描述;
+        private Label label_测试光标移动_X;
+        private Label label_测试光标移动_Y;
+        private TextBox textBox_测试光标移动_X;
+        private TextBox textBox_测试光标移动_Y;
+        private DIYComponents.RoundedButton roundedButton_测试光标移动;
+        private Label label_测试左键点击;
+        private Label label_测试左键点击描述;
+        private DIYComponents.RoundedButton roundedButton_测试左键点击;
+        private Label label_Makcu串口;
+        private Label label_Makcu串口描述;
+        private ComboBox comboBox_Makcu串口;
+        private DIYComponents.RoundedButton roundedButton_Makcu刷新串口;
+        private Label label_Makcu波特率;
+        private Label label_Makcu波特率描述;
+        private TextBox textBox_Makcu波特率;
+        private Label label_Makcu连接状态;
+        private Label label_Makcu连接状态描述;
+        private Label label_Makcu连接状态值;
+        private DIYComponents.RoundedButton roundedButton_Makcu测试连接;
+        private Label label_Makcu测试光标移动;
+        private Label label_Makcu测试光标移动描述;
+        private Label label_Makcu测试光标移动_X;
+        private TextBox textBox_Makcu测试光标移动_X;
+        private Label label_Makcu测试光标移动_Y;
+        private TextBox textBox_Makcu测试光标移动_Y;
+        private DIYComponents.RoundedButton roundedButton_Makcu测试光标移动;
+        private Label label_Makcu测试左键点击;
+        private Label label_Makcu测试左键点击描述;
+        private DIYComponents.RoundedButton roundedButton_Makcu测试左键点击;
+        private Panel panel_分割线_键鼠设备_KmBox1;
+        private Panel panel_分割线_键鼠设备_KmBox2;
+        private Panel panel_分割线_键鼠设备_KmBox3;
+        private Panel panel_分割线_键鼠设备_KmBox4;
+        private Panel panel_分割线_键鼠设备_KmBox5;
+        private Label label_KmBoxIP;
+        private Label label_KmBoxIP描述;
+        private TextBox textBox_KmBoxIP1;
+        private Label label_KmBoxIP点1;
+        private TextBox textBox_KmBoxIP2;
+        private Label label_KmBoxIP点2;
+        private TextBox textBox_KmBoxIP3;
+        private Label label_KmBoxIP点3;
+        private TextBox textBox_KmBoxIP4;
+        private Label label_KmBox端口;
+        private Label label_KmBox端口描述;
+        private TextBox textBox_KmBox端口;
+        private Label label_KmBoxMAC;
+        private Label label_KmBoxMAC描述;
+        private TextBox textBox_KmBoxMAC;
+        private Label label_KmBox状态;
+        private Label label_KmBox状态描述;
+        private Label label_KmBox测试移动;
+        private Label label_KmBox测试移动描述;
+        private Label label_KmBox测试移动_X;
+        private TextBox textBox_KmBox测试移动_X;
+        private Label label_KmBox测试移动_Y;
+        private TextBox textBox_KmBox测试移动_Y;
+        private Label label_KmBox测试点击;
+        private Label label_KmBox测试点击描述;
+        private DIYComponents.RoundedButton roundedButton_KmBox连接;
+        private DIYComponents.RoundedButton roundedButton_KmBox测试移动;
+        private DIYComponents.RoundedButton roundedButton_KmBox测试点击;
         private Panel panel_分割线_快捷键2;
         private Panel panel_分割线_快捷键1;
         private Panel panel_分割线_快捷键5;
@@ -4058,5 +5481,7 @@
         private Label label_输出窗口_快捷键;
         private TextBox textBox_输出窗口快捷键;
         private Panel panel_分割线_坐标设置7;
+        private Panel panel_分割线_键鼠设备_KmBox6;
+        private Label label1;
     }
 }

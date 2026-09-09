@@ -79,12 +79,17 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 主窗口中展示阵容的容器的父容器 (panel_子阵容展示区背景)
         /// </summary>
-        private Panel _lineUpPanelParent;
+        private Panel? _lineUpPanelParent;
+
+        /// <summary>
+        /// 主窗口阵容展示的固定视口（负责裁剪内容并绘制边框）
+        /// </summary>
+        private Panel? _lineUpViewport;
 
         /// <summary>
         /// 主窗口中展示阵容的容器的祖父容器 (panel_用户区背景)
         /// </summary>
-        private Panel _lineUpPanelGrandParent;
+        private Panel? _lineUpPanelGrandParent;
 
         //
         //主窗口英雄选择器常量
@@ -103,6 +108,13 @@ namespace JinChanChanTool.Services
         private Padding mainFormHeroAndEquipmentBoxMargin; //单个阵容英雄框的Margin
         private Size mainFormLineUpPanelSize; //阵容展示容器的尺寸
         private Size mainFormLineUpPanelParentSize; //阵容展示容器父容器的尺寸
+        private int mainFormLineUpPanelViewportHeight; //阵容展示区可视高度
+        private int mainFormLineUpPanelScrollOffset; //紧凑模式下的滚动偏移
+        private int mainFormLineUpWheelDelta; //累计未满一个滚轮刻度的输入
+        private Point mainFormLineUpPanelBaseLocation; //滚动前的内容面板位置
+
+        private const int MainForm_LineUpColumns = 5;
+        private const int MainForm_LineUpRowHeight = 71;
 
         //
         //主窗口按职业与特质选择英雄按钮常量
@@ -172,7 +184,7 @@ namespace JinChanChanTool.Services
         /// </summary>
         private readonly ILocalizationService _iLocalizationService;
 
-        public UIBuilderService(IHeroDataService iHeroDataService, IManualSettingsService iManualSettingsService, ILocalizationService iLocalizationService, MainForm mainForm,TabControl tabControl_HeroSelector, CustomFlowLayoutPanel subLineUpPanel1,CustomFlowLayoutPanel LineUpPanel1,int maxHeroCount)
+        public UIBuilderService(IHeroDataService iHeroDataService, IManualSettingsService iManualSettingsService, ILocalizationService iLocalizationService, MainForm mainForm,TabControl tabControl_HeroSelector, CustomFlowLayoutPanel subLineUpPanel1, CustomFlowLayoutPanel LineUpPanel1,int maxHeroCount)
         {
             MainForm_HeroPictureBoxes = new List<HeroPictureBox>();
             MainForm_CheckBoxes = new List<CheckBox>();
@@ -184,8 +196,9 @@ namespace JinChanChanTool.Services
             _tabControl_HeroSelector = tabControl_HeroSelector;
             costPanels = new List<Panel>();
             _lineUpPanel = subLineUpPanel1;
-            _lineUpPanelParent = (Panel)subLineUpPanel1.Parent;
-            _lineUpPanelGrandParent = (Panel)_lineUpPanelParent?.Parent;
+            _lineUpViewport = subLineUpPanel1.Parent as Panel;
+            _lineUpPanelParent = _lineUpViewport?.Parent as Panel ?? subLineUpPanel1.Parent as Panel;
+            _lineUpPanelGrandParent = _lineUpPanelParent?.Parent as Panel;
 
             SelectForm_HeroPanels = new List<FlowLayoutPanel>();
             SelectForm_HeroPictureBoxes = new List<HeroPictureBox>();
@@ -237,10 +250,9 @@ namespace JinChanChanTool.Services
         /// </summary>
         private void CalculateDynamicSizes()
         {
-            // MainForm阵容展示区计算
-            // 固定列数为5，根据容量计算行数
-            int columns = 5; // MainForm每行5个
-            int rows = (int)Math.Ceiling((double)MaxHerosCount / columns);
+            // MainForm阵容展示区计算。内容面板始终按容量计算完整高度，
+            // 紧凑模式仅限制外层视口为两行。
+            int rows = (int)Math.Ceiling((double)MaxHerosCount / MainForm_LineUpColumns);
 
             // 组件尺寸（宽48，高67）
             int boxWidth = 48;
@@ -252,70 +264,134 @@ namespace JinChanChanTool.Services
             mainFormHeroAndEquipmentBoxSize = new Size(Dpi_M(boxWidth), Dpi_M(boxHeight));
             mainFormHeroAndEquipmentBoxMargin = new Padding(Dpi_M(horizontalMargin), Dpi_M(verticalMargin), Dpi_M(horizontalMargin), Dpi_M(verticalMargin));
 
-            // 计算容器尺寸
-            // 每行高度 = 组件高度67 + 上下margin各2 = 71
-            // 容器高度 = 行数 × 71 + padding 10
+            // 计算容器尺寸。行距使用控件和边距缩放后的实际值，
+            // 确保滚轮滚动一行后正好对齐下一行（尤其是高 DPI）。
             int containerWidth = 384;
-            int rowHeight = boxHeight + verticalMargin * 2; // 71
-            int containerHeight = rows * rowHeight + 10;
+            int rowHeight = mainFormHeroAndEquipmentBoxSize.Height + mainFormHeroAndEquipmentBoxMargin.Vertical;
+            int containerHeight = rows * rowHeight + Dpi_M(10);
 
-            mainFormLineUpPanelSize = new Size(Dpi_M(containerWidth), Dpi_M(containerHeight));
+            mainFormLineUpPanelSize = new Size(Dpi_M(containerWidth), containerHeight);
 
             // 计算父容器尺寸
             // 父容器 = 阵容展示容器 + 变阵按钮(28) + 间距(5)
-            int parentHeight = containerHeight + 33;
-            mainFormLineUpPanelParentSize = new Size(Dpi_M(394), Dpi_M(parentHeight));
+            int viewportRows = Math.Max(1, _iManualSettingsService.CurrentConfig.IsCompactMainFormLineUp
+                ? Math.Min(2, rows)
+                : rows);
+            mainFormLineUpPanelViewportHeight = viewportRows * rowHeight + Dpi_M(10);
+            int parentHeight = viewportRows * rowHeight + Dpi_M(43);
+            mainFormLineUpPanelParentSize = new Size(Dpi_M(394), parentHeight);
         }
 
         /// <summary>
         /// 应用MainForm动态尺寸
         /// </summary>
-        private void ApplyMainFormDynamicSizes()
+        internal void ApplyMainFormDynamicSizes()
         {
-            if (_lineUpPanel != null)
-            {
-                _lineUpPanel.Size = mainFormLineUpPanelSize;
-                _lineUpPanel.WrapContents = true; // 关键：允许换行！
-            }
+            CalculateDynamicSizes();
 
             if (_lineUpPanelParent != null)
             {
-                _lineUpPanelParent.AutoScroll = false; // 禁用AutoScroll
+                // 外层面板不是滚动容器，避免滚轮带动分支按钮、描述和视口一起移动。
+                _lineUpPanelParent.AutoScroll = false;
+                _lineUpPanelParent.AutoScrollMinSize = Size.Empty;
+                _lineUpPanelParent.AutoScrollPosition = Point.Empty;
                 _lineUpPanelParent.Size = mainFormLineUpPanelParentSize;
+            }
+
+            if (_lineUpPanel != null)
+            {
+                _lineUpPanel.Size = mainFormLineUpPanelSize;
+                _lineUpPanel.Location = Point.Empty;
+                _lineUpPanel.Margin = Padding.Empty;
+                _lineUpPanel.BorderWidth = 0;
+                _lineUpPanel.AutoScroll = false;
+                _lineUpPanel.WrapContents = true; // 关键：允许换行！
+            }
+
+            if (_lineUpViewport != null)
+            {
+                _lineUpViewport.AutoScroll = false;
+                _lineUpViewport.AutoScrollMinSize = Size.Empty;
+                _lineUpViewport.AutoScrollPosition = Point.Empty;
+                // ClientSize 表示边框以内的实际可用区域，避免在高 DPI 下
+                // 额外的边框像素挤压内容宽度，导致第五个头像换行。
+                _lineUpViewport.ClientSize = new Size(
+                    mainFormLineUpPanelSize.Width,
+                    mainFormLineUpPanelViewportHeight);
             }
 
             // 调整祖父容器 panel_用户区背景 的高度
             if (_lineUpPanelGrandParent != null)
             {
                 int baseRows = 2;
-                int currentRows = (int)Math.Ceiling((double)MaxHerosCount / 5.0);
-                int extraRows = currentRows - baseRows;
-
-                if (extraRows > 0)
-                {
-                    // 原始高度633，每额外一行增加71px
-                    int extraHeight = extraRows * 71;
-                    int newHeight = 633 + extraHeight;
-
-                    _lineUpPanelGrandParent.Size = new Size(Dpi_M(404), Dpi_M(newHeight));
-                }
+                int currentRows = (int)Math.Ceiling((double)MaxHerosCount / MainForm_LineUpColumns);
+                int extraRows = _iManualSettingsService.CurrentConfig.IsCompactMainFormLineUp
+                    ? 0
+                    : Math.Max(0, currentRows - baseRows);
+                int newHeight = 633 + extraRows * MainForm_LineUpRowHeight;
+                _lineUpPanelGrandParent.Size = new Size(Dpi_M(404), Dpi_M(newHeight));
             }
 
             // 调整MainForm窗口高度
             if (_mainForm != null)
             {
                 int baseRows = 2;
-                int currentRows = (int)Math.Ceiling((double)MaxHerosCount / 5.0);
-                int extraRows = currentRows - baseRows;
-
-                if (extraRows > 0)
-                {
-                    int heightPerRow = 71;
-                    int extraHeight = extraRows * heightPerRow;
-                    int newHeight = 670 + extraHeight;
-                    _mainForm.ClientSize = new Size(Dpi_M(410), Dpi_M(newHeight));
-                }
+                int currentRows = (int)Math.Ceiling((double)MaxHerosCount / MainForm_LineUpColumns);
+                int extraRows = _iManualSettingsService.CurrentConfig.IsCompactMainFormLineUp
+                    ? 0
+                    : Math.Max(0, currentRows - baseRows);
+                int newHeight = 670 + extraRows * MainForm_LineUpRowHeight;
+                _mainForm.ClientSize = new Size(Dpi_M(410), Dpi_M(newHeight));
             }
+        }
+
+        /// <summary>
+        /// 返回主窗口阵容展示区的可视高度（紧凑模式固定为两行）。
+        /// </summary>
+        internal int GetMainFormLineUpPanelViewportHeight() => mainFormLineUpPanelViewportHeight;
+
+        /// <summary>
+        /// 重置主窗口阵容展示区的滚动位置。分支描述改变后需要重新记录内容起点。
+        /// </summary>
+        internal void ResetMainFormLineUpScroll()
+        {
+            if (_lineUpPanel == null)
+                return;
+
+            mainFormLineUpPanelScrollOffset = 0;
+            mainFormLineUpWheelDelta = 0;
+            mainFormLineUpPanelBaseLocation = Point.Empty;
+            _lineUpPanel.Location = mainFormLineUpPanelBaseLocation;
+        }
+
+        /// <summary>
+        /// 按鼠标滚轮移动主窗口阵容展示内容，滚动条保持隐藏。
+        /// </summary>
+        internal void ScrollMainFormLineUp(int wheelDelta)
+        {
+            if (!_iManualSettingsService.CurrentConfig.IsCompactMainFormLineUp || _lineUpPanel == null)
+                return;
+
+            mainFormLineUpWheelDelta = Math.Clamp(mainFormLineUpWheelDelta + wheelDelta, -12000, 12000);
+            if (Math.Abs(mainFormLineUpWheelDelta) < 120)
+                return;
+
+            // 每次达到一个标准滚轮刻度只移动一行；较大的单次 Delta
+            // 也按一次处理，避免一次滚轮动作跳过多行。
+            int scrollDirection = Math.Sign(mainFormLineUpWheelDelta);
+            mainFormLineUpWheelDelta = 0;
+
+            int maxOffset = Math.Max(0, _lineUpPanel.Height - mainFormLineUpPanelViewportHeight);
+            int scrollStep = Math.Max(1,
+                mainFormHeroAndEquipmentBoxSize.Height + mainFormHeroAndEquipmentBoxMargin.Vertical);
+            mainFormLineUpPanelScrollOffset = Math.Clamp(
+                mainFormLineUpPanelScrollOffset - scrollDirection * scrollStep,
+                0,
+                maxOffset);
+
+            _lineUpPanel.Location = new Point(
+                mainFormLineUpPanelBaseLocation.X,
+                mainFormLineUpPanelBaseLocation.Y - mainFormLineUpPanelScrollOffset);
         }
 
         /// <summary>
@@ -401,7 +477,7 @@ namespace JinChanChanTool.Services
             }
 
             // 调整窗口高度
-            LineUpForm.Instance.ClientSize = new Size(Dpi_L(430), Dpi_L(formHeight));
+            LineUpForm.Instance.ClientSize = new Size(Dpi_L(LineUpForm.COLLAPSED_WIDTH), Dpi_L(formHeight));
         }
 
         #region 创建主窗口英雄选择器

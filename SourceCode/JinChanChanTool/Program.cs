@@ -6,6 +6,7 @@ using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Tools.LineUpCodeTools;
+using JinChanChanTool.Tools.KeyboardMouseTools;
 using System.Diagnostics;
 namespace JinChanChanTool
 {
@@ -133,10 +134,37 @@ namespace JinChanChanTool
 
             // 创建自动更新服务并启动后台检查
             IAutoUpdateService _iAutoUpdateService = new AutoUpdateService(_iManualSettingsService, _iAutomaticSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iLineUpCodeDictionaryService);
+
+            // 根据设置创建统一的键鼠操作设备。旧配置中的未知枚举值会回退到 WinAPI；
+            // 已知但尚未实现的设备类型由工厂明确报告，避免误把输入发到本机。
+            IKeyboardMouseDevice _iKeyboardMouseDevice;
+            try
+            {
+                _iKeyboardMouseDevice = KeyboardMouseDeviceFactory.CreateOrFallback(
+                    _iManualSettingsService.CurrentConfig.KeyboardMouseDevice,
+                    _iManualSettingsService.CurrentConfig.MakcuPortName,
+                    _iManualSettingsService.CurrentConfig.MakcuBaudRate,
+                    _iManualSettingsService.CurrentConfig.KmBoxIp,
+                    _iManualSettingsService.CurrentConfig.KmBoxPort,
+                    _iManualSettingsService.CurrentConfig.KmBoxMac);
+            }
+            catch (NotSupportedException ex)
+            {
+                MessageBox.Show(
+                    $"键鼠设备初始化失败：{ex.Message}",
+                    "键鼠设备错误",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            // 与参考实现一致，在应用退出时兜底释放共享设备实例。
+            Application.ApplicationExit += (_, _) => _iKeyboardMouseDevice.Dispose();
+
             _ = _iAutoUpdateService.CheckAndUpdateAsync();
 
             // 运行主窗体并传入应用设置服务
-            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iLocalizationService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iLineUpParser, _iAutoUpdateService));
+            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iLocalizationService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iLineUpParser, _iAutoUpdateService, _iKeyboardMouseDevice));
         }
 
         private static string ResolveSelectedSeason(

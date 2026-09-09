@@ -12,6 +12,7 @@ using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
+using JinChanChanTool.Tools.KeyboardMouseTools;
 using JinChanChanTool.Tools.LineUpCodeTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
@@ -83,12 +84,21 @@ namespace JinChanChanTool
         /// </summary>
         private readonly UIBuilderService _uiBuilderService;
 
+        private readonly NotifyIcon _notifyIcon;
+        private readonly ToolStripMenuItem _trayShowMenuItem;
+        private readonly ToolStripMenuItem _trayExitMenuItem;
+
 
 
         /// <summary>
         /// 自动拿牌服务
         /// </summary>
         private CardService _cardService;
+
+        /// <summary>
+        /// 键鼠操作设备实例。
+        /// </summary>
+        private readonly IKeyboardMouseDevice _keyboardMouseDevice;
 
         /// <summary>
         /// 装备选择面板专用的自定义提示框（主窗口用）
@@ -100,9 +110,24 @@ namespace JinChanChanTool
         /// </summary>
         private EquipmentInformationToolTip _lineUpFormEquipmentToolTip;
 
-        public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, ILocalizationService iLocalizationService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService, ILineUpParser iLineUpParser, IAutoUpdateService iAutoUpdateService)
+        public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, ILocalizationService iLocalizationService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService, ILineUpParser iLineUpParser, IAutoUpdateService iAutoUpdateService, IKeyboardMouseDevice? keyboardMouseDevice = null)
         {
             InitializeComponent();
+            _notifyIcon = new NotifyIcon(components!)
+            {
+                Icon = Icon ?? SystemIcons.Application,
+                Visible = false,
+                Text = "JinChanChanTool"
+            };
+            _trayShowMenuItem = new ToolStripMenuItem();
+            _trayShowMenuItem.Click += TrayShowMenuItem_Click;
+            _trayExitMenuItem = new ToolStripMenuItem();
+            _trayExitMenuItem.Click += TrayExitMenuItem_Click;
+            var trayContextMenu = new ContextMenuStrip(components!);
+            trayContextMenu.Items.Add(_trayShowMenuItem);
+            trayContextMenu.Items.Add(_trayExitMenuItem);
+            _notifyIcon.ContextMenuStrip = trayContextMenu;
+            _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
             //添加拖动
             DragHelper.EnableDragForChildren(panel_标题栏背景);
 
@@ -111,6 +136,11 @@ namespace JinChanChanTool
             _iManualSettingsService = iManualSettingsService;
             _iManualSettingsService.OnConfigSaved += OnConfigSaved;//绑定设置保存事件
             TopMost = _iManualSettingsService.CurrentConfig.IsAllWindowsTopMost;
+            _keyboardMouseDevice = keyboardMouseDevice
+                ?? KeyboardMouseDeviceFactory.CreateOrFallback(
+                    _iManualSettingsService.CurrentConfig.KeyboardMouseDevice,
+                    _iManualSettingsService.CurrentConfig.MakcuPortName,
+                    _iManualSettingsService.CurrentConfig.MakcuBaudRate);
 
             #endregion
 
@@ -137,6 +167,7 @@ namespace JinChanChanTool
             #region 阵容数据服务实例化
             _iLineUpService = iLineUpService;
             _iLineUpService.LineUpChanged += LineUpChanged;
+            _iLineUpService.SubLineUpIndexChanged += SubLineUpIndexChanged;
             _iLineUpService.LineUpNameChanged += LineUpNameChanged;
             #endregion
 
@@ -236,7 +267,7 @@ namespace JinChanChanTool
             #endregion
 
             #region 自动拿牌服务对象实例化
-            _cardService = new CardService(_iManualSettingsService, _iAutomaticSettingsService, _iCorrectionService, _iheroDataService, _iLineUpService);
+            _cardService = new CardService(_iManualSettingsService, _iAutomaticSettingsService, _iCorrectionService, _iheroDataService, _iLineUpService, _keyboardMouseDevice);
             _cardService.isHighLightStatusChanged += OnIsHighLightChanged;
             _cardService.isGetCardStatusChanged += OnIsGetCardChanged;
             _cardService.isRefreshStoreStatusChanged += OnAutoRefreshStatusChanged;
@@ -277,12 +308,56 @@ namespace JinChanChanTool
         /// <param name="e"></param>      
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            _notifyIcon.Visible = false;
             timer_更新坐标.Stop();
             _trackedDynamicCoordinateProcess = null;
             _automationService.SetTargetProcess(null);
+            _cardService?.StopLoop();
             GlobalHotkeyTool.Dispose();
             MouseHookTool.Dispose();
+            _keyboardMouseDevice.Dispose();
             base.OnFormClosing(e);
+        }
+
+        protected override void OnDpiChanged(DpiChangedEventArgs e)
+        {
+            base.OnDpiChanged(e);
+
+            if (_uiBuilderService == null || IsDisposed)
+                return;
+
+            _uiBuilderService.ApplyMainFormDynamicSizes();
+            LoadLineUpToUI(false);
+        }
+
+        private void NotifyIcon_DoubleClick(object? sender, EventArgs e)
+        {
+            RestoreFromTray();
+        }
+
+        private void TrayShowMenuItem_Click(object? sender, EventArgs e)
+        {
+            RestoreFromTray();
+        }
+
+        private void TrayExitMenuItem_Click(object? sender, EventArgs e)
+        {
+            _notifyIcon.Visible = false;
+            Close();
+        }
+
+        private void RestoreFromTray()
+        {
+            _notifyIcon.Visible = false;
+            Show();
+            WindowState = FormWindowState.Normal;
+            Activate();
+        }
+
+        private void MinimizeToTray()
+        {
+            _notifyIcon.Visible = true;
+            Hide();
         }
 
         #endregion
@@ -421,12 +496,24 @@ namespace JinChanChanTool
                 UIReBinding();
             }
 
+            if (e.ChangedFields.Contains(nameof(ManualSettings.IsCompactMainFormLineUp)))
+            {
+                _uiBuilderService.ApplyMainFormDynamicSizes();
+                LoadLineUpToUI(false);
+            }
+
             //如果变更的是需要重启才能生效的设置，则询问用户是否重启应用
             if (e.ChangedFields.Contains("MaxLineUpCount") ||
                 e.ChangedFields.Contains("IsUseCPUForInference") ||
                 e.ChangedFields.Contains("IsUseGPUForInference") ||
                 e.ChangedFields.Contains("Language") ||
-                e.ChangedFields.Contains("LineUpCapacity"))
+                e.ChangedFields.Contains("LineUpCapacity") ||
+                e.ChangedFields.Contains(nameof(ManualSettings.KeyboardMouseDevice)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.MakcuPortName)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.MakcuBaudRate)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.KmBoxIp)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.KmBoxPort)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.KmBoxMac)))
             {
                 // 配置已保存，询问用户是否重启应用
                 var result = MessageBox.Show(
@@ -593,6 +680,8 @@ namespace JinChanChanTool
                 _equipmentToolTip.SetEquipment(_uiBuilderService.MainForm_HeroAndEquipmentPictureBoxes[i].equipmentPictureBox3);
             }
 
+            BindMainFormLineUpMouseWheel();
+
             #endregion
 
             #region 半透明英雄选择窗口UI事件
@@ -707,7 +796,7 @@ namespace JinChanChanTool
             // 检查窗口是否已存在且未被释放
             if (_settingFormInstance == null || _settingFormInstance.IsDisposed)
             {
-                _settingFormInstance = new SettingForm(_iManualSettingsService, _iRecommendedLineUpService, _iLocalizationService);
+                _settingFormInstance = new SettingForm(_iManualSettingsService, _iRecommendedLineUpService, _iLocalizationService, _keyboardMouseDevice);
                 _settingFormInstance.FormClosed += (s, args) => _settingFormInstance = null; // 窗口关闭时重置实例
                 _settingFormInstance.TopMost = _iManualSettingsService.CurrentConfig.IsAllWindowsTopMost;
                 _settingFormInstance.Show();
@@ -1562,30 +1651,74 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_变阵1_Click(object sender, EventArgs e)
-        {
-
-            _iLineUpService.SetSubLineUpIndex(0);
-        }
 
         /// <summary>
         /// 变阵按钮2按下
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_变阵2_Click(object sender, EventArgs e)
-        {
-            _iLineUpService.SetSubLineUpIndex(1);
-        }
 
         /// <summary>
         /// 变阵按钮3按下
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_变阵3_Click(object sender, EventArgs e)
+
+        private void button_新增分支_Click(object sender, EventArgs e)
         {
-            _iLineUpService.SetSubLineUpIndex(2);
+            if (_iLineUpService.GetCurrentLineUp().SubLineUps.Count >= MaxSubLineUpCount)
+            {
+                MessageBox.Show(
+                    _iLocalizationService.Get("MainForm.Msg.分支数量上限", MaxSubLineUpCount),
+                    _iLocalizationService.Get("MainForm.MsgTitle.提示"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+            using var dialog = new BranchEditorForm(
+                _iLocalizationService,
+                _iLocalizationService.Get("BranchEditorForm.Title.New"));
+            if (dialog.ShowDialog(this) == DialogResult.OK && !_iLineUpService.AddSubLineUp(dialog.BranchName, dialog.BranchDescription))
+                MessageBox.Show(
+                    _iLocalizationService.Get("MainForm.Msg.分支名称无效"),
+                    _iLocalizationService.Get("MainForm.MsgTitle.提示"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+        }
+
+        private void BranchButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && sender is Button button && button.Tag is int index)
+                _iLineUpService.SetSubLineUpIndex(index);
+        }
+
+        private void EditBranch(int index)
+        {
+            if (index < 0 || index >= _iLineUpService.GetCurrentLineUp().SubLineUps.Count) return;
+            var branch = _iLineUpService.GetCurrentLineUp().SubLineUps[index];
+            using var dialog = new BranchEditorForm(
+                _iLocalizationService,
+                _iLocalizationService.Get("BranchEditorForm.Title.Edit"),
+                branch.Name,
+                branch.Description);
+            if (dialog.ShowDialog(this) == DialogResult.OK && !_iLineUpService.UpdateSubLineUp(index, dialog.BranchName, dialog.BranchDescription))
+                MessageBox.Show(
+                    _iLocalizationService.Get("MainForm.Msg.分支名称无效"),
+                    _iLocalizationService.Get("MainForm.MsgTitle.提示"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+        }
+
+        private void DeleteBranch(int index)
+        {
+            if (index < 0 || index >= _iLineUpService.GetCurrentLineUp().SubLineUps.Count) return;
+            if (MessageBox.Show(
+                    this,
+                    _iLocalizationService.Get("MainForm.Msg.确认删除分支"),
+                    _iLocalizationService.Get("MainForm.MsgTitle.删除分支"),
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning) == DialogResult.Yes)
+                _iLineUpService.DeleteSubLineUp(index);
         }
         #endregion
 
@@ -1594,7 +1727,7 @@ namespace JinChanChanTool
         /// 加载当前选中变阵到UI
         /// CheckBox、主窗口HeroAndEquipmentPictureBox、LineUpForm的HeroAndEquipmentPictureBox、SelectForm的HeroPictureBox、变阵按钮
         /// </summary>
-        public void LoadLineUpToUI()
+        public void LoadLineUpToUI(bool rebuildSubLineUpButtons = true)
         {
             waitForLoad = true;
 
@@ -1621,7 +1754,11 @@ namespace JinChanChanTool
             UpdateCheckBoxes(units);
             UpdateHeroAndEquipmentPictureBoxes(heroDataList);
             UpdateSelectFormHeroPictureBoxes(currentSubLineUp);
-            UpdateSubLineUpButtons(subLineUpIndex, currentLineUp);
+            LineUpForm.Instance.RefreshSubLineUpComboBox();
+            if (rebuildSubLineUpButtons)
+                UpdateSubLineUpButtons(subLineUpIndex, currentLineUp);
+            else
+                UpdateSubLineUpSelection(subLineUpIndex, currentLineUp);
 
             waitForLoad = false;
 
@@ -1727,25 +1864,92 @@ namespace JinChanChanTool
             Color selectedColor = Color.FromArgb(130, 189, 39);
             Color normalColor = Color.White;
 
-            button_变阵1.BackColor = selectedIndex == 0 ? selectedColor : normalColor;
-            button_变阵2.BackColor = selectedIndex == 1 ? selectedColor : normalColor;
-            button_变阵3.BackColor = selectedIndex == 2 ? selectedColor : normalColor;
+            foreach (Control control in flowLayoutPanel_分支按钮.Controls.Cast<Control>().Where(control => control != button_新增分支).ToList())
+            {
+                flowLayoutPanel_分支按钮.Controls.Remove(control);
+                control.Dispose();
+            }
+            for (int i = 0; i < currentLineUp.SubLineUps.Count; i++)
+            {
+                var branch = currentLineUp.SubLineUps[i];
+                var button = new Button { Tag = i, Text = string.IsNullOrWhiteSpace(branch.Name) ? $"分支{i + 1}" : branch.Name, AutoSize = true, AutoEllipsis = true, Height = 25, MinimumSize = new Size(55, 25), MaximumSize = new Size(flowLayoutPanel_分支按钮.ClientSize.Width, 25), FlatStyle = FlatStyle.Flat, BackColor = selectedIndex == i ? selectedColor : normalColor, TabStop = false, Margin = new Padding(0, 0, 2, 0) };
+                button.FlatAppearance.BorderSize = 0;
+                button.MouseUp += BranchButton_MouseUp;
+                var menu = new ContextMenuStrip();
+                int branchIndex = i;
+                menu.Items.Add(_iLocalizationService.Get("MainForm.菜单.编辑分支"), null, (_, _) => EditBranch(branchIndex));
+                menu.Items.Add(_iLocalizationService.Get("MainForm.菜单.删除分支"), null, (_, _) => DeleteBranch(branchIndex));
+                button.ContextMenuStrip = menu;
+                flowLayoutPanel_分支按钮.Controls.Add(button);
+            }
+            if (button_新增分支.Parent != flowLayoutPanel_分支按钮)
+                flowLayoutPanel_分支按钮.Controls.Add(button_新增分支);
+            flowLayoutPanel_分支按钮.Controls.SetChildIndex(button_新增分支, flowLayoutPanel_分支按钮.Controls.Count - 1);
+            button_新增分支.Enabled = currentLineUp.SubLineUps.Count < MaxSubLineUpCount;
+            flowLayoutPanel_分支按钮.PerformLayout();
+            int branchRows = flowLayoutPanel_分支按钮.Controls.Count == 0 ? 1 : flowLayoutPanel_分支按钮.Controls.Cast<Control>().Max(control => control.Bottom) / 25;
+            flowLayoutPanel_分支按钮.Height = Math.Max(25, branchRows * 27);
+            UpdateSubLineUpSelection(selectedIndex, currentLineUp);
+            return;
 
-            if (selectedIndex == 0)
-            {
-                button_变阵1.Focus();
-            }
-            else if (selectedIndex == 1)
-            {
-                button_变阵2.Focus();
-            }
-            else if (selectedIndex == 2)
-            {
-                button_变阵3.Focus();
-            }
-           
+        }
 
+        private int GetBranchDescriptionHeight(string description)
+        {
+            if (string.IsNullOrEmpty(description)) return 1;
+            int lineHeight = Math.Max(1, TextRenderer.MeasureText("字", label_分支描述.Font).Height);
+            Size measured = TextRenderer.MeasureText(description, label_分支描述.Font,
+                new Size(label_分支描述.Width, int.MaxValue),
+                TextFormatFlags.WordBreak | TextFormatFlags.NoPadding);
+            int lineCount = Math.Clamp((int)Math.Ceiling((double)measured.Height / lineHeight), 1, 2);
+            return lineCount * lineHeight;
+        }
+
+        private void UpdateSubLineUpSelection(int selectedIndex, LineUp currentLineUp)
+        {
+            Color selectedColor = Color.FromArgb(130, 189, 39);
+            Color normalColor = Color.White;
+            foreach (Button button in flowLayoutPanel_分支按钮.Controls.OfType<Button>())
+            {
+                if (button.Tag is int index)
+                    button.BackColor = index == selectedIndex ? selectedColor : normalColor;
+            }
+            label_分支描述.Location = new Point(LogicalToDeviceUnits(5), flowLayoutPanel_分支按钮.Bottom + LogicalToDeviceUnits(2));
+            label_分支描述.Text = currentLineUp.SubLineUps.ElementAtOrDefault(selectedIndex)?.Description ?? "";
+            label_分支描述.Height = GetBranchDescriptionHeight(label_分支描述.Text);
+            panel_MainFormLineUpViewport.Location = new Point(LogicalToDeviceUnits(5), label_分支描述.Bottom + LogicalToDeviceUnits(2));
+            _uiBuilderService.ResetMainFormLineUpScroll();
+            panel_子阵容展示区背景.Height = panel_MainFormLineUpViewport.Bottom + LogicalToDeviceUnits(3);
+            panel_用户区背景.Height = Math.Max(LogicalToDeviceUnits(633), panel_子阵容展示区背景.Bottom + LogicalToDeviceUnits(5));
+            ClientSize = new Size(ClientSize.Width, Math.Max(LogicalToDeviceUnits(670), panel_用户区背景.Bottom + LogicalToDeviceUnits(8)));
+            if (selectedIndex >= 0 && selectedIndex < currentLineUp.SubLineUps.Count)
+                flowLayoutPanel_分支按钮.Controls.OfType<Button>().FirstOrDefault(b => (b.Tag as int?) == selectedIndex)?.Focus();
             LineUpForm.Instance.更新棋盘显示(selectedIndex);
+        }
+
+        /// <summary>
+        /// 将主窗口阵容展示区及其子控件的滚轮事件统一交给UI构建服务处理。
+        /// </summary>
+        private void BindMainFormLineUpMouseWheel()
+        {
+            BindMainFormLineUpMouseWheel(panel_MainFormLineUpViewport);
+        }
+
+        private void BindMainFormLineUpMouseWheel(Control control)
+        {
+            control.MouseWheel += MainFormLineUpPanel_MouseWheel;
+            foreach (Control child in control.Controls)
+                BindMainFormLineUpMouseWheel(child);
+        }
+
+        private void MainFormLineUpPanel_MouseWheel(object? sender, MouseEventArgs e)
+        {
+            // MouseWheel can bubble through the nested lineup controls. Consume it
+            // here so one physical wheel message cannot move the content twice.
+            if (e is HandledMouseEventArgs handledMouseEvent)
+                handledMouseEvent.Handled = true;
+
+            _uiBuilderService.ScrollMainFormLineUp(e.Delta);
         }
 
         #endregion
@@ -1758,6 +1962,11 @@ namespace JinChanChanTool
         private void LineUpChanged(object sender, EventArgs e)
         {
             LoadLineUpToUI();
+        }
+
+        private void SubLineUpIndexChanged(object sender, EventArgs e)
+        {
+            LoadLineUpToUI(false);
         }
 
         /// <summary>
@@ -2534,7 +2743,13 @@ namespace JinChanChanTool
 
         private void button_关闭_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (_iManualSettingsService.CurrentConfig.IsMinimizeToTrayOnClose)
+            {
+                MinimizeToTray();
+                return;
+            }
+
+            Close();
         }
         #endregion
 
@@ -2672,6 +2887,9 @@ namespace JinChanChanTool
         /// </summary>
         private void ApplyLocalization()
         {
+            _notifyIcon.Text = _iLocalizationService.Get("MainForm.Tray.ToolTip");
+            _trayShowMenuItem.Text = _iLocalizationService.Get("MainForm.Tray.Show");
+            _trayExitMenuItem.Text = _iLocalizationService.Get("MainForm.Tray.Exit");
             // 主窗口标题栏
             label_标题.Text = _iLocalizationService.Get("MainForm.标题");
             // 菜单项
@@ -2697,9 +2915,6 @@ namespace JinChanChanTool
             roundedButton_解析阵容码.Text = _iLocalizationService.Get("MainForm.Button.解析阵容码");
             roundedButton_导出.Text = _iLocalizationService.Get("MainForm.Button.导出");
             roundedButton_导入.Text = _iLocalizationService.Get("MainForm.Button.导入");
-            button_变阵1.Text = _iLocalizationService.Get("MainForm.Button.前期");
-            button_变阵2.Text = _iLocalizationService.Get("MainForm.Button.中期");
-            button_变阵3.Text = _iLocalizationService.Get("MainForm.Button.后期");
 
             // 文本框占位符
             textBox_阵容码.Text = _iLocalizationService.Get("MainForm.TextBox.阵容码占位符");

@@ -22,6 +22,8 @@ namespace JinChanChanTool.DIYComponents
 
         // 当前绑定的子阵容
         private SubLineUp _currentSubLineUp;
+        private HeroStackWheel _heroStackWheel;
+        private HexagonCell _wheelTargetCell;
 
         /// <summary>
         /// 英雄位置变更事件（向外部通知数据变更）
@@ -49,6 +51,10 @@ namespace JinChanChanTool.DIYComponents
 
             // 创建所有格子
             CreateCells();
+
+            _heroStackWheel = new HeroStackWheel();
+            _heroStackWheel.HeroSelected += HeroStackWheel_HeroSelected;
+            Controls.Add(_heroStackWheel);
         }
 
         /// <summary>
@@ -94,6 +100,7 @@ namespace JinChanChanTool.DIYComponents
                     // 绑定事件
                     cell.HeroPositionChanged += Cell_HeroPositionChanged;
                     cell.HeroCleared += Cell_HeroCleared;
+                    cell.HeroStackSelectionRequested += Cell_HeroStackSelectionRequested;
 
                     _cells[row, col] = cell;
                     Controls.Add(cell);
@@ -187,29 +194,27 @@ namespace JinChanChanTool.DIYComponents
 
             if (_currentSubLineUp == null) return;
 
-            // 遍历子阵容中的英雄，放置到对应位置
-            foreach (LineUpUnit unit in _currentSubLineUp.LineUpUnits)
+            // 同一坐标的英雄作为一个堆叠显示，PositionLayer 最大的英雄位于顶层。
+            var positionedUnits = _currentSubLineUp.LineUpUnits
+                .Where(unit => !string.IsNullOrEmpty(unit.HeroName))
+                .Where(unit => unit.Position.Item1 is >= 1 and <= ROWS && unit.Position.Item2 is >= 1 and <= COLUMNS)
+                .GroupBy(unit => unit.Position);
+
+            foreach (var positionGroup in positionedUnits)
             {
-                if (string.IsNullOrEmpty(unit.HeroName)) continue;
+                List<StackedHeroDisplay> stackedHeroes = positionGroup
+                    .Select(unit =>
+                    {
+                        Hero hero = _heroDataService?.GetHeroFromName(unit.HeroName);
+                        return hero == null ? null : new StackedHeroDisplay(unit, hero.Image, GetColorFromCost(hero.Cost));
+                    })
+                    .Where(hero => hero != null)
+                    .ToList();
 
-                int row = unit.Position.Item1;
-                int col = unit.Position.Item2;
-
-                // (0,0)表示在备战席，不在棋盘上显示
-                if (row == 0 && col == 0) continue;
-
-                // 验证位置有效性：棋盘坐标从(1,1)到(4,7)
-                if (row < 1 || row > ROWS || col < 1 || col > COLUMNS) continue;
-
-                // 获取英雄数据和图片
-                Hero hero = _heroDataService?.GetHeroFromName(unit.HeroName);
-                if (hero == null) continue;
-
-                // 获取边框颜色
-                Color borderColor = GetColorFromCost(hero.Cost);
-
-                // 数组索引 = 坐标 - 1
-                _cells[row - 1, col - 1].SetHero(unit, hero.Image, borderColor);
+                if (stackedHeroes.Count > 0)
+                {
+                    _cells[positionGroup.Key.Item1 - 1, positionGroup.Key.Item2 - 1].SetHeroes(stackedHeroes);
+                }
             }
         }
 
@@ -218,6 +223,8 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public void ClearAllCells()
         {
+            _heroStackWheel?.Hide();
+            _wheelTargetCell = null;
             for (int row = 0; row < ROWS; row++)
             {
                 for (int col = 0; col < COLUMNS; col++)
@@ -234,6 +241,11 @@ namespace JinChanChanTool.DIYComponents
         {
             if (_currentSubLineUp == null) return;
 
+            if (sender is not HexagonCell targetCell || !targetCell.CanAcceptHero(e.MovedUnit))
+            {
+                return;
+            }
+
             // e.TargetRow/Column 是棋盘坐标(1-4, 1-7)，需要转换为数组索引
             int targetArrayRow = e.TargetRow - 1;
             int targetArrayCol = e.TargetColumn - 1;
@@ -244,23 +256,11 @@ namespace JinChanChanTool.DIYComponents
                 return;
             }
 
-            // 获取目标格子
-            HexagonCell targetCell = _cells[targetArrayRow, targetArrayCol];
-
-            // 检查目标位置是否已有英雄
-            LineUpUnit targetUnit = targetCell.LineUpUnit;
-
-            // 更新源英雄的位置（使用棋盘坐标）
+            // 同一格可以存在多个英雄，新放置的英雄成为显示顶层。
             if (e.MovedUnit != null)
             {
                 e.MovedUnit.Position = (e.TargetRow, e.TargetColumn);
-            }
-
-            // 如果目标位置有英雄，交换位置
-            // 源位置(0,0)表示从备战席拖来，目标英雄移到备战席
-            if (targetUnit != null && !string.IsNullOrEmpty(targetUnit.HeroName))
-            {
-                targetUnit.Position = (e.SourceRow, e.SourceColumn);
+                e.MovedUnit.PositionLayer = GetNextPositionLayer();
             }
 
             // 刷新显示
@@ -270,7 +270,7 @@ namespace JinChanChanTool.DIYComponents
             HeroPositionChanged?.Invoke(this, new BoardHeroPositionChangedEventArgs(
                 e.SourceRow, e.SourceColumn,
                 e.TargetRow, e.TargetColumn,
-                e.MovedUnit, targetUnit
+                e.MovedUnit, null
             ));
         }
 
@@ -289,6 +289,42 @@ namespace JinChanChanTool.DIYComponents
 
             // 触发外部事件
             HeroCleared?.Invoke(this, new BoardHeroClearedEventArgs(e.Row, e.Column, e.ClearedUnit));
+        }
+
+        private void Cell_HeroStackSelectionRequested(object sender, HeroStackSelectionRequestedEventArgs e)
+        {
+            if (_heroDataService == null || e?.Cell == null)
+            {
+                return;
+            }
+
+            List<StackedHeroDisplay> stackedHeroes = e.Cell.StackUnits
+                .Select(unit =>
+                {
+                    Hero hero = _heroDataService.GetHeroFromName(unit.HeroName);
+                    return hero == null ? null : new StackedHeroDisplay(unit, hero.Image, GetColorFromCost(hero.Cost));
+                })
+                .Where(hero => hero != null)
+                .ToList();
+
+            _wheelTargetCell = e.Cell;
+            _heroStackWheel.ShowFor(e.Cell, stackedHeroes);
+        }
+
+        private void HeroStackWheel_HeroSelected(object sender, HeroStackWheelSelectedEventArgs e)
+        {
+            _wheelTargetCell?.ShowHero(e.Unit);
+            _wheelTargetCell = null;
+        }
+
+        private long GetNextPositionLayer()
+        {
+            if (_currentSubLineUp == null || _currentSubLineUp.LineUpUnits.Count == 0)
+            {
+                return 1;
+            }
+
+            return _currentSubLineUp.LineUpUnits.Max(unit => unit.PositionLayer) + 1;
         }
 
         /// <summary>

@@ -63,6 +63,8 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public event EventHandler LineUpChanged;
 
+        public event EventHandler SubLineUpIndexChanged;
+
         /// <summary>
         /// 阵容名改变事件
         /// </summary>
@@ -355,7 +357,8 @@ namespace JinChanChanTool.Services.DataServices
                     {
                         HeroName = unit.HeroName,
                         EquipmentNames = unit.EquipmentNames?.ToArray() ?? ["", "", ""],
-                        Position = unit.Position
+                        Position = unit.Position,
+                        PositionLayer = unit.PositionLayer
                     };
                     _lineUps[_lineUpIndex].SubLineUps[变阵索引].LineUpUnits.Add(newUnit);
                 }
@@ -443,10 +446,11 @@ namespace JinChanChanTool.Services.DataServices
         /// <returns></returns>
         public bool SetSubLineUpIndex(int index)
         {
-            if (index >= 0 && index < 3)
+            if (index >= 0 && _lineUps.Count > 0 && index < _lineUps[_lineUpIndex].SubLineUps.Count)
             {
+                if (变阵索引 == index) return true;
                 变阵索引 = index;
-                NotifyLineUpChanged();
+                SubLineUpIndexChanged?.Invoke(this, EventArgs.Empty);
                 return true;
             }
             return false;
@@ -459,6 +463,54 @@ namespace JinChanChanTool.Services.DataServices
         public int GetSubLineUpIndex()
         {
             return 变阵索引;
+        }
+
+        public bool AddSubLineUp(string name, string description)
+        {
+            if (_lineUps.Count == 0 || !TryValidateSubLineUpName(name, -1) || (description?.Trim().Length ?? 0) > 60) return false;
+            LineUp lineUp = GetCurrentLineUp();
+            if (lineUp.SubLineUps.Count >= MaxSubLineUpCount) return false;
+            var branches = lineUp.SubLineUps.ToList();
+            branches.Add(new SubLineUp { Name = name.Trim(), Description = description?.Trim() ?? "" });
+            lineUp.SubLineUps = branches;
+            变阵索引 = branches.Count - 1;
+            SaveWithoutNotify();
+            NotifyLineUpChanged();
+            return true;
+        }
+
+        public bool UpdateSubLineUp(int index, string name, string description)
+        {
+            if (_lineUps.Count == 0 || index < 0 || index >= GetCurrentLineUp().SubLineUps.Count || !TryValidateSubLineUpName(name, index) || (description?.Trim().Length ?? 0) > 60) return false;
+            var branch = GetCurrentLineUp().SubLineUps[index];
+            branch.Name = name.Trim();
+            branch.Description = description?.Trim() ?? "";
+            SaveWithoutNotify();
+            NotifyLineUpChanged();
+            return true;
+        }
+
+        public bool DeleteSubLineUp(int index)
+        {
+            LineUp lineUp = GetCurrentLineUp();
+            if (index < 0 || index >= lineUp.SubLineUps.Count || lineUp.SubLineUps.Count <= 1) return false;
+            var branches = lineUp.SubLineUps.ToList();
+            branches.RemoveAt(index);
+            lineUp.SubLineUps = branches;
+            if (变阵索引 >= branches.Count) 变阵索引 = branches.Count - 1;
+            else if (变阵索引 > index) 变阵索引--;
+            SaveWithoutNotify();
+            NotifyLineUpChanged();
+            return true;
+        }
+
+        private bool TryValidateSubLineUpName(string name, int currentIndex)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return false;
+            string trimmed = name.Trim();
+            if (trimmed.Length is < 1 or > 7) return false;
+            var branches = GetCurrentLineUp().SubLineUps ?? [];
+            return !branches.Where((_, i) => i != currentIndex).Any(x => string.Equals(x.Name, trimmed, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -585,7 +637,11 @@ namespace JinChanChanTool.Services.DataServices
                     }
 
 
-                    List<LineUp> temp = JsonConvert.DeserializeObject<List<LineUp>>(json);                    
+                    List<LineUp> temp = JsonConvert.DeserializeObject<List<LineUp>>(json, new JsonSerializerSettings
+                    {
+                        ObjectCreationHandling = ObjectCreationHandling.Replace
+                    }) ?? [];
+                    NormalizeSubLineUps(temp);
                     if (temp.Count == 0)
                     {
                         int i = 1;
@@ -602,7 +658,7 @@ namespace JinChanChanTool.Services.DataServices
                     //检查阵容数据是否与英雄数据冲突
                     foreach (LineUp lineUp in _lineUps)
                     {
-                        for (int i = 0; i < lineUp.SubLineUps.Length; i++)
+                        for (int i = 0; i < lineUp.SubLineUps.Count; i++)
                         {
                             foreach (LineUpUnit sUnit in lineUp.SubLineUps[i].LineUpUnits)
                             {
@@ -625,7 +681,7 @@ namespace JinChanChanTool.Services.DataServices
                     //将阵容按照Cost排序
                     foreach (LineUp lineUp in _lineUps)
                     {
-                        for (int i = 0; i < lineUp.SubLineUps.Length; i++)
+                        for (int i = 0; i < lineUp.SubLineUps.Count; i++)
                         {
                             List<LineUpUnit> newList = lineUp.SubLineUps[i].LineUpUnits.OrderBy(unit => _iHeroDataService.GetHeroFromName(unit.HeroName).Cost).ToList();
                             lineUp.SubLineUps[i].LineUpUnits.Clear();
@@ -642,7 +698,7 @@ namespace JinChanChanTool.Services.DataServices
                     // 先检查是否有超容量的阵容
                     foreach (LineUp lineUp in _lineUps)
                     {
-                        for (int i = 0; i < lineUp.SubLineUps.Length; i++)
+                        for (int i = 0; i < lineUp.SubLineUps.Count; i++)
                         {
                             if (lineUp.SubLineUps[i].LineUpUnits.Count > _maxOfChoice)
                             {
@@ -695,7 +751,7 @@ namespace JinChanChanTool.Services.DataServices
                         // 用户选择截断，执行截断操作
                         foreach (LineUp lineUp in _lineUps)
                         {
-                            for (int i = 0; i < lineUp.SubLineUps.Length; i++)
+                        for (int i = 0; i < lineUp.SubLineUps.Count; i++)
                             {
                                 if (lineUp.SubLineUps[i].LineUpUnits.Count > _maxOfChoice)
                                 {
@@ -735,6 +791,33 @@ namespace JinChanChanTool.Services.DataServices
         {
             _lineUps.Clear();
             _lineUps.Add(new LineUp($"阵容1"));           
+        }
+
+        private static void NormalizeSubLineUps(IEnumerable<LineUp> lineUps)
+        {
+            foreach (var lineUp in lineUps)
+            {
+                if (lineUp.SubLineUps == null || lineUp.SubLineUps.Count == 0)
+                {
+                    lineUp.SubLineUps = [new SubLineUp()];
+                    continue;
+                }
+                var usedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                for (int i = 0; i < lineUp.SubLineUps.Count; i++)
+                {
+                    lineUp.SubLineUps[i] ??= new SubLineUp();
+                    string branchName = lineUp.SubLineUps[i].Name?.Trim() ?? "";
+                    if (string.IsNullOrWhiteSpace(branchName) || !usedNames.Add(branchName))
+                    {
+                        int suffix = i + 1;
+                        do branchName = $"分支{suffix++}";
+                        while (!usedNames.Add(branchName));
+                    }
+                    lineUp.SubLineUps[i].Name = branchName;
+                    lineUp.SubLineUps[i].Description ??= "";
+                    lineUp.SubLineUps[i].LineUpUnits ??= [];
+                }
+            }
         }
 
         /// <summary>

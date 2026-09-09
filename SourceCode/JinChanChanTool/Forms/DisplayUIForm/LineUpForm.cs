@@ -45,6 +45,7 @@ namespace JinChanChanTool.Forms
 
         // 窗体高度常量（逻辑像素）
         private const int COLLAPSED_HEIGHT = 95;
+        public const int COLLAPSED_WIDTH = 552;
         private const int BOARD_HEIGHT = 150;
         private const int BENCH_HEIGHT_PER_ROW = 35; // 每行备战席的高度
 
@@ -65,6 +66,7 @@ namespace JinChanChanTool.Forms
         private IEquipmentService _equipmentService; // 装备数据服务对象
         private BoardDragManager _boardDragManager; // 棋盘拖拽管理器（替代 OLE DoDragDrop）
         private ILocalizationService _iLocalizationService; // 本地化服务对象
+        private bool _isUpdatingSubLineUpComboBox;
 
         private LineUpForm()
         {
@@ -114,6 +116,7 @@ namespace JinChanChanTool.Forms
             // 初始化拖拽管理器（手动拖拽替代 OLE DoDragDrop，避免 TransparencyKey 导致的 COMException）
             _boardDragManager = new BoardDragManager();
             _boardDragManager.Initialize(this, hexagonBoard, benchPanel);
+            RefreshSubLineUpComboBox();
 
         }
 
@@ -673,6 +676,54 @@ namespace JinChanChanTool.Forms
         public ComboBox GetLineUpSelectedComboBox()
         {
             return comboBox_阵容选择;
+        }
+
+        public ComboBox GetSubLineUpSelectedComboBox()
+        {
+            return comboBox_分支选择;
+        }
+
+        public void RefreshSubLineUpComboBox()
+        {
+            if (_ilineUpService == null) return;
+
+            var lineUps = _ilineUpService.GetLineUps();
+            if (lineUps == null || lineUps.Count == 0)
+            {
+                comboBox_分支选择.Items.Clear();
+                comboBox_分支选择.SelectedIndex = -1;
+                return;
+            }
+
+            var currentLineUp = lineUps.ElementAtOrDefault(_ilineUpService.GetLineUpIndex());
+            var branches = currentLineUp?.SubLineUps ?? [];
+            int selectedIndex = _ilineUpService.GetSubLineUpIndex();
+
+            _isUpdatingSubLineUpComboBox = true;
+            try
+            {
+                comboBox_分支选择.Items.Clear();
+                for (int i = 0; i < branches.Count; i++)
+                {
+                    string branchName = string.IsNullOrWhiteSpace(branches[i]?.Name) ? $"分支{i + 1}" : branches[i].Name;
+                    comboBox_分支选择.Items.Add(branchName);
+                }
+
+                comboBox_分支选择.SelectedIndex = branches.Count == 0
+                    ? -1
+                    : Math.Clamp(selectedIndex, 0, branches.Count - 1);
+            }
+            finally
+            {
+                _isUpdatingSubLineUpComboBox = false;
+            }
+        }
+
+        private void comboBox_SubLineUps_DropDownClosed(object sender, EventArgs e)
+        {
+            if (_isUpdatingSubLineUpComboBox || _ilineUpService == null) return;
+            if (comboBox_分支选择.SelectedIndex >= 0)
+                _ilineUpService.SetSubLineUpIndex(comboBox_分支选择.SelectedIndex);
         }
         #endregion
 

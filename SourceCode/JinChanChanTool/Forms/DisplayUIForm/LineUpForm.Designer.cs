@@ -34,6 +34,7 @@ namespace JinChanChanTool.Forms
             button_清空 = new Button();
             button_保存 = new Button();
             comboBox_阵容选择 = new ComboBox();
+            comboBox_分支选择 = new ComboBox();
             button_阵容推荐 = new Button();
             button_展开收起 = new Button();
             hexagonBoard = new HexagonBoard();
@@ -59,7 +60,7 @@ namespace JinChanChanTool.Forms
             button_清空.FlatAppearance.BorderColor = Color.Gray;
             button_清空.FlatStyle = FlatStyle.Flat;
             button_清空.ForeColor = SystemColors.Control;
-            button_清空.Location = new Point(224, 1);
+            button_清空.Location = new Point(346, 1);
             button_清空.Name = "button_清空";
             button_清空.Size = new Size(60, 25);
             button_清空.TabIndex = 9;
@@ -73,7 +74,7 @@ namespace JinChanChanTool.Forms
             button_保存.FlatAppearance.BorderColor = Color.Gray;
             button_保存.FlatStyle = FlatStyle.Flat;
             button_保存.ForeColor = SystemColors.Control;
-            button_保存.Location = new Point(162, 1);
+            button_保存.Location = new Point(284, 1);
             button_保存.Name = "button_保存";
             button_保存.Size = new Size(60, 25);
             button_保存.TabIndex = 8;
@@ -90,6 +91,18 @@ namespace JinChanChanTool.Forms
             comboBox_阵容选择.Name = "comboBox_LineUpSelected";
             comboBox_阵容选择.Size = new Size(158, 25);
             comboBox_阵容选择.TabIndex = 7;
+            //
+            // comboBox_分支选择
+            //
+            comboBox_分支选择.BackColor = Color.White;
+            comboBox_分支选择.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_分支选择.ForeColor = Color.Black;
+            comboBox_分支选择.FormattingEnabled = true;
+            comboBox_分支选择.Location = new Point(162, 1);
+            comboBox_分支选择.Name = "comboBox_SubLineUpSelected";
+            comboBox_分支选择.Size = new Size(120, 25);
+            comboBox_分支选择.TabIndex = 18;
+            comboBox_分支选择.DropDownClosed += comboBox_SubLineUps_DropDownClosed;
             // 
             // button_阵容推荐
             // 
@@ -97,7 +110,7 @@ namespace JinChanChanTool.Forms
             button_阵容推荐.FlatAppearance.BorderColor = Color.Gray;
             button_阵容推荐.FlatStyle = FlatStyle.Flat;
             button_阵容推荐.ForeColor = SystemColors.Control;
-            button_阵容推荐.Location = new Point(286, 1);
+            button_阵容推荐.Location = new Point(408, 1);
             button_阵容推荐.Name = "button_阵容推荐";
             button_阵容推荐.Size = new Size(80, 25);
             button_阵容推荐.TabIndex = 13;
@@ -111,7 +124,7 @@ namespace JinChanChanTool.Forms
             button_展开收起.FlatAppearance.BorderColor = Color.Gray;
             button_展开收起.FlatStyle = FlatStyle.Flat;
             button_展开收起.ForeColor = SystemColors.Control;
-            button_展开收起.Location = new Point(368, 1);
+            button_展开收起.Location = new Point(490, 1);
             button_展开收起.Name = "button_展开收起";
             button_展开收起.Size = new Size(60, 25);
             button_展开收起.TabIndex = 14;
@@ -152,7 +165,7 @@ namespace JinChanChanTool.Forms
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(1, 1, 1);
-            ClientSize = new Size(430, 95);
+            ClientSize = new Size(552, 95);
             Controls.Add(flowLayoutPanel_装备散件展示);
             Controls.Add(benchPanel);
             Controls.Add(hexagonBoard);
@@ -161,6 +174,7 @@ namespace JinChanChanTool.Forms
             Controls.Add(flowLayoutPanel_阵容展示);
             Controls.Add(button_清空);
             Controls.Add(button_保存);
+            Controls.Add(comboBox_分支选择);
             Controls.Add(comboBox_阵容选择);
             FormBorderStyle = FormBorderStyle.None;
             Name = "LineUpForm";
@@ -175,6 +189,7 @@ namespace JinChanChanTool.Forms
         #endregion
         public CustomFlowLayoutPanel flowLayoutPanel_阵容展示;
         private ComboBox comboBox_阵容选择;
+        private ComboBox comboBox_分支选择;
         private Button button_清空;
         private Button button_保存;
         private Button button_阵容推荐;

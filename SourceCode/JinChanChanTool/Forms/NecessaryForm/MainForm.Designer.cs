@@ -33,9 +33,10 @@ namespace JinChanChanTool
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             panel_子阵容展示区背景 = new Panel();
-            button_变阵3 = new Button();
-            button_变阵2 = new Button();
-            button_变阵1 = new Button();
+            button_新增分支 = new Button();
+            flowLayoutPanel_分支按钮 = new FlowLayoutPanel();
+            label_分支描述 = new Label();
+            panel_MainFormLineUpViewport = new Panel();
             flowLayoutPanel_子阵容展示 = new CustomFlowLayoutPanel();
             tabControl_英雄选择容器 = new TabControl();
             textBox_阵容码 = new TextBox();
@@ -76,6 +77,7 @@ namespace JinChanChanTool
             button_最小化 = new Button();
             button_关闭 = new Button();
             panel_子阵容展示区背景.SuspendLayout();
+            panel_MainFormLineUpViewport.SuspendLayout();
             menuStrip_主窗口菜单.SuspendLayout();
             panel_用户区背景.SuspendLayout();
             panel_窗体总背景.SuspendLayout();
@@ -86,12 +88,12 @@ namespace JinChanChanTool
             // 
             // panel_子阵容展示区背景
             // 
-            panel_子阵容展示区背景.AutoScroll = true;
+            // 外层只负责承载分支、描述和固定视口，滚动由视口内的头像内容处理。
+            panel_子阵容展示区背景.AutoScroll = false;
             panel_子阵容展示区背景.BackColor = Color.White;
-            panel_子阵容展示区背景.Controls.Add(button_变阵3);
-            panel_子阵容展示区背景.Controls.Add(button_变阵2);
-            panel_子阵容展示区背景.Controls.Add(button_变阵1);
-            panel_子阵容展示区背景.Controls.Add(flowLayoutPanel_子阵容展示);
+            panel_子阵容展示区背景.Controls.Add(flowLayoutPanel_分支按钮);
+            panel_子阵容展示区背景.Controls.Add(label_分支描述);
+            panel_子阵容展示区背景.Controls.Add(panel_MainFormLineUpViewport);
             panel_子阵容展示区背景.Location = new Point(5, 446);
             panel_子阵容展示区背景.Margin = new Padding(0);
             panel_子阵容展示区背景.Name = "panel_子阵容展示区背景";
@@ -99,58 +101,65 @@ namespace JinChanChanTool
             panel_子阵容展示区背景.Size = new Size(394, 185);
             panel_子阵容展示区背景.TabIndex = 10;
             // 
-            // button_变阵3
-            // 
-            button_变阵3.FlatAppearance.BorderColor = Color.White;
-            button_变阵3.FlatAppearance.BorderSize = 0;
-            button_变阵3.FlatStyle = FlatStyle.Flat;
-            button_变阵3.Location = new Point(157, 2);
-            button_变阵3.Name = "button_变阵3";
-            button_变阵3.Size = new Size(75, 25);
-            button_变阵3.TabIndex = 3;
-            button_变阵3.TabStop = false;
-            button_变阵3.Text = "后期";
-            button_变阵3.UseVisualStyleBackColor = true;
-            button_变阵3.Click += button_变阵3_Click;
-           
-            // 
-            // button_变阵2
-            // 
-            button_变阵2.FlatAppearance.BorderColor = Color.White;
-            button_变阵2.FlatAppearance.BorderSize = 0;
-            button_变阵2.FlatStyle = FlatStyle.Flat;
-            button_变阵2.Location = new Point(81, 2);
-            button_变阵2.Name = "button_变阵2";
-            button_变阵2.Size = new Size(75, 25);
-            button_变阵2.TabIndex = 2;
-            button_变阵2.TabStop = false;
-            button_变阵2.Text = "中期";
-            button_变阵2.UseVisualStyleBackColor = true;
-            button_变阵2.Click += button_变阵2_Click;
-          
-            // 
-            // button_变阵1
-            // 
-            button_变阵1.FlatAppearance.BorderColor = Color.White;
-            button_变阵1.FlatAppearance.BorderSize = 0;
-            button_变阵1.FlatStyle = FlatStyle.Flat;
-            button_变阵1.Location = new Point(5, 2);
-            button_变阵1.Name = "button_变阵1";
-            button_变阵1.Size = new Size(75, 25);
-            button_变阵1.TabIndex = 1;
-            button_变阵1.TabStop = false;
-            button_变阵1.Text = "前期";
-            button_变阵1.UseVisualStyleBackColor = true;
-            button_变阵1.Click += button_变阵1_Click;
-           
+            // button_新增分支
+            //
+            button_新增分支.FlatAppearance.BorderColor = Color.White;
+            button_新增分支.FlatAppearance.BorderSize = 0;
+            button_新增分支.FlatStyle = FlatStyle.Flat;
+            button_新增分支.Location = new Point(0, 0);
+            button_新增分支.Name = "button_新增分支";
+            button_新增分支.Size = new Size(28, 25);
+            button_新增分支.Margin = new Padding(0, 0, 2, 0);
+            button_新增分支.TabIndex = 3;
+            button_新增分支.TabStop = false;
+            button_新增分支.Text = "+";
+            button_新增分支.UseVisualStyleBackColor = true;
+            button_新增分支.Click += button_新增分支_Click;
+            //
+            // flowLayoutPanel_分支按钮
+            //
+            flowLayoutPanel_分支按钮.AutoScroll = false;
+            flowLayoutPanel_分支按钮.BackColor = Color.Transparent;
+            flowLayoutPanel_分支按钮.FlowDirection = FlowDirection.LeftToRight;
+            flowLayoutPanel_分支按钮.Location = new Point(5, 2);
+            flowLayoutPanel_分支按钮.Name = "flowLayoutPanel_分支按钮";
+            flowLayoutPanel_分支按钮.Size = new Size(384, 25);
+            flowLayoutPanel_分支按钮.TabIndex = 5;
+            flowLayoutPanel_分支按钮.WrapContents = true;
+            flowLayoutPanel_分支按钮.Controls.Add(button_新增分支);
+            //
+            // label_分支描述
+            //
+            label_分支描述.AutoEllipsis = true;
+            label_分支描述.AutoSize = false;
+            label_分支描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_分支描述.Location = new Point(5, 29);
+            label_分支描述.Name = "label_分支描述";
+            label_分支描述.Size = new Size(378, 34);
+            label_分支描述.TabIndex = 4;
+            label_分支描述.Text = "";
+            label_分支描述.TextAlign = ContentAlignment.TopLeft;
+            //
+            // panel_MainFormLineUpViewport
+            //
+            panel_MainFormLineUpViewport.BackColor = Color.Transparent;
+            panel_MainFormLineUpViewport.BorderStyle = BorderStyle.FixedSingle;
+            panel_MainFormLineUpViewport.Controls.Add(flowLayoutPanel_子阵容展示);
+            panel_MainFormLineUpViewport.Location = new Point(5, 53);
+            panel_MainFormLineUpViewport.Margin = new Padding(0);
+            panel_MainFormLineUpViewport.Name = "panel_MainFormLineUpViewport";
+            panel_MainFormLineUpViewport.Padding = new Padding(0);
+            panel_MainFormLineUpViewport.Size = new Size(386, 127);
+            panel_MainFormLineUpViewport.TabIndex = 11;
             // 
             // flowLayoutPanel_子阵容展示
             // 
             flowLayoutPanel_子阵容展示.BackColor = Color.Transparent;
-            flowLayoutPanel_子阵容展示.Location = new Point(5, 28);
-            flowLayoutPanel_子阵容展示.Margin = new Padding(3, 3, 3, 7);
+            flowLayoutPanel_子阵容展示.BorderWidth = 0;
+            flowLayoutPanel_子阵容展示.Location = new Point(0, 0);
+            flowLayoutPanel_子阵容展示.Margin = new Padding(0);
             flowLayoutPanel_子阵容展示.Name = "flowLayoutPanel_子阵容展示";
-            flowLayoutPanel_子阵容展示.Size = new Size(384, 152);
+            flowLayoutPanel_子阵容展示.Size = new Size(384, 127);
             flowLayoutPanel_子阵容展示.TabIndex = 0;
             // 
             // tabControl_英雄选择容器
@@ -652,6 +661,7 @@ namespace JinChanChanTool
             TopMost = true;
             Load += Form1_Load;
             panel_子阵容展示区背景.ResumeLayout(false);
+            panel_MainFormLineUpViewport.ResumeLayout(false);
             menuStrip_主窗口菜单.ResumeLayout(false);
             menuStrip_主窗口菜单.PerformLayout();
             panel_用户区背景.ResumeLayout(false);
@@ -677,13 +687,14 @@ namespace JinChanChanTool
         private TabControl tabControl_英雄选择容器;
         private TextBox textBox_阵容码;
         private Panel panel_子阵容展示区背景;
+        private Panel panel_MainFormLineUpViewport;
         private CustomFlowLayoutPanel flowLayoutPanel_子阵容展示;
         private System.Windows.Forms.Timer timer_装备推荐;
         private Label label_赛季;
         private System.Windows.Forms.Timer timer_更新坐标;
-        private Button button_变阵1;
-        private Button button_变阵3;
-        private Button button_变阵2;
+        private Button button_新增分支;
+        private FlowLayoutPanel flowLayoutPanel_分支按钮;
+        private Label label_分支描述;
         private CapsuleSwitch capsuleSwitch_高亮显示;
         private Label label_高亮显示;
         private Label label_自动刷新商店;

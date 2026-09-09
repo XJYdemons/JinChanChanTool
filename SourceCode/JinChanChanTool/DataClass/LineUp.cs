@@ -5,6 +5,8 @@
     /// </summary>
     public class LineUp
     {
+        public const int MaxSubLineUpCount = 6;
+
         /// <summary>
         /// 阵容名称
         /// </summary>
@@ -14,7 +16,7 @@
         /// <summary>
         /// 阵容状态
         /// </summary>
-        public SubLineUp[] SubLineUps { get; set; } = [  new SubLineUp(), new SubLineUp(), new SubLineUp() ];
+        public List<SubLineUp> SubLineUps { get; set; } = [new SubLineUp()];
       
         /// <summary>
         /// 对阵容命名的构造函数
@@ -31,12 +33,11 @@
         }
     }
 
-    /// <summary>
-    /// 变阵对象，每个LineUp对象会有一个SubLineUp[]数组，容量为3，每个SubLineUp对象会有一个List<LineUpUnit>列表。
-    /// </summary>
+    /// <summary>一个阵容分支及其英雄单位。</summary>
     public class SubLineUp
     {
-       
+        public string Name { get; set; } = "默认分支";
+        public string Description { get; set; } = "";
 
         public List<LineUpUnit> LineUpUnits { get; set; } = [];
       
@@ -140,6 +141,13 @@
         public string HeroName { get; set; } = "";
         public string[] EquipmentNames { get; set; } = ["", "", ""];
         public (int, int) Position { get; set; } = (0, 0);
+
+        /// <summary>
+        /// 最近一次放入站位的顺序。数值越大，在同一格中的显示层级越靠上。
+        /// 旧阵容文件缺少该字段时使用默认值 0，仍按原列表顺序显示。
+        /// </summary>
+        public long PositionLayer { get; set; }
+
         public LineUpUnit(string heroName,string equipmentName1, string equipmentName2, string equipmentName3)
         {
             HeroName=heroName;

@@ -3,7 +3,7 @@ using JinChanChanTool.Forms;
 using JinChanChanTool.Forms.DisplayUIForm;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Tools;
-using JinChanChanTool.Tools.KeyBoardTools;
+using JinChanChanTool.Tools.KeyboardMouseTools;
 using JinChanChanTool.Tools.MouseTools;
 using System;
 using System.Diagnostics;
@@ -42,6 +42,11 @@ namespace JinChanChanTool.Services
         /// </summary>
         private readonly ILineUpService _ilineUpService;
 
+        /// <summary>
+        /// 键鼠操作设备实例。
+        /// </summary>
+        private readonly IKeyboardMouseDevice _keyboardMouseDevice;
+
         //private KmBoxNet kmBox;
 
         //private KmBoxNetHelper km ;
@@ -71,6 +76,8 @@ namespace JinChanChanTool.Services
 
         private const int 未刷新最大回合数 = 5;
         private const double 未刷新最大时间秒数 = 3.0;
+        private const int MakcuClickReleaseDelayMilliseconds = 2;
+        private const int MakcuHookSuppressionDelayMilliseconds = 10;
         enum 刷新状态
         {
             未开始,
@@ -83,13 +90,21 @@ namespace JinChanChanTool.Services
         private int 从上次尝试刷新到目前为止经过的轮次 = 0;
         private Stopwatch 计时器 = Stopwatch.StartNew();
 
-        public CardService(IManualSettingsService iAppConfigService, IAutomaticSettingsService iAutoConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService)
+        public CardService(IManualSettingsService iAppConfigService, IAutomaticSettingsService iAutoConfigService, ICorrectionService iCorrectionService, IHeroDataService iHeroDataService, ILineUpService iLineUpService, IKeyboardMouseDevice? keyboardMouseDevice = null)
         {          
             _iappConfigService = iAppConfigService;
             _iAutoConfigService = iAutoConfigService;
             _iCorrectionService = iCorrectionService;
             _iheroDataService = iHeroDataService;
             _ilineUpService = iLineUpService;
+            _keyboardMouseDevice = keyboardMouseDevice
+                ?? KeyboardMouseDeviceFactory.CreateOrFallback(
+                    iAppConfigService.CurrentConfig.KeyboardMouseDevice,
+                    iAppConfigService.CurrentConfig.MakcuPortName,
+                    iAppConfigService.CurrentConfig.MakcuBaudRate,
+                    iAppConfigService.CurrentConfig.KmBoxIp,
+                    iAppConfigService.CurrentConfig.KmBoxPort,
+                    iAppConfigService.CurrentConfig.KmBoxMac);
             // 根据选中的按钮初始化OCR
             if (iAppConfigService.CurrentConfig.IsUseCPUForInference)
             {
@@ -787,14 +802,14 @@ namespace JinChanChanTool.Services
                 //kmBox.EncLeft(false);
 
 
-                MouseControlTool.SetMousePosition(X, Y);
+                _keyboardMouseDevice.SetMousePosition(X, Y);
                 await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
                 await ClickOneTime();
 
             }
             else if (_iappConfigService.CurrentConfig.IsKeyboardRefreshStore)
             {
-                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);
+                _keyboardMouseDevice.PressKey(_iappConfigService.CurrentConfig.RefreshStoreKey);
             }
         }
 
@@ -993,19 +1008,19 @@ namespace JinChanChanTool.Services
                         switch (i)
                         {
                             case 0:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey1);
+                                _keyboardMouseDevice.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey1);
                                 break;
                             case 1:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey2);
+                                _keyboardMouseDevice.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey2);
                                 break;
                             case 2:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey3);
+                                _keyboardMouseDevice.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey3);
                                 break;
                             case 3:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey4);
+                                _keyboardMouseDevice.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey4);
                                 break;
                             case 4:
-                                KeyboardControlTool.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey5);
+                                _keyboardMouseDevice.PressKey(_iappConfigService.CurrentConfig.HeroPurchaseKey5);
                                 break;
                         }
 
@@ -1040,7 +1055,7 @@ namespace JinChanChanTool.Services
                         //await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
 
                         //设置鼠标位置
-                        MouseControlTool.SetMousePosition(randomX, randomY);
+                        _keyboardMouseDevice.SetMousePosition(randomX, randomY);
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
                         await ClickOneTime();
                         await Task.Delay(_iappConfigService.CurrentConfig.DelayAfterOperation);
@@ -1057,12 +1072,25 @@ namespace JinChanChanTool.Services
         private async Task ClickOneTime()
         {
             MouseHookTool.IncrementProgramClickCount(); // 增加计数
-            MouseControlTool.MakeMouseLeftButtonDown();
-            MouseControlTool.MakeMouseLeftButtonUp();
-            // 延迟后减少计数器
-            await Task.Delay(1);
+            try
+            {
+                _keyboardMouseDevice.MouseLeftButtonDown();
+                if (_keyboardMouseDevice.DeviceType == KeyboardMouseDeviceType.Makcu)
+                {
+                    // 保留 Makcu 协议要求的最小按下时间，避免按下和抬起在设备端合并。
+                    await Task.Delay(MakcuClickReleaseDelayMilliseconds);
+                }
+                _keyboardMouseDevice.MouseLeftButtonUp();
 
-            MouseHookTool.DecrementProgramClickCount(); // 减少计数
+                int hookDelay = _keyboardMouseDevice.DeviceType == KeyboardMouseDeviceType.Makcu
+                    ? MakcuHookSuppressionDelayMilliseconds
+                    : 1;
+                await Task.Delay(hookDelay);
+            }
+            finally
+            {
+                MouseHookTool.DecrementProgramClickCount(); // 减少计数
+            }
 
         }
 

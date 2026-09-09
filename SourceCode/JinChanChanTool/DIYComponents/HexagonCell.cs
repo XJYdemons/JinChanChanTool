@@ -9,26 +9,30 @@ namespace JinChanChanTool.DIYComponents
     /// </summary>
     public class HexagonCell : Control
     {
+        public const int MaxStackedHeroes = 6;
         // 六边形几何常量
         private const double SQRT3 = 1.7320508075688772; // √3
+        private const int LONG_PRESS_DELAY = 450;
 
         // 格子在棋盘中的行列位置
         private int _row;
         private int _column;
 
         // 绑定的英雄数据
-        private LineUpUnit _lineUpUnit;
-        private Image _heroImage;
-        private Color _borderColor = Color.FromArgb(100, 150, 180);
+        private readonly List<StackedHeroDisplay> _heroes = [];
+        private int _displayIndex = -1;
+        private readonly System.Windows.Forms.Timer _longPressTimer;
+        private Point _mouseDownPoint;
+        private bool _isMouseDown;
 
         // 拖拽相关
         private bool _isDropTarget;
 
         // 外观设置
-        private Color _emptyFillColor = Color.FromArgb(40, 45, 55);
-        private Color _occupiedFillColor = Color.FromArgb(50, 60, 75);
-        private Color _hoverColor = Color.FromArgb(70, 85, 100);
-        private Color _dropTargetColor = Color.FromArgb(80, 180, 80);
+        private readonly Color _emptyFillColor = Color.FromArgb(40, 45, 55);
+        private readonly Color _occupiedFillColor = Color.FromArgb(50, 60, 75);
+        private readonly Color _hoverColor = Color.FromArgb(70, 85, 100);
+        private readonly Color _dropTargetColor = Color.FromArgb(80, 180, 80);
         private bool _isHovering;
 
         /// <summary>
@@ -54,10 +58,26 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public LineUpUnit LineUpUnit
         {
-            get => _lineUpUnit;
+            get => GetDisplayedHero()?.Unit;
             set
             {
-                _lineUpUnit = value;
+                if (value == null)
+                {
+                    Clear();
+                    return;
+                }
+
+                int index = _heroes.FindIndex(hero => ReferenceEquals(hero.Unit, value));
+                if (index >= 0)
+                {
+                    _displayIndex = index;
+                }
+                else
+                {
+                    _heroes.Clear();
+                    _heroes.Add(new StackedHeroDisplay(value, null, Color.FromArgb(100, 150, 180)));
+                    _displayIndex = 0;
+                }
                 Invalidate();
             }
         }
@@ -67,10 +87,14 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public Image HeroImage
         {
-            get => _heroImage;
+            get => GetDisplayedHero()?.Image;
             set
             {
-                _heroImage = value;
+                StackedHeroDisplay displayedHero = GetDisplayedHero();
+                if (displayedHero != null)
+                {
+                    displayedHero.Image = value;
+                }
                 Invalidate();
             }
         }
@@ -80,12 +104,25 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public Color HeroBorderColor
         {
-            get => _borderColor;
+            get => GetDisplayedHero()?.BorderColor ?? Color.FromArgb(100, 150, 180);
             set
             {
-                _borderColor = value;
+                StackedHeroDisplay displayedHero = GetDisplayedHero();
+                if (displayedHero != null)
+                {
+                    displayedHero.BorderColor = value;
+                }
                 Invalidate();
             }
+        }
+
+        public IReadOnlyList<LineUpUnit> StackUnits => _heroes.Select(hero => hero.Unit).ToList();
+
+        public bool HasStackCapacity => _heroes.Count < MaxStackedHeroes;
+
+        public bool CanAcceptHero(LineUpUnit unit)
+        {
+            return unit != null && HasStackCapacity;
         }
 
         /// <summary>
@@ -107,7 +144,9 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 格子是否有英雄
         /// </summary>
-        public bool HasHero => _lineUpUnit != null && !string.IsNullOrEmpty(_lineUpUnit.HeroName);
+        public bool HasHero => GetDisplayedHero() != null;
+
+        public bool IsLongPressTriggered { get; private set; }
 
         /// <summary>
         /// 英雄位置变更事件（拖拽完成时触发）
@@ -124,6 +163,8 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public event EventHandler<HeroDragStartEventArgs> HeroDragStart;
 
+        public event EventHandler<HeroStackSelectionRequestedEventArgs> HeroStackSelectionRequested;
+
         public HexagonCell()
         {
             // 启用双缓冲减少闪烁
@@ -135,6 +176,18 @@ namespace JinChanChanTool.DIYComponents
             // 默认大小
             Size = new Size(50, 58);
 
+            _longPressTimer = new System.Windows.Forms.Timer { Interval = LONG_PRESS_DELAY };
+            _longPressTimer.Tick += LongPressTimer_Tick;
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _longPressTimer.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -228,63 +281,52 @@ namespace JinChanChanTool.DIYComponents
         {
             base.OnPaint(e);
 
-            Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             PointF[] hexPoints = GetHexagonPoints();
+            StackedHeroDisplay displayedHero = GetDisplayedHero();
 
-            // 确定填充颜色
-            Color fillColor;
-            if (_isDropTarget)
-            {
-                fillColor = _dropTargetColor;
-            }
-            else if (_isHovering)
-            {
-                fillColor = _hoverColor;
-            }
-            else if (HasHero)
-            {
-                fillColor = _occupiedFillColor;
-            }
-            else
-            {
-                fillColor = _emptyFillColor;
-            }
+            Color fillColor = _isDropTarget
+                ? _dropTargetColor
+                : _isHovering
+                    ? _hoverColor
+                    : displayedHero != null ? _occupiedFillColor : _emptyFillColor;
 
-            // 绘制六边形背景
             using (SolidBrush fillBrush = new SolidBrush(fillColor))
             {
-                g.FillPolygon(fillBrush, hexPoints);
+                e.Graphics.FillPolygon(fillBrush, hexPoints);
             }
 
-            // 绘制英雄头像（填充整个六边形）
-            if (_heroImage != null && HasHero)
+            if (displayedHero?.Image != null)
             {
-                using (GraphicsPath clipPath = GetHexagonPath())
+                using GraphicsPath clipPath = GetHexagonPath();
+                Region oldClip = e.Graphics.Clip;
+                e.Graphics.SetClip(clipPath);
+                e.Graphics.DrawImage(displayedHero.Image, 0, 0, Width, Height);
+                e.Graphics.Clip = oldClip;
+            }
+
+            Color borderColor = displayedHero?.BorderColor ?? Color.FromArgb(80, 100, 120);
+            int borderWidth = displayedHero == null ? 1 : 3;
+            using (Pen borderPen = new Pen(borderColor, borderWidth))
+            {
+                e.Graphics.DrawPolygon(borderPen, hexPoints);
+            }
+
+            if (_heroes.Count > 1)
+            {
+                int badgeSize = Math.Max(16, Math.Min(22, Width / 3));
+                Rectangle badgeBounds = new Rectangle(Width - badgeSize - 4, 4, badgeSize, badgeSize);
+                using SolidBrush badgeBrush = new SolidBrush(Color.FromArgb(220, 20, 20, 20));
+                using SolidBrush textBrush = new SolidBrush(Color.White);
+                using Font badgeFont = new Font(Font.FontFamily, Math.Max(7, badgeSize / 2.2f), FontStyle.Bold);
+                using StringFormat stringFormat = new StringFormat
                 {
-                    // 保存原始裁剪区域
-                    Region oldClip = g.Clip;
-
-                    // 设置六边形裁剪区域
-                    g.SetClip(clipPath);
-
-                    // 图片填充整个控件区域，由六边形Region裁剪
-                    g.DrawImage(_heroImage, 0, 0, Width, Height);
-
-                    // 恢复裁剪区域
-                    g.Clip = oldClip;
-                }
-            }
-
-            // 绘制边框
-            Color borderColorToUse = HasHero ? _borderColor : Color.FromArgb(80, 100, 120);
-            int borderWidth = HasHero ? 3 : 1;
-
-            using (Pen borderPen = new Pen(borderColorToUse, borderWidth))
-            {
-                g.DrawPolygon(borderPen, hexPoints);
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
+                e.Graphics.FillEllipse(badgeBrush, badgeBounds);
+                e.Graphics.DrawString(_heroes.Count.ToString(), badgeFont, textBrush, badgeBounds, stringFormat);
             }
         }
 
@@ -308,19 +350,56 @@ namespace JinChanChanTool.DIYComponents
             Invalidate();
         }
 
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            if (e.Button != MouseButtons.Left || !HasHero || !IsPointInHexagon(e.Location))
+            {
+                return;
+            }
+
+            _mouseDownPoint = e.Location;
+            _isMouseDown = true;
+            IsLongPressTriggered = false;
+            _longPressTimer.Start();
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            if (_isMouseDown &&
+                (Math.Abs(e.Location.X - _mouseDownPoint.X) > 5 || Math.Abs(e.Location.Y - _mouseDownPoint.Y) > 5))
+            {
+                _longPressTimer.Stop();
+            }
+        }
 
         /// <summary>
         /// 鼠标释放事件 - 右键清除
         /// </summary>
         protected override void OnMouseUp(MouseEventArgs e)
         {
+            _isMouseDown = false;
+            _longPressTimer.Stop();
             base.OnMouseUp(e);
 
             if (e.Button == MouseButtons.Right && HasHero && IsPointInHexagon(e.Location))
             {
                 // 触发清除事件
-                HeroCleared?.Invoke(this, new HeroClearedEventArgs(_row, _column, _lineUpUnit));
+                HeroCleared?.Invoke(this, new HeroClearedEventArgs(_row, _column, LineUpUnit));
             }
+        }
+
+        private void LongPressTimer_Tick(object sender, EventArgs e)
+        {
+            _longPressTimer.Stop();
+            if (!_isMouseDown || !HasHero)
+            {
+                return;
+            }
+
+            IsLongPressTriggered = true;
+            HeroStackSelectionRequested?.Invoke(this, new HeroStackSelectionRequestedEventArgs(this));
         }
 
 
@@ -352,9 +431,9 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public void Clear()
         {
-            _lineUpUnit = null;
-            _heroImage = null;
-            _borderColor = Color.FromArgb(100, 150, 180);
+            _heroes.Clear();
+            _displayIndex = -1;
+            IsLongPressTriggered = false;
             Invalidate();
         }
 
@@ -366,10 +445,54 @@ namespace JinChanChanTool.DIYComponents
         /// <param name="borderColor">边框颜色</param>
         public void SetHero(LineUpUnit unit, Image image, Color borderColor)
         {
-            _lineUpUnit = unit;
-            _heroImage = image;
-            _borderColor = borderColor;
+            SetHeroes([new StackedHeroDisplay(unit, image, borderColor)]);
+        }
+
+        /// <summary>
+        /// 设置同一站位上的全部英雄。PositionLayer 越大的英雄默认显示在最上层。
+        /// </summary>
+        public void SetHeroes(IEnumerable<StackedHeroDisplay> heroes)
+        {
+            _heroes.Clear();
+            if (heroes == null)
+            {
+                _displayIndex = -1;
+                IsLongPressTriggered = false;
+                Invalidate();
+                return;
+            }
+
+            _heroes.AddRange(heroes.Where(hero => hero?.Unit != null).OrderBy(hero => hero.Unit.PositionLayer));
+            _displayIndex = _heroes.Count - 1;
+            IsLongPressTriggered = false;
             Invalidate();
+        }
+
+        /// <summary>普通左键在同一站位的英雄之间循环显示。</summary>
+        public void CycleDisplayedHero()
+        {
+            if (_heroes.Count > 1)
+            {
+                _displayIndex = (_displayIndex - 1 + _heroes.Count) % _heroes.Count;
+                Invalidate();
+            }
+            IsLongPressTriggered = false;
+        }
+
+        /// <summary>轮盘选择指定英雄作为当前显示英雄。</summary>
+        public void ShowHero(LineUpUnit unit)
+        {
+            int index = _heroes.FindIndex(hero => ReferenceEquals(hero.Unit, unit));
+            if (index >= 0)
+            {
+                _displayIndex = index;
+                Invalidate();
+            }
+        }
+
+        private StackedHeroDisplay GetDisplayedHero()
+        {
+            return _displayIndex >= 0 && _displayIndex < _heroes.Count ? _heroes[_displayIndex] : null;
         }
 
         /// <summary>
@@ -382,6 +505,21 @@ namespace JinChanChanTool.DIYComponents
         protected override void ScaleControl(SizeF factor, BoundsSpecified specified)
         {
             // 不执行自动缩放，由父控件手动管理尺寸
+        }
+    }
+
+    /// <summary>棋盘格子中一个可显示的英雄层。</summary>
+    public sealed class StackedHeroDisplay
+    {
+        public LineUpUnit Unit { get; }
+        public Image Image { get; set; }
+        public Color BorderColor { get; set; }
+
+        public StackedHeroDisplay(LineUpUnit unit, Image image, Color borderColor)
+        {
+            Unit = unit;
+            Image = image;
+            BorderColor = borderColor;
         }
     }
 
@@ -463,9 +601,22 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public HexagonCell SourceCell { get; }
 
+        // Alias used by the stacked-board implementation.
+        public HexagonCell Cell => SourceCell;
+
         public HeroDragStartEventArgs(HexagonCell sourceCell)
         {
             SourceCell = sourceCell;
+        }
+    }
+
+    public class HeroStackSelectionRequestedEventArgs : EventArgs
+    {
+        public HexagonCell Cell { get; }
+
+        public HeroStackSelectionRequestedEventArgs(HexagonCell cell)
+        {
+            Cell = cell;
         }
     }
 }

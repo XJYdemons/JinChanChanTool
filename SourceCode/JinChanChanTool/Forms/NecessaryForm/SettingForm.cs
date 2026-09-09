@@ -12,8 +12,11 @@ using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
+using JinChanChanTool.Tools.KeyboardMouseTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
+using System.Globalization;
+using System.Net;
 using System.Runtime.InteropServices;
 namespace JinChanChanTool
 {
@@ -34,10 +37,40 @@ namespace JinChanChanTool
         /// </summary>
         private readonly ILocalizationService _iLocalizationService;
 
+        private readonly IKeyboardMouseDevice _winApiTestDevice;
+        private readonly bool _ownsWinApiTestDevice;
+        private readonly MakcuKeyboardMouseDevice _makcuTestDevice;
+        private readonly bool _ownsMakcuTestDevice;
+        private readonly CancellationTokenSource _keyboardMouseTestCancellation = new();
+        private readonly List<KeyboardMouseDeviceOption> _keyboardMouseDeviceOptions = new();
+
+        private bool _isUpdatingKeyboardMouseDeviceSelection;
+        private bool _isUpdatingMakcuSettings;
+        private int _keyboardMouseTestRunning;
+        private bool _keyboardMouseDeviceSettingsDisposed;
+
+        private KmBoxKeyboardMouseDevice _kmBoxTestDevice = null!;
+        private bool _ownsKmBoxTestDevice;
+
+        private sealed class KeyboardMouseDeviceOption
+        {
+            public KeyboardMouseDeviceOption(KeyboardMouseDeviceType type, string displayName)
+            {
+                Type = type;
+                DisplayName = displayName;
+            }
+
+            public KeyboardMouseDeviceType Type { get; }
+
+            public string DisplayName { get; }
+
+            public override string ToString() => DisplayName;
+        }
+
         private Screen targetScreen;//目标显示器
         private Screen[] screens;//显示器数组
 
-        public SettingForm(IManualSettingsService iAppConfigService, IRecommendedLineUpService iRecommendedLineUpService, ILocalizationService iLocalizationService)
+        public SettingForm(IManualSettingsService iAppConfigService, IRecommendedLineUpService iRecommendedLineUpService, ILocalizationService iLocalizationService, IKeyboardMouseDevice? keyboardMouseDevice = null)
         {
             InitializeComponent();
             DragHelper.EnableDragForChildren(panel_标题栏);
@@ -52,11 +85,47 @@ namespace JinChanChanTool
 
             //初始化应用设置服务类实例
             _iappConfigService = iAppConfigService;
+            if (keyboardMouseDevice?.DeviceType == KeyboardMouseDeviceType.WinApi)
+            {
+                _winApiTestDevice = keyboardMouseDevice;
+                _ownsWinApiTestDevice = false;
+            }
+            else
+            {
+                _winApiTestDevice = new WinApiKeyboardMouseDevice();
+                _ownsWinApiTestDevice = true;
+            }
+
+            if (keyboardMouseDevice is MakcuKeyboardMouseDevice makcuDevice)
+            {
+                // 应用运行时已经打开 Makcu 串口时，设置页复用同一实例，避免重复打开串口。
+                _makcuTestDevice = makcuDevice;
+                _ownsMakcuTestDevice = false;
+            }
+            else
+            {
+                _makcuTestDevice = new MakcuKeyboardMouseDevice();
+                _ownsMakcuTestDevice = true;
+            }
+
+            if (keyboardMouseDevice is KmBoxKeyboardMouseDevice kmBoxDevice)
+            {
+                _kmBoxTestDevice = kmBoxDevice;
+                _ownsKmBoxTestDevice = false;
+            }
+            else
+            {
+                _kmBoxTestDevice = new KmBoxKeyboardMouseDevice();
+                _ownsKmBoxTestDevice = true;
+            }
 
             _iRecommendedLineUpService = iRecommendedLineUpService;
 
             //初始化本地化服务实例
             _iLocalizationService = iLocalizationService;
+
+            //初始化键鼠设备设置页
+            InitializeKeyboardMouseDeviceSettings();
 
             //为组件绑定事件
             Initialize_AllComponents();
@@ -70,6 +139,744 @@ namespace JinChanChanTool
             //应用本地化
             ApplyLocalization();
         }
+
+        #region 键鼠设备相关逻辑
+        private void InitializeKeyboardMouseDeviceSettings()
+        {
+            InitializeKeyboardMouseDeviceOptions();
+            RefreshMakcuPortList();
+            UpdateKmBoxSettingsControls();
+        }
+
+        private void UpdateKmBoxSettingsControls()
+        {
+            string configuredIp = _iappConfigService.CurrentConfig.KmBoxIp?.Trim() ?? string.Empty;
+            string[] ipParts = configuredIp.Split('.', StringSplitOptions.TrimEntries);
+            TextBox[] ipInputs = { textBox_KmBoxIP1, textBox_KmBoxIP2, textBox_KmBoxIP3, textBox_KmBoxIP4 };
+            for (int i = 0; i < ipInputs.Length; i++)
+            {
+                ipInputs[i].Text = ipParts.Length == 4 ? ipParts[i] : string.Empty;
+            }
+            textBox_KmBox端口.Text = _iappConfigService.CurrentConfig.KmBoxPort > 0
+                ? _iappConfigService.CurrentConfig.KmBoxPort.ToString(CultureInfo.InvariantCulture)
+                : string.Empty;
+            textBox_KmBoxMAC.Text = _iappConfigService.CurrentConfig.KmBoxMac ?? string.Empty;
+            UpdateKmBoxStatus();
+        }
+
+        private void UpdateKmBoxStatus()
+        {
+            if (label_KmBox状态 is null) return;
+            label_KmBox状态.Text = _kmBoxTestDevice.IsConnected ? $"已连接：{_kmBoxTestDevice.IpAddress}:{_kmBoxTestDevice.Port}" : "未连接";
+            label_KmBox状态.ForeColor = _kmBoxTestDevice.IsConnected ? Color.FromArgb(40, 130, 60) : Color.Gray;
+            if (roundedButton_KmBox测试移动 is not null) { bool enabled = _kmBoxTestDevice.IsConnected && _iappConfigService.CurrentConfig.KeyboardMouseDevice == KeyboardMouseDeviceType.KmBox; roundedButton_KmBox测试移动.Enabled = enabled; roundedButton_KmBox测试点击.Enabled = enabled; }
+        }
+
+        private bool TryCommitKmBoxSettings()
+        {
+            string mac = textBox_KmBoxMAC.Text.Trim().Replace("-", string.Empty).Replace(":", string.Empty);
+            TextBox[] ipInputs = { textBox_KmBoxIP1, textBox_KmBoxIP2, textBox_KmBoxIP3, textBox_KmBoxIP4 };
+            string[] ipParts = ipInputs.Select(input => input.Text.Trim()).ToArray();
+            bool validIp = ipParts.All(part => byte.TryParse(part, NumberStyles.None, CultureInfo.InvariantCulture, out _));
+            if (!int.TryParse(textBox_KmBox端口.Text.Trim(), out int port) || port is < 1 or > 65535 || !validIp || mac.Length != 8 || !uint.TryParse(mac, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out _)) { MessageBox.Show(this, "请填写有效的 KMbox IP、端口和 MAC。", "设置错误", MessageBoxButtons.OK, MessageBoxIcon.Warning); return false; }
+            string ip = string.Join('.', ipParts);
+            _iappConfigService.CurrentConfig.KmBoxIp = ip; _iappConfigService.CurrentConfig.KmBoxPort = port; _iappConfigService.CurrentConfig.KmBoxMac = textBox_KmBoxMAC.Text.Trim(); return true;
+        }
+
+        private void roundedButton_KmBox连接_Click(object? sender, EventArgs e)
+        {
+            if (!TryCommitKmBoxSettings()) return;
+            bool ok = _kmBoxTestDevice.TryConnect(_iappConfigService.CurrentConfig.KmBoxIp, _iappConfigService.CurrentConfig.KmBoxPort, _iappConfigService.CurrentConfig.KmBoxMac, out string error);
+            UpdateKmBoxStatus();
+            if (!ok) MessageBox.Show(this, error, "KMbox 连接失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private async void roundedButton_KmBox测试移动_Click(object? sender, EventArgs e)
+        {
+            if (!IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType.KmBox) ||
+                !TryGetTestCoordinates(textBox_KmBox测试移动_X, textBox_KmBox测试移动_Y, out int x, out int y))
+            {
+                return;
+            }
+
+            await ExecuteKeyboardMouseTestAsync(
+                _kmBoxTestDevice,
+                TimeSpan.FromSeconds(1),
+                () =>
+                {
+                    _kmBoxTestDevice.SetMousePosition(x, y);
+                    return Task.CompletedTask;
+                });
+        }
+
+        private async void roundedButton_KmBox测试点击_Click(object? sender, EventArgs e)
+        {
+            if (!IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType.KmBox))
+            {
+                return;
+            }
+
+            await ExecuteKeyboardMouseTestAsync(
+                _kmBoxTestDevice,
+                TimeSpan.FromSeconds(3),
+                async () =>
+                {
+                    MouseHookTool.IncrementProgramClickCount();
+                    try
+                    {
+                        _kmBoxTestDevice.MouseLeftButtonDown();
+                        _kmBoxTestDevice.MouseLeftButtonUp();
+                        await Task.Delay(1);
+                    }
+                    finally
+                    {
+                        MouseHookTool.DecrementProgramClickCount();
+                    }
+                });
+        }
+
+        private void InitializeKeyboardMouseDeviceOptions()
+        {
+            _keyboardMouseDeviceOptions.Clear();
+            comboBox_键鼠设备选择.Items.Clear();
+
+            foreach (KeyboardMouseDeviceType deviceType in KeyboardMouseDeviceFactory.GetSupportedDeviceTypes())
+            {
+                try
+                {
+                    using IKeyboardMouseDevice device = KeyboardMouseDeviceFactory.Create(deviceType);
+                    _keyboardMouseDeviceOptions.Add(new KeyboardMouseDeviceOption(
+                        deviceType, device.DisplayName));
+                }
+                catch (NotSupportedException)
+                {
+                    // A device may be reported as supported while its optional implementation is unavailable.
+                }
+            }
+
+            comboBox_键鼠设备选择.Items.AddRange(_keyboardMouseDeviceOptions.ToArray());
+        }
+
+        private void RefreshMakcuPortList()
+        {
+            if (comboBox_Makcu串口 is null)
+            {
+                return;
+            }
+
+            string currentText = comboBox_Makcu串口.Text.Trim();
+            string configuredPort = _iappConfigService.CurrentConfig.MakcuPortName?.Trim() ?? string.Empty;
+            string selectedPort = string.IsNullOrWhiteSpace(currentText) ? configuredPort : currentText;
+
+            _isUpdatingMakcuSettings = true;
+            try
+            {
+                comboBox_Makcu串口.Items.Clear();
+                foreach (string portName in MakcuKeyboardMouseDevice.GetPortNames())
+                {
+                    comboBox_Makcu串口.Items.Add(portName);
+                }
+
+                if (!string.IsNullOrWhiteSpace(selectedPort) &&
+                    !comboBox_Makcu串口.Items.Contains(selectedPort))
+                {
+                    comboBox_Makcu串口.Items.Add(selectedPort);
+                }
+
+                comboBox_Makcu串口.Text = selectedPort;
+                textBox_Makcu波特率.Text = _iappConfigService.CurrentConfig.MakcuBaudRate.ToString(
+                    CultureInfo.InvariantCulture);
+            }
+            finally
+            {
+                _isUpdatingMakcuSettings = false;
+            }
+
+            UpdateMakcuConnectionStatus();
+        }
+
+        private void UpdateMakcuSettingsControls()
+        {
+            if (comboBox_Makcu串口 is null)
+            {
+                return;
+            }
+
+            _isUpdatingMakcuSettings = true;
+            try
+            {
+                string configuredPort = _iappConfigService.CurrentConfig.MakcuPortName?.Trim() ?? string.Empty;
+                if (!string.IsNullOrWhiteSpace(configuredPort) &&
+                    !comboBox_Makcu串口.Items.Contains(configuredPort))
+                {
+                    comboBox_Makcu串口.Items.Add(configuredPort);
+                }
+
+                comboBox_Makcu串口.Text = configuredPort;
+                textBox_Makcu波特率.Text = _iappConfigService.CurrentConfig.MakcuBaudRate
+                    .ToString(CultureInfo.InvariantCulture);
+            }
+            finally
+            {
+                _isUpdatingMakcuSettings = false;
+            }
+
+            UpdateMakcuConnectionStatus();
+        }
+
+        private void UpdateMakcuConnectionStatus()
+        {
+            if (label_Makcu连接状态值 is null)
+            {
+                return;
+            }
+
+            if (_makcuTestDevice.IsConnected)
+            {
+                label_Makcu连接状态值.Text = _iLocalizationService.Get(
+                    "SettingForm.Label.Makcu连接状态已连接",
+                    _makcuTestDevice.PortName ?? string.Empty,
+                    _makcuTestDevice.BaudRate?.ToString(CultureInfo.InvariantCulture) ?? string.Empty);
+                label_Makcu连接状态值.ForeColor = Color.FromArgb(40, 130, 60);
+            }
+            else
+            {
+                label_Makcu连接状态值.Text = _iLocalizationService.Get(
+                    "SettingForm.Label.Makcu连接状态未连接");
+                label_Makcu连接状态值.ForeColor = Color.FromArgb(133, 133, 133);
+            }
+
+            UpdateKeyboardMouseTestButtons();
+        }
+
+        private bool IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType deviceType)
+        {
+            if (_iappConfigService.CurrentConfig.KeyboardMouseDevice == deviceType)
+            {
+                return true;
+            }
+
+            MessageBox.Show(
+                this,
+                _iLocalizationService.Get("SettingForm.Msg.键鼠设备请先选择", deviceType switch { KeyboardMouseDeviceType.Makcu => "Makcu", KeyboardMouseDeviceType.KmBox => "KMbox", _ => "WinAPI" }),
+                _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            return false;
+        }
+
+        private void UpdateKeyboardMouseDeviceSelection()
+        {
+            if (_keyboardMouseDeviceOptions.Count == 0)
+            {
+                return;
+            }
+
+            int selectedIndex = _keyboardMouseDeviceOptions.FindIndex(option =>
+                option.Type == _iappConfigService.CurrentConfig.KeyboardMouseDevice);
+            if (selectedIndex < 0)
+            {
+                selectedIndex = 0;
+                _iappConfigService.CurrentConfig.KeyboardMouseDevice =
+                    _keyboardMouseDeviceOptions[selectedIndex].Type;
+            }
+
+            bool hadSelection = comboBox_键鼠设备选择.SelectedIndex >= 0;
+            bool selectionChanged = comboBox_键鼠设备选择.SelectedIndex != selectedIndex;
+            _isUpdatingKeyboardMouseDeviceSelection = true;
+            try
+            {
+                if (selectionChanged)
+                {
+                    comboBox_键鼠设备选择.SelectedIndex = selectedIndex;
+                }
+            }
+            finally
+            {
+                _isUpdatingKeyboardMouseDeviceSelection = false;
+            }
+
+            KeyboardMouseDeviceType selectedDeviceType = _keyboardMouseDeviceOptions[selectedIndex].Type;
+            if (selectedDeviceType != KeyboardMouseDeviceType.Makcu)
+            {
+                DisconnectOwnedMakcuTestDevice();
+            }
+
+            if (hadSelection && selectionChanged)
+            {
+                tabControl_键鼠设备.SelectedTab = selectedDeviceType switch
+                {
+                    KeyboardMouseDeviceType.Makcu => tabPage_键鼠设备_Makcu,
+                    KeyboardMouseDeviceType.KmBox => tabPage_键鼠设备_KmBox,
+                    _ => tabPage_键鼠设备_WinAPI
+                };
+            }
+
+            UpdateKeyboardMouseTestButtons();
+        }
+
+        private void comboBox_键鼠设备选择_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (_isUpdatingKeyboardMouseDeviceSelection ||
+                comboBox_键鼠设备选择.SelectedItem is not KeyboardMouseDeviceOption option)
+            {
+                return;
+            }
+
+            _iappConfigService.CurrentConfig.KeyboardMouseDevice = option.Type;
+            if (option.Type != KeyboardMouseDeviceType.Makcu)
+            {
+                DisconnectOwnedMakcuTestDevice();
+            }
+
+            tabControl_键鼠设备.SelectedTab = option.Type switch
+            {
+                KeyboardMouseDeviceType.Makcu => tabPage_键鼠设备_Makcu,
+                KeyboardMouseDeviceType.KmBox => tabPage_键鼠设备_KmBox,
+                _ => tabPage_键鼠设备_WinAPI
+            };
+            UpdateMakcuConnectionStatus();
+        }
+
+        private void DisconnectOwnedMakcuTestDevice()
+        {
+            if (_ownsMakcuTestDevice)
+            {
+                _makcuTestDevice.Disconnect();
+            }
+        }
+
+        private void UpdateKeyboardMouseTestButtons()
+        {
+            bool winApiSelected = _iappConfigService.CurrentConfig.KeyboardMouseDevice ==
+                                  KeyboardMouseDeviceType.WinApi;
+            bool makcuSelected = _iappConfigService.CurrentConfig.KeyboardMouseDevice ==
+                                 KeyboardMouseDeviceType.Makcu;
+            bool kmBoxSelected = _iappConfigService.CurrentConfig.KeyboardMouseDevice == KeyboardMouseDeviceType.KmBox;
+            string configuredPort = _iappConfigService.CurrentConfig.MakcuPortName?.Trim() ?? string.Empty;
+            bool makcuConnectionMatchesSettings =
+                string.IsNullOrWhiteSpace(configuredPort) ||
+                string.Equals(_makcuTestDevice.PortName, configuredPort, StringComparison.OrdinalIgnoreCase);
+            bool makcuAvailable = makcuSelected &&
+                                  _makcuTestDevice.IsAvailable &&
+                                  makcuConnectionMatchesSettings &&
+                                  _makcuTestDevice.BaudRate == _iappConfigService.CurrentConfig.MakcuBaudRate;
+
+            roundedButton_测试光标移动.Enabled = winApiSelected;
+            roundedButton_测试左键点击.Enabled = winApiSelected;
+            roundedButton_Makcu刷新串口.Enabled = makcuSelected;
+            roundedButton_Makcu测试连接.Enabled = makcuSelected;
+            roundedButton_KmBox连接.Enabled = kmBoxSelected;
+            roundedButton_Makcu测试光标移动.Enabled = makcuAvailable;
+            roundedButton_Makcu测试左键点击.Enabled = makcuAvailable;
+            UpdateKmBoxStatus();
+        }
+
+        private bool TryGetTestCoordinates(TextBox xTextBox, TextBox yTextBox, out int x, out int y)
+        {
+            bool validX = int.TryParse(
+                xTextBox.Text.Trim(),
+                NumberStyles.Integer,
+                CultureInfo.InvariantCulture,
+                out x);
+            bool validY = int.TryParse(
+                yTextBox.Text.Trim(),
+                NumberStyles.Integer,
+                CultureInfo.InvariantCulture,
+                out y);
+
+            if (validX && validY)
+            {
+                return true;
+            }
+
+            MessageBox.Show(
+                this,
+                _iLocalizationService.Get("SettingForm.Msg.键鼠设备坐标格式错误"),
+                _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+            if (!validX)
+            {
+                xTextBox.Focus();
+            }
+            else
+            {
+                yTextBox.Focus();
+            }
+            return false;
+        }
+
+        private async void roundedButton_测试光标移动_Click(object? sender, EventArgs e)
+        {
+            if (!IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType.WinApi) ||
+                !TryGetTestCoordinates(textBox_测试光标移动_X, textBox_测试光标移动_Y, out int x, out int y))
+            {
+                return;
+            }
+
+            await ExecuteKeyboardMouseTestAsync(
+                _winApiTestDevice,
+                TimeSpan.FromSeconds(1),
+                () =>
+                {
+                    _winApiTestDevice.SetMousePosition(x, y);
+                    return Task.CompletedTask;
+                });
+        }
+
+        private async void roundedButton_测试左键点击_Click(object? sender, EventArgs e)
+        {
+            if (!IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType.WinApi))
+            {
+                return;
+            }
+
+            await ExecuteKeyboardMouseTestAsync(
+                _winApiTestDevice,
+                TimeSpan.FromSeconds(3),
+                async () =>
+                {
+                    MouseHookTool.IncrementProgramClickCount();
+                    try
+                    {
+                        _winApiTestDevice.MouseLeftButtonDown();
+                        _winApiTestDevice.MouseLeftButtonUp();
+                        await Task.Delay(1);
+                    }
+                    finally
+                    {
+                        MouseHookTool.DecrementProgramClickCount();
+                    }
+                });
+        }
+
+        private void roundedButton_Makcu刷新串口_Click(object? sender, EventArgs e)
+        {
+            RefreshMakcuPortList();
+        }
+
+        private void comboBox_Makcu串口_Leave(object? sender, EventArgs e)
+        {
+            if (_isUpdatingMakcuSettings ||
+                _iappConfigService.CurrentConfig.KeyboardMouseDevice != KeyboardMouseDeviceType.Makcu)
+            {
+                return;
+            }
+
+            string portName = comboBox_Makcu串口.Text.Trim();
+            if (!string.Equals(portName, _iappConfigService.CurrentConfig.MakcuPortName,
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                DisconnectOwnedMakcuTestDevice();
+            }
+
+            _iappConfigService.CurrentConfig.MakcuPortName = portName;
+            UpdateMakcuConnectionStatus();
+        }
+
+        private void textBox_Makcu波特率_Leave(object? sender, EventArgs e)
+        {
+            if (_isUpdatingMakcuSettings ||
+                _iappConfigService.CurrentConfig.KeyboardMouseDevice != KeyboardMouseDeviceType.Makcu)
+            {
+                return;
+            }
+
+            if (!int.TryParse(textBox_Makcu波特率.Text.Trim(), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out int baudRate) || baudRate <= 0)
+            {
+                textBox_Makcu波特率.Text = _iappConfigService.CurrentConfig.MakcuBaudRate
+                    .ToString(CultureInfo.InvariantCulture);
+                MessageBox.Show(
+                    this,
+                    _iLocalizationService.Get("SettingForm.Msg.Makcu波特率格式错误"),
+                    _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (_iappConfigService.CurrentConfig.MakcuBaudRate != baudRate)
+            {
+                DisconnectOwnedMakcuTestDevice();
+            }
+
+            _iappConfigService.CurrentConfig.MakcuBaudRate = baudRate;
+            UpdateMakcuConnectionStatus();
+        }
+
+        private bool TryCommitMakcuSettings()
+        {
+            string portName = comboBox_Makcu串口.Text.Trim();
+            if (!int.TryParse(textBox_Makcu波特率.Text.Trim(), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out int baudRate) || baudRate <= 0)
+            {
+                MessageBox.Show(
+                    this,
+                    _iLocalizationService.Get("SettingForm.Msg.Makcu波特率格式错误"),
+                    _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                textBox_Makcu波特率.Focus();
+                return false;
+            }
+
+            if (!string.Equals(
+                    _iappConfigService.CurrentConfig.MakcuPortName,
+                    portName,
+                    StringComparison.OrdinalIgnoreCase) ||
+                _iappConfigService.CurrentConfig.MakcuBaudRate != baudRate)
+            {
+                DisconnectOwnedMakcuTestDevice();
+            }
+
+            _iappConfigService.CurrentConfig.MakcuPortName = portName;
+            _iappConfigService.CurrentConfig.MakcuBaudRate = baudRate;
+            UpdateMakcuConnectionStatus();
+            return true;
+        }
+
+        private void roundedButton_Makcu测试连接_Click(object? sender, EventArgs e)
+        {
+            if (!IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType.Makcu) ||
+                !TryCommitMakcuSettings())
+            {
+                return;
+            }
+
+            bool connected = _makcuTestDevice.TryConnect(
+                _iappConfigService.CurrentConfig.MakcuPortName,
+                _iappConfigService.CurrentConfig.MakcuBaudRate,
+                out string error);
+            UpdateMakcuConnectionStatus();
+
+            string message = connected
+                ? _iLocalizationService.Get("SettingForm.Msg.Makcu连接成功")
+                : _iLocalizationService.Get("SettingForm.Msg.Makcu连接失败", error);
+            MessageBox.Show(
+                this,
+                message,
+                _iLocalizationService.Get("SettingForm.MsgTitle.Makcu连接测试"),
+                MessageBoxButtons.OK,
+                connected ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+        }
+
+        private async void roundedButton_Makcu测试光标移动_Click(object? sender, EventArgs e)
+        {
+            if (!IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType.Makcu) ||
+                !TryGetTestCoordinates(
+                    textBox_Makcu测试光标移动_X,
+                    textBox_Makcu测试光标移动_Y,
+                    out int x,
+                    out int y))
+            {
+                return;
+            }
+
+            await ExecuteKeyboardMouseTestAsync(
+                _makcuTestDevice,
+                TimeSpan.FromSeconds(1),
+                () =>
+                {
+                    _makcuTestDevice.SetMousePosition(x, y);
+                    return Task.CompletedTask;
+                });
+        }
+
+        private async void roundedButton_Makcu测试左键点击_Click(object? sender, EventArgs e)
+        {
+            if (!IsKeyboardMouseDeviceSelected(KeyboardMouseDeviceType.Makcu))
+            {
+                return;
+            }
+
+            await ExecuteKeyboardMouseTestAsync(
+                _makcuTestDevice,
+                TimeSpan.FromSeconds(3),
+                async () =>
+                {
+                    MouseHookTool.IncrementProgramClickCount();
+                    try
+                    {
+                        if (!_makcuTestDevice.TryClickLeftButton(out string error))
+                        {
+                            throw new InvalidOperationException(error);
+                        }
+
+                        await Task.Delay(1);
+                    }
+                    finally
+                    {
+                        MouseHookTool.DecrementProgramClickCount();
+                    }
+                });
+        }
+
+        private async Task ExecuteKeyboardMouseTestAsync(
+            IKeyboardMouseDevice device,
+            TimeSpan delay,
+            Func<Task> operation)
+        {
+            if (_keyboardMouseDeviceSettingsDisposed)
+            {
+                return;
+            }
+
+            // 设备选择可能在等待期间被用户切换；测试必须始终绑定到发起时的设备类型。
+            if (_iappConfigService.CurrentConfig.KeyboardMouseDevice != device.DeviceType)
+            {
+                return;
+            }
+
+            if (!device.IsAvailable)
+            {
+                MessageBox.Show(
+                    this,
+                    _iLocalizationService.Get("SettingForm.Msg.键鼠设备不可用"),
+                    _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (Interlocked.Exchange(ref _keyboardMouseTestRunning, 1) != 0)
+            {
+                return;
+            }
+
+            SetKeyboardMouseTestButtonsEnabled(false);
+            CancellationToken cancellationToken = _keyboardMouseTestCancellation.Token;
+            try
+            {
+                await Task.Delay(delay, cancellationToken);
+                if (!cancellationToken.IsCancellationRequested &&
+                    !_keyboardMouseDeviceSettingsDisposed &&
+                    _iappConfigService.CurrentConfig.KeyboardMouseDevice == device.DeviceType)
+                {
+                    if (!device.IsAvailable)
+                    {
+                        MessageBox.Show(
+                            this,
+                            _iLocalizationService.Get("SettingForm.Msg.键鼠设备不可用"),
+                            _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        await operation();
+                    }
+                }
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                // Closing the settings window cancels pending test operations.
+            }
+            catch (Exception ex)
+            {
+                if (!IsDisposed && !Disposing)
+                {
+                    MessageBox.Show(
+                        this,
+                        _iLocalizationService.Get("SettingForm.Msg.键鼠设备测试失败", ex.Message),
+                        _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                Interlocked.Exchange(ref _keyboardMouseTestRunning, 0);
+                if (device.DeviceType == KeyboardMouseDeviceType.Makcu && !IsDisposed && !Disposing)
+                {
+                    UpdateMakcuConnectionStatus();
+                }
+                if (!IsDisposed && !Disposing && !_keyboardMouseDeviceSettingsDisposed)
+                {
+                    SetKeyboardMouseTestButtonsEnabled(true);
+                }
+            }
+        }
+
+        private void SetKeyboardMouseTestButtonsEnabled(bool enabled)
+        {
+            if (!enabled)
+            {
+                roundedButton_测试光标移动.Enabled = false;
+                roundedButton_测试左键点击.Enabled = false;
+                roundedButton_Makcu测试连接.Enabled = false;
+                roundedButton_Makcu刷新串口.Enabled = false;
+                roundedButton_Makcu测试光标移动.Enabled = false;
+                roundedButton_Makcu测试左键点击.Enabled = false;
+                roundedButton_KmBox连接.Enabled = false;
+                roundedButton_KmBox测试移动.Enabled = false;
+                roundedButton_KmBox测试点击.Enabled = false;
+                return;
+            }
+
+            UpdateKeyboardMouseTestButtons();
+        }
+
+        private void StopKeyboardMouseDeviceSettings()
+        {
+            if (_keyboardMouseDeviceSettingsDisposed)
+            {
+                return;
+            }
+
+            _keyboardMouseDeviceSettingsDisposed = true;
+            _keyboardMouseTestCancellation.Cancel();
+            if (_ownsMakcuTestDevice)
+            {
+                _makcuTestDevice.Dispose();
+            }
+            if (_ownsWinApiTestDevice)
+            {
+                _winApiTestDevice.Dispose();
+            }
+            if (_ownsKmBoxTestDevice)
+            {
+                _kmBoxTestDevice.Dispose();
+            }
+            _keyboardMouseTestCancellation.Dispose();
+        }
+
+        private void ApplyKeyboardMouseDeviceLocalization()
+        {
+            tabPage_键鼠设备.Text = _iLocalizationService.Get("SettingForm.Tab.键鼠设备");
+            tabPage_键鼠设备_常规.Text = _iLocalizationService.Get("SettingForm.Tab.键鼠设备.常规");
+            tabPage_键鼠设备_WinAPI.Text = _iLocalizationService.Get("SettingForm.Tab.键鼠设备.WinAPI");
+            tabPage_键鼠设备_Makcu.Text = _iLocalizationService.Get("SettingForm.Tab.键鼠设备.Makcu");
+            tabPage_键鼠设备_KmBox.Text = "KMbox";
+            label_鼠标移动方式.Text = _iLocalizationService.Get("SettingForm.Label.鼠标移动方式");
+            label_鼠标移动方式描述.Text = _iLocalizationService.Get("SettingForm.Label.鼠标移动方式描述");
+            label_测试光标移动.Text = _iLocalizationService.Get("SettingForm.Label.测试光标移动");
+            label_测试光标移动描述.Text = _iLocalizationService.Get("SettingForm.Label.测试光标移动描述");
+            label_测试左键点击.Text = _iLocalizationService.Get("SettingForm.Label.测试左键点击");
+            label_测试左键点击描述.Text = _iLocalizationService.Get("SettingForm.Label.测试左键点击描述");
+            roundedButton_测试光标移动.Text = _iLocalizationService.Get("SettingForm.Button.测试");
+            roundedButton_测试左键点击.Text = _iLocalizationService.Get("SettingForm.Button.测试");
+
+            label_Makcu串口.Text = _iLocalizationService.Get("SettingForm.Label.Makcu串口");
+            label_Makcu串口描述.Text = _iLocalizationService.Get("SettingForm.Label.Makcu串口描述");
+            label_Makcu波特率.Text = _iLocalizationService.Get("SettingForm.Label.Makcu波特率");
+            label_Makcu波特率描述.Text = _iLocalizationService.Get("SettingForm.Label.Makcu波特率描述");
+            label_Makcu连接状态.Text = _iLocalizationService.Get("SettingForm.Label.Makcu连接状态");
+            label_Makcu连接状态描述.Text = _iLocalizationService.Get("SettingForm.Label.Makcu连接状态描述");
+            label_Makcu测试光标移动.Text = _iLocalizationService.Get("SettingForm.Label.测试光标移动");
+            label_Makcu测试光标移动描述.Text = _iLocalizationService.Get("SettingForm.Label.测试光标移动描述");
+            label_Makcu测试光标移动_X.Text = "X";
+            label_Makcu测试光标移动_Y.Text = "Y";
+            label_Makcu测试左键点击.Text = _iLocalizationService.Get("SettingForm.Label.测试左键点击");
+            label_Makcu测试左键点击描述.Text = _iLocalizationService.Get("SettingForm.Label.测试左键点击描述");
+            roundedButton_Makcu刷新串口.Text = _iLocalizationService.Get("SettingForm.Button.Makcu刷新串口");
+            roundedButton_Makcu测试连接.Text = _iLocalizationService.Get("SettingForm.Button.Makcu测试连接");
+            roundedButton_Makcu测试光标移动.Text = _iLocalizationService.Get("SettingForm.Button.测试");
+            roundedButton_Makcu测试左键点击.Text = _iLocalizationService.Get("SettingForm.Button.测试");
+            UpdateMakcuConnectionStatus();
+        }
+        #endregion
 
         /// <summary>
         /// 窗体关闭时触发 ——> 检查是否有未保存的设置
@@ -103,6 +910,7 @@ namespace JinChanChanTool
                 }
 
             }
+            StopKeyboardMouseDeviceSettings();
             GlobalHotkeyTool.Enabled = true;
             base.OnFormClosing(e);
         }
@@ -162,6 +970,7 @@ namespace JinChanChanTool
 
             capsuleSwitch_避免程序与用户争夺光标控制权.IsOn = _iappConfigService.CurrentConfig.IsHighUserPriority;
             capsuleSwitch_所有窗口置顶.IsOn = _iappConfigService.CurrentConfig.IsAllWindowsTopMost;
+            capsuleSwitch_CloseToTray.IsOn = _iappConfigService.CurrentConfig.IsMinimizeToTrayOnClose;
 
             capsuleSwitch_自动停止拿牌.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase;
             capsuleSwitch_刷新失败时自动停止刷新商店.IsOn = _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore;
@@ -194,6 +1003,7 @@ namespace JinChanChanTool
             textBox_刷新商店间隔_GPU.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU.ToString();
             capsuleSwitch_启用英雄选择面板.IsOn = _iappConfigService.CurrentConfig.IsUseSelectForm;
             capsuleSwitch_启用阵容面板.IsOn = _iappConfigService.CurrentConfig.IsUseLineUpForm;
+            capsuleSwitch_紧凑阵容展示.IsOn = _iappConfigService.CurrentConfig.IsCompactMainFormLineUp;
             capsuleSwitch_启用状态面板.IsOn = _iappConfigService.CurrentConfig.IsUseStatusOverlayForm;
             capsuleSwitch_启用输出面板.IsOn = _iappConfigService.CurrentConfig.IsUseOutputForm;
             capsuleSwitch_程序启动时更新推荐装备.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
@@ -212,6 +1022,8 @@ namespace JinChanChanTool
             button_高亮渐变色1.BackColor = _iappConfigService.CurrentConfig.HighlightColor1;
             button_高亮渐变色2.BackColor = _iappConfigService.CurrentConfig.HighlightColor2;
             numericUpDown_阵容容量.Value = _iappConfigService.CurrentConfig.LineUpCapacity;
+            UpdateKeyboardMouseDeviceSelection();
+            UpdateMakcuSettingsControls();
         }
 
 
@@ -263,6 +1075,7 @@ namespace JinChanChanTool
 
             capsuleSwitch_自动识别进程.IsOnChanged += capsuleSwitch_自动识别进程_IsOnChanged;
             capsuleSwitch_所有窗口置顶.IsOnChanged += capsuleSwitch_所有窗口置顶_IsOnChanged;
+            capsuleSwitch_CloseToTray.IsOnChanged += capsuleSwitch_CloseToTray_IsOnChanged;
 
             textBox_拿牌按键1.KeyDown += TextBox6_KeyDown;
             textBox_拿牌按键1.Enter += TextBox_Enter;
@@ -718,6 +1531,14 @@ namespace JinChanChanTool
         private void capsuleSwitch_所有窗口置顶_IsOnChanged(object sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsAllWindowsTopMost = capsuleSwitch_所有窗口置顶.IsOn;
+        }
+
+        /// <summary>
+        /// 当“关闭时最小化到托盘”开关状态改变时触发。
+        /// </summary>
+        private void capsuleSwitch_CloseToTray_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsMinimizeToTrayOnClose = capsuleSwitch_CloseToTray.IsOn;
         }
 
         #region 避免程序与用户争夺光标控制权            
@@ -1739,6 +2560,14 @@ namespace JinChanChanTool
         }
 
         /// <summary>
+        /// 紧凑阵容展示开关状态改变时触发
+        /// </summary>
+        private void capsuleSwitch_紧凑阵容展示_IsOnChanged(object sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsCompactMainFormLineUp = capsuleSwitch_紧凑阵容展示.IsOn;
+        }
+
+        /// <summary>
         /// 勾选或取消勾选“使用状态覆盖窗口位置”复选框时触发
         /// </summary>
         /// <param name="sender"></param>
@@ -1894,6 +2723,17 @@ namespace JinChanChanTool
             // 保存阵容容量设置
             _iappConfigService.CurrentConfig.LineUpCapacity = (int)numericUpDown_阵容容量.Value;
 
+            if (_iappConfigService.CurrentConfig.KeyboardMouseDevice == KeyboardMouseDeviceType.Makcu &&
+                !TryCommitMakcuSettings())
+            {
+                return;
+            }
+            if (_iappConfigService.CurrentConfig.KeyboardMouseDevice == KeyboardMouseDeviceType.KmBox &&
+                !TryCommitKmBoxSettings())
+            {
+                return;
+            }
+
             _iappConfigService.Save(true);
         }
 
@@ -2037,6 +2877,7 @@ namespace JinChanChanTool
             tabPage_坐标设置.Text = _iLocalizationService.Get("SettingForm.Tab.坐标设置");
             tabPage_OCR相关.Text = _iLocalizationService.Get("SettingForm.Tab.OCR相关");
             tabPage_窗口.Text = _iLocalizationService.Get("SettingForm.Tab.窗口");
+            tabPage_窗口_主窗口.Text = _iLocalizationService.Get("SettingForm.Tab.窗口.主窗口");
             tabPage_大数据推荐.Text = _iLocalizationService.Get("SettingForm.Tab.大数据推荐");
             tabPage_开发者选项.Text = _iLocalizationService.Get("SettingForm.Tab.开发者选项");
             tabPage_功能_常规.Text = _iLocalizationService.Get("SettingForm.Tab.功能.常规");
@@ -2062,6 +2903,8 @@ namespace JinChanChanTool
             label_界面语言描述.Text = _iLocalizationService.Get("SettingForm.Label.界面语言描述");
             label_所有窗口置顶.Text = _iLocalizationService.Get("SettingForm.Label.所有窗口置顶");
             label_所有窗口置顶描述.Text = _iLocalizationService.Get("SettingForm.Label.所有窗口置顶描述");
+            label_CloseToTray.Text = _iLocalizationService.Get("SettingForm.Label.CloseToTray");
+            label_CloseToTrayDescription.Text = _iLocalizationService.Get("SettingForm.Label.CloseToTrayDescription");
             label_阵容容量.Text = _iLocalizationService.Get("SettingForm.Label.阵容容量");
             label_阵容容量描述.Text = _iLocalizationService.Get("SettingForm.Label.阵容容量描述");
 
@@ -2171,7 +3014,9 @@ namespace JinChanChanTool
             label_英雄头像框垂直间隔.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框垂直间隔");
             label_英雄头像框垂直间隔描述.Text = _iLocalizationService.Get("SettingForm.Label.英雄头像框垂直间隔描述");            
             label_启用阵容面板.Text = _iLocalizationService.Get("SettingForm.Label.启用阵容面板");
-            label_启用阵容面板描述.Text = _iLocalizationService.Get("SettingForm.Label.启用阵容面板描述");            
+            label_启用阵容面板描述.Text = _iLocalizationService.Get("SettingForm.Label.启用阵容面板描述");
+            label_紧凑阵容展示.Text = _iLocalizationService.Get("SettingForm.Label.紧凑阵容展示");
+            label_紧凑阵容展示描述.Text = _iLocalizationService.Get("SettingForm.Label.紧凑阵容展示描述");
             label_启用状态面板.Text = _iLocalizationService.Get("SettingForm.Label.启用状态面板");
             label_启用状态面板描述.Text = _iLocalizationService.Get("SettingForm.Label.启用状态面板描述");            
             label_启用输出面板.Text = _iLocalizationService.Get("SettingForm.Label.启用输出面板");
@@ -2190,6 +3035,9 @@ namespace JinChanChanTool
             // 开发者选项
             label_保存截图.Text = _iLocalizationService.Get("SettingForm.Label.保存截图");
             label_保存截图描述.Text = _iLocalizationService.Get("SettingForm.Label.保存截图描述");
+
+            // 键鼠设备
+            ApplyKeyboardMouseDeviceLocalization();
         }
         #endregion
 

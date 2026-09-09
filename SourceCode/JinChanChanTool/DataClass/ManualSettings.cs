@@ -181,6 +181,30 @@
         public string RefreshStoreKey { get; set; }
 
         /// <summary>
+        /// 执行自动拿牌和刷新操作时使用的键鼠设备。
+        /// </summary>
+        public KeyboardMouseDeviceType KeyboardMouseDevice { get; set; }
+
+        /// <summary>
+        /// Makcu 设备使用的串口名称。
+        /// </summary>
+        public string MakcuPortName { get; set; }
+
+        /// <summary>
+        /// Makcu 设备使用的串口波特率。
+        /// </summary>
+        public int MakcuBaudRate { get; set; }
+
+        /// <summary>KMbox 网络地址。</summary>
+        public string KmBoxIp { get; set; }
+
+        /// <summary>KMbox UDP 端口。</summary>
+        public int KmBoxPort { get; set; }
+
+        /// <summary>KMbox 设备 MAC/UUID（8 位十六进制）。</summary>
+        public string KmBoxMac { get; set; }
+
+        /// <summary>
         /// 是否使用CPU进行OCR识别
         /// </summary>
         public bool IsUseCPUForInference { get; set; }
@@ -351,9 +375,19 @@
         public bool IsAllWindowsTopMost { get; set; }
 
         /// <summary>
+        /// 点击主窗口关闭按钮时是否最小化到任务栏托盘
+        /// </summary>
+        public bool IsMinimizeToTrayOnClose { get; set; }
+
+        /// <summary>
         /// 阵容容量（可选择的英雄数量），范围：10-20
         /// </summary>
         public int LineUpCapacity { get; set; }
+
+        /// <summary>
+        /// 是否将主窗口阵容展示区固定为两行，并通过鼠标滚轮浏览其余英雄
+        /// </summary>
+        public bool IsCompactMainFormLineUp { get; set; }
 
         /// <summary>
         /// 创建默认设置的构造函数
@@ -395,6 +429,12 @@
             IsMouseRefreshStore = true;
             IsKeyboardRefreshStore = false;
             RefreshStoreKey = "D";
+            KeyboardMouseDevice = KeyboardMouseDeviceType.WinApi;
+            MakcuPortName = string.Empty;
+            MakcuBaudRate = 115200;
+            KmBoxIp = string.Empty;
+            KmBoxPort = JinChanChanTool.Tools.KeyboardMouseTools.KmBoxKeyboardMouseDevice.DefaultPort;
+            KmBoxMac = string.Empty;
             IsUseCPUForInference = true;
             IsUseGPUForInference = false;
             IsUseFixedCoordinates = true;
@@ -429,7 +469,9 @@
             HighlightGradientSpeed = 0.05f;
             Language = "zh-CN";
             IsAllWindowsTopMost = true;
+            IsMinimizeToTrayOnClose = false;
             LineUpCapacity = 10;
+            IsCompactMainFormLineUp = true;
 
         }
 
@@ -476,6 +518,12 @@
                 IsMouseRefreshStore = this.IsMouseRefreshStore,
                 IsKeyboardRefreshStore = this.IsKeyboardRefreshStore,
                 RefreshStoreKey = this.RefreshStoreKey,
+                KeyboardMouseDevice = this.KeyboardMouseDevice,
+                MakcuPortName = this.MakcuPortName,
+                MakcuBaudRate = this.MakcuBaudRate,
+                KmBoxIp = this.KmBoxIp,
+                KmBoxPort = this.KmBoxPort,
+                KmBoxMac = this.KmBoxMac,
                 IsUseCPUForInference = this.IsUseCPUForInference,
                 IsUseGPUForInference = this.IsUseGPUForInference,
                 IsUseFixedCoordinates = this.IsUseFixedCoordinates,
@@ -510,7 +558,9 @@
                 HighlightGradientSpeed = this.HighlightGradientSpeed,
                 Language = this.Language,
                 IsAllWindowsTopMost = this.IsAllWindowsTopMost,
+                IsMinimizeToTrayOnClose = this.IsMinimizeToTrayOnClose,
                 LineUpCapacity = this.LineUpCapacity,
+                IsCompactMainFormLineUp = this.IsCompactMainFormLineUp,
             };
         }
 
@@ -559,6 +609,12 @@
                    IsMouseRefreshStore == other.IsMouseRefreshStore &&
                    IsKeyboardRefreshStore == other.IsKeyboardRefreshStore &&
                    RefreshStoreKey == other.RefreshStoreKey &&
+                   KeyboardMouseDevice == other.KeyboardMouseDevice &&
+                   MakcuPortName == other.MakcuPortName &&
+                   MakcuBaudRate == other.MakcuBaudRate &&
+                   KmBoxIp == other.KmBoxIp &&
+                   KmBoxPort == other.KmBoxPort &&
+                   KmBoxMac == other.KmBoxMac &&
                    IsUseCPUForInference == other.IsUseCPUForInference &&
                    IsUseGPUForInference == other.IsUseGPUForInference &&
                    IsUseFixedCoordinates == other.IsUseFixedCoordinates &&
@@ -593,7 +649,9 @@
                    HighlightGradientSpeed == other.HighlightGradientSpeed &&
                    Language == other.Language &&
                    IsAllWindowsTopMost == other.IsAllWindowsTopMost &&
-                   LineUpCapacity == other.LineUpCapacity;
+                   IsMinimizeToTrayOnClose == other.IsMinimizeToTrayOnClose &&
+                   LineUpCapacity == other.LineUpCapacity &&
+                   IsCompactMainFormLineUp == other.IsCompactMainFormLineUp;
         }
 
         

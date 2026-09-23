@@ -8,11 +8,11 @@
         /// <summary>
         /// 错误结果字符串列表
         /// </summary>
-        public List<string> Incorrect { get; set; }
+        public List<string> Incorrect { get; set; } = null!;
 
         /// <summary>
         /// 错误结果映射到的正确结果
         /// </summary>
-        public string Correct { get; set; }
+        public string Correct { get; set; } = null!;
     }
 }

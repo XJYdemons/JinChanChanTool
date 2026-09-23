@@ -18,7 +18,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// Value 是包含该英雄具体翻译信息的对象。
         /// </summary>
         [JsonPropertyName("units")]
-        public List<TranslationEntry> Units { get; set; }
+        public List<TranslationEntry> Units { get; set; } = null!;
 
         /// <summary>
         /// 包含所有装备翻译信息的字典。
@@ -26,13 +26,13 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// Value 是包含该装备具体翻译信息的对象。
         /// </summary>
         [JsonPropertyName("items")]
-        public List<TranslationEntry> Items { get; set; }
+        public List<TranslationEntry> Items { get; set; } = null!;
 
         /// <summary>
         /// 包含所有羁绊翻译信息的列表。
         /// </summary>
         [JsonPropertyName("traits")]
-        public List<TranslationEntry> Traits { get; set; }
+        public List<TranslationEntry> Traits { get; set; } = null!;
     }
 
     /// <summary>
@@ -43,18 +43,18 @@ namespace JinChanChanTool.Services.RecommendedEquipment
     {
 
         [JsonPropertyName("apiName")]
-        public string ApiName { get; set; }
+        public string ApiName { get; set; } = null!;
         /// <summary>
         /// 条目的中文名称 (例如 "李青" 或 "饮血剑")。
         /// </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [JsonPropertyName("code")]
         public string Code { get; set; } = string.Empty;
 
         [JsonPropertyName("assetNames")]
-        public List<string> AssetNames { get; set; }
+        public List<string> AssetNames { get; set; } = null!;
 
         [JsonPropertyName("shopUnit")]
         public bool ShopUnit { get; set; }

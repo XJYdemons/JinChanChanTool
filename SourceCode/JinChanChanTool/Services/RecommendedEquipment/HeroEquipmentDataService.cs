@@ -29,7 +29,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
     /// </summary>
     public class HeroEquipmentDataService : IHeroEquipmentDataService
     {
-        public string[] Paths { get; set; }
+        public string[] Paths { get; set; } = null!;
         public List<DataClass.RecommendedEquipment> HeroEquipments { get; private set; }
         public Dictionary<DataClass.RecommendedEquipment, List<Image>> EquipmentImageMap { get; private set; }
         private Dictionary<string, DataClass.RecommendedEquipment> nameToHeroEquipmentMap { get; set; }

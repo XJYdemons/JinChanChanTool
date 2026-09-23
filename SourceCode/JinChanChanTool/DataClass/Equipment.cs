@@ -6,22 +6,22 @@ namespace JinChanChanTool.DataClass
         /// <summary>
         /// 装备名
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 装备类型
         /// </summary>
-        public string EquipmentType { get; set; }
+        public string EquipmentType { get; set; } = null!;
 
         /// <summary>
         /// 合成路径（两个散件名称），为空表示无合成路径
         /// </summary>
-        public string[] SyntheticPathway { get; set; }
+        public string[] SyntheticPathway { get; set; } = null!;
 
         /// <summary>
         /// 装备图片
         /// </summary>
         [JsonIgnore]
-        public Bitmap Image { get; set; }
+        public Bitmap Image { get; set; } = null!;
     }
 }

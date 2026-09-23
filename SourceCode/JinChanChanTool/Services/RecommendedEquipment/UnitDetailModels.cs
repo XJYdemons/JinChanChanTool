@@ -16,13 +16,13 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// 包含该英雄所有被统计的装备组合的列表。
         /// </summary>
         [JsonPropertyName("builds")]
-        public List<Build> Builds { get; set; }
+        public List<Build> Builds { get; set; } = null!;
 
         /// <summary>
         /// 用于计算英雄总场次的节点
         /// </summary>
         [JsonPropertyName("dates")]
-        public List<DateEntry> Dates { get; set; }
+        public List<DateEntry> Dates { get; set; } = null!;
     }
 
     public class DateEntry
@@ -31,7 +31,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// 该英雄在特定日期的名次分布
         /// </summary>
         [JsonPropertyName("places")]
-        public List<int> Places { get; set; }
+        public List<int> Places { get; set; } = null!;
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// 例如: "TFT_Item_Bloodthirster|TFT_Item_InfinityEdge|TFT_Item_SteraksGage"
         /// </summary>
         [JsonPropertyName("buildNames")]
-        public string BuildNames { get; set; }
+        public string BuildNames { get; set; } = null!;
 
         /// <summary>
         /// 该装备组合被使用的总场次数。
@@ -59,6 +59,6 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// 计算平均名次的关键数据。
         /// </summary>
         [JsonPropertyName("places")]
-        public List<int> Places { get; set; }
+        public List<int> Places { get; set; } = null!;
     }
 }

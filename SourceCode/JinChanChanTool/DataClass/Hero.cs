@@ -10,7 +10,7 @@ namespace JinChanChanTool.DataClass
         /// <summary>
         /// 英雄名
         /// </summary>
-        public string HeroName { get; set; }
+        public string HeroName { get; set; } = null!;
 
         /// <summary>
         /// 费用
@@ -31,7 +31,7 @@ namespace JinChanChanTool.DataClass
         /// 英雄图片
         /// </summary>
         [JsonIgnore]
-        public Bitmap Image { get; set; }
+        public Bitmap Image { get; set; } = null!;
 
         public Hero()
         {

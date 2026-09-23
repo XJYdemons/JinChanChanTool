@@ -16,12 +16,12 @@ namespace JinChanChanTool.DataClass
         /// 英雄的中文名
         /// </summary>
         [JsonPropertyName("heroName")]
-        public string HeroName { get; set; }
+        public string HeroName { get; set; } = null!;
 
         /// <summary>
         /// 该英雄的推荐装备列表 (通常包含3件装备的中文名)
         /// </summary>
         [JsonPropertyName("equipments")]
-        public List<string> Equipments { get; set; }
+        public List<string> Equipments { get; set; } = null!;
     }
 }

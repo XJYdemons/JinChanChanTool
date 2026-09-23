@@ -344,10 +344,10 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         private class UnitListResponse
         {
             [JsonPropertyName("tft_set")]
-            public string TftSet { get; set; }
+            public string TftSet { get; set; } = null!;
 
             [JsonPropertyName("units")]
-            public Dictionary<string, object> Units { get; set; }
+            public Dictionary<string, object> Units { get; set; } = null!;
         }
 
         #endregion

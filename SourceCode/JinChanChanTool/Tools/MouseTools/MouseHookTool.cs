@@ -28,7 +28,7 @@ namespace JinChanChanTool.Tools.MouseTools
 
         #region 静态核心实现
         private static nint _hookId = nint.Zero;
-        private static LowLevelMouseProc _mouseProc;
+        private static LowLevelMouseProc _mouseProc = null!;
         private static readonly object _counterLock = new object();
         private static long _programClickCounter = 0;
 

@@ -17,7 +17,7 @@ namespace JinChanChanTool.Forms
     public partial class LineUpForm : Form
     {
         // 单例模式
-        private static LineUpForm _instance;
+        private static LineUpForm _instance = null!;
         public static LineUpForm Instance
         {
             get
@@ -60,13 +60,13 @@ namespace JinChanChanTool.Forms
             return benchRows * BENCH_HEIGHT_PER_ROW;
         }
 
-        private ILineUpService _ilineUpService; // 阵容数据服务对象
-        public IAutomaticSettingsService _iAutoConfigService; // 自动设置数据服务对象
-        private IRecommendedLineUpService _iRecommendedLineUpService; // 推荐阵容数据服务对象
-        private IHeroDataService _heroDataService; // 英雄数据服务对象
-        private IEquipmentService _equipmentService; // 装备数据服务对象
-        private BoardDragManager _boardDragManager; // 棋盘拖拽管理器（替代 OLE DoDragDrop）
-        private ILocalizationService _iLocalizationService; // 本地化服务对象
+        private ILineUpService _ilineUpService = null!; // 阵容数据服务对象
+        public IAutomaticSettingsService _iAutoConfigService = null!; // 自动设置数据服务对象
+        private IRecommendedLineUpService _iRecommendedLineUpService = null!; // 推荐阵容数据服务对象
+        private IHeroDataService _heroDataService = null!; // 英雄数据服务对象
+        private IEquipmentService _equipmentService = null!; // 装备数据服务对象
+        private BoardDragManager _boardDragManager = null!; // 棋盘拖拽管理器（替代 OLE DoDragDrop）
+        private ILocalizationService _iLocalizationService = null!; // 本地化服务对象
         private bool _isUpdatingSubLineUpComboBox;
 
         private LineUpForm()

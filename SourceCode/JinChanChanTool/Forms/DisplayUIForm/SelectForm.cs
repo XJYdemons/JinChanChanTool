@@ -11,7 +11,7 @@ namespace JinChanChanTool.Forms
     public partial class SelectForm : Form
     {
         //单例模式
-        private static SelectForm _instance;
+        private static SelectForm _instance = null!;
         public static SelectForm Instance
         {
             get
@@ -35,7 +35,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         public bool IsDragged => _isDragged;
 
-        public IAutomaticSettingsService _iAutoConfigService;// 自动设置数据服务对象
+        public IAutomaticSettingsService _iAutoConfigService = null!;// 自动设置数据服务对象
         private SelectForm()
         {           
             InitializeComponent();

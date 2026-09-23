@@ -68,19 +68,19 @@ namespace JinChanChanTool.DIYComponents
         private bool _isDragStartPending;    // 鼠标已按下，等待超过阈值启动拖拽
         private Point _mouseDownScreenPoint; // 鼠标按下时的屏幕坐标
         private DragSourceType _dragSourceType; // 拖拽来源类型
-        private Control _capturedControl;    // 当前捕获鼠标的控件
+        private Control _capturedControl = null!;    // 当前捕获鼠标的控件
 
         // 拖拽源数据
-        private HexagonCell _sourceCell;     // 拖拽源格子（来自棋盘时）
-        private BenchSlot _sourceBenchSlot;  // 拖拽源格子（来自备战席时）
+        private HexagonCell _sourceCell = null!;     // 拖拽源格子（来自棋盘时）
+        private BenchSlot _sourceBenchSlot = null!;  // 拖拽源格子（来自备战席时）
 
         // 当前高亮的目标格子
-        private HexagonCell _currentHighlightedCell;
+        private HexagonCell _currentHighlightedCell = null!;
 
         // 引用的控件
-        private Form _hostForm;              // 宿主窗体
-        private HexagonBoard _hexagonBoard;  // 棋盘控件
-        private BenchPanel _benchPanel;      // 备战席控件
+        private Form _hostForm = null!;              // 宿主窗体
+        private HexagonBoard _hexagonBoard = null!;  // 棋盘控件
+        private BenchPanel _benchPanel = null!;      // 备战席控件
         private readonly HashSet<HexagonCell> _boundCells = [];
         private readonly HashSet<BenchSlot> _boundBenchSlots = [];
 

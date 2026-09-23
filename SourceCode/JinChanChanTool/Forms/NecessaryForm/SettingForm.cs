@@ -66,7 +66,7 @@ namespace JinChanChanTool
             public override string ToString() => DisplayName;
         }
 
-        private Screen targetScreen;//目标显示器
+        private Screen targetScreen = null!;//目标显示器
         private Screen[] screens;//显示器数组
 
         public SettingForm(IManualSettingsService iAppConfigService, IRecommendedLineUpService iRecommendedLineUpService, ILocalizationService iLocalizationService, IKeyboardMouseDevice? keyboardMouseDevice = null)

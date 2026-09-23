@@ -15,7 +15,7 @@ namespace JinChanChanTool.Forms
     public partial class StatusOverlayForm : Form
     {
         //单例模式
-        private static StatusOverlayForm _instance;
+        private static StatusOverlayForm _instance = null!;
         public static StatusOverlayForm Instance
         {
             get
@@ -34,10 +34,10 @@ namespace JinChanChanTool.Forms
             DragHelper.EnableDragForChildren(panel_副背景);
         }
 
-        public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
+        public IAutomaticSettingsService _iAutoConfigService = null!;//自动设置数据服务对象
                                                              //
-        private CardService _cardService; //自动拿牌服务
-        private ILocalizationService _iLocalizationService;
+        private CardService _cardService = null!; //自动拿牌服务
+        private ILocalizationService _iLocalizationService = null!;
         // 同步标志，防止循环调用
         private bool _isSyncingHighlight = false;
         private bool _isSyncingGetCard = false;

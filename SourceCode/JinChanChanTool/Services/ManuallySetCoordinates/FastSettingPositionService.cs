@@ -22,10 +22,10 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
         private Rectangle currentPhysicalRectangle;// 用于外传的物理矩形
 
         // 窗体组件
-        private Form overlayForm;// 用于创建半透明的覆盖层的窗口
-        private Form labelForm;//用于显示坐标信息的窗口
-        private Label showTipLabel;//用于显示提示信息的Label
-        private Label showPointLabel;// 用于显示坐标的Label
+        private Form overlayForm = null!;// 用于创建半透明的覆盖层的窗口
+        private Form labelForm = null!;//用于显示坐标信息的窗口
+        private Label showTipLabel = null!;//用于显示提示信息的Label
+        private Label showPointLabel = null!;// 用于显示坐标的Label
 
         // 目标屏幕
         private Screen targetScreen;

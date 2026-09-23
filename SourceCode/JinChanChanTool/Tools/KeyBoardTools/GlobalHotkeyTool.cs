@@ -37,10 +37,10 @@ namespace JinChanChanTool.Tools.KeyBoardTools
         #endregion
 
         #region 静态核心实现
-        private static Control _invokeControl;
+        private static Control _invokeControl = null!;
         private static nint _hookId = nint.Zero;
         private static readonly object _lock = new object();
-        private static HookProc _hookProcDelegate;
+        private static HookProc _hookProcDelegate = null!;
         private static GCHandle _hookHandle;
 
         private static readonly HashSet<Keys> _registeredKeys = new HashSet<Keys>();

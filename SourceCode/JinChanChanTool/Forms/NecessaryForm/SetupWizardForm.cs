@@ -98,7 +98,7 @@ namespace JinChanChanTool
         }
 
         #region 显示器相关逻辑       
-        private Screen targetScreen;//目标显示器
+        private Screen targetScreen = null!;//目标显示器
         private Screen[] screens;//显示器数组
         /// <summary>
         /// 加载所有显示器并填充到 ComboBox 中

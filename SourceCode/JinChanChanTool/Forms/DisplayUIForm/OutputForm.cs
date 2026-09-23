@@ -18,7 +18,7 @@ namespace JinChanChanTool.Forms
     public partial class OutputForm : Form
     {
         // 单例模式
-        private static OutputForm _instance;
+        private static OutputForm _instance = null!;
 
         public static OutputForm Instance
         {
@@ -49,8 +49,8 @@ namespace JinChanChanTool.Forms
             panel_分割滑块.MouseLeave += Panel_Dragging_MouseLeave;
 
         }
-        public IAutomaticSettingsService _iAutoConfigService;//自动设置数据服务对象
-        private ILocalizationService _iLocalizationService;
+        public IAutomaticSettingsService _iAutoConfigService = null!;//自动设置数据服务对象
+        private ILocalizationService _iLocalizationService = null!;
         /// <summary>
         /// 初始化本地化服务
         /// </summary>

@@ -28,7 +28,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 文件路径列表
         /// </summary>
-        private string[] _paths;
+        private string[] _paths = null!;
 
         /// <summary>
         /// 当前文件路径索引

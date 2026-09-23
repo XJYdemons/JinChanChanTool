@@ -12,7 +12,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 本地文件路径列表
         /// </summary>
-        private string[] paths;
+        private string[] paths = null!;
 
         /// <summary>
         /// 文件路径索引
@@ -22,7 +22,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 默认图片路径
         /// </summary>
-        private string defaultImagePath;
+        private string defaultImagePath = null!;
 
         /// <summary>
         /// 英雄数据对象列表

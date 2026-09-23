@@ -33,7 +33,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>        
         /// OCR结果纠正列表文件路径
         /// </summary>
-        private string filePath;
+        private string filePath = null!;
 
         private readonly IManualSettingsService _iManualSettingsService;
 

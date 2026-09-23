@@ -27,7 +27,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 默认图片
         /// </summary>
-        private Image defaultImage;
+        private Image defaultImage = null!;
 
         /// <summary>
         /// 是否发生改动的标志

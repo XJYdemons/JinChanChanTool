@@ -51,7 +51,7 @@ namespace JinChanChanTool.Services
 
         //private KmBoxNetHelper km ;
 
-        private QueuedOCRService _ocrService;
+        private QueuedOCRService _ocrService = null!;
 
         public bool isHighLight = false;//是否开启 高亮提示 标志(初始false)
         public event Action<bool> isHighLightStatusChanged = delegate { };

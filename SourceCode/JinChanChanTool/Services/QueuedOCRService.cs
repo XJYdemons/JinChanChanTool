@@ -13,8 +13,8 @@ namespace JinChanChanTool.Services
     /// </summary>
     public class QueuedOCRService : IDisposable
     {
-        private QueuedPaddleOcrAll _ocrQueue;      
-        private CancellationTokenSource _cts;
+        private QueuedPaddleOcrAll _ocrQueue = null!;      
+        private CancellationTokenSource _cts = null!;
         private int _cpuThreadCount;
         public enum 设备
         {

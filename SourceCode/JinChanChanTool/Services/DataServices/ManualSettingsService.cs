@@ -21,7 +21,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 应用设置文件路径。
         /// </summary>
-        private string filePath;
+        private string filePath = null!;
 
         /// <summary>
         /// JSON序列化选项（包含Color转换器）

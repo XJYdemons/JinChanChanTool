@@ -14,7 +14,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 应用设置文件路径。
         /// </summary>
-        private string filePath;
+        private string filePath = null!;
 
         #region 初始化
         public AutomaticSettingsService()

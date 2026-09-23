@@ -64,12 +64,12 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 存放按职业选择英雄按钮的面板
         /// </summary>
-        private Panel _professionButtonPanel;
+        private Panel _professionButtonPanel = null!;
 
         /// <summary>
         /// 存放按特质选择英雄按钮的面板
         /// </summary>
-        private Panel _peculiarityButtonPanel;
+        private Panel _peculiarityButtonPanel = null!;
 
         /// <summary>
         /// 主窗口中展示阵容的容器

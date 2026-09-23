@@ -92,7 +92,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 自动拿牌服务
         /// </summary>
-        private CardService _cardService;
+        private CardService _cardService = null!;
 
         /// <summary>
         /// 键鼠操作设备实例。
@@ -102,12 +102,12 @@ namespace JinChanChanTool
         /// <summary>
         /// 装备选择面板专用的自定义提示框（主窗口用）
         /// </summary>
-        private EquipmentInformationToolTip _equipmentToolTip;
+        private EquipmentInformationToolTip _equipmentToolTip = null!;
 
         /// <summary>
         /// 装备选择面板专用的自定义提示框（LineUpForm窗口用）
         /// </summary>
-        private EquipmentInformationToolTip _lineUpFormEquipmentToolTip;
+        private EquipmentInformationToolTip _lineUpFormEquipmentToolTip = null!;
 
         public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, ILocalizationService iLocalizationService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService, ILineUpParser iLineUpParser, IAutoUpdateService iAutoUpdateService, IKeyboardMouseDevice? keyboardMouseDevice = null)
         {

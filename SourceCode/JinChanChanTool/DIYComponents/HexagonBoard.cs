@@ -18,12 +18,12 @@ namespace JinChanChanTool.DIYComponents
         private HexagonCell[,] _cells;
 
         // 服务引用
-        private IHeroDataService _heroDataService;
+        private IHeroDataService _heroDataService = null!;
 
         // 当前绑定的子阵容
-        private SubLineUp _currentSubLineUp;
+        private SubLineUp _currentSubLineUp = null!;
         private HeroStackWheel _heroStackWheel;
-        private HexagonCell _wheelTargetCell;
+        private HexagonCell _wheelTargetCell = null!;
 
         /// <summary>
         /// 英雄位置变更事件（向外部通知数据变更）

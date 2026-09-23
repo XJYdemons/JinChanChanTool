@@ -11,7 +11,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 单例模式实例
         /// </summary>
-        private static CardHighlightOverlayForm _instance;
+        private static CardHighlightOverlayForm _instance = null!;
 
         /// <summary>
         /// 获取单例实例

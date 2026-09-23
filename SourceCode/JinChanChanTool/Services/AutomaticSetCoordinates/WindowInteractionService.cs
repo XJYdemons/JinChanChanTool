@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Runtime.InteropServices;
 
 namespace JinChanChanTool.Services.AutoSetCoordinates
@@ -113,7 +113,6 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         public int ClientHeight { get; private set; }
         public bool IsWindowFound => WindowHandle != nint.Zero;
 
-        private List<nint> _candidateChildren;
         private readonly WinEventDelegate _winEventDelegate;
         private nint _locationChangeHook;
         private nint _destroyHook;

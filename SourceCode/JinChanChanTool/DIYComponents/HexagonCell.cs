@@ -84,14 +84,14 @@ namespace JinChanChanTool.DIYComponents
         }
 
         /// <summary>
-        /// 英雄头像图片
+        /// 英雄头像图片（无显示英雄或图片未加载时为 null）
         /// </summary>
-        public Image HeroImage
+        public Image? HeroImage
         {
             get => GetDisplayedHero()?.Image;
             set
             {
-                StackedHeroDisplay displayedHero = GetDisplayedHero();
+                StackedHeroDisplay? displayedHero = GetDisplayedHero();
                 if (displayedHero != null)
                 {
                     displayedHero.Image = value;
@@ -108,7 +108,7 @@ namespace JinChanChanTool.DIYComponents
             get => GetDisplayedHero()?.BorderColor ?? Color.FromArgb(100, 150, 180);
             set
             {
-                StackedHeroDisplay displayedHero = GetDisplayedHero();
+                StackedHeroDisplay? displayedHero = GetDisplayedHero();
                 if (displayedHero != null)
                 {
                     displayedHero.BorderColor = value;
@@ -285,7 +285,7 @@ namespace JinChanChanTool.DIYComponents
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             PointF[] hexPoints = GetHexagonPoints();
-            StackedHeroDisplay displayedHero = GetDisplayedHero();
+            StackedHeroDisplay? displayedHero = GetDisplayedHero();
 
             Color fillColor = _isDropTarget
                 ? _dropTargetColor
@@ -500,7 +500,7 @@ namespace JinChanChanTool.DIYComponents
             }
         }
 
-        private StackedHeroDisplay GetDisplayedHero()
+        private StackedHeroDisplay? GetDisplayedHero()
         {
             return _displayIndex >= 0 && _displayIndex < _heroes.Count ? _heroes[_displayIndex] : null;
         }

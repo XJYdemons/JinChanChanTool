@@ -30,7 +30,7 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        Hero GetHeroFromName(string name);
+        Hero? GetHeroFromName(string name);
 
         /// <summary>
         /// 获取职业对象列表

@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.Localization;
@@ -683,7 +683,8 @@ namespace JinChanChanTool.Services.DataServices
                     {
                         for (int i = 0; i < lineUp.SubLineUps.Count; i++)
                         {
-                            List<LineUpUnit> newList = lineUp.SubLineUps[i].LineUpUnits.OrderBy(unit => _iHeroDataService.GetHeroFromName(unit.HeroName).Cost).ToList();
+                            // GetHeroFromName 未命中时返回 null，用 ?? 0 兜底使其排在最后，不改变原有排序语义
+                            List<LineUpUnit> newList = lineUp.SubLineUps[i].LineUpUnits.OrderBy(unit => _iHeroDataService.GetHeroFromName(unit.HeroName)?.Cost ?? 0).ToList();
                             lineUp.SubLineUps[i].LineUpUnits.Clear();
                             lineUp.SubLineUps[i].LineUpUnits.AddRange(newList);
                         }
@@ -889,7 +890,8 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         private void OrderCurrentSubLineUp()
         {
-            List<LineUpUnit> newList = GetCurrentSubLineUp().LineUpUnits.OrderBy(unit => _iHeroDataService.GetHeroFromName(unit.HeroName).Cost).ToList();
+            // GetHeroFromName 未命中时返回 null，用 ?? 0 兜底使其排在最后，不改变原有排序语义
+            List<LineUpUnit> newList = GetCurrentSubLineUp().LineUpUnits.OrderBy(unit => _iHeroDataService.GetHeroFromName(unit.HeroName)?.Cost ?? 0).ToList();
             GetCurrentSubLineUp().LineUpUnits.Clear();
             GetCurrentSubLineUp().LineUpUnits.AddRange(newList);
         }

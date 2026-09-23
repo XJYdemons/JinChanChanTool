@@ -546,11 +546,19 @@ namespace JinChanChanTool.Services
                             OutputForm.Instance.WriteLineOutputMessage($"由于识别错误关闭自动刷新！" + "\r\n");
                             停止刷新商店();
                         }
-                        // 更新UI
-                        OutputForm.Instance.WriteLineErrorMessage(errorMessage + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");
+                        // 更新UI：errorMessage 由 ConvertToRightResult 的 out 参数给出，
+                        // 虽然 isError 为 false 时通常有值，但接口未保证非空，这里做兜底
+                        string errorText = errorMessage ?? "未识别的错误字符";
+                        if (errorMessage == null)
+                        {
+                            Debug.WriteLine("[CardService] 识别错误但未提供错误信息，已使用兜底文案。");
+                            LogTool.Log("[CardService] 识别错误但未提供错误信息，已使用兜底文案。");
+                        }
+
+                        OutputForm.Instance.WriteLineErrorMessage(errorText + "\r\n图片已保存在“根目录/Logs/ErrorImages”中。");
                         // 动态计算文本区域宽度（每个字符约20像素，加上边距）
                         int estimatedCharWidth = 20;
-                        int textAreaWidth = (errorMessage.Length - 2) * estimatedCharWidth + 20;
+                        int textAreaWidth = (errorText.Length - 2) * estimatedCharWidth + 20;
                         // 创建扩展后的位图（原图宽度 + 动态文本区域宽度）
                         int newWidth = bitmaps[i].Width + Math.Max(textAreaWidth, 1);
                         int newHeight = Math.Max(bitmaps[i].Height, 19);

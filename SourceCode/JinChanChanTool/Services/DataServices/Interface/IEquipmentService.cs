@@ -82,6 +82,6 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Equipment GetEquipmentFromName(string name);
+        public Equipment? GetEquipmentFromName(string name);
     }
 }

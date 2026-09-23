@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.Network;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
@@ -91,7 +91,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// <summary>
         /// (辅助方法) 异步获取并处理单个英雄的数据。
         /// </summary>
-        private async Task<DataClass.RecommendedEquipment> FetchAndProcessHeroDataAsync(string heroKey, Dictionary<string, string> itemTranslations)
+        private async Task<DataClass.RecommendedEquipment?> FetchAndProcessHeroDataAsync(string heroKey, Dictionary<string, string> itemTranslations)
         {
             //string apiUrl = $"https://api-hc.metatft.com/tft-stat-api/unit_detail?queue=1100&patch=current&days=3&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true&unit={heroKey}";
             string apiUrl = $"https://api.xiaoyumetatft.xyz/tft-stat-api/unit_detail?queue=1100&patch=current&days=3&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true&unit={heroKey}";
@@ -137,7 +137,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                         double unitGlobalAvgRank = unitWeightedSum > 0 ? unitWeightedSum / (double)heroTotalGames : 4.0;
 
                         // 调用公差带算法
-                        Build bestBuild = ExtractBestBuild(unitDetail.Builds, heroTotalGames, unitGlobalAvgRank);
+                        Build? bestBuild = ExtractBestBuild(unitDetail.Builds, heroTotalGames, unitGlobalAvgRank);
                         if (bestBuild == null) return null;
 
                         var equipmentKeys = bestBuild.BuildNames.Split('|');
@@ -184,7 +184,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             }
         }
 
-        private Build ExtractBestBuild(List<Build> builds, long heroTotalGames, double unitAvg)
+        private Build? ExtractBestBuild(List<Build> builds, long heroTotalGames, double unitAvg)
         {
             //数据清洗
             var rawList = builds

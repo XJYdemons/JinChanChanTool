@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
@@ -59,7 +59,7 @@ namespace JinChanChanTool.Services.LineupCrawling
         /// <summary>
         ///  执行三步爬取逻辑。
         /// </summary>
-        public async Task<List<RecommendedLineUp>> GetRecommendedLineUpsAsync(IProgress<Tuple<int, string>> progress)
+        public async Task<List<RecommendedLineUp>> GetRecommendedLineUpsAsync(IProgress<Tuple<int, string>>? progress)
         {
             _clusterHeroKeysMap.Clear();
 
@@ -91,7 +91,7 @@ namespace JinChanChanTool.Services.LineupCrawling
         }
 
         #region 元数据处理
-        private async Task<List<RecommendedLineUp>> FetchMetadataAsync()
+        private async Task<List<RecommendedLineUp>?> FetchMetadataAsync()
         {
             using var response = await HttpProvider.Client.GetAsync(MetadataUrl, HttpCompletionOption.ResponseContentRead);
             if (!response.IsSuccessStatusCode) return null;
@@ -176,9 +176,12 @@ namespace JinChanChanTool.Services.LineupCrawling
             if (!File.Exists(filePath)) return new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             using JsonDocument document = JsonDocument.Parse(File.ReadAllText(filePath));
+            // 先投影为可空字符串，再用 OfType 过滤掉 null：既满足 HashSet<string> 的元素非空要求，
+            // 也保留原有「属性缺失或值为 null 时跳过」的行为
             return document.RootElement
                 .EnumerateArray()
                 .Select(element => element.TryGetProperty(propertyName, out JsonElement property) ? property.GetString() : null)
+                .OfType<string>()
                 .Where(name => !string.IsNullOrWhiteSpace(name))
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
         }
@@ -247,7 +250,7 @@ namespace JinChanChanTool.Services.LineupCrawling
         #endregion
 
         #region 详情、标签与站位转换
-        private async Task<List<RecommendedLineUp>> FetchLineupDetailsAsync(List<RecommendedLineUp> lineups, IProgress<Tuple<int, string>> progress)
+        private async Task<List<RecommendedLineUp>> FetchLineupDetailsAsync(List<RecommendedLineUp> lineups, IProgress<Tuple<int, string>>? progress)
         {
             const int MAX_CONCURRENT = 10; // 并发数 10
             var semaphore = new SemaphoreSlim(MAX_CONCURRENT);

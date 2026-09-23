@@ -23,7 +23,7 @@ namespace JinChanChanTool.DIYComponents
         // 当前绑定的子阵容
         private SubLineUp _currentSubLineUp = null!;
         private HeroStackWheel _heroStackWheel;
-        private HexagonCell _wheelTargetCell = null!;
+        private HexagonCell? _wheelTargetCell;
 
         /// <summary>
         /// 英雄位置变更事件（向外部通知数据变更）
@@ -259,11 +259,10 @@ namespace JinChanChanTool.DIYComponents
             }
 
             // 同一格可以存在多个英雄，新放置的英雄成为显示顶层。
-            if (e.MovedUnit != null)
-            {
-                e.MovedUnit.Position = (e.TargetRow, e.TargetColumn);
-                e.MovedUnit.PositionLayer = GetNextPositionLayer();
-            }
+            // 取出到局部变量，既便于判空，也保证下方事件参数使用同一份已收窄的引用
+            LineUpUnit movedUnit = e.MovedUnit;
+            movedUnit.Position = (e.TargetRow, e.TargetColumn);
+            movedUnit.PositionLayer = GetNextPositionLayer();
 
             // 刷新显示
             RefreshBoard();
@@ -272,7 +271,7 @@ namespace JinChanChanTool.DIYComponents
             HeroPositionChanged?.Invoke(this, new BoardHeroPositionChangedEventArgs(
                 e.SourceRow, e.SourceColumn,
                 e.TargetRow, e.TargetColumn,
-                e.MovedUnit, null
+                movedUnit, null
             ));
         }
 
@@ -352,7 +351,7 @@ namespace JinChanChanTool.DIYComponents
         /// <param name="row">行坐标（1-4）</param>
         /// <param name="column">列坐标（1-7）</param>
         /// <returns>对应的格子，如果坐标无效则返回null</returns>
-        public HexagonCell GetCell(int row, int column)
+        public HexagonCell? GetCell(int row, int column)
         {
             // 转换为数组索引
             int arrayRow = row - 1;
@@ -388,9 +387,9 @@ namespace JinChanChanTool.DIYComponents
         public int TargetRow { get; }
         public int TargetColumn { get; }
         public LineUpUnit MovedUnit { get; }
-        public LineUpUnit SwappedUnit { get; }
+        public LineUpUnit? SwappedUnit { get; }
 
-        public BoardHeroPositionChangedEventArgs(int sourceRow, int sourceColumn, int targetRow, int targetColumn, LineUpUnit movedUnit, LineUpUnit swappedUnit)
+        public BoardHeroPositionChangedEventArgs(int sourceRow, int sourceColumn, int targetRow, int targetColumn, LineUpUnit movedUnit, LineUpUnit? swappedUnit)
         {
             SourceRow = sourceRow;
             SourceColumn = sourceColumn;

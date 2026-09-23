@@ -53,9 +53,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment.Interface
         /// <param name="targetSeason">接收网络数据的赛季目录名。</param>
         void UpdateDataFromCrawling(List<DataClass.RecommendedEquipment> crawledData, string targetSeason);
 
-        DataClass.RecommendedEquipment GetHeroEquipmentFromName(string name);
+        DataClass.RecommendedEquipment? GetHeroEquipmentFromName(string name);
 
-        List<Image> GetImagesFromHeroEquipment(DataClass.RecommendedEquipment heroEquipment);
+        List<Image>? GetImagesFromHeroEquipment(DataClass.RecommendedEquipment heroEquipment);
 
         /// <summary>
         /// 获取数据最后更新时间

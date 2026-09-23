@@ -158,7 +158,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Hero GetHeroFromName(string name)
+        public Hero? GetHeroFromName(string name)
         {
             // 字典取值可能为 null，显式判空后再返回，行为与原来一致（未命中同样返回 null）
             if (nameToHeroDataMap.TryGetValue(name, out Hero? hero) && hero != null)

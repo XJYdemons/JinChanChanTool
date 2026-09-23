@@ -407,7 +407,7 @@ namespace JinChanChanTool.Forms
                         }
 
                         // 获取装备对象
-                        Equipment equipment = _equipmentService.GetEquipmentFromName(equipmentName);
+                        Equipment? equipment = _equipmentService.GetEquipmentFromName(equipmentName);
                         if (equipment == null)
                         {
                             continue;
@@ -549,7 +549,7 @@ namespace JinChanChanTool.Forms
                     int count = kvp.Value;
 
                     // 获取散件装备对象
-                    Equipment component = _equipmentService.GetEquipmentFromName(componentName);
+                    Equipment? component = _equipmentService.GetEquipmentFromName(componentName);
                     if (component == null)
                     {
                         continue;

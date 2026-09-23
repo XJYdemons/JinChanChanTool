@@ -1246,7 +1246,16 @@ namespace JinChanChanTool
             _activeToolTip = null;
             _uiBuilderService.ClearSeasonImageReferences();
 
-            _iAutomaticSettingsService.CurrentConfig.SelectedSeason = comboBox_赛季选择.Items[comboBox_赛季选择.SelectedIndex].ToString();
+            // 下拉框项文本可能为 null（理论上不会，但 ComboBox 允许加入 null 项），
+            // 这里用空字符串兜底，避免把 null 写进配置导致后续赛季匹配异常
+            string selectedSeason = comboBox_赛季选择.Items[comboBox_赛季选择.SelectedIndex]?.ToString() ?? string.Empty;
+            if (selectedSeason.Length == 0)
+            {
+                LogTool.Log($"[MainForm] 赛季下拉框第 {comboBox_赛季选择.SelectedIndex} 项文本为空，已使用空字符串作为赛季名。");
+                Debug.WriteLine($"[MainForm] 赛季下拉框第 {comboBox_赛季选择.SelectedIndex} 项文本为空，已使用空字符串作为赛季名。");
+            }
+
+            _iAutomaticSettingsService.CurrentConfig.SelectedSeason = selectedSeason;
             _iAutomaticSettingsService.Save();
             _iheroDataService.SetFilePathsIndex(_iAutomaticSettingsService.CurrentConfig.SelectedSeason);
             _iheroDataService.ReLoad();
@@ -1851,8 +1860,8 @@ namespace JinChanChanTool
 
             waitForLoad = false;
 
-            // 调试输出
-            Debug.WriteLine("当前阵容：" + string.Join("   ", heroDataList.Where(h => h.Hero != null).Select(h => h.Hero.HeroName)));
+            // 调试输出：用 OfType 收窄，避免 Where(h => h.Hero != null) 后仍被判为可空
+            Debug.WriteLine("当前阵容：" + string.Join("   ", heroDataList.Select(h => h.Hero).OfType<Hero>().Select(h => h.HeroName)));
         }
 
         /// <summary>
@@ -1888,7 +1897,7 @@ namespace JinChanChanTool
         {
             foreach (LineUpUnit unit in units)
             {
-                CheckBox checkBox = _uiBuilderService.GetCheckBoxFromName(unit.HeroName);
+                CheckBox? checkBox = _uiBuilderService.GetCheckBoxFromName(unit.HeroName);
                 if (checkBox != null)
                 {
                     checkBox.Checked = true;
@@ -1941,7 +1950,7 @@ namespace JinChanChanTool
         {
             foreach (HeroPictureBox heroPictureBox in _uiBuilderService.SelectForm_HeroPictureBoxes)
             {
-                heroPictureBox.IsSelected = currentSubLineUp.Contains(heroPictureBox.Tag as string);
+                heroPictureBox.IsSelected = currentSubLineUp.Contains(heroPictureBox.Tag as string ?? string.Empty);
             }
         }
 
@@ -2462,11 +2471,11 @@ namespace JinChanChanTool
                     }
 
                     // 使用英雄名称去查找对应的 HeroEquipment 对象
-                    RecommendedEquipment currentHeroEquipment = _iHeroEquipmentDataService.GetHeroEquipmentFromName(name);
+                    RecommendedEquipment? currentHeroEquipment = _iHeroEquipmentDataService.GetHeroEquipmentFromName(name);
 
                     if (currentHeroEquipment != null)
                     {
-                        List<Image> images = _iHeroEquipmentDataService.GetImagesFromHeroEquipment(currentHeroEquipment);
+                        List<Image>? images = _iHeroEquipmentDataService.GetImagesFromHeroEquipment(currentHeroEquipment);
                         // 确保有图片可供显示
                         if (images != null && images.Any())
                         {

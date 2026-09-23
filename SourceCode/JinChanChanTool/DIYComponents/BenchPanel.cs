@@ -1,5 +1,6 @@
 using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices.Interface;
+using System.Diagnostics;
 
 namespace JinChanChanTool.DIYComponents
 {
@@ -313,7 +314,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 绑定的阵容单位
         /// </summary>
-        public LineUpUnit LineUpUnit => _lineUpUnit;
+        public LineUpUnit? LineUpUnit => _lineUpUnit;
 
         /// <summary>
         /// 是否有英雄
@@ -330,7 +331,16 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         public void InvokeHeroDragStarted()
         {
-            HeroDragStarted?.Invoke(this, new BenchSlotDragEventArgs(_lineUpUnit, slotIndex));
+            // 空格子没有绑定的阵容单位，此时不应触发拖拽事件
+            LineUpUnit? unit = _lineUpUnit;
+            if (unit == null)
+            {
+                LogTool.Log($"[BenchSlot] 第 {slotIndex} 格没有绑定的阵容单位，已忽略拖拽开始事件。");
+                Debug.WriteLine($"[BenchSlot] 第 {slotIndex} 格没有绑定的阵容单位，已忽略拖拽开始事件。");
+                return;
+            }
+
+            HeroDragStarted?.Invoke(this, new BenchSlotDragEventArgs(unit, slotIndex));
         }
 
         public BenchSlot(int index)
@@ -347,7 +357,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 设置英雄
         /// </summary>
-        public void SetHero(LineUpUnit lineUpUnit, Image heroImage, Color borderColor)
+        public void SetHero(LineUpUnit lineUpUnit, Image? heroImage, Color borderColor)
         {
             _lineUpUnit = lineUpUnit;
             _heroImage = heroImage;

@@ -109,7 +109,17 @@ namespace JinChanChanTool.Services.DataServices
                     return;
                 }
 
-                ResultMappings = JsonSerializer.Deserialize<List<ResultMapping>>(json);
+                // 反序列化可能返回 null（内容为字面量 "null" 等），此时保持已有映射并创建新文件
+                List<ResultMapping>? loadedMappings = JsonSerializer.Deserialize<List<ResultMapping>>(json);
+                if (loadedMappings == null)
+                {
+                    Debug.WriteLine("[CorrectionService] OCR结果纠正列表反序列化结果为 null，将创建新的文件。");
+                    LogTool.Log("[CorrectionService] OCR结果纠正列表反序列化结果为 null，将创建新的文件。");
+                    Save();
+                    return;
+                }
+
+                ResultMappings = loadedMappings;
             }
             catch
             {
@@ -234,7 +244,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        private string UpdataErrorDir(string result)
+        private string? UpdataErrorDir(string result)
         {          
             foreach (char c in result)
             {

@@ -64,12 +64,12 @@ namespace JinChanChanTool.Services
         /// <summary>
         /// 存放按职业选择英雄按钮的面板
         /// </summary>
-        private Panel? _professionButtonPanel = null!;
+        private Panel? _professionButtonPanel;
 
         /// <summary>
         /// 存放按特质选择英雄按钮的面板
         /// </summary>
-        private Panel? _peculiarityButtonPanel = null!;
+        private Panel? _peculiarityButtonPanel;
 
         /// <summary>
         /// 主窗口中展示阵容的容器
@@ -691,6 +691,15 @@ namespace JinChanChanTool.Services
         {
             MainForm_ProfessionButtons.Clear();
             MainForm_PeculiarityButtons.Clear();
+
+            // 两个面板由 InitializeObject 注入，未注入时跳过创建，避免空引用
+            if (_professionButtonPanel == null || _peculiarityButtonPanel == null)
+            {
+                LogTool.Log("[UIBuilderService] 职业/特质按钮面板尚未初始化，已跳过创建。");
+                Debug.WriteLine("[UIBuilderService] 职业/特质按钮面板尚未初始化，已跳过创建。");
+                return;
+            }
+
             // 创建职业按钮
             CreateButtonGroup(_professionButtonPanel, _iHeroDataService.GetProfessions(), MainForm_ProfessionButtons, profession => profession.Title);
 
@@ -1046,7 +1055,7 @@ namespace JinChanChanTool.Services
                                  
         }
         
-        public CheckBox GetCheckBoxFromName(string name)
+        public CheckBox? GetCheckBoxFromName(string name)
         {
             if(nameToCheckBoxMap.ContainsKey(name))
             {

@@ -144,7 +144,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Equipment GetEquipmentFromName(string name)
+        public Equipment? GetEquipmentFromName(string name)
         {
             // 字典取值可能为 null，显式判空后再返回，行为与原来一致（未命中同样返回 null）
             if (nameToEquipmentMap.TryGetValue(name, out Equipment? equipment) && equipment != null)

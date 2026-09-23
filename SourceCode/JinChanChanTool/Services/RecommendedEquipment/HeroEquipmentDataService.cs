@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
 using System.Diagnostics;
@@ -72,7 +72,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         /// 获取当前赛季的完整路径。
         /// </summary>
         /// <returns>返回匹配的路径，如果找不到则返回null。</returns>
-        private string GetCurrentSeasonPath()
+        private string? GetCurrentSeasonPath()
         {
             if (Paths == null || Paths.Length == 0 || _pathIndex < 0 || _pathIndex >= Paths.Length)
             {
@@ -102,12 +102,12 @@ namespace JinChanChanTool.Services.RecommendedEquipment
             return selectedIndex >= 0;
         }
 
-        public DataClass.RecommendedEquipment GetHeroEquipmentFromName(string name)
+        public DataClass.RecommendedEquipment? GetHeroEquipmentFromName(string name)
         {
             return nameToHeroEquipmentMap.TryGetValue(name, out var hero) ? hero : null;
         }
 
-        public List<Image> GetImagesFromHeroEquipment(DataClass.RecommendedEquipment heroEquipment)
+        public List<Image>? GetImagesFromHeroEquipment(DataClass.RecommendedEquipment heroEquipment)
         {
             return EquipmentImageMap.TryGetValue(heroEquipment, out var images) ? images : null;
         }
@@ -132,7 +132,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
         public void Save()
         {
-            string currentSeasonPath = GetCurrentSeasonPath();
+            string? currentSeasonPath = GetCurrentSeasonPath();
             if (string.IsNullOrEmpty(currentSeasonPath))
             {
                 OutputForm.Instance.WriteLineOutputMessage("错误: HeroEquipmentDataService - 无法保存，因为找不到当前赛季路径。");
@@ -143,7 +143,9 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
             try
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                // GetDirectoryName 在路径无目录部分时返回 null，此处用文件名兜底，保证目录一定可创建
+                string? directory = Path.GetDirectoryName(filePath);
+                Directory.CreateDirectory(directory ?? Path.GetDirectoryName(Path.GetFullPath(filePath)) ?? AppDomain.CurrentDomain.BaseDirectory);
 
                 // 创建包装对象
                 EquipmentDataFile dataFile = new EquipmentDataFile
@@ -256,7 +258,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         private void LoadFromJson()
         {
             HeroEquipments.Clear();
-            string currentSeasonPath = GetCurrentSeasonPath();
+            string? currentSeasonPath = GetCurrentSeasonPath();
             if (string.IsNullOrEmpty(currentSeasonPath))
             {
                 OutputForm.Instance.WriteLineOutputMessage("警告: HeroEquipmentDataService - 无法加载JSON，因为找不到目标赛季路径。");
@@ -315,7 +317,7 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         {
             ReleaseEquipmentImages();
             EquipmentImageMap.Clear();
-            string currentSeasonPath = GetCurrentSeasonPath();
+            string? currentSeasonPath = GetCurrentSeasonPath();
             if (string.IsNullOrEmpty(currentSeasonPath))
             {
                 return;

@@ -1,4 +1,5 @@
 using JinChanChanTool.DataClass;
+using System.Diagnostics;
 
 namespace JinChanChanTool.DIYComponents
 {
@@ -138,7 +139,14 @@ namespace JinChanChanTool.DIYComponents
             // 只响应左键，且格子上有英雄
             if (e.Button != MouseButtons.Left) return;
 
-            HexagonCell cell = (HexagonCell)sender;
+            // sender 类型收窄：本处理器仅绑定到 HexagonCell，非预期来源直接忽略
+            if (sender is not HexagonCell cell)
+            {
+                LogTool.Log($"[BoardDragManager] OnCellMouseDown 收到非 HexagonCell 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[BoardDragManager] OnCellMouseDown 收到非 HexagonCell 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             if (!cell.HasHero || !cell.IsPointInHexagon(e.Location)) return;
 
             // 记录拖拽源信息
@@ -162,7 +170,14 @@ namespace JinChanChanTool.DIYComponents
             // 只响应左键，且格子上有英雄
             if (e.Button != MouseButtons.Left) return;
 
-            BenchSlot slot = (BenchSlot)sender;
+            // sender 类型收窄：本处理器仅绑定到 BenchSlot，非预期来源直接忽略
+            if (sender is not BenchSlot slot)
+            {
+                LogTool.Log($"[BoardDragManager] OnBenchSlotMouseDown 收到非 BenchSlot 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[BoardDragManager] OnBenchSlotMouseDown 收到非 BenchSlot 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             if (!slot.HasHero) return;
 
             // 记录拖拽源信息
@@ -186,7 +201,14 @@ namespace JinChanChanTool.DIYComponents
             // 未按下或已完成，不处理
             if (!_isDragStartPending && !_isDragActive) return;
 
-            Control senderControl = (Control)sender;
+            // sender 类型收窄：需要 Control 才能做坐标换算
+            if (sender is not Control senderControl)
+            {
+                LogTool.Log($"[BoardDragManager] OnMouseMove 收到非 Control 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[BoardDragManager] OnMouseMove 收到非 Control 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             Point currentScreenPoint = senderControl.PointToScreen(e.Location);
 
             // 阶段1：等待超过阈值才正式启动拖拽
@@ -245,7 +267,15 @@ namespace JinChanChanTool.DIYComponents
             }
 
             // 拖拽进行中，执行放置逻辑
-            Control senderControl = (Control)sender;
+            // sender 类型收窄：需要 Control 才能做坐标换算
+            if (sender is not Control senderControl)
+            {
+                LogTool.Log($"[BoardDragManager] OnMouseUp 收到非 Control 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[BoardDragManager] OnMouseUp 收到非 Control 的发送者：{sender?.GetType().FullName ?? "null"}");
+                CleanupDrag();
+                return;
+            }
+
             Point screenPoint = senderControl.PointToScreen(e.Location);
 
             // 命中测试确定最终目标

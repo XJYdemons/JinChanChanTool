@@ -248,7 +248,6 @@ namespace JinChanChanTool.Forms
                     // 行绑定项可能不是 Equipment，改用模式匹配卫语句，避免空引用
                     if (dataGridView_装备数据编辑器.Rows[e.RowIndex].DataBoundItem is not Equipment equipment)
                     {
-                        LogTool.Log($"[EquipmentDataEditorForm] DataGridView_CellFormatting 行绑定项不是装备对象，跳过合成路径格式化：行索引 {e.RowIndex}");
                         Debug.WriteLine($"[EquipmentDataEditorForm] DataGridView_CellFormatting 行绑定项不是装备对象，跳过合成路径格式化：行索引 {e.RowIndex}");
                         return;
                     }

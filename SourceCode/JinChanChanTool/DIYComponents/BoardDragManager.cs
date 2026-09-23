@@ -204,7 +204,6 @@ namespace JinChanChanTool.DIYComponents
             // sender 类型收窄：需要 Control 才能做坐标换算
             if (sender is not Control senderControl)
             {
-                LogTool.Log($"[BoardDragManager] OnMouseMove 收到非 Control 的发送者：{sender?.GetType().FullName ?? "null"}");
                 Debug.WriteLine($"[BoardDragManager] OnMouseMove 收到非 Control 的发送者：{sender?.GetType().FullName ?? "null"}");
                 return;
             }

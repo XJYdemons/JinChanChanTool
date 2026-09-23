@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.Network;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
@@ -315,7 +315,8 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 return aliasName;
             }
 
-            LogTool.Log($"[DynamicGameDataService] GetHeroTranslation 未命中英雄翻译，回退为原始名称：{apiName}");
+            // 未命中翻译属正常情况（新英雄上线早于翻译表更新），回退为原始名称。
+            // 该路径会被每个英雄调用一次，故只写调试输出，避免污染用户日志
             Debug.WriteLine($"[DynamicGameDataService] GetHeroTranslation 未命中英雄翻译，回退为原始名称：{apiName}");
             return apiName;
         }

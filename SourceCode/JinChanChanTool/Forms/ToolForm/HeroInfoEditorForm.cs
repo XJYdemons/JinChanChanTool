@@ -253,7 +253,6 @@ namespace JinChanChanTool.Forms
                 // 行绑定项可能不是 Hero，改用模式匹配卫语句，避免空引用
                 if (dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem is not Hero hero)
                 {
-                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过职业格式化：行索引 {e.RowIndex}");
                     Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过职业格式化：行索引 {e.RowIndex}");
                     return;
                 }
@@ -269,7 +268,6 @@ namespace JinChanChanTool.Forms
                 // 行绑定项可能不是 Hero，改用模式匹配卫语句，避免空引用
                 if (dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem is not Hero hero)
                 {
-                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过特性格式化：行索引 {e.RowIndex}");
                     Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过特性格式化：行索引 {e.RowIndex}");
                     return;
                 }

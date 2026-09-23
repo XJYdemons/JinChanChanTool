@@ -1297,7 +1297,6 @@ namespace JinChanChanTool
         {
             if (sender is not ComboBox comboBox)
             {
-                LogTool.Log($"[MainForm] comboBox_LineUps_DropDownClosed 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
                 Debug.WriteLine($"[MainForm] comboBox_LineUps_DropDownClosed 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
                 return;
             }
@@ -1624,7 +1623,6 @@ namespace JinChanChanTool
         {
             if (sender is not HeroPictureBox clickedBox)
             {
-                LogTool.Log($"[MainForm] HeroPictureBox_MouseEnter 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
                 Debug.WriteLine($"[MainForm] HeroPictureBox_MouseEnter 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
                 return;
             }
@@ -1652,7 +1650,6 @@ namespace JinChanChanTool
         {
             if (sender is not HeroPictureBox clickedBox)
             {
-                LogTool.Log($"[MainForm] HeroPictureBox_MouseLeave 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
                 Debug.WriteLine($"[MainForm] HeroPictureBox_MouseLeave 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
                 return;
             }

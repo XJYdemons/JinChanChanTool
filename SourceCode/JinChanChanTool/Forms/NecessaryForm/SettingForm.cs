@@ -935,7 +935,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object? sender, EventArgs e)
         {
             targetScreen = screens[comboBox_选择显示器.SelectedIndex];
             _iappConfigService.CurrentConfig.SelectedScreenIndex = comboBox_选择显示器.SelectedIndex;
@@ -1155,7 +1155,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_Enter(object sender, EventArgs e)
+        private void TextBox_Enter(object? sender, EventArgs e)
         {
             //禁用全局热键，防止冲突
             GlobalHotkeyTool.Enabled = false;
@@ -1168,7 +1168,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_Leave(object sender, EventArgs e)
+        private void TextBox_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -1185,7 +1185,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_KeyDown(object? sender, KeyEventArgs e)
         {
 
             // 捕获用户按下的键，并更新 TextBox
@@ -1208,7 +1208,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_召出隐藏窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_召出隐藏窗口快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1241,7 +1241,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_高亮提示_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_高亮提示_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1271,7 +1271,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_自动拿牌快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_自动拿牌快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
 
             // 捕获用户按下的键，并更新 TextBox
@@ -1304,7 +1304,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_自动刷新商店快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_自动刷新商店快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
 
             // 捕获用户按下的键，并更新 TextBox
@@ -1336,7 +1336,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_长按自动D牌快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_长按自动D牌快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
 
             // 捕获用户按下的键，并更新 TextBox
@@ -1367,7 +1367,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_英雄选择窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_英雄选择窗口快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1397,7 +1397,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_阵容选择窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_阵容选择窗口快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1427,7 +1427,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_状态窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_状态窗口快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1457,7 +1457,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_输出窗口快捷键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_输出窗口快捷键_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1527,7 +1527,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 当“所有窗口置顶”开关状态改变时触发。
         /// </summary>
-        private void capsuleSwitch_所有窗口置顶_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_所有窗口置顶_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsAllWindowsTopMost = capsuleSwitch_所有窗口置顶.IsOn;
         }
@@ -1535,7 +1535,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 当“关闭时最小化到托盘”开关状态改变时触发。
         /// </summary>
-        private void capsuleSwitch_CloseToTray_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_CloseToTray_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsMinimizeToTrayOnClose = capsuleSwitch_CloseToTray.IsOn;
         }
@@ -1548,7 +1548,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch1_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch1_IsOnChanged(object? sender, EventArgs e)
         {
 
             _iappConfigService.CurrentConfig.IsHighUserPriority = capsuleSwitch_避免程序与用户争夺光标控制权.IsOn;
@@ -1561,7 +1561,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_DelayAfterMouseOperation_Leave(object sender, EventArgs e)
+        private void textBox_DelayAfterMouseOperation_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -1596,7 +1596,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch2_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch2_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsMouseHeroPurchase = capsuleSwitch_模拟鼠标拿牌.IsOn;
             if (isUpdatingSwitch_鼠标模拟拿牌) return;
@@ -1608,7 +1608,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch3_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch3_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsKeyboardHeroPurchase = capsuleSwitch_按键模拟拿牌.IsOn;
             if (isUpdatingSwitch_按键模拟拿牌) return;
@@ -1674,7 +1674,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox6_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox6_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1702,7 +1702,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox7_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox7_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1730,7 +1730,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox16_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox16_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1758,7 +1758,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox17_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox17_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1786,7 +1786,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox18_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox18_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1809,7 +1809,7 @@ namespace JinChanChanTool
         #endregion
 
         #region 自动停止拿牌
-        private void capsuleSwitch4_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch4_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase = capsuleSwitch_自动停止拿牌.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticStopHeroPurchase)
@@ -1827,7 +1827,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_MaxTimesWithoutGetCard_Leave(object sender, EventArgs e)
+        private void textBox_MaxTimesWithoutGetCard_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -1861,7 +1861,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch6_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch6_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsMouseRefreshStore = capsuleSwitch_模拟鼠标刷新商店.IsOn;
             if (isUpdatingSwitch_鼠标模拟刷新商店) return;
@@ -1873,7 +1873,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch5_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch5_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsKeyboardRefreshStore = capsuleSwitch_模拟按键刷新商店.IsOn;
             if (isUpdatingSwitch_按键模拟刷新商店) return;
@@ -1922,7 +1922,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_刷新商店按键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_刷新商店按键_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -1950,7 +1950,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch7_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch7_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore = capsuleSwitch_刷新失败时自动停止刷新商店.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticStopRefreshStore)
@@ -1968,7 +1968,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_MaxTimesWithoutRefresh_Leave(object sender, EventArgs e)
+        private void textBox_MaxTimesWithoutRefresh_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -1997,7 +1997,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch8_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch8_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsStopRefreshStoreWhenErrorCharacters = capsuleSwitch_识别错误时自动停止刷新商店.IsOn;
         }
@@ -2009,7 +2009,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_CPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        private void textBox_CPUDelayAfterRefreshStore_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -2040,7 +2040,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_GPUDelayAfterRefreshStore_Leave(object sender, EventArgs e)
+        private void textBox_GPUDelayAfterRefreshStore_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -2067,7 +2067,7 @@ namespace JinChanChanTool
         #endregion
 
         #region 高亮提示
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click_1(object? sender, EventArgs e)
         {
             colorDialog_高亮边框渐变色1.Color = _iappConfigService.CurrentConfig.HighlightColor1;
 
@@ -2079,7 +2079,7 @@ namespace JinChanChanTool
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object? sender, EventArgs e)
         {
             colorDialog_高亮边框渐变色2.Color = _iappConfigService.CurrentConfig.HighlightColor2;
 
@@ -2153,7 +2153,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton_手动设置坐标_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_手动设置坐标_CheckedChanged(object? sender, EventArgs e)
         {
             if (radioButton_手动设置坐标.Checked)
             {
@@ -2171,7 +2171,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioButton_自动设置坐标_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_自动设置坐标_CheckedChanged(object? sender, EventArgs e)
         {
             if (radioButton_自动设置坐标.Checked)
             {
@@ -2184,7 +2184,7 @@ namespace JinChanChanTool
             UpdateProcessSelectionControls();
         }
 
-        private void capsuleSwitch_自动识别进程_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_自动识别进程_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsAutoDetectTargetProcess = capsuleSwitch_自动识别进程.IsOn;
             UpdateProcessSelectionControls();
@@ -2206,7 +2206,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void roundedButton1_Click(object sender, EventArgs e)
+        private async void roundedButton1_Click(object? sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService, _iappConfigService.CurrentConfig.IsAllWindowsTopMost))
             {
@@ -2250,7 +2250,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void roundedButton2_Click(object sender, EventArgs e)
+        private async void roundedButton2_Click(object? sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService, _iappConfigService.CurrentConfig.IsAllWindowsTopMost))
             {
@@ -2271,7 +2271,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void roundedButton3_Click(object sender, EventArgs e)
+        private async void roundedButton3_Click(object? sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService, _iappConfigService.CurrentConfig.IsAllWindowsTopMost))
             {
@@ -2317,7 +2317,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void roundedButton4_Click(object sender, EventArgs e)
+        private void roundedButton4_Click(object? sender, EventArgs e)
         {
             // 1. 实时创建进程发现服务
             var discoveryService = new ProcessDiscoveryService();
@@ -2351,7 +2351,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void roundedButton5_Click(object sender, EventArgs e)
+        private void roundedButton5_Click(object? sender, EventArgs e)
         {
             var form = new CorrectionEditorForm(_iappConfigService, _iLocalizationService);
             form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口
@@ -2368,7 +2368,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch10_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch10_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsUseCPUForInference = capsuleSwitch_CPU.IsOn;
             if (isUpdatingSwitch_CPU推理) return;
@@ -2380,7 +2380,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch9_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch9_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsUseGPUForInference = capsuleSwitch_GPU.IsOn;
             if (isUpdatingSwitch_GPU推理) return;
@@ -2421,19 +2421,19 @@ namespace JinChanChanTool
         #endregion
 
         #region 过滤字符
-        private void capsuleSwitch16_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch16_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsFilterLetters = capsuleSwitch_排除字母.IsOn;
         }
 
-        private void capsuleSwitch17_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch17_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsFilterNumbers = capsuleSwitch_排除数字.IsOn;
         }
         #endregion
 
         #region 严格匹配模式
-        private void capsuleSwitch19_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch19_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsStrictMatching = capsuleSwitch_严格匹配模式.IsOn;
         }
@@ -2447,7 +2447,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>      
-        private void capsuleSwitch11_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch11_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsUseSelectForm = capsuleSwitch_启用英雄选择面板.IsOn;
         }
@@ -2457,7 +2457,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_英雄头像框边长_Leave(object sender, EventArgs e)
+        private void textBox_英雄头像框边长_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -2488,7 +2488,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_英雄头像框水平间隔_Leave(object sender, EventArgs e)
+        private void textBox_英雄头像框水平间隔_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -2519,7 +2519,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_英雄头像框垂直间隔_Leave(object sender, EventArgs e)
+        private void textBox_英雄头像框垂直间隔_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -2553,7 +2553,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch12_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch12_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsUseLineUpForm = capsuleSwitch_启用阵容面板.IsOn;
         }
@@ -2561,7 +2561,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 紧凑阵容展示开关状态改变时触发
         /// </summary>
-        private void capsuleSwitch_紧凑阵容展示_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_紧凑阵容展示_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsCompactMainFormLineUp = capsuleSwitch_紧凑阵容展示.IsOn;
         }
@@ -2571,7 +2571,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>      
-        private void capsuleSwitch13_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch13_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsUseStatusOverlayForm = capsuleSwitch_启用状态面板.IsOn;
         }
@@ -2581,7 +2581,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>      
-        private void capsuleSwitch14_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch14_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsUseOutputForm = capsuleSwitch_启用输出面板.IsOn;
         }
@@ -2595,7 +2595,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch15_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch15_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment = capsuleSwitch_程序启动时更新推荐装备.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment)
@@ -2614,7 +2614,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_更新推荐装备间隔_Leave(object sender, EventArgs e)
+        private void TextBox_更新推荐装备间隔_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -2647,7 +2647,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 程序启动时更新推荐阵容开关状态改变时触发
         /// </summary>
-        private void capsuleSwitch_程序启动时更新推荐阵容_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_程序启动时更新推荐阵容_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsAutomaticUpdateLineup = capsuleSwitch_程序启动时更新推荐阵容.IsOn;
             if (_iappConfigService.CurrentConfig.IsAutomaticUpdateLineup)
@@ -2663,7 +2663,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 更新推荐阵容间隔文本框失去焦点时触发
         /// </summary>
-        private void textBox_更新推荐阵容间隔_Leave(object sender, EventArgs e)
+        private void textBox_更新推荐阵容间隔_Leave(object? sender, EventArgs e)
         {
             if (int.TryParse(textBox_更新推荐阵容间隔.Text, out int interval))
             {
@@ -2693,13 +2693,13 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void capsuleSwitch18_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch18_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsSaveCapturedImages = capsuleSwitch_保存截图.IsOn;
         }
         #endregion
 
-        private void SettingForm_Load(object sender, EventArgs e)
+        private void SettingForm_Load(object? sender, EventArgs e)
         {
 
         }
@@ -2711,7 +2711,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object? sender, EventArgs e)
         {
             // 保存语言设置
             if (comboBox_语言选择.SelectedItem is LanguageInfo selectedLanguage)
@@ -2741,7 +2741,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object? sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show(_iLocalizationService.Get("SettingForm.Msg.确认恢复默认设置"), _iLocalizationService.Get("SettingForm.MsgTitle.确认恢复默认设置"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmResult != DialogResult.Yes)
@@ -2779,12 +2779,12 @@ namespace JinChanChanTool
         #endregion
 
         #region 标题栏按钮事件
-        private void button_最小化_Click(object sender, EventArgs e)
+        private void button_最小化_Click(object? sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void button_关闭_Click(object sender, EventArgs e)
+        private void button_关闭_Click(object? sender, EventArgs e)
         {
             this.Close();
         }

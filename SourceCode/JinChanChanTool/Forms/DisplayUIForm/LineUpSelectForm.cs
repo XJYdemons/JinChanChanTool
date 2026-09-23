@@ -971,7 +971,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 筛选下拉框选择变更事件
         /// </summary>
-        private void comboBox_TierFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_TierFilter_SelectedIndexChanged(object? sender, EventArgs e)
         {
             ApplyFilter();
         }
@@ -979,7 +979,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 排序下拉框选择变更事件
         /// </summary>
-        private void comboBox_SortBy_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_SortBy_SelectedIndexChanged(object? sender, EventArgs e)
         {
             ApplyFilter();
         }
@@ -987,7 +987,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 搜索框文本变更事件（使用防抖）
         /// </summary>
-        private void textBox_Search_TextChanged(object sender, EventArgs e)
+        private void textBox_Search_TextChanged(object? sender, EventArgs e)
         {
             ApplyFilterWithDebounce();
         }
@@ -995,7 +995,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 确认按钮点击事件
         /// </summary>
-        private void button_Confirm_Click(object sender, EventArgs e)
+        private void button_Confirm_Click(object? sender, EventArgs e)
         {            
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -1004,7 +1004,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 取消按钮点击事件
         /// </summary>
-        private void button_Cancel_Click(object sender, EventArgs e)
+        private void button_Cancel_Click(object? sender, EventArgs e)
         {
             SelectedLineUp = null;
             this.DialogResult = DialogResult.Cancel;

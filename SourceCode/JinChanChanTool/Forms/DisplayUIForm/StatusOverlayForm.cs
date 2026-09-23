@@ -46,7 +46,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 高亮显示胶囊开关状态变更事件
         /// </summary>
-        private void HighlightCapsuleSwitch_IsOnChanged(object sender, EventArgs e)
+        private void HighlightCapsuleSwitch_IsOnChanged(object? sender, EventArgs e)
         {
             if (_isSyncingHighlight) return;
             _cardService.ToggleHighLight();
@@ -55,7 +55,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 自动拿牌胶囊开关状态变更事件
         /// </summary>
-        private void AutoGetCardCapsuleSwitch_IsOnChanged(object sender, EventArgs e)
+        private void AutoGetCardCapsuleSwitch_IsOnChanged(object? sender, EventArgs e)
         {
             if (_isSyncingGetCard) return;
             _cardService.ToggleLoop();
@@ -64,7 +64,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 自动刷新商店胶囊开关状态变更事件
         /// </summary>
-        private void AutoRefreshCapsuleSwitch_IsOnChanged(object sender, EventArgs e)
+        private void AutoRefreshCapsuleSwitch_IsOnChanged(object? sender, EventArgs e)
         {
             if (_isSyncingRefresh) return;
             _cardService.ToggleRefreshStore();

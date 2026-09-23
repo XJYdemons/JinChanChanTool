@@ -84,7 +84,7 @@ namespace JinChanChanTool.DIYComponents
             Visible = true;
         }
 
-        private void HeroButton_Click(object sender, EventArgs e)
+        private void HeroButton_Click(object? sender, EventArgs e)
         {
             if (sender is Button { Tag: LineUpUnit unit })
             {

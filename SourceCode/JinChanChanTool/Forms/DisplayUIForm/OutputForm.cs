@@ -178,7 +178,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Panel_Dragging_MouseDown(object sender, MouseEventArgs e)
+        private void Panel_Dragging_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -192,7 +192,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Panel_Dragging_MouseMove(object sender, MouseEventArgs e)
+        private void Panel_Dragging_MouseMove(object? sender, MouseEventArgs e)
         {
             if (IsDragging)
             {
@@ -227,7 +227,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Panel_Dragging_MouseUp(object sender, MouseEventArgs e)
+        private void Panel_Dragging_MouseUp(object? sender, MouseEventArgs e)
         {
             IsDragging = false;
             panel_分割滑块.Capture = false;
@@ -238,7 +238,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Panel_Dragging_MouseLeave(object sender, EventArgs e)
+        private void Panel_Dragging_MouseLeave(object? sender, EventArgs e)
         {
             // 鼠标离开时停止拖动
             if (IsDragging)
@@ -274,7 +274,7 @@ namespace JinChanChanTool.Forms
         #endregion
 
         #region 标题栏按钮事件
-        private void button_最小化_Click(object sender, EventArgs e)
+        private void button_最小化_Click(object? sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }

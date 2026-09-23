@@ -233,7 +233,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 格子开始拖拽事件处理
         /// </summary>
-        private void Slot_HeroDragStarted(object sender, BenchSlotDragEventArgs e)
+        private void Slot_HeroDragStarted(object? sender, BenchSlotDragEventArgs e)
         {
             HeroDraggedOut?.Invoke(this, new BenchHeroDraggedOutEventArgs(e.DraggedUnit, e.SlotIndex));
         }

@@ -133,7 +133,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 棋盘格子鼠标按下事件 - 准备从棋盘开始拖拽
         /// </summary>
-        private void OnCellMouseDown(object sender, MouseEventArgs e)
+        private void OnCellMouseDown(object? sender, MouseEventArgs e)
         {
             // 只响应左键，且格子上有英雄
             if (e.Button != MouseButtons.Left) return;
@@ -157,7 +157,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 备战席格子鼠标按下事件 - 准备从备战席开始拖拽
         /// </summary>
-        private void OnBenchSlotMouseDown(object sender, MouseEventArgs e)
+        private void OnBenchSlotMouseDown(object? sender, MouseEventArgs e)
         {
             // 只响应左键，且格子上有英雄
             if (e.Button != MouseButtons.Left) return;
@@ -181,7 +181,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 鼠标移动事件 - 判断是否启动拖拽 + 更新目标高亮
         /// </summary>
-        private void OnMouseMove(object sender, MouseEventArgs e)
+        private void OnMouseMove(object? sender, MouseEventArgs e)
         {
             // 未按下或已完成，不处理
             if (!_isDragStartPending && !_isDragActive) return;
@@ -223,7 +223,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 鼠标释放事件 - 执行放置或取消拖拽
         /// </summary>
-        private void OnMouseUp(object sender, MouseEventArgs e)
+        private void OnMouseUp(object? sender, MouseEventArgs e)
         {
             // 只处理左键释放
             if (e.Button != MouseButtons.Left) return;
@@ -261,7 +261,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 键盘按下事件 - Escape 取消拖拽
         /// </summary>
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape && (_isDragStartPending || _isDragActive))
             {

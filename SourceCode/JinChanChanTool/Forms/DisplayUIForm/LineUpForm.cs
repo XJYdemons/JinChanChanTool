@@ -79,7 +79,7 @@ namespace JinChanChanTool.Forms
             
         }
 
-        private void LineUpForm_Load(object sender, EventArgs e)
+        private void LineUpForm_Load(object? sender, EventArgs e)
         {
 
         }
@@ -149,7 +149,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel_MouseDown(object sender, MouseEventArgs e)
+        private void panel_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -164,7 +164,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel_MouseMove(object sender, MouseEventArgs e)
+        private void panel_MouseMove(object? sender, MouseEventArgs e)
         {
             if (_dragging)
             {
@@ -192,7 +192,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel_MouseUp(object sender, MouseEventArgs e)
+        private void panel_MouseUp(object? sender, MouseEventArgs e)
         {
             if (_dragging)
             {
@@ -227,7 +227,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 棋盘英雄位置变更事件处理
         /// </summary>
-        private void HexagonBoard_HeroPositionChanged(object sender, BoardHeroPositionChangedEventArgs e)
+        private void HexagonBoard_HeroPositionChanged(object? sender, BoardHeroPositionChangedEventArgs e)
         {
             // 刷新备战席显示（因为可能有英雄从备战席拖到棋盘，或从棋盘交换到备战席）
             benchPanel.RefreshBench();
@@ -236,7 +236,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 棋盘英雄清除事件处理
         /// </summary>
-        private void HexagonBoard_HeroCleared(object sender, BoardHeroClearedEventArgs e)
+        private void HexagonBoard_HeroCleared(object? sender, BoardHeroClearedEventArgs e)
         {
             // 英雄被清除到备战席，刷新备战席显示
             benchPanel.RefreshBench();
@@ -245,7 +245,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 备战席英雄位置变更事件处理（从棋盘拖到备战席）
         /// </summary>
-        private void BenchPanel_HeroPositionChanged(object sender, BenchHeroDroppedInEventArgs e)
+        private void BenchPanel_HeroPositionChanged(object? sender, BenchHeroDroppedInEventArgs e)
         {
             // 将从棋盘拖来的英雄移到备战席（位置设为0,0）
             if (e.MovedUnit != null)
@@ -278,7 +278,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 展开/收起按钮点击事件 - 切换棋盘显示状态
         /// </summary>
-        private void button_展开收起_Click(object sender, EventArgs e)
+        private void button_展开收起_Click(object? sender, EventArgs e)
         {
             ToggleBoardExpanded();
         }
@@ -623,7 +623,7 @@ namespace JinChanChanTool.Forms
         /// <summary>
         /// 阵容推荐按钮点击事件 - 打开推荐阵容选择窗口
         /// </summary>
-        private void button_阵容推荐_Click(object sender, EventArgs e)
+        private void button_阵容推荐_Click(object? sender, EventArgs e)
         {
             if (_iRecommendedLineUpService == null || _heroDataService == null || _equipmentService == null)
             {
@@ -661,7 +661,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_保存_Click(object sender, EventArgs e)
+        private void button_保存_Click(object? sender, EventArgs e)
         {
             if (_ilineUpService.Save())
             {
@@ -674,7 +674,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_清空_Click(object sender, EventArgs e)
+        private void button_清空_Click(object? sender, EventArgs e)
         {
             _ilineUpService.ClearCurrentSubLineUp();
         }
@@ -725,7 +725,7 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        private void comboBox_SubLineUps_DropDownClosed(object sender, EventArgs e)
+        private void comboBox_SubLineUps_DropDownClosed(object? sender, EventArgs e)
         {
             if (_isUpdatingSubLineUpComboBox || _ilineUpService == null) return;
             if (comboBox_分支选择.SelectedIndex >= 0)

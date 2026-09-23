@@ -56,12 +56,12 @@ namespace JinChanChanTool.Forms
         }
 
         #region 标题栏按钮事件
-        private void button_最小化_Click(object sender, EventArgs e)
+        private void button_最小化_Click(object? sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void button_关闭_Click(object sender, EventArgs e)
+        private void button_关闭_Click(object? sender, EventArgs e)
         {
             this.Close();
         }

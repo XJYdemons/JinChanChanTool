@@ -390,7 +390,7 @@ namespace JinChanChanTool.DIYComponents
             }
         }
 
-        private void LongPressTimer_Tick(object sender, EventArgs e)
+        private void LongPressTimer_Tick(object? sender, EventArgs e)
         {
             _longPressTimer.Stop();
             if (!_isMouseDown || !HasHero)

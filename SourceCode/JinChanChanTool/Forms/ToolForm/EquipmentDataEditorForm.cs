@@ -83,12 +83,12 @@ namespace JinChanChanTool.Forms
             button_退出.Text = _iLocalizationService.Get("EquipmentDataEditorForm.Button.退出");            
         }
 
-        private void EquipmentDataEditorForm_Load(object sender, EventArgs e)
+        private void EquipmentDataEditorForm_Load(object? sender, EventArgs e)
         {
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -201,7 +201,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void DataGridView_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.RowIndex >= dataGridView_装备数据编辑器.Rows.Count) return;
 
@@ -257,7 +257,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        private void DataGridView_CellParsing(object? sender, DataGridViewCellParsingEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
@@ -285,7 +285,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
         {
             // 如果修改的是装备名称列，刷新图片
             if (e.ColumnIndex >= 0 && dataGridView_装备数据编辑器.Columns[e.ColumnIndex].Name == "Name")
@@ -299,7 +299,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void DataGridView_DataError(object? sender, DataGridViewDataErrorEventArgs e)
         {
             // 处理数据错误
             MessageBox.Show(_iLocalizationService.Get("EquipmentDataEditorForm.Msg.数据输入错误"));
@@ -311,7 +311,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void addButton_Click(object sender, EventArgs e)
+        private void addButton_Click(object? sender, EventArgs e)
         {
             // 添加新装备
             Equipment newEquipment = new Equipment()
@@ -345,7 +345,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void deleltButton_Click(object sender, EventArgs e)
+        private void deleltButton_Click(object? sender, EventArgs e)
         {
             List<DataGridViewRow> selectedRows = new List<DataGridViewRow>();
 
@@ -445,7 +445,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object? sender, EventArgs e)
         {
             if (isChanged)
             {
@@ -472,7 +472,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void upButton_Click(object sender, EventArgs e)
+        private void upButton_Click(object? sender, EventArgs e)
         {
             // 检查是否有当前单元格
             if (dataGridView_装备数据编辑器.CurrentCell == null)
@@ -514,7 +514,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void downButton_Click(object sender, EventArgs e)
+        private void downButton_Click(object? sender, EventArgs e)
         {
             // 检查是否有当前单元格
             if (dataGridView_装备数据编辑器.CurrentCell == null)
@@ -560,7 +560,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object? sender, EventArgs e)
         {
             if (isChanged)
             {
@@ -593,7 +593,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object? sender, EventArgs e)
         {
             Save();
             isChanged = false;
@@ -615,7 +615,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object? sender, EventArgs e)
         {
             if (_iEquipmentService.GetFilePaths().Length > 0 && _iEquipmentService.GetFilePathsIndex() < _iEquipmentService.GetFilePaths().Length)
             {

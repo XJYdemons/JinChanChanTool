@@ -84,7 +84,7 @@ namespace JinChanChanTool.Forms
             
         }
 
-        private void HeroInfoEditorForm_Load(object sender, EventArgs e)
+        private void HeroInfoEditorForm_Load(object? sender, EventArgs e)
         {
 
         }
@@ -207,7 +207,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void DataGridView_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             // 检查行索引是否在有效范围内，避免数据重新绑定时的索引越界
             if (e.RowIndex < 0 || e.RowIndex >= dataGridView_英雄数据编辑器.Rows.Count) return;
@@ -267,7 +267,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        private void DataGridView_CellParsing(object? sender, DataGridViewCellParsingEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
@@ -310,7 +310,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
         {
             // 如果修改的是英雄名称列，刷新图片
             if (e.ColumnIndex >= 0 && dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name == "HeroName")
@@ -324,7 +324,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void DataGridView_DataError(object? sender, DataGridViewDataErrorEventArgs e)
         {
             // 处理数据错误（例如Cost列输入非数字值）
             if (dataGridView_英雄数据编辑器.Columns[e.ColumnIndex].Name == "Cost")
@@ -339,7 +339,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void addButton_Click(object sender, EventArgs e)
+        private void addButton_Click(object? sender, EventArgs e)
         {
             // 添加新英雄
             var newHero = new Hero();
@@ -369,7 +369,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void deleltButton_Click(object sender, EventArgs e)
+        private void deleltButton_Click(object? sender, EventArgs e)
         {
             var selectedRows = new List<DataGridViewRow>();
 
@@ -470,7 +470,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object? sender, EventArgs e)
         {
             if (isChanged)
             {
@@ -497,7 +497,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void upButton_Click(object sender, EventArgs e)
+        private void upButton_Click(object? sender, EventArgs e)
         {
             // 检查是否有当前单元格
             if (dataGridView_英雄数据编辑器.CurrentCell == null)
@@ -540,7 +540,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void downButton_Click(object sender, EventArgs e)
+        private void downButton_Click(object? sender, EventArgs e)
         {
             // 检查是否有当前单元格
             if (dataGridView_英雄数据编辑器.CurrentCell == null)
@@ -587,7 +587,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object? sender, EventArgs e)
         {
             if (isChanged)
             {
@@ -620,7 +620,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object? sender, EventArgs e)
         {
             Save();
             isChanged = false;
@@ -642,7 +642,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object? sender, EventArgs e)
         {
             if (_iheroDataService.GetFilePaths().Length > 0 && _iheroDataService.GetFilePathsIndex() < _iheroDataService.GetFilePaths().Length)
             {
@@ -663,7 +663,7 @@ namespace JinChanChanTool.Forms
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
 
         }

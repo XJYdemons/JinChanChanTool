@@ -43,7 +43,7 @@ namespace JinChanChanTool.Forms
             
         }
       
-        private void Selector_Load(object sender, EventArgs e)
+        private void Selector_Load(object? sender, EventArgs e)
         {                       
         }
 
@@ -54,7 +54,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel_MouseDown(object sender, MouseEventArgs e)
+        private void panel_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -69,7 +69,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel_MouseMove(object sender, MouseEventArgs e)
+        private void panel_MouseMove(object? sender, MouseEventArgs e)
         {
             if (_dragging)
             {
@@ -96,7 +96,7 @@ namespace JinChanChanTool.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void panel_MouseUp(object sender, MouseEventArgs e)
+        private void panel_MouseUp(object? sender, MouseEventArgs e)
         {
             if (_dragging)
             {

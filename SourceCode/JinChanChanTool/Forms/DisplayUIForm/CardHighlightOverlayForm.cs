@@ -265,7 +265,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <summary>
         /// 动画定时器事件处理
         /// </summary>
-        private void AnimationTimer_Tick(object sender, EventArgs e)
+        private void AnimationTimer_Tick(object? sender, EventArgs e)
         {
             // 更新渐变偏移量实现流动效果，使用自定义速度
             gradientOffset += customGradientSpeed;

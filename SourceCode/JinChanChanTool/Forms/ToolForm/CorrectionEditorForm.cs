@@ -57,7 +57,7 @@ namespace JinChanChanTool
             button_取消.Text = _iLocalizationService.Get("CorrectionEditorForm.退出");
         }
 
-        private void CorrectionEditorForm_Load(object sender, EventArgs e)
+        private void CorrectionEditorForm_Load(object? sender, EventArgs e)
         {
 
         }
@@ -130,7 +130,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object? sender, EventArgs e)
         {
             // 添加新行
             dataGridView_结果纠正列表编辑器.Rows.Add();
@@ -147,7 +147,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object? sender, EventArgs e)
         {
             var selectedRows = new List<DataGridViewRow>();
             // 获取通过行头选中的行
@@ -235,7 +235,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object? sender, EventArgs e)
         {
             if (isChanged)
             {
@@ -262,14 +262,14 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object? sender, EventArgs e)
         {
             SaveMappings();
             isChanged = false;
             MessageBox.Show(_iLocalizationService.Get("CorrectionEditorForm.MsgTitle.保存成功需重启"), _iLocalizationService.Get("CorrectionEditorForm.MsgTitle.保存成功标题"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void label1_Click(object? sender, EventArgs e)
         {
 
         }

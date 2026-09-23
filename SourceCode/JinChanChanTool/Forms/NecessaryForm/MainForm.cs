@@ -204,7 +204,7 @@ namespace JinChanChanTool
             // 应用本地化
             ApplyLocalization();
         }
-        private async void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object? sender, EventArgs e)
         {
             #region 初始化赛季选择下拉框
             comboBox_赛季选择.Items.Clear();// 清空赛季选择下拉框
@@ -368,7 +368,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 当设置被保存时触发,根据修改项提示用户操作。
         /// </summary>
-        private void OnConfigSaved(object sender, ConfigChangedEventArgs e)
+        private void OnConfigSaved(object? sender, ConfigChangedEventArgs e)
         {
             // 确保在UI线程执行
             if (InvokeRequired)
@@ -785,7 +785,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void 设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 设置ToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             ShowSettingForm();
         }
@@ -822,7 +822,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 关于ToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             ShowAboutForm();
         }
@@ -859,7 +859,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void 运行日志ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 运行日志ToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             if (!LogTool.OpenLogFile())
             {
@@ -957,19 +957,19 @@ namespace JinChanChanTool
         private bool _isSyncingRefreshStore = false;
 
 
-        private void capsuleSwitch1_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch1_IsOnChanged(object? sender, EventArgs e)
         {
             if (_isSyncingHighLight) return;
             _cardService.ToggleHighLight();
         }
 
-        private void capsuleSwitch2_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch2_IsOnChanged(object? sender, EventArgs e)
         {
             if (_isSyncingGetCard) return;
             _cardService.ToggleLoop();
         }
 
-        private void capsuleSwitch3_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch3_IsOnChanged(object? sender, EventArgs e)
         {
             if (_isSyncingRefreshStore) return;
             _cardService.ToggleRefreshStore();
@@ -1029,7 +1029,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MouseHook_MouseLeftButtonDown(object sender, EventArgs e)
+        private void MouseHook_MouseLeftButtonDown(object? sender, EventArgs e)
         {
             if (InvokeRequired)
             {
@@ -1051,7 +1051,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MouseHook_MouseLeftButtonUp(object sender, EventArgs e)
+        private void MouseHook_MouseLeftButtonUp(object? sender, EventArgs e)
         {
             if (InvokeRequired)
             {
@@ -1071,7 +1071,7 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
 
-        private void roundedButton4_Click(object sender, EventArgs e)
+        private void roundedButton4_Click(object? sender, EventArgs e)
         {
             // 点击保存时，先提交主窗口中尚未按回车确认的阵容名称。
             if (!CommitLineUpName(comboBox_阵容选择))
@@ -1090,7 +1090,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void roundedButton5_Click(object sender, EventArgs e)
+        private void roundedButton5_Click(object? sender, EventArgs e)
         {
             _iLineUpService.ClearCurrentSubLineUp();
         }
@@ -1100,7 +1100,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void roundedButton2_Click(object sender, EventArgs e)
+        private void roundedButton2_Click(object? sender, EventArgs e)
         {
             int i = 1;
             while (!_iLineUpService.IsLineUpNameAvailable(_iLocalizationService.Get("MainForm.Msg.默认阵容名", i)))
@@ -1117,7 +1117,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void roundedButton6_Click(object sender, EventArgs e)
+        private void roundedButton6_Click(object? sender, EventArgs e)
         {
             // 配置已保存，询问用户是否重启应用
             var result = MessageBox.Show(
@@ -1141,7 +1141,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ProfessionButtonClick(object sender, EventArgs e)
+        private void ProfessionButtonClick(object? sender, EventArgs e)
         {
             Button button = sender as Button;
             Profession profession = button.Tag as Profession;
@@ -1165,7 +1165,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PeculiarityButtonClick(object sender, EventArgs e)
+        private void PeculiarityButtonClick(object? sender, EventArgs e)
         {
             Button button = sender as Button;
             Peculiarity peculiarity = button.Tag as Peculiarity;
@@ -1193,7 +1193,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CheckBoxCheckedChanged(object sender, EventArgs e)
+        private void CheckBoxCheckedChanged(object? sender, EventArgs e)
         {
             if (waitForLoad)
             {
@@ -1223,7 +1223,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox_HeroPool_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_HeroPool_SelectedIndexChanged(object? sender, EventArgs e)
         {
             _activeToolTip?.Dispose();
             _activeToolTip = null;
@@ -1267,7 +1267,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox_LineUps_DropDownClosed(object sender, EventArgs e)
+        private void comboBox_LineUps_DropDownClosed(object? sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
             if (comboBox.SelectedItem != null && comboBox.SelectedIndex != -1)
@@ -1289,7 +1289,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox_LineUps_Leave(object sender, EventArgs e)
+        private void comboBox_LineUps_Leave(object? sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
             if (ReferenceEquals(comboBox, comboBox_阵容选择) && IsMainLineUpSaveButtonTarget())
@@ -1322,7 +1322,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox_LineUps_KeyDown(object sender, KeyEventArgs e)
+        private void comboBox_LineUps_KeyDown(object? sender, KeyEventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
             // 捕获用户按下的键，并更新 TextBox
@@ -1408,7 +1408,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void HeroAndEquipmentPictureBox_Hero_MouseUp(object sender, MouseEventArgs e)
+        private void HeroAndEquipmentPictureBox_Hero_MouseUp(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -1560,7 +1560,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void HeroPictureBox_MouseEnter(object sender, EventArgs e)
+        private void HeroPictureBox_MouseEnter(object? sender, EventArgs e)
         {
             HeroPictureBox clickedBox = sender as HeroPictureBox;
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width + 1, _uiBuilderService.GetHeroPictureBoxSize().Height + 1);
@@ -1582,7 +1582,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void HeroPictureBox_MouseLeave(object sender, EventArgs e)
+        private void HeroPictureBox_MouseLeave(object? sender, EventArgs e)
         {
             HeroPictureBox clickedBox = sender as HeroPictureBox;
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width, _uiBuilderService.GetHeroPictureBoxSize().Height);
@@ -1604,7 +1604,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void HeroPictureBox_MouseUp(object sender, MouseEventArgs e)
+        private void HeroPictureBox_MouseUp(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -1621,7 +1621,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void HeroPictureBox_MouseDown(object sender, MouseEventArgs e)
+        private void HeroPictureBox_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -1638,7 +1638,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SelectFormPictureBoxes_Click(object sender, MouseEventArgs e)
+        private void SelectFormPictureBoxes_Click(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -1674,7 +1674,7 @@ namespace JinChanChanTool
         /// <param name="sender"></param>
         /// <param name="e"></param>
 
-        private void button_新增分支_Click(object sender, EventArgs e)
+        private void button_新增分支_Click(object? sender, EventArgs e)
         {
             if (_iLineUpService.GetCurrentLineUp().SubLineUps.Count >= MaxSubLineUpCount)
             {
@@ -1696,7 +1696,7 @@ namespace JinChanChanTool
                     MessageBoxIcon.Warning);
         }
 
-        private void BranchButton_MouseUp(object sender, MouseEventArgs e)
+        private void BranchButton_MouseUp(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && sender is Button button && button.Tag is int index)
                 _iLineUpService.SetSubLineUpIndex(index);
@@ -2031,12 +2031,12 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LineUpChanged(object sender, EventArgs e)
+        private void LineUpChanged(object? sender, EventArgs e)
         {
             LoadLineUpToUI();
         }
 
-        private void SubLineUpIndexChanged(object sender, EventArgs e)
+        private void SubLineUpIndexChanged(object? sender, EventArgs e)
         {
             LoadLineUpToUI(false);
         }
@@ -2046,7 +2046,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LineUpNameChanged(object sender, EventArgs e)
+        private void LineUpNameChanged(object? sender, EventArgs e)
         {
             //从本地阵容文件读取数据到_lineupManager
             _iLineUpService.Load();
@@ -2063,7 +2063,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void roundedButton3_Click(object sender, EventArgs e)
+        private async void roundedButton3_Click(object? sender, EventArgs e)
         {
             Control? trigger = sender as Control;
             if (trigger != null) trigger.Enabled = false;
@@ -2115,7 +2115,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void roundedButton1_Click(object sender, EventArgs e)
+        private async void roundedButton1_Click(object? sender, EventArgs e)
         {
             Control? trigger = sender as Control;
             if (trigger != null) trigger.Enabled = false;
@@ -2197,7 +2197,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_LineUpCode_Enter(object sender, EventArgs e)
+        private void textBox_LineUpCode_Enter(object? sender, EventArgs e)
         {
             textBox_阵容码.Text = "";
         }
@@ -2207,7 +2207,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox_LineUpCode_Leave(object sender, EventArgs e)
+        private void textBox_LineUpCode_Leave(object? sender, EventArgs e)
         {
             if (textBox_阵容码.Text == "")
             {
@@ -2215,7 +2215,7 @@ namespace JinChanChanTool
             }
         }
 
-        private void roundedButton9_Click(object sender, EventArgs e)
+        private void roundedButton9_Click(object? sender, EventArgs e)
         {
             // 从剪切板获取阵容码
             string lineupCode = Clipboard.GetText().Trim();
@@ -2351,7 +2351,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toolTipTimer_Tick(object sender, EventArgs e)
+        private void toolTipTimer_Tick(object? sender, EventArgs e)
         {
             timer_装备推荐.Stop(); // 计时器只触发一次
 
@@ -2420,7 +2420,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void timer_UpdateCoordinates_Tick(object sender, EventArgs e)
+        private async void timer_UpdateCoordinates_Tick(object? sender, EventArgs e)
         {
             // 1. 检查是否处于自动模式
             if (!_iManualSettingsService.CurrentConfig.IsUseDynamicCoordinates)
@@ -2725,7 +2725,7 @@ namespace JinChanChanTool
         #endregion
 
         #region 赛季信息编辑UI
-        private void roundedButton7_Click(object sender, EventArgs e)
+        private void roundedButton7_Click(object? sender, EventArgs e)
         {
             var form = new HeroInfoEditorForm(_iLocalizationService);
             form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口
@@ -2733,7 +2733,7 @@ namespace JinChanChanTool
             form.Show();// 显示窗口
         }
 
-        private void roundedButton8_Click(object sender, EventArgs e)
+        private void roundedButton8_Click(object? sender, EventArgs e)
         {
             var form = new EquipmentDataEditorForm(_iLocalizationService);
             form.Owner = this;// 设置父窗口，这样配置窗口会显示在主窗口上方但不会阻止主窗口
@@ -2785,12 +2785,12 @@ namespace JinChanChanTool
         #endregion
 
         #region 标题栏按钮事件
-        private void button_最小化_Click(object sender, EventArgs e)
+        private void button_最小化_Click(object? sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void button_关闭_Click(object sender, EventArgs e)
+        private void button_关闭_Click(object? sender, EventArgs e)
         {
             if (_iManualSettingsService.CurrentConfig.IsMinimizeToTrayOnClose)
             {
@@ -2898,7 +2898,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void 用户手册ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 用户手册ToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             try
             {
@@ -2923,7 +2923,7 @@ namespace JinChanChanTool
             }
         }
 
-        private void 配置向导ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 配置向导ToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             using (SetupWizardForm setupWizardForm = new SetupWizardForm(_iManualSettingsService, _iLocalizationService))
             {

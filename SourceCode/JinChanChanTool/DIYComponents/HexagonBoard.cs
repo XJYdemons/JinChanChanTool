@@ -237,7 +237,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 格子英雄位置变更事件处理
         /// </summary>
-        private void Cell_HeroPositionChanged(object sender, HeroPositionChangedEventArgs e)
+        private void Cell_HeroPositionChanged(object? sender, HeroPositionChangedEventArgs e)
         {
             if (_currentSubLineUp == null) return;
 
@@ -277,7 +277,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 格子英雄清除事件处理
         /// </summary>
-        private void Cell_HeroCleared(object sender, HeroClearedEventArgs e)
+        private void Cell_HeroCleared(object? sender, HeroClearedEventArgs e)
         {
             if (_currentSubLineUp == null || e.ClearedUnit == null) return;
 
@@ -291,7 +291,7 @@ namespace JinChanChanTool.DIYComponents
             HeroCleared?.Invoke(this, new BoardHeroClearedEventArgs(e.Row, e.Column, e.ClearedUnit));
         }
 
-        private void Cell_HeroStackSelectionRequested(object sender, HeroStackSelectionRequestedEventArgs e)
+        private void Cell_HeroStackSelectionRequested(object? sender, HeroStackSelectionRequestedEventArgs e)
         {
             if (_heroDataService == null || e?.Cell == null)
             {
@@ -311,7 +311,7 @@ namespace JinChanChanTool.DIYComponents
             _heroStackWheel.ShowFor(e.Cell, stackedHeroes);
         }
 
-        private void HeroStackWheel_HeroSelected(object sender, HeroStackWheelSelectedEventArgs e)
+        private void HeroStackWheel_HeroSelected(object? sender, HeroStackWheelSelectedEventArgs e)
         {
             _wheelTargetCell?.ShowHero(e.Unit);
             _wheelTargetCell = null;

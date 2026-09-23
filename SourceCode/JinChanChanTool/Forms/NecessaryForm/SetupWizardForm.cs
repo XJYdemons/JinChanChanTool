@@ -92,7 +92,7 @@ namespace JinChanChanTool
             _cudnnInstallerService.ProgressChanged += OnCudnnInstallerProgress;
             _runtimeDeployService.ProgressChanged += OnRuntimeDeployProgress;
         }
-        private async void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object? sender, EventArgs e)
         {
 
         }
@@ -131,7 +131,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_Enter(object sender, EventArgs e)
+        private void TextBox_Enter(object? sender, EventArgs e)
         {
             //禁用全局热键，防止冲突
             GlobalHotkeyTool.Enabled = false;
@@ -144,7 +144,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_Leave(object sender, EventArgs e)
+        private void TextBox_Leave(object? sender, EventArgs e)
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
@@ -161,7 +161,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_KeyDown(object? sender, KeyEventArgs e)
         {
 
             // 捕获用户按下的键，并更新 TextBox
@@ -332,13 +332,13 @@ namespace JinChanChanTool
         #region 页2-选择坐标设置模式        
         private bool IsUseFixedCoordinates = false;
         private bool IsUseDynamicCoordinates = true;
-        private void radioButton_自动设置坐标_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_自动设置坐标_CheckedChanged(object? sender, EventArgs e)
         {
             IsUseDynamicCoordinates = radioButton_自动设置坐标.Checked;
             IsUseFixedCoordinates = radioButton_手动设置坐标.Checked;
         }
 
-        private void radioButton_手动设置坐标_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_手动设置坐标_CheckedChanged(object? sender, EventArgs e)
         {
             IsUseDynamicCoordinates = radioButton_自动设置坐标.Checked;
             IsUseFixedCoordinates = radioButton_手动设置坐标.Checked;
@@ -350,7 +350,7 @@ namespace JinChanChanTool
         private string TargetProcessName = "";
         private int TargetProcessId = 0;
 
-        private void capsuleSwitch_自动识别进程_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_自动识别进程_IsOnChanged(object? sender, EventArgs e)
         {
             IsAutoDetectTargetProcess = capsuleSwitch_自动识别进程.IsOn;
             UpdateAutoDetectProcessControls();
@@ -379,7 +379,7 @@ namespace JinChanChanTool
             }
         }
 
-        private void 选择游戏窗口进程_Click(object sender, EventArgs e)
+        private void 选择游戏窗口进程_Click(object? sender, EventArgs e)
         {
             // 1. 实时创建进程发现服务
             var discoveryService = new ProcessDiscoveryService();
@@ -436,12 +436,12 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox_选择显示器_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_选择显示器_SelectedIndexChanged(object? sender, EventArgs e)
         {
             targetScreen = screens[comboBox_选择显示器.SelectedIndex];
         }
 
-        private async void roundedButton_设置英雄名称坐标_Click(object sender, EventArgs e)
+        private async void roundedButton_设置英雄名称坐标_Click(object? sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService, _manualSettingsService.CurrentConfig.IsAllWindowsTopMost))
             {
@@ -481,7 +481,7 @@ namespace JinChanChanTool
             }
         }
 
-        private async void roundedButton_设置刷新按钮坐标_Click(object sender, EventArgs e)
+        private async void roundedButton_设置刷新按钮坐标_Click(object? sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService, _manualSettingsService.CurrentConfig.IsAllWindowsTopMost))
             {
@@ -500,7 +500,7 @@ namespace JinChanChanTool
             }
         }
 
-        private async void roundedButton_设置高亮提示坐标_Click(object sender, EventArgs e)
+        private async void roundedButton_设置高亮提示坐标_Click(object? sender, EventArgs e)
         {
             using (var setter = new FastSettingPositionService(targetScreen, _iLocalizationService, _manualSettingsService.CurrentConfig.IsAllWindowsTopMost))
             {
@@ -566,7 +566,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 鼠标拿牌开关状态改变事件
         /// </summary>
-        private void capsuleSwitch_鼠标拿牌_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_鼠标拿牌_IsOnChanged(object? sender, EventArgs e)
         {
             isMouseHeroPurchase = capsuleSwitch_鼠标拿牌.IsOn;
             if (isUpdatingSwitch_鼠标拿牌) return;
@@ -576,7 +576,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 按键拿牌开关状态改变事件
         /// </summary>
-        private void capsuleSwitch_按键拿牌_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_按键拿牌_IsOnChanged(object? sender, EventArgs e)
         {
             isKeyboardHeroPurchase = capsuleSwitch_按键拿牌.IsOn;
             if (isUpdatingSwitch_按键拿牌) return;
@@ -680,7 +680,7 @@ namespace JinChanChanTool
             }
         }
 
-        private void textBox_拿牌按键1_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_拿牌按键1_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -699,7 +699,7 @@ namespace JinChanChanTool
             GlobalHotkeyTool.Enabled = true;
         }
 
-        private void textBox_拿牌按键2_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_拿牌按键2_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -718,7 +718,7 @@ namespace JinChanChanTool
             GlobalHotkeyTool.Enabled = true;
         }
 
-        private void textBox_拿牌按键3_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_拿牌按键3_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -737,7 +737,7 @@ namespace JinChanChanTool
             GlobalHotkeyTool.Enabled = true;
         }
 
-        private void textBox_拿牌按键4_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_拿牌按键4_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -756,7 +756,7 @@ namespace JinChanChanTool
             GlobalHotkeyTool.Enabled = true;
         }
 
-        private void textBox_拿牌按键5_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_拿牌按键5_KeyDown(object? sender, KeyEventArgs e)
         {
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
@@ -803,7 +803,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 鼠标刷新开关状态改变事件
         /// </summary>
-        private void capsuleSwitch_鼠标刷新_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_鼠标刷新_IsOnChanged(object? sender, EventArgs e)
         {
             isMouseRefreshStore = capsuleSwitch_鼠标刷新.IsOn;
             if (isUpdatingSwitch_鼠标刷新) return;
@@ -813,7 +813,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 按键刷新开关状态改变事件
         /// </summary>
-        private void capsuleSwitch_按键刷新_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_按键刷新_IsOnChanged(object? sender, EventArgs e)
         {
             isKeyboardRefreshStore = capsuleSwitch_按键刷新.IsOn;
             if (isUpdatingSwitch_按键刷新) return;
@@ -892,7 +892,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 刷新按键文本框按键按下事件
         /// </summary>
-        private void textBox_刷新按键_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_刷新按键_KeyDown(object? sender, KeyEventArgs e)
         {
             var key = e.KeyCode;
             if (key == Keys.Enter)
@@ -931,7 +931,7 @@ namespace JinChanChanTool
         /// <summary>
         /// CPU推理开关状态改变事件
         /// </summary>
-        private void capsuleSwitch_CPU推理_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_CPU推理_IsOnChanged(object? sender, EventArgs e)
         {
             isUseCPUForInference = capsuleSwitch_CPU推理.IsOn;
             if (isUpdatingSwitch_CPU推理) return;
@@ -941,7 +941,7 @@ namespace JinChanChanTool
         /// <summary>
         /// GPU推理开关状态改变事件
         /// </summary>
-        private void capsuleSwitch_GPU推理_IsOnChanged(object sender, EventArgs e)
+        private void capsuleSwitch_GPU推理_IsOnChanged(object? sender, EventArgs e)
         {
             isUseGPUForInference = capsuleSwitch_GPU推理.IsOn;
             if (isUpdatingSwitch_GPU推理) return;
@@ -1012,7 +1012,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 检测GPU环境按钮点击事件
         /// </summary>
-        private async void button_检测GPU环境_Click(object sender, EventArgs e)
+        private async void button_检测GPU环境_Click(object? sender, EventArgs e)
         {
             await DetectGpuEnvironmentAsync();
         }
@@ -1145,7 +1145,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 刷新检测按钮点击事件
         /// </summary>
-        private void buttonRefreshDetection_Click(object sender, EventArgs e)
+        private void buttonRefreshDetection_Click(object? sender, EventArgs e)
         {
             DetectGpuEnvironmentAsync();
         }
@@ -1153,7 +1153,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 一键配置按钮点击事件
         /// </summary>
-        private async void button_一键配置_Click(object sender, EventArgs e)
+        private async void button_一键配置_Click(object? sender, EventArgs e)
         {
             // 验证输入
             if (comboBox_选择CUDA版本.SelectedItem == null)
@@ -1649,7 +1649,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 下一步按钮点击事件
         /// </summary>
-        private void button_下一步_Click(object sender, EventArgs e)
+        private void button_下一步_Click(object? sender, EventArgs e)
         {
             if (pageIndex < Pages.Count - 1)
             {
@@ -1677,7 +1677,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 上一步按钮点击事件
         /// </summary>
-        private void button_上一步_Click(object sender, EventArgs e)
+        private void button_上一步_Click(object? sender, EventArgs e)
         {
             if (pageIndex > 0)
             {
@@ -1698,7 +1698,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 跳过向导按钮点击事件
         /// </summary>
-        private void button_跳过向导_Click(object sender, EventArgs e)
+        private void button_跳过向导_Click(object? sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
                 _iLocalizationService.Get("SetupWizard.Msg.跳过向导"),
@@ -1716,7 +1716,7 @@ namespace JinChanChanTool
         /// <summary>
         /// 完成按钮点击事件
         /// </summary>
-        private void button_完成_Click(object sender, EventArgs e)
+        private void button_完成_Click(object? sender, EventArgs e)
         {
             // 同步所有数据到ManualSettingsService
             SyncDataToService();

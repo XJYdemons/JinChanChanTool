@@ -30,7 +30,7 @@
         /// <summary>
         /// 在提示框弹出前，根据图片数量计算并设置其最终尺寸。
         /// </summary>
-        private void OnPopup(object sender, PopupEventArgs e)
+        private void OnPopup(object? sender, PopupEventArgs e)
         {
             // 如果没有图片，或者关联的控件被禁用，则取消弹出
             if (_images == null || !_images.Any() || e.AssociatedControl.Enabled == false)
@@ -49,7 +49,7 @@
         /// <summary>
         /// 执行具体的绘制操作。
         /// </summary>
-        private void OnDraw(object sender, DrawToolTipEventArgs e)
+        private void OnDraw(object? sender, DrawToolTipEventArgs e)
         {
             // 绘制深色背景
             e.DrawBackground();

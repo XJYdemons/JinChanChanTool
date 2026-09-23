@@ -38,7 +38,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel1_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(new ProcessStartInfo
             {
@@ -53,7 +53,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void label5_MouseEnter(object sender, EventArgs e)
+        private void label5_MouseEnter(object? sender, EventArgs e)
         {
             label_Github主页.Cursor = Cursors.Hand;
             label_Github主页.ForeColor = Color.Blue;
@@ -64,7 +64,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void label5_MouseLeave(object sender, EventArgs e)
+        private void label5_MouseLeave(object? sender, EventArgs e)
         {
             label_Github主页.Cursor = Cursors.Default;
             label_Github主页.ForeColor = Color.Black;
@@ -75,7 +75,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void label5_Click(object sender, EventArgs e)
+        private void label5_Click(object? sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo
             {
@@ -89,7 +89,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void label6_Click(object sender, EventArgs e)
+        private void label6_Click(object? sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo
             {
@@ -103,7 +103,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void label6_MouseEnter(object sender, EventArgs e)
+        private void label6_MouseEnter(object? sender, EventArgs e)
         {
             label_项目地址.Cursor = Cursors.Hand;
             label_项目地址.ForeColor = Color.Blue;
@@ -114,13 +114,13 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void label6_MouseLeave(object sender, EventArgs e)
+        private void label6_MouseLeave(object? sender, EventArgs e)
         {
             label_项目地址.Cursor = Cursors.Default;
             label_项目地址.ForeColor = Color.Black;
         }
 
-        private void AboutForm_Load(object sender, EventArgs e)
+        private void AboutForm_Load(object? sender, EventArgs e)
         {
 
         }
@@ -130,7 +130,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel2_LinkClicked(object? sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(new ProcessStartInfo
             {
@@ -144,7 +144,7 @@ namespace JinChanChanTool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linkLabel3_Click(object sender, EventArgs e)
+        private void linkLabel3_Click(object? sender, EventArgs e)
         {
 
             Process.Start(new ProcessStartInfo
@@ -180,18 +180,18 @@ namespace JinChanChanTool
         #endregion
 
         #region 标题栏按钮事件
-        private void button_最小化_Click(object sender, EventArgs e)
+        private void button_最小化_Click(object? sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void button_关闭_Click(object sender, EventArgs e)
+        private void button_关闭_Click(object? sender, EventArgs e)
         {
             this.Close();
         }
         #endregion
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void panel1_Paint(object? sender, PaintEventArgs e)
         {
 
         }

@@ -187,7 +187,7 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BackForm_MouseDown(object sender, MouseEventArgs e)
+        private void BackForm_MouseDown(object? sender, MouseEventArgs e)
         {
             if ((waitClick || isDrawing) && e.Button == MouseButtons.Left)
             {
@@ -207,7 +207,7 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BackForm_MouseMove(object sender, MouseEventArgs e)
+        private void BackForm_MouseMove(object? sender, MouseEventArgs e)
         {
             // 如果按下鼠标并正在绘制矩形，labelForm 固定在矩形的左上角上方
             if (isDrawing && e.Button == MouseButtons.Left)
@@ -238,7 +238,7 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BackForm_MouseUp(object sender, MouseEventArgs e)
+        private void BackForm_MouseUp(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -262,7 +262,7 @@ namespace JinChanChanTool.Services.ManuallySetCoordinates
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BackForm_Paint(object sender, PaintEventArgs e)
+        private void BackForm_Paint(object? sender, PaintEventArgs e)
         {
             if (isDrawing && currentRectangle != Rectangle.Empty)
             {

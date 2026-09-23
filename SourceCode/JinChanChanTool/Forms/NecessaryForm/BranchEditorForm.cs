@@ -23,7 +23,7 @@ public partial class BranchEditorForm : Form
         Shown += (_, _) => { Activate(); BringToFront(); };
     }
 
-    private void button_确定_Click(object sender, EventArgs e)
+    private void button_确定_Click(object? sender, EventArgs e)
     {
         if (BranchName.Length is < 1 or > 7)
         {
@@ -39,8 +39,8 @@ public partial class BranchEditorForm : Form
         Close();
     }
 
-    private void button_最小化_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
-    private void button_关闭_Click(object sender, EventArgs e) => Close();
+    private void button_最小化_Click(object? sender, EventArgs e) => WindowState = FormWindowState.Minimized;
+    private void button_关闭_Click(object? sender, EventArgs e) => Close();
 
     private void ApplyLocalization(string title)
     {

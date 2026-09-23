@@ -298,8 +298,8 @@ namespace JinChanChanTool.DIYComponents
     public class BenchSlot : Control
     {
         private int slotIndex;// 格子索引
-        private LineUpUnit? _lineUpUnit = null!;// 绑定的阵容单位
-        private Image? _heroImage = null!;// 英雄图片
+        private LineUpUnit? _lineUpUnit;// 绑定的阵容单位
+        private Image? _heroImage;// 英雄图片
         private Color _borderColor = Color.FromArgb(60, 70, 80);// 边框颜色
 
         private bool _isHovering;// 是否悬停

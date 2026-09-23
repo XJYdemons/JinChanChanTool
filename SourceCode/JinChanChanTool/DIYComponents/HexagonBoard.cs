@@ -259,10 +259,14 @@ namespace JinChanChanTool.DIYComponents
             }
 
             // 同一格可以存在多个英雄，新放置的英雄成为显示顶层。
-            // 取出到局部变量，既便于判空，也保证下方事件参数使用同一份已收窄的引用
-            LineUpUnit movedUnit = e.MovedUnit;
-            movedUnit.Position = (e.TargetRow, e.TargetColumn);
-            movedUnit.PositionLayer = GetNextPositionLayer();
+            // 保留原代码「无移动单位则跳过位置更新」的语义：仅跳过位置写入，事件照常触发，
+            // 因为下游 LineUpForm 依赖该事件刷新备战席，不能因 MovedUnit 为空而吞掉通知
+            LineUpUnit? movedUnit = e.MovedUnit;
+            if (movedUnit != null)
+            {
+                movedUnit.Position = (e.TargetRow, e.TargetColumn);
+                movedUnit.PositionLayer = GetNextPositionLayer();
+            }
 
             // 刷新显示
             RefreshBoard();
@@ -386,10 +390,16 @@ namespace JinChanChanTool.DIYComponents
         public int SourceColumn { get; }
         public int TargetRow { get; }
         public int TargetColumn { get; }
-        public LineUpUnit MovedUnit { get; }
+        /// <summary>
+        /// 被移动的阵容单位。
+        /// 允许为 null：当源格子没有绑定单位时（原代码用 if (e.MovedUnit != null) 保护），
+        /// 事件仍会触发以通知备战席刷新，此时该属性为 null。
+        /// </summary>
+        public LineUpUnit? MovedUnit { get; }
+
         public LineUpUnit? SwappedUnit { get; }
 
-        public BoardHeroPositionChangedEventArgs(int sourceRow, int sourceColumn, int targetRow, int targetColumn, LineUpUnit movedUnit, LineUpUnit? swappedUnit)
+        public BoardHeroPositionChangedEventArgs(int sourceRow, int sourceColumn, int targetRow, int targetColumn, LineUpUnit? movedUnit, LineUpUnit? swappedUnit)
         {
             SourceRow = sourceRow;
             SourceColumn = sourceColumn;

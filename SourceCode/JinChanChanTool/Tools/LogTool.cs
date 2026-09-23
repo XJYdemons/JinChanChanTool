@@ -20,9 +20,9 @@ public static class LogTool
     private static readonly object _bufferLock = new object();// 缓冲区交换锁
     private static readonly object _fileLock = new object();// 文件写入锁
 
-    // 文件资源管理
-    private static FileStream? _fileStream = null!;// 文件流
-    private static StreamWriter? _streamWriter = null!;// 流写入器
+    // 文件资源管理（延迟初始化：在 InitializeFileStream 成功前保持为 null）
+    private static FileStream? _fileStream;// 文件流
+    private static StreamWriter? _streamWriter;// 流写入器
 
     // 文件路径配置
     private static readonly string _logPath = Path.Combine(Application.StartupPath, "Logs");// 日志目录

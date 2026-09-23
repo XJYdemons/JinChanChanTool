@@ -9,7 +9,6 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -93,10 +92,7 @@ namespace JinChanChanTool.Forms
             // 同步输出到日志文件
             LogTool.Log($"[ERROR] {message}");
 
-            textBox_错误信息.Invoke((MethodInvoker)delegate
-            {
-                textBox_错误信息.AppendText(message);
-            });
+            AppendTextSafely(textBox_错误信息, message);
         }
 
         /// <summary>
@@ -110,10 +106,7 @@ namespace JinChanChanTool.Forms
             // 同步输出到日志文件
             LogTool.Log($"[ERROR] {message}");
 
-            textBox_错误信息.Invoke((MethodInvoker)delegate
-            {
-                textBox_错误信息.AppendText(message+"\r\n");
-            });
+            AppendTextSafely(textBox_错误信息, message + "\r\n");
         }
 
         /// <summary>
@@ -127,10 +120,7 @@ namespace JinChanChanTool.Forms
             // 同步输出到日志文件
             LogTool.Log(message);
 
-            textBox_输出信息.Invoke((MethodInvoker)delegate
-            {
-                textBox_输出信息.AppendText(message);
-            });
+            AppendTextSafely(textBox_输出信息, message);
         }
 
         /// <summary>
@@ -144,10 +134,43 @@ namespace JinChanChanTool.Forms
             // 同步输出到日志文件
             LogTool.Log(message);
 
-            textBox_输出信息.Invoke((MethodInvoker)delegate
+            AppendTextSafely(textBox_输出信息, message + "\r\n");
+        }
+
+        /// <summary>
+        /// 安全地向文本框追加文本。
+        /// 输出窗口可能已被用户隐藏或随程序关闭而释放，而调用方是后台 OCR 线程，
+        /// 因此必须先确认句柄有效，再决定直接追加还是封送到 UI 线程。
+        /// </summary>
+        /// <param name="textBox">目标文本框</param>
+        /// <param name="text">要追加的文本</param>
+        private void AppendTextSafely(TextBox textBox, string text)
+        {
+            if (IsDisposed || Disposing || textBox.IsDisposed || !textBox.IsHandleCreated)
             {
-                textBox_输出信息.AppendText(message + "\r\n");
-            });
+                // 窗口已释放时静默丢弃输出，日志已在调用前写入文件。
+                return;
+            }
+
+            try
+            {
+                if (textBox.InvokeRequired)
+                {
+                    textBox.BeginInvoke((MethodInvoker)(() => AppendTextSafely(textBox, text)));
+                }
+                else
+                {
+                    textBox.AppendText(text);
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+                // 窗口在判断与调用之间被释放，忽略本次输出。
+            }
+            catch (InvalidOperationException)
+            {
+                // 句柄已失效（例如窗口正在销毁），忽略本次输出。
+            }
         }
 
         /// <summary>
@@ -226,16 +249,6 @@ namespace JinChanChanTool.Forms
         }
 
         #region 圆角实现
-        // GDI32 API - 用于创建圆角效果
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
-        [DllImport("user32.dll")]
-        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
-
-        // 圆角半径
-        private const int CORNER_RADIUS = 16;
-
         /// <summary>
         /// 在窗口句柄创建后应用圆角效果
         /// </summary>
@@ -245,34 +258,7 @@ namespace JinChanChanTool.Forms
             base.OnHandleCreated(e);
 
             // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
-            ApplyRoundedCorners();
-        }
-
-        /// <summary>
-        /// 应用 GDI Region 圆角效果
-        /// </summary>
-        private void ApplyRoundedCorners()
-        {
-            try
-            {
-                // 创建圆角矩形区域
-                IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
-
-                if (region != IntPtr.Zero)
-                {
-                    SetWindowRgn(Handle, region, true);
-                    // 注意：SetWindowRgn 会接管 region 的所有权，不需要手动删除
-
-                }
-                else
-                {
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
+            RoundedCornerHelper.Apply(this);
         }
 
         /// <summary>
@@ -283,10 +269,7 @@ namespace JinChanChanTool.Forms
             base.OnResize(e);
 
             // 调整大小时重新创建圆角区域
-            if (Handle != IntPtr.Zero)
-            {
-                ApplyRoundedCorners();
-            }
+            RoundedCornerHelper.Apply(this);
         }
         #endregion
 

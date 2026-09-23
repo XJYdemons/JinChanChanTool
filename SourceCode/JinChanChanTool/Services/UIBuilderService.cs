@@ -886,8 +886,13 @@ namespace JinChanChanTool.Services
         {
             FlowLayoutPanel _heroPanel = heroPanel;
             if (_heroPanel == null) return;
-            // 清空面板
-            _heroPanel.Controls.Clear();
+            // 清空面板。Controls.Clear() 不会释放子控件，这里显式释放以免句柄滞留。
+            while (_heroPanel.Controls.Count > 0)
+            {
+                Control existing = _heroPanel.Controls[0];
+                _heroPanel.Controls.Remove(existing);
+                existing.Dispose();
+            }
 
             foreach (var hero in heroes)
             {

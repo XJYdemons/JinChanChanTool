@@ -475,8 +475,14 @@ namespace JinChanChanTool.Forms
                 // 暂停布局更新
                 flowLayoutPanel_装备散件展示.SuspendLayout();
 
-                // 清空现有控件
-                flowLayoutPanel_装备散件展示.Controls.Clear();
+                // 清空现有控件。Controls.Clear() 只会解除父子关系，不会释放子控件，
+                // 被移除的控件会带着 Font/句柄滞留到下次 GC，这里显式释放以削平句柄尖峰。
+                while (flowLayoutPanel_装备散件展示.Controls.Count > 0)
+                {
+                    Control existing = flowLayoutPanel_装备散件展示.Controls[0];
+                    flowLayoutPanel_装备散件展示.Controls.Remove(existing);
+                    existing.Dispose();
+                }
 
                 // 如果面板不可见，直接返回
                 if (!flowLayoutPanel_装备散件展示.Visible)

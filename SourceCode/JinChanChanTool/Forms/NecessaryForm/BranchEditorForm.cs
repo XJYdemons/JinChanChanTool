@@ -1,6 +1,5 @@
 using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
-using System.Runtime.InteropServices;
 
 namespace JinChanChanTool;
 
@@ -54,37 +53,27 @@ public partial class BranchEditorForm : Form
     }
 
     #region 圆角实现
-    [DllImport("gdi32.dll")]
-    private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
-    [DllImport("user32.dll")]
-    private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
-
-    private const int CORNER_RADIUS = 16;
-
+    /// <summary>
+    /// 在窗口句柄创建后应用圆角效果
+    /// </summary>
+    /// <param name="e"></param>
     protected override void OnHandleCreated(EventArgs e)
     {
         base.OnHandleCreated(e);
-        ApplyRoundedCorners();
+
+        // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
+        RoundedCornerHelper.Apply(this);
     }
 
+    /// <summary>
+    /// 窗口大小改变时重新应用圆角
+    /// </summary>
     protected override void OnResize(EventArgs e)
     {
         base.OnResize(e);
-        if (Handle != IntPtr.Zero) ApplyRoundedCorners();
-    }
 
-    private void ApplyRoundedCorners()
-    {
-        try
-        {
-            IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
-            if (region != IntPtr.Zero) SetWindowRgn(Handle, region, true);
-        }
-        catch
-        {
-            // 圆角失败时保留正常窗体显示。
-        }
+        // 调整大小时重新创建圆角区域
+        RoundedCornerHelper.Apply(this);
     }
     #endregion
 }

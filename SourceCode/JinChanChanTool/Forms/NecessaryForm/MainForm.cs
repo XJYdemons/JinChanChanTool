@@ -17,7 +17,6 @@ using JinChanChanTool.Tools.LineUpCodeTools;
 using JinChanChanTool.Tools.MouseTools;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using static JinChanChanTool.DataClass.LineUp;
 namespace JinChanChanTool
 {
@@ -312,6 +311,9 @@ namespace JinChanChanTool
             timer_更新坐标.Stop();
             _trackedDynamicCoordinateProcess = null;
             _automationService.SetTargetProcess(null);
+            // 高亮循环与拿牌循环是两条独立的 OCR 循环，必须分别停止，
+            // 否则高亮循环会在窗口释放后继续访问已释放的控件。
+            _cardService?.StopHighLight();
             _cardService?.StopLoop();
             GlobalHotkeyTool.Dispose();
             MouseHookTool.Dispose();
@@ -870,18 +872,26 @@ namespace JinChanChanTool
         /// </summary>
         private void ShowMainForm()
         {
-            if (this.WindowState == FormWindowState.Minimized)
+            // 窗口被"关闭按钮最小化到托盘"时处于隐藏状态，但 WindowState 仍为 Normal，
+            // 此时按快捷键应先从托盘还原，否则会被误判为需要最小化而继续留在托盘。
+            if (!Visible)
+            {
+                TopMost = _iManualSettingsService.CurrentConfig.IsAllWindowsTopMost;
+                RestoreFromTray();
+                return;
+            }
+
+            if (WindowState == FormWindowState.Minimized)
             {
                 // 如果窗口最小化，则还原
-                this.WindowState = FormWindowState.Normal;
-                this.TopMost = _iManualSettingsService.CurrentConfig.IsAllWindowsTopMost;
-                this.Show();
+                WindowState = FormWindowState.Normal;
+                TopMost = _iManualSettingsService.CurrentConfig.IsAllWindowsTopMost;
+                Show();
+                return;
             }
-            else
-            {
-                // 如果窗口未最小化，则最小化
-                this.WindowState = FormWindowState.Minimized;
-            }
+
+            // 如果窗口未最小化，则最小化
+            WindowState = FormWindowState.Minimized;
         }
 
         /// <summary>
@@ -1867,6 +1877,9 @@ namespace JinChanChanTool
             foreach (Control control in flowLayoutPanel_分支按钮.Controls.Cast<Control>().Where(control => control != button_新增分支).ToList())
             {
                 flowLayoutPanel_分支按钮.Controls.Remove(control);
+                // ContextMenuStrip 不是子控件，不会被 Control.Dispose() 连带释放，
+                // 且其句柄在首次弹出后才会创建，必须显式释放，否则每次重建都会泄漏。
+                control.ContextMenuStrip?.Dispose();
                 control.Dispose();
             }
             for (int i = 0; i < currentLineUp.SubLineUps.Count; i++)
@@ -1905,6 +1918,65 @@ namespace JinChanChanTool
             return lineCount * lineHeight;
         }
 
+        /// <summary>
+        /// 最小化期间被推迟应用的主窗口客户区高度（设备像素）。
+        /// </summary>
+        private int pendingMainFormClientHeight;
+
+        /// <summary>
+        /// 是否存在待应用的主窗口客户区高度。
+        /// </summary>
+        private bool isMainFormClientHeightPending;
+
+        /// <summary>
+        /// 判断当前是否可以安全地写入主窗口客户区尺寸。
+        /// 窗口最小化或被隐藏到托盘时，系统会把 ClientSize 置为 0×0，
+        /// 此时读写宽度会把窗口宽度写成 0，还原后主窗口只剩最左侧一条竖直细线。
+        /// </summary>
+        private bool IsMainFormClientSizeWritable()
+        {
+            return IsHandleCreated
+                && !IsDisposed
+                && Visible
+                && WindowState == FormWindowState.Normal
+                && ClientSize.Width > 0;
+        }
+
+        /// <summary>
+        /// 请求把主窗口客户区高度调整为指定值。
+        /// 窗口处于可写入状态时立即生效，否则记录待应用值，待窗口还原后由 OnResize 补写。
+        /// </summary>
+        /// <param name="clientHeight">目标客户区高度（设备像素）</param>
+        private void RequestMainFormClientHeight(int clientHeight)
+        {
+            if (IsMainFormClientSizeWritable())
+            {
+                // 立即写入的值即最新请求，清除可能残留的延迟请求，避免后续重复写入。
+                isMainFormClientHeightPending = false;
+                ClientSize = new Size(ClientSize.Width, clientHeight);
+                return;
+            }
+
+            pendingMainFormClientHeight = clientHeight;
+            isMainFormClientHeightPending = true;
+        }
+
+        /// <summary>
+        /// 补写最小化/隐藏期间被推迟的主窗口客户区高度。
+        /// </summary>
+        private void TryApplyPendingMainFormClientHeight()
+        {
+            if (!isMainFormClientHeightPending || !IsMainFormClientSizeWritable())
+            {
+                return;
+            }
+
+            // 先清除标志再写入：ClientSize 赋值会同步触发 OnResize，
+            // 避免重入时重复写入。
+            isMainFormClientHeightPending = false;
+            ClientSize = new Size(ClientSize.Width, pendingMainFormClientHeight);
+        }
+
         private void UpdateSubLineUpSelection(int selectedIndex, LineUp currentLineUp)
         {
             Color selectedColor = Color.FromArgb(130, 189, 39);
@@ -1921,7 +1993,7 @@ namespace JinChanChanTool
             _uiBuilderService.ResetMainFormLineUpScroll();
             panel_子阵容展示区背景.Height = panel_MainFormLineUpViewport.Bottom + LogicalToDeviceUnits(3);
             panel_用户区背景.Height = Math.Max(LogicalToDeviceUnits(633), panel_子阵容展示区背景.Bottom + LogicalToDeviceUnits(5));
-            ClientSize = new Size(ClientSize.Width, Math.Max(LogicalToDeviceUnits(670), panel_用户区背景.Bottom + LogicalToDeviceUnits(8)));
+            RequestMainFormClientHeight(Math.Max(LogicalToDeviceUnits(670), panel_用户区背景.Bottom + LogicalToDeviceUnits(8)));
             if (selectedIndex >= 0 && selectedIndex < currentLineUp.SubLineUps.Count)
                 flowLayoutPanel_分支按钮.Controls.OfType<Button>().FirstOrDefault(b => (b.Tag as int?) == selectedIndex)?.Focus();
             LineUpForm.Instance.更新棋盘显示(selectedIndex);
@@ -2671,16 +2743,6 @@ namespace JinChanChanTool
         #endregion
 
         #region 圆角实现
-        // GDI32 API - 用于创建圆角效果
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
-        [DllImport("user32.dll")]
-        private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
-
-        // 圆角半径
-        private const int CORNER_RADIUS = 16;
-
         /// <summary>
         /// 在窗口句柄创建后应用圆角效果
         /// </summary>
@@ -2690,34 +2752,7 @@ namespace JinChanChanTool
             base.OnHandleCreated(e);
 
             // 应用 GDI Region 圆角效果（支持 Windows 10 和 Windows 11）
-            ApplyRoundedCorners();
-        }
-
-        /// <summary>
-        /// 应用 GDI Region 圆角效果
-        /// </summary>
-        private void ApplyRoundedCorners()
-        {
-            try
-            {
-                // 创建圆角矩形区域
-                IntPtr region = CreateRoundRectRgn(0, 0, Width, Height, CORNER_RADIUS, CORNER_RADIUS);
-
-                if (region != IntPtr.Zero)
-                {
-                    SetWindowRgn(Handle, region, true);
-                    // 注意：SetWindowRgn 会接管 region 的所有权，不需要手动删除
-
-                }
-                else
-                {
-
-                }
-            }
-            catch
-            {
-
-            }
+            RoundedCornerHelper.Apply(this);
         }
 
         /// <summary>
@@ -2727,11 +2762,25 @@ namespace JinChanChanTool
         {
             base.OnResize(e);
 
+            // 窗口从最小化还原时，先补写被推迟的客户区高度，
+            // 保证下面的圆角区域按正确尺寸重建，避免主窗口被裁剪成一条细线。
+            TryApplyPendingMainFormClientHeight();
+
             // 调整大小时重新创建圆角区域
-            if (Handle != IntPtr.Zero)
-            {
-                ApplyRoundedCorners();
-            }
+            RoundedCornerHelper.Apply(this);
+        }
+
+        /// <summary>
+        /// 窗口可见性改变时补写被推迟的客户区高度。
+        /// 首次显示与从托盘还原都不一定触发 OnResize，需在此单独处理。
+        /// </summary>
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+
+            TryApplyPendingMainFormClientHeight();
+
+            RoundedCornerHelper.Apply(this);
         }
         #endregion
 

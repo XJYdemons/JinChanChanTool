@@ -110,9 +110,8 @@ namespace JinChanChanTool.Forms.DisplayUIForm
             }
 
             // 确保在UI线程执行
-            if (this.InvokeRequired)
+            if (TryMarshalToUiThread(() => UpdateHighlight(targets, rectangles)))
             {
-                this.Invoke(new Action(() => UpdateHighlight(targets, rectangles)));
                 return;
             }
 
@@ -150,13 +149,49 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         }
 
         /// <summary>
+        /// 将调用安全地封送到 UI 线程。
+        /// 后台 OCR 循环可能在覆盖层窗口释放后继续调用本窗体，
+        /// 因此必须先确认窗体仍然有效，再决定排队还是直接执行。
+        /// </summary>
+        /// <param name="action">要执行的操作</param>
+        /// <returns>
+        /// true 表示调用方应立即返回（窗体已失效，或调用已排队到 UI 线程）；
+        /// false 表示当前已在 UI 线程且窗体有效，调用方可继续执行。
+        /// </returns>
+        private bool TryMarshalToUiThread(Action action)
+        {
+            if (IsDisposed || Disposing || !IsHandleCreated)
+            {
+                return true;
+            }
+
+            if (InvokeRequired)
+            {
+                try
+                {
+                    BeginInvoke(action);
+                }
+                catch (ObjectDisposedException)
+                {
+                    // 窗体在判断与调用之间被释放，忽略本次更新。
+                }
+                catch (InvalidOperationException)
+                {
+                    // 句柄已失效（例如窗口正在销毁），忽略本次更新。
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// 清除所有高亮
         /// </summary>
         public void ClearHighlight()
         {
-            if (this.InvokeRequired)
+            if (TryMarshalToUiThread(() => ClearHighlight()))
             {
-                this.Invoke(new Action(() => ClearHighlight()));
                 return;
             }
 
@@ -173,9 +208,8 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         public void ShowOverlay()
         {
-            if (this.InvokeRequired)
+            if (TryMarshalToUiThread(() => ShowOverlay()))
             {
-                this.Invoke(new Action(() => ShowOverlay()));
                 return;
             }
 
@@ -190,9 +224,8 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </summary>
         public void HideOverlay()
         {
-            if (this.InvokeRequired)
+            if (TryMarshalToUiThread(() => HideOverlay()))
             {
-                this.Invoke(new Action(() => HideOverlay()));
                 return;
             }
 
@@ -212,9 +245,8 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// <param name="gradientSpeed">渐变流动速度</param>
         public void UpdateColorSettings(Color color1, Color color2, int borderWidth, float gradientSpeed)
         {
-            if (this.InvokeRequired)
+            if (TryMarshalToUiThread(() => UpdateColorSettings(color1, color2, borderWidth, gradientSpeed)))
             {
-                this.Invoke(new Action(() => UpdateColorSettings(color1, color2, borderWidth, gradientSpeed)));
                 return;
             }
 

@@ -132,7 +132,7 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         [Category("自定义行为")]
         [Description("开关状态变更时触发")]
-        public event EventHandler IsOnChanged;
+        public event EventHandler IsOnChanged = delegate { };
 
         /// <summary>
         /// 构造函数

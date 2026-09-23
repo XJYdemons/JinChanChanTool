@@ -48,7 +48,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 推荐阵容数据变更事件
         /// </summary>
-        public event EventHandler DataChanged;
+        public event EventHandler DataChanged = delegate { };
 
         /// <summary>
         /// 推荐阵容数据文件名

@@ -152,19 +152,19 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 英雄位置变更事件（拖拽完成时触发）
         /// </summary>
-        public event EventHandler<HeroPositionChangedEventArgs> HeroPositionChanged;
+        public event EventHandler<HeroPositionChangedEventArgs> HeroPositionChanged = delegate { };
 
         /// <summary>
         /// 英雄清除事件（右键清除时触发）
         /// </summary>
-        public event EventHandler<HeroClearedEventArgs> HeroCleared;
+        public event EventHandler<HeroClearedEventArgs> HeroCleared = delegate { };
 
         /// <summary>
         /// 开始拖拽事件
         /// </summary>
-        public event EventHandler<HeroDragStartEventArgs> HeroDragStart;
+        public event EventHandler<HeroDragStartEventArgs> HeroDragStart = delegate { };
 
-        public event EventHandler<HeroStackSelectionRequestedEventArgs> HeroStackSelectionRequested;
+        public event EventHandler<HeroStackSelectionRequestedEventArgs> HeroStackSelectionRequested = delegate { };
 
         public HexagonCell()
         {

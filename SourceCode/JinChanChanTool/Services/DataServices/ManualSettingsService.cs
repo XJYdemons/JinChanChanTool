@@ -16,7 +16,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 设置变更事件，当设置保存后触发。
         /// </summary>
-        public event EventHandler<ConfigChangedEventArgs> OnConfigSaved;
+        public event EventHandler<ConfigChangedEventArgs> OnConfigSaved = delegate { };
 
         /// <summary>
         /// 应用设置文件路径。

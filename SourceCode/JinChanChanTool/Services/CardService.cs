@@ -54,11 +54,11 @@ namespace JinChanChanTool.Services
         private QueuedOCRService _ocrService;
 
         public bool isHighLight = false;//是否开启 高亮提示 标志(初始false)
-        public event Action<bool> isHighLightStatusChanged;
+        public event Action<bool> isHighLightStatusChanged = delegate { };
         public bool isGetCard = false;//是否开启 自动拿牌 标志(初始false)
-        public event Action<bool> isGetCardStatusChanged;
+        public event Action<bool> isGetCardStatusChanged = delegate { };
         public bool isRefreshStore = false;//是否开启 自动刷新商店 标志(初始false)
-        public event Action<bool> isRefreshStoreStatusChanged;
+        public event Action<bool> isRefreshStoreStatusChanged = delegate { };
         private CancellationTokenSource ctsHighLight = null;//控制高亮循环的取消令牌
         private CancellationTokenSource ctsGetCard = null;//控制拿牌循环的取消令牌
 

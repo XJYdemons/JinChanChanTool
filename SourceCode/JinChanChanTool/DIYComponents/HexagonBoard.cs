@@ -28,12 +28,12 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 英雄位置变更事件（向外部通知数据变更）
         /// </summary>
-        public event EventHandler<BoardHeroPositionChangedEventArgs> HeroPositionChanged;
+        public event EventHandler<BoardHeroPositionChangedEventArgs> HeroPositionChanged = delegate { };
 
         /// <summary>
         /// 英雄被清除事件
         /// </summary>
-        public event EventHandler<BoardHeroClearedEventArgs> HeroCleared;
+        public event EventHandler<BoardHeroClearedEventArgs> HeroCleared = delegate { };
        
 
         public HexagonBoard()

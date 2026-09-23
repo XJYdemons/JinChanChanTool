@@ -33,8 +33,8 @@ namespace JinChanChanTool.Tools.MouseTools
         private static long _programClickCounter = 0;
 
         // 静态事件
-        public static event EventHandler MouseLeftButtonDown;
-        public static event EventHandler MouseLeftButtonUp;
+        public static event EventHandler MouseLeftButtonDown = delegate { };
+        public static event EventHandler MouseLeftButtonUp = delegate { };
 
         /// <summary>
         /// 初始化鼠标钩子（必须在主窗口加载时调用）

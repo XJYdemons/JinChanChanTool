@@ -9,7 +9,7 @@ namespace JinChanChanTool.DIYComponents
     {
         private const int MaxVisibleHeroes = HexagonCell.MaxStackedHeroes;
 
-        public event EventHandler<HeroStackWheelSelectedEventArgs> HeroSelected;
+        public event EventHandler<HeroStackWheelSelectedEventArgs> HeroSelected = delegate { };
 
         public HeroStackWheel()
         {

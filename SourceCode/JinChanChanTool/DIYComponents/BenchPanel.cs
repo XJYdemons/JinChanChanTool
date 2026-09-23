@@ -24,12 +24,12 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 英雄从备战席拖出事件
         /// </summary>
-        public event EventHandler<BenchHeroDraggedOutEventArgs> HeroDraggedOut;
+        public event EventHandler<BenchHeroDraggedOutEventArgs> HeroDraggedOut = delegate { };
 
         /// <summary>
         /// 英雄位置变更事件（从棋盘拖到备战席时触发）
         /// </summary>
-        public event EventHandler<BenchHeroDroppedInEventArgs> HeroDroppedIn;
+        public event EventHandler<BenchHeroDroppedInEventArgs> HeroDroppedIn = delegate { };
 
 
         public BenchPanel()
@@ -323,7 +323,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 开始拖拽事件
         /// </summary>
-        public event EventHandler<BenchSlotDragEventArgs> HeroDragStarted;
+        public event EventHandler<BenchSlotDragEventArgs> HeroDragStarted = delegate { };
 
         /// <summary>
         /// 触发开始拖拽事件（供 BoardDragManager 调用）

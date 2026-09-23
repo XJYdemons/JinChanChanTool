@@ -61,14 +61,14 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 阵容改变事件
         /// </summary>
-        public event EventHandler LineUpChanged;
+        public event EventHandler LineUpChanged = delegate { };
 
-        public event EventHandler SubLineUpIndexChanged;
+        public event EventHandler SubLineUpIndexChanged = delegate { };
 
         /// <summary>
         /// 阵容名改变事件
         /// </summary>
-        public event EventHandler LineUpNameChanged;
+        public event EventHandler LineUpNameChanged = delegate { };
 
         #region 初始化
         public LineUpService(IHeroDataService iHeroDataService, IManualSettingsService iManualSettingsService, ILocalizationService iLocalizationService, int maxOfChoice, int lineUpIndex)

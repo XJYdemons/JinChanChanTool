@@ -522,10 +522,13 @@ namespace JinChanChanTool.DIYComponents
     public sealed class StackedHeroDisplay
     {
         public LineUpUnit Unit { get; }
-        public Image Image { get; set; }
+
+        /// <summary>英雄图片（图片尚未加载时为 null）</summary>
+        public Image? Image { get; set; }
+
         public Color BorderColor { get; set; }
 
-        public StackedHeroDisplay(LineUpUnit unit, Image image, Color borderColor)
+        public StackedHeroDisplay(LineUpUnit unit, Image? image, Color borderColor)
         {
             Unit = unit;
             Image = image;

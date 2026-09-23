@@ -1,4 +1,4 @@
-﻿using OpenCvSharp;
+using OpenCvSharp;
 using Sdcb.PaddleInference;
 using Sdcb.PaddleOCR;
 using Sdcb.PaddleOCR.Models;
@@ -139,7 +139,7 @@ namespace JinChanChanTool.Services
         /// <param name="recognizeBatchSize">批量识别大小</param>
         /// <param name="configure">OCR配置操作</param>
         /// <returns>识别结果</returns>
-        public async Task<string> RecognizeTextAsync(Bitmap bitmap, int recognizeBatchSize = 0, Action<PaddleOcrAll> configure = null)
+        public async Task<string> RecognizeTextAsync(Bitmap bitmap, int recognizeBatchSize = 0, Action<PaddleOcrAll>? configure = null)
         {                                   
                 // 转换图像格式
                 using Mat src = BitmapToMat(bitmap);

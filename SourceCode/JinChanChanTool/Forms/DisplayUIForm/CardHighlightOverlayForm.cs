@@ -1,3 +1,4 @@
+using JinChanChanTool.Tools;
 using System.Drawing.Drawing2D;
 
 namespace JinChanChanTool.Forms.DisplayUIForm
@@ -88,7 +89,7 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         private void InitializeFormSettings()
         {
             // 设置窗体覆盖整个主屏幕
-            Rectangle screenBounds = Screen.PrimaryScreen.Bounds;
+            Rectangle screenBounds = ScreenHelper.GetPrimaryScreenBounds();
             this.Location = new Point(screenBounds.X, screenBounds.Y);
             this.Size = new Size(screenBounds.Width, screenBounds.Height);
 

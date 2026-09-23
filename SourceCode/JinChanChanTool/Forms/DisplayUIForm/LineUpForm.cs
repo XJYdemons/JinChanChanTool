@@ -798,7 +798,7 @@ namespace JinChanChanTool.Forms
                     int expandedHeight = benchY + benchHeight;
 
                     // 使用完全展开的高度来定位窗体
-                    Rectangle screen = Screen.PrimaryScreen.Bounds;
+                    Rectangle screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         screen.Right - this.Width,
                         screen.Bottom - expandedHeight
@@ -820,7 +820,7 @@ namespace JinChanChanTool.Forms
                     int expandedHeight = benchY + benchHeight;
 
                     // 使用完全展开的高度来定位窗体
-                    Rectangle screen = Screen.PrimaryScreen.Bounds;
+                    Rectangle screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         screen.Right - this.Width,
                         screen.Bottom - expandedHeight
@@ -837,7 +837,7 @@ namespace JinChanChanTool.Forms
                 int expandedHeight = benchY + benchHeight;
 
                 // 使用完全展开的高度来定位窗体
-                Rectangle screen = Screen.PrimaryScreen.Bounds;
+                Rectangle screen = ScreenHelper.GetPrimaryScreenBounds();
                 this.Location = new Point(
                     screen.Right - this.Width,
                     screen.Bottom - expandedHeight

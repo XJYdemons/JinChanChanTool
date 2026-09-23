@@ -1,4 +1,4 @@
-﻿namespace JinChanChanTool
+namespace JinChanChanTool
 {
     partial class SettingForm
     {
@@ -5120,7 +5120,6 @@
         private TabPage tabPage_快捷键;
         private TabPage tabPage_坐标设置;
         private Panel panel_截图;
-        private TabPage tabPage_拿牌相关;
         private TextBox textBox_拿牌按键5;
         private Label label_拿牌按键5;
         private TextBox textBox_拿牌按键4;

@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 
 namespace JinChanChanTool.Services.DataServices.Interface
 {
@@ -34,7 +34,7 @@ namespace JinChanChanTool.Services.DataServices.Interface
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        string ConvertToRightResult(string result, out bool isError, out string errorMessage);
+        string ConvertToRightResult(string result, out bool isError, out string? errorMessage);
 
         /// <summary>
         /// 设置英雄名字符哈希表

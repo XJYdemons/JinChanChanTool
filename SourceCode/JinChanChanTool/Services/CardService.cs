@@ -59,8 +59,8 @@ namespace JinChanChanTool.Services
         public event Action<bool> isGetCardStatusChanged = delegate { };
         public bool isRefreshStore = false;//是否开启 自动刷新商店 标志(初始false)
         public event Action<bool> isRefreshStoreStatusChanged = delegate { };
-        private CancellationTokenSource ctsHighLight = null;//控制高亮循环的取消令牌
-        private CancellationTokenSource ctsGetCard = null;//控制拿牌循环的取消令牌
+        private CancellationTokenSource? ctsHighLight = null;//控制高亮循环的取消令牌
+        private CancellationTokenSource? ctsGetCard = null;//控制拿牌循环的取消令牌
 
         private bool 鼠标左键是否按下;
         private bool 本轮是否按下过鼠标;
@@ -533,7 +533,7 @@ namespace JinChanChanTool.Services
             string errorImagePath = Path.Combine(Application.StartupPath, "Logs", "ErrorImages");
             for (int i = 0; i < 原始结果数组.Length; i++)
             {
-                纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string errorMessage);
+                纠正结果数组[i] = _iCorrectionService.ConvertToRightResult(原始结果数组[i], out bool isError, out string? errorMessage);
 
                 if (!isError)
                 {

@@ -171,7 +171,8 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         public void ReLoad()
         {
-            CurrentConfig = null;
+            // 直接重新加载：Load() 内部会在成功时替换 CurrentConfig、失败时回退默认配置，
+            // 无需先置 null（置 null 会让 CurrentConfig 短暂处于非法状态）
             Load();
         }
         #endregion

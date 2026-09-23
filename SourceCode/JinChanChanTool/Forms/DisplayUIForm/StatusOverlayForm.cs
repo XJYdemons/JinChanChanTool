@@ -191,7 +191,7 @@ namespace JinChanChanTool.Forms
                 this.StartPosition = FormStartPosition.Manual;
                 if (_iAutoConfigService.CurrentConfig.StatusOverlayFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.StatusOverlayFormLocation.Y == -1)
                 {
-                    var screen = Screen.PrimaryScreen.Bounds;
+                    var screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         0 /*- 10*/,
                         screen.Bottom-this.Height /*+ 10*/
@@ -205,7 +205,7 @@ namespace JinChanChanTool.Forms
                 }
                 else
                 {
-                    var screen = Screen.PrimaryScreen.Bounds;
+                    var screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         0 /*- 10*/,
                         screen.Bottom - this.Height /*+ 10*/
@@ -214,7 +214,7 @@ namespace JinChanChanTool.Forms
             }
             catch
             {
-                var screen = Screen.PrimaryScreen.Bounds;
+                var screen = ScreenHelper.GetPrimaryScreenBounds();
                 this.Location = new Point(
                         0 /*- 10*/,
                         screen.Bottom - this.Height /*+ 10*/

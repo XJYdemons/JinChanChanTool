@@ -779,8 +779,8 @@ namespace JinChanChanTool
         #endregion
 
         #region 窗口、菜单项相关
-        private SettingForm _settingFormInstance = null; // 保存窗口实例的字段
-        private AboutForm _aboutFormInstance = null;
+        private SettingForm? _settingFormInstance = null; // 保存窗口实例的字段
+        private AboutForm? _aboutFormInstance = null;
 
         /// <summary>
         /// 菜单项“设置”被单击
@@ -2421,9 +2421,9 @@ namespace JinChanChanTool
         #endregion
 
         #region 装备展示
-        private HeroPictureBox _hoveredHeroPictureBox = null;//当前悬停的英雄头像框
+        private HeroPictureBox? _hoveredHeroPictureBox = null;//当前悬停的英雄头像框
 
-        private ToolTip _activeToolTip = null; //用于持有当前活动的ToolTip实例
+        private ToolTip? _activeToolTip = null; //用于持有当前活动的ToolTip实例
 
         /// <summary>
         /// 定时器触发——>显示装备推荐ToolTip
@@ -2942,7 +2942,7 @@ namespace JinChanChanTool
                 this.StartPosition = FormStartPosition.Manual;
                 if (_iAutomaticSettingsService.CurrentConfig.MainFormLocation.X == -1 && _iAutomaticSettingsService.CurrentConfig.MainFormLocation.Y == -1)
                 {
-                    var screen = Screen.PrimaryScreen.Bounds;
+                    var screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
                         screen.Top + screen.Height / 2 - this.Height / 2 /*+ 10*/
@@ -2956,7 +2956,7 @@ namespace JinChanChanTool
                 }
                 else
                 {
-                    var screen = Screen.PrimaryScreen.Bounds;
+                    var screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
                         screen.Top + screen.Height / 2 - this.Height / 2 /*+ 10*/
@@ -2965,7 +2965,7 @@ namespace JinChanChanTool
             }
             catch
             {
-                var screen = Screen.PrimaryScreen.Bounds;
+                var screen = ScreenHelper.GetPrimaryScreenBounds();
                 this.Location = new Point(
                     screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
                     screen.Top + screen.Height / 2 - this.Height / 2 /*+ 10*/

@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace JinChanChanTool.DataClass
 {
@@ -28,10 +28,10 @@ namespace JinChanChanTool.DataClass
         public List<string> Peculiarity { get; set; } = new List<string>();
 
         /// <summary>
-        /// 英雄图片
+        /// 英雄图片（无图片时为 null）
         /// </summary>
         [JsonIgnore]
-        public Bitmap Image { get; set; } = null!;
+        public Bitmap? Image { get; set; }
 
         public Hero()
         {

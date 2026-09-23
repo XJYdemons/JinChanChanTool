@@ -342,7 +342,7 @@ namespace JinChanChanTool.Forms
                 this.StartPosition = FormStartPosition.Manual;
                 if (_iAutoConfigService.CurrentConfig.OutputFormLocation.X == -1 && _iAutoConfigService.CurrentConfig.OutputFormLocation.Y == -1)
                 {
-                    var screen = Screen.PrimaryScreen.Bounds;
+                    var screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
                         screen.Top  /*+ 10*/
@@ -356,7 +356,7 @@ namespace JinChanChanTool.Forms
                 }
                 else
                 {
-                    var screen = Screen.PrimaryScreen.Bounds;
+                    var screen = ScreenHelper.GetPrimaryScreenBounds();
                     this.Location = new Point(
                         screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
                         screen.Top  /*+ 10*/
@@ -365,7 +365,7 @@ namespace JinChanChanTool.Forms
             }
             catch
             {
-                var screen = Screen.PrimaryScreen.Bounds;
+                var screen = ScreenHelper.GetPrimaryScreenBounds();
                 this.Location = new Point(
                     screen.Left + screen.Width / 2 - this.Width / 2 /*- 10*/,
                     screen.Top  /*+ 10*/

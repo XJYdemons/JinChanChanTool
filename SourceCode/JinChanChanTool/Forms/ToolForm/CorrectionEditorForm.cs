@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.Localization;
@@ -111,12 +111,20 @@ namespace JinChanChanTool
             var groupedMappings = dataGridView_结果纠正列表编辑器.Rows
                     .Cast<DataGridViewRow>()
                     .Where(row => !row.IsNewRow)
-                    .GroupBy(row => row.Cells["CorrectColumn"].Value?.ToString())
-                    .Where(group => !string.IsNullOrEmpty(group.Key))
+                    // 先投影出两列文本，再按非空 Correct 分组：
+                    // 这样 group.Key 的类型由分组前的 Select 保证为 string，无需空值抑制符
+                    .Select(row => new
+                    {
+                        Correct = row.Cells["CorrectColumn"].Value?.ToString() ?? string.Empty,
+                        Incorrect = row.Cells["IncorrectColumn"].Value?.ToString()
+                    })
+                    .Where(item => !string.IsNullOrEmpty(item.Correct))
+                    .GroupBy(item => item.Correct)
                     .Select(group => new ResultMapping
                     {
                         Correct = group.Key,
-                        Incorrect = group.Select(row => row.Cells["IncorrectColumn"].Value?.ToString())
+                        Incorrect = group.Select(item => item.Incorrect)
+                                        .OfType<string>()
                                         .Where(value => !string.IsNullOrEmpty(value))
                                         .ToList()
                     })

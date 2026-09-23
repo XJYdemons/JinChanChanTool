@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Services;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace JinChanChanTool.DIYComponents
         public List<HeroPictureBox> EquipmentPictureBoxes { get; set; }
 
 
-        public void SetHero(Hero hero, UIBuilderService ui,Equipment equipment1=null,Equipment equipment2=null,Equipment equipment3=null)
+        public void SetHero(Hero hero, UIBuilderService ui, Equipment? equipment1 = null, Equipment? equipment2 = null, Equipment? equipment3 = null)
         {
 
 

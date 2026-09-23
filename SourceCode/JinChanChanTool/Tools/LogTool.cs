@@ -21,8 +21,8 @@ public static class LogTool
     private static readonly object _fileLock = new object();// 文件写入锁
 
     // 文件资源管理
-    private static FileStream _fileStream = null!;// 文件流
-    private static StreamWriter _streamWriter = null!;// 流写入器
+    private static FileStream? _fileStream = null!;// 文件流
+    private static StreamWriter? _streamWriter = null!;// 流写入器
 
     // 文件路径配置
     private static readonly string _logPath = Path.Combine(Application.StartupPath, "Logs");// 日志目录

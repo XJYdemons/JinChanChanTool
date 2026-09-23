@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 namespace JinChanChanTool.DataClass
 {
     public class Equipment
@@ -19,9 +19,9 @@ namespace JinChanChanTool.DataClass
         public string[] SyntheticPathway { get; set; } = null!;
 
         /// <summary>
-        /// 装备图片
+        /// 装备图片（释放或未加载时为 null）
         /// </summary>
         [JsonIgnore]
-        public Bitmap Image { get; set; } = null!;
+        public Bitmap? Image { get; set; }
     }
 }

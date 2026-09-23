@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices.Interface;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -185,7 +185,7 @@ namespace JinChanChanTool.Services.DataServices
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public  string ConvertToRightResult(string Result,out bool isError,out string errorMessage)
+        public  string ConvertToRightResult(string Result,out bool isError,out string? errorMessage)
         {           
             // 清理输入字符串
             isError = true;

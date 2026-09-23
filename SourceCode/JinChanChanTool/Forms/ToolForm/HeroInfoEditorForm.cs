@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.Localization;
@@ -112,6 +112,9 @@ namespace JinChanChanTool.Forms
             }
             catch (Exception ex)
             {
+                // 加载默认图片失败：记录原因后回退到空白占位图，避免编辑器无图可用
+                Debug.WriteLine($"[HeroInfoEditorForm] 默认图片加载失败：{ex.Message}");
+                LogTool.Log($"[HeroInfoEditorForm] 默认图片加载失败：{ex.Message}");
                 MessageBox.Show(_iLocalizationService.Get("HeroInfoEditorForm.Msg.默认图片加载失败", _iheroDataService.GetDefaultImagePath()),
                                     _iLocalizationService.Get("HeroInfoEditorForm.MsgTitle.默认图片加载失败"),
                                     MessageBoxButtons.OK,

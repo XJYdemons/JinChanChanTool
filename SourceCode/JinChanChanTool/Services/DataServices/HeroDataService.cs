@@ -160,7 +160,8 @@ namespace JinChanChanTool.Services.DataServices
         /// <returns></returns>
         public Hero GetHeroFromName(string name)
         {
-            if (nameToHeroDataMap.TryGetValue(name, out Hero hero))
+            // 字典取值可能为 null，显式判空后再返回，行为与原来一致（未命中同样返回 null）
+            if (nameToHeroDataMap.TryGetValue(name, out Hero? hero) && hero != null)
             {
                 return hero;
             }
@@ -435,7 +436,20 @@ namespace JinChanChanTool.Services.DataServices
                         Save();
                         return;
                     }
-                    List<Hero> temp = JsonSerializer.Deserialize<List<Hero>>(json);
+                    // 反序列化可能返回 null（例如 JSON 内容为 null 字面量），此处与原有“格式错误”分支保持一致：提示、重建文件并返回
+                    List<Hero>? temp = JsonSerializer.Deserialize<List<Hero>>(json);
+                    if (temp == null)
+                    {
+                        LogTool.Log($"[HeroDataService] LoadFromJson 英雄配置反序列化结果为 null：{filePath}");
+                        Debug.WriteLine($"[HeroDataService] LoadFromJson 英雄配置反序列化结果为 null：{filePath}");
+                        MessageBox.Show($"英雄配置文件\"{Path.GetFileName(filePath)}\"格式错误\n路径：\n{filePath}\n将创建新的文件。",
+                                       "文件格式错误",
+                                       MessageBoxButtons.OK,
+                                       MessageBoxIcon.Error
+                                       );
+                        Save();
+                        return;
+                    }
                     //合并同名英雄
                     var groupedHeroes = temp
                         .GroupBy(h => h.HeroName)
@@ -549,7 +563,8 @@ namespace JinChanChanTool.Services.DataServices
                 {
                     if (string.IsNullOrWhiteSpace(professionName)) continue;
 
-                    Profession existingGroup = professions.FirstOrDefault(p => string.Equals(p.Title, professionName, StringComparison.OrdinalIgnoreCase));
+                    // FirstOrDefault 未命中时返回 null，已由下方判空分支处理，语义不变
+                    Profession? existingGroup = professions.FirstOrDefault(p => string.Equals(p.Title, professionName, StringComparison.OrdinalIgnoreCase));
                     if (existingGroup != null)
                     {
                         existingGroup.Heros.Add(HeroDatas[i]);
@@ -580,7 +595,8 @@ namespace JinChanChanTool.Services.DataServices
                 {
                     if (string.IsNullOrWhiteSpace(peculiarityName)) continue;
 
-                    Peculiarity existingGroup = peculiarities.FirstOrDefault(p => string.Equals(p.Title, peculiarityName, StringComparison.OrdinalIgnoreCase));
+                    // FirstOrDefault 未命中时返回 null，已由下方判空分支处理，语义不变
+                    Peculiarity? existingGroup = peculiarities.FirstOrDefault(p => string.Equals(p.Title, peculiarityName, StringComparison.OrdinalIgnoreCase));
                     if (existingGroup != null)
                     {
                         existingGroup.Heros.Add(HeroDatas[i]);

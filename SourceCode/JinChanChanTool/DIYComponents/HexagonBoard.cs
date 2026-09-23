@@ -202,13 +202,15 @@ namespace JinChanChanTool.DIYComponents
 
             foreach (var positionGroup in positionedUnits)
             {
+                // 用 OfType 同时完成「过滤 null」与「收窄为可空元素类型」，
+                // 避免 List<StackedHeroDisplay?> 流入要求非空元素的 SetHeroes
                 List<StackedHeroDisplay> stackedHeroes = positionGroup
                     .Select(unit =>
                     {
-                        Hero hero = _heroDataService?.GetHeroFromName(unit.HeroName);
+                        Hero? hero = _heroDataService?.GetHeroFromName(unit.HeroName);
                         return hero == null ? null : new StackedHeroDisplay(unit, hero.Image, GetColorFromCost(hero.Cost));
                     })
-                    .Where(hero => hero != null)
+                    .OfType<StackedHeroDisplay>()
                     .ToList();
 
                 if (stackedHeroes.Count > 0)
@@ -298,13 +300,15 @@ namespace JinChanChanTool.DIYComponents
                 return;
             }
 
+            // 用 OfType 同时完成「过滤 null」与「收窄为可空元素类型」，
+            // 避免 List<StackedHeroDisplay?> 流入要求非空元素的 SetHeroes
             List<StackedHeroDisplay> stackedHeroes = e.Cell.StackUnits
                 .Select(unit =>
                 {
-                    Hero hero = _heroDataService.GetHeroFromName(unit.HeroName);
+                    Hero? hero = _heroDataService.GetHeroFromName(unit.HeroName);
                     return hero == null ? null : new StackedHeroDisplay(unit, hero.Image, GetColorFromCost(hero.Cost));
                 })
-                .Where(hero => hero != null)
+                .OfType<StackedHeroDisplay>()
                 .ToList();
 
             _wheelTargetCell = e.Cell;

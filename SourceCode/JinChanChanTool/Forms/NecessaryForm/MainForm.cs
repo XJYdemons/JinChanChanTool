@@ -220,7 +220,9 @@ namespace JinChanChanTool
             {
                 for (int i = 0; i < comboBox_赛季选择.Items.Count; i++)
                 {
-                    if (comboBox_赛季选择.Items[i].ToString().Equals(_iAutomaticSettingsService.CurrentConfig.SelectedSeason, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(comboBox_赛季选择.Items[i]?.ToString(),
+                                      _iAutomaticSettingsService.CurrentConfig.SelectedSeason,
+                                      StringComparison.OrdinalIgnoreCase))
                     {
                         selectedIndex = i;
                         break;
@@ -1143,8 +1145,13 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void ProfessionButtonClick(object? sender, EventArgs e)
         {
-            Button button = sender as Button;
-            Profession profession = button.Tag as Profession;
+            if (sender is not Button button || button.Tag is not Profession profession)
+            {
+                LogTool.Log($"[MainForm] ProfessionButtonClick 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] ProfessionButtonClick 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             SelectHerosFromProfession(profession);
         }
 
@@ -1167,8 +1174,13 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void PeculiarityButtonClick(object? sender, EventArgs e)
         {
-            Button button = sender as Button;
-            Peculiarity peculiarity = button.Tag as Peculiarity;
+            if (sender is not Button button || button.Tag is not Peculiarity peculiarity)
+            {
+                LogTool.Log($"[MainForm] PeculiarityButtonClick 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] PeculiarityButtonClick 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             SelectHerosFromPeculiarity(peculiarity);
         }
 
@@ -1199,8 +1211,13 @@ namespace JinChanChanTool
             {
                 return;
             }
-            CheckBox _checkBox = sender as CheckBox;
-            string name = _checkBox.Tag as string;
+            if (sender is not CheckBox _checkBox || _checkBox.Tag is not string name)
+            {
+                LogTool.Log($"[MainForm] CheckBoxCheckedChanged 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] CheckBoxCheckedChanged 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             if (_checkBox.Checked)
             {
                 if (!_iLineUpService.AddHero(name, new string[] { "", "", "" }))
@@ -1269,7 +1286,13 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void comboBox_LineUps_DropDownClosed(object? sender, EventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
+            if (sender is not ComboBox comboBox)
+            {
+                LogTool.Log($"[MainForm] comboBox_LineUps_DropDownClosed 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] comboBox_LineUps_DropDownClosed 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             if (comboBox.SelectedItem != null && comboBox.SelectedIndex != -1)
             {
                 _iLineUpService.SetLineUpIndex(comboBox.SelectedIndex);
@@ -1291,7 +1314,13 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void comboBox_LineUps_Leave(object? sender, EventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
+            if (sender is not ComboBox comboBox)
+            {
+                LogTool.Log($"[MainForm] comboBox_LineUps_Leave 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] comboBox_LineUps_Leave 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             if (ReferenceEquals(comboBox, comboBox_阵容选择) && IsMainLineUpSaveButtonTarget())
             {
                 return;
@@ -1324,7 +1353,13 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void comboBox_LineUps_KeyDown(object? sender, KeyEventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
+            if (sender is not ComboBox comboBox)
+            {
+                LogTool.Log($"[MainForm] comboBox_LineUps_KeyDown 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] comboBox_LineUps_KeyDown 收到非 ComboBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             // 捕获用户按下的键，并更新 TextBox
             var key = e.KeyCode; // 获取按键代码
             if (key == Keys.Enter)
@@ -1370,7 +1405,9 @@ namespace JinChanChanTool
             {
                 for (int i = 0; i < comboBox_阵容选择.Items.Count; i++)
                 {
-                    if (comboBox_阵容选择.Items[i].ToString().Equals(lineUpName, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(comboBox_阵容选择.Items[i]?.ToString(),
+                                      lineUpName,
+                                      StringComparison.OrdinalIgnoreCase))
                     {
                         mainFormLineUpSelectedComboBoxIndex = i;
                         break;
@@ -1387,7 +1424,9 @@ namespace JinChanChanTool
             {
                 for (int i = 0; i < LineUpForm.Instance.GetLineUpSelectedComboBox().Items.Count; i++)
                 {
-                    if (LineUpForm.Instance.GetLineUpSelectedComboBox().Items[i].ToString().Equals(lineUpName, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(LineUpForm.Instance.GetLineUpSelectedComboBox().Items[i]?.ToString(),
+                                      lineUpName,
+                                      StringComparison.OrdinalIgnoreCase))
                     {
                         lineUpFormLineUpSelectedComboBoxIndex = i;
                         break;
@@ -1418,12 +1457,24 @@ namespace JinChanChanTool
                     return;
                 }
 
-                HeroPictureBox pictureBox_ = sender as HeroPictureBox;
-                Image image = pictureBox_.Image;
+                if (sender is not HeroPictureBox pictureBox_)
+                {
+                    LogTool.Log($"[MainForm] HeroAndEquipmentPictureBox_Hero_MouseUp 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                    Debug.WriteLine($"[MainForm] HeroAndEquipmentPictureBox_Hero_MouseUp 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                    return;
+                }
+
+                Image? image = pictureBox_.Image;
                 if (image != null)
                 {
-                    string name = (pictureBox_.Tag as Hero).HeroName;
-                    _iLineUpService.DeleteHero(name);
+                    if (pictureBox_.Tag is not Hero hero)
+                    {
+                        LogTool.Log("[MainForm] HeroAndEquipmentPictureBox_Hero_MouseUp 的 Tag 不是 Hero，已忽略本次删除。");
+                        Debug.WriteLine("[MainForm] HeroAndEquipmentPictureBox_Hero_MouseUp 的 Tag 不是 Hero，已忽略本次删除。");
+                        return;
+                    }
+
+                    _iLineUpService.DeleteHero(hero.HeroName);
                 }
             }
 
@@ -1443,7 +1494,7 @@ namespace JinChanChanTool
 
                 // 确定装备槽位索引，并通过父容器获取英雄信息
                 int equipmentIndex = -1;
-                Hero hero = null;
+                Hero? hero = null;
 
                 foreach (var haep in _uiBuilderService.MainForm_HeroAndEquipmentPictureBoxes)
                 {
@@ -1508,7 +1559,7 @@ namespace JinChanChanTool
 
                 // 确定装备槽位索引，并通过父容器获取英雄信息
                 int equipmentIndex = -1;
-                Hero hero = null;
+                Hero? hero = null;
 
                 foreach (var haep in _uiBuilderService.LineUpForm_HeroAndEquipmentPictureBoxes)
                 {
@@ -1562,7 +1613,13 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void HeroPictureBox_MouseEnter(object? sender, EventArgs e)
         {
-            HeroPictureBox clickedBox = sender as HeroPictureBox;
+            if (sender is not HeroPictureBox clickedBox)
+            {
+                LogTool.Log($"[MainForm] HeroPictureBox_MouseEnter 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] HeroPictureBox_MouseEnter 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width + 1, _uiBuilderService.GetHeroPictureBoxSize().Height + 1);
             clickedBox.Size = this.LogicalToDeviceUnits(size);
 
@@ -1584,7 +1641,13 @@ namespace JinChanChanTool
         /// <param name="e"></param>
         private void HeroPictureBox_MouseLeave(object? sender, EventArgs e)
         {
-            HeroPictureBox clickedBox = sender as HeroPictureBox;
+            if (sender is not HeroPictureBox clickedBox)
+            {
+                LogTool.Log($"[MainForm] HeroPictureBox_MouseLeave 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[MainForm] HeroPictureBox_MouseLeave 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width, _uiBuilderService.GetHeroPictureBoxSize().Height);
             clickedBox.Size = this.LogicalToDeviceUnits(size);
 
@@ -1608,10 +1671,15 @@ namespace JinChanChanTool
         {
             if (e.Button == MouseButtons.Left)
             {
-                HeroPictureBox clickedBox = sender as HeroPictureBox;
+                if (sender is not HeroPictureBox clickedBox || clickedBox.Tag is not string name)
+                {
+                    LogTool.Log($"[MainForm] HeroPictureBox_MouseUp 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                    Debug.WriteLine($"[MainForm] HeroPictureBox_MouseUp 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                    return;
+                }
+
                 Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width + 1, _uiBuilderService.GetHeroPictureBoxSize().Height + 1);
                 clickedBox.Size = this.LogicalToDeviceUnits(size);
-                string name = clickedBox.Tag as string;
                 _iLineUpService.AddAndDeleteHero(name, new string[] { "", "", "" });
             }
         }
@@ -1625,7 +1693,13 @@ namespace JinChanChanTool
         {
             if (e.Button == MouseButtons.Left)
             {
-                HeroPictureBox clickedBox = sender as HeroPictureBox;
+                if (sender is not HeroPictureBox clickedBox)
+                {
+                    LogTool.Log($"[MainForm] HeroPictureBox_MouseDown 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                    Debug.WriteLine($"[MainForm] HeroPictureBox_MouseDown 收到非 HeroPictureBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                    return;
+                }
+
                 Size size = new Size(_uiBuilderService.GetHeroPictureBoxSize().Width + 2, _uiBuilderService.GetHeroPictureBoxSize().Height + 2);
                 clickedBox.Size = this.LogicalToDeviceUnits(size);
             }
@@ -1648,8 +1722,13 @@ namespace JinChanChanTool
                     return;
                 }
 
-                HeroPictureBox clickedBox = sender as HeroPictureBox;
-                string name = clickedBox.Tag as string;
+                if (sender is not HeroPictureBox clickedBox || clickedBox.Tag is not string name)
+                {
+                    LogTool.Log($"[MainForm] SelectFormPictureBoxes_Click 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                    Debug.WriteLine($"[MainForm] SelectFormPictureBoxes_Click 收到无效的发送者或 Tag：{sender?.GetType().FullName ?? "null"}");
+                    return;
+                }
+
                 _iLineUpService.AddAndDeleteHero(name, new string[] { "", "", "" });
             }
         }
@@ -2359,7 +2438,7 @@ namespace JinChanChanTool
             {
 
                 // 从 PictureBox 的 Tag 属性中获取 英雄名称
-                string name = _hoveredHeroPictureBox.Tag as string;
+                string? name = _hoveredHeroPictureBox.Tag as string;
 
                 if (name != null)
                 {
@@ -2846,7 +2925,9 @@ namespace JinChanChanTool
             }
             catch (Exception ex)
             {
-
+                // 保存窗口位置失败不阻断交互，但需留痕
+                Debug.WriteLine($"[MainForm] 保存窗口位置失败：{ex.Message}");
+                LogTool.Log($"[MainForm] 保存窗口位置失败：{ex.Message}");
             }
         }
         /// <summary>

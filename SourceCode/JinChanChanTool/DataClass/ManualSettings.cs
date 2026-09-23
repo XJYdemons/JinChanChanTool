@@ -1,4 +1,4 @@
-﻿namespace JinChanChanTool.DataClass
+namespace JinChanChanTool.DataClass
 {
     /// <summary>
     /// 手动设置数据类。
@@ -569,7 +569,7 @@
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(ManualSettings other)
+        public bool Equals(ManualSettings? other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;

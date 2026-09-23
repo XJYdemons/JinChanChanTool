@@ -185,7 +185,8 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                 return;
             }
 
-            string targetSeasonPath = Paths.FirstOrDefault(path =>
+            // FirstOrDefault 未命中时返回 null，由下方 IsNullOrEmpty 卫语句拦截，语义不变
+            string? targetSeasonPath = Paths.FirstOrDefault(path =>
                 string.Equals(Path.GetFileName(path), targetSeason, StringComparison.OrdinalIgnoreCase));
             if (string.IsNullOrEmpty(targetSeasonPath))
             {
@@ -280,8 +281,16 @@ namespace JinChanChanTool.Services.RecommendedEquipment
                     return;
                 }
 
-                EquipmentDataFile dataFile = JsonSerializer.Deserialize<EquipmentDataFile>(json);
-                if (dataFile == null || dataFile.Data == null || dataFile.Data.Count == 0)
+                // 反序列化可能返回 null，此处与下方 dataFile 字段校验保持一致：记录日志后直接返回
+                EquipmentDataFile? dataFile = JsonSerializer.Deserialize<EquipmentDataFile>(json);
+                if (dataFile == null)
+                {
+                    LogTool.Log($"[HeroEquipmentDataService] LoadFromJson 装备推荐数据反序列化结果为 null：{filePath}");
+                    Debug.WriteLine($"[HeroEquipmentDataService] LoadFromJson 装备推荐数据反序列化结果为 null：{filePath}");
+                    OutputForm.Instance.WriteLineOutputMessage($"提示: 文件 {filePath} 未包含有效的装备推荐数据。");
+                    return;
+                }
+                if (dataFile.Data == null || dataFile.Data.Count == 0)
                 {
                     OutputForm.Instance.WriteLineOutputMessage($"提示: 文件 {filePath} 未包含有效的 Data 字段。");
                     return;

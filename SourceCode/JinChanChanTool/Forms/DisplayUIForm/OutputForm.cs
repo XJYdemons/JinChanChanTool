@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.Services;
+using JinChanChanTool.Services;
 using JinChanChanTool.Services.DataServices.Interface;
 using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
@@ -324,7 +324,9 @@ namespace JinChanChanTool.Forms
             }
             catch (Exception ex)
             {
-
+                // 保存窗口位置失败不阻断交互，但需留痕
+                Debug.WriteLine($"[OutputForm] 保存窗口位置失败：{ex.Message}");
+                LogTool.Log($"[OutputForm] 保存窗口位置失败：{ex.Message}");
             }
         }
 

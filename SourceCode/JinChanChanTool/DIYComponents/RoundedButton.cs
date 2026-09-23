@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Drawing2D;
 
 namespace JinChanChanTool.DIYComponents
@@ -52,6 +53,7 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         [Category("自定义外观")]
         [Description("按钮显示的文本")]
+        [AllowNull]
         public override string Text
         {
             get => base.Text;

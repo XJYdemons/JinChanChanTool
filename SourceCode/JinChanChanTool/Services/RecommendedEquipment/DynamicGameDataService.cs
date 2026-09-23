@@ -88,7 +88,14 @@ namespace JinChanChanTool.Services.RecommendedEquipment
 
                 // comps_data is the authoritative source for the season used by lineup recommendations.
                 using var seasonDoc = JsonDocument.Parse(seasonSourceJson);
-                string tftSet = seasonDoc.RootElement.GetProperty("tft_set").GetString();
+                // GetString 可能返回 null，null 时与下方赛季编号校验保持一致：记录日志后抛出，由外层 catch 统一处理
+                string? tftSet = seasonDoc.RootElement.GetProperty("tft_set").GetString();
+                if (tftSet == null)
+                {
+                    LogTool.Log("[DynamicGameDataService] InitializeAsync 赛季数据源中的 tft_set 字段为 null。");
+                    Debug.WriteLine("[DynamicGameDataService] InitializeAsync 赛季数据源中的 tft_set 字段为 null。");
+                    throw new InvalidOperationException("赛季数据源缺少有效的 tft_set 字段。");
+                }
                 string seasonNum = new string(tftSet.Where(char.IsDigit).ToArray());
                 if (string.IsNullOrWhiteSpace(seasonNum))
                 {
@@ -295,12 +302,22 @@ namespace JinChanChanTool.Services.RecommendedEquipment
         public string GetHeroTranslation(string apiName)
         {
             if (string.IsNullOrWhiteSpace(apiName)) return string.Empty;
-            if (HeroTranslations.TryGetValue(apiName, out string translatedName)) return translatedName;
+
+            // 字典取值为 null 时视为未命中，记录日志后回退到别名或原始名称，避免把 null 当作翻译结果返回
+            if (HeroTranslations.TryGetValue(apiName, out string? translatedName) && translatedName != null)
+            {
+                return translatedName;
+            }
 
             string normalizedKey = NormalizeHeroApiKey(apiName);
-            return _heroTranslationAliases.TryGetValue(normalizedKey, out translatedName)
-                ? translatedName
-                : apiName;
+            if (_heroTranslationAliases.TryGetValue(normalizedKey, out string? aliasName) && aliasName != null)
+            {
+                return aliasName;
+            }
+
+            LogTool.Log($"[DynamicGameDataService] GetHeroTranslation 未命中英雄翻译，回退为原始名称：{apiName}");
+            Debug.WriteLine($"[DynamicGameDataService] GetHeroTranslation 未命中英雄翻译，回退为原始名称：{apiName}");
+            return apiName;
         }
 
         private static string NormalizeHeroApiKey(string apiName)

@@ -71,7 +71,7 @@ namespace JinChanChanTool.DIYComponents
             }
 
             // 从关联控件的Tag获取当前装备
-            Equipment equipment = e.AssociatedControl.Tag as Equipment;
+            Equipment? equipment = e.AssociatedControl.Tag as Equipment;
             if (equipment == null)
             {
                 e.Cancel = true;
@@ -115,10 +115,12 @@ namespace JinChanChanTool.DIYComponents
             }
 
             // 从关联控件的Tag获取当前装备
-            Equipment equipment = e.AssociatedControl?.Tag as Equipment;
+            Equipment? equipment = e.AssociatedControl?.Tag as Equipment;
             if (equipment == null) return;
 
-            bool hasRecipe = equipment.SyntheticPathway != null && equipment.SyntheticPathway.Length >= 2;
+            // 取出合成路径到局部变量：这样编译器能把「非空且长度足够」收窄到下面的索引访问，
+            // 避免通过 bool 中间变量判断时无法追踪可空性
+            string[]? syntheticPathway = equipment.SyntheticPathway;
 
             // 绘制装备名称
             using (var brush = new SolidBrush(Color.White))
@@ -130,14 +132,14 @@ namespace JinChanChanTool.DIYComponents
             }
 
             // 如果有合成路径，绘制散件图片
-            if (hasRecipe)
+            if (syntheticPathway != null && syntheticPathway.Length >= 2)
             {
                 int imagesY = PADDING + TEXT_HEIGHT + MARGIN;
                 int totalImagesWidth = IMAGE_SIZE * 2 + MARGIN * 2 + PLUS_SIGN_WIDTH;
                 int startX = (e.Bounds.Width - totalImagesWidth) / 2;
 
                 // 获取第一个散件图片
-                var component1 = _equipmentService.GetEquipmentFromName(equipment.SyntheticPathway[0]);
+                var component1 = _equipmentService.GetEquipmentFromName(syntheticPathway[0]);
                 if (component1?.Image != null)
                 {
                     e.Graphics.DrawImage(component1.Image, new Rectangle(startX, imagesY, IMAGE_SIZE, IMAGE_SIZE));
@@ -158,7 +160,7 @@ namespace JinChanChanTool.DIYComponents
                 }
 
                 // 获取第二个散件图片
-                var component2 = _equipmentService.GetEquipmentFromName(equipment.SyntheticPathway[1]);
+                var component2 = _equipmentService.GetEquipmentFromName(syntheticPathway[1]);
                 if (component2?.Image != null)
                 {
                     int secondImageX = startX + IMAGE_SIZE + MARGIN + PLUS_SIGN_WIDTH + MARGIN;

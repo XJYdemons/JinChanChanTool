@@ -251,7 +251,8 @@ namespace JinChanChanTool.Services.DataServices
                 return 0;
             }
 
-            string targetSeasonPath = _paths.FirstOrDefault(path =>
+            // FirstOrDefault 未命中时返回 null，由下方 IsNullOrEmpty 卫语句拦截，语义不变
+            string? targetSeasonPath = _paths.FirstOrDefault(path =>
                 string.Equals(Path.GetFileName(path), targetSeason, StringComparison.OrdinalIgnoreCase));
             if (string.IsNullOrEmpty(targetSeasonPath))
             {

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Text.Json;
 using JinChanChanTool.DataClass;
 using JinChanChanTool.Services.DataServices.Interface;
@@ -76,7 +76,7 @@ namespace JinChanChanTool.Services.DataServices
             try
             {
                 // 读取旧配置副本（用于比较）
-                ManualSettings oldConfig = null;
+                ManualSettings? oldConfig = null;
                 if (File.Exists(filePath))
                 {
                     try
@@ -87,23 +87,26 @@ namespace JinChanChanTool.Services.DataServices
                             oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson, jsonOptions);
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        // 配置文件损坏或格式不兼容：视为已变更，触发一次全量保存以覆盖坏文件
+                        Debug.WriteLine($"[ManualSettingsService] 读取旧配置失败，将按已变更处理：{ex.Message}");
+                        LogTool.Log($"[ManualSettingsService] 读取旧配置失败，将按已变更处理：{ex.Message}");
                     }
                 }
-               if(oldConfig.Equals(CurrentConfig))
-                {
-                    return false;
-                    
-                }
-               else
+
+                // 文件不存在或反序列化失败时 oldConfig 为 null，此时视为已变更
+                if (oldConfig == null)
                 {
                     return true;
                 }
+
+                return !oldConfig.Equals(CurrentConfig);
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine($"[ManualSettingsService] 比较配置是否变更时发生异常：{ex.Message}");
+                LogTool.Log($"[ManualSettingsService] 比较配置是否变更时发生异常：{ex.Message}");
                 return false;
             }
         }
@@ -116,7 +119,7 @@ namespace JinChanChanTool.Services.DataServices
             try
             {
                 // 读取旧配置副本（用于比较）
-                ManualSettings oldConfig = null;
+                ManualSettings? oldConfig = null;
                 if(File.Exists(filePath))
                 {
                     try
@@ -127,9 +130,11 @@ namespace JinChanChanTool.Services.DataServices
                             oldConfig = JsonSerializer.Deserialize<ManualSettings>(oldJson, jsonOptions);
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        // 旧文件损坏：仍继续写入新配置，差异计算按“全部字段变更”处理
+                        Debug.WriteLine($"[ManualSettingsService] 读取旧配置失败，将按全部字段变更处理：{ex.Message}");
+                        LogTool.Log($"[ManualSettingsService] 读取旧配置失败，将按全部字段变更处理：{ex.Message}");
                     }
                 }
                 // 设置 JsonSerializerOptions 以保持中文字符的可读性
@@ -202,10 +207,22 @@ namespace JinChanChanTool.Services.DataServices
                     Save(false);
                     return;
                 }
-                CurrentConfig = JsonSerializer.Deserialize<ManualSettings>(json, jsonOptions);                
+                // 反序列化可能返回 null（内容为字面量 "null" 等），此时保持现有配置并创建默认文件
+                ManualSettings? loaded = JsonSerializer.Deserialize<ManualSettings>(json, jsonOptions);
+                if (loaded == null)
+                {
+                    Debug.WriteLine("[ManualSettingsService] 用户应用设置反序列化结果为 null，将创建默认设置文件。");
+                    LogTool.Log("[ManualSettingsService] 用户应用设置反序列化结果为 null，将创建默认设置文件。");
+                    Save(false);
+                    return;
+                }
+
+                CurrentConfig = loaded;
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine($"[ManualSettingsService] 用户应用设置文件读取失败：{ex.Message}");
+                LogTool.Log($"[ManualSettingsService] 用户应用设置文件读取失败：{ex.Message}");
                 MessageBox.Show($"用户应用设置文件\"{Path.GetFileName(filePath)}\"格式错误\n路径：\n{filePath}\n将创建默认设置文件。",
                                    "文件格式错误",
                                    MessageBoxButtons.OK,
@@ -218,7 +235,7 @@ namespace JinChanChanTool.Services.DataServices
         /// <summary>
         /// 比较两个 AppConfig，返回所有值不同的属性名。
         /// </summary>
-        private List<string> GetChangedFields(ManualSettings oldConfig, ManualSettings newConfig)
+        private List<string> GetChangedFields(ManualSettings? oldConfig, ManualSettings newConfig)
         {
             var changed = new List<string>();
 

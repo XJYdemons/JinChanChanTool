@@ -309,7 +309,7 @@ namespace JinChanChanTool.DIYComponents
             HitTestResult hitResult = HitTest(screenPoint);
 
             // 确定新的高亮目标格子
-            HexagonCell newHighlightCell = null;
+            HexagonCell? newHighlightCell = null;
 
             if (hitResult.Type == HitTestResultType.HexagonCell && hitResult.TargetCell != null)
             {
@@ -355,10 +355,19 @@ namespace JinChanChanTool.DIYComponents
                 && hitResult.TargetCell != _sourceCell
                 && _sourceCell != null)
             {
+                // LineUpUnit 来自当前显示英雄，空格子时为 null，需判空后再触发事件
+                LineUpUnit? movedUnit = _sourceCell.LineUpUnit;
+                if (movedUnit == null)
+                {
+                    LogTool.Log("[BoardDragManager] 棋盘内交换时源格子没有绑定的阵容单位，已忽略本次放置。");
+                    Debug.WriteLine("[BoardDragManager] 棋盘内交换时源格子没有绑定的阵容单位，已忽略本次放置。");
+                    return;
+                }
+
                 // 通过目标格子触发 HeroPositionChanged 事件，复用现有事件链
                 hitResult.TargetCell.InvokeHeroPositionChanged(
                     _sourceCell.Row, _sourceCell.Column,
-                    _sourceCell.LineUpUnit
+                    movedUnit
                 );
                 return;
             }
@@ -369,10 +378,19 @@ namespace JinChanChanTool.DIYComponents
                 && hitResult.TargetCell != null
                 && _sourceBenchSlot != null)
             {
+                // 备战席格子为空时 LineUpUnit 为 null，需判空
+                LineUpUnit? movedUnit = _sourceBenchSlot.LineUpUnit;
+                if (movedUnit == null)
+                {
+                    LogTool.Log("[BoardDragManager] 备战席源格子没有绑定的阵容单位，已忽略本次放置。");
+                    Debug.WriteLine("[BoardDragManager] 备战席源格子没有绑定的阵容单位，已忽略本次放置。");
+                    return;
+                }
+
                 // 源位置 (0,0) 表示来自备战席
                 hitResult.TargetCell.InvokeHeroPositionChanged(
                     0, 0,
-                    _sourceBenchSlot.LineUpUnit
+                    movedUnit
                 );
                 return;
             }
@@ -384,10 +402,19 @@ namespace JinChanChanTool.DIYComponents
                 && _sourceCell.HasHero
                 && !_benchPanel.IsFull)
             {
+                // LineUpUnit 可能为 null（HasHero 与 LineUpUnit 的赋值时机不完全一致），需判空
+                LineUpUnit? movedUnit = _sourceCell.LineUpUnit;
+                if (movedUnit == null)
+                {
+                    LogTool.Log("[BoardDragManager] 棋盘源格子没有绑定的阵容单位，已忽略本次放置。");
+                    Debug.WriteLine("[BoardDragManager] 棋盘源格子没有绑定的阵容单位，已忽略本次放置。");
+                    return;
+                }
+
                 // 触发备战席的 HeroDroppedIn 事件
                 _benchPanel.InvokeHeroDroppedIn(
                     _sourceCell.Row, _sourceCell.Column,
-                    _sourceCell.LineUpUnit
+                    movedUnit
                 );
                 return;
             }
@@ -409,7 +436,7 @@ namespace JinChanChanTool.DIYComponents
 
                 if (_hexagonBoard.ClientRectangle.Contains(boardLocalPoint))
                 {
-                    HexagonCell targetCell = FindCellAtPoint(boardLocalPoint);
+                    HexagonCell? targetCell = FindCellAtPoint(boardLocalPoint);
                     if (targetCell != null)
                     {
                         return new HitTestResult(HitTestResultType.HexagonCell, targetCell);
@@ -438,9 +465,9 @@ namespace JinChanChanTool.DIYComponents
         /// </summary>
         /// <param name="boardLocalPoint">相对于棋盘控件的本地坐标</param>
         /// <returns>命中的格子，未命中返回 null</returns>
-        private HexagonCell FindCellAtPoint(Point boardLocalPoint)
+        private HexagonCell? FindCellAtPoint(Point boardLocalPoint)
         {
-            HexagonCell closestCell = null;
+            HexagonCell? closestCell = null;
             double closestDistance = double.MaxValue;
 
             foreach (HexagonCell cell in _hexagonBoard.GetAllCells())

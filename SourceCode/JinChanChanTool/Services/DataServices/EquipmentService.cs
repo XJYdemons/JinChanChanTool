@@ -2,6 +2,7 @@
 using JinChanChanTool.Services.DataServices.Interface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -145,7 +146,8 @@ namespace JinChanChanTool.Services.DataServices
         /// <returns></returns>
         public Equipment GetEquipmentFromName(string name)
         {
-            if (nameToEquipmentMap.TryGetValue(name, out Equipment equipment))
+            // 字典取值可能为 null，显式判空后再返回，行为与原来一致（未命中同样返回 null）
+            if (nameToEquipmentMap.TryGetValue(name, out Equipment? equipment) && equipment != null)
             {
                 return equipment;
             }
@@ -318,7 +320,20 @@ namespace JinChanChanTool.Services.DataServices
                         Save();
                         return;
                     }
-                    List<Equipment> temp = JsonSerializer.Deserialize<List<Equipment>>(json);
+                    // 反序列化可能返回 null（例如 JSON 内容为 null 字面量），此处与原有“格式错误”分支保持一致：提示、重建文件并返回
+                    List<Equipment>? temp = JsonSerializer.Deserialize<List<Equipment>>(json);
+                    if (temp == null)
+                    {
+                        LogTool.Log($"[EquipmentService] LoadFromJson 装备配置反序列化结果为 null：{filePath}");
+                        Debug.WriteLine($"[EquipmentService] LoadFromJson 装备配置反序列化结果为 null：{filePath}");
+                        MessageBox.Show($"装备配置文件\"{Path.GetFileName(filePath)}\"格式错误\n路径：\n{filePath}\n将创建新的文件。",
+                                       "文件格式错误",
+                                       MessageBoxButtons.OK,
+                                       MessageBoxIcon.Error
+                                       );
+                        Save();
+                        return;
+                    }
                     //合并同名英雄
                     var groupedHeroes = temp
                         .GroupBy(h => h.Name)

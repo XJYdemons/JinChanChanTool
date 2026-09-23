@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text;
 
@@ -87,7 +87,9 @@ public static class LogTool
             return true;
         }
         catch (Exception ex)
-        {           
+        {
+            Debug.WriteLine($"[LogTool] 打开日志文件失败：{ex.Message}");
+            Log($"[LogTool] 打开日志文件失败：{ex.Message}");
             return false;
         }
     }    
@@ -189,6 +191,13 @@ public static class LogTool
                 {
                     if (_streamWriter == null) InitializeFileStream();// 确保文件流已初始化
 
+                    // 初始化可能失败（磁盘满、权限不足等），此时无法写入，跳过本次重试
+                    if (_streamWriter == null)
+                    {
+                        Thread.Sleep(RotationRetryDelay * (retry + 1));// 延迟后重试
+                        continue;
+                    }
+
                     // 使用StringBuilder优化内存分配
                     var sb = new StringBuilder(logs.Count * 256);
                     foreach (var log in logs)
@@ -202,8 +211,9 @@ public static class LogTool
                     _streamWriter.Flush();
                     return;// 成功写入，退出重试循环
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Debug.WriteLine($"[LogTool] 日志写入失败（第 {retry + 1}/{MaxRetries} 次重试）：{ex.Message}");
                     HandleWriteFailure();// 处理写入失败
                     Thread.Sleep(RotationRetryDelay * (retry + 1));// 延迟后重试
                 }
@@ -281,9 +291,13 @@ public static class LogTool
                 AutoFlush = false
             };
         }
-        catch
+        catch (Exception ex)
         {
-            
+            // 初始化失败时保持 _streamWriter 为 null，由调用方决定重试策略；
+            // 此处仅记录原因，避免静默失败导致日志丢失且无从排查。
+            Debug.WriteLine($"[LogTool] 初始化日志文件流失败：{ex.Message}");
+            _streamWriter = null;
+            _fileStream = null;
         }
     }
 

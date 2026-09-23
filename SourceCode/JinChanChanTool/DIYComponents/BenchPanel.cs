@@ -207,7 +207,7 @@ namespace JinChanChanTool.DIYComponents
                 if (slotIndex >= _maxHeroCount) break;
 
                 // 获取英雄数据
-                Hero hero = _heroDataService?.GetHeroFromName(unit.HeroName);
+                Hero? hero = _heroDataService?.GetHeroFromName(unit.HeroName);
                 if (hero == null) continue;
 
                 // 获取边框颜色

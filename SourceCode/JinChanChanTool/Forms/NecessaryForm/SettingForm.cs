@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services;
@@ -1160,7 +1160,14 @@ namespace JinChanChanTool
             //禁用全局热键，防止冲突
             GlobalHotkeyTool.Enabled = false;
             // 当用户进入文本框时，清空现有内容
-            (sender as TextBox).Text = "";
+            if (sender is not TextBox textBox)
+            {
+                LogTool.Log($"[SettingForm] TextBox_Enter 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[SettingForm] TextBox_Enter 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
+            textBox.Text = "";
         }
 
         /// <summary>
@@ -1172,7 +1179,13 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            TextBox textBox = sender as TextBox;
+            if (sender is not TextBox textBox)
+            {
+                LogTool.Log($"[SettingForm] TextBox_Leave 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[SettingForm] TextBox_Leave 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 Update_AllComponents();

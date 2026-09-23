@@ -211,18 +211,22 @@ namespace JinChanChanTool.Forms
             if (columnName == "Image")
             {
                 DataGridViewRow row = dataGridView_装备数据编辑器.Rows[e.RowIndex];
-                string equipmentName = row.Cells["Name"].Value?.ToString();
+                // 单元格取值可能为 null，故使用可空类型，并在下方统一判空
+                string? equipmentName = row.Cells["Name"].Value?.ToString();
 
                 if (!string.IsNullOrEmpty(equipmentName))
                 {
-                    Equipment equipment = _iEquipmentService.GetEquipmentDatas().FirstOrDefault(h => h.Name == equipmentName);
-                    Image image = equipment?.Image;
+                    // FirstOrDefault 未命中时返回 null，故使用可空类型，并在下方统一判空
+                    Equipment? equipment = _iEquipmentService.GetEquipmentDatas().FirstOrDefault(h => h.Name == equipmentName);
+                    // 装备图片可能为 null，故使用可空类型，并在下方统一判空
+                    Image? image = equipment?.Image;
                     if (equipment != null && image != null)
                     {
                         e.Value = image;
                     }
                     else
                     {
+                        // 装备未命中或图片缺失，沿用原有的默认图片回退逻辑
                         e.Value = defaultImage;
                     }
                 }
@@ -238,8 +242,14 @@ namespace JinChanChanTool.Forms
             {
                 try
                 {
-                    Equipment equipment = dataGridView_装备数据编辑器.Rows[e.RowIndex].DataBoundItem as Equipment;
-                    if (equipment != null && equipment.SyntheticPathway != null)
+                    // 行绑定项可能不是 Equipment，改用模式匹配卫语句，避免空引用
+                    if (dataGridView_装备数据编辑器.Rows[e.RowIndex].DataBoundItem is not Equipment equipment)
+                    {
+                        LogTool.Log($"[EquipmentDataEditorForm] DataGridView_CellFormatting 行绑定项不是装备对象，跳过合成路径格式化：行索引 {e.RowIndex}");
+                        Debug.WriteLine($"[EquipmentDataEditorForm] DataGridView_CellFormatting 行绑定项不是装备对象，跳过合成路径格式化：行索引 {e.RowIndex}");
+                        return;
+                    }
+                    if (equipment.SyntheticPathway != null)
                     {
                         e.Value = string.Join("+", equipment.SyntheticPathway);
                         e.FormattingApplied = true;
@@ -266,17 +276,27 @@ namespace JinChanChanTool.Forms
             // 处理合成路径列 - 将用 + 分隔的字符串解析为 string[]
             if (columnName == "SyntheticPathway")
             {
-                Equipment equipment = dataGridView_装备数据编辑器.Rows[e.RowIndex].DataBoundItem as Equipment;
-                if (equipment != null && e.Value != null)
+                // 行绑定项可能不是 Equipment，改用模式匹配卫语句，避免空引用
+                if (dataGridView_装备数据编辑器.Rows[e.RowIndex].DataBoundItem is not Equipment equipment)
                 {
-                    string input = e.Value.ToString();
-                    equipment.SyntheticPathway = input.Split('+', StringSplitOptions.RemoveEmptyEntries)
-                                           .Select(s => s.Trim())
-                                           .Where(s => !string.IsNullOrWhiteSpace(s))
-                                           .ToArray();
-                    e.ParsingApplied = true;
-                    isChanged = true;
+                    LogTool.Log($"[EquipmentDataEditorForm] DataGridView_CellParsing 行绑定项不是装备对象，跳过合成路径解析：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[EquipmentDataEditorForm] DataGridView_CellParsing 行绑定项不是装备对象，跳过合成路径解析：行索引 {e.RowIndex}");
+                    return;
                 }
+                // 单元格取值可能为 null，故使用可空类型，并在下方统一判空
+                string? input = e.Value?.ToString();
+                if (input == null)
+                {
+                    LogTool.Log($"[EquipmentDataEditorForm] DataGridView_CellParsing 单元格取值为 null，跳过合成路径解析：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[EquipmentDataEditorForm] DataGridView_CellParsing 单元格取值为 null，跳过合成路径解析：行索引 {e.RowIndex}");
+                    return;
+                }
+                equipment.SyntheticPathway = input.Split('+', StringSplitOptions.RemoveEmptyEntries)
+                                       .Select(s => s.Trim())
+                                       .Where(s => !string.IsNullOrWhiteSpace(s))
+                                       .ToArray();
+                e.ParsingApplied = true;
+                isChanged = true;
             }
         }
 

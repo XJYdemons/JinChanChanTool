@@ -218,18 +218,22 @@ namespace JinChanChanTool.Forms
             if (columnName == "Image")
             {
                 DataGridViewRow row = dataGridView_英雄数据编辑器.Rows[e.RowIndex];
-                string heroName = row.Cells["HeroName"].Value?.ToString();
+                // 单元格取值可能为 null，故使用可空类型，并在下方统一判空
+                string? heroName = row.Cells["HeroName"].Value?.ToString();
 
                 if (!string.IsNullOrEmpty(heroName))
                 {
-                    Hero hero = _iheroDataService.GetHeroDatas().FirstOrDefault(h => h.HeroName == heroName);
-                    Image image = hero?.Image;
+                    // FirstOrDefault 未命中时返回 null，故使用可空类型，并在下方统一判空
+                    Hero? hero = _iheroDataService.GetHeroDatas().FirstOrDefault(h => h.HeroName == heroName);
+                    // 英雄图片可能为 null，故使用可空类型，并在下方统一判空
+                    Image? image = hero?.Image;
                     if (hero != null && image != null)
                     {
                         e.Value = image;
                     }
                     else
                     {
+                        // 英雄未命中或图片缺失，沿用原有的默认图片回退逻辑
                         e.Value = defaultImage;
                     }
                 }
@@ -243,8 +247,14 @@ namespace JinChanChanTool.Forms
             // 处理职业列 - 将 List<string> 转换为用 | 分隔的字符串显示
             else if (columnName == "Profession")
             {
-                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
-                if (hero != null && hero.Profession != null)
+                // 行绑定项可能不是 Hero，改用模式匹配卫语句，避免空引用
+                if (dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem is not Hero hero)
+                {
+                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过职业格式化：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过职业格式化：行索引 {e.RowIndex}");
+                    return;
+                }
+                if (hero.Profession != null)
                 {
                     e.Value = string.Join("|", hero.Profession);
                     e.FormattingApplied = true;
@@ -253,8 +263,14 @@ namespace JinChanChanTool.Forms
             // 处理特性列 - 将 List<string> 转换为用 | 分隔的字符串显示
             else if (columnName == "Peculiarity")
             {
-                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
-                if (hero != null && hero.Peculiarity != null)
+                // 行绑定项可能不是 Hero，改用模式匹配卫语句，避免空引用
+                if (dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem is not Hero hero)
+                {
+                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过特性格式化：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellFormatting 行绑定项不是英雄对象，跳过特性格式化：行索引 {e.RowIndex}");
+                    return;
+                }
+                if (hero.Peculiarity != null)
                 {
                     e.Value = string.Join("|", hero.Peculiarity);
                     e.FormattingApplied = true;
@@ -276,32 +292,52 @@ namespace JinChanChanTool.Forms
             // 处理职业列 - 将用 | 分隔的字符串解析为 List<string>
             if (columnName == "Profession")
             {
-                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
-                if (hero != null && e.Value != null)
+                // 行绑定项可能不是 Hero，改用模式匹配卫语句，避免空引用
+                if (dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem is not Hero hero)
                 {
-                    string input = e.Value.ToString();
-                    hero.Profession = input.Split('|', StringSplitOptions.RemoveEmptyEntries)
-                                           .Select(s => s.Trim())
-                                           .Where(s => !string.IsNullOrWhiteSpace(s))
-                                           .ToList();
-                    e.ParsingApplied = true;
-                    isChanged = true;
+                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellParsing 行绑定项不是英雄对象，跳过职业解析：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellParsing 行绑定项不是英雄对象，跳过职业解析：行索引 {e.RowIndex}");
+                    return;
                 }
+                // 单元格取值可能为 null，故使用可空类型，并在下方统一判空
+                string? input = e.Value?.ToString();
+                if (input == null)
+                {
+                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellParsing 单元格取值为 null，跳过职业解析：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellParsing 单元格取值为 null，跳过职业解析：行索引 {e.RowIndex}");
+                    return;
+                }
+                hero.Profession = input.Split('|', StringSplitOptions.RemoveEmptyEntries)
+                                       .Select(s => s.Trim())
+                                       .Where(s => !string.IsNullOrWhiteSpace(s))
+                                       .ToList();
+                e.ParsingApplied = true;
+                isChanged = true;
             }
             // 处理特性列 - 将用 | 分隔的字符串解析为 List<string>
             else if (columnName == "Peculiarity")
             {
-                Hero hero = dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem as Hero;
-                if (hero != null && e.Value != null)
+                // 行绑定项可能不是 Hero，改用模式匹配卫语句，避免空引用
+                if (dataGridView_英雄数据编辑器.Rows[e.RowIndex].DataBoundItem is not Hero hero)
                 {
-                    string input = e.Value.ToString();
-                    hero.Peculiarity = input.Split('|', StringSplitOptions.RemoveEmptyEntries)
-                                            .Select(s => s.Trim())
-                                            .Where(s => !string.IsNullOrWhiteSpace(s))
-                                            .ToList();
-                    e.ParsingApplied = true;
-                    isChanged = true;
+                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellParsing 行绑定项不是英雄对象，跳过特性解析：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellParsing 行绑定项不是英雄对象，跳过特性解析：行索引 {e.RowIndex}");
+                    return;
                 }
+                // 单元格取值可能为 null，故使用可空类型，并在下方统一判空
+                string? input = e.Value?.ToString();
+                if (input == null)
+                {
+                    LogTool.Log($"[HeroInfoEditorForm] DataGridView_CellParsing 单元格取值为 null，跳过特性解析：行索引 {e.RowIndex}");
+                    Debug.WriteLine($"[HeroInfoEditorForm] DataGridView_CellParsing 单元格取值为 null，跳过特性解析：行索引 {e.RowIndex}");
+                    return;
+                }
+                hero.Peculiarity = input.Split('|', StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(s => s.Trim())
+                                        .Where(s => !string.IsNullOrWhiteSpace(s))
+                                        .ToList();
+                e.ParsingApplied = true;
+                isChanged = true;
             }
         }
 

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -29,8 +30,17 @@ namespace JinChanChanTool.Tools
 
                 if (reader.TokenType == JsonTokenType.PropertyName)
                 {
-                    string propertyName = reader.GetString();
+                    // GetString 可能返回 null，此时与下方 default 分支保持一致：记录日志后跳过该属性的值
+                    string? propertyName = reader.GetString();
                     reader.Read();
+
+                    if (propertyName == null)
+                    {
+                        LogTool.Log("[ColorJsonConverter] Read 读取到 null 属性名，已跳过该属性。");
+                        Debug.WriteLine("[ColorJsonConverter] Read 读取到 null 属性名，已跳过该属性。");
+                        reader.Skip();
+                        continue;
+                    }
 
                     switch (propertyName)
                     {

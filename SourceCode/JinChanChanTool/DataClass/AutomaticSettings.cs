@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -178,7 +178,7 @@ namespace JinChanChanTool.DataClass
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(AutomaticSettings other)
+        public bool Equals(AutomaticSettings? other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;

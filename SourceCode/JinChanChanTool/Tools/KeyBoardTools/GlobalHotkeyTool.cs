@@ -66,8 +66,16 @@ namespace JinChanChanTool.Tools.KeyBoardTools
         private static void InstallHook()
         {
             using var process = Process.GetCurrentProcess();
+            // MainModule / ModuleName 在部分环境下可能为 null，此处安全取值；取空值时记录日志，后续仍走原有的钩子安装失败分支
+            string moduleName = process.MainModule?.ModuleName ?? string.Empty;
+            if (string.IsNullOrEmpty(moduleName))
+            {
+                LogTool.Log("[GlobalHotkeyTool] InstallHook 无法读取当前进程主模块名，钩子安装将失败并进入原有失败分支。");
+                Debug.WriteLine("[GlobalHotkeyTool] InstallHook 无法读取当前进程主模块名，钩子安装将失败并进入原有失败分支。");
+            }
+
             _hookId = SetWindowsHookEx(WH_KEYBOARD_LL, _hookProcDelegate,
-                GetModuleHandle(process.MainModule.ModuleName), 0);
+                GetModuleHandle(moduleName), 0);
 
             if (_hookId == nint.Zero)
             {

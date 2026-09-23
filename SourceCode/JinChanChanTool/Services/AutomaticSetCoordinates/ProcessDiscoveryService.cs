@@ -39,9 +39,10 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             {
                 using (process)
                 {
-                    if (TryCreateSnapshot(process, includeExecutablePath, out ProcessSnapshot? snapshot) &&
-                        snapshot.MainWindowHandle != nint.Zero &&
-                        !string.IsNullOrEmpty(snapshot.MainWindowTitle))
+                    if (TryCreateSnapshot(process, includeExecutablePath, out ProcessSnapshot? snapshot)
+                        && snapshot != null
+                        && snapshot.MainWindowHandle != nint.Zero
+                        && !string.IsNullOrEmpty(snapshot.MainWindowTitle))
                     {
                         snapshots.Add(snapshot);
                     }
@@ -144,7 +145,8 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
             {
                 using (process)
                 {
-                    if (TryCreateSnapshot(process, includeExecutablePath: false, out ProcessSnapshot? snapshot))
+                    if (TryCreateSnapshot(process, includeExecutablePath: false, out ProcessSnapshot? snapshot)
+                        && snapshot != null)
                     {
                         snapshots.Add(snapshot);
                     }
@@ -161,6 +163,14 @@ namespace JinChanChanTool.Services.AutoSetCoordinates
         {
             if (!TryGetProcessById(snapshot.Id, out ProcessSnapshot? current))
             {
+                return false;
+            }
+
+            // TryGetProcessById 返回 true 时快照必定非空，此处显式判空以满足可空性检查，空值与“进程已退出”同样返回 false
+            if (current == null)
+            {
+                LogTool.Log($"[ProcessDiscoveryService] IsProcessAlive 进程快照查询结果为空，视为进程已退出：{snapshot.Id}");
+                Debug.WriteLine($"[ProcessDiscoveryService] IsProcessAlive 进程快照查询结果为空，视为进程已退出：{snapshot.Id}");
                 return false;
             }
 

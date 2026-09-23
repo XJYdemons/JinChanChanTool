@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using JinChanChanTool.DataClass;
 
@@ -56,7 +57,7 @@ namespace JinChanChanTool.DIYComponents
         /// <summary>
         /// 绑定的阵容单位数据
         /// </summary>
-        public LineUpUnit LineUpUnit
+        public LineUpUnit? LineUpUnit
         {
             get => GetDisplayedHero()?.Unit;
             set
@@ -385,8 +386,17 @@ namespace JinChanChanTool.DIYComponents
 
             if (e.Button == MouseButtons.Right && HasHero && IsPointInHexagon(e.Location))
             {
+                // LineUpUnit 来自当前显示英雄，可能为 null，需判空后再触发清除事件
+                LineUpUnit? clearedUnit = LineUpUnit;
+                if (clearedUnit == null)
+                {
+                    LogTool.Log($"[HexagonCell] 右键清除时未取得绑定的阵容单位（行 {_row}，列 {_column}），已忽略本次清除。");
+                    Debug.WriteLine($"[HexagonCell] 右键清除时未取得绑定的阵容单位（行 {_row}，列 {_column}），已忽略本次清除。");
+                    return;
+                }
+
                 // 触发清除事件
-                HeroCleared?.Invoke(this, new HeroClearedEventArgs(_row, _column, LineUpUnit));
+                HeroCleared?.Invoke(this, new HeroClearedEventArgs(_row, _column, clearedUnit));
             }
         }
 

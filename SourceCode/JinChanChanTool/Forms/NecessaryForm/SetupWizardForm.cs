@@ -136,7 +136,14 @@ namespace JinChanChanTool
             //禁用全局热键，防止冲突
             GlobalHotkeyTool.Enabled = false;
             // 当用户进入文本框时，清空现有内容
-            (sender as TextBox).Text = "";
+            if (sender is not TextBox textBox)
+            {
+                LogTool.Log($"[SetupWizardForm] TextBox_Enter 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[SetupWizardForm] TextBox_Enter 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
+            textBox.Text = "";
         }
 
         /// <summary>
@@ -148,7 +155,13 @@ namespace JinChanChanTool
         {
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
-            TextBox textBox = sender as TextBox;
+            if (sender is not TextBox textBox)
+            {
+                LogTool.Log($"[SetupWizardForm] TextBox_Leave 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                Debug.WriteLine($"[SetupWizardForm] TextBox_Leave 收到非 TextBox 的发送者：{sender?.GetType().FullName ?? "null"}");
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 Update_AllComponents();
@@ -226,7 +239,9 @@ namespace JinChanChanTool
                 // 页面8：GPU环境配置 - 进入时自动检测
                 if (pageIndex == 7 && _gpuInfo == null)
                 {
-                    DetectGpuEnvironmentAsync();
+                    // 此处为即发即弃调用：DetectGpuEnvironmentAsync 内部已捕获异常并记录日志，
+                    // 用弃元显式表明不等待，避免 CS4014 与未观察异常
+                    _ = DetectGpuEnvironmentAsync();
                 }
             }
         }
@@ -1030,24 +1045,36 @@ namespace JinChanChanTool
             label_CUDA状态.Text = _iLocalizationService.Get("SetupWizard.Page8.CUDA检测中");
             label_cuDNN状态.Text = _iLocalizationService.Get("SetupWizard.Page8.cuDNN检测中");
 
-            await Task.Run(() =>
+            try
             {
-                // 检测GPU
-                _gpuInfo = _gpuDetectionService.DetectGpu();
+                await Task.Run(() =>
+                {
+                    // 检测GPU
+                    _gpuInfo = _gpuDetectionService.DetectGpu();
 
-                // 检测CUDA环境
-                _cudaInfo = _cudaDetectionService.DetectCudaEnvironment();
-            });
+                    // 检测CUDA环境
+                    _cudaInfo = _cudaDetectionService.DetectCudaEnvironment();
+                });
 
-            // 更新UI
-            UpdateGpuEnvironmentStatus();
+                // 更新UI
+                UpdateGpuEnvironmentStatus();
 
-            // 更新CUDA版本选项
-            UpdateCudaVersionOptions();
-
-            button_检测GPU环境.Enabled = true;
-           
-            button_一键配置.Enabled = _gpuInfo?.IsSupportedForInference == true;
+                // 更新CUDA版本选项
+                UpdateCudaVersionOptions();
+            }
+            catch (Exception ex)
+            {
+                // 检测失败时给出可见反馈，避免界面停留在“检测中”状态
+                Debug.WriteLine($"[SetupWizardForm] 检测GPU环境失败：{ex.Message}");
+                LogTool.Log($"[SetupWizardForm] 检测GPU环境失败：{ex.Message}");
+                label_GPU状态.Text = _iLocalizationService.Get("SetupWizard.Page8.未检测到NVIDIA显卡");
+            }
+            finally
+            {
+                // 无论成功或失败都恢复按钮可用状态
+                button_检测GPU环境.Enabled = true;
+                button_一键配置.Enabled = _gpuInfo?.IsSupportedForInference == true;
+            }
         }
 
         /// <summary>
@@ -1147,7 +1174,8 @@ namespace JinChanChanTool
         /// </summary>
         private void buttonRefreshDetection_Click(object? sender, EventArgs e)
         {
-            DetectGpuEnvironmentAsync();
+            // 即发即弃调用：DetectGpuEnvironmentAsync 内部已捕获异常并记录日志
+            _ = DetectGpuEnvironmentAsync();
         }
 
         /// <summary>

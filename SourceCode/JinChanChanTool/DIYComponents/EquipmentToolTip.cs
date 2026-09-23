@@ -1,4 +1,4 @@
-﻿namespace JinChanChanTool.DIYComponents 
+namespace JinChanChanTool.DIYComponents 
 {
     /// <summary>
     /// 负责展示推荐装备图片的自定义提示框控件。
@@ -33,7 +33,8 @@
         private void OnPopup(object? sender, PopupEventArgs e)
         {
             // 如果没有图片，或者关联的控件被禁用，则取消弹出
-            if (_images == null || !_images.Any() || e.AssociatedControl.Enabled == false)
+            // AssociatedControl 在 ToolTip 生命周期中可能为 null，需一并判空
+            if (_images == null || !_images.Any() || e.AssociatedControl == null || !e.AssociatedControl.Enabled)
             {
                 e.Cancel = true;
                 return;

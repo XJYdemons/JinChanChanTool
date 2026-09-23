@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Forms.DisplayUIForm;
 using JinChanChanTool.Services.DataServices.Interface;
@@ -329,6 +329,9 @@ namespace JinChanChanTool.Services
                 }
                 catch (Exception ex)
                 {
+                    // 记录异常原因后再跳出循环，避免静默吞掉故障
+                    Debug.WriteLine($"[CardService] 高亮循环发生异常，退出循环：{ex.Message}");
+                    LogTool.Log($"[CardService] 高亮循环发生异常，退出循环：{ex.Message}");
                     //跳出循环
                     break;
                 }
@@ -427,6 +430,9 @@ namespace JinChanChanTool.Services
                 }
                 catch (Exception ex)
                 {
+                    // 记录异常原因后再跳出循环，避免静默吞掉故障
+                    Debug.WriteLine($"[CardService] 拿牌循环发生异常，退出循环：{ex.Message}");
+                    LogTool.Log($"[CardService] 拿牌循环发生异常，退出循环：{ex.Message}");
                     //跳出循环
                     break;
                 }
@@ -585,7 +591,9 @@ namespace JinChanChanTool.Services
                     }
                     catch (Exception ex)
                     {
-
+                        // 保存错误截图失败不影响识别主流程，但需留痕以便排查磁盘/权限问题
+                        Debug.WriteLine($"[CardService] 保存错误截图失败：{ex.Message}");
+                        LogTool.Log($"[CardService] 保存错误截图失败：{ex.Message}");
                     }
                 }
                 else if(_iappConfigService.CurrentConfig.IsSaveCapturedImages)

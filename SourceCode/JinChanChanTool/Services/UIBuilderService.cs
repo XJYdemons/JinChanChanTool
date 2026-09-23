@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DataClass;
+using JinChanChanTool.DataClass;
 using JinChanChanTool.DIYComponents;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
@@ -692,10 +692,10 @@ namespace JinChanChanTool.Services
             MainForm_ProfessionButtons.Clear();
             MainForm_PeculiarityButtons.Clear();
             // 创建职业按钮
-            CreateButtonGroup(_professionButtonPanel, _iHeroDataService.GetProfessions(), MainForm_ProfessionButtons);
+            CreateButtonGroup(_professionButtonPanel, _iHeroDataService.GetProfessions(), MainForm_ProfessionButtons, profession => profession.Title);
 
             // 创建特质按钮
-            CreateButtonGroup(_peculiarityButtonPanel, _iHeroDataService.GetPeculiarities(), MainForm_PeculiarityButtons);
+            CreateButtonGroup(_peculiarityButtonPanel, _iHeroDataService.GetPeculiarities(), MainForm_PeculiarityButtons, peculiarity => peculiarity.Title);
         }
 
         /// <summary>
@@ -704,7 +704,8 @@ namespace JinChanChanTool.Services
         /// <param name="panel">面板容器</param>
         /// <param name="items">按钮数据列表</param>
         /// <param name="buttonList">按钮列表</param>
-        private void CreateButtonGroup<T>(Panel panel, List<T> items, List<Button> buttonList)
+        /// <param name="titleSelector">从数据项提取按钮标题的委托</param>
+        private void CreateButtonGroup<T>(Panel panel, List<T> items, List<Button> buttonList, Func<T, string> titleSelector) where T : class
         {
             // 清空面板和列表
             buttonList.Clear();
@@ -718,8 +719,15 @@ namespace JinChanChanTool.Services
             // 创建每个按钮
             for (int i = 0; i < items.Count; i++)
             {
-                dynamic item = items[i];
-                Button button = CreatButton(new Point(Dpi_M(currentX), Dpi_M(currentY)), item.Title, item);
+                T? item = items[i];
+                if (item == null)
+                {
+                    LogTool.Log($"[UIBuilderService] CreateButtonGroup 第 {i} 项为 null，已跳过创建按钮。");
+                    Debug.WriteLine($"[UIBuilderService] CreateButtonGroup 第 {i} 项为 null，已跳过创建按钮。");
+                    continue;
+                }
+
+                Button button = CreatButton(new Point(Dpi_M(currentX), Dpi_M(currentY)), titleSelector(item), item);
 
                 // 添加到面板和列表
                 panel.Controls.Add(button);

@@ -10,6 +10,8 @@ using JinChanChanTool.Services.LineupCrawling;
 using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
+using JinChanChanTool.Services.Update;
+using JinChanChanTool.Services.Update.Interface;
 using JinChanChanTool.Tools;
 using JinChanChanTool.Tools.KeyBoardTools;
 using JinChanChanTool.Tools.KeyboardMouseTools;
@@ -74,6 +76,16 @@ namespace JinChanChanTool
         private readonly IAutoUpdateService _iAutoUpdateService;
 
         /// <summary>
+        /// 程序本体更新服务实例
+        /// </summary>
+        private readonly IProgramUpdateService _iProgramUpdateService;
+
+        /// <summary>
+        /// 防止用户重复点击“检查更新”导致并发下载
+        /// </summary>
+        private bool _isProgramUpdateRunning;
+
+        /// <summary>
         /// 本地化服务实例
         /// </summary>
         private readonly ILocalizationService _iLocalizationService;
@@ -109,7 +121,7 @@ namespace JinChanChanTool
         /// </summary>
         private EquipmentInformationToolTip _lineUpFormEquipmentToolTip = null!;
 
-        public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, ILocalizationService iLocalizationService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService, ILineUpParser iLineUpParser, IAutoUpdateService iAutoUpdateService, IKeyboardMouseDevice? keyboardMouseDevice = null)
+        public MainForm(IManualSettingsService iManualSettingsService, IAutomaticSettingsService iAutomaticSettingsService, ILocalizationService iLocalizationService, IHeroDataService iheroDataService, IEquipmentService iEquipmentService, ICorrectionService iCorrectionService, ILineUpService iLineUpService, IHeroEquipmentDataService iHeroEquipmentDataService, IRecommendedLineUpService iRecommendedLineUpService, ILineUpParser iLineUpParser, IAutoUpdateService iAutoUpdateService, IProgramUpdateService iProgramUpdateService, IKeyboardMouseDevice? keyboardMouseDevice = null)
         {
             InitializeComponent();
             _notifyIcon = new NotifyIcon(components!)
@@ -184,6 +196,10 @@ namespace JinChanChanTool
 
             #region 自动更新服务实例化
             _iAutoUpdateService = iAutoUpdateService;
+            #endregion
+
+            #region 程序本体更新服务实例化
+            _iProgramUpdateService = iProgramUpdateService;
             #endregion
 
             #region UI构建服务实例化并构建UI并绑定事件           
@@ -296,6 +312,57 @@ namespace JinChanChanTool
             MouseHookTool.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
             #endregion
 
+            #region 启动时提示上一次更新的结果
+            ReportLastUpdateResult();
+            #endregion
+
+            #region 启动时自动检查程序本体更新
+            // 放在窗体加载完成后触发：更新检查是网络操作，不应阻塞主窗口显示
+            if (_iManualSettingsService.CurrentConfig.IsAutoCheckProgramUpdate)
+            {
+                _ = CheckProgramUpdateAsync(isManual: false);
+            }
+            #endregion
+
+        }
+
+        /// <summary>
+        /// 提示上一次更新流程的结果。
+        /// 更新在主程序退出后由独立进程完成，结果通过用户目录中的记录文件传递到这里。
+        /// </summary>
+        private void ReportLastUpdateResult()
+        {
+            try
+            {
+                UpdateResultRecord? record = _iProgramUpdateService.ConsumeLatestUpdateResult();
+                if (record == null)
+                {
+                    return;
+                }
+
+                string message = record.IsSuccess
+                    ? string.Format(UpdateMessages.UpdateSucceeded, record.TargetVersion)
+                    : string.Format(UpdateMessages.UpdateFailed, record.Message);
+
+                OutputForm.Instance.WriteLineOutputMessage(message);
+
+                // 启动阶段弹窗会打断自动化流程，因此仅在失败时主动提示
+                if (!record.IsSuccess)
+                {
+                    MessageBox.Show(
+                        this,
+                        message,
+                        UpdateMessages.ErrorTitle,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                // 提示失败不影响程序正常启动
+                LogTool.Log($"[MainForm] 提示更新结果失败：{ex.Message}");
+                Debug.WriteLine($"[MainForm] 提示更新结果失败：{ex.Message}");
+            }
         }
 
         private void _cardService_isOCRLoopChanged(bool obj)
@@ -853,6 +920,209 @@ namespace JinChanChanTool
                 // 激活窗口并置顶
                 _aboutFormInstance.BringToFront();
                 _aboutFormInstance.Activate();
+            }
+        }
+
+        /// <summary>
+        /// 菜单项“检查更新”被单击。
+        /// </summary>
+        private async void 检查更新ToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            await CheckProgramUpdateAsync(isManual: true);
+        }
+
+        /// <summary>
+        /// 检查程序本体更新，并在用户确认后完成下载与安装。
+        /// </summary>
+        /// <param name="isManual">是否为用户主动触发（主动触发时失败也会提示）</param>
+        private async Task CheckProgramUpdateAsync(bool isManual)
+        {
+            if (_isProgramUpdateRunning)
+            {
+                OutputForm.Instance.WriteLineOutputMessage("更新流程正在进行中，已忽略重复请求。");
+                return;
+            }
+
+            _isProgramUpdateRunning = true;
+
+            try
+            {
+                if (isManual)
+                {
+                    OutputForm.Instance.WriteLineOutputMessage(UpdateMessages.Checking);
+                }
+
+                UpdateCheckResult checkResult = await _iProgramUpdateService.CheckForUpdateAsync();
+
+                if (!checkResult.IsSucceeded)
+                {
+                    OutputForm.Instance.WriteLineOutputMessage(
+                        string.Format(UpdateMessages.CheckFailed, checkResult.SkipReason));
+
+                    if (isManual)
+                    {
+                        MessageBox.Show(
+                            this,
+                            string.Format(UpdateMessages.CheckFailed, checkResult.SkipReason),
+                            UpdateMessages.ErrorTitle,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+
+                    return;
+                }
+
+                if (!checkResult.HasUpdate)
+                {
+                    OutputForm.Instance.WriteLineOutputMessage(checkResult.SkipReason);
+
+                    if (isManual)
+                    {
+                        MessageBox.Show(
+                            this,
+                            checkResult.SkipReason,
+                            UpdateMessages.NoUpdateTitle,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+
+                    return;
+                }
+
+                // 用户此前选择跳过的版本不再打扰（手动检查时仍然提示）
+                if (!isManual &&
+                    string.Equals(
+                        _iManualSettingsService.CurrentConfig.SkippedProgramUpdateVersion,
+                        checkResult.LatestVersion,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    OutputForm.Instance.WriteLineOutputMessage(
+                        $"已跳过版本 {checkResult.LatestVersion}，不再提示。");
+                    return;
+                }
+
+                string message = string.Format(
+                    UpdateMessages.UpdateAvailable,
+                    checkResult.CurrentVersion,
+                    checkResult.LatestVersion);
+
+                if (checkResult.PackageAsset != null && checkResult.PackageAsset.Size > 0)
+                {
+                    long packageSizeMb = checkResult.PackageAsset.Size / UpdateConstants.BytesPerMegabyte;
+                    message += string.Format(UpdateMessages.PackageSizeHint, packageSizeMb);
+                }
+
+                OutputForm.Instance.WriteLineOutputMessage(message);
+
+                DialogResult confirm = MessageBox.Show(
+                    this,
+                    string.Format(
+                        UpdateMessages.ConfirmUpdate,
+                        checkResult.CurrentVersion,
+                        checkResult.LatestVersion),
+                    UpdateMessages.CheckTitle,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirm != DialogResult.Yes)
+                {
+                    OutputForm.Instance.WriteLineOutputMessage(UpdateMessages.UpdatePostponed);
+                    return;
+                }
+
+                await DownloadAndInstallUpdateAsync(checkResult);
+            }
+            catch (Exception ex)
+            {
+                OutputForm.Instance.WriteLineErrorMessage(string.Format(UpdateMessages.UpdateError, ex.Message));
+
+                if (isManual)
+                {
+                    MessageBox.Show(
+                        this,
+                        string.Format(UpdateMessages.UpdateError, ex.Message),
+                        UpdateMessages.ErrorTitle,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                _isProgramUpdateRunning = false;
+            }
+        }
+
+        /// <summary>
+        /// 下载更新包、准备差异清单，并在用户确认后启动更新进程。
+        /// </summary>
+        /// <param name="checkResult">更新检查结果</param>
+        private async Task DownloadAndInstallUpdateAsync(UpdateCheckResult checkResult)
+        {
+            ProgressForm progressForm = new ProgressForm(_iLocalizationService)
+            {
+                TopMost = _iManualSettingsService.CurrentConfig.IsAllWindowsTopMost
+            };
+
+            IProgress<Tuple<int, string>> progress = new Progress<Tuple<int, string>>(update =>
+            {
+                progressForm.UpdateProgress(update.Item1, update.Item2);
+            });
+
+            try
+            {
+                progressForm.Show(this);
+                progress.Report(Tuple.Create(0, "正在准备更新..."));
+
+                UpdateApplyPlan plan = await _iProgramUpdateService.DownloadAndPrepareAsync(checkResult, progress);
+
+                progressForm.Close();
+
+                DialogResult confirm = MessageBox.Show(
+                    this,
+                    string.Format(UpdateMessages.ReadyToInstall, checkResult.LatestVersion),
+                    UpdateMessages.ReadyTitle,
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information);
+
+                if (confirm != DialogResult.OK)
+                {
+                    OutputForm.Instance.WriteLineOutputMessage("已取消安装，更新包已下载，可稍后重新发起。");
+                    return;
+                }
+
+                if (!_iProgramUpdateService.LaunchApplyProcess(plan))
+                {
+                    MessageBox.Show(
+                        this,
+                        UpdateMessages.LaunchFailed,
+                        UpdateMessages.ErrorTitle,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
+
+                OutputForm.Instance.WriteLineOutputMessage("即将退出并完成更新，程序会在更新后自动重启。");
+
+                // 先落盘再退出，避免未保存的设置丢失
+                _iManualSettingsService.Save(false);
+                _iAutomaticSettingsService.Save();
+
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                if (!progressForm.IsDisposed)
+                {
+                    progressForm.Close();
+                }
+
+                OutputForm.Instance.WriteLineErrorMessage(string.Format(UpdateMessages.UpdateError, ex.Message));
+                MessageBox.Show(
+                    this,
+                    string.Format(UpdateMessages.UpdateError, ex.Message),
+                    UpdateMessages.ErrorTitle,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -3031,6 +3301,7 @@ namespace JinChanChanTool
             // 菜单项
             toolStripMenuItem_设置.Text = _iLocalizationService.Get("MainForm.菜单.设置");
             toolStripMenuItem_帮助.Text = _iLocalizationService.Get("MainForm.菜单.帮助");
+            toolStripMenuItem_检查更新.Text = _iLocalizationService.Get("MainForm.菜单.检查更新");
             toolStripMenuItem_运行日志.Text = _iLocalizationService.Get("MainForm.菜单.运行日志");
             ToolStripMenuItem_用户手册.Text = _iLocalizationService.Get("MainForm.菜单.用户手册");
             ToolStripMenuItem_配置向导.Text = _iLocalizationService.Get("MainForm.菜单.配置向导");

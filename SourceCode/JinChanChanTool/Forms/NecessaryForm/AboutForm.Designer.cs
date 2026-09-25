@@ -1,4 +1,4 @@
-﻿namespace JinChanChanTool
+namespace JinChanChanTool
 {
     partial class AboutForm
     {
@@ -98,7 +98,8 @@
             label_版本号.Name = "label_版本号";
             label_版本号.Size = new Size(174, 17);
             label_版本号.TabIndex = 3;
-            label_版本号.Text = "版本  v7.1.1(2026.04.18)";
+            // 设计器占位文本；运行时由 AboutForm.ApplyLocalization 从程序集元数据填充真实版本
+            label_版本号.Text = "版本  v0.0.0";
             label_版本号.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label_版权所有

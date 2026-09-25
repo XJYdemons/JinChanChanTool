@@ -390,6 +390,16 @@ namespace JinChanChanTool.DataClass
         public bool IsCompactMainFormLineUp { get; set; }
 
         /// <summary>
+        /// 是否在程序启动时自动检查程序本体更新
+        /// </summary>
+        public bool IsAutoCheckProgramUpdate { get; set; }
+
+        /// <summary>
+        /// 用户选择跳过的版本号；与该版本一致时不再提示更新，留空表示不跳过任何版本
+        /// </summary>
+        public string SkippedProgramUpdateVersion { get; set; }
+
+        /// <summary>
         /// 创建默认设置的构造函数
         /// </summary>
         public ManualSettings()
@@ -472,6 +482,8 @@ namespace JinChanChanTool.DataClass
             IsMinimizeToTrayOnClose = false;
             LineUpCapacity = 10;
             IsCompactMainFormLineUp = true;
+            IsAutoCheckProgramUpdate = true;
+            SkippedProgramUpdateVersion = string.Empty;
 
         }
 
@@ -561,6 +573,8 @@ namespace JinChanChanTool.DataClass
                 IsMinimizeToTrayOnClose = this.IsMinimizeToTrayOnClose,
                 LineUpCapacity = this.LineUpCapacity,
                 IsCompactMainFormLineUp = this.IsCompactMainFormLineUp,
+                IsAutoCheckProgramUpdate = this.IsAutoCheckProgramUpdate,
+                SkippedProgramUpdateVersion = this.SkippedProgramUpdateVersion,
             };
         }
 
@@ -651,7 +665,9 @@ namespace JinChanChanTool.DataClass
                    IsAllWindowsTopMost == other.IsAllWindowsTopMost &&
                    IsMinimizeToTrayOnClose == other.IsMinimizeToTrayOnClose &&
                    LineUpCapacity == other.LineUpCapacity &&
-                   IsCompactMainFormLineUp == other.IsCompactMainFormLineUp;
+                   IsCompactMainFormLineUp == other.IsCompactMainFormLineUp &&
+                   IsAutoCheckProgramUpdate == other.IsAutoCheckProgramUpdate &&
+                   SkippedProgramUpdateVersion == other.SkippedProgramUpdateVersion;
         }
 
         

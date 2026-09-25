@@ -61,6 +61,10 @@ namespace JinChanChanTool
             tabControl_设置 = new TabControl();
             tabPage_常规 = new TabPage();
             panel_常规 = new Panel();
+            panel_分割线_常规4 = new Panel();
+            capsuleSwitch_自动检查程序更新 = new JinChanChanTool.DIYComponents.CapsuleSwitch();
+            label_自动检查程序更新描述 = new Label();
+            label_自动检查程序更新 = new Label();
             panel_分割线_常规3 = new Panel();
             capsuleSwitch_CloseToTray = new JinChanChanTool.DIYComponents.CapsuleSwitch();
             label_CloseToTrayDescription = new Label();
@@ -813,6 +817,10 @@ namespace JinChanChanTool
             // 
             panel_常规.AutoScroll = true;
             panel_常规.BackColor = Color.White;
+            panel_常规.Controls.Add(panel_分割线_常规4);
+            panel_常规.Controls.Add(capsuleSwitch_自动检查程序更新);
+            panel_常规.Controls.Add(label_自动检查程序更新描述);
+            panel_常规.Controls.Add(label_自动检查程序更新);
             panel_常规.Controls.Add(panel_分割线_常规3);
             panel_常规.Controls.Add(capsuleSwitch_CloseToTray);
             panel_常规.Controls.Add(label_CloseToTrayDescription);
@@ -830,6 +838,53 @@ namespace JinChanChanTool
             panel_常规.Name = "panel_常规";
             panel_常规.Size = new Size(960, 498);
             panel_常规.TabIndex = 260;
+            // 
+            // panel_分割线_常规4
+            // 
+            panel_分割线_常规4.BackColor = Color.Silver;
+            panel_分割线_常规4.Location = new Point(5, 252);
+            panel_分割线_常规4.Margin = new Padding(0);
+            panel_分割线_常规4.Name = "panel_分割线_常规4";
+            panel_分割线_常规4.Size = new Size(950, 1);
+            panel_分割线_常规4.TabIndex = 271;
+            // 
+            // capsuleSwitch_自动检查程序更新
+            // 
+            capsuleSwitch_自动检查程序更新.Location = new Point(891, 209);
+            capsuleSwitch_自动检查程序更新.Name = "capsuleSwitch_自动检查程序更新";
+            capsuleSwitch_自动检查程序更新.OffColor = Color.FromArgb(189, 189, 189);
+            capsuleSwitch_自动检查程序更新.OnColor = Color.FromArgb(24, 96, 251);
+            capsuleSwitch_自动检查程序更新.ShowText = false;
+            capsuleSwitch_自动检查程序更新.Size = new Size(50, 20);
+            capsuleSwitch_自动检查程序更新.TabIndex = 270;
+            capsuleSwitch_自动检查程序更新.Text = "capsuleSwitch_自动检查程序更新";
+            capsuleSwitch_自动检查程序更新.TextColor = Color.White;
+            capsuleSwitch_自动检查程序更新.ThumbColor = Color.White;
+            // 
+            // label_自动检查程序更新描述
+            // 
+            label_自动检查程序更新描述.AutoSize = true;
+            label_自动检查程序更新描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_自动检查程序更新描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_自动检查程序更新描述.Location = new Point(5, 213);
+            label_自动检查程序更新描述.MaximumSize = new Size(862, 34);
+            label_自动检查程序更新描述.MinimumSize = new Size(224, 17);
+            label_自动检查程序更新描述.Name = "label_自动检查程序更新描述";
+            label_自动检查程序更新描述.Size = new Size(344, 17);
+            label_自动检查程序更新描述.TabIndex = 269;
+            label_自动检查程序更新描述.Text = "启动时从 GitHub 检查新版本，更新会保留用户配置与阵容数据";
+            // 
+            // label_自动检查程序更新
+            // 
+            label_自动检查程序更新.AutoSize = true;
+            label_自动检查程序更新.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_自动检查程序更新.Location = new Point(5, 195);
+            label_自动检查程序更新.MaximumSize = new Size(862, 17);
+            label_自动检查程序更新.MinimumSize = new Size(160, 17);
+            label_自动检查程序更新.Name = "label_自动检查程序更新";
+            label_自动检查程序更新.Size = new Size(160, 17);
+            label_自动检查程序更新.TabIndex = 268;
+            label_自动检查程序更新.Text = "自动检查程序更新";
             // 
             // panel_分割线_常规3
             // 
@@ -5375,6 +5430,10 @@ namespace JinChanChanTool
         private Label label_CloseToTray;
         private Label label_CloseToTrayDescription;
         private DIYComponents.CapsuleSwitch capsuleSwitch_CloseToTray;
+        private Panel panel_分割线_常规4;
+        private Label label_自动检查程序更新;
+        private Label label_自动检查程序更新描述;
+        private DIYComponents.CapsuleSwitch capsuleSwitch_自动检查程序更新;
         private TabPage tabPage_常规;
         public Panel panel_常规;
         private TabPage tabPage_键鼠设备;

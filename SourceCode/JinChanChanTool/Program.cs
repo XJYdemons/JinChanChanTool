@@ -1,3 +1,4 @@
+using JinChanChanTool.DataClass.StaticData;
 using JinChanChanTool.Forms;
 using JinChanChanTool.Services.DataServices;
 using JinChanChanTool.Services.DataServices.Interface;
@@ -5,6 +6,7 @@ using JinChanChanTool.Services.LineupCrawling;
 using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Services.RecommendedEquipment;
 using JinChanChanTool.Services.RecommendedEquipment.Interface;
+using JinChanChanTool.Services.Update;
 using JinChanChanTool.Tools.LineUpCodeTools;
 using JinChanChanTool.Tools.KeyboardMouseTools;
 using System.Diagnostics;
@@ -13,11 +15,21 @@ namespace JinChanChanTool
     internal static class Program
     {       
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            // 更新应用流程必须最先处理：此时主程序正在退出，进程内只允许执行文件替换。
+            if (TryRunUpdateApplier(args, out int exitCode))
+            {
+                Environment.Exit(exitCode);
+                return;
+            }
+
             // 设置高DPI模式
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             ApplicationConfiguration.Initialize();
+
+            // 上次更新留下的默认值快照 + 当前版本默认值 → 只给用户配置补齐新增项（不覆盖已有设置）
+            RunConfigurationMigration();
 
             //创建并加载用户应用设置服务
             IManualSettingsService _iManualSettingsService = new ManualSettingsService();
@@ -135,6 +147,12 @@ namespace JinChanChanTool
             // 创建自动更新服务并启动后台检查
             IAutoUpdateService _iAutoUpdateService = new AutoUpdateService(_iManualSettingsService, _iAutomaticSettingsService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iLineUpCodeDictionaryService);
 
+            // 创建程序本体更新服务（检查 GitHub 发布、下载安装包、退出后由独立进程完成替换）
+            ProgramUpdateService _programUpdateService = new ProgramUpdateService();
+
+            // 清理上一次更新残留的解压目录与过期备份，避免长期占用磁盘
+            _programUpdateService.CleanupExpiredArtifacts(UpdateConstants.KeepBackupCount);
+
             // 根据设置创建统一的键鼠操作设备。旧配置中的未知枚举值会回退到 WinAPI；
             // 已知但尚未实现的设备类型由工厂明确报告，避免误把输入发到本机。
             IKeyboardMouseDevice _iKeyboardMouseDevice;
@@ -164,7 +182,72 @@ namespace JinChanChanTool
             _ = _iAutoUpdateService.CheckAndUpdateAsync();
 
             // 运行主窗体并传入应用设置服务
-            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iLocalizationService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iLineUpParser, _iAutoUpdateService, _iKeyboardMouseDevice));
+            Application.Run(new MainForm(_iManualSettingsService,_iAutomaticSettingsService, _iLocalizationService, _iheroDataService, _iEquipmentService,  _iCorrectionService, _iLineUpService, _iHeroEquipmentDataService, _iRecommendedLineUpService, _iLineUpParser, _iAutoUpdateService, _programUpdateService, _iKeyboardMouseDevice));
+        }
+
+        /// <summary>
+        /// 判断当前进程是否由更新流程启动；是则执行文件替换并返回退出码。
+        /// </summary>
+        /// <param name="args">命令行参数</param>
+        /// <param name="exitCode">更新结果对应的退出码</param>
+        /// <returns>是否为更新应用模式</returns>
+        private static bool TryRunUpdateApplier(string[] args, out int exitCode)
+        {
+            exitCode = UpdateExitCode.NotApplyMode;
+
+            if (args == null || args.Length == 0)
+            {
+                return false;
+            }
+
+            int argumentIndex = Array.FindIndex(
+                args,
+                argument => string.Equals(argument, UpdateConstants.ApplyUpdateArgument, StringComparison.OrdinalIgnoreCase));
+
+            if (argumentIndex < 0)
+            {
+                return false;
+            }
+
+            // 计划文件路径紧随开关参数；缺失时退回到默认位置
+            string planPath = args.Length > argumentIndex + 1
+                ? args[argumentIndex + 1]
+                : new ProgramUpdateService().GetPlanFilePath();
+
+            bool success = new UpdateApplier().Apply(planPath);
+            exitCode = success ? UpdateExitCode.Success : UpdateExitCode.Failed;
+            return true;
+        }
+
+        /// <summary>
+        /// 执行配置增量合并：只把新版本新增的设置项/数据条目补进用户配置，已有内容保持不变。
+        /// </summary>
+        private static void RunConfigurationMigration()
+        {
+            try
+            {
+                ProgramUpdateService programUpdateService = new ProgramUpdateService();
+                string? snapshotDirectory = programUpdateService.GetLatestDefaultsSnapshotDirectory();
+
+                ConfigurationMigrationService migrationService = new ConfigurationMigrationService(
+                    AppDomain.CurrentDomain.BaseDirectory);
+
+                ConfigurationMigrationResult result = migrationService.Apply(
+                    snapshotDirectory,
+                    ProgramVersion.VersionText);
+
+                if (result.HasChanges)
+                {
+                    OutputForm.Instance.WriteLineOutputMessage(
+                        $"配置已增量更新，新增 {result.AddedMembers.Count} 项：{string.Join("、", result.AddedMembers)}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // 配置合并失败不应阻断程序启动
+                LogTool.Log($"[Program] 配置增量合并失败：{ex.Message}");
+                Debug.WriteLine($"[Program] 配置增量合并失败：{ex.Message}");
+            }
         }
 
         private static string ResolveSelectedSeason(

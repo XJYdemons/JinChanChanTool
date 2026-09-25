@@ -1006,6 +1006,7 @@ namespace JinChanChanTool
             capsuleSwitch_启用状态面板.IsOn = _iappConfigService.CurrentConfig.IsUseStatusOverlayForm;
             capsuleSwitch_启用输出面板.IsOn = _iappConfigService.CurrentConfig.IsUseOutputForm;
             capsuleSwitch_程序启动时更新推荐装备.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateEquipment;
+            capsuleSwitch_自动检查程序更新.IsOn = _iappConfigService.CurrentConfig.IsAutoCheckProgramUpdate;
             textBox_更新推荐装备间隔.Text = _iappConfigService.CurrentConfig.UpdateEquipmentInterval.ToString();
             capsuleSwitch_程序启动时更新推荐阵容.IsOn = _iappConfigService.CurrentConfig.IsAutomaticUpdateLineup;
             textBox_更新推荐阵容间隔.Text = _iappConfigService.CurrentConfig.UpdateLineupInterval.ToString();
@@ -1075,6 +1076,7 @@ namespace JinChanChanTool
             capsuleSwitch_自动识别进程.IsOnChanged += capsuleSwitch_自动识别进程_IsOnChanged;
             capsuleSwitch_所有窗口置顶.IsOnChanged += capsuleSwitch_所有窗口置顶_IsOnChanged;
             capsuleSwitch_CloseToTray.IsOnChanged += capsuleSwitch_CloseToTray_IsOnChanged;
+            capsuleSwitch_自动检查程序更新.IsOnChanged += capsuleSwitch_自动检查程序更新_IsOnChanged;
 
             textBox_拿牌按键1.KeyDown += TextBox6_KeyDown;
             textBox_拿牌按键1.Enter += TextBox_Enter;
@@ -1551,6 +1553,20 @@ namespace JinChanChanTool
         private void capsuleSwitch_CloseToTray_IsOnChanged(object? sender, EventArgs e)
         {
             _iappConfigService.CurrentConfig.IsMinimizeToTrayOnClose = capsuleSwitch_CloseToTray.IsOn;
+        }
+
+        /// <summary>
+        /// 当“自动检查程序更新”开关状态改变时触发。
+        /// </summary>
+        private void capsuleSwitch_自动检查程序更新_IsOnChanged(object? sender, EventArgs e)
+        {
+            _iappConfigService.CurrentConfig.IsAutoCheckProgramUpdate = capsuleSwitch_自动检查程序更新.IsOn;
+
+            if (capsuleSwitch_自动检查程序更新.IsOn)
+            {
+                // 重新开启自动检查时清空“跳过版本”，让新版本重新提示
+                _iappConfigService.CurrentConfig.SkippedProgramUpdateVersion = string.Empty;
+            }
         }
 
         #region 避免程序与用户争夺光标控制权            
@@ -2877,6 +2893,8 @@ namespace JinChanChanTool
             label_所有窗口置顶描述.Text = _iLocalizationService.Get("SettingForm.Label.所有窗口置顶描述");
             label_CloseToTray.Text = _iLocalizationService.Get("SettingForm.Label.CloseToTray");
             label_CloseToTrayDescription.Text = _iLocalizationService.Get("SettingForm.Label.CloseToTrayDescription");
+            label_自动检查程序更新.Text = _iLocalizationService.Get("SettingForm.Label.自动检查程序更新");
+            label_自动检查程序更新描述.Text = _iLocalizationService.Get("SettingForm.Label.自动检查程序更新描述");
             label_阵容容量.Text = _iLocalizationService.Get("SettingForm.Label.阵容容量");
             label_阵容容量描述.Text = _iLocalizationService.Get("SettingForm.Label.阵容容量描述");
 

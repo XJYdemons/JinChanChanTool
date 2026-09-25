@@ -1,0 +1,36 @@
+{
+  "GitHubSources": {
+    "Description": "程序更新检查与下载源；按顺序尝试，第一个成功的生效",
+    "Owner": "XJYdemons",
+    "Repository": "JinChanChanTool",
+    "ApiBaseUrls": [
+      "https://api.github.com",
+      "https://gh-proxy.com/https://api.github.com",
+      "https://ghfast.top/https://api.github.com"
+    ],
+    "DownloadMirrorPrefixes": [
+      "",
+      "https://gh-proxy.com/",
+      "https://ghfast.top/",
+      "https://ghproxy.net/"
+    ],
+    "RequestTimeoutSeconds": 20
+  },
+  "UpdatePolicy": {
+    "Description": "更新包匹配规则与用户态文件保护清单",
+    "PackageNamePattern": "^JinChanChanTool_v(?<version>[0-9]+\\.[0-9]+\\.[0-9]+)_Windows_x64\\.zip$",
+    "ExcludedNamePattern": "SourceCode",
+    "UserStateDirectories": [
+      "Logs",
+      "Downloads"
+    ],
+    "UserStateFiles": [
+      "Resources/ManualSettings.json",
+      "Resources/AutomaticSettings.json",
+      "Resources/HeroDatas/{season}/LineUps.json",
+      "Resources/HeroDatas/{season}/EquipmentData.json",
+      "Resources/HeroDatas/{season}/RecommendedLineUps.json",
+      "Resources/HeroDatas/{season}/LineUpCodeDictionary.json"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -11,9 +11,28 @@
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>AnyCPU;x64</Platforms>
+    <!--
+      版本号的唯一输入口：只改这里的 <Version> 即可。
+      FileVersion / AssemblyVersion 由它推导，关于窗口与更新检查在运行时读取程序集元数据，
+      因此全项目不存在第二处需要手改的版本号。
+      支持预发布后缀（如 7.8.0-beta、7.8.0-rc.1）：程序集版本必须是纯数字，
+      因此下面用 VersionPrefix 剥掉 "-" 之后的部分，后缀仍会保留在 InformationalVersion 中。
+    -->
+    <Version>7.7.0</Version>
+    <VersionPrefix Condition="'$(VersionPrefix)' == ''">$(Version.Split('-')[0])</VersionPrefix>
+    <FileVersion>$(VersionPrefix).0</FileVersion>
+    <AssemblyVersion>$(VersionPrefix).0</AssemblyVersion>
+    <!-- 构建日期（用于关于窗口显示）；可在命令行用 -p:BuildDate=2026.01.01 覆盖 -->
+    <BuildDate Condition="'$(BuildDate)' == ''">$([System.DateTime]::UtcNow.ToString(yyyy.MM.dd))</BuildDate>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- 把构建日期写入程序集元数据，供 ProgramVersion 在运行时读取 -->
+    <AssemblyMetadata Include="BuildDate" Value="$(BuildDate)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\UpdateSources.json" />
     <None Remove="Resources\CorrectionsList.json" />
     <None Remove="Resources\defaultHeroIcon.png" />
     <None Remove="Resources\DownloadSources.json" />
@@ -714,6 +733,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\DownloadSources.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\UpdateSources.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Help\用户手册.pdf">

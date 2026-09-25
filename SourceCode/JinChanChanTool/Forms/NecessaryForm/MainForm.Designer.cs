@@ -1,4 +1,4 @@
-﻿using JinChanChanTool.DIYComponents;
+using JinChanChanTool.DIYComponents;
 
 namespace JinChanChanTool
 {
@@ -49,7 +49,7 @@ namespace JinChanChanTool
             ToolStripMenuItem_用户手册 = new ToolStripMenuItem();
             ToolStripMenuItem_配置向导 = new ToolStripMenuItem();
             toolStripMenuItem_关于 = new ToolStripMenuItem();
-            panel_用户区背景 = new Panel();
+            toolStripMenuItem_检查更新 = new ToolStripMenuItem();            panel_用户区背景 = new Panel();
             roundedButton_导入 = new RoundedButton();
             roundedButton_编辑赛季装备 = new RoundedButton();
             roundedButton_编辑赛季英雄 = new RoundedButton();
@@ -232,10 +232,17 @@ namespace JinChanChanTool
             // 
             // toolStripMenuItem_帮助
             // 
-            toolStripMenuItem_帮助.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem_运行日志, ToolStripMenuItem_用户手册, ToolStripMenuItem_配置向导 });
+            toolStripMenuItem_帮助.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem_检查更新, toolStripMenuItem_运行日志, ToolStripMenuItem_用户手册, ToolStripMenuItem_配置向导 });
             toolStripMenuItem_帮助.Name = "toolStripMenuItem_帮助";
             toolStripMenuItem_帮助.Size = new Size(44, 21);
             toolStripMenuItem_帮助.Text = "帮助";
+            // 
+            // toolStripMenuItem_检查更新
+            // 
+            toolStripMenuItem_检查更新.Name = "toolStripMenuItem_检查更新";
+            toolStripMenuItem_检查更新.Size = new Size(124, 22);
+            toolStripMenuItem_检查更新.Text = "检查更新";
+            toolStripMenuItem_检查更新.Click += 检查更新ToolStripMenuItem_Click;
             // 
             // toolStripMenuItem_运行日志
             // 
@@ -681,6 +688,7 @@ namespace JinChanChanTool
         private ToolStripMenuItem toolStripMenuItem_设置;
         private ToolStripMenuItem toolStripMenuItem_帮助;
         private ToolStripMenuItem toolStripMenuItem_关于;
+        private ToolStripMenuItem toolStripMenuItem_检查更新;
         private ComboBox comboBox_阵容选择;
         private ToolStripMenuItem toolStripMenuItem_运行日志;
         private ComboBox comboBox_赛季选择;

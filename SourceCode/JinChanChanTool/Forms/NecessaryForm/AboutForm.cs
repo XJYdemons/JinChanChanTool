@@ -1,4 +1,5 @@
-﻿using JinChanChanTool.Services.Localization;
+using JinChanChanTool.DataClass.StaticData;
+using JinChanChanTool.Services.Localization;
 using JinChanChanTool.Tools;
 using System.Diagnostics;
 
@@ -26,7 +27,11 @@ namespace JinChanChanTool
         {
             label_标题.Text = _iLocalizationService.Get("AboutForm.标题");
             label_架构.Text = _iLocalizationService.Get("AboutForm.Label.架构");
-            label_版本号.Text = _iLocalizationService.Get("AboutForm.Label.版本");
+            // 版本号取自程序集元数据，保留项目文件中填写的完整内容（含 -beta 等后缀）
+            label_版本号.Text = _iLocalizationService.Get(
+                "AboutForm.Label.版本格式",
+                ProgramVersion.RawVersionText,
+                ProgramVersion.BuildDateText);
             label_版权所有.Text = _iLocalizationService.Get("AboutForm.Label.版权所有");
             label_项目地址.Text = _iLocalizationService.Get("AboutForm.Label.项目地址");
             label_Github主页.Text = _iLocalizationService.Get("AboutForm.Label.Github主页");

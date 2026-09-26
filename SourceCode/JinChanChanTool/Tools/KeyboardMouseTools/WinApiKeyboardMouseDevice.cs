@@ -26,6 +26,9 @@ namespace JinChanChanTool.Tools.KeyboardMouseTools
         }
 
         /// <inheritdoc />
+        /// <remarks>
+        /// 使用带按下保持时间的点击：部分游戏与模拟器会丢弃间隔过短的按下/抬起组合。
+        /// </remarks>
         public void SetMousePositionAndClickLeftButton(int x, int y)
         {
             MouseControlTool.SetMousePositionAndClickLeftButton(x, y);

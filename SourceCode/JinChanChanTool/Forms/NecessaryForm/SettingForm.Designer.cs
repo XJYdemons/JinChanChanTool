@@ -212,6 +212,9 @@ namespace JinChanChanTool
             label_自动停止拿牌描述2 = new Label();
             label_自动停止拿牌描述3 = new Label();
             label_自动停止拿牌描述1 = new Label();
+            label_拿牌点击保持时间 = new Label();
+            label_拿牌点击保持时间描述 = new Label();
+            textBox_拿牌点击保持时间 = new TextBox();
             tabPage_功能_自动刷新商店 = new TabPage();
             tabControl_功能_自动刷新商店 = new TabControl();
             tabPage_功能_自动刷新商店_刷新方式 = new TabPage();
@@ -407,6 +410,7 @@ namespace JinChanChanTool
             panel_主背景 = new Panel();
             colorDialog_高亮边框渐变色1 = new ColorDialog();
             colorDialog_高亮边框渐变色2 = new ColorDialog();
+            panel_分割线_功能_自动拿牌_异常处理2 = new Panel();
             panel_快捷键.SuspendLayout();
             tabControl_设置.SuspendLayout();
             tabPage_常规.SuspendLayout();
@@ -2575,6 +2579,7 @@ namespace JinChanChanTool
             // 
             // panel_功能_自动拿牌_异常处理
             // 
+            panel_功能_自动拿牌_异常处理.Controls.Add(panel_分割线_功能_自动拿牌_异常处理2);
             panel_功能_自动拿牌_异常处理.Controls.Add(panel_分割线_功能_自动拿牌_异常处理1);
             panel_功能_自动拿牌_异常处理.Controls.Add(label_自动停止拿牌);
             panel_功能_自动拿牌_异常处理.Controls.Add(capsuleSwitch_自动停止拿牌);
@@ -2582,6 +2587,9 @@ namespace JinChanChanTool
             panel_功能_自动拿牌_异常处理.Controls.Add(label_自动停止拿牌描述2);
             panel_功能_自动拿牌_异常处理.Controls.Add(label_自动停止拿牌描述3);
             panel_功能_自动拿牌_异常处理.Controls.Add(label_自动停止拿牌描述1);
+            panel_功能_自动拿牌_异常处理.Controls.Add(label_拿牌点击保持时间);
+            panel_功能_自动拿牌_异常处理.Controls.Add(label_拿牌点击保持时间描述);
+            panel_功能_自动拿牌_异常处理.Controls.Add(textBox_拿牌点击保持时间);
             panel_功能_自动拿牌_异常处理.Dock = DockStyle.Fill;
             panel_功能_自动拿牌_异常处理.Location = new Point(3, 3);
             panel_功能_自动拿牌_异常处理.Name = "panel_功能_自动拿牌_异常处理";
@@ -2669,6 +2677,40 @@ namespace JinChanChanTool
             label_自动停止拿牌描述1.Size = new Size(272, 17);
             label_自动停止拿牌描述1.TabIndex = 254;
             label_自动停止拿牌描述1.Text = "当需要拿的牌多次拿取失败时，关闭自动拿牌功能";
+            // 
+            // label_拿牌点击保持时间
+            // 
+            label_拿牌点击保持时间.AutoSize = true;
+            label_拿牌点击保持时间.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+            label_拿牌点击保持时间.Location = new Point(5, 100);
+            label_拿牌点击保持时间.MaximumSize = new Size(842, 17);
+            label_拿牌点击保持时间.MinimumSize = new Size(130, 17);
+            label_拿牌点击保持时间.Name = "label_拿牌点击保持时间";
+            label_拿牌点击保持时间.Size = new Size(130, 17);
+            label_拿牌点击保持时间.TabIndex = 257;
+            label_拿牌点击保持时间.Text = "鼠标按下保持时间";
+            label_拿牌点击保持时间.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label_拿牌点击保持时间描述
+            // 
+            label_拿牌点击保持时间描述.AutoSize = true;
+            label_拿牌点击保持时间描述.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label_拿牌点击保持时间描述.ForeColor = Color.FromArgb(133, 133, 133);
+            label_拿牌点击保持时间描述.Location = new Point(5, 122);
+            label_拿牌点击保持时间描述.MaximumSize = new Size(842, 34);
+            label_拿牌点击保持时间描述.MinimumSize = new Size(620, 17);
+            label_拿牌点击保持时间描述.Name = "label_拿牌点击保持时间描述";
+            label_拿牌点击保持时间描述.Size = new Size(686, 17);
+            label_拿牌点击保持时间描述.TabIndex = 258;
+            label_拿牌点击保持时间描述.Text = "模拟鼠标拿牌时左键按下与抬起之间的等待时间（ms）。识别到牌却不拿牌时可适当调大，建议 20-60，过大会被判定为长按。";
+            // 
+            // textBox_拿牌点击保持时间
+            // 
+            textBox_拿牌点击保持时间.Location = new Point(823, 111);
+            textBox_拿牌点击保持时间.Name = "textBox_拿牌点击保持时间";
+            textBox_拿牌点击保持时间.Size = new Size(104, 23);
+            textBox_拿牌点击保持时间.TabIndex = 259;
+            textBox_拿牌点击保持时间.TabStop = false;
             // 
             // tabPage_功能_自动刷新商店
             // 
@@ -5053,6 +5095,15 @@ namespace JinChanChanTool
             colorDialog_高亮边框渐变色2.FullOpen = true;
             colorDialog_高亮边框渐变色2.ShowHelp = true;
             // 
+            // panel_分割线_功能_自动拿牌_异常处理2
+            // 
+            panel_分割线_功能_自动拿牌_异常处理2.BackColor = Color.Silver;
+            panel_分割线_功能_自动拿牌_异常处理2.Location = new Point(5, 163);
+            panel_分割线_功能_自动拿牌_异常处理2.Margin = new Padding(0);
+            panel_分割线_功能_自动拿牌_异常处理2.Name = "panel_分割线_功能_自动拿牌_异常处理2";
+            panel_分割线_功能_自动拿牌_异常处理2.Size = new Size(922, 1);
+            panel_分割线_功能_自动拿牌_异常处理2.TabIndex = 260;
+            // 
             // SettingForm
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -5199,6 +5250,9 @@ namespace JinChanChanTool
         public Label label_自动停止拿牌描述2;
         public TextBox textBox_自动停止拿牌次数阈值;
         public TextBox textBox_模拟操作间隔;
+        private Label label_拿牌点击保持时间;
+        private Label label_拿牌点击保持时间描述;
+        public TextBox textBox_拿牌点击保持时间;
         public Label label_刷新失败时自动停止刷新商店描述3;
         public Label label_刷新失败时自动停止刷新商店描述2;
         public TextBox textBox_自动停止刷新商店次数阈值;
@@ -5541,5 +5595,6 @@ namespace JinChanChanTool
         private Panel panel_分割线_坐标设置7;
         private Panel panel_分割线_键鼠设备_KmBox6;
         private Label label1;
+        private Panel panel_分割线_功能_自动拿牌_异常处理2;
     }
 }

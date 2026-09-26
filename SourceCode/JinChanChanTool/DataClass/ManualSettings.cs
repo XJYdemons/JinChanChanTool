@@ -240,6 +240,15 @@ namespace JinChanChanTool.DataClass
         public int DelayAfterOperation { get; set; }
 
         /// <summary>
+        /// 模拟鼠标拿牌时，左键按下与抬起之间的保持时间，单位毫秒。
+        /// </summary>
+        /// <remarks>
+        /// 部分游戏与模拟器会丢弃间隔过短的按下/抬起组合，使点击被判定为无效，
+        /// 表现为“已识别到目标卡但不拿牌”。该值需小于会被判定为长按拖拽的时长。
+        /// </remarks>
+        public int HeroPurchaseClickHoldMilliseconds { get; set; }
+
+        /// <summary>
         /// CPU推理模式下，刷新商店后等待时间，单位毫秒
         /// </summary>
         public int DelayAfterRefreshStore_CPU { get; set; }
@@ -452,6 +461,7 @@ namespace JinChanChanTool.DataClass
             MaxTimesWithoutHeroPurchase = 5;
             MaxTimesWithoutRefreshStore = 3;
             DelayAfterOperation = 20;
+            HeroPurchaseClickHoldMilliseconds = JinChanChanTool.Tools.MouseTools.MouseControlTool.DefaultClickHoldMilliseconds;
             DelayAfterRefreshStore_CPU = 308;
             DelayAfterRefreshStore_GPU = 308;
             IsUseSelectForm = true;
@@ -543,6 +553,7 @@ namespace JinChanChanTool.DataClass
                 MaxTimesWithoutHeroPurchase = this.MaxTimesWithoutHeroPurchase,
                 MaxTimesWithoutRefreshStore = this.MaxTimesWithoutRefreshStore,
                 DelayAfterOperation = this.DelayAfterOperation,
+                HeroPurchaseClickHoldMilliseconds = this.HeroPurchaseClickHoldMilliseconds,
                 DelayAfterRefreshStore_CPU = this.DelayAfterRefreshStore_CPU,
                 DelayAfterRefreshStore_GPU = this.DelayAfterRefreshStore_GPU,
                 IsUseSelectForm = this.IsUseSelectForm,
@@ -636,6 +647,7 @@ namespace JinChanChanTool.DataClass
                    MaxTimesWithoutHeroPurchase == other.MaxTimesWithoutHeroPurchase &&
                    MaxTimesWithoutRefreshStore == other.MaxTimesWithoutRefreshStore &&
                    DelayAfterOperation == other.DelayAfterOperation &&
+                   HeroPurchaseClickHoldMilliseconds == other.HeroPurchaseClickHoldMilliseconds &&
                    DelayAfterRefreshStore_CPU == other.DelayAfterRefreshStore_CPU &&
                    DelayAfterRefreshStore_GPU == other.DelayAfterRefreshStore_GPU &&
                    IsUseSelectForm == other.IsUseSelectForm &&

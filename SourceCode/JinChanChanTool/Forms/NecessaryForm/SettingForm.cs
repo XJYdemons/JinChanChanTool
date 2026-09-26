@@ -998,6 +998,7 @@ namespace JinChanChanTool
             textBox_自动停止拿牌次数阈值.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutHeroPurchase.ToString();
             textBox_自动停止刷新商店次数阈值.Text = _iappConfigService.CurrentConfig.MaxTimesWithoutRefreshStore.ToString();
             textBox_模拟操作间隔.Text = _iappConfigService.CurrentConfig.DelayAfterOperation.ToString();
+            textBox_拿牌点击保持时间.Text = _iappConfigService.CurrentConfig.HeroPurchaseClickHoldMilliseconds.ToString();
             textBox_刷新商店间隔_CPU.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_CPU.ToString();
             textBox_刷新商店间隔_GPU.Text = _iappConfigService.CurrentConfig.DelayAfterRefreshStore_GPU.ToString();
             capsuleSwitch_启用英雄选择面板.IsOn = _iappConfigService.CurrentConfig.IsUseSelectForm;
@@ -1106,6 +1107,10 @@ namespace JinChanChanTool
             textBox_自动停止拿牌次数阈值.Enter += TextBox_Enter;
             textBox_自动停止拿牌次数阈值.Leave += textBox_MaxTimesWithoutGetCard_Leave;
 
+            textBox_拿牌点击保持时间.KeyDown += TextBox_KeyDown;
+            textBox_拿牌点击保持时间.Enter += TextBox_Enter;
+            textBox_拿牌点击保持时间.Leave += textBox_拿牌点击保持时间_Leave;
+
             textBox_自动停止刷新商店次数阈值.KeyDown += TextBox_KeyDown;
             textBox_自动停止刷新商店次数阈值.Enter += TextBox_Enter;
             textBox_自动停止刷新商店次数阈值.Leave += textBox_MaxTimesWithoutRefresh_Leave;
@@ -1211,6 +1216,46 @@ namespace JinChanChanTool
             }
             //启用全局热键
             GlobalHotkeyTool.Enabled = true;
+        }
+
+        /// <summary>
+        /// 离开textBox_拿牌点击保持时间时触发：输入为空则回填数据类中的值；
+        /// 输入合法（整数且在允许范围内）则写入数据类；输入非法则回填原值并提示。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_拿牌点击保持时间_Leave(object? sender, EventArgs e)
+        {
+            //启用全局热键
+            GlobalHotkeyTool.Enabled = true;
+
+            string input = textBox_拿牌点击保持时间.Text.Trim();
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Update_AllComponents();
+                return;
+            }
+
+            if (!int.TryParse(input, NumberStyles.Integer, CultureInfo.InvariantCulture, out int holdMilliseconds) ||
+                holdMilliseconds < MouseControlTool.MinimumClickHoldMilliseconds ||
+                holdMilliseconds > MouseControlTool.MaximumClickHoldMilliseconds)
+            {
+                MessageBox.Show(
+                    this,
+                    _iLocalizationService.Get(
+                        "SettingForm.Msg.拿牌点击保持时间范围错误",
+                        MouseControlTool.MinimumClickHoldMilliseconds,
+                        MouseControlTool.MaximumClickHoldMilliseconds),
+                    _iLocalizationService.Get("SettingForm.MsgTitle.设置错误"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                Update_AllComponents();
+                textBox_拿牌点击保持时间.Focus();
+                return;
+            }
+
+            _iappConfigService.CurrentConfig.HeroPurchaseClickHoldMilliseconds = holdMilliseconds;
+            Update_AllComponents();
         }
 
         #endregion
@@ -2929,6 +2974,8 @@ namespace JinChanChanTool
             label_自动停止拿牌描述1.Text = _iLocalizationService.Get("SettingForm.Label.自动停止拿牌描述1");
             label_自动停止拿牌描述2.Text = _iLocalizationService.Get("SettingForm.Label.自动停止拿牌描述2");
             label_自动停止拿牌描述3.Text = _iLocalizationService.Get("SettingForm.Label.自动停止拿牌描述3");
+            label_拿牌点击保持时间.Text = _iLocalizationService.Get("SettingForm.Label.拿牌点击保持时间");
+            label_拿牌点击保持时间描述.Text = _iLocalizationService.Get("SettingForm.Label.拿牌点击保持时间描述");
 
             // 功能选项卡-自动刷新商店                      
             label_模拟鼠标刷新商店.Text = _iLocalizationService.Get("SettingForm.Label.模拟鼠标刷新商店");

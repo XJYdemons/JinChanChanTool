@@ -78,6 +78,7 @@ namespace JinChanChanTool.Services
         private const double 未刷新最大时间秒数 = 3.0;
         private const int MakcuClickReleaseDelayMilliseconds = 2;
         private const int MakcuHookSuppressionDelayMilliseconds = 10;
+        private const int WinApiHookSuppressionDelayMilliseconds = 1;
         enum 刷新状态
         {
             未开始,
@@ -1088,26 +1089,77 @@ namespace JinChanChanTool.Services
         private async Task ClickOneTime()
         {
             MouseHookTool.IncrementProgramClickCount(); // 增加计数
+            // 记录左键是否已按下：异常路径下必须保证抬起，避免鼠标停留在按下状态
+            bool isLeftButtonDown = false;
             try
             {
                 _keyboardMouseDevice.MouseLeftButtonDown();
+                isLeftButtonDown = true;
+
                 if (_keyboardMouseDevice.DeviceType == KeyboardMouseDeviceType.Makcu)
                 {
                     // 保留 Makcu 协议要求的最小按下时间，避免按下和抬起在设备端合并。
                     await Task.Delay(MakcuClickReleaseDelayMilliseconds);
                 }
+                else
+                {
+                    // WinAPI 等设备同样需要按下保持时间：若按下与抬起落在同一输入采样周期内，
+                    // 游戏或模拟器会把这次点击判定为无效，表现为“识别到牌但不拿牌”。
+                    await Task.Delay(取拿牌点击保持时间毫秒());
+                }
+
                 _keyboardMouseDevice.MouseLeftButtonUp();
+                isLeftButtonDown = false;
 
                 int hookDelay = _keyboardMouseDevice.DeviceType == KeyboardMouseDeviceType.Makcu
                     ? MakcuHookSuppressionDelayMilliseconds
-                    : 1;
+                    : WinApiHookSuppressionDelayMilliseconds;
                 await Task.Delay(hookDelay);
             }
             finally
             {
+                if (isLeftButtonDown)
+                {
+                    TryReleaseLeftButtonAfterFailure();
+                }
                 MouseHookTool.DecrementProgramClickCount(); // 减少计数
             }
 
+        }
+
+        /// <summary>
+        /// 在点击流程异常退出时尽力抬起左键，避免鼠标停留在按下状态影响后续操作。
+        /// </summary>
+        private void TryReleaseLeftButtonAfterFailure()
+        {
+            try
+            {
+                _keyboardMouseDevice.MouseLeftButtonUp();
+            }
+            catch (Exception ex)
+            {
+                // 兜底抬起同样失败时必须留痕，否则用户会看到鼠标卡在按下状态却查不到原因
+                Debug.WriteLine($"[CardService] 异常路径下抬起鼠标左键失败：{ex.Message}");
+                LogTool.Log($"[CardService] 异常路径下抬起鼠标左键失败：{ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// 读取用户配置的拿牌点击保持时间，并收敛到注入层允许的合法范围。
+        /// </summary>
+        /// <returns>可用于 Task.Delay 的保持时间（毫秒）。</returns>
+        private int 取拿牌点击保持时间毫秒()
+        {
+            int configured = _iappConfigService.CurrentConfig.HeroPurchaseClickHoldMilliseconds;
+            if (configured < MouseControlTool.MinimumClickHoldMilliseconds)
+            {
+                return MouseControlTool.MinimumClickHoldMilliseconds;
+            }
+            if (configured > MouseControlTool.MaximumClickHoldMilliseconds)
+            {
+                return MouseControlTool.MaximumClickHoldMilliseconds;
+            }
+            return configured;
         }
 
         /// <summary>

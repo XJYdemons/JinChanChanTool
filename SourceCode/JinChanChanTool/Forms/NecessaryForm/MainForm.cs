@@ -504,6 +504,21 @@ namespace JinChanChanTool
                 ApplyTopMostToOpenForms();
             }
 
+            // 高亮外观设置变更后立即推送到覆盖层。
+            // 覆盖层只在 StartHighLight 时读取一次颜色配置，若此处不推送，
+            // 用户在设置中改完颜色必须关闭再重新开启高亮才会生效。
+            if (e.ChangedFields.Contains(nameof(ManualSettings.HighlightColor1)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.HighlightColor2)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.HighlightBorderWidth)) ||
+                e.ChangedFields.Contains(nameof(ManualSettings.HighlightGradientSpeed)))
+            {
+                CardHighlightOverlayForm.Instance.UpdateColorSettings(
+                    _iManualSettingsService.CurrentConfig.HighlightColor1,
+                    _iManualSettingsService.CurrentConfig.HighlightColor2,
+                    _iManualSettingsService.CurrentConfig.HighlightBorderWidth,
+                    _iManualSettingsService.CurrentConfig.HighlightGradientSpeed);
+            }
+
             #region 如果变更的是窗口显示相关设置，则更新对应窗口的显示状态           
             if (e.ChangedFields.Contains("IsUseSelectForm"))
             {

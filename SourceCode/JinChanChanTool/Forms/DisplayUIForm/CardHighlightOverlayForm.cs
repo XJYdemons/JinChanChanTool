@@ -75,10 +75,18 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         private float customGradientSpeed = GRADIENT_SPEED;
 
         /// <summary>
+        /// 创建本窗体的 UI 线程标识。
+        /// 本窗体是懒加载单例，首次访问来自 CardService.StartHighLight（UI 线程），
+        /// 因此构造函数所在线程即 UI 线程；后台 OCR 线程只会在窗体已显示之后才调用它。
+        /// </summary>
+        private readonly int uiThreadId;
+
+        /// <summary>
         /// 私有构造函数（单例模式）
         /// </summary>
         private CardHighlightOverlayForm()
         {
+            uiThreadId = Environment.CurrentManagedThreadId;
             InitializeComponent();
             InitializeFormSettings();
         }
@@ -150,9 +158,22 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         }
 
         /// <summary>
+        /// 判断当前调用是否来自创建本窗体的 UI 线程。
+        /// </summary>
+        private bool IsUiThread()
+        {
+            return Environment.CurrentManagedThreadId == uiThreadId;
+        }
+
+        /// <summary>
         /// 将调用安全地封送到 UI 线程。
         /// 后台 OCR 循环可能在覆盖层窗口释放后继续调用本窗体，
         /// 因此必须先确认窗体仍然有效，再决定排队还是直接执行。
+        ///
+        /// 注意：“窗体已释放”与“句柄尚未创建”是两种不同情形，不可一并丢弃：
+        /// 本窗体是懒加载单例，StartHighLight 首次调用 ShowOverlay 时句柄尚未创建，
+        /// 若此处因 !IsHandleCreated 直接返回，Show() 会被跳过，句柄永远无法创建，
+        /// 覆盖层将永不显示（高亮提示完全失效，且颜色设置也不会生效）。
         /// </summary>
         /// <param name="action">要执行的操作</param>
         /// <returns>
@@ -161,9 +182,17 @@ namespace JinChanChanTool.Forms.DisplayUIForm
         /// </returns>
         private bool TryMarshalToUiThread(Action action)
         {
-            if (IsDisposed || Disposing || !IsHandleCreated)
+            // 窗体已释放或正在释放：任何控件访问都不安全，丢弃本次调用。
+            if (IsDisposed || Disposing)
             {
                 return true;
+            }
+
+            if (!IsHandleCreated)
+            {
+                // 句柄尚未创建：UI 线程可以继续执行（Show() 会创建句柄并完成首次显示）；
+                // 后台线程则丢弃，避免在非 UI 线程上创建窗口句柄。
+                return !IsUiThread();
             }
 
             if (InvokeRequired)
